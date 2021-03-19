@@ -1,0 +1,183 @@
+<?php
+function alert($isi){
+  ?>
+  <script>
+    alert('<?php echo $isi?>')
+  </script>
+  
+  <?php
+}
+function pindah($url){
+  ?>
+  <script>
+    window.location.href = "<?php echo $url?>";
+  </script>
+  <?php
+  
+}
+
+
+function format_hari_tanggal($waktu)
+{
+    $hari_array = array(
+        'Minggu',
+        'Senin',
+        'Selasa',
+        'Rabu',
+        'Kamis',
+        'Jumat',
+        'Sabtu'
+    );
+    $hr = date('w', strtotime($waktu));
+    $hari = $hari_array[$hr];
+    $tanggal = date('j', strtotime($waktu));
+    $bulan_array = array(
+        1 => 'Januari',
+        2 => 'Februari',
+        3 => 'Maret',
+        4 => 'April',
+        5 => 'Mei',
+        6 => 'Juni',
+        7 => 'Juli',
+        8 => 'Agustus',
+        9 => 'September',
+        10 => 'Oktober',
+        11 => 'November',
+        12 => 'Desember',
+    );
+    $bl = date('n', strtotime($waktu));
+    $bulan = $bulan_array[$bl];
+    $tahun = date('Y', strtotime($waktu));
+    $jam = date( 'H:i:s', strtotime($waktu));
+    
+    //untuk menampilkan hari, tanggal bulan tahun jam
+    //return "$hari, $tanggal $bulan $tahun $jam";
+
+    //untuk menampilkan hari, tanggal bulan tahun
+    return "$hari, $tanggal $bulan $tahun";
+}
+
+function hari_biasa($waktu)
+{
+    $hari_array = array(
+        'Minggu',
+        'Senin',
+        'Selasa',
+        'Rabu',
+        'Kamis',
+        'Jumat',
+        'Sabtu'
+    );
+    $hr = date('w', strtotime($waktu));
+    $hari = $hari_array[$hr];
+    $tanggal = date('j', strtotime($waktu));
+    $bulan_array = array(
+        1 => 'Januari',
+        2 => 'Februari',
+        3 => 'Maret',
+        4 => 'April',
+        5 => 'Mei',
+        6 => 'Juni',
+        7 => 'Juli',
+        8 => 'Agustus',
+        9 => 'September',
+        10 => 'Oktober',
+        11 => 'November',
+        12 => 'Desember',
+    );
+    $bl = date('n', strtotime($waktu));
+    $bulan = $bulan_array[$bl];
+    $tahun = date('Y', strtotime($waktu));
+    $jam = date( 'H:i:s', strtotime($waktu));
+    
+    //untuk menampilkan hari, tanggal bulan tahun jam
+    //return "$hari, $tanggal $bulan $tahun $jam";
+
+    //untuk menampilkan hari, tanggal bulan tahun
+    return "$hari-$tanggal-$bulan-$tahun";
+}
+
+$bulan = array(1=>'Januari', 
+      'Februari', 
+      'Maret', 
+      'April', 
+      'Mei', 
+      'Juni', 
+      'Juli', 
+      'Agustus', 
+      'September', 
+      'Oktober', 
+      'November', 
+      'Desember'
+     );
+   
+   
+ function bulan_indo($bulan_angka) {
+   $bulan = array(1=>'Januari', 
+      'Februari', 
+      'Maret', 
+      'April', 
+      'Mei', 
+      'Juni', 
+      'Juli', 
+      'Agustus', 
+      'September', 
+      'Oktober', 
+      'November', 
+      'Desember'
+     );
+
+   return $bulan[$bulan_angka];
+  }
+function center($con,$no_center,$doa,$status,$anggota_center,$bayar,$id_cabang,$id_karyawan,$hari,$idlaporan)
+{
+  $no_center = sprintf("%03d",$no_center);
+  $cari = mysqli_query($con,"select * from center where no_center='$no_center' and id_cabang='$id_cabang'");
+  if(mysqli_num_rows($cari)){
+    $d = mysqli_query($con,"UPDATE center SET hari='$hari',doa_center='$doa',status_center = '$status', anggota_center = '$anggota_center' , center_bayar = '$bayar' , id_karyawan = '$id_karyawan', id_laporan='$idlaporan'  WHERE no_center = '$no_center' and id_cabang=$id_cabang; ");
+  // echo "jalankan perintah edit";  
+  }
+  else{
+  // echo "jalankan perintah tambah";  
+    $d = mysqli_query($con,"INSERT INTO center (id_center, no_center, hari, doa_center, status_center, anggota_center, center_bayar, id_cabang, id_karyawan,id_laporan) VALUES (NULL, '$no_center','$hari', '$doa', '$status', '$anggota_center','$bayar', '$id_cabang', '$id_karyawan','$idlaporan')");
+  }
+  //INSERT INTO center (id_center, no_center, doa_center, status_center, anggota_center, id_cabang, id_karyawan) VALUES (NULL, '107', 't', 'kuning', '18', '1', '1');
+}
+function detail_karyawan($con,$id)
+{
+  $query= mysqli_query($con,"SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_karyawan='$id' ");
+  $karyawan = mysqli_fetch_array($query);
+  return $karyawan;
+}
+function pesan($pesan,$warna='primary')
+{
+  ?>
+  <div class="alert alert-<?=$warna?>" role="alert">
+    <?=$pesan ?>
+  </div>
+  <?php
+}
+
+
+function aman($con,$string){
+  return mysqli_escape_string($con,$string);
+}
+
+
+
+function hari(){
+  $hari_array = array(
+        'Minggu',
+        'Senin',
+        'Selasa',
+        'Rabu',
+        'Kamis',
+        'Jumat',
+        'Sabtu'
+    );
+    return strtolower($hari_array);
+
+
+}
+
+
