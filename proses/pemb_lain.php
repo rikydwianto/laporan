@@ -23,7 +23,8 @@ $pmb=$_POST['pmb'];
 						`psa` = '$psa[$x]',
 						`prr` = '$prr[$x]',
 						`ppd` = '$ppd[$x]',
-						`arta` = '$arta[$x]'
+						`arta` = '$arta[$x]',
+						`pmb` = '$pmb[$x]'
 						 WHERE `id_karyawan` ='$idk[$x]' and tgl_anggota='$tgl'; ");
 				}
 				else
