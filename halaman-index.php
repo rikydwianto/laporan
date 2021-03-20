@@ -23,7 +23,7 @@ if(!$_SESSION['jabatan']){
 	
 	
 	<div class="panel-body ">
-		<h3 class='page-header'>INFORMASI <hr/></h3>
+		<h3 class='page-header'>INFORMASI ! <hr/></h3>
 		<div class="card" style=";">
 		  <ul class="list-group list-group-flush">
 			<li class="list-group-item"><?php echo strtoupper($karyawan['nama_karyawan']) ?> </li>
