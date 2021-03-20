@@ -57,6 +57,7 @@ $pmb=$_POST['pmb'];
 			<tr>
 				<th>NO</th>
 				<th>Staff</th>
+				<th>PMB</th>
 				<th>PSA</th>
 				<th>PPD</th>
 				<th>PRR</th>
