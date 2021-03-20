@@ -12,6 +12,7 @@
 			$psa=$_POST['psa'];
 			$prr=$_POST['prr'];
 			$arta=$_POST['arta'];
+			$pmb=$_POST['pmb'];
 
 
 			for ($x = 0; $x < count($idk); $x++) {
@@ -21,14 +22,14 @@
 				{
 					$edit = mysqli_fetch_array($query_cari);
 					mysqli_query($con,"
-						UPDATE `cashflow` SET `tahun_cashflow` = YEAR(CURDATE()), `cashflow_masuk` = '$masuk[$x]', `cashflow_keluar` = '$keluar[$x]', `net_cashflow` = '$nett', `psa` = '$psa[$x]', `prr` = '$prr[$x]', `arta` = '$arta[$x]' WHERE `id_cashflow` = $edit[id_cashflow]; 
+						UPDATE `cashflow` SET `tahun_cashflow` = YEAR(CURDATE()), `cashflow_masuk` = '$masuk[$x]', `cashflow_keluar` = '$keluar[$x]', `net_cashflow` = '$nett', `psa` = '$psa[$x]', `prr` = '$prr[$x]', `arta` = '$arta[$x]', `pmb` = '$pmb[$x]' WHERE `id_cashflow` = $edit[id_cashflow]; 
 						");
 
 				}
 				else
 				{
 					$editt = "
-				INSERT INTO `cashflow` (`id_cashflow`, `id_karyawan`, `tahun_cashflow`, `cashflow_masuk`, `cashflow_keluar`, `net_cashflow`, `psa`, `prr`, `ppd`, `arta`, `id_cabang`) VALUES (NULL, '$idk[$x]', YEAR(CURDATE()), '$masuk[$x]', '$keluar[$x]', '$nett', '$psa[$x]', '$prr[$x]', '$ppd[$x]', '$arta[$x]', '$id_cabang'); 
+				INSERT INTO `cashflow` (`id_cashflow`, `id_karyawan`, `tahun_cashflow`, `cashflow_masuk`, `cashflow_keluar`, `net_cashflow`, `psa`, `prr`, `ppd`, `arta`, `pmb`, `id_cabang`) VALUES (NULL, '$idk[$x]', YEAR(CURDATE()), '$masuk[$x]', '$keluar[$x]', '$nett', '$psa[$x]', '$prr[$x]', '$ppd[$x]', '$arta[$x]', '$pmb[$x]', '$id_cabang'); 
 					";
 					mysqli_query($con,$editt);				
 				}
@@ -50,6 +51,7 @@
 				<th>NETT</th>
 
 				<th>PSA</th>
+				<th>PMB</th>
 				<th>PPD</th>
 				<th>PRR</th>
 				<th>ARTA</th>
@@ -79,6 +81,9 @@
 					</td>
 					<td>
 						<input  type='number' class="form-control" style="width: 100px" name='psa[]'  value='<?=$cash['psa']?>'></input>
+					</td>
+					<td>
+						<input  type='number' class="form-control" style="width: 100px" name='pmb[]'  value='<?=$cash['pmb']?>'></input>
 					</td>
 					<td>
 						<input  type='number' class="form-control" style="width: 100px" name='ppd[]'  value='<?=$cash['ppd']?>'></input>

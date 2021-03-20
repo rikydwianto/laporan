@@ -8,7 +8,7 @@ $index =  $_SERVER['REQUEST_URI	'];
 $port = ":8080/";
 //$url = "http://localhost:8080/laporan/";
 
-$url = "http://".$server."/laporan1/".$index;
+$url = "http://".$server."/laporan/".$index;
 $menu ="index.php?menu=";
  date_default_timezone_set("Asia/Bangkok");
  //error_reporting(0);

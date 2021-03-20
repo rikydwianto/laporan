@@ -15,6 +15,7 @@ sum(anggota.psa) as psa,
 sum(anggota.ppd) as ppd,
 sum(anggota.prr) as prr,
 sum(anggota.arta) as arta,
+sum(anggota.pmb) as pmb,
 karyawan.nama_karyawan FROM `anggota`,karyawan 
 where anggota.id_karyawan=karyawan.id_karyawan and karyawan.id_cabang=$cabang 
 and anggota.tgl_anggota >= '$tglawal' and anggota.tgl_anggota <= '$tglakhir' and
@@ -30,6 +31,7 @@ sum(cashflow.psa) as psa,
 sum(cashflow.ppd) as ppd,
 sum(cashflow.prr) as prr,
 sum(cashflow.arta) as arta,
+sum(cashflow.pmb) as pmb,
 karyawan.nama_karyawan FROM `cashflow`,karyawan 
 where cashflow.id_karyawan=karyawan.id_karyawan and karyawan.id_cabang=$cabang 
 and cashflow.tahun_cashflow >= '$tglawal' and cashflow.tahun_cashflow <= '$tglakhir' and
@@ -74,6 +76,12 @@ $cashflow = mysqli_fetch_array($cashflow);
 				<th><?=$nett=$tampilData['nett']?></th>
 				<th><?=$cnett=$cashflow['nett']?></th>
 				<th><?=($nett/$cnett)*100?>%</th>
+			</tr>
+			<tr>
+				<th>Pemb. Mikro Bisnis</th>
+				<th><?=$pmb=$tampilData['pmb']?></th>
+				<th><?=$cpmb=$cashflow['pmb']?></th>
+				<th><?=($pmb/$cpmb)*100?>%</th>
 			</tr>
 			<tr>
 				<th>Pemb. Sanitasi</th>
