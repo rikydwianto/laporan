@@ -175,6 +175,7 @@ if(!$_SESSION['jabatan']){
 			<i class="fa fa-file-excel-o"></i> Export To Excel
 		</a>
 		<div class='table-responsive'>
+		<br>
 		<table class='table'>
 			<tr>					
 				<th rowspan=2>NO</th>
