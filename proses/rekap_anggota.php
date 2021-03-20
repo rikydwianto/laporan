@@ -116,6 +116,7 @@ else{
 		 		<th><?=$masuk?></th>
 		 		<th><?=$keluar?></th>
 		 		<th><?=$nett?></th>
+		 		<th><?=$pmb?></th>
 		 		<th><?=$psa?></th>
 		 		<th><?=$ppd?></th>
 		 		<th><?=$prr?></th>
