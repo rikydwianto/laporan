@@ -5,6 +5,12 @@ if(isset($_GET['menu'])){
 		if($jabatan!="SL"){
 			switch($getmenu){
 				
+			case"cabang":
+				include("proses/cabang.php");
+			break;
+			case"wilayah":
+				include("proses/wilayah.php");
+			break;
 			case"rekap_bayar":
 				include("proses/rekap_bayar.php");
 			break;
@@ -32,6 +38,9 @@ if(isset($_GET['menu'])){
 			
 			case"laporan_bulanan":
 				include("proses/rekap_bulanan.php");
+			break;
+			case"karyawan_su":
+				include("proses/karyawan_su.php");
 			break;
 			case"karyawan":
 				include("proses/karyawan.php");

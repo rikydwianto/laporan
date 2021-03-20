@@ -21,7 +21,7 @@ else if(($_SESSION['id']) && $su=='y'){
 		<a href="#"><i class="fa fa-building"></i> Master Data<span class="fa arrow"></span></a>
 			<ul class="nav nav-second-level">
 				<li>
-					<a href="<?php echo $url.$menu?>karyawan" class=""><i class="fa fa-odnoklassniki"></i> Karyawan</a>
+					<a href="<?php echo $url.$menu?>karyawan_su" class=""><i class="fa fa-odnoklassniki"></i> Karyawan SU</a>
 				</li>
 				<li>
 					<a href="<?php echo $url.$menu?>center" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Center</a>

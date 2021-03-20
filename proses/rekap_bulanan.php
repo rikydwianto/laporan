@@ -30,25 +30,41 @@ $tanggal = cal_days_in_month(CAL_GREGORIAN, $bln1, $tahun);
 	
 	<table class='table'>
 		<tr>					
-			<th rowspan=2>NO</th>
-			<th rowspan=2>NAMA</th>
-			<th colspan="<?php echo $tanggal ?>" style="text-align:center">LAPORAN <?php echo bulan_indo($bln1)." - ". $tahun;?></th>
+			<th rowspan=3 style="vertical-align: middle;">NO</th>
+			<th rowspan=3 style="vertical-align: middle;">NAMA</th>
+			<th colspan="<?php echo $tanggal ?>" style="text-align:center">HANYA LAPORAN TOTAL BAYAR <?php echo bulan_indo($bln1)." - ". $tahun;?></th>
 		</tr>
 		<tr>					
-			
 			<?php 
 			
 			for ($i=1; $i < $tanggal+1; $i++) { 
-			echo"<td>$i</td>";
+			echo"<td class='kotak_table'>$i</td>";
+			}
+			?>
+		</tr>
+		<tr>					
+			<?php 
+			
+			for ($i=1; $i < $tanggal+1; $i++) { 
+				$cek_tgl  = "$tahun-$bln1-$i";
+				$cek_tgl = hari_biasa($cek_tgl);
+				$hari = explode("-", $cek_tgl);
+				$hari = $hari[0]; 
+				if($hari=="Jumat" || $hari=="Sabtu" || $hari=="Minggu" )
+					echo"<td class='hari merah'>$hari</td>";
+				else
+					echo"<td class='hari'>$hari</td>";
 			}
 			?>
 		</tr>
 		<?php 
 		
-		$cek_ka=mysqli_query($con,"SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_cabang='$cabang' and jabatan.singkatan_jabatan='SL' order by karyawan.nama_karyawan asc");
+		$cek_ka=mysqli_query($con,"SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_cabang='$cabang' and jabatan.singkatan_jabatan='SL' and karyawan.status_karyawan='aktif' order by karyawan.nama_karyawan asc");
 		$hitung_agt = 0; 
 		$hitung_bayar = 0; 
+		$total_bayar = 0;
 		$hitung_tdk_bayar= 0; 
+		$hitung_perhari = 0;
 		while($tampil=mysqli_fetch_array($cek_ka)){
 		?>
 		<tr>
@@ -67,19 +83,39 @@ $tanggal = cal_days_in_month(CAL_GREGORIAN, $bln1, $tahun);
 				  $cari_tgl = $cari_tgl[2];
 				  if($cari_tgl==$i)
 				  {
-					  echo"<td style='text-align:center;'><small>$buka[total_bayar]</small></td>";
+				  	$isi = $buka['total_bayar'];
+				  	$isi = ($isi=='NULL' ? 0 : $isi);
+				  	$hitung_bayar = $isi + $hitung_bayar;
+				  	$hitung_perhari = $hitung_perhari + $isi;
+					  echo"<td style='text-align:center;'><small>$isi</small></td>";
 				  }
+
 			  }
 			  else{
 				  echo "<td>&nbsp;</td>";
 			  }
+			 
 		  }
+		   ?>
+			  <td>
+			  	<?=$hitung_bayar?>
+			  </td>
+			  <?php
+			  $total_bayar = $hitung_bayar + $total_bayar;	
+			  $hitung_bayar=0;
 			?>
+
 		</tr>
 		<?php
-						
+			
 		}
 		?>
+		<tr>
+			<th colspan="<?php echo $tanggal +2 ?>" style="text-align:center">TOTAL</th>
+			<th>
+				<?=$total_bayar?>
+			</th>
+		</tr>
 	</table>
 	</div>
 </div>

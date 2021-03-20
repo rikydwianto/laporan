@@ -1,6 +1,6 @@
 <div class='content table-responsive'>
-	<h3 class='page-header'>Karyawan</h3>
-	<a href='<?=$url.$menu?>karyawan&tambah' class='btn btn-info '><i class='fa fa-plus'></i> Tambah Staff</a> <br/>
+	<h3 class='page-header'>SELURUH DATA KARYAWAN</h3>
+	<a href='<?=$url.$menu?>karyawan_su&tambah' class='btn btn-info '><i class='fa fa-plus'></i> Tambah Staff</a> <br/>
 	<?php 
 	if(isset($_SESSION['pesan'])){
 		?>
@@ -26,17 +26,18 @@
 				$nama=$_POST['nama'];
 				$jabat=$_POST['jabatan'];
 				$pass=$_POST['password1'];
+				$cabang=$_POST['cabang'];
 				$cek_nik=mysqli_query($con,"select * from karyawan where nik_karyawan='$nik'");
 				$cek_nik1=mysqli_fetch_assoc($cek_nik);
 				if($cek_nik1['nik_karyawan']==$nik){
 					$_SESSION['pesan']="NIK $nik Sudah ada tidak input yang sama 2 kali";
 				}
 				else{
-					$tambah = "INSERT INTO karyawan (id_karyawan, nik_karyawan, nama_karyawan, id_jabatan, status_karyawan, password, id_cabang) VALUES (NULL, '$nik', '$nama', '$jabat', 'aktif', MD5('$pass'), '$id_cabang'); ";
+					$tambah = "INSERT INTO karyawan (id_karyawan, nik_karyawan, nama_karyawan, id_jabatan, status_karyawan, password, id_cabang) VALUES (NULL, '$nik', '$nama', '$jabat', 'aktif', MD5('$pass'), '$cabang'); ";
 					$tambah = mysqli_query($con,$tambah);
 					if($tambah){
 						$_SESSION['pesan']="BERHASIL DISIMPAN";
-						pindah($url.$menu."karyawan");
+						pindah($url.$menu."karyawan_su");
 					}
 					else
 					{
@@ -77,12 +78,28 @@
 				  </select>
 				</div>
 				<div class="mb-3">
+				  <label for="wilayah" class="form-label">Wilayah/Cabang</label>
+				  <select name='cabang' required class="form-control" aria-label="Default select example "id='wilayah'>
+					<option value=''> -- Silahkan Pilih Cabang --</option>
+					<?php 
+					$jab = mysqli_query($con,"select * from wilayah ");
+					while($wil=mysqli_fetch_assoc($jab)){
+						echo "<option value='' disabled><label>$wil[wilayah]</label></option>";
+						$cab = mysqli_query($con,"select * from cabang where id_wilayah=$wil[id_wilayah] ");
+						while($jab1=mysqli_fetch_assoc($cab)){
+							echo "<option value='$jab1[id_cabang]' > --- ".  strtoupper($jab1['nama_cabang'])."</option>";
+						}
+					}
+					?>
+				  </select>
+				</div>
+				<div class="mb-3">
 				  <label for="password1" required class="form-label">Masukan Password</label>
 				  <input type="text" value='123456' name='password1' class="form-control" id="password" placeholder="Ketikan Password ....">
 				</div>
 				<div class="mb-3">
 				  <br/>
-				  <input type=submit name='tmb_karyawan' class='btn btn-info' value='TAMBAH' /> <a href='<?=$url.$menu?>karyawan' class='btn btn-danger '><i class='fa fa-times'></i> BATAL</a>
+				  <input type=submit name='tmb_karyawan' class='btn btn-info' value='TAMBAH' /> <a href='<?=$url.$menu?>karyawan_su' class='btn btn-danger '><i class='fa fa-times'></i> BATAL</a>
 				</div>
 				
 				 <br/>
@@ -107,10 +124,11 @@
 			$status=$_POST['status'];
 			$idj=$_POST['jabatan'];
 			$passbaru=$_POST['passbaru'];
+			$cab=$_POST['cabang'];
 			if($passbaru!="")
 				$gantipass=",  password=md5('$passbaru')";
 			else $gantipass="";
-			$query=mysqli_query($con,"UPDATE karyawan SET nik_karyawan = '$nik',nama_karyawan = '$nama', status_karyawan='$status', id_jabatan='$idj' $gantipass WHERE id_karyawan = $idk;");
+			$query=mysqli_query($con,"UPDATE karyawan SET nik_karyawan = '$nik',nama_karyawan = '$nama', status_karyawan='$status', id_jabatan='$idj', id_cabang='$cab' $gantipass WHERE id_karyawan = $idk;");
 			if($query){
 				pesan("BERHASIL DIUBAH",'success');
 			}
@@ -155,6 +173,29 @@
 								?>
 							  </select>
 						</th>
+					</tr>
+					<tr>
+						<td>Cabang</td>
+						<td>
+							<select name='cabang' required class="form-control" aria-label="Default select example "id='wilayah'>
+								<option value=''> -- Silahkan Pilih Cabang --</option>
+								<?php 
+								$jab = mysqli_query($con,"select * from wilayah ");
+								while($wil=mysqli_fetch_assoc($jab)){
+									echo "<option value='' disabled><b>$wil[wilayah]</b></option>";
+									$cab = mysqli_query($con,"select * from cabang where id_wilayah=$wil[id_wilayah] ");
+
+									while($jab1=mysqli_fetch_assoc($cab)){
+										if($data['id_cabang']==$jab1['id_cabang'])
+											$pilih = "selected";
+										else $pilih ='';
+										echo "<option value='$jab1[id_cabang]' $pilih > --- ".  strtoupper($jab1['nama_cabang'])."</option>";
+									}
+								}
+								?>
+							  </select>
+
+						</td>
 					</tr>
 					<tr>
 						<th>STATUS KARYAWAN</th>
@@ -203,11 +244,7 @@
 		</thead>
 		<tbody>
 		<?php 
-		if($su=='y')
-			$qtambah = "";
-		else
-			$qtambah="where id_cabang='$id_cabang'";
-		$cek=mysqli_query($con,"select * from karyawan $qtambah order by nama_karyawan asc");
+		$cek=mysqli_query($con,"select * from karyawan join cabang on karyawan.id_cabang=cabang.id_cabang order by nama_karyawan asc");
 		while($tampil=mysqli_fetch_assoc($cek)){
 			$detail = detail_karyawan($con,$tampil['id_karyawan']);
 			?>
@@ -219,8 +256,8 @@
 				<td><?=$detail['nama_cabang']?></td>
 				<td><?=$detail['status_karyawan']?></td>
 				<td>
-					<a href='<?=$url.$menu?>karyawan&idkaryawan=<?=$detail['id_karyawan'] ?>&delkaryawan' class='btn btn-danger' title="Tooltip on top" onclick="return window.confirm('Yakin ingin menghapus nya? ')"><i class='fa fa-times'></i></a>
-					<a href='<?=$url.$menu?>karyawan&idkaryawan=<?=$detail['id_karyawan'] ?>&edit'  class='btn btn-info'><i class='fa fa-edit'></i></a>
+					<a href='<?=$url.$menu?>karyawan_su&idkaryawan=<?=$detail['id_karyawan'] ?>&delkaryawan' class='btn btn-danger' title="Tooltip on top" onclick="return window.confirm('Yakin ingin menghapus nya? ')"><i class='fa fa-times'></i></a>
+					<a href='<?=$url.$menu?>karyawan_su&idkaryawan=<?=$detail['id_karyawan'] ?>&edit'  class='btn btn-info'><i class='fa fa-edit'></i></a>
 
 				</td>
 			</tr>
@@ -238,7 +275,7 @@ if(isset($_GET['delkaryawan']) && isset($_GET['idkaryawan'])){
 	$q=mysqli_query($con,"DELETE FROM `karyawan` WHERE `id_karyawan` = '$idk'");	
 	if($q){
 		alert("Berhasil Dihapus");
-		pindah("$url$menu"."karyawan");
+		pindah("$url$menu"."karyawan_su");
 	}
 	
 }

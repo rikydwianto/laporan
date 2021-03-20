@@ -181,3 +181,24 @@ function hari(){
 }
 
 
+function cabang($con,$wilayah){
+
+  $q = "select * from cabang where id_wilayah = $wilayah ";
+  $query=mysqli_query($con,$q);
+  $arra = array();
+  $arra['data']=array();
+
+  while($data = mysqli_fetch_array($query)){
+    $h['id_cabang'][]= $data['id_cabang'];
+    $h['cabang'] = $data['nama_cabang'];
+    $h['kodecabang'] = $data['kode_cabang'];
+    $h['wilayah'] = $data['id_wilayah'];
+    array_push($arra["data"], $h);
+
+  }
+  return ($arra);
+    // $arra['id'] = $data['id_cabang'];
+    // $arra['cabang'] = $data['nama_cabang'];
+    // $arra['kode_cabang'] = $data['kode_cabang'];
+    // $arra['wilayah'] = $data['id_wilayah'];
+}

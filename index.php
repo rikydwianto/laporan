@@ -37,6 +37,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
 
     <!-- Morris Charts CSS -->
     <link href="<?=$url ?>assets/css/morris.css" rel="stylesheet">
+    <link href="<?=$url ?>assets/style.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="<?=$url ?>assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
