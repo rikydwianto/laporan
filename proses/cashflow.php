@@ -41,6 +41,7 @@
 		?>
 
 		isi 0 jika tidak ada 
+		<br/>
 		<table class="table">
 			<input type='hidden' name='menu' class="form-control" value='cashflow'></input>
 			<tr>
