@@ -145,7 +145,9 @@ function center($con,$no_center,$doa,$status,$anggota_center,$bayar,$id_cabang,$
 }
 function detail_karyawan($con,$id)
 {
-  $query= mysqli_query($con,"SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_karyawan='$id' ");
+  $query= mysqli_query($con,"SELECT * FROM karyawan,jabatan,cabang,wilayah where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang 
+    and cabang.id_wilayah=wilayah.id_wilayah
+    and karyawan.id_karyawan='$id' ");
   $karyawan = mysqli_fetch_array($query);
   return $karyawan;
 }

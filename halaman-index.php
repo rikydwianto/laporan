@@ -1,5 +1,7 @@
 <?php 
-$query= mysqli_query($con,"SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_karyawan='$id_karyawan' ");
+$query= mysqli_query($con,"SELECT * FROM karyawan,jabatan,cabang,wilayah where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang
+	and cabang.id_wilayah=wilayah.id_wilayah
+ and karyawan.id_karyawan='$id_karyawan' ");
 $karyawan = mysqli_fetch_array($query);
 
 if(!$_SESSION['jabatan']){
@@ -29,6 +31,7 @@ if(!$_SESSION['jabatan']){
 			<li class="list-group-item"><?php echo strtoupper($karyawan['nama_karyawan']) ?> </li>
 			<li class="list-group-item">Jabatan : (<?php echo $karyawan['singkatan_jabatan'] ?>) <?php echo $karyawan['nama_jabatan'] ?></li>
 			<li class="list-group-item">Cabang: (<?php echo $karyawan['kode_cabang'] ?>) <?php echo strtoupper($karyawan['nama_cabang']) ?></li>
+			<li class="list-group-item"> Wilayah <?php echo strtoupper($karyawan['wilayah']) ?></li>
 		  </ul>
 		</div>
 		

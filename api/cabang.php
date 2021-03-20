@@ -7,7 +7,7 @@ if( !isset($_SESSION['id'])){
 	// pindah("auth.php");
 }
 else
-{
+{	
 	$wil = aman($con,$_GET['wil']);
 	$cabang = cabang($con,$wil);
 	echo json_encode($cabang);
