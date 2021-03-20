@@ -10,7 +10,7 @@
 			$prr=$_POST['prr'];
 			$arta=$_POST['arta'];
 			$tgl=$_POST['tgl'];
-$pmb=$_POST['pmb'];
+			$pmb=$_POST['pmb'];
 
 
 			for ($x = 0; $x < count($idk); $x++) {
@@ -29,7 +29,7 @@ $pmb=$_POST['pmb'];
 				}
 				else
 				{
-					$query1 = mysqli_query($con,"INSERT INTO anggota (id_anggota, id_karyawan, tgl_anggota, psa, prr, ppd,arta,pmb, id_cabang) VALUES (NULL, '$idk[$x]', '$tgl', '$psa[$x]', '$prr[$x]', '$ppd[$x]', '$arta[$x]','$pmb[x]', '$id_cabang');");
+					$query1 = mysqli_query($con,"INSERT INTO anggota (id_anggota, id_karyawan, tgl_anggota, psa, prr, ppd,arta,pmb, id_cabang) VALUES (NULL, '$idk[$x]', '$tgl', '$psa[$x]', '$prr[$x]', '$ppd[$x]', '$arta[$x]','$pmb[$x]', '$id_cabang');");
 				}
 					
 			}

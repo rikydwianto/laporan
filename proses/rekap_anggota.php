@@ -64,11 +64,12 @@ else{
 		 		</th>
 		 	</tr>
 		 	<tr>
-		 		<th>NO.</th>
+		 		<th>NO.c</th>
 		 		<th>Nama</th>
 		 		<th>Masuk</th>
 		 		<th>Keluar</th>
 		 		<th>Nett</th>
+		 		<th>PMB</th>
 		 		<th>PSA</th>
 		 		<th>PPD</th>
 		 		<th>PRR</th>
@@ -79,6 +80,7 @@ else{
 		 	$keluar=0;
 		 	$nett = 0;
 		 	$psa = 0;
+		 	$pmb = 0;
 		 	$ppd = 0;
 		 	$prr = 0;
 		 	$arta = 0;
@@ -92,6 +94,7 @@ else{
 		 		<td><?=$masuk1 = $val['masuk'] ?></td>
 		 		<td><?=$keluar1 =$val['keluar'] ?></td>
 		 		<td><?=$nett1= $val['nett'] ?></td>
+		 		<td><?=$pmb1= $val['pmb'] ?></td>
 		 		<td><?=$psa1= $val['psa'] ?></td>
 		 		<td><?=$ppd1= $val['ppd'] ?></td>
 		 		<td><?=$prr1= $val['prr'] ?></td>
@@ -101,6 +104,7 @@ else{
 		 		$masuk=$masuk1+$masuk;
 		 		$keluar=$keluar1+$keluar;
 		 		$nett=$nett1+$nett;
+		 		$pmb=$pmb1+$pmb;
 		 		$psa=$psa1+$psa;
 		 		$ppd=$ppd1+$ppd;
 		 		$prr=$prr1+$prr;

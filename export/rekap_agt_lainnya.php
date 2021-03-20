@@ -65,6 +65,7 @@ else{
 		 		<th>Masuk</th>
 		 		<th>Keluar</th>
 		 		<th>Nett</th>
+		 		<th>PMB</th>
 		 		<th>PSA</th>
 		 		<th>PPD</th>
 		 		<th>PRR</th>
@@ -74,6 +75,7 @@ else{
 		 	$masuk=0;
 		 	$keluar=0;
 		 	$nett = 0;
+		 	$pmb = 0;
 		 	$psa = 0;
 		 	$ppd = 0;
 		 	$prr = 0;
@@ -88,6 +90,7 @@ else{
 		 		<th><?=$masuk1 = $val['masuk'] ?></th>
 		 		<th><?=$keluar1 =$val['keluar'] ?></th>
 		 		<th><?=$nett1= $val['nett'] ?></th>
+		 		<th><?=$pmb1= $val['pmb'] ?></th>
 		 		<th><?=$psa1= $val['psa'] ?></th>
 		 		<th><?=$ppd1= $val['ppd'] ?></th>
 		 		<th><?=$prr1= $val['prr'] ?></th>
@@ -98,6 +101,7 @@ else{
 		 		$keluar=$keluar1+$keluar;
 		 		$nett=$nett1+$nett;
 		 		$psa=$psa1+$psa;
+		 		$pmb=$pmb1+$pmb;
 		 		$ppd=$ppd1+$ppd;
 		 		$prr=$prr1+$prr;
 		 		$arta=$arta1+$arta;
@@ -108,6 +112,7 @@ else{
 		 		<th><?=$masuk?></th>
 		 		<th><?=$keluar?></th>
 		 		<th><?=$nett?></th>
+		 		<th><?=$pmb?></th>
 		 		<th><?=$psa?></th>
 		 		<th><?=$ppd?></th>
 		 		<th><?=$prr?></th>

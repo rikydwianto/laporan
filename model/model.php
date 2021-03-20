@@ -127,6 +127,7 @@ sum(anggota.psa) as psa,
 sum(anggota.ppd) as ppd,
 sum(anggota.prr) as prr,
 sum(anggota.arta) as arta,
+sum(anggota.pmb) as pmb,
 karyawan.nama_karyawan FROM `anggota`,karyawan 
 where anggota.id_karyawan=karyawan.id_karyawan and karyawan.id_cabang=$cabang 
 and anggota.tgl_anggota >= '$tglawal' and anggota.tgl_anggota <= '$tglakhir'
