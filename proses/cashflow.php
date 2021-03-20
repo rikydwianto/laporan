@@ -1,5 +1,5 @@
 <div class="row">
-	<h3 class="page-header">CASHFLOW STAFF LAPANG</h3>
+	<h3 class="page-header">CASHFLOW STAFF LAPANG !</h3>
 	<form method="post">
 		<?php 
 		if(isset($_POST['simpan_cashflow']))
