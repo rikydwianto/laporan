@@ -7,6 +7,7 @@
 else{
 	$tglawal = date("2021-01-01") ;
 	$tglakhir = date("2021-12-31");
+	// dd
 }
 		$q="SELECT sum(anggota.anggota_masuk) as masuk,
 sum(anggota.anggota_keluar) as keluar,
