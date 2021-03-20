@@ -10,6 +10,8 @@
 			$prr=$_POST['prr'];
 			$arta=$_POST['arta'];
 			$tgl=$_POST['tgl'];
+$pmb=$_POST['pmb'];
+
 
 			for ($x = 0; $x < count($idk); $x++) {
 				
@@ -26,7 +28,7 @@
 				}
 				else
 				{
-					$query1 = mysqli_query($con,"INSERT INTO anggota (id_anggota, id_karyawan, tgl_anggota, psa, prr, ppd,arta, id_cabang) VALUES (NULL, '$idk[$x]', '$tgl', '$psa[$x]', '$prr[$x]', '$ppd[$x]', '$arta[$x]', '$id_cabang');");
+					$query1 = mysqli_query($con,"INSERT INTO anggota (id_anggota, id_karyawan, tgl_anggota, psa, prr, ppd,arta,pmb, id_cabang) VALUES (NULL, '$idk[$x]', '$tgl', '$psa[$x]', '$prr[$x]', '$ppd[$x]', '$arta[$x]','$pmb[x]', '$id_cabang');");
 				}
 					
 			}
@@ -68,6 +70,10 @@
 				<tr>
 					<td><?=$no++?></td>
 					<td><?=$cek_ka['nama_karyawan']?></td>
+<td>
+						
+						<input  type='number' class="form-control" style="width: 100px" name='pmb[]'  value='0'></input>
+					</td>
 					<td>
 						<input type='hidden' name='idk[]' class="form-control" value='<?=$cek_ka['id_karyawan']?>'></input>
 						<input  type='number' class="form-control" style="width: 100px" name='psa[]'  value='0'></input>
