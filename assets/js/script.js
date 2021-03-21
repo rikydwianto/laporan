@@ -87,7 +87,8 @@ L.marker([-6.449471595334012,107.81619415504505]).addTo(map)
 		  var items = [];
 		  $.each( data, function( i, field ) {
 		  	text = "<h2>"+data[i]['nama_lokasi']+"</h2><br> Kategori "+ data[i]['kategori']+" <br/>Center : " + data[i]['center']+" <br/> Keterangan : " + data[i]['keterangan']+" <br/> Alamat : " + data[i]['alamat'];
-		   	L.marker([data[i]['latitude'],data[i]['longitude']]).addTo(map)
+text =+ "<a href='"+data[i]['link_google']+"'> Direct</a>		   	
+L.marker([data[i]['latitude'],data[i]['longitude']]).addTo(map)
 		    .bindPopup(text);
 
 		  });
