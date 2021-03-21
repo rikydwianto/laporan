@@ -50,19 +50,19 @@ $nama_jabatan=$d['singkatan_jabatan'];
     <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style type="text/css">
-#info {
-display: block;
-position: relative;
-margin: 0px auto;
-width: 50%;
-padding: 10px;
-border: none;
-border-radius: 3px;
-font-size: 12px;
-text-align: center;
-color: #222;
-background: #fff;
-}
+    #info {
+    display: block;
+    position: relative;
+    margin: 0px auto;
+    width: 50%;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    text-align: center;
+    color: #222;
+    background: #fff;
+    }
 </style>
 </head>
 <body>
@@ -70,7 +70,7 @@ background: #fff;
 <div id="wrapper">
 
     <!-- Navigation -->
-    <?php //include"view/navbar.php"; ?>
+    <?php include"view/navbar.php"; ?>
 
     <!-- Page Content -->
 	<div id="page-wrapper">
@@ -92,16 +92,16 @@ background: #fff;
 				?>
 
 
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <h3 class="page-header">LOKASI</h3>
 
 
                     <div id='map' style='width: 100%; height: 500px;'></div>
-                    <pre id="info"></pre>
+                    
                     <script> mapboxgl.accessToken = 'pk.eyJ1IjoicmlreWR3aWFudG8iLCJhIjoiY2ttaXR2M3MwMGtsODJxbXVpaHZraWI0MiJ9.M-fgWx9RsxU5lFoWiDRRNA';
                         var map = new mapboxgl.Map({
                         container: 'map', // container ID
-                        style: 'mapbox://styles/mapbox/streets-v11', // style URL
+                        style: 'mapbox://styles/mapbox/satellite-v9', // style URL
                         center: [ 107.789884 , -6.510135], // starting position [lng, lat]
                         zoom: 16 // starting zoom
                         });
@@ -114,16 +114,32 @@ background: #fff;
                         })
                         );
                         map.on('click', function (e) {
-                        document.getElementById('info').innerHTML =
-                        // e.point is the x, y coordinates of the mousemove event relative
-                        // to the top-left corner of the map
-                        JSON.stringify(e.point) +
-                        '<br />' +
-                        // e.lngLat is the longitude, latitude geographical position of the event
-                        JSON.stringify(e.lngLat.wrap());
+
+                           
+
+                            $("#lat").val(e.lngLat);
+                        // document.getElementById('info').innerHTML =
+                        // // e.point is the x, y coordinates of the mousemove event relative
+                        // // to the top-left corner of the map
+                        // JSON.stringify(e.point) +
+                        // '<br />' +
+                        // // e.lngLat is the longitude, latitude geographical position of the event
+                        // JSON.stringify(e.lngLat.wrap());
                         });
+
+
+                        
+                         
+                        
             </script>
 
+                </div>
+                <div class="col-md-4 mt-3">
+                    <input type="text" name="lat" id="lat" class="form-control">
+                    <a href='#' id="set_lokasi">Set Location</a>
+                    <input type="text"  id="latitude" name="latitude" class='form-control'>
+                    <input type="text" id="longitude" name="longitude" class='form-control'>
+                    <a href='' id="getLokasi" >GET DIRECT</a>
                 </div>
                 <?php
 			}
@@ -146,10 +162,27 @@ background: #fff;
 <script src="<?=$url ?>assets/js/startmin.js"></script>
 <script src="<?=$url ?>assets/js/popper.min.js"></script>
 <script src="<?=$url ?>assets/js/morris.min.js"></script>
-<script src="<?=$url ?>assets/js/morris.data.js"></script>
+<!-- <script src="<?=$url ?>assets/js/morris.data.js"></script> -->
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
 
 
 <script src="<?=$url ?>assets/js/script.js"></script>
+<script type="text/javascript">
+    $("#set_lokasi").on('click',function(){
+        var isi_lat = $("#lat").val();
+        var lat = isi_lat;
+        var lat1 = lat.split(",");
+        var long = lat1[0].split("LngLat(");
+
+        lat1 = lat1[1].split(")");
+        // $("#latitude").val(lat1[0])
+        var latitude = lat1[0].trim();
+        var longitude = long[1].trim();
+        $("#latitude").val(latitude);
+        $("#longitude").val(longitude);
+        $("#getLokasi").attr('href',"https://www.google.co.id/maps/@"+latitude+","+longitude+",17z");
+    });
+    
+</script>
 </body>
 </html>
