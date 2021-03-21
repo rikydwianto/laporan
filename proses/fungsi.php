@@ -204,3 +204,8 @@ function cabang($con,$wilayah){
     // $arra['kode_cabang'] = $data['kode_cabang'];
     // $arra['wilayah'] = $data['id_wilayah'];
 }
+
+
+function link_maps($lat,$lng){
+  return "https://www.google.com/maps/place/".$lat.",".$lng."/".$lat.",".$lng.",17z/data=!3m1!4b1";
+}

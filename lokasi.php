@@ -103,7 +103,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
                         container: 'map', // container ID
                         style: 'mapbox://styles/mapbox/streets-v11', // style URL
                         center: [ 107.789884 , -6.510135], // starting position [lng, lat]
-                        zoom: 16 // starting zoom
+                        zoom: 15 // starting zoom
                         });
                         map.addControl(
                         new mapboxgl.GeolocateControl({
@@ -113,6 +113,13 @@ $nama_jabatan=$d['singkatan_jabatan'];
                         trackUserLocation: true
                         })
                         );
+                        map.addControl(
+                            new mapboxgl.NavigationControl
+                            );
+
+
+
+
                         map.on('click', function (e) {
 
                            
@@ -128,18 +135,26 @@ $nama_jabatan=$d['singkatan_jabatan'];
                         });
 
 
-                        
-                         
+
+
+                       
                         
             </script>
 
                 </div>
-                <div class="col-md-4 mt-3">
-                    <input type="text" name="lat" id="lat" class="form-control">
-                    <a href='#' id="set_lokasi">Set Location</a>
-                    <input type="text"  id="latitude" name="latitude" class='form-control'>
-                    <input type="text" id="longitude" name="longitude" class='form-control'>
-                    <a href='' id="getLokasi" >GET DIRECT</a>
+
+                <div class="col-md-4">
+                    <input type="text" name="coba" id="coba" class="form-control">
+                    <input type="hidden" name="lat" id="lat" class="form-control">
+                    <input type="hidden"  id="latitude" name="latitude" class='form-control'>
+                    <input type="hidden" id="longitude" name="longitude" class='form-control'>
+                    <ul class="list-group" id="link">
+                      <li class="list-group-item " >MASUKAN LOKASI</li>
+                      <li class="list-group-item "  ><a id="center" data-link="<?=$url.$menu ?>lokasi&pilih=center" href="<?=$url.$menu ?>lokasi&pilih=center" >CENTER</a></li>
+                      <li class="list-group-item "><a id="anggota" data-link="<?=$url.$menu ?>lokasi&pilih=anggota"  href="<?=$url.$menu ?>lokasi&pilih=anggota">ANGOTA</a></li>
+                      <li class="list-group-item "><a data-link="<?=$url.$menu ?>lokasi&pilih=pu" id="pu"  href="<?=$url.$menu ?>lokasi&pilih=pu">PU</a></li>
+                      <li class="list-group-item "><a id='getLokasi'>GET DIRECTION</a></li>
+                    </ul>
                 </div>
                 <?php
 			}
@@ -168,8 +183,9 @@ $nama_jabatan=$d['singkatan_jabatan'];
 
 <script src="<?=$url ?>assets/js/script.js"></script>
 <script type="text/javascript">
-    $("#set_lokasi").on('click',function(){
-        var isi_lat = $("#lat").val();
+    
+    function ambillokasi(){
+         var isi_lat = $("#lat").val();
         var lat = isi_lat;
         var lat1 = lat.split(",");
         var long = lat1[0].split("LngLat(");
@@ -180,9 +196,35 @@ $nama_jabatan=$d['singkatan_jabatan'];
         var longitude = long[1].trim();
         $("#latitude").val(latitude);
         $("#longitude").val(longitude);
-        $("#getLokasi").attr('href',"https://www.google.co.id/maps/@"+latitude+","+longitude+",17z");
-    });
+        $("#getLokasi").attr('href',"https://www.google.com/maps/place/"+latitude+","+longitude+"/"+latitude+","+longitude+",17z/data=!3m1!4b1");  
+
+
     
+
+    }
+
+
+
+    $("#map").on('click',function(){
+        ambillokasi();
+
+    var center = $("#link #center").data('link');
+    var anggota = $("#link #anggota").data('link');
+    var pu = $("#link #pu").data('link');
+    var lat = $("#latitude").val();
+    var lng = $("#longitude").val();
+
+
+    $("#center").attr('href',center +"&lat="+lat+"&lng="+lng);
+    $("#anggota").attr('href',anggota +"&lat="+lat+"&lng="+lng);
+    $("#pu").attr('href',pu +"&lat="+lat+"&lng="+lng);
+    });
+
+
+
+
+    
+   
 </script>
 </body>
 </html>

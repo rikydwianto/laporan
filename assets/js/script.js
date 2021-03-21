@@ -65,6 +65,7 @@ function ganti_bayar(id)
  });
 
 
+
 // $(document).on("change","#wilayah",function(){
 // 	var id = $(this).val();
 // 	alert(id)

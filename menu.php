@@ -66,6 +66,9 @@ if(isset($_GET['menu'])){
 			case"rekap_anggota":
 				include("proses/rekap_anggota.php");
 			break;
+			case"lokasi":
+				include("proses/lokasi.php");
+			break;
 			default:include"halaman-index.php";
 			break;
 			
@@ -76,6 +79,10 @@ if(isset($_GET['menu'])){
 		switch($getmenu){
 			case"logout":
 				include("proses/logout.php");
+			break;
+			
+			case"lokasi":
+				include("proses/lokasi.php");
 			break;
 			case"tmb_laporan":
 				include("proses/tmb_laporan.php");
