@@ -87,7 +87,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
                         container: 'map', // container ID
                         style: 'mapbox://styles/mapbox/streets-v11', // style URL
                         center: [ 107.789884 , -6.510135], // starting position [lng, lat]
-                        zoom: 9 // starting zoom
+                        zoom: 16 // starting zoom
                         });
                         map.addControl(
                         new mapboxgl.GeolocateControl({
