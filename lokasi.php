@@ -91,16 +91,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
 				?>
 
 
-                <div class="col-md-8">
-                    <h3 class="page-header">LOKASI</h3>
-
-
-                    <div id='map' style='width: 100%; height: 500px;'></div>
-                    <script type="text/javascript">
-                       
-
-                    </script>
-                </div>
+                
 
                 <div class="col-md-4">
                     <a href="<?=$url."input-lokasi.php"?>" class="btn btn-danger">Tambah Lokasi</a>
@@ -115,6 +106,16 @@ $nama_jabatan=$d['singkatan_jabatan'];
                       <li class="list-group-item "><a data-link="<?=$url.$menu ?>lokasi&pilih=pu" id="pu"  href="<?=$url.$menu ?>lokasi&pilih=pu">PU</a></li>
                       <li class="list-group-item "><a id='getLokasi'>GET DIRECTION</a></li>
                     </ul> -->
+                </div>
+<div class="col-md-8">
+                    <h3 class="page-header">LOKASI</h3>
+
+
+                    <div id='map' style='width: 100%; height: 500px;'></div>
+                    <script type="text/javascript">
+                       
+
+                    </script>
                 </div>
                 <?php
 			}
