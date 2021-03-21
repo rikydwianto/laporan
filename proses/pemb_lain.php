@@ -1,5 +1,21 @@
+<?php 
+if(isset($_GET['tgl']))
+{
+	$tgl = $_GET['tgl'];
+}
+else
+$tgl = date("Y-m-d");	
+
+?>
 <div class="row">
-	<h3 class="page-header">Input Anggota Masuk/Keluar</h3>
+	<h3 class="page-header">Pembiayaan lain</h3>
+	<div class="col-md-5">
+		<form method="get">
+		<input type='hidden' name='menu' class="form-control" value='pemb_lain'></input>
+		PILIH TANGGAL <input type=date name="tgl" onchange="submit()" class=" form-control" value="<?php echo date('Y-m-d') ?>" ></input>
+			
+		</form>
+	</div>
 	<form method="post">
 		<?php 
 		if(isset($_POST['tambah_pemb']))
@@ -48,13 +64,14 @@
 		}
 		?>
 		<div class="col-lg-5">
-		PILIH TANGGAL <input type=date name="tgl" class=" form-control" value="<?php echo date('Y-m-d') ?>" ></input>
+		
 			
 		<br>
 		</div>
 		isi 0 jika tidak ada 
 		<table class="table">
-			<input type='hidden' name='menu' class="form-control" value='anggota'></input>
+			<input type='hidden' name='menu' class="form-control" value='pemb_lain'></input>
+			<input type='hidden' name='tgl' class="form-control" value='<?=$tgl?>'></input>
 			<tr>
 				<th>NO</th>
 				<th>Staff</th>
@@ -68,28 +85,30 @@
 			$qk=mysqli_query($con,"select * from karyawan where id_cabang='$id_cabang' and status_karyawan='aktif' and id_jabatan=(select id_jabatan from jabatan where singkatan_jabatan='SL') order by nama_karyawan asc");
 			while($cek_ka=mysqli_fetch_array($qk))
 			{
+				$cek_pem = mysqli_query($con,"select * from anggota where id_karyawan='$cek_ka[id_karyawan]' and tgl_anggota='$tgl'");
+				$cek_pemp = mysqli_fetch_array($cek_pem);
 				?>
 				<tr>
 					<td><?=$no++?></td>
-					<td><?=$cek_ka['nama_karyawan']?></td>
+					<td><?=$cek_ka['nama_karyawan']?> </td>
 <td>
 						
-						<input  type='number' class="form-control" style="width: 100px" name='pmb[]'  value='0'></input>
+						<input  type='number' class="form-control" style="width: 80px" name='pmb[]'  value='<?=$cek_pemp['pmb']?>'></input>
 					</td>
 					<td>
 						<input type='hidden' name='idk[]' class="form-control" value='<?=$cek_ka['id_karyawan']?>'></input>
-						<input  type='number' class="form-control" style="width: 100px" name='psa[]'  value='0'></input>
+						<input  type='number' class="form-control" style="width: 80px" name='psa[]'  value='<?=$cek_pemp['psa']?>'></input>
 					</td>
 					<td>
-						<input  type='number' class="form-control" style="width: 100px" name='ppd[]'  value='0'></input>
+						<input  type='number' class="form-control" style="width: 80px" name='ppd[]'  value='<?=$cek_pemp['ppd']?>'></input>
 
 					</td>
 					<td>
-						<input  type='number' class="form-control" style="width: 100px" name='prr[]'  value='0'></input>
+						<input  type='number' class="form-control" style="width: 80px" name='prr[]'  value='<?=$cek_pemp['prr']?>'></input>
 
 					</td>
 					<td>
-						<input  type='number' class="form-control" style="width: 100px" name='arta[]'  value='0'></input>
+						<input  type='number' class="form-control" style="width: 80px" name='arta[]'  value='<?=$cek_pemp['arta']?>'></input>
 
 					</td>
 				</tr>

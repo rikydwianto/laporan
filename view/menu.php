@@ -8,7 +8,7 @@ if(isset($_SESSION['id']) && $jabatan=='SL'){
 	<li><a href="<?php echo $url.$menu?>tmb_laporan"   class="w3-bar-item w3-button"><i class="fa fa-plus"></i> Tambah Laporan</a></i>
 	<li><a href="<?php echo $url.$menu?>laporan" class="w3-bar-item w3-button"><i class="fa fa-search"></i> Lihat Laporan</a></li>
 	<li><a href="<?php echo $url.$menu?>center-staff" class="w3-bar-item w3-button"><i class="fa fa-building"></i> Center</a></li>
-	<li><a href="<?php echo $url.$menu?>cashflow_sl" class="w3-bar-item w3-button"><i class="fa fa-file-excel-o"></i> Cashflow AGT</a></li>
+	<li><a href="<?php echo $url.$menu?>cashflow_sl" class="w3-bar-item w3-button"><i class="fa fa-file-excel-o"></i> Cashflow </a></li>
 	<li><a href="<?php echo $url.$menu?>setting" class="w3-bar-item w3-button"><i class="fa fa-gears"></i> Setting</a></li>
 	<li><a href="<?php echo $url.$menu?>logout" class="w3-bar-item w3-button"><i class="fa fa-sign-out"></i> Logout</a></li>
 	  

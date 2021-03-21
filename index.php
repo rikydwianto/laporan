@@ -63,7 +63,6 @@ $nama_jabatan=$d['singkatan_jabatan'];
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">KOMIDA <?=strtoupper($d['nama_cabang'])?></h1>
-
                 </div>
             </div>
 
@@ -83,20 +82,21 @@ $nama_jabatan=$d['singkatan_jabatan'];
 
 </div>
 <!-- jQuery -->
-<script src="<?php echo$url ?>assets/js/jquery.min.js"></script>
+<script src="<?=$url ?>assets/js/jquery.min.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="<?php echo$url ?>assets/js/bootstrap.min.js"></script>
+<script src="<?=$url ?>assets/js/bootstrap.min.js"></script>
 
 <!-- Metis Menu Plugin JavaScript -->
-<script src="<?php echo$url ?>assets/js/metisMenu.min.js"></script>
+<script src="<?=$url ?>assets/js/metisMenu.min.js"></script>
 
 <!-- Custom Theme JavaScript -->
-<script src="<?php echo$url ?>assets/js/startmin.js"></script>
-<script src="<?php echo$url ?>assets/js/popper.min.js"></script>
-<script src="<?php echo$url ?>assets/js/script.js"></script>
+<script src="<?=$url ?>assets/js/startmin.js"></script>
+<script src="<?=$url ?>assets/js/popper.min.js"></script>
+<script src="<?=$url ?>assets/js/morris.min.js"></script>
+<script src="<?=$url ?>assets/js/morris.data.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
-<script>
-</script>
+
+<script src="<?=$url ?>assets/js/script.js"></script>
 </body>
 </html>

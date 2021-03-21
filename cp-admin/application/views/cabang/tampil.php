@@ -26,7 +26,7 @@
 		        			<td><?=$cab['nama_cabang']?></td>
 		        			<td><?=$cab['wilayah']?></td>
 		        			<td>
-		        				<a href='<?=base_url("home/karyawan/".$cab['id_karyawan'])?>' class="btn btn-circle btn-info btn-sm">
+		        				<a href='<?=base_url("home/karyawan/".$cab['id_cabang'])?>' class="btn btn-circle btn-info btn-sm">
 		        					<i class="fa fa-eye"></i>
 		        				</a>
 

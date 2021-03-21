@@ -73,6 +73,68 @@
 
 
 
+ if(isset($_GET['edit']))
+  {
+  	$idcab = $_GET['idcab'];
+  	$kode = $_GET['kode_cabang'];
+  	$nama = $_GET['nama_cabang'];
+  	$wilayah = $_GET['wilayah'];
+  	?>
+  	<div class="col-md-6">
+	  	<form method="post">
+	  		<h3>EDIT Cabang</h3>
+	  		<table class='table'>
+
+	  			<tr>
+	  				<td>Kode Cabang</td>
+	  				<td>
+	  					<input type="hidden" name='idcab' value="<?=$idcab?>" class="form-control"></input>
+	  					<input name='kode_cabang' value="<?=$kode?>" class="form-control"></input>
+	  				</td>
+	  			</tr>		
+	  			<tr>
+	  				<td>Nama Cabang</td>
+	  				<td>
+	  					<input name='nama_cabang' value="<?=$nama?>" class="form-control"></input>
+	  				</td>
+	  			</tr>		
+
+	  			<tr>
+	  				<td>Wilayah</td>
+	  				<td>
+	  					<select name='wilayah' required class="form-control" aria-label="Default select example "id='wilayah'>
+								<option value=''> -- Silahkan Pilih Wilayah --</option>
+								<?php 
+								$jab = mysqli_query($con,"select * from wilayah ");
+								while($wil=mysqli_fetch_assoc($jab)){
+									if($wilayah==$wil['id_wilayah'])
+										echo "<option value='$wil[id_wilayah]' selected><b>$wil[wilayah]</b></option>";
+									else
+										echo "<option value='$wil[id_wilayah]' ><b>$wil[wilayah]</b></option>";
+								}
+								?>
+							  </select>
+
+	  				</td>
+
+	  			</tr>
+
+	  			<tr>
+	  				<td> </td>
+	  				<td>
+	  					<input type='submit' name='edit_cabang' class="btn btn-success" value='SIMPAN CABANG'></input>
+	  				</td>
+	  			</tr>			
+
+	  		</table>
+	  		
+	  	</form>
+  		
+  	</div>
+  	<?php
+  }
+
+
 if(isset($_GET['tambah_wilayah']))
   {
   	?>
@@ -138,6 +200,22 @@ if(isset($_GET['tambah_wilayah']))
 	  		pesan("Cabang Berhasil Ditambahkan");
 	  	}
 	  }
+  //EDIT CABANG
+    if(isset($_POST['edit_cabang']))
+	  {
+	  	$idcab = $_POST['idcab'];
+	  	$kode = $_POST['kode_cabang'];
+	  	$nama = $_POST['nama_cabang'];
+	  	$wilayah = $_POST['wilayah'];
+	  	$qtambah = mysqli_query($con,"
+			UPDATE `cabang` SET `kode_cabang` = '$kode', `nama_cabang` = '$nama', `id_wilayah` = '$wilayah' WHERE `cabang`.`id_cabang` = $idcab; 
+	  		");
+	  	echo "UPDATE `cabang` SET `kode_cabang` = '$kode', `nama_cabang` = '$nama', `id_wilayah` = '$wilayah' WHERE `cabang`.`id_cabang` = $idcab; ";
+	  	if($qtambah){
+	  		pesan("Cabang Berhasil DISIMPAN","success");
+	  		pindah("$url$menu"."cabang");
+	  	}
+	  }
   //TAMBAH Wilayah
     if(isset($_POST['tambah_wilayah']))
 	  {
@@ -199,6 +277,7 @@ if(isset($_GET['tambah_wilayah']))
 
 					<td>
 						<a href="<?=$url.$menu?>cabang&del&idcab=<?=$center['id_cabang']?>" onclick="return window.confirm('Menghapus cabang dapat mempengaruhi SEMUA')"> <i class='fa fa-times'></i> Hapus</a>
+						<a href="<?=$url.$menu?>cabang&edit&idcab=<?=$center['id_cabang']?>&kode_cabang=<?=$center['kode_cabang']?>&nama_cabang=<?=$center['nama_cabang']?>&wilayah=<?=$center['id_wilayah']?>" > <i class='fa fa-edit'></i> EDIT</a>
 
 					</td>
 				</tr>

@@ -64,49 +64,49 @@ $cashflow = mysqli_fetch_array($cashflow);
 				<th>Anggota Masuk</th>
 				<th><?=$masuk=$tampilData['masuk']?></th>
 				<th><?=$cmasuk=$cashflow['masuk']?></th>
-				<th><?=($masuk/$cmasuk)*100?>%</th>
+				<th><?=round(($masuk/$cmasuk)*100)?>%</th>
 			</tr>
 			<tr>
 				<th>Anggota Keluar</th>
 				<th><?=$keluar=$tampilData['keluar']?></th>
 				<th><?=$ckeluar=$cashflow['keluar']?></th>
-				<th><?=($keluar/$ckeluar)*100?>%</th>
+				<th><?=round(($keluar/$ckeluar)*100)?>%</th>
 			</tr>
 			<tr>
 				<th>NETT</th>
 				<th><?=$nett=$tampilData['nett']?></th>
 				<th><?=$cnett=$cashflow['nett']?></th>
-				<th><?=($nett/$cnett)*100?>%</th>
+				<th><?=round(($nett/$cnett)*100)?>%</th>
 			</tr>
 			<tr>
 				<th>Pemb. Mikro Bisnis</th>
 				<th><?=$pmb=$tampilData['pmb']?></th>
 				<th><?=$cpmb=$cashflow['pmb']?></th>
-				<th><?=($pmb/$cpmb)*100?>%</th>
+				<th><?=round(($pmb/$cpmb)*100)?>%</th>
 			</tr>
 			<tr>
 				<th>Pemb. Sanitasi</th>
 				<th><?=$psa=$tampilData['psa']?></th>
 				<th><?=$cpsa=$cashflow['psa']?></th>
-				<th><?=($psa/$cpsa)*100?>%</th>
+				<th><?=round(($psa/$cpsa)*100)?>%</th>
 			</tr>
 			<tr>
 				<th>Pemb. Pendidikan</th>
 				<th><?=$ppd=$tampilData['ppd']?></th>
 				<th><?=$cppd=$cashflow['ppd']?></th>
-				<th><?=($ppd/$cppd)*100?>%</th>
+				<th><?=round(($ppd/$cppd)*100)?>%</th>
 			</tr>
 			<tr>
 				<th>Pemb. Renovasi Rumah</th>
 				<th><?=$prr=$tampilData['prr']?></th>
 				<th><?=$cprr=$cashflow['prr']?></th>
-				<th><?=($prr/$cprr)*100?>%</th>
+				<th><?=round(($prr/$cprr)*100)?>%</th>
 			</tr>
 			<tr>
 				<th>Pemb. ARTA</th>
 				<th><?=$arta=$tampilData['arta']?></th>
 				<th><?=$carta=$cashflow['arta']?></th>
-				<th><?=($arta/$carta)*100?>%</th>
+				<th><?=round(($arta/$carta)*100)?>%</th>
 			</tr>
 		</table>
 	

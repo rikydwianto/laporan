@@ -22,7 +22,7 @@
 				{
 					$edit = mysqli_fetch_array($query_cari);
 					mysqli_query($con,"
-						UPDATE `cashflow` SET `tahun_cashflow` = YEAR(CURDATE()), `cashflow_masuk` = '$masuk[$x]', `cashflow_keluar` = '$keluar[$x]', `net_cashflow` = '$nett', `psa` = '$psa[$x]', `prr` = '$prr[$x]', `arta` = '$arta[$x]', `pmb` = '$pmb[$x]' WHERE `id_cashflow` = $edit[id_cashflow]; 
+						UPDATE `cashflow` SET `tahun_cashflow` = YEAR(CURDATE()), `cashflow_masuk` = '$masuk[$x]', `cashflow_keluar` = '$keluar[$x]', `net_cashflow` = '$nett', `psa` = '$psa[$x]', `ppd` = '$ppd[$x]', `prr` = '$prr[$x]', `arta` = '$arta[$x]', `pmb` = '$pmb[$x]' WHERE `id_cashflow` = $edit[id_cashflow]; 
 						");
 
 				}

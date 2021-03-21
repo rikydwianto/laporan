@@ -11,7 +11,7 @@ $port = ":8080/";
 $url = "http://".$server."/".$index;
 $menu ="index.php?menu=";
  date_default_timezone_set("Asia/Bangkok");
- error_reporting(0);
+ // error_reporting(0);
  $no=1;
  $url = "http://localhost:8080/laporan/";
 ?>	
