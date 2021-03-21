@@ -49,6 +49,21 @@ $nama_jabatan=$d['singkatan_jabatan'];
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style type="text/css">
+#info {
+display: block;
+position: relative;
+margin: 0px auto;
+width: 50%;
+padding: 10px;
+border: none;
+border-radius: 3px;
+font-size: 12px;
+text-align: center;
+color: #222;
+background: #fff;
+}
+</style>
 </head>
 <body>
 
@@ -82,6 +97,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
 
 
                     <div id='map' style='width: 100%; height: 500px;'></div>
+                    <pre id="info"></pre>
                     <script> mapboxgl.accessToken = 'pk.eyJ1IjoicmlreWR3aWFudG8iLCJhIjoiY2ttaXR2M3MwMGtsODJxbXVpaHZraWI0MiJ9.M-fgWx9RsxU5lFoWiDRRNA';
                         var map = new mapboxgl.Map({
                         container: 'map', // container ID
@@ -97,6 +113,15 @@ $nama_jabatan=$d['singkatan_jabatan'];
                         trackUserLocation: true
                         })
                         );
+                        map.on('click', function (e) {
+                        document.getElementById('info').innerHTML =
+                        // e.point is the x, y coordinates of the mousemove event relative
+                        // to the top-left corner of the map
+                        JSON.stringify(e.point) +
+                        '<br />' +
+                        // e.lngLat is the longitude, latitude geographical position of the event
+                        JSON.stringify(e.lngLat.wrap());
+                        });
             </script>
 
                 </div>
