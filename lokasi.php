@@ -101,7 +101,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
                     <script> mapboxgl.accessToken = 'pk.eyJ1IjoicmlreWR3aWFudG8iLCJhIjoiY2ttaXR2M3MwMGtsODJxbXVpaHZraWI0MiJ9.M-fgWx9RsxU5lFoWiDRRNA';
                         var map = new mapboxgl.Map({
                         container: 'map', // container ID
-                        style: 'mapbox://styles/mapbox/satellite-v9', // style URL
+                        style: 'mapbox://styles/mapbox/streets-v11', // style URL
                         center: [ 107.789884 , -6.510135], // starting position [lng, lat]
                         zoom: 16 // starting zoom
                         });
