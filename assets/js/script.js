@@ -125,9 +125,7 @@ function onMapClick(e) {
 map.on('click', function(e) {
      alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng);
     
-L.marker([e.latlng.lat,e.latlng.lng]).addTo(map)
-    .bindPopup('KOMIDA PAGADEN')
-    .openPopup();
+
 
 $("#latitude").val(e.latlng.lat);
     $("#longitude").val(e.latlng.lng);
@@ -136,6 +134,13 @@ $("#latitude").val(e.latlng.lat);
     var pu = $("#link #pu").data('link');
     var lat = $("#latitude").val();
     var lng = $("#longitude").val();
+
+var text = "isi ";
+text =+ "baru";
+L.marker([e.latlng.lat,e.latlng.lng]).addTo(map)
+    .bindPopup('Tambah Lokasi' + text)
+    .openPopup();
+
 
     $("#center").attr('href',center +"&lat="+lat+"&lng="+lng);
     $("#anggota").attr('href',anggota +"&lat="+lat+"&lng="+lng);
