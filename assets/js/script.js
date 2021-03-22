@@ -78,13 +78,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 
-map.on('click',function (e) { 
-    alert( 'singleclick', e ); 
-    L.popup().setLatLng( e.latlng )
-        .setContent( '<p><code>singleclick</code> at ' + e.latlng ) 
-        .openOn(map);
-} );
-
 
 L.marker([-6.449471595334012,107.81619415504505]).addTo(map)
     .bindPopup('KOMIDA PAGADEN')
@@ -130,7 +123,7 @@ function onMapClick(e) {
 
 map.on('click',onMapClick);
 map.on('click', function(e) {
-    // alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng);
+     alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng);
     $("#latitude").val(e.latlng.lat);
     $("#longitude").val(e.latlng.lng);
     var center = $("#link #center").data('link');
