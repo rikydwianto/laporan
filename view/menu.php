@@ -109,6 +109,10 @@ else if(($_SESSION['id']) && $jabatan=='BM' || $jabatan=='ASM' )
 				<a href="<?php echo $url.$menu?>center" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Center</a>
 
 			</li>
+			<li>
+					<a href="<?php echo $url.$menu?>cashflow" class="w3-bar-item w3-button"><i class="fa fa-file-excel-o"></i> Cashflow</a>
+
+				</li>
 		</ul>
 	</li>
 	
@@ -166,6 +170,10 @@ else if(($_SESSION['id']) && $jabatan=='MIS')
 				<a href="<?php echo $url.$menu?>center" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Center</a>
 
 			</li>
+			<li>
+					<a href="<?php echo $url.$menu?>cashflow" class="w3-bar-item w3-button"><i class="fa fa-file-excel-o"></i> Cashflow</a>
+
+				</li>
 		</ul>
 	</li>
 
