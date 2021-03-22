@@ -138,7 +138,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
 <script src="<?=$url ?>assets/js/startmin.js"></script>
 <script src="<?=$url ?>assets/js/leaflet/leaflet.js"></script>
 
-<script src="https://raw.githubusercontent.com/MrMufflon/Leaflet.Coordinates/master/dist/Leaflet.Coordinates-0.1.5.src.js"></script>
+<script src="https://raw.githubusercontent.com/Outdooractive/leaflet-singleclick_0.7/master/singleclick.js"></script>
 <script src="<?=$url ?>assets/js/popper.min.js"></script>
 <script src="<?=$url ?>assets/js/morris.min.js"></script>
 <!-- <script src="<?=$url ?>assets/js/morris.data.js"></script> -->
