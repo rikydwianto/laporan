@@ -94,7 +94,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
                 
 
                 <div class="col-md-4">
-                    <!-- <a href="<?=$url."input-lokasi.php"?>" class="btn btn-danger">Tambah Lokasi</a> -->
+                     <a href="<?=$url."input-lokasi.php"?>" class="btn btn-danger">Tambah Lokasi</a> 
                     <input type="text" name="coba" id="coba" class="form-control">
                     <input type="text" name="lat" id="lat" class="form-control">
                     <input type="text"  id="latitude" name="latitude" class='form-control'>
