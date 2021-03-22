@@ -96,20 +96,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
 
                 
 
-                <div class="col-md-4">
-                    <!-- <a href="<?=$url."input-lokasi.php"?>" class="btn btn-danger">Tambah Lokasi</a> 
-                    <input type="text" name="coba" id="coba" class="form-control">
-                    <input type="text" name="lat" id="lat" class="form-control">
-                    <input type="text"  id="latitude" name="latitude" class='form-control'>
-                    <input type="text" id="longitude" name="longitude" class='form-control'>
-                    <ul class="list-group" id="link">
-                      <li class="list-group-item " >MASUKAN LOKASI</li>
-                      <li class="list-group-item "  ><a id="center" data-link="<?=$url.$menu ?>lokasi&pilih=center" href="<?=$url.$menu ?>lokasi&pilih=center" >CENTER</a></li>
-                      <li class="list-group-item "><a id="anggota" data-link="<?=$url.$menu ?>lokasi&pilih=anggota"  href="<?=$url.$menu ?>lokasi&pilih=anggota">ANGOTA</a></li>
-                      <li class="list-group-item "><a data-link="<?=$url.$menu ?>lokasi&pilih=pu" id="pu"  href="<?=$url.$menu ?>lokasi&pilih=pu">PU</a></li>
-                      <li class="list-group-item "><a id='getLokasi'>GET DIRECTION</a></li>
-                    </ul> -->
-                </div>
+                
 <div class="col-md-8">
                     <h3 class="page-header">LOKASI</h3>
 
@@ -125,7 +112,20 @@ $nama_jabatan=$d['singkatan_jabatan'];
 			?>
         </div>
     </div>
-
+<div class="col-md-4">
+                    <!-- <a href="<?=$url."input-lokasi.php"?>" class="btn btn-danger">Tambah Lokasi</a> -->
+                    <input type="text" name="coba" id="coba" class="form-control">
+                    <input type="text" name="lat" id="lat" class="form-control">
+                    <input type="text"  id="latitude" name="latitude" class='form-control'>
+                    <input type="text" id="longitude" name="longitude" class='form-control'>
+                    <ul class="list-group" id="link">
+                      <li class="list-group-item " >MASUKAN LOKASI</li>
+                      <li class="list-group-item "  ><a id="center" data-link="<?=$url.$menu ?>lokasi&pilih=center" href="<?=$url.$menu ?>lokasi&pilih=center" >CENTER</a></li>
+                      <li class="list-group-item "><a id="anggota" data-link="<?=$url.$menu ?>lokasi&pilih=anggota"  href="<?=$url.$menu ?>lokasi&pilih=anggota">ANGOTA</a></li>
+                      <li class="list-group-item "><a data-link="<?=$url.$menu ?>lokasi&pilih=pu" id="pu"  href="<?=$url.$menu ?>lokasi&pilih=pu">PU</a></li>
+                      <li class="list-group-item "><a id='getLokasi'>GET DIRECTION</a></li>
+                    </ul> 
+                </div>
 
 </div>
 <!-- jQuery -->
