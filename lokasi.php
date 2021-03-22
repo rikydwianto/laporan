@@ -114,10 +114,10 @@ $nama_jabatan=$d['singkatan_jabatan'];
     </div>
 <div class="col-md-4">
                     <!-- <a href="<?=$url."input-lokasi.php"?>" class="btn btn-danger">Tambah Lokasi</a> -->
-                    <input type="text" name="coba" id="coba" class="form-control">
-                    <input type="text" name="lat" id="lat" class="form-control">
-                    <input type="text"  id="latitude" name="latitude" class='form-control'>
-                    <input type="text" id="longitude" name="longitude" class='form-control'>
+                    <input type="hidden" name="coba" id="coba" class="form-control">
+                    <input type="hidden" name="lat" id="lat" class="form-control">
+                    <input type="hidden"  id="latitude" name="latitude" class='form-control'>
+                    <input type="hidden" id="longitude" name="longitude" class='form-control'>
                     <ul class="list-group" id="link">
                       <li class="list-group-item " >MASUKAN LOKASI</li>
                       <li class="list-group-item "  ><a id="center" data-link="<?=$url.$menu ?>lokasi&pilih=center" href="<?=$url.$menu ?>lokasi&pilih=center" >CENTER</a></li>
