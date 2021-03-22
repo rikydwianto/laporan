@@ -70,6 +70,10 @@ function ganti_bayar(id)
 // 	alert(id)
 // });
 
+navigator.geolocation.getCurrentPosition(function(location) {
+  var latlng = new L.LatLng(location.coords.latitude, location.coords.longitude);
+alert(latlng);
+
 
 var map = L.map('map').setView([-6.449471595334012,107.81619415504505], 14);
 
