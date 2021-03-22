@@ -111,7 +111,7 @@ function onMapClick(e) {
     var marker = event.target;
     var position = marker.getLatLng();
 
-    marker.setLatLng(L.LatLng(position.lat, position.lng),{draggable:'true});
+    marker.setLatLng(L.LatLng(position.lat, position.lng),{draggable:'true'});
     map.panTo( L.LatLng(position.lat, position.lng)).bindPopup('coba').openPopup();
   });
   map.addLayer(marker);
