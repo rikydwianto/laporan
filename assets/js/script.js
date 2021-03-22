@@ -129,7 +129,7 @@ function onMapClick(e) {
 };
 
 
-//map.on('click',onMapClick);
+map.on('click',onMapClick);
 map.on('click', function(e) {
     // alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng);
     
