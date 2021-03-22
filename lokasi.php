@@ -31,6 +31,9 @@ $nama_jabatan=$d['singkatan_jabatan'];
 
     <!-- Timeline CSS -->
     <link href="<?=$url ?>assets/css/timeline.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.73.0/dist/L.Control.Locate.min.css" />
+
 
     <!-- Custom CSS -->
     <link href="<?=$url ?>assets/css/startmin.css" rel="stylesheet">
@@ -142,6 +145,8 @@ $nama_jabatan=$d['singkatan_jabatan'];
 <script src="<?=$url ?>assets/js/popper.min.js"></script>
 <script src="<?=$url ?>assets/js/morris.min.js"></script>
 <!-- <script src="<?=$url ?>assets/js/morris.data.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.73.0/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
 <script type="text/javascript">
     var url_link = "<?=$url ?>";
