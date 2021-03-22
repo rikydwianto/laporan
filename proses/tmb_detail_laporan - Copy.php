@@ -53,11 +53,12 @@ $detail = detail_karyawan($con,$cek_laporan['id_karyawan']);
 				<tr>
 					<th>No</th>
 					<th>No. CTR</th>
+					<th>Jam</th>
 					<th>Status</th>
 					<th>Doa</th>
 					<th>Total Anggota</th>
 					<th>Bayar</th>
-					<th>Tidak Bayar</th>
+					<th>Tidak Baya</th>
 
 				</tr>
 					<?php 

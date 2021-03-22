@@ -96,54 +96,43 @@ L.marker([data[i]['latitude'],data[i]['longitude']]).addTo(map)
 		  
 		});
 
+
+var marker1 = L.marker([0, 0]).addTo(map);
+
+        map.on('click', function () {
+          map.removeLayer(marker1);
+        });
+        
 function onMapClick(e) {
-  marker = new L.marker(e.latlng, {draggable:'true'});
+    
+  marker = new L.marker(e.latlng, {draggable:'false'});
 
   marker.on('dragend', function(event){
     var marker = event.target;
     var position = marker.getLatLng();
 
-    marker.setLatLng(new L.LatLng(position.lat, position.lng),{draggable:'true'});
-    map.panTo(new L.LatLng(position.lat, position.lng))
+    marker.setLatLng(L.LatLng(position.lat, position.lng),{draggable:'false'});
+    map.panTo( L.LatLng(position.lat, position.lng))
   });
   map.addLayer(marker);
-  
+
 };
 
-map.on('click', onMapClick);
 
-function ambillokasi(){
-         var isi_lat = $("#lat").val();
-        var lat = isi_lat;
-        var lat1 = lat.split(",");
-        var long = lat1[0].split("LngLat(");
-
-        lat1 = lat1[1].split(")");
-        // $("#latitude").val(lat1[0])
-        var latitude = lat1[0].trim();
-        var longitude = long[1].trim();
-        $("#latitude").val(latitude);
-        $("#longitude").val(longitude);
-        $("#getLokasi").attr('href',"https://www.google.com/maps/place/"+latitude+","+longitude+"/"+latitude+","+longitude+",17z/data=!3m1!4b1");  
-    }
-
-
-map.on('click',function(e){
-	$("#lat").val(e.latlng);
-	
-	ambillokasi();
-	var center = $("#link #center").data('link');
+map.on('click',onMapClick);
+map.on('click', function(e) {
+    // alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng);
+    $("#latitude").val(e.latlng.lat);
+    $("#longitude").val(e.latlng.lng);
+    var center = $("#link #center").data('link');
     var anggota = $("#link #anggota").data('link');
     var pu = $("#link #pu").data('link');
-    alert(pu);	
     var lat = $("#latitude").val();
     var lng = $("#longitude").val();
 
     $("#center").attr('href',center +"&lat="+lat+"&lng="+lng);
     $("#anggota").attr('href',anggota +"&lat="+lat+"&lng="+lng);
     $("#pu").attr('href',pu +"&lat="+lat+"&lng="+lng);
-})
+});
 
 
-  
-// map.on('click', onMapClick);
