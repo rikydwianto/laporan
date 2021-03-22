@@ -74,7 +74,12 @@ function ganti_bayar(id)
 
 
 var map = L.map('map').setView([-6.449471595334012,107.81619415504505], 14);
-L.control.locate().addTo(map);
+//Tambh lokasi sekarang
+map.addControl(L.control.locate({
+       locateOptions: {
+               enableHighAccuracy: true
+}}));
+
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
