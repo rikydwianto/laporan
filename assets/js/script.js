@@ -121,10 +121,15 @@ function onMapClick(e) {
 };
 
 
-map.on('click',onMapClick);
+//map.on('click',onMapClick);
 map.on('click', function(e) {
      alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng);
-    $("#latitude").val(e.latlng.lat);
+    
+L.marker([e.latlng.lat,e.latlng.lng]).addTo(map)
+    .bindPopup('KOMIDA PAGADEN')
+    .openPopup();
+
+$("#latitude").val(e.latlng.lat);
     $("#longitude").val(e.latlng.lng);
     var center = $("#link #center").data('link');
     var anggota = $("#link #anggota").data('link');
