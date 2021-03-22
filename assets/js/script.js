@@ -77,10 +77,7 @@ var map = L.map('map').setView([-6.449471595334012,107.81619415504505], 14);
 //Tambh lokasi sekarang
 map.addControl(L.control.locate({
        locateOptions: {
-               enableHighAccuracy: true},
-strings: {
-        title: " "
-    }
+               enableHighAccuracy: true}
 
 }));
 
@@ -134,7 +131,7 @@ function onMapClick(e) {
 
 //map.on('click',onMapClick);
 map.on('click', function(e) {
-     alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng);
+    // alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng);
     
 
 
@@ -154,7 +151,7 @@ text += "<br><a href='"+ pu +"&lat="+e.latlng.lat+"&lng="+e.latlng.lng+"'>PU</a>
 
 
 L.marker([e.latlng.lat,e.latlng.lng]).addTo(map)
-    .bindPopup('Tambah Lokasi' + text)
+    .bindPopup( text)
     .openPopup();
 
 
