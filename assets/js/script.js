@@ -138,6 +138,9 @@ $("#latitude").val(e.latlng.lat);
 
 var text = "<h3>Tambah Lokasi</h3> ";
 text += "<br><a href='"+ center +"&lat="+e.latlng.lat+"&lng="+e.latlng.lng+"'>Center</a>";
+text += "<br><a href='"+ anggota +"&lat="+e.latlng.lat+"&lng="+e.latlng.lng+"'>ANGGOTA</a>";
+text += "<br><a href='"+ pu +"&lat="+e.latlng.lat+"&lng="+e.latlng.lng+"'>PU</a>";
+
 
 L.marker([e.latlng.lat,e.latlng.lng]).addTo(map)
     .bindPopup('Tambah Lokasi' + text)
