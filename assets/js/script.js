@@ -135,8 +135,10 @@ $("#latitude").val(e.latlng.lat);
     var lat = $("#latitude").val();
     var lng = $("#longitude").val();
 
-var text = "isi ";
-text += "baru";
+
+var text = "<h3>Tambah Lokasi</h3> ";
+text += "<br><a href='"+ center +"&lat="+e.latlng.lat+"&lng="+e.latlng.lng+"'>Center</a>";
+
 L.marker([e.latlng.lat,e.latlng.lng]).addTo(map)
     .bindPopup('Tambah Lokasi' + text)
     .openPopup();
