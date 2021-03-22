@@ -78,8 +78,8 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 
-map.on('singleclick',function (e) { 
-    console.log( 'singleclick', e ); 
+map.on('click',function (e) { 
+    alert( 'singleclick', e ); 
     L.popup().setLatLng( e.latlng )
         .setContent( '<p><code>singleclick</code> at ' + e.latlng ) 
         .openOn(map);
