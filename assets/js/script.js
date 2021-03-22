@@ -77,8 +77,12 @@ var map = L.map('map').setView([-6.449471595334012,107.81619415504505], 14);
 //Tambh lokasi sekarang
 map.addControl(L.control.locate({
        locateOptions: {
-               enableHighAccuracy: true
-}}));
+               enableHighAccuracy: true},
+strings: {
+        title: " "
+    }
+
+}));
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
