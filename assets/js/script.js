@@ -105,14 +105,14 @@ var marker1 = L.marker([0, 0]).addTo(map);
         
 function onMapClick(e) {
     
-  marker = new L.marker(e.latlng, {draggable:'false'});
+  marker = new L.marker(e.latlng, {draggable:'true'});
 
   marker.on('dragend', function(event){
     var marker = event.target;
     var position = marker.getLatLng();
 
-    marker.setLatLng(L.LatLng(position.lat, position.lng),{draggable:'false'});
-    map.panTo( L.LatLng(position.lat, position.lng)).bindPopup(');
+    marker.setLatLng(L.LatLng(position.lat, position.lng),{draggable:'true});
+    map.panTo( L.LatLng(position.lat, position.lng)).bindPopup('coba').openPopup();
   });
   map.addLayer(marker);
 
