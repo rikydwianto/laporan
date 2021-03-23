@@ -133,8 +133,8 @@ $.getJSON( url_link + "api/cabang.php", function( data ) {
             else
             {
                  L.marker([data[i]['latitude'],data[i]['longitude']],{icon: kantor}).addTo(map)
-            .bindPopup("<h4>KANTOR CABANG - " + data[i]['nama_cabang'].toUpperCase() + "</h4>")
-            .openPopup();
+            .bindPopup("<h4>KANTOR CABANG - " + data[i]['nama_cabang'].toUpperCase() + "</h4>");
+            
             }
            
 
