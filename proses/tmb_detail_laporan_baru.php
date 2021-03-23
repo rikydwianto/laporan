@@ -413,7 +413,6 @@ if(isset($_POST['edit_detail']))
 	$tdk = $_POST['tdk'];
 	 $edit = mysqli_query($con,"UPDATE `detail_laporan` SET `no_center` = '$center', `status` = '$status', `total_agt` = '$anggota', `total_bayar` = '$bayar', `total_tidak_bayar` = '$tdk', `status_detail_laporan` = 'draft' WHERE `detail_laporan`.`id_detail_laporan` = $iddet; ");
 	 $edit1 = mysqli_query($con,"UPDATE `center` SET  `anggota_center` = '$anggota', `center_bayar` = '$bayar'  WHERE no_center = '$center' and id_cabang='$id_cabang' and id_karyawan='$id_karyawan'");
-echo "UPDATE `center` SET  `anggota_center` = '$anggota', `center_bayar` = '$bayar',  WHERE no_center = '$center' and id_cabang='$id_cabang' and id_karyawan='$id_karyawan'";
 	 // UPDATE `komida1`.`center` SET `anggota_center` = '14', `center_bayar` = '13' WHERE `center`.`id_center` = 28; 
 	 // pindah("$url$menu"."tmb_laporan&id_laporan=".$id_laporan);
 

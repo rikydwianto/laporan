@@ -11,6 +11,7 @@ $id_cabang= $_SESSION['cabang'];
 $su= $_SESSION['su'];
 $d = detail_karyawan($con,$id_karyawan);
 $nama_jabatan=$d['singkatan_jabatan'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -91,13 +92,37 @@ $nama_jabatan=$d['singkatan_jabatan'];
 				pindah("auth.php");
 			}
 			else {
+
 				?>
 
 
                 
 
-                
-<div class="col-md-8">
+                <div class="col-md-3">
+
+    <div class="col-12 mb-4">
+        Legenda <br>
+        <img class="img" src="<?=$url ?>assets/img/icon/center.png" style='width:50px'> KUMPULAN <br/>
+        <img class="img" src="<?=$url ?>assets/img/icon/anggota.png" style='width:50px'> ANGGOTA <br/>
+        <img class="img" src="<?=$url ?>assets/img/icon/informasi.png" style='width:50px'> INFORMASI LAIN <br/>
+        <img class="img" src="<?=$url ?>assets/img/icon/kantor.png" style='width:50px'> KANTOR CABANG <br/>
+        
+
+    </div>
+                    <!-- <a href="<?=$url."input-lokasi.php"?>" class="btn btn-danger">Tambah Lokasi</a> 
+                    <input type="hidden" name="coba" id="coba" class="form-control">
+                    <input type="hidden" name="lat" id="lat" class="form-control">
+                    <input type="hidden"  id="latitude" name="latitude" class='form-control'>
+                    <input type="hidden" id="longitude" name="longitude" class='form-control'>
+                    <ul class="list-group" id="link">
+                      <li class="list-group-item " >MASUKAN LOKASI</li>
+                      <li class="list-group-item "  ><a id="center" data-link="<?=$url.$menu ?>lokasi&pilih=center" href="<?=$url.$menu ?>lokasi&pilih=center" >CENTER</a></li>
+                      <li class="list-group-item "><a id="anggota" data-link="<?=$url.$menu ?>lokasi&pilih=anggota"  href="<?=$url.$menu ?>lokasi&pilih=anggota">ANGOTA</a></li>
+                      <li class="list-group-item "><a data-link="<?=$url.$menu ?>lokasi&pilih=pu" id="pu"  href="<?=$url.$menu ?>lokasi&pilih=pu">PU</a></li>
+                      <li class="list-group-item "><a id='getLokasi'>GET DIRECTION</a></li>
+                    </ul> -->
+                </div>
+<div class="col-md-9">
                     <h3 class="page-header">LOKASI</h3>
 
 
@@ -112,20 +137,8 @@ $nama_jabatan=$d['singkatan_jabatan'];
 			?>
         </div>
     </div>
-<div class="col-md-4">
-                    <!-- <a href="<?=$url."input-lokasi.php"?>" class="btn btn-danger">Tambah Lokasi</a> -->
-                    <input type="hidden" name="coba" id="coba" class="form-control">
-                    <input type="hidden" name="lat" id="lat" class="form-control">
-                    <input type="hidden"  id="latitude" name="latitude" class='form-control'>
-                    <input type="hidden" id="longitude" name="longitude" class='form-control'>
-                    <ul class="list-group" id="link">
-                      <li class="list-group-item " >MASUKAN LOKASI</li>
-                      <li class="list-group-item "  ><a id="center" data-link="<?=$url.$menu ?>lokasi&pilih=center" href="<?=$url.$menu ?>lokasi&pilih=center" >CENTER</a></li>
-                      <li class="list-group-item "><a id="anggota" data-link="<?=$url.$menu ?>lokasi&pilih=anggota"  href="<?=$url.$menu ?>lokasi&pilih=anggota">ANGOTA</a></li>
-                      <li class="list-group-item "><a data-link="<?=$url.$menu ?>lokasi&pilih=pu" id="pu"  href="<?=$url.$menu ?>lokasi&pilih=pu">PU</a></li>
-                      <li class="list-group-item "><a id='getLokasi'>GET DIRECTION</a></li>
-                    </ul> 
-                </div>
+
+            </div>
 
 </div>
 <!-- jQuery -->
@@ -149,6 +162,17 @@ $nama_jabatan=$d['singkatan_jabatan'];
 
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
 <script type="text/javascript">
+    var latdb = '<?=$d['latitude'];?>';
+    var lngdb = '<?=$d['longitude'];?>';
+    if(latdb == '' || lngdb == ''){
+        latdb = '-6.449471595334012';
+        lngdb = '107.81619415504505';
+    }
+    else
+    {
+        console.log(latdb + " = " +  lngdb);
+    }
+
     var url_link = "<?=$url ?>";
     
 

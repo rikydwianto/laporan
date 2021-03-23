@@ -7,7 +7,7 @@ require_once("../proses/fungsi.php");
 require_once("../model/model.php");
 
  //query tabel produk
- $sql="SELECT * FROM lokasi";
+ $sql="SELECT lokasi.*,karyawan.nama_karyawan FROM lokasi join karyawan on lokasi.id_karyawan=karyawan.id_karyawan";
  $query=mysqli_query($con,$sql);
 
 //data array

@@ -73,7 +73,7 @@ function ganti_bayar(id)
 
 
 
-var map = L.map('map').setView([-6.449471595334012,107.81619415504505], 14);
+var map = L.map('map').setView([latdb,lngdb], 14);
 //Tambh lokasi sekarang
 map.addControl(L.control.locate({
        locateOptions: {
@@ -85,23 +85,88 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
+//setting ICON
+var kantor = L.icon({
+    iconUrl: url_link+'assets/img/icon/kantor.png',
+    iconSize:     [38, 60], // size of the icon
+    shadowSize:   [60, 64], // size of the shadow
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
 
+var center = L.icon({
+    iconUrl: url_link+'assets/img/icon/center.png',
+    iconSize:     [38, 60], // size of the icon
+    shadowSize:   [60, 64], // size of the shadow
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
 
-L.marker([-6.449471595334012,107.81619415504505]).addTo(map)
-    .bindPopup('KOMIDA PAGADEN')
-    .openPopup();
+var anggota = L.icon({
+    iconUrl: url_link+'assets/img/icon/anggota.png',
+    iconSize:     [38, 60], // size of the icon
+    shadowSize:   [60, 64], // size of the shadow
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
+var lainya = L.icon({
+    iconUrl: url_link+'assets/img/icon/informasi.png',
+    iconSize:     [38, 60], // size of the icon
+    shadowSize:   [60, 64], // size of the shadow
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
+var icon='anggota';
+$.getJSON( url_link + "api/cabang.php", function( data ) {
+          var items = [];
+          $.each( data, function( i, field ) {
+            if(data[i]['latitude'] == null)
+            {
+
+            }
+            else
+            {
+                 L.marker([data[i]['latitude'],data[i]['longitude']],{icon: kantor}).addTo(map)
+            .bindPopup("<h4>KANTOR CABANG - " + data[i]['nama_cabang'].toUpperCase() + "</h4>")
+            .openPopup();
+            }
+           
+
+          });
+         
+          
+        });
 
     // ini untuk center aja
     var text ='';
     $.getJSON( url_link + "api/peta.php", function( data ) {
 		  var items = [];
 		  $.each( data, function( i, field ) {
-		  	text = "<h2>"+data[i]['nama_lokasi']+"</h2><br> Kategori "+ data[i]['kategori']+" <br/>Center : " + data[i]['center']+" <br/> Keterangan : " + data[i]['keterangan']+" <br/> Alamat : " + data[i]['alamat']+ "<a href='"+data[i]['link_google']+"'> Direct</a>"; 
-	   	
-L.marker([data[i]['latitude'],data[i]['longitude']]).addTo(map)
-		    .bindPopup(text);
-
+		  	text = "<h2>"+data[i]['nama_lokasi']+"</h2><br> Kategori "+ data[i]['kategori']+" <br/>Center : " + data[i]['center']+" <br/> Keterangan : " + data[i]['keterangan']+" <br/> Alamat : " + data[i]['alamat'];
+            text += "<br/><small>staff : "+data[i]['nama_karyawan']+"</small>"; 
+            text += "<br/><a href='"+data[i]['link_google']+"'> Direct</a>"; 
+	   	   
+           if(data[i]['kategori']=='center'){
+            ikon = center;
+           }
+           else if(data[i]['kategori']=='anggota')
+           {
+            ikon=anggota;
+           }
+           else if(data[i]['kategori']=='pu'){
+            ikon = lainya;
+           }
+            
+            L.marker([data[i]['latitude'],data[i]['longitude']],{icon:ikon}).addTo(map)
+            .bindPopup(text);
 		  });
+          
 		 
 		  
 		});
@@ -145,9 +210,9 @@ $("#latitude").val(e.latlng.lat);
 
 
 var text = "<h3>Tambah Lokasi</h3> ";
-text += "<br><a href='"+ center +"&lat="+e.latlng.lat+"&lng="+e.latlng.lng+"'>Center</a>";
-text += "<br><a href='"+ anggota +"&lat="+e.latlng.lat+"&lng="+e.latlng.lng+"'>ANGGOTA</a>";
-text += "<br><a href='"+ pu +"&lat="+e.latlng.lat+"&lng="+e.latlng.lng+"'>PU</a>";
+text += "<br><a class='btn' href='"+ url_link+"index.php?menu=lokasi&pilih=center" +"&lat="+e.latlng.lat+"&lng="+e.latlng.lng+"'>Center</a>";
+text += "<br><a class='btn' href='"+ url_link+"index.php?menu=lokasi&pilih=anggota" +"&lat="+e.latlng.lat+"&lng="+e.latlng.lng+"'>ANGGOTA</a>";
+text += "<br><a class='btn' href='"+ url_link+"index.php?menu=lokasi&pilih=pu" +"&lat="+e.latlng.lat+"&lng="+e.latlng.lng+"'>INFORMASI LAINYA</a>";
 
 
 L.marker([e.latlng.lat,e.latlng.lng]).addTo(map)
