@@ -160,7 +160,7 @@ $.getJSON( url_link + "api/cabang.php", function( data ) {
           isi += " Hari : "+ data[i]['hari'];
           isi += "<br> Warna  : "+ data[i]['status_center'];
           isi += "<br> Anggota : "+ data[i]['anggota_center']; 
-          isi += "<br> JAM : "+ data[i]['nama_cabang'];
+          isi += "<br> JAM : "+ data[i]['jam_center'];
           isi += "<br> staff : "+ data[i]['nama_karyawan'];
           isi += "<br> Cabang : "+ data[i]['nama_cabang'];
           isi += "<br> <a href='https://www.google.com/maps/place/"+lat1+","+lng1+"/"+lat1+","+lng1+",17z/data=!3m1!4b1'>Direct</a>";
