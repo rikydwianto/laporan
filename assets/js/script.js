@@ -88,38 +88,26 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 //setting ICON
 var kantor = L.icon({
     iconUrl: url_link+'assets/img/icon/kantor.png',
-    iconSize:     [38, 60], // size of the icon
-    shadowSize:   [60, 64], // size of the shadow
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-    shadowAnchor: [4, 62],  // the same for the shadow
-    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    iconSize:     [38, 45] // size of the icon
+     // point from which the popup should open relative to the iconAnchor
 });
 
 var center = L.icon({
     iconUrl: url_link+'assets/img/icon/center.png',
-    iconSize:     [38, 60], // size of the icon
-    shadowSize:   [60, 64], // size of the shadow
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-    shadowAnchor: [4, 62],  // the same for the shadow
-    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    iconSize:     [38, 45] // size of the icon
+     // point from which the popup should open relative to the iconAnchor
 });
 
 var anggota = L.icon({
     iconUrl: url_link+'assets/img/icon/anggota.png',
-    iconSize:     [38, 60], // size of the icon
-    shadowSize:   [60, 64], // size of the shadow
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-    shadowAnchor: [4, 62],  // the same for the shadow
-    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    iconSize:     [38, 45] // size of the icon
+     // point from which the popup should open relative to the iconAnchor
 });
 
 var lainya = L.icon({
     iconUrl: url_link+'assets/img/icon/informasi.png',
-    iconSize:     [38, 60], // size of the icon
-    shadowSize:   [60, 64], // size of the shadow
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-    shadowAnchor: [4, 62],  // the same for the shadow
-    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    iconSize:     [38, 45] // size of the icon
+    // point from which the popup should open relative to the iconAnchor
 });
 
 var icon='anggota';
@@ -187,7 +175,7 @@ function onMapClick(e) {
     var position = marker.getLatLng();
 
     marker.setLatLng(L.LatLng(position.lat, position.lng),{draggable:'true'});
-    map.panTo( L.LatLng(position.lat, position.lng)).bindPopup('coba').openPopup();
+    map.panTo( L.LatLng(position.lat, position.lng)).bindPopup('coba');
   });
   map.addLayer(marker);
 
