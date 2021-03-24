@@ -7,7 +7,13 @@ require_once("../proses/fungsi.php");
 require_once("../model/model.php");
 
  //query tabel produk
- $sql="SELECT lokasi.*,karyawan.nama_karyawan FROM lokasi join karyawan on lokasi.id_karyawan=karyawan.id_karyawan where lokasi.kategori !='center'";
+ $sql="SELECT no_center,hari,jam_center,status_center,anggota_center,karyawan.nama_karyawan,
+ center.latitude,center.longitude,cabang.nama_cabang
+  FROM center 
+  join karyawan on karyawan.id_karyawan=center.id_karyawan 
+  join cabang on cabang.id_cabang = karyawan.id_cabang
+  where center.latitude !='' and center.longitude !='' ";
+ // echo $sql;
  $query=mysqli_query($con,$sql);
 
 //data array

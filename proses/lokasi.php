@@ -13,11 +13,20 @@ if(isset($_POST['simpan_lokasi'])){
 	$kategori = $_POST['kategori'];
 	$nama = $_POST['judul'];
 	$center = $_POST['center'];
+	$idcenter = $_POST['idcenter'];
 	$keterangan = $_POST['keterangan'];
 	$alamat = $_POST['alamat'];
-	mysqli_query($con,"
-INSERT INTO `lokasi` (`id_lokasi`, `nama_lokasi`, `kategori`, `center`, `keterangan`, `alamat`, `latitude`, `longitude`, `link_google`, `id_karyawan`) VALUES (NULL, '$nama', '$kategori', '$center', '$keterangan', '$alamat', '$lat', '$lng', '".link_maps($lat,$lng)."',$id_karyawan);
-		");
+	if($kategori=='center'){
+		//update
+
+		// UPDATE `komida1`.`center` SET `latitude` = 'as' WHERE `center`.`id_center` = 1;
+		mysqli_query($con,"UPDATE `center` SET `latitude` = '$lat',`longitude` = '$lng' WHERE `center`.`id_center` = '$idcenter';");
+	}
+	else{
+		mysqli_query($con,"
+	INSERT INTO `lokasi` (`id_lokasi`, `nama_lokasi`, `kategori`, `center`, `keterangan`, `alamat`, `latitude`, `longitude`, `link_google`, `id_karyawan`) VALUES (NULL, '$nama', '$kategori', '$center', '$keterangan', '$alamat', '$lat', '$lng', '".link_maps($lat,$lng)."',$id_karyawan);
+			");
+	}
 	pindah("$url/lokasi.php");
 }
 ?>
@@ -47,6 +56,28 @@ INSERT INTO `lokasi` (`id_lokasi`, `nama_lokasi`, `kategori`, `center`, `keteran
 				</td>
 
 			</tr>
+			<?php if($kategori=='center') :?>
+			<tr>
+				<td>NO CENTER <br><small>Harus Diisi</small></td>
+				<td>
+					<select name='idcenter' class='form-control'>
+						<?php 
+						$cek = mysqli_query($con,"select * from center where id_cabang='$id_cabang' and id_karyawan='$id_karyawan'");
+
+						while($cent = mysqli_fetch_array($cek))
+						{
+							?>
+				<option value="<?=$cent['id_center']?>" ><?=$cent['no_center']?> --- <?=$cent['hari']?> </option>
+
+							<?php
+						}
+						?>
+					</select>
+					<!-- <input type="text" value="" required="" class="form-control" name='center'> -->
+				</td>
+
+			</tr>
+		<?php else :?>
 			<tr>
 				<td>Judul</td>
 				<td>
@@ -54,13 +85,7 @@ INSERT INTO `lokasi` (`id_lokasi`, `nama_lokasi`, `kategori`, `center`, `keteran
 				</td>
 
 			</tr>
-			<tr>
-				<td>NO CENTER <br><small>Jika ada</small></td>
-				<td>
-					<input type="text" value=""  class="form-control" name='center'>
-				</td>
 
-			</tr>
 			<tr>
 				<td>Keterangan</td>
 				<td>
@@ -75,6 +100,7 @@ INSERT INTO `lokasi` (`id_lokasi`, `nama_lokasi`, `kategori`, `center`, `keteran
 				</td>
 
 			</tr>
+		<?php endif;?>
 			<tr>
 				<td></td>
 				<td>

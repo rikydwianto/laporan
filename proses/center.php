@@ -101,6 +101,7 @@
 				<th>CENTER</th>
 				<th>ANGGOTA</th>
 				<th>HARI</th>
+				<th>JAM</th>
 				<th>DOA</th>
 				<th>STATUS</th>
 				<th>STAFF</th>
@@ -120,6 +121,7 @@
 				<td><?=$center['no_center'];?></td>
 				<td><?=$center['anggota_center'];?></td>
 				<td><?=$center['hari'];?></td>
+				<td><?=$center['jam_center'];?></td>
 				<td><?=$center['doa_center'];?></td>
 				<td><?=$center['status_center'];?></td>
 				<td><?=$data['nama_karyawan'];?></td>

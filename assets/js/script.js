@@ -88,25 +88,41 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 //setting ICON
 var kantor = L.icon({
     iconUrl: url_link+'assets/img/icon/kantor.png',
-    iconSize:     [38, 45] // size of the icon
+    iconSize:     [25, 40] // size of the icon
      // point from which the popup should open relative to the iconAnchor
 });
 
 var center = L.icon({
     iconUrl: url_link+'assets/img/icon/center.png',
-    iconSize:     [38, 45] // size of the icon
+    iconSize:     [25, 40] // size of the icon
      // point from which the popup should open relative to the iconAnchor
 });
 
 var anggota = L.icon({
     iconUrl: url_link+'assets/img/icon/anggota.png',
-    iconSize:     [38, 45] // size of the icon
+    iconSize:     [25, 40] // size of the icon
      // point from which the popup should open relative to the iconAnchor
 });
 
 var lainya = L.icon({
     iconUrl: url_link+'assets/img/icon/informasi.png',
-    iconSize:     [38, 45] // size of the icon
+    iconSize:     [25, 40] // size of the icon
+    // point from which the popup should open relative to the iconAnchor
+});
+
+var hitam = L.icon({
+    iconUrl: url_link+'assets/img/icon/hitam.png',
+    iconSize:     [25, 40] // size of the icon
+    // point from which the popup should open relative to the iconAnchor
+});
+var kuning = L.icon({
+    iconUrl: url_link+'assets/img/icon/kuning.png',
+    iconSize:     [25, 35] // size of the icon
+    // point from which the popup should open relative to the iconAnchor
+});
+var hijau = L.icon({
+    iconUrl: url_link+'assets/img/icon/hijau.png',
+    iconSize:     [25, 40] // size of the icon
     // point from which the popup should open relative to the iconAnchor
 });
 
@@ -132,6 +148,46 @@ $.getJSON( url_link + "api/cabang.php", function( data ) {
         });
 
     // ini untuk center aja
+    var isi='';
+    var ikon_center='hitam';
+    $.getJSON( url_link + "api/center.php", function( data ) {
+      var items = [];
+      $.each( data, function( i, field ) {
+        var lat1 = data[i]['latitude'];
+        var lng1 = data[i]['longitude'];
+        var status = data[i]['status_center'];
+          isi = "<h3> Center : "+data[i]['no_center']+"</h3>";
+          isi += " Hari : "+ data[i]['hari'];
+          isi += "<br> Warna  : "+ data[i]['status_center'];
+          isi += "<br> Anggota : "+ data[i]['anggota_center']; 
+          isi += "<br> JAM : "+ data[i]['nama_cabang'];
+          isi += "<br> staff : "+ data[i]['nama_karyawan'];
+          isi += "<br> Cabang : "+ data[i]['nama_cabang'];
+          isi += "<br> <a href='https://www.google.com/maps/place/"+lat1+","+lng1+"/"+lat1+","+lng1+",17z/data=!3m1!4b1'>Direct</a>";
+            if(status=='hijau'){
+              ikon_center=hijau;
+            }
+            else if(status=='kuning'){
+              ikon_center=kuning;
+            }
+            else if(status=='hitam'){
+              ikon_center=hitam;
+            }
+            else if(status=='merah'){
+              ikon_center=center;
+            }
+            
+            L.marker([data[i]['latitude'],data[i]['longitude']],{icon:ikon_center}).addTo(map)
+            .bindPopup(isi);
+      });
+          
+     
+      
+    });
+
+
+
+    //selain center
     var text ='';
     $.getJSON( url_link + "api/peta.php", function( data ) {
 		  var items = [];
@@ -162,9 +218,7 @@ $.getJSON( url_link + "api/cabang.php", function( data ) {
 
 var marker1 = L.marker([0, 0]).addTo(map);
 
-        map.on('click', function () {
-          map.removeLayer(marker1);
-        });
+        
         
 function onMapClick(e) {
     
@@ -203,7 +257,7 @@ text += "<br><a class='btn' href='"+ url_link+"index.php?menu=lokasi&pilih=anggo
 text += "<br><a class='btn' href='"+ url_link+"index.php?menu=lokasi&pilih=pu" +"&lat="+e.latlng.lat+"&lng="+e.latlng.lng+"'>INFORMASI LAINYA</a>";
 
 
-L.marker([e.latlng.lat,e.latlng.lng]).addTo(map)
+  var titik = L.marker([e.latlng.lat,e.latlng.lng]).addTo(map)
     .bindPopup( text)
     .openPopup();
 

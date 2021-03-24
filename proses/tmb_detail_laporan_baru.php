@@ -145,6 +145,7 @@ $hari = strtolower($hari[0]);
 					<th>Total Anggota</th>
 					<th>Bayar</th>
 					<th>Tidak Bayar</th>
+					<th>JAM</th>
 
 				</tr>
 				<?php 
@@ -211,7 +212,7 @@ $hari = strtolower($hari[0]);
 							<td><input type=number name='total_agt[]' value='<?=$cek_detail_center['anggota_center']?>' id='agt-<?php echo $y ?>' onkeyup="ganti_bayar('<?=$y?>')" class='form-control' style="width:70px" /></td>
 							<td><input type=number name='bayar[]' value='<?=$cek_detail_center['center_bayar']?>' id='bayar-<?php echo $y ?>' onkeyup="ganti_bayar('<?=$y?>')" class='form-control' style="width:70px"></td>
 							<td><input type=number name='tidak_bayar[]' id='tdk-<?php echo $y ?>' value='<?= $cek_detail_center['anggota_center'] - $cek_detail_center['center_bayar']?>'   class='form-control' style="width:70px"></td>
-
+							<td><input type=text class='form-control' name='jam[]' placeholder="12:00" value='<?=$cek_detail_center['jam_center']?>' style="width:70px" /></td>
 						</tr>
 						<?php
 						$y++;
@@ -255,7 +256,7 @@ $hari = strtolower($hari[0]);
 				<td><input type=number name='total_agt[]' id='agt-<?php echo $x ?>' onkeyup="ganti_bayar('<?=$x?>')" class='form-control' style="width:70px" /></td>
 				<td><input type=number name='bayar[]' id='bayar-<?php echo $x ?>' onkeyup="ganti_bayar('<?=$x?>')" class='form-control' style="width:70px"></td>
 				<td><input type=number name='tidak_bayar[]' id='tdk-<?php echo $x ?>' onkeyup="" class='form-control' style="width:70px"></td>
-
+				<td><input type=text class='form-control' name='jam[]' placeholder="12:00" value='' style="width:70px" /></td>
 			</tr>
 			<?php
 			}
@@ -270,7 +271,7 @@ $hari = strtolower($hari[0]);
 				<td><input type="submit" name='simpan_detail' class='btn btn-primary' value="SIMPAN"/></td>
 				<td>
 					
-					<input type="submit" name='konfirmasi_laporan' class='btn btn-success' style="" value="KONFIRMASI"/>
+					<input type="submit" name='konfirmasi_laporan' class='btn btn-success' style="" value="KONFIRMASI" onclick="return window.confirm('Apakah laporan sudah sesuai?? ')" />
 					
 				</td>
 			</tr>
@@ -343,6 +344,7 @@ if(isset($_POST['simpan_detail'])){
 	$total_agt=$_POST['total_agt'];
 	$total_bayar=$_POST['bayar'];
 	$keterangan=$_POST['keterangan'];
+	$jam=$_POST['jam'];
 	$total_tidak_bayar=$_POST['tidak_bayar'];
 	$update1 = mysqli_query($con,"UPDATE laporan SET keterangan_laporan='$keterangan' WHERE id_laporan = '$id_laporan'  ");
 	for ($x = 0; $x <= count($no_center); $x++) {
@@ -360,7 +362,7 @@ if(isset($_POST['simpan_detail'])){
 				$q=mysqli_query($con,"INSERT INTO detail_laporan ( id_laporan, no_center, status, doa, total_agt, total_bayar, total_tidak_bayar, status_detail_laporan) VALUES ( '$id_laporan', '".sprintf("%03d",$no_center[$x])."', '".$status[$x]."', '$doa[$x]', '".$total_agt[$x]."', '".$total_bayar[$x]."', '".$total_tidak_bayar[$x]."', 'draft')");
 				
 			}
-			center($con,$no_center[$x],$doa[$x],$status[$x],$total_agt[$x],$total_bayar[$x],$id_cabang,$cek_laporan['id_karyawan'],$hari,$id_laporan);
+			center($con,$no_center[$x],$doa[$x],$status[$x],$total_agt[$x],$total_bayar[$x],$id_cabang,$cek_laporan['id_karyawan'],$hari,$id_laporan,$jam[$x]);
 		}
 	}
 	echo alert("Berhasil Disimpan");
@@ -376,6 +378,8 @@ if(isset($_POST['konfirmasi_laporan'])){
 	$doa=$_POST['doa'];
 	$total_bayar=$_POST['bayar'];
 	$total_tidak_bayar=$_POST['tidak_bayar'];
+	$jam=$_POST['jam'];
+	var_dump($jam);
 	$update1 = mysqli_query($con,"UPDATE laporan SET status_laporan = 'sukses', keterangan_laporan='$keterangan' WHERE id_laporan = '$id_laporan'  ");
 	$update = mysqli_query($con,"UPDATE detail_laporan SET status_detail_laporan = 'sukses' WHERE id_laporan ='$id_laporan'; ");
 	for ($x = 0; $x <= count($no_center); $x++) {
@@ -393,7 +397,7 @@ if(isset($_POST['konfirmasi_laporan'])){
 				$q=mysqli_query($con,"INSERT INTO detail_laporan ( id_laporan, no_center, status, doa, total_agt, total_bayar, total_tidak_bayar, status_detail_laporan) VALUES ( '$id_laporan', '".sprintf("%03d",$no_center[$x])."', '".$status[$x]."', '$doa[$x]', '".$total_agt[$x]."', '".$total_bayar[$x]."', '".$total_tidak_bayar[$x]."', 'sukses')");
 				
 			}
-			center($con,$no_center[$x],$doa[$x],$status[$x],$total_agt[$x],$total_bayar[$x],$id_cabang,$cek_laporan['id_karyawan'],$hari,$id_laporan);
+			center($con,$no_center[$x],$doa[$x],$status[$x],$total_agt[$x],$total_bayar[$x],$id_cabang,$cek_laporan['id_karyawan'],$hari,$id_laporan,$jam[$x]);
 		}
 	}
 	echo alert("LAPORAN BERHASIL KONFIRMASI, TERIMA KASIH :)");

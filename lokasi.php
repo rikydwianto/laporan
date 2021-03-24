@@ -102,10 +102,13 @@ $nama_jabatan=$d['singkatan_jabatan'];
 
     <div class="col-12 mb-4">
         Legenda <br>
-        <img class="img" src="<?=$url ?>assets/img/icon/center.png" style='width:50px'> KUMPULAN <br/>
-        <img class="img" src="<?=$url ?>assets/img/icon/anggota.png" style='width:50px'> ANGGOTA <br/>
-        <img class="img" src="<?=$url ?>assets/img/icon/informasi.png" style='width:50px'> INFORMASI LAIN <br/>
-        <img class="img" src="<?=$url ?>assets/img/icon/kantor.png" style='width:50px'> KANTOR CABANG <br/>
+        <img class="img" src="<?=$url ?>assets/img/icon/hijau.png" style='width:30px'> Center Hijau <br/>
+        <img class="img" src="<?=$url ?>assets/img/icon/kuning.png" style='width:30px'> Center Kuning <br/>
+        <img class="img" src="<?=$url ?>assets/img/icon/center.png" style='width:30px'> Center Merah<br/>
+        <img class="img" src="<?=$url ?>assets/img/icon/hitam.png" style='width:30px'> Center Hitam <br/>
+        <img class="img" src="<?=$url ?>assets/img/icon/anggota.png" style='width:30px'> ANGGOTA <br/>
+        <img class="img" src="<?=$url ?>assets/img/icon/informasi.png" style='width:30px'> INFORMASI LAIN <br/>
+        <img class="img" src="<?=$url ?>assets/img/icon/kantor.png" style='width:30px'> KANTOR CABANG <br/>
         
 
     </div>

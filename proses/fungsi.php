@@ -129,17 +129,17 @@ $bulan = array(1=>'Januari',
 
    return $bulan[$bulan_angka];
   }
-function center($con,$no_center,$doa,$status,$anggota_center,$bayar,$id_cabang,$id_karyawan,$hari,$idlaporan)
+function center($con,$no_center,$doa,$status,$anggota_center,$bayar,$id_cabang,$id_karyawan,$hari,$idlaporan,$jam)
 {
   $no_center = sprintf("%03d",$no_center);
   $cari = mysqli_query($con,"select * from center where no_center='$no_center' and id_cabang='$id_cabang'");
   if(mysqli_num_rows($cari)){
-    $d = mysqli_query($con,"UPDATE center SET hari='$hari',doa_center='$doa',status_center = '$status', anggota_center = '$anggota_center' , center_bayar = '$bayar' , id_karyawan = '$id_karyawan', id_laporan='$idlaporan'  WHERE no_center = '$no_center' and id_cabang=$id_cabang; ");
+    $d = mysqli_query($con,"UPDATE center SET hari='$hari',doa_center='$doa',status_center = '$status', anggota_center = '$anggota_center' , center_bayar = '$bayar' , id_karyawan = '$id_karyawan', id_laporan='$idlaporan' , jam_center='$jam'  WHERE no_center = '$no_center' and id_cabang=$id_cabang; ");
   // echo "jalankan perintah edit";  
   }
   else{
   // echo "jalankan perintah tambah";  
-    $d = mysqli_query($con,"INSERT INTO center (id_center, no_center, hari, doa_center, status_center, anggota_center, center_bayar, id_cabang, id_karyawan,id_laporan) VALUES (NULL, '$no_center','$hari', '$doa', '$status', '$anggota_center','$bayar', '$id_cabang', '$id_karyawan','$idlaporan')");
+    $d = mysqli_query($con,"INSERT INTO center (id_center, no_center, hari, doa_center, status_center, anggota_center, center_bayar, id_cabang, id_karyawan,id_laporan,jam_center) VALUES (NULL, '$no_center','$hari', '$doa', '$status', '$anggota_center','$bayar', '$id_cabang', '$id_karyawan','$idlaporan','$jam')");
   }
   //INSERT INTO center (id_center, no_center, doa_center, status_center, anggota_center, id_cabang, id_karyawan) VALUES (NULL, '107', 't', 'kuning', '18', '1', '1');
 }

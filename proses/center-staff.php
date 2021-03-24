@@ -25,6 +25,7 @@
 				<th>NO</th>
 				<th>CENTER</th>
 				<th>HARI</th>
+				<th>JAM</th>
 				<th>ANGGOTA</th>
 				<th>BAYAR</th>
 				<th>DOA</th>
@@ -44,6 +45,7 @@
 				<td><?=$no++;?></td>
 				<td><?=$center['no_center'];?></td>
 				<td><?=$center['hari'];?></td>
+				<td><?=$center['jam_center'];?></td>
 				<td><?=$center['anggota_center'];?></td>
 				<td><?=$center['center_bayar'];?></td>
 				<td><?=$center['doa_center'];?></td>
