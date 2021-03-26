@@ -97,8 +97,9 @@ map.addControl(L.control.locate({
                enableHighAccuracy: true},
        
         strings: {
-        popup: "akurasi lokasi {distance} {unit} <br>"  // text to appear if user clicks on circle
-        
+        title: "Show me where I am",  // title of the locate control
+        popup: "You are within {distance} {unit} from this point",  // text to appear if user clicks on circle
+        outsideMapBoundsMsg: "You seem located outside the boundaries of the map" // default message for onLocationOutsideMapBounds
     }
 
 }));
