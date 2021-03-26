@@ -85,17 +85,20 @@ var map = L.map('map').setView([latdb,lngdb], 14);
 
 
 
-map.addControl(L.control.locate({
+var lc = map.addControl(L.control.locate({
        locateOptions: {
                enableHighAccuracy: true}
        
            
 
 }));
-var lc = L.control.locate().addTo(map);
 
-// request location update and set location
-lc.locate();
+map.on('startfollowing', function() {
+    map.on('dragstart', lc.stopFollowing);
+}).on('stopfollowing', function() {
+    map.off('dragstart', lc.stopFollowing);
+});
+
 
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
