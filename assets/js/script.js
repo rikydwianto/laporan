@@ -83,7 +83,7 @@ var map = L.map('map').setView([latdb,lngdb], 14);
 
 
 
-var lc = map.addControl(L.control.locate({
+map.addControl(L.control.locate({
        locateOptions: {
                enableHighAccuracy: true},
         position: 'topleft',  // set the location of the control
@@ -110,12 +110,6 @@ var lc = map.addControl(L.control.locate({
            
 
 }));
-
-map.on('startfollowing', function() {
-    map.on('dragstart', lc.stopFollowing);
-}).on('stopfollowing', function() {
-    map.off('dragstart', lc.stopFollowing);
-});
 
 
 
