@@ -116,13 +116,9 @@ text += "<br><a class='btn' href='"+ url_link+"index.php?menu=lokasi&pilih=pu" +
 
 
     L.marker(e.latlng).addTo(map)
-        .bindPopup('.').openPopup();
+        .bindPopup(text).openPopup();
  map = L.map('map').setView([e.latlng.lat,e.latlng.lng], 14);
    
-L.marker([e.latlng.lat,e.latlng.lng]).addTo(map)
-    .bindPopup( text)
-    .openPopup();
-
  //L.circle(e.latlng, radius).addTo(map);
 }
 
