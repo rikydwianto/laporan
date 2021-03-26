@@ -5,7 +5,7 @@
 // });
 
 
-var map = L.map('map').setView([latdb,lngdb], 14);
+var map = L.map('map').setView([latdb,lngdb], 12);
 
 
 
@@ -158,7 +158,7 @@ $.getJSON( url_link + "api/cabang.php", function( data ) {
     $.getJSON( url_link + "api/peta.php", function( data ) {
 		  var items = [];
 		  $.each( data, function( i, field ) {
-		  	text = "<h2>"+data[i]['nama_lokasi']+"</h2><br> Kategori +" <br/> Keterangan : " + data[i]['keterangan']+" <br/> Alamat : " + data[i]['alamat'];
+		  	text = "<h2>"+data[i]['nama_lokasi']+"</h2> <br/> Keterangan : " + data[i]['keterangan']+" <br/> Alamat : " + data[i]['alamat'];
             text += "<br/><small>staff : "+data[i]['nama_karyawan']+"</small>"; 
             text += "<br/><a href='"+data[i]['link_google']+"'> Direct</a>"; 
 	   	   
