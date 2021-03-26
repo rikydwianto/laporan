@@ -78,6 +78,7 @@ var map = L.map('map').setView([latdb,lngdb], 14);
 map.addControl(L.control.locate({
        locateOptions: {
                enableHighAccuracy: true},
+        setView: true, 
         strings: {
         title: "Show me where I am",  // title of the locate control
         popup: "didieu {distance} {unit} from this point",  // text to appear if user clicks on circle
@@ -100,7 +101,7 @@ function onLocationFound(e) {
     L.circle(e.latlng, radius).addTo(map);
 }
 
-map.on('locationfound', onLocationFound);
+//map.on('locationfound', onLocationFound);
 
 
 //setting ICON
