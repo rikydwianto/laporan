@@ -42,7 +42,6 @@ $hari = strtolower($hari[0]);
 			<td>
 			<?php echo $tampil_status?>
 				
-				<br/><small>*Menghapus laporan ini berarti menghapus data dibawah</small>
 				<br/><small>**Untuk mengedit silahkan input no center tersebut dan ganti dengan data baru</small>
 				<br/><small>***Harap ini 0 jika tidak ada pemasukan</small>
 			</td>
@@ -140,12 +139,12 @@ $hari = strtolower($hari[0]);
 				<tr>
 					<th>No</th>
 					<th>No. CTR</th>
+					<th>JAM</th>
 					<th>Status</th>
 					<th>Doa</th>
 					<th>Total Anggota</th>
 					<th>Bayar</th>
 					<th>Tidak Bayar</th>
-					<th>JAM</th>
 
 				</tr>
 				<?php 
@@ -189,6 +188,7 @@ $hari = strtolower($hari[0]);
 
 							</td>
 							<td><input type=text class='form-control' name='no_center[]' value='<?=$cek_detail_center['no_center']?>' id='hapuscenter<?= $y?>' data-dd="<?= $y?>"  style="width:70px" /></td>
+							<td><input type=text class='form-control' name='jam[]' placeholder="12:00" value='<?=$cek_detail_center['jam_center']?>' style="width:70px" /></td>
 							<td>
 							
 						
@@ -212,7 +212,6 @@ $hari = strtolower($hari[0]);
 							<td><input type=number name='total_agt[]' value='<?=$cek_detail_center['anggota_center']?>' id='agt-<?php echo $y ?>' onkeyup="ganti_bayar('<?=$y?>')" class='form-control' style="width:70px" /></td>
 							<td><input type=number name='bayar[]' value='<?=$cek_detail_center['center_bayar']?>' id='bayar-<?php echo $y ?>' onkeyup="ganti_bayar('<?=$y?>')" class='form-control' style="width:70px"></td>
 							<td><input type=number name='tidak_bayar[]' id='tdk-<?php echo $y ?>' value='<?= $cek_detail_center['anggota_center'] - $cek_detail_center['center_bayar']?>'   class='form-control' style="width:70px"></td>
-							<td><input type=text class='form-control' name='jam[]' placeholder="12:00" value='<?=$cek_detail_center['jam_center']?>' style="width:70px" /></td>
 						</tr>
 						<?php
 						$y++;
@@ -262,7 +261,7 @@ $hari = strtolower($hari[0]);
 			}
 			?> 
 			<tr>
-				<td colspan=4>
+				<td colspan=5>
 					<small>* SIMPAN artinya menyimpan sebagai draft detail center sebelum di KONFIRMASI</small> <br/>
 					<small>** Setelah dikonfirmasi tidak dapat diedit/dihapus</small>
 
