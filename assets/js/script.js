@@ -88,7 +88,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 function onLocationFound(e) {
     var radius = e.accuracy;
-
+var map = L.map('map').setView([e.latlng], 14);
     L.marker(e.latlng).addTo(map)
         .bindPopup("You are within " + radius + " meters from this point").openPopup();
 
