@@ -106,14 +106,14 @@ function onLocationFound(e) {
     var radius = e.accuracy;
 
 
-
+alert(radius);
 
 
 
    
  map = L.map('map').setView([e.latlng.lat,e.latlng.lng], 14);
    
- L.circle(e.latlng, 0).addTo(map);
+ L.circle(e.latlng, radius).addTo(map);
 }
 
 map.on('locationfound', onLocationFound);
