@@ -136,12 +136,15 @@ $.getJSON( url_link + "api/cabang.php", function( data ) {
               ikon_center=center;
             }
             
-            markers = L.marker([data[i]['latitude'],data[i]['longitude']],{icon:ikon_center}).addTo(map).bindPopup(isi);
+             marker = L.marker([data[i]['latitude'],data[i]['longitude']],{icon:ikon_center}).addTo(map).bindPopup(isi);
+			
+			markers.addLayer(marker);
 			
 			
 			
-			map.addLayer(markers);
-      });
+			});
+		
+		map.addLayer(markers);
           
 		  
      
