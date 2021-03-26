@@ -82,7 +82,6 @@ var map = L.map('map').setView([latdb,lngdb], 14);
 //Tambah lokasi
 
 
-var text = "<h3>Tambah Lokasi</h3> ";
 
 
 
@@ -92,7 +91,7 @@ map.addControl(L.control.locate({
        
         strings: {
         title: "Show me where I am",  // title of the locate control
-        popup: text,  // text to appear if user clicks on circle
+        popup: 'aaaa',  // text to appear if user clicks on circle
         outsideMapBoundsMsg: "You seem located outside the boundaries of the map" // default message for onLocationOutsideMapBounds
     }
 
@@ -111,11 +110,10 @@ function onLocationFound(e) {
 
 
 
-   penanda = new L.marker(e.latlng).addTo(map)
-        .bindPopup('').openPopup();
+   
  map = L.map('map').setView([e.latlng.lat,e.latlng.lng], 14);
-   map.removeLayer(penanda);
- //L.circle(e.latlng, radius).addTo(map);
+   
+ L.circle(e.latlng, 0).addTo(map);
 }
 
 map.on('locationfound', onLocationFound);
