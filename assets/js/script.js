@@ -77,7 +77,12 @@ var map = L.map('map').setView([latdb,lngdb], 14);
 //Tambh lokasi sekarang
 map.addControl(L.control.locate({
        locateOptions: {
-               enableHighAccuracy: true}
+               enableHighAccuracy: true},
+        strings: {
+        title: "Show me where I am",  // title of the locate control
+        popup: "didieu {distance} {unit} from this point",  // text to appear if user clicks on circle
+        outsideMapBoundsMsg: "You seem located outside the boundaries of the map" // default message for onLocationOutsideMapBounds
+    }
 
 }));
 
