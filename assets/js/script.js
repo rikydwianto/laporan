@@ -78,13 +78,25 @@ var map = L.map('map').setView([latdb,lngdb], 14);
 
 
 //Tambh lokasi sekarang
+
+//Tambah lokasi
+
+
+var text = "<h3>Tambah Lokasi</h3> ";
+text += "<br><a class='btn' href='"+ url_link+"index.php?menu=lokasi&pilih=center" +"&lat="+e.latlng.lat+"&lng="+e.latlng.lng+"'>Center</a>";
+text += "<br><a class='btn' href='"+ url_link+"index.php?menu=lokasi&pilih=anggota" +"&lat="+e.latlng.lat+"&lng="+e.latlng.lng+"'>ANGGOTA</a>";
+text += "<br><a class='btn' href='"+ url_link+"index.php?menu=lokasi&pilih=pu" +"&lat="+e.latlng.lat+"&lng="+e.latlng.lng+"'>INFORMASI LAINYA</a>";
+
+
+
+
 map.addControl(L.control.locate({
        locateOptions: {
                enableHighAccuracy: true},
        
         strings: {
         title: "Show me where I am",  // title of the locate control
-        popup: "You are within {distance} {unit} from this point",  // text to appear if user clicks on circle
+        popup: text,  // text to appear if user clicks on circle
         outsideMapBoundsMsg: "You seem located outside the boundaries of the map" // default message for onLocationOutsideMapBounds
     }
 
@@ -98,25 +110,13 @@ var penanda;
 function onLocationFound(e) {
     var radius = e.accuracy;
 
-//Tambah lokasi
-var center = $("#link #center").data('link');
-    var anggota = $("#link #anggota").data('link');
-    var pu = $("#link #pu").data('link');
-    var lat = $("#latitude").val();
-    var lng = $("#longitude").val();
-
-
-var text = "<h3>Tambah Lokasi</h3> ";
-text += "<br><a class='btn' href='"+ url_link+"index.php?menu=lokasi&pilih=center" +"&lat="+e.latlng.lat+"&lng="+e.latlng.lng+"'>Center</a>";
-text += "<br><a class='btn' href='"+ url_link+"index.php?menu=lokasi&pilih=anggota" +"&lat="+e.latlng.lat+"&lng="+e.latlng.lng+"'>ANGGOTA</a>";
-text += "<br><a class='btn' href='"+ url_link+"index.php?menu=lokasi&pilih=pu" +"&lat="+e.latlng.lat+"&lng="+e.latlng.lng+"'>INFORMASI LAINYA</a>";
 
 
 
 
 
    penanda = new L.marker(e.latlng).addTo(map)
-        .bindPopup(text).openPopup();
+        .bindPopup('').openPopup();
  map = L.map('map').setView([e.latlng.lat,e.latlng.lng], 14);
    map.removeLayer(penanda);
  //L.circle(e.latlng, radius).addTo(map);
