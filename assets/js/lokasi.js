@@ -106,7 +106,7 @@ $.getJSON( url_link + "api/cabang.php", function( data ) {
     var isi='';
     var ikon_center='hitam';
 	
-	var markers = L.markerClusterGroup();
+	var markers = L.markerClusterGroup({spiderfyOnMaxZoom: false, showCoverageOnHover: false, zoomToBoundsOnClick: false});
 			
 			
     $.getJSON( url_link + "api/center.php", function( data ) {
@@ -158,7 +158,7 @@ $.getJSON( url_link + "api/cabang.php", function( data ) {
     $.getJSON( url_link + "api/peta.php", function( data ) {
 		  var items = [];
 		  $.each( data, function( i, field ) {
-		  	text = "<h2>"+data[i]['nama_lokasi']+"</h2><br> Kategori "+ data[i]['kategori']+" <br/>Center : " + data[i]['center']+" <br/> Keterangan : " + data[i]['keterangan']+" <br/> Alamat : " + data[i]['alamat'];
+		  	text = "<h2>"+data[i]['nama_lokasi']+"</h2><br> Kategori +" <br/> Keterangan : " + data[i]['keterangan']+" <br/> Alamat : " + data[i]['alamat'];
             text += "<br/><small>staff : "+data[i]['nama_karyawan']+"</small>"; 
             text += "<br/><a href='"+data[i]['link_google']+"'> Direct</a>"; 
 	   	   
@@ -173,11 +173,11 @@ $.getJSON( url_link + "api/cabang.php", function( data ) {
             ikon = lainya;
            }
             
-            L.marker([data[i]['latitude'],data[i]['longitude']],{icon:ikon}).addTo(map)
-            .bindPopup(text);
+           var marker1 =  L.marker([data[i]['latitude'],data[i]['longitude']],{icon:ikon}).addTo(map).bindPopup(text);
+		   markers.addLayer(marker1);
 		  });
           
-		 
+		 map.addLayer(markers);
 		  
 		});
 
