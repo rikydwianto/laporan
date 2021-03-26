@@ -1,8 +1,4 @@
 
-// $(document).on("change","#wilayah",function(){
-// 	var id = $(this).val();
-// 	alert(id)
-// });
 
 
 var map = L.map('map').setView([latdb,lngdb], 12);
@@ -106,8 +102,27 @@ $.getJSON( url_link + "api/cabang.php", function( data ) {
     var isi='';
     var ikon_center='hitam';
 	
-	var markers = L.markerClusterGroup({spiderfyOnMaxZoom: false, showCoverageOnHover: false, zoomToBoundsOnClick: false});
+	var markers = L.markerClusterGroup({spiderfyOnMaxZoom: true, showCoverageOnHover: true, zoomToBoundsOnClick: true});
 			
+
+
+//cari
+	var markersLayer = new L.LayerGroup();	//layer contain searched elements
+	
+	map.addLayer(markersLayer);
+
+	var controlSearch = new L.Control.Search({
+		position:'topright',		
+		layer: markersLayer,
+		initial: false,
+		zoom: 12,
+		marker: false
+	});
+
+	map.addControl( controlSearch );
+
+//^^ cari
+
 			
     $.getJSON( url_link + "api/center.php", function( data ) {
       var items = [];
@@ -145,15 +160,14 @@ $.getJSON( url_link + "api/cabang.php", function( data ) {
 			});
 		
 		map.addLayer(markers);
-          
+         markersLayer.addLayer(marker);
 		  
      
       
     });
 
 
-
-    //selain center
+ //selain center
     var text ='';
     $.getJSON( url_link + "api/peta.php", function( data ) {
 		  var items = [];
@@ -180,6 +194,7 @@ $.getJSON( url_link + "api/cabang.php", function( data ) {
 		 map.addLayer(markers);
 		  
 		});
+   
 
 
 

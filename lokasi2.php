@@ -55,8 +55,9 @@ $nama_jabatan=$d['singkatan_jabatan'];
 	
 		<link rel="stylesheet" href="<?=$url ?>assets/js/cluster/MarkerCluster.css" />
 	<link rel="stylesheet" href="<?=$url ?>assets/js/cluster/MarkerCluster.Default.css" />
-	
-    <style type="text/css">
+	<link rel="stylesheet" href="<?=$url ?>assets/js/search/leaflet-search.css" />
+    
+	<style type="text/css">
     #info {
     display: block;
     position: relative;
@@ -168,6 +169,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
 
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
 <script src="<?=$url ?>assets/js/cluster/leaflet.markercluster-src.js"></script>
+<script src="<?=$url ?>assets/js/search/leaflet-search.js"></script>
 <script type="text/javascript">
     var latdb = '<?=$d['latitude'];?>';
     var lngdb = '<?=$d['longitude'];?>';
