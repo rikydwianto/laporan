@@ -285,10 +285,3 @@ text += "<br><a class='btn' href='"+ url_link+"index.php?menu=lokasi&pilih=pu" +
     $("#pu").attr('href',pu +"&lat="+lat+"&lng="+lng);
 });
 
-map.on('locationfound', (e) => {
-    if (!this.marker) {
-        this.marker = leaflet.marker([e.latitude, e.longitude], { icon: anggota }).addTo(this.map);
-    } else {
-        this.marker.setLatLng([e.latitude, e.longitude]);
-    }
-}
