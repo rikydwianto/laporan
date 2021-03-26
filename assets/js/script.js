@@ -97,7 +97,7 @@ map.addControl(L.control.locate({
                enableHighAccuracy: true},
        
         strings: {
-        popup: "akurasi lokasi {distance} {unit} <br>"+text,  // text to appear if user clicks on circle
+        popup: "akurasi lokasi {distance} {unit} <br>"  // text to appear if user clicks on circle
         
     }
 
