@@ -104,7 +104,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 var penanda;
 function onLocationFound(e) {
     var radius = e.accuracy;
-radius=1;
+
 
 
 
