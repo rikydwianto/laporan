@@ -98,22 +98,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 
-function onLocationFound(e) {
-    var radius = e.accuracy;
-
-
-
-
-
-
-   
- map = L.map('map').setView([e.latlng.lat,e.latlng.lng], 14);
-   
- L.circle(e.latlng, radius).addTo(map);
-}
-
-map.on('locationfound', onLocationFound);
-
 
 //setting ICON
 var kantor = L.icon({
