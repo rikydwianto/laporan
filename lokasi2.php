@@ -186,7 +186,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
 			latdb = '-6.449471595334012';
 			lngdb = '107.81619415504505';
         }
-    }
+    
 
    /*  if(latdb == '' || lngdb == ''){
         latdb = '-6.449471595334012';
