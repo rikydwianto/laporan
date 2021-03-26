@@ -171,28 +171,31 @@ $nama_jabatan=$d['singkatan_jabatan'];
 <script src="<?=$url ?>assets/js/cluster/leaflet.markercluster-src.js"></script>
 <script src="<?=$url ?>assets/js/search/leaflet-search.src.js"></script>
 <script type="text/javascript">
-function showPosition() {
-        if(navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var positionInfo = "Your current position is (" + "Latitude: " + position.coords.latitude + ", " + "Longitude: " + position.coords.longitude + ")";
-                console.log(positionInfo);
-            });
-        } else {
-            alert("Sorry, your browser does not support HTML5 geolocation.");
-        }
-    }
-	showPosition();
-
+      
     var latdb = '<?=$d['latitude'];?>';
     var lngdb = '<?=$d['longitude'];?>';
-    if(latdb == '' || lngdb == ''){
+
+	  if(navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var positionInfo = "Your current position is (" + "Latitude: " + position.coords.latitude + ", " + "Longitude: " + position.coords.longitude + ")";
+                latdb = position.coords.latitude;
+                lngdb = position.coords.longitude;
+            });
+        } else {
+            //alert("Sorry, your browser does not support HTML5 geolocation.");
+			latdb = '-6.449471595334012';
+			lngdb = '107.81619415504505';
+        }
+    }
+
+   /*  if(latdb == '' || lngdb == ''){
         latdb = '-6.449471595334012';
         lngdb = '107.81619415504505';
     }
     else
     {
-        console.log(latdb + " = " +  lngdb);
-    }
+        
+    } */
 
     var url_link = "<?=$url ?>";
     
