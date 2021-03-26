@@ -87,7 +87,27 @@ var map = L.map('map').setView([latdb,lngdb], 14);
 
 var lc = map.addControl(L.control.locate({
        locateOptions: {
-               enableHighAccuracy: true}
+               enableHighAccuracy: true},
+        position: 'topleft',  // set the location of the control
+    drawCircle: true,  // controls whether a circle is drawn that shows the uncertainty about the location
+    follow: false,  // follow the user's location
+    setView: true, // automatically sets the map view to the user's location, enabled if `follow` is true
+    stopFollowingOnDrag: false, // stop following when the map is dragged if `follow` is true (deprecated, see below)
+    circleStyle: {},  // change the style of the circle around the user's location
+    markerStyle: {},
+    followCircleStyle: {},  // set difference for the style of the circle around the user's location while following
+    followMarkerStyle: {},
+    circlePadding: [0, 0], // padding around accuracy circle, value is passed to setBounds
+    metric: true,  // use metric or imperial units
+    onLocationError: function(err) {alert(err.message)},  // define an error callback function
+    onLocationOutsideMapBounds:  function(context) { // called when outside map boundaries
+            alert(context.options.strings.outsideMapBoundsMsg);
+    },
+    strings: {
+        title: "disini",  // title of the locate control
+        popup: "disini {distance} {unit} from this point",  // text to appear if user clicks on circle
+        outsideMapBoundsMsg: "You seem located outside the boundaries of the map" // default message for onLocationOutsideMapBounds
+    }
        
            
 
