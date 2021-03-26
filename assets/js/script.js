@@ -71,17 +71,16 @@ function ganti_bayar(id)
 // });
 
 
-
-
 var map = L.map('map').setView([latdb,lngdb], 14);
+
+
 //Tambh lokasi sekarang
 map.addControl(L.control.locate({
        locateOptions: {
                enableHighAccuracy: true},
-        setView: true, 
+       
         strings: {
-        title: "Show me where I am",  // title of the locate control
-        popup: "didieu {distance} {unit} from this point",  // text to appear if user clicks on circle
+        popup: "ini tambah lokasi {distance} {unit} from this point",  // text to appear if user clicks on circle
         outsideMapBoundsMsg: "You seem located outside the boundaries of the map" // default message for onLocationOutsideMapBounds
     }
 
@@ -97,7 +96,7 @@ function onLocationFound(e) {
 
     L.marker(e.latlng).addTo(map)
         .bindPopup("You are within " + radius + " meters from this point").openPopup();
-
+ map = L.map('map').setView([e.latlng.lat,e.latlng.lng], 14);
     L.circle(e.latlng, radius).addTo(map);
 }
 
