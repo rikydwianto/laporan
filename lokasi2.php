@@ -172,30 +172,19 @@ $nama_jabatan=$d['singkatan_jabatan'];
 <script src="<?=$url ?>assets/js/search/leaflet-search.src.js"></script>
 <script type="text/javascript">
       
-    var latdb ;//= '<?=$d['latitude'];?>';
-    var lngdb ;//= '<?=$d['longitude'];?>';
+    var latdb = '<?=$d['latitude'];?>';
+    var lngdb = '<?=$d['longitude'];?>';
 
-	  if(navigator.geolocation) {
-            getlat = navigator.geolocation.getCurrentPosition();
-                latdb = getlat.coords.latitude;
-                lngdb = getlat.coords.longitude;
-        } else {
-            //alert("Sorry, your browser does not support HTML5 geolocation.");
-			latdb = '<?=$d['latitude'];?>';
-			lngdb = '<?=$d['longitude'];?>';
-
-
-        }
     
 
-   /*  if(latdb == '' || lngdb == ''){
+     if(latdb == '' || lngdb == ''){
         latdb = '-6.449471595334012';
         lngdb = '107.81619415504505';
     }
     else
     {
         
-    } */
+    } 
 
     var url_link = "<?=$url ?>";
     
