@@ -103,7 +103,7 @@ $.getJSON( url_link + "api/cabang.php", function( data ) {
 
           });
          
-           markersLayer.addLayer(marker);
+           
         });
 
     // ini untuk center aja
@@ -161,12 +161,12 @@ $.getJSON( url_link + "api/cabang.php", function( data ) {
 			});
 		
 		map.addLayer(markers);
-         markersLayer.addLayer(marker);
+         
 		  
      
       
     });
-
+markersLayer.addLayer(marker); 
 
  //selain center
     var text ='';
