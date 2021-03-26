@@ -87,13 +87,9 @@ var map = L.map('map').setView([latdb,lngdb], 14);
 
 map.addControl(L.control.locate({
        locateOptions: {
-               enableHighAccuracy: true},
+               enableHighAccuracy: true}
        
-        strings: {
-        title: "Show me where I am",  // title of the locate control
-        popup: 'aaaa',  // text to appear if user clicks on circle
-        outsideMapBoundsMsg: "You seem located outside the boundaries of the map" // default message for onLocationOutsideMapBounds
-    }
+           
 
 }));
 
@@ -101,7 +97,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-var penanda;
+
 function onLocationFound(e) {
     var radius = e.accuracy;
 
@@ -250,9 +246,7 @@ $.getJSON( url_link + "api/cabang.php", function( data ) {
 		});
 
 
-var marker1 = L.marker([0, 0]).addTo(map);
 
-        
         
 function onMapClick(e) {
     
