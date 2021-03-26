@@ -74,28 +74,6 @@ function ganti_bayar(id)
 var map = L.map('map').setView([latdb,lngdb], 14);
 
 
-//Tambh lokasi sekarang
-map.addControl(L.control.locate({
-       locateOptions: {
-               enableHighAccuracy: true},
-       
-        strings: {
-        popup: "ini tambah lokasi {distance} {unit} from this point",  // text to appear if user clicks on circle
-        outsideMapBoundsMsg: "You seem located outside the boundaries of the map" // default message for onLocationOutsideMapBounds
-    }
-
-}));
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
-
-
-function onLocationFound(e) {
-    var radius = e.accuracy;
-
-//Tambah lokasi
-
 $("#latitude").val(e.latlng.lat);
     $("#longitude").val(e.latlng.lng);
     var center = $("#link #center").data('link');
@@ -113,9 +91,33 @@ text += "<br><a class='btn' href='"+ url_link+"index.php?menu=lokasi&pilih=pu" +
 
 
 
+//Tambh lokasi sekarang
+map.addControl(L.control.locate({
+       locateOptions: {
+               enableHighAccuracy: true},
+       
+        strings: {
+        popup: "akurasi lokasi {distance} {unit} <br>"+text,  // text to appear if user clicks on circle
+        
+    }
+
+}));
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+
+function onLocationFound(e) {
+    var radius = e.accuracy;
+
+//Tambah lokasi
+
+
+
 
     L.marker(e.latlng).addTo(map)
-        .bindPopup(text).openPopup();
+        .bindPopup('.').openPopup();
  map = L.map('map').setView([e.latlng.lat,e.latlng.lng], 14);
     L.circle(e.latlng, radius).addTo(map);
 }
