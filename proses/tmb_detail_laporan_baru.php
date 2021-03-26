@@ -234,6 +234,7 @@ $hari = strtolower($hari[0]);
 			<tr>
 				<td><?php echo $no++ ?></td>
 				<td><input type=text class='form-control' name='no_center[]' style="width:70px" /></td>
+				<td><input type=text class='form-control' name='jam[]' placeholder="12:00" value='' style="width:70px" /></td>
 				<td>
 				
 					<select name='status[]' class='form-select ' id="inputGroupSelect01"  >
@@ -255,7 +256,6 @@ $hari = strtolower($hari[0]);
 				<td><input type=number name='total_agt[]' id='agt-<?php echo $x ?>' onkeyup="ganti_bayar('<?=$x?>')" class='form-control' style="width:70px" /></td>
 				<td><input type=number name='bayar[]' id='bayar-<?php echo $x ?>' onkeyup="ganti_bayar('<?=$x?>')" class='form-control' style="width:70px"></td>
 				<td><input type=number name='tidak_bayar[]' id='tdk-<?php echo $x ?>' onkeyup="" class='form-control' style="width:70px"></td>
-				<td><input type=text class='form-control' name='jam[]' placeholder="12:00" value='' style="width:70px" /></td>
 			</tr>
 			<?php
 			}
