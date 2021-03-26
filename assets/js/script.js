@@ -74,20 +74,6 @@ function ganti_bayar(id)
 var map = L.map('map').setView([latdb,lngdb], 14);
 
 
-$("#latitude").val(e.latlng.lat);
-    $("#longitude").val(e.latlng.lng);
-    var center = $("#link #center").data('link');
-    var anggota = $("#link #anggota").data('link');
-    var pu = $("#link #pu").data('link');
-    var lat = $("#latitude").val();
-    var lng = $("#longitude").val();
-
-
-var text = "<h3>Tambah Lokasi</h3> ";
-text += "<br><a class='btn' href='"+ url_link+"index.php?menu=lokasi&pilih=center" +"&lat="+e.latlng.lat+"&lng="+e.latlng.lng+"'>Center</a>";
-text += "<br><a class='btn' href='"+ url_link+"index.php?menu=lokasi&pilih=anggota" +"&lat="+e.latlng.lat+"&lng="+e.latlng.lng+"'>ANGGOTA</a>";
-text += "<br><a class='btn' href='"+ url_link+"index.php?menu=lokasi&pilih=pu" +"&lat="+e.latlng.lat+"&lng="+e.latlng.lng+"'>INFORMASI LAINYA</a>";
-
 
 
 
