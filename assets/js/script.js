@@ -99,6 +99,18 @@ function onLocationFound(e) {
     var radius = e.accuracy;
 
 //Tambah lokasi
+var center = $("#link #center").data('link');
+    var anggota = $("#link #anggota").data('link');
+    var pu = $("#link #pu").data('link');
+    var lat = $("#latitude").val();
+    var lng = $("#longitude").val();
+
+
+var text = "<h3>Tambah Lokasi</h3> ";
+text += "<br><a class='btn' href='"+ url_link+"index.php?menu=lokasi&pilih=center" +"&lat="+e.latlng.lat+"&lng="+e.latlng.lng+"'>Center</a>";
+text += "<br><a class='btn' href='"+ url_link+"index.php?menu=lokasi&pilih=anggota" +"&lat="+e.latlng.lat+"&lng="+e.latlng.lng+"'>ANGGOTA</a>";
+text += "<br><a class='btn' href='"+ url_link+"index.php?menu=lokasi&pilih=pu" +"&lat="+e.latlng.lat+"&lng="+e.latlng.lng+"'>INFORMASI LAINYA</a>";
+
 
 
 
@@ -106,10 +118,15 @@ function onLocationFound(e) {
     L.marker(e.latlng).addTo(map)
         .bindPopup('.').openPopup();
  map = L.map('map').setView([e.latlng.lat,e.latlng.lng], 14);
-    L.circle(e.latlng, radius).addTo(map);
+   
+L.marker([e.latlng.lat,e.latlng.lng]).addTo(map)
+    .bindPopup( text)
+    .openPopup();
+
+ //L.circle(e.latlng, radius).addTo(map);
 }
 
-//map.on('locationfound', onLocationFound);
+map.on('locationfound', onLocationFound);
 
 
 //setting ICON
