@@ -172,8 +172,8 @@ $nama_jabatan=$d['singkatan_jabatan'];
 <script src="<?=$url ?>assets/js/search/leaflet-search.src.js"></script>
 <script type="text/javascript">
       
-    var latdb = '<?=$d['latitude'];?>';
-    var lngdb = '<?=$d['longitude'];?>';
+    var latdb //= '<?=$d['latitude'];?>';
+    var lngdb //= '<?=$d['longitude'];?>';
 
 	  if(navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
@@ -183,8 +183,10 @@ $nama_jabatan=$d['singkatan_jabatan'];
             });
         } else {
             //alert("Sorry, your browser does not support HTML5 geolocation.");
-			latdb = '-6.449471595334012';
-			lngdb = '107.81619415504505';
+			latdb = '<?=$d['latitude'];?>';
+			lngdb = '<?=$d['longitude'];?>';
+
+
         }
     
 
