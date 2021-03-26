@@ -172,8 +172,8 @@ $nama_jabatan=$d['singkatan_jabatan'];
 <script src="<?=$url ?>assets/js/search/leaflet-search.src.js"></script>
 <script type="text/javascript">
       
-    var latdb //= '<?=$d['latitude'];?>';
-    var lngdb //= '<?=$d['longitude'];?>';
+    var latdb ;//= '<?=$d['latitude'];?>';
+    var lngdb ;//= '<?=$d['longitude'];?>';
 
 	  if(navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
