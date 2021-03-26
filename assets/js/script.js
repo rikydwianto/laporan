@@ -94,7 +94,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-
+var penanda;
 function onLocationFound(e) {
     var radius = e.accuracy;
 
@@ -115,10 +115,10 @@ text += "<br><a class='btn' href='"+ url_link+"index.php?menu=lokasi&pilih=pu" +
 
 
 
-    L.marker(e.latlng).addTo(map)
+   penanda = new L.marker(e.latlng).addTo(map)
         .bindPopup(text).openPopup();
  map = L.map('map').setView([e.latlng.lat,e.latlng.lng], 14);
-   
+   map.removeLayer(penanda);
  //L.circle(e.latlng, radius).addTo(map);
 }
 
