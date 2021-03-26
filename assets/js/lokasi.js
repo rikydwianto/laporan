@@ -1,7 +1,7 @@
 
 
 
-var map = L.map('map').setView([latdb,lngdb], 12);
+var map = L.map('map').setView([latdb,lngdb], 15);
 
 
 
@@ -76,6 +76,14 @@ var hijau = L.icon({
     // point from which the popup should open relative to the iconAnchor
 });
 
+	
+	var markers = L.markerClusterGroup({spiderfyOnMaxZoom: true, showCoverageOnHover: true, zoomToBoundsOnClick: true});
+			
+
+
+//cari
+	var markersLayer = new L.LayerGroup();	//layer contain searched elements
+	map.addLayer(markersLayer);
 
 var icon='anggota';
 $.getJSON( url_link + "api/cabang.php", function( data ) {
@@ -87,29 +95,22 @@ $.getJSON( url_link + "api/cabang.php", function( data ) {
             }
             else
             {
-                 L.marker([data[i]['latitude'],data[i]['longitude']],{icon: kantor}).addTo(map)
+                var marker = L.marker([data[i]['latitude'],data[i]['longitude']],{icon: kantor}).addTo(map)
             .bindPopup("<h4>KANTOR CABANG - " + data[i]['nama_cabang'].toUpperCase() + "</h4>");
-            
+            markers.addLayer(marker);
             }
            
 
           });
          
-          
+           markersLayer.addLayer(marker);
         });
 
     // ini untuk center aja
     var isi='';
     var ikon_center='hitam';
 	
-	var markers = L.markerClusterGroup({spiderfyOnMaxZoom: true, showCoverageOnHover: true, zoomToBoundsOnClick: true});
-			
-
-
-//cari
-	var markersLayer = new L.LayerGroup();	//layer contain searched elements
 	
-	map.addLayer(markersLayer);
 
 	var controlSearch = new L.Control.Search({
 		position:'topright',		
@@ -187,8 +188,8 @@ $.getJSON( url_link + "api/cabang.php", function( data ) {
             ikon = lainya;
            }
             
-           var marker1 =  L.marker([data[i]['latitude'],data[i]['longitude']],{icon:ikon}).addTo(map).bindPopup(text);
-		   markers.addLayer(marker1);
+           marker =  L.marker([data[i]['latitude'],data[i]['longitude']],{icon:ikon}).addTo(map).bindPopup(text);
+		   markers.addLayer(marker);
 		  });
           
 		 map.addLayer(markers);
