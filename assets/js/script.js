@@ -80,18 +80,6 @@ var map = L.map('map').setView([latdb,lngdb], 14);
 //Tambh lokasi sekarang
 
 //Tambah lokasi
-function onLocationFound(e) {
-    var radius = e.accuracy;
-
-    L.marker(e.latlng).addTo(map)
-        .bindPopup(".").openPopup();
-map = L.map('map').setView([e.latlng.lat,e.latlng.lng], 14);
-
-    L.circle(e.latlng, 2).addTo(map);
-}
-
-map.on('locationfound', onLocationFound);
-
 
 
 
