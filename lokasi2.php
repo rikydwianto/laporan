@@ -176,11 +176,9 @@ $nama_jabatan=$d['singkatan_jabatan'];
     var lngdb ;//= '<?=$d['longitude'];?>';
 
 	  if(navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var positionInfo = "Your current position is (" + "Latitude: " + position.coords.latitude + ", " + "Longitude: " + position.coords.longitude + ")";
-                latdb = position.coords.latitude;
-                lngdb = position.coords.longitude;
-            });
+            getlat = navigator.geolocation.getCurrentPosition();
+                latdb = getlat.coords.latitude;
+                lngdb = getlat.coords.longitude;
         } else {
             //alert("Sorry, your browser does not support HTML5 geolocation.");
 			latdb = '<?=$d['latitude'];?>';
