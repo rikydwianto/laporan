@@ -53,8 +53,8 @@ $nama_jabatan=$d['singkatan_jabatan'];
     <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 	
-		<link rel="stylesheet" href="<?=$url ?>assets/js/cluster/dist/MarkerCluster.css" />
-	<link rel="stylesheet" href="<?=$url ?>assets/js/cluster/dist/MarkerCluster.Default.css" />
+		<link rel="stylesheet" href="<?=$url ?>assets/js/cluster/MarkerCluster.css" />
+	<link rel="stylesheet" href="<?=$url ?>assets/js/cluster/MarkerCluster.Default.css" />
 	
     <style type="text/css">
     #info {
