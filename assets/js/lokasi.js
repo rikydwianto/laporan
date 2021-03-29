@@ -160,13 +160,13 @@ $.getJSON( url_link + "api/cabang.php", function( data ) {
 			
 			});
 		
-		map.addLayer(markers);
+		
          
 		  
      
       
     });
-markersLayer.addLayer(marker); 
+
 
  //selain center
     var text ='';
@@ -189,10 +189,10 @@ markersLayer.addLayer(marker);
            }
             
            marker =  L.marker([data[i]['latitude'],data[i]['longitude']],{icon:ikon}).addTo(map).bindPopup(text);
-		   markers.addLayer(marker);
+		   
 		  });
           
-		 map.addLayer(markers);
+
 		  
 		});
    
@@ -211,11 +211,13 @@ function onMapClick(e) {
     marker.setLatLng(L.LatLng(position.lat, position.lng),{draggable:'true'});
     map.panTo( L.LatLng(position.lat, position.lng)).bindPopup('coba');
   });
-  map.addLayer(marker);
+  
 
 };
 
-
+markersLayer.addLayer(marker); 
+map.addLayer(marker);
+ map.addLayer(markers);
 map.on('click',onMapClick);
 map.on('click', function(e) {
     // alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng);
