@@ -124,7 +124,7 @@ else{
 			<th ><?php echo $hitung_agt ?></th>
 			<th ><?php echo $hitung_bayar ?></th>
 			<th ><?php echo $hitung_tdk_bayar ?></th>
-			<th colspan=8><?php echo round(($hitung_bayar/$hitung_agt)*100) ?>%</th>
+			<th colspan=8><?php echo round(($hitung_bayar/$hitung_agt)*100,2) ?>%</th>
 		</tr>
 	</table>
 	</div>
