@@ -124,6 +124,8 @@ $.getJSON( url_link + "api/cabang.php", function( data ) {
 
 //^^ cari
 
+markersLayer.addLayer(marker); 
+map.addLayer(marker);
 			
     $.getJSON( url_link + "api/center.php", function( data ) {
       var items = [];
@@ -215,8 +217,7 @@ function onMapClick(e) {
 
 };
 
-markersLayer.addLayer(marker); 
-map.addLayer(marker);
+
  map.addLayer(markers);
 map.on('click',onMapClick);
 map.on('click', function(e) {
