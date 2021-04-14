@@ -225,7 +225,7 @@ if(!$_SESSION['jabatan']){
 						<td><?php echo $tampil_lapor['anggota'] ?></td>
 						<td><?php echo $tampil_lapor['bayar'] ?></td>
 						<td><?php echo $tampil_lapor['tidak_bayar'] ?></td>
-						<td><?php echo round(($tampil_lapor['bayar']/$tampil_lapor['anggota'] *100  ))?>%</td>
+						<td><?php echo round(($tampil_lapor['bayar']/$tampil_lapor['anggota'] *100  ),2)?>%</td>
 
 						<td><?php echo $tampil_lapor['keterangan_laporan'] ?></td>
 						<td><small><i><?php echo $tampil_lapor['status_laporan'] ?></i></small></td>
