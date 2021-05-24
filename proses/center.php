@@ -8,6 +8,9 @@
   <a href='<?=$url.$menu?>center&ganti_staff' class="btn btn-success" >
     <i class="fa fa-plus"></i> Ganti Staff
   </a>
+  <a href="<?=$url?>/export/center.php" class='btn btn-success'>
+			<i class="fa fa-file-excel-o"></i> Export To Excel
+		</a>
 <br>
   <?php 
   if(isset($_GET['del']))
@@ -105,6 +108,7 @@
 				<th>DOA</th>
 				<th>STATUS</th>
 				<th>STAFF</th>
+				<th>Lat,Lng</th>
 
 				<th>#</th>
 			</tr>
@@ -125,10 +129,16 @@
 				<td><?=$center['doa_center'];?></td>
 				<td><?=$center['status_center'];?></td>
 				<td><?=$data['nama_karyawan'];?></td>
+				<td>
+				<?php if($center['latitude']!= null || $center['longitude'] !=NULL) : ?>
+					<a href="<?=link_maps($center['latitude'],$center['longitude'])?>">Arahkan</a>
+					<?php endif; ?>
+				</td>
 
 				<td>
+				
 					<a href="<?=$url.$menu?>center&del&iddet=<?=$center['id_center']?>" onclick="return window.confirm('Apakah yakin menghapus center ini')"> <i class='fa fa-times'></i> Hapus</a>
-
+				
 				</td>
 			</tr>
 			<?php
