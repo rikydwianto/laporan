@@ -30,6 +30,7 @@
 				<th>BAYAR</th>
 				<th>DOA</th>
 				<th>STATUS</th>
+				<th>MAPS</th>
 
 				<th>#</th>
 			</tr>
@@ -50,6 +51,11 @@
 				<td><?=$center['center_bayar'];?></td>
 				<td><?=$center['doa_center'];?></td>
 				<td><?=$center['status_center'];?></td>
+				<td>
+				<?php if($center['latitude']!= null || $center['longitude'] !=NULL) : ?>
+					<a href="<?=link_maps($center['latitude'],$center['longitude'])?>">Arahkan</a>
+					<?php endif; ?>
+				</td>
 
 				<td>
 					<a href="<?=$url.$menu?>center-staff&del&iddet=<?=$center['id_center']?>" onclick="return window.confirm('Apakah yakin menghapus center ini')"> <i class='fa fa-times'></i> Hapus</a>
