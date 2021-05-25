@@ -14,7 +14,7 @@ else{
 <div class="col-md-12" style=";">
 	<div class="panel-body post-body table-responsive " >
 		<h3 class="page-header">
-			REKAP LAPORAN HARIAN
+			REKAP LAPORAN MINGGUAN
 		</h3>
 		<form method='get' action='<?php echo $url.$menu ?>rekap_laporan'>
 		<input type="hidden" name='menu' value='rekap_laporan_minggu'/>
@@ -35,6 +35,7 @@ else{
 			<th >NAMA</th>
 			<td >CTR</td>
 			<td >AGT</td>
+			<td >CLIENT</td>
 			<td >Bayar</td>
 			<td >Tdk Bayar</td>
 			<td >Persen</td>
@@ -48,10 +49,11 @@ else{
 		$hitung_center= 0; 
 		while($tampil=mysqli_fetch_array($cek_ka)){
 			$cek_l1 = mysqli_query($con,"select * from laporan where id_karyawan='$tampil[id_karyawan]' and tgl_laporan='$qtgl'");
-			$cek_l=mysqli_query($con,"SELECT sum(detail_laporan.total_agt)as anggota, sum(detail_laporan.total_bayar)as bayar,sum(detail_laporan.total_tidak_bayar)as tidak_bayar,count(no_center) as hitung_center, laporan.* FROM laporan,detail_laporan where laporan.id_laporan=detail_laporan.id_laporan and laporan.id_karyawan='$tampil[id_karyawan]'  and laporan.tgl_laporan >= '$tglawal' and laporan.tgl_laporan <= '$tglakhir'");
+			$cek_l=mysqli_query($con,"SELECT sum(detail_laporan.total_agt)as anggota,sum(detail_laporan.member)as member, sum(detail_laporan.total_bayar)as bayar,sum(detail_laporan.total_tidak_bayar)as tidak_bayar,count(no_center) as hitung_center, laporan.* FROM laporan,detail_laporan where laporan.id_laporan=detail_laporan.id_laporan and laporan.id_karyawan='$tampil[id_karyawan]'  and laporan.tgl_laporan >= '$tglawal' and laporan.tgl_laporan <= '$tglakhir'");
 			if(mysqli_num_rows($cek_l)){
 				$tampil_lapor=mysqli_fetch_array($cek_l);
 				if($tampil_lapor['bayar']!=NULL){
+					$hitung_member = $hitung_member + $tampil_lapor['member']; 
 					$hitung_agt = $hitung_agt + $tampil_lapor['anggota']; 
 					$hitung_bayar = $hitung_bayar + $tampil_lapor['bayar']; 
 					$hitung_tdk_bayar= $hitung_tdk_bayar+ $tampil_lapor['tidak_bayar']; 
@@ -62,6 +64,7 @@ else{
 
 					<td><?php echo $tampil['nama_karyawan'] ?></td>
 					<td><?php echo $tampil_lapor['hitung_center'] ?></td>
+					<td><?php echo $tampil_lapor['member'] ?></td>
 					<td><?php echo $tampil_lapor['anggota'] ?></td>
 					<td><?php echo $tampil_lapor['bayar'] ?></td>
 					<td><?php echo $tampil_lapor['tidak_bayar'] ?></td>
@@ -83,6 +86,7 @@ else{
 								<td>0</td>
 								<td>0</td>
 								<td>0</td>
+								<td>0</td>
 								<td>0%</td>
 
 								<td><?php echo $tampil_lapor1['keterangan_laporan'] ?></td>
@@ -98,7 +102,7 @@ else{
 							<td><?php echo $no++ ?>.</td>
 
 							<td><?php echo $tampil['nama_karyawan'] ?></td>
-							<td colspan=8><i>belum membuat laporan</td>
+							<td colspan=9><i>belum membuat laporan</td>
 							
 						</tr>
 						<?php
@@ -108,7 +112,7 @@ else{
 			else {
 			?>
 				<tr>
-					<td colspan=5>Belum bikin laporan </td>
+					<td colspan=6>Belum bikin laporan </td>
 				</tr>
 			<?php
 			}
@@ -121,6 +125,7 @@ else{
 		<tr>
 			<th colspan=2 class='text-center'>Total</th>
 			<th ><?php echo $hitung_center ?></th>
+			<th ><?php echo $hitung_member ?></th>
 			<th ><?php echo $hitung_agt ?></th>
 			<th ><?php echo $hitung_bayar ?></th>
 			<th ><?php echo $hitung_tdk_bayar ?></th>

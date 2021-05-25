@@ -43,6 +43,7 @@ if(!$_SESSION['jabatan']){
 			<h3 class='page-header'>STATUS CENTER<hr/></h3>
 			<div class="card divider" style=";">
 			  <ul class="list-group list-group-flush">
+				<li class="list-group-item"><b>MEMBER :  <span style='background: blue' class="badge rounded-pill bg-primary"><?=$hitung->hitung_client($con,$id_cabang);?> </span></b> </li>
 				<li class="list-group-item"><b>Total Center Doa :  <span style='background: blue' class="badge rounded-pill bg-primary"><?=$status['doa']?> </span></b> </li>
 				<li class="list-group-item"><b>Total Center Tidak Doa :  <span style='background: black' class="badge rounded-pill bg-danger"><?=$status['tidak_doa']?> </span></b> </li>
 				<li class="list-group-item"><b>Total Center Hijau :  <span style='background: green' class="badge rounded-pill bg-success"><?=$status['tidak_doa']?> </span></b> </li>
@@ -84,6 +85,7 @@ if(!$_SESSION['jabatan']){
 				<th>Status</th>
 				<th>Doa</th>
 				<th>Anggota</th>
+				<th>Client</th>
 				<th>Bayar</th>
 				<th>Tidak Bayar</th>
 
@@ -117,6 +119,7 @@ if(!$_SESSION['jabatan']){
 				}
 				else{
 					$no1=1;
+					$hitung_member=0;
 					$hitung_agt=0;
 					$hitung_bayar=0;
 					$hitung_tdk_bayar=0;
@@ -126,6 +129,7 @@ if(!$_SESSION['jabatan']){
 							<td><?php echo $no1++.". ". $ambil['no_center']?> (<?php echo round((($ambil['total_bayar']/$ambil['total_agt'])*100),2)?>%)</td>
 							<td><?php echo $ambil['status']?></td>
 							<td><?php echo ($ambil['doa']=="t" ? "T" : "Y")?></td>
+							<td><?php echo $ambil['member']?></td>
 							<td><?php echo $ambil['total_agt']?></td>
 							<td><?php echo $ambil['total_bayar']?></td>
 							<td><?php echo $ambil['total_tidak_bayar']?>
@@ -134,6 +138,7 @@ if(!$_SESSION['jabatan']){
 						</tr>
 						
 						<?php
+						$hitung_member = $hitung_member + $ambil['member'];
 						$hitung_agt = $hitung_agt + $ambil['total_agt'];
 						$hitung_bayar = $hitung_bayar + $ambil['total_bayar'];
 						$hitung_tdk_bayar = $hitung_tdk_bayar + $ambil['total_tidak_bayar'];
@@ -143,6 +148,7 @@ if(!$_SESSION['jabatan']){
 			?>
 			<tr>
 				<th colspan=3>Total</th>
+				<th colspan=1><?php echo $hitung_member ?></th>
 				<th colspan=1><?php echo $hitung_agt ?></th>
 				<th ><?php echo $hitung_bayar ?></th>
 				<th>
@@ -184,12 +190,13 @@ if(!$_SESSION['jabatan']){
 			<tr>					
 				<th rowspan=2>NO</th>
 				<th rowspan=2>NAMA</th>
-				<th colspan=7 style="text-align:center">LAPORAN</th>
+				<th colspan=8 style="text-align:center">LAPORAN</th>
 			</tr>
 			<tr>					
 
 				<td >CTR</td>
 				<td >AGT</td>
+				<td >Client</td>
 				<td >Bayar</td>
 				<td >Tdk Bayar</td>
 				<td >%</td>
@@ -206,12 +213,13 @@ if(!$_SESSION['jabatan']){
 			while($tampil=mysqli_fetch_array($cek_ka)){
 				$cek_l1 = mysqli_query($con,"select * from laporan where id_karyawan='$tampil[id_karyawan]' and tgl_laporan=curdate()");
 
-				$cek_l=mysqli_query($con,"SELECT sum(detail_laporan.total_agt)as anggota, sum(detail_laporan.total_bayar)as bayar,sum(detail_laporan.total_tidak_bayar)as tidak_bayar,count(no_center) as hitung_center, laporan.* FROM laporan,detail_laporan where laporan.id_laporan=detail_laporan.id_laporan and laporan.tgl_laporan=curdate() and laporan.id_karyawan='$tampil[id_karyawan]'");
+				$cek_l=mysqli_query($con,"SELECT sum(detail_laporan.total_agt)as anggota, sum(detail_laporan.member)as member, sum(detail_laporan.total_bayar)as bayar,sum(detail_laporan.total_tidak_bayar)as tidak_bayar,count(no_center) as hitung_center, laporan.* FROM laporan,detail_laporan where laporan.id_laporan=detail_laporan.id_laporan and laporan.tgl_laporan=curdate() and laporan.id_karyawan='$tampil[id_karyawan]'");
 
 				// echo "SELECT sum(detail_laporan.total_agt)as anggota, sum(detail_laporan.total_bayar)as bayar,sum(detail_laporan.total_tidak_bayar)as tidak_bayar,count(no_center) as hitung_center, laporan.* FROM laporan,detail_laporan where laporan.id_laporan=detail_laporan.id_laporan and laporan.tgl_laporan=curdate() and laporan.id_karyawan='$tampil[id_karyawan]'";
 				if(mysqli_num_rows($cek_l) ){
 					$tampil_lapor=mysqli_fetch_array($cek_l);
 					if($tampil_lapor['anggota']!=NULL){
+						$hitung_member = $hitung_member + $tampil_lapor['member']; 
 						$hitung_agt = $hitung_agt + $tampil_lapor['anggota']; 
 						$hitung_bayar = $hitung_bayar + $tampil_lapor['bayar']; 
 						$hitung_tdk_bayar= $hitung_tdk_bayar + $tampil_lapor['tidak_bayar']; 
@@ -222,6 +230,7 @@ if(!$_SESSION['jabatan']){
 
 						<td><?php echo $tampil['nama_karyawan'] ?></td>
 						<td><?php echo $tampil_lapor['hitung_center'] ?></td>
+						<td><?php echo $tampil_lapor['member'] ?></td>
 						<td><?php echo $tampil_lapor['anggota'] ?></td>
 						<td><?php echo $tampil_lapor['bayar'] ?></td>
 						<td><?php echo $tampil_lapor['tidak_bayar'] ?></td>
@@ -247,6 +256,7 @@ if(!$_SESSION['jabatan']){
 								<td>0</td>
 								<td>0</td>
 								<td>0</td>
+								<td>0</td>
 								<td>0%</td>
 
 								<td><?php echo $tampil_lapor1['keterangan_laporan'] ?></td>
@@ -262,7 +272,7 @@ if(!$_SESSION['jabatan']){
 							<td><?php echo $no++ ?>.</td>
 
 							<td><?php echo $tampil['nama_karyawan'] ?></td>
-							<td colspan=8><i>belum membuat laporan</td>
+							<td colspan=9><i>belum membuat laporan</td>
 							
 						</tr>
 						<?php
@@ -286,6 +296,7 @@ if(!$_SESSION['jabatan']){
 			<tr>
 				<th colspan=2>Total</th>
 				<th ><?php echo $hitung_center ?></th>
+				<th ><?php echo $hitung_member ?></th>
 				<th ><?php echo $hitung_agt ?></th>
 				<th ><?php echo $hitung_bayar ?></th>
 				<th ><?php echo $hitung_tdk_bayar ?></th>

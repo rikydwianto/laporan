@@ -63,7 +63,8 @@ $hari = strtolower($hari[0]);
 					<th>No. CTR</th>
 					<th>Status</th>
 					<th>Doa</th>
-					<th>Total Anggota</th>
+					<th>Anggota</th>
+					<th>Member</th>
 					<th>Bayar</th>
 					<th>Tidak Bayar</th>
 
@@ -88,6 +89,7 @@ $hari = strtolower($hari[0]);
 								<td><?php echo $ctr =  $det1['no_center']?></td>
 								<td><?php echo $det1['status']?></td>
 								<td><?php echo ($det1['doa']=="t" ? "T" : "Y") ?></td>
+								<td><?php echo $det1['member']?></td>
 								<td><?php echo $det1['total_agt']?></td>
 								<td><?php echo $det1['total_bayar']?></td>
 								<td>
@@ -142,7 +144,8 @@ $hari = strtolower($hari[0]);
 					<th>JAM</th>
 					<th>Status</th>
 					<th>Doa</th>
-					<th>Total Anggota</th>
+					<th>Anggota</th>
+					<th>CLIENT</th>
 					<th>Bayar</th>
 					<th>Tidak Bayar</th>
 
@@ -209,9 +212,10 @@ $hari = strtolower($hari[0]);
 								</select>
 								</div>
 							</td>
-							<td><input type=number name='total_agt[]' value='<?=$cek_detail_center['anggota_center']?>' id='agt-<?php echo $y ?>' onkeyup="ganti_bayar('<?=$y?>')" class='form-control' style="width:70px" /></td>
-							<td><input type=number name='bayar[]' value='<?=$cek_detail_center['center_bayar']?>' id='bayar-<?php echo $y ?>' onkeyup="ganti_bayar('<?=$y?>')" class='form-control' style="width:70px"></td>
-							<td><input type=number name='tidak_bayar[]' id='tdk-<?php echo $y ?>' value='<?= $cek_detail_center['anggota_center'] - $cek_detail_center['center_bayar']?>'   class='form-control' style="width:70px"></td>
+							<td><input type=number name='member[]' value='<?=$cek_detail_center['member_center']?>' class='form-control' style="width:60px" /></td>
+							<td><input type=number name='total_agt[]' value='<?=$cek_detail_center['anggota_center']?>' id='agt-<?php echo $y ?>' onkeyup="ganti_bayar('<?=$y?>')" class='form-control' style="width:60px" /></td>
+							<td><input type=number name='bayar[]' value='<?=$cek_detail_center['center_bayar']?>' id='bayar-<?php echo $y ?>' onkeyup="ganti_bayar('<?=$y?>')" class='form-control' style="width:60px"></td>
+							<td><input type=number name='tidak_bayar[]' id='tdk-<?php echo $y ?>' value='<?= $cek_detail_center['anggota_center'] - $cek_detail_center['center_bayar']?>'   class='form-control' style="width:60px"></td>
 						</tr>
 						<?php
 						$y++;
@@ -253,9 +257,10 @@ $hari = strtolower($hari[0]);
 					</select>
 					</div>
 				</td>
-				<td><input type=number name='total_agt[]' id='agt-<?php echo $x ?>' onkeyup="ganti_bayar('<?=$x?>')" class='form-control' style="width:70px" /></td>
-				<td><input type=number name='bayar[]' id='bayar-<?php echo $x ?>' onkeyup="ganti_bayar('<?=$x?>')" class='form-control' style="width:70px"></td>
-				<td><input type=number name='tidak_bayar[]' id='tdk-<?php echo $x ?>' onkeyup="" class='form-control' style="width:70px"></td>
+				<td><input type=number name='member[]' class='form-control' style="width:60px" /></td>
+				<td><input type=number name='total_agt[]' id='agt-<?php echo $x ?>' onkeyup="ganti_bayar('<?=$x?>')" class='form-control' style="width:60px" /></td>
+				<td><input type=number name='bayar[]' id='bayar-<?php echo $x ?>' onkeyup="ganti_bayar('<?=$x?>')" class='form-control' style="width:60px"></td>
+				<td><input type=number name='tidak_bayar[]' id='tdk-<?php echo $x ?>' onkeyup="" class='form-control' style="width:60px"></td>
 			</tr>
 			<?php
 			}
@@ -340,6 +345,7 @@ if(isset($_POST['simpan_detail'])){
 	$no_center=$_POST['no_center'];
 	$status=$_POST['status'];
 	$doa=$_POST['doa'];
+	$member=$_POST['member'];
 	$total_agt=$_POST['total_agt'];
 	$total_bayar=$_POST['bayar'];
 	$keterangan=$_POST['keterangan'];
@@ -354,14 +360,14 @@ if(isset($_POST['simpan_detail'])){
 			if(mysqli_num_rows($cek_center))
 			{
 				$cek_center1 = mysqli_fetch_array($cek_center);
-				mysqli_query($con,"UPDATE `detail_laporan` SET `status` = '$status[$x]', `doa` = '$doa[$x]', `total_agt` = '$total_agt[$x]', `total_bayar` = '$total_bayar[$x]', `total_tidak_bayar` = '$total_tidak_bayar[$x]' WHERE `detail_laporan`.`id_detail_laporan` = '$cek_center1[id_detail_laporan]';");
+				mysqli_query($con,"UPDATE `detail_laporan` SET `status` = '$status[$x]', `doa` = '$doa[$x]', `total_agt` = '$total_agt[$x]', `member` = '$member[$x]', `total_bayar` = '$total_bayar[$x]', `total_tidak_bayar` = '$total_tidak_bayar[$x]' WHERE `detail_laporan`.`id_detail_laporan` = '$cek_center1[id_detail_laporan]';");
 			}
 			else
 			{
-				$q=mysqli_query($con,"INSERT INTO detail_laporan ( id_laporan, no_center, status, doa, total_agt, total_bayar, total_tidak_bayar, status_detail_laporan) VALUES ( '$id_laporan', '".sprintf("%03d",$no_center[$x])."', '".$status[$x]."', '$doa[$x]', '".$total_agt[$x]."', '".$total_bayar[$x]."', '".$total_tidak_bayar[$x]."', 'draft')");
+				$q=mysqli_query($con,"INSERT INTO detail_laporan ( id_laporan, no_center, status, doa,member, total_agt, total_bayar, total_tidak_bayar, status_detail_laporan) VALUES ( '$id_laporan', '".sprintf("%03d",$no_center[$x])."', '".$status[$x]."', '$doa[$x]', '".$member[$x]."','".$total_agt[$x]."', '".$total_bayar[$x]."', '".$total_tidak_bayar[$x]."', 'draft')");
 				
 			}
-			center($con,$no_center[$x],$doa[$x],$status[$x],$total_agt[$x],$total_bayar[$x],$id_cabang,$cek_laporan['id_karyawan'],$hari,$id_laporan,$jam[$x]);
+			center($con,$no_center[$x],$doa[$x],$status[$x],$member[$x],$total_agt[$x],$total_bayar[$x],$id_cabang,$cek_laporan['id_karyawan'],$hari,$id_laporan,$jam[$x]);
 		}
 	}
 	echo alert("Berhasil Disimpan");
@@ -374,6 +380,7 @@ if(isset($_POST['konfirmasi_laporan'])){
 	$status=$_POST['status'];
 	$keterangan=$_POST['keterangan'];
 	$total_agt=$_POST['total_agt'];
+	$member=$_POST['member'];
 	$doa=$_POST['doa'];
 	$total_bayar=$_POST['bayar'];
 	$total_tidak_bayar=$_POST['tidak_bayar'];
@@ -389,14 +396,14 @@ if(isset($_POST['konfirmasi_laporan'])){
 			if(mysqli_num_rows($cek_center))
 			{
 				$cek_center1 = mysqli_fetch_array($cek_center);
-				mysqli_query($con,"UPDATE `detail_laporan` SET `status` = '$status[$x]', `doa` = '$doa[$x]', `total_agt` = '$total_agt[$x]', `total_bayar` = '$total_bayar[$x]', `total_tidak_bayar` = '$total_tidak_bayar[$x]' WHERE `detail_laporan`.`id_detail_laporan` = '$cek_center1[id_detail_laporan]';");
+				mysqli_query($con,"UPDATE `detail_laporan` SET `status` = '$status[$x]', `doa` = '$doa[$x]',  `member` = '$member[$x]',`total_agt` = '$total_agt[$x]', `total_bayar` = '$total_bayar[$x]', `total_tidak_bayar` = '$total_tidak_bayar[$x]' WHERE `detail_laporan`.`id_detail_laporan` = '$cek_center1[id_detail_laporan]';");
 			}
 			else
 			{
-				$q=mysqli_query($con,"INSERT INTO detail_laporan ( id_laporan, no_center, status, doa, total_agt, total_bayar, total_tidak_bayar, status_detail_laporan) VALUES ( '$id_laporan', '".sprintf("%03d",$no_center[$x])."', '".$status[$x]."', '$doa[$x]', '".$total_agt[$x]."', '".$total_bayar[$x]."', '".$total_tidak_bayar[$x]."', 'sukses')");
+				$q=mysqli_query($con,"INSERT INTO detail_laporan ( id_laporan, no_center, status, doa,member, total_agt, total_bayar, total_tidak_bayar, status_detail_laporan) VALUES ( '$id_laporan', '".sprintf("%03d",$no_center[$x])."', '".$status[$x]."', '$doa[$x]', '".$member[$x]."','".$total_agt[$x]."', '".$total_bayar[$x]."', '".$total_tidak_bayar[$x]."', 'sukses')");
 				
 			}
-			center($con,$no_center[$x],$doa[$x],$status[$x],$total_agt[$x],$total_bayar[$x],$id_cabang,$cek_laporan['id_karyawan'],$hari,$id_laporan,$jam[$x]);
+			center($con,$no_center[$x],$doa[$x],$status[$x],$member[$x],$total_agt[$x],$total_bayar[$x],$id_cabang,$cek_laporan['id_karyawan'],$hari,$id_laporan,$jam[$x]);
 		}
 	}
 	echo alert("LAPORAN BERHASIL KONFIRMASI, TERIMA KASIH :)");

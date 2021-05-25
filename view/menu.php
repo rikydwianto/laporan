@@ -62,11 +62,6 @@ else if(($_SESSION['id']) && $su=='y'){
 				</li>
 
 				<li>
-					<a href="<?php echo $url.$menu?>tmb_laporan_baru"   class="w3-bar-item w3-button"><i class="fa fa-plus"></i> Tambah Baru</a>
-
-				</li>
-
-				<li>
 					<a href="<?php echo $url.$menu?>edit_laporan"   class="w3-bar-item w3-button"><i class="fa fa-edit"></i> Edit Laporan</a>
 
 				</li>

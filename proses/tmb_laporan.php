@@ -26,7 +26,10 @@ $cek_laporan = mysqli_query($con,"select * from laporan where id_karyawan='$id_k
 		  </tr>
 		  <tr>
 			<td>Keterangan</td>
-			<td><textarea required  class='form-control' name='keterangan'></textarea></td>
+			<td><textarea required  class='form-control' minlength='6' name='keterangan'></textarea>
+			</br>
+			** Keterangan : Minimal 6 huruf
+			</td>
 		  </tr>
 		  <?php 
 		  if($jabatan!='SL')
@@ -59,6 +62,7 @@ $cek_laporan = mysqli_query($con,"select * from laporan where id_karyawan='$id_k
 			<td><input type="submit" name="tmb_lap" class='btn btn-primary' value="SIMPAN"></td>
 		  </tr>
 		</table> 
+		
 	</form>
 <?php
 
