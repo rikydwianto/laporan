@@ -34,6 +34,14 @@ and laporan.status_laporan='sukses' and karyawan.id_cabang=$cabang and tgl_lapor
 	}
 
 	public function hitung_member($con,$cabang){
+		$q=mysqli_query($con,"select sum(member_center) as member from center where  id_cabang=$cabang");
+		$hit = mysqli_fetch_array($q);
+		if ($hit['member']>0)
+			return $hit['member'];
+		else return 0;	
+	}
+
+	public function hitung_client($con,$cabang){
 		$q=mysqli_query($con,"select sum(anggota_center) as member from center where  id_cabang=$cabang");
 		$hit = mysqli_fetch_array($q);
 		if ($hit['member']>0)
@@ -72,6 +80,7 @@ and laporan.status_laporan='sukses' and karyawan.id_cabang=$cabang and tgl_lapor
 SELECT 
 karyawan.id_cabang,
 sum(total_agt) as anggota, 
+sum(member) as member, 
 sum(detail_laporan.total_bayar) as anggota_bayar,
 sum(detail_laporan.total_tidak_bayar) as anggota_tidak_bayar,
 count(detail_laporan.no_center) as hitung_center,
@@ -94,7 +103,7 @@ and laporan.status_laporan='sukses'
  group by karyawan.id_cabang
 
 			");
-		$data='';
+		
 		if($hitung = mysqli_num_rows($q))
 		{
 			while($hit=mysqli_fetch_array($q)){

@@ -111,9 +111,15 @@
 							</tr>
 							<tr>
 								<td><b>TOTAL ANGGOTA</b></td>
+								<td><b><?=$value['member']?></b></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><b>TOTAL CLIENT</b></td>
 								<td><b><?=$value['anggota']?></b></td>
 								<td></td>
 							</tr>
+							
 						</table>	
 					</div>
 				<?php

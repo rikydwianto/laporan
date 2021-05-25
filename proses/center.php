@@ -103,6 +103,7 @@
 				<th>NO</th>
 				<th>CENTER</th>
 				<th>ANGGOTA</th>
+				<th>CLIENT</th>
 				<th>HARI</th>
 				<th>JAM</th>
 				<th>DOA</th>
@@ -123,6 +124,7 @@
 			<tr>
 				<td><?=$no++;?></td>
 				<td><?=$center['no_center'];?></td>
+				<td><?=$center['member_center'];?></td>
 				<td><?=$center['anggota_center'];?></td>
 				<td><?=$center['hari'];?></td>
 				<td><?=$center['jam_center'];?></td>

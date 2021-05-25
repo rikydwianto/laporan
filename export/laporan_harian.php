@@ -44,6 +44,7 @@ header("Content-Disposition: attachment; filename=laporan harian $hari .xls");
 			<td >Nama</td>
 			<td >CTR</td>
 			<td >AGT</td>
+			<td >Client</td>
 			<td >Bayar</td>
 			<td >Tdk Bayar</td>
 			<td >%</td>
@@ -58,10 +59,11 @@ header("Content-Disposition: attachment; filename=laporan harian $hari .xls");
 		$hitung_center= 0; 
 		while($tampil=mysqli_fetch_array($cek_ka)){
 			$cek_l1 = mysqli_query($con,"select * from laporan where id_karyawan='$tampil[id_karyawan]' and tgl_laporan='$qtgl'");
-			$cek_l=mysqli_query($con,"SELECT sum(detail_laporan.total_agt)as anggota, sum(detail_laporan.total_bayar)as bayar,sum(detail_laporan.total_tidak_bayar)as tidak_bayar,count(no_center) as hitung_center, laporan.* FROM laporan,detail_laporan where laporan.id_laporan=detail_laporan.id_laporan and laporan.tgl_laporan='$qtgl' and laporan.id_karyawan='$tampil[id_karyawan]'");
+			$cek_l=mysqli_query($con,"SELECT sum(detail_laporan.total_agt)as anggota,sum(detail_laporan.member)as member, sum(detail_laporan.total_bayar)as bayar,sum(detail_laporan.total_tidak_bayar)as tidak_bayar,count(no_center) as hitung_center, laporan.* FROM laporan,detail_laporan where laporan.id_laporan=detail_laporan.id_laporan and laporan.tgl_laporan='$qtgl' and laporan.id_karyawan='$tampil[id_karyawan]'");
 			if(mysqli_num_rows($cek_l)){
 				$tampil_lapor=mysqli_fetch_array($cek_l);
 				if($tampil_lapor['bayar']!=NULL){
+					$hitung_member = $hitung_member + $tampil_lapor['member']; 
 					$hitung_agt = $hitung_agt + $tampil_lapor['anggota']; 
 					$hitung_bayar = $hitung_bayar + $tampil_lapor['bayar']; 
 					$hitung_tdk_bayar= $hitung_tdk_bayar+ $tampil_lapor['tidak_bayar']; 
@@ -72,6 +74,7 @@ header("Content-Disposition: attachment; filename=laporan harian $hari .xls");
 
 					<td><?php echo $tampil['nama_karyawan'] ?></td>
 					<td><?php echo $tampil_lapor['hitung_center'] ?></td>
+					<td><?php echo $tampil_lapor['member'] ?></td>
 					<td><?php echo $tampil_lapor['anggota'] ?></td>
 					<td><?php echo $tampil_lapor['bayar'] ?></td>
 					<td><?php echo $tampil_lapor['tidak_bayar'] ?></td>
@@ -96,6 +99,7 @@ header("Content-Disposition: attachment; filename=laporan harian $hari .xls");
 								<td>0</td>
 								<td>0</td>
 								<td>0</td>
+								<td>0</td>
 								<td>0%</td>
 
 								<td><?php echo $tampil_lapor1['keterangan_laporan'] ?></td>
@@ -110,6 +114,7 @@ header("Content-Disposition: attachment; filename=laporan harian $hari .xls");
 							<td><?php echo $no++ ?>.</td>
 
 							<td><?php echo $tampil['nama_karyawan'] ?></td>
+							<td>0</td>
 							<td>0</td>
 							<td>0</td>
 							<td>0</td>
@@ -132,6 +137,7 @@ header("Content-Disposition: attachment; filename=laporan harian $hari .xls");
 					<td colspan=1>0 </td>
 					<td colspan=1>0 </td>
 					<td colspan=1>0 </td>
+					<td colspan=1>0 </td>
 					<td colspan=1><i>tidak buat laporan</i></td>
 				</tr>
 			<?php
@@ -145,6 +151,7 @@ header("Content-Disposition: attachment; filename=laporan harian $hari .xls");
 		<tr>
 			<th colspan=2 class='text-center'>Total</th>
 			<th ><?php echo $hitung_center ?></th>
+			<th ><?php echo $hitung_member ?></th>
 			<th ><?php echo $hitung_agt ?></th>
 			<th ><?php echo $hitung_bayar ?></th>
 			<th ><?php echo $hitung_tdk_bayar ?></th>

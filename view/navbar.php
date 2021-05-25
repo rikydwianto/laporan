@@ -17,12 +17,7 @@
 
         <!-- Top Navigation: Right Menu -->
         <ul class="nav navbar-right navbar-top-links">
-            <li class="navbar-inverse">
-                
-                <a class="" href="<?php echo $url.$menu?>logout">
-                     <i class="fa fa-sign-out fa-fw"></i> 
-                </a>
-            </li>
+            
 			<li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <i class="fa fa-user fa-fw"></i>  <b class="caret"></b>
