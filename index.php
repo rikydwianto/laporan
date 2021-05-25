@@ -48,6 +48,8 @@ $nama_jabatan=$d['singkatan_jabatan'];
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 <body>
 
@@ -96,7 +98,11 @@ $nama_jabatan=$d['singkatan_jabatan'];
 <script src="<?=$url ?>assets/js/morris.min.js"></script>
 <script src="<?=$url ?>assets/js/morris.data.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
-
+<script type="text/javascript">
+    var url_link = "<?=$url ?>";
+    var idcab = "<?php echo $cabang ?>";
+</script>
+<script src="<?=$url ?>assets/js/grafik.js"></script>
 <script src="<?=$url ?>assets/js/script.js"></script>
 </body>
 </html>

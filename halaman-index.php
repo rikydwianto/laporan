@@ -206,6 +206,7 @@ if(!$_SESSION['jabatan']){
 			<?php 
 
 			$cek_ka=mysqli_query($con,"SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_cabang='$cabang' and jabatan.singkatan_jabatan='SL' and karyawan.status_karyawan='aktif' order by karyawan.nama_karyawan asc");
+			$hitung_member = 0; 
 			$hitung_agt = 0; 
 			$hitung_bayar = 0; 
 			$hitung_tdk_bayar= 0; 
@@ -300,16 +301,35 @@ if(!$_SESSION['jabatan']){
 				<th ><?php echo $hitung_agt ?></th>
 				<th ><?php echo $hitung_bayar ?></th>
 				<th ><?php echo $hitung_tdk_bayar ?></th>
-				<th colspan=6><?php echo round(($hitung_bayar/$hitung_agt)*100,2) ?>%</th>
+				<th colspan=6><?php echo $persen = round(($hitung_bayar/$hitung_agt)*100,2) ?>%</th>
 			</tr>
 		</table>
 		</div>
+		<a href="<?=$url.$menu?>rekap_laporan&grafik&bayar=<?=$hitung_bayar?>&member=<?=$hitung_member?>&client=<?=$hitung_agt?>&persen=<?=$persen?>&tgl=<?=date("Y-m-d")?>"
+	 class="btn btn-danger"
+	 onclick="return window.confirm('Apakah Sudah benar???')"
+	 >Simpan Ke Grafik</a>
+		<br>** PASTIKAN LAPORAN TELAH APPROVE SEMUA DAN TELAH selesaikan <br>
+		*** TIDAK DAPAT DIEDIT
 	<?php
 		
 	}
 	?>
+
+
+
+
 	
 </div>
 
   
+</div>
+
+<div class="col-md-12 " style="">
+<h1>Grafik Harian</h1>
+  <div class="panel panel-default ">
+  <canvas id="myChart" style="width:100%;max-width:100%"></canvas>
+
+
+  </div>
 </div>
