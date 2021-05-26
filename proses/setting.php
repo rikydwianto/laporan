@@ -2,7 +2,9 @@
 
 	<div class="row">
 		<div class="col-lg-12">
-			<h3 class="page-header">Edit Profile</h3>
+			<h1 class="page-header">Edit Profile</h1>
+			<br>
+			<h3 style='font-style:italic'>Anda Tidak dapat mengakses Halaman lain jika masih menggunakan password Default (123456) <br> Silahkan ganti password anda! </h3>
 		</div>
 	</div>
 	<?php 

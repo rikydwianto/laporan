@@ -64,12 +64,12 @@
 								<td>Persen</td>
 							</tr>
 							<tr>
-								<td>Center Doa</td>
+								<td>- Center Doa</td>
 								<td><?=$value['doa']?></td>
 								<td><?=round(($value['doa']/$value['hitung_center'])*100)?>%</td>
 							</tr>
 							<tr>
-								<td>Center Tidak Doa</td>
+								<td>- Center Tidak Doa</td>
 								<td><?=$value['tidak_doa']?></td>
 								<td><?=round(($value['tidak_doa']/$value['hitung_center'])*100)?>%</td>
 							</tr>
@@ -93,6 +93,27 @@
 								<td><?=$value['hitam']?></td>
 								<td><?=round(($value['hitam']/$value['hitung_center'])*100)?>%</td>
 							</tr>
+							
+
+							<!-- DOORTODOR -->
+							<tr>
+								<td>- Kumpulan</td>
+								<td><?=$value['tidak']?></td>
+								<td><?=round(($value['tidak']/$value['hitung_center'])*100)?>%</td>
+							</tr>
+							<tr>
+								<td>- Setengah Kumpul</td>
+								<td><?=$value['ragu']?></td>
+								<td><?=round(($value['ragu']/$value['hitung_center'])*100)?>%</td>
+							</tr>
+							<tr>
+								<td>- Door To Door</td>
+								<td><?=$value['iya']?></td>
+								<td><?=round(($value['iya']/$value['hitung_center'])*100)?>%</td>
+							</tr>
+
+
+
 							<tr>
 								<td>ANGGOTA BAYAR</td>
 								<td><?=$value['anggota_bayar']?></td>

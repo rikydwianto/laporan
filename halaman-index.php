@@ -43,14 +43,17 @@ if(!$_SESSION['jabatan']){
 			<h3 class='page-header'>STATUS CENTER<hr/></h3>
 			<div class="card divider" style=";">
 			  <ul class="list-group list-group-flush">
-				<li class="list-group-item"><b>MEMBER :  <span style='background: blue' class="badge rounded-pill bg-primary"><?=$hitung->hitung_client($con,$id_cabang);?> </span></b> </li>
-				<li class="list-group-item"><b>Total Center Doa :  <span style='background: blue' class="badge rounded-pill bg-primary"><?=$status['doa']?> </span></b> </li>
-				<li class="list-group-item"><b>Total Center Tidak Doa :  <span style='background: black' class="badge rounded-pill bg-danger"><?=$status['tidak_doa']?> </span></b> </li>
-				<li class="list-group-item"><b>Total Center Hijau :  <span style='background: green' class="badge rounded-pill bg-success"><?=$status['tidak_doa']?> </span></b> </li>
-				<li class="list-group-item"><b>Total Center Merah :  <span style='background: red' class="badge rounded-pill bg-danger"><?=$status['merah']?> </span></b> </li>
-				<li class="list-group-item"><b>Total Center Kuning :  <span style='background: #eea236;text-decoration-color: black;' class="badge rounded-pill bg-danger"><?=$status['kuning']?> </span></b> </li>
-				<li class="list-group-item"><b>Total Center hitam :  <span style='background: black;' class="badge rounded-pill bg-danger "><?=$status['hitam']?> </span></b> </li>
-				<li class="list-group-item"><b>Total Semua Center :  <span class="badge rounded-pill bg-danger"><?=$hitung->hitung_center($con,$id_cabang)?> </span></b> </li>
+				<li class="list-group-item"><b>MEMBER :  <span style='float:right;background: blue' class="badge rounded-pill bg-primary"><?=$hitung->hitung_client($con,$id_cabang);?> </span></b> </li>
+				<li class="list-group-item"><b>Total Center Doa  <span style='float:right;background: blue' class="badge rounded-pill bg-primary"><?=$status['doa']?> </span></b> </li>
+				<li class="list-group-item"><b>Total Center Tidak Doa  <span style='float:right;background: black' class="badge rounded-pill bg-danger"><?=$status['tidak_doa']?> </span></b> </li>
+				<li class="list-group-item"><b>Total Center Hijau  <span style='float:right;background: green' class="badge rounded-pill bg-success"><?=$status['tidak_doa']?> </span></b> </li>
+				<li class="list-group-item"><b>Total Center Merah  <span style='float:right;background: red' class="badge rounded-pill bg-danger"><?=$status['merah']?> </span></b> </li>
+				<li class="list-group-item"><b>Total Center Kuning  <span style='float:right;background: #eea236;text-decoration-color: black;' class="badge rounded-pill bg-danger"><?=$status['kuning']?> </span></b> </li>
+				<li class="list-group-item"><b>Total Center hitam  <span style='float:right;background: black;' class="badge rounded-pill bg-danger "><?=$status['hitam']?> </span></b> </li>
+				<li class="list-group-item"><b>DOORTODOOR  <span style='float:right;background: black;' class="badge rounded-pill bg-danger "><?=$status['iya']?> </span></b> </li>
+				<li class="list-group-item"><b>SETENGAH DOORTODOOR  <span style='float:right;background: #eea236;' class="badge rounded-pill bg-warning "><?=$status['ragu']?> </span></b> </li>
+				<li class="list-group-item"><b>KUMPULAN  <span style='float:right;background: green;' class="badge rounded-pill bg-yellow "><?=$status['tidak']?> </span></b> </li>
+				<li class="list-group-item"><b>Total Semua Center  <span style='float:right' class="badge rounded-pill bg-danger"><?=$hitung->hitung_center($con,$id_cabang)?> </span></b> </li>
 			  </ul>
 
 			</div>
@@ -305,12 +308,6 @@ if(!$_SESSION['jabatan']){
 			</tr>
 		</table>
 		</div>
-		<a href="<?=$url.$menu?>rekap_laporan&grafik&bayar=<?=$hitung_bayar?>&member=<?=$hitung_member?>&client=<?=$hitung_agt?>&persen=<?=$persen?>&tgl=<?=date("Y-m-d")?>"
-	 class="btn btn-danger"
-	 onclick="return window.confirm('Apakah Sudah benar???')"
-	 >Simpan Ke Grafik</a>
-		<br>** PASTIKAN LAPORAN TELAH APPROVE SEMUA DAN TELAH selesaikan <br>
-		*** TIDAK DAPAT DIEDIT
 	<?php
 		
 	}
@@ -326,9 +323,10 @@ if(!$_SESSION['jabatan']){
 </div>
 
 <div class="col-md-12 " style="">
-<h1>Grafik Harian</h1>
+<h1>Grafik Minggu</h1>
+<hr> <small>hanya 12 minggu terbaru </small>
   <div class="panel panel-default ">
-  <canvas id="myChart" style="width:100%;max-width:100%"></canvas>
+  <canvas id="myChart" style="width:100%;max-width:100%;min-height:40px;"></canvas>
 
 
   </div>

@@ -34,6 +34,7 @@ else{
 			<th >NO</th>
 			<th >NAMA</th>
 			<td >CTR</td>
+			<td >DTD</td>
 			<td >AGT</td>
 			<td >CLIENT</td>
 			<td >Bayar</td>
@@ -44,15 +45,18 @@ else{
 		
 		$cek_ka=mysqli_query($con,"SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_cabang='$cabang' and jabatan.singkatan_jabatan='SL' order by karyawan.nama_karyawan asc");
 		$hitung_agt = 0; 
+		$hitung_member = 0; 
+		$hitung_dtd = 0; 
 		$hitung_bayar = 0; 
 		$hitung_tdk_bayar= 0; 
 		$hitung_center= 0; 
 		while($tampil=mysqli_fetch_array($cek_ka)){
-			$cek_l1 = mysqli_query($con,"select * from laporan where id_karyawan='$tampil[id_karyawan]' and tgl_laporan='$qtgl'");
-			$cek_l=mysqli_query($con,"SELECT sum(detail_laporan.total_agt)as anggota,sum(detail_laporan.member)as member, sum(detail_laporan.total_bayar)as bayar,sum(detail_laporan.total_tidak_bayar)as tidak_bayar,count(no_center) as hitung_center, laporan.* FROM laporan,detail_laporan where laporan.id_laporan=detail_laporan.id_laporan and laporan.id_karyawan='$tampil[id_karyawan]'  and laporan.tgl_laporan >= '$tglawal' and laporan.tgl_laporan <= '$tglakhir'");
+			$cek_l1 = mysqli_query($con,"select * from laporan where id_karyawan='$tampil[id_karyawan]' and tgl_laporan >= '$tglawal' and tgl_laporan <= '$tglakhir'");
+			$cek_l=mysqli_query($con,"SELECT sum(detail_laporan.total_agt)as anggota,sum(detail_laporan.member)as member, sum(detail_laporan.total_bayar)as bayar,sum(detail_laporan.total_tidak_bayar)as tidak_bayar,count(no_center) as hitung_center, count(if(doortodoor='y',1,NULL) ) as hitung_dtd, laporan.* FROM laporan,detail_laporan where laporan.id_laporan=detail_laporan.id_laporan and laporan.id_karyawan='$tampil[id_karyawan]'  and laporan.tgl_laporan >= '$tglawal' and laporan.tgl_laporan <= '$tglakhir'");
 			if(mysqli_num_rows($cek_l)){
 				$tampil_lapor=mysqli_fetch_array($cek_l);
 				if($tampil_lapor['bayar']!=NULL){
+					$hitung_dtd = $hitung_dtd + $tampil_lapor['hitung_dtd']; 
 					$hitung_member = $hitung_member + $tampil_lapor['member']; 
 					$hitung_agt = $hitung_agt + $tampil_lapor['anggota']; 
 					$hitung_bayar = $hitung_bayar + $tampil_lapor['bayar']; 
@@ -64,6 +68,7 @@ else{
 
 					<td><?php echo $tampil['nama_karyawan'] ?></td>
 					<td><?php echo $tampil_lapor['hitung_center'] ?></td>
+					<td><?php echo $tampil_lapor['hitung_dtd'] ?></td>
 					<td><?php echo $tampil_lapor['member'] ?></td>
 					<td><?php echo $tampil_lapor['anggota'] ?></td>
 					<td><?php echo $tampil_lapor['bayar'] ?></td>
@@ -73,6 +78,7 @@ else{
 					<?php
 				}
 				else{
+					
 					if(mysqli_num_rows($cek_l1))
 						{
 							$tampil_lapor1 = mysqli_fetch_array($cek_l1);
@@ -82,6 +88,7 @@ else{
 								<td><?php echo $no++ ?>.</td>
 
 								<td><?php echo $tampil['nama_karyawan'] ?></td>
+								<td>0</td>
 								<td>0</td>
 								<td>0</td>
 								<td>0</td>
@@ -102,7 +109,7 @@ else{
 							<td><?php echo $no++ ?>.</td>
 
 							<td><?php echo $tampil['nama_karyawan'] ?></td>
-							<td colspan=9><i>belum membuat laporan</td>
+							<td colspan=10><i>belum membuat laporan</td>
 							
 						</tr>
 						<?php
@@ -112,7 +119,7 @@ else{
 			else {
 			?>
 				<tr>
-					<td colspan=6>Belum bikin laporan </td>
+					<td colspan=7>Belum bikin laporan </td>
 				</tr>
 			<?php
 			}
@@ -125,13 +132,43 @@ else{
 		<tr>
 			<th colspan=2 class='text-center'>Total</th>
 			<th ><?php echo $hitung_center ?></th>
+			<th ><?php echo $hitung_dtd ?></th>
 			<th ><?php echo $hitung_member ?></th>
 			<th ><?php echo $hitung_agt ?></th>
 			<th ><?php echo $hitung_bayar ?></th>
 			<th ><?php echo $hitung_tdk_bayar ?></th>
-			<th colspan=8><?php echo round(($hitung_bayar/$hitung_agt)*100,2) ?>%</th>
+			<th colspan=9><?php echo $persen  = round(($hitung_bayar/$hitung_agt)*100,2) ?>%</th>
 		</tr>
 	</table>
+	<a href="<?=$url.$menu?>rekap_laporan_minggu&grafik&bayar=<?=$hitung_bayar?>&member=<?=$hitung_member?>&client=<?=$hitung_agt?>&persen=<?=$persen?>&tgl=<?=$tglawal?>&tgl1=<?=$tglakhir?>&dtd=<?=$hitung_dtd?>"
+	 class="btn btn-danger"
+	 onclick="return window.confirm('Apakah Sudah benar???')"
+	 >Simpan Ke Grafik</a>
+		<br>** PASTIKAN LAPORAN TELAH APPROVE SEMUA DAN TELAH selesaikan <br>
+		*** TIDAK DAPAT DIEDIT
 	</div>
 </div>
 			
+
+<?php 
+
+//approve laporan
+if(isset($_GET['grafik'])){
+	$bayar = $_GET['bayar'];
+	$tgl = $_GET['tgl'];
+	$tgl1 = $_GET['tgl1'];
+	$tgl2 = $tgl ." / ". $tgl1;
+	$member = $_GET['member'];
+	$client = $_GET['client'];
+	$persen = $_GET['persen'];
+	$dtd = $_GET['dtd'];
+	$q = mysqli_query($con,"INSERT INTO `grafik` (`id_grafik`, `tgl_grafik`, `member`, `client`, `bayar`, `persen`, `id_cabang`,`dtd`) VALUES (NULL, '$tgl2', '$member', '$client', '$bayar', '$persen', '$cabang','$dtd');
+	");
+	if($q){
+		pesan("Berhasil di simpan");
+		pindah("$url$menu"."rekap_laporan_minggu&tglawal=$tgl&tglakhir=$tgl1&cari=FILTER");
+	}
+}
+?>
+
+

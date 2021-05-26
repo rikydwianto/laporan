@@ -11,6 +11,7 @@ var member = [];
 var client = [];
 var bayar = [];
 var persen = [];
+var dtd = [];
 $.getJSON( url_link + "api/grafik.php?cab="+idcab, function( data ) {
     var items = [];
     
@@ -20,6 +21,7 @@ $.getJSON( url_link + "api/grafik.php?cab="+idcab, function( data ) {
         client.push(data[i]['client']);
         bayar.push(data[i]['bayar']);
         persen.push(data[i]['persen']);
+        dtd.push(data[i]['dtd']);
        
 
       });
@@ -42,6 +44,7 @@ $.getJSON( url_link + "api/grafik.php?cab="+idcab, function( data ) {
         fill: false,
         label: "ANGGOTA"
         },
+         
             { 
         data: client,
         borderColor: "yellow",
@@ -53,7 +56,15 @@ $.getJSON( url_link + "api/grafik.php?cab="+idcab, function( data ) {
         borderColor: "green",
         fill: false,
         label: "ANGSURAN MASUK"
-        }    ]
+        }   ,
+        { 
+            data: dtd,
+            borderColor: "black",
+            fill: false,
+            label: "CENTER DOOR TO DOOR"
+            },
+    
+    ]
     },
     options: {
         legend: {display: true}
