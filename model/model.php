@@ -54,7 +54,10 @@ and laporan.status_laporan='sukses' and karyawan.id_cabang=$cabang and tgl_lapor
 			count(if(status_center='hijau',1,NULL) ) as hijau,
 			count(if(status_center='kuning',1,NULL) ) as kuning,
 			count(if(status_center='merah',1,NULL) ) as merah,
-			count(if(status_center='hitam',1,NULL) ) as hitam
+			count(if(status_center='hitam',1,NULL) ) as hitam,
+			count(if(doortodoor='y',1,NULL) ) as iya,
+			count(if(doortodoor='t',1,NULL) ) as tidak,
+			count(if(doortodoor='r',1,NULL) ) as ragu
 
 			from center
 
@@ -89,7 +92,10 @@ count(if(doa='t',1,NULL) ) as tidak_doa,
 count(if(status='hijau',1,NULL) ) as hijau,
 count(if(status='kuning',1,NULL) ) as kuning,
 count(if(status='merah',1,NULL) ) as merah,
-count(if(status='hitam',1,NULL) ) as hitam
+count(if(status='hitam',1,NULL) ) as hitam,
+count(if(doortodoor='y',1,NULL) ) as iya,
+count(if(doortodoor='r',1,NULL) ) as ragu,
+count(if(doortodoor='t',1,NULL) ) as tidak
 
 FROM `laporan`,detail_laporan,karyawan where laporan.id_laporan=detail_laporan.id_laporan
 and laporan.id_karyawan=karyawan.id_karyawan

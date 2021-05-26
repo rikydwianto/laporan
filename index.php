@@ -75,7 +75,13 @@ $nama_jabatan=$d['singkatan_jabatan'];
 				pindah("auth.php");
 			}
 			else {
-				include"menu.php";
+                if( $d['password'] == md5(123456)){
+                    include("proses/setting.php");
+                }
+                else{
+                    include"menu.php";
+                }
+				
 			}
 			?>
         </div>

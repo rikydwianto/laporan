@@ -137,32 +137,7 @@
 			<th colspan=9><?php echo $persen = round(($hitung_bayar/$hitung_agt)*100,2) ?>%</th>
 		</tr>
 	</table>
-	<a href="<?=$url.$menu?>rekap_laporan&grafik&bayar=<?=$hitung_bayar?>&member=<?=$hitung_member?>&client=<?=$hitung_agt?>&persen=<?=$persen?>&tgl=<?=$qtgl?>"
-	 class="btn btn-danger"
-	 onclick="return window.confirm('Apakah Sudah benar???')"
-	 >Simpan Ke Grafik</a>
-		<br>** PASTIKAN LAPORAN TELAH APPROVE SEMUA DAN TELAH selesaikan <br>
-		*** TIDAK DAPAT DIEDIT
+	
 	</div>
 </div>
-
-
-<?php 
-
-//approve laporan
-if(isset($_GET['grafik'])){
-	$bayar = $_GET['bayar'];
-	$tgl = $_GET['tgl'];
-	$member = $_GET['member'];
-	$client = $_GET['client'];
-	$persen = $_GET['persen'];
-	$q = mysqli_query($con,"INSERT INTO `grafik` (`id_grafik`, `tgl_grafik`, `member`, `client`, `bayar`, `persen`, `id_cabang`) VALUES (NULL, '$tgl', '$member', '$client', '$bayar', '$persen', '$cabang');
-	");
-	if($q){
-		pesan("Berhasil di simpan");
-		pindah("$url$menu"."rekap_laporan&tgl=".$tgl);
-	}
-}
-?>
-
 

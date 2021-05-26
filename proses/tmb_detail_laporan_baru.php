@@ -53,7 +53,7 @@ $hari = strtolower($hari[0]);
 	<div class='table-responsive'>
 			<table class='table'>
 				<tr>
-					<th colspan="7" class='text-center'>
+					<th colspan="9" class='text-center'>
 						Center yang telah diinput
 
 					</th>
@@ -63,6 +63,7 @@ $hari = strtolower($hari[0]);
 					<th>No. CTR</th>
 					<th>Status</th>
 					<th>Doa</th>
+					<th>DTD</th>
 					<th>Anggota</th>
 					<th>Member</th>
 					<th>Bayar</th>
@@ -74,7 +75,7 @@ $hari = strtolower($hari[0]);
 					if(!mysqli_num_rows($det)){
 						?>
 						<tr>
-							<td colspan=7 style="text-align:center"><i>Tidak ada data disimpan</i> </td>
+							<td colspan=8 style="text-align:center"><i>Tidak ada data disimpan</i> </td>
 						</tr>
 						<?php
 					}
@@ -89,6 +90,7 @@ $hari = strtolower($hari[0]);
 								<td><?php echo $ctr =  $det1['no_center']?></td>
 								<td><?php echo $det1['status']?></td>
 								<td><?php echo ($det1['doa']=="t" ? "T" : "Y") ?></td>
+								<td><?php echo strtoupper($det1['doortodoor']) ?></td>
 								<td><?php echo $det1['member']?></td>
 								<td><?php echo $det1['total_agt']?></td>
 								<td><?php echo $det1['total_bayar']?></td>
@@ -141,6 +143,7 @@ $hari = strtolower($hari[0]);
 				<tr>
 					<th>No</th>
 					<th>No. CTR</th>
+					<th>DTD</th>
 					<th>JAM</th>
 					<th>Status</th>
 					<th>Doa</th>
@@ -182,6 +185,16 @@ $hari = strtolower($hari[0]);
 						 if($warna=='hitam')
 							$hitam ='selected';
 							else $hitam='';
+
+
+							$dtd_ = $cek_detail_center['doortodoor'];
+							if($dtd_ == 't') $tidak = "selected";
+								else $tidak ="";
+							 if($dtd_ == 'y') $iya = "selected";
+								else $iya ="";
+							 if($dtd_ == 'r') $ragu = "selected";
+								else $ragu ="";
+							
 						?>
 						<tr>
 							<td class='text-center'>
@@ -191,7 +204,19 @@ $hari = strtolower($hari[0]);
 
 							</td>
 							<td><input type=text class='form-control' name='no_center[]' value='<?=$cek_detail_center['no_center']?>' id='hapuscenter<?= $y?>' data-dd="<?= $y?>"  style="width:70px" /></td>
+							
+							<td>
+								<!-- sss -->
+							<select name='dtd[]' class='form-select ' id="inputGroupSelect01"  >
+							<option value='t' <?=$tidak?> >TIDAK</option>
+								<option value='y' <?=$iya?> >DTD</option>
+								<option value='r' <?=$ragu?> >1/2 DTD</option>
+								
+							</select>
+							</td>
+
 							<td><input type=text class='form-control' name='jam[]' placeholder="12:00" value='<?=$cek_detail_center['jam_center']?>' style="width:70px" /></td>
+							
 							<td>
 							
 						
@@ -238,7 +263,23 @@ $hari = strtolower($hari[0]);
 			<tr>
 				<td><?php echo $no++ ?></td>
 				<td><input type=text class='form-control' name='no_center[]' style="width:70px" /></td>
+				
+			<td>
+			
+		
+
+				<select name='dtd[]' class='form-select ' id="inputGroupSelect01"  >
+				<option value='t' <?=$merah?> >TIDAK</option>
+					<option value='y' <?=$hijau?> >DTD</option>
+					<option value='r' <?=$kuning?> >1/2 DTD</option>
+					
+				</select>
+			
+			</td>
+
 				<td><input type=text class='form-control' name='jam[]' placeholder="12:00" value='' style="width:70px" /></td>
+				
+				
 				<td>
 				
 					<select name='status[]' class='form-select ' id="inputGroupSelect01"  >
@@ -345,6 +386,7 @@ if(isset($_POST['simpan_detail'])){
 	$no_center=$_POST['no_center'];
 	$status=$_POST['status'];
 	$doa=$_POST['doa'];
+	$dtd=$_POST['dtd'];
 	$member=$_POST['member'];
 	$total_agt=$_POST['total_agt'];
 	$total_bayar=$_POST['bayar'];
@@ -364,10 +406,10 @@ if(isset($_POST['simpan_detail'])){
 			}
 			else
 			{
-				$q=mysqli_query($con,"INSERT INTO detail_laporan ( id_laporan, no_center, status, doa,member, total_agt, total_bayar, total_tidak_bayar, status_detail_laporan) VALUES ( '$id_laporan', '".sprintf("%03d",$no_center[$x])."', '".$status[$x]."', '$doa[$x]', '".$member[$x]."','".$total_agt[$x]."', '".$total_bayar[$x]."', '".$total_tidak_bayar[$x]."', 'draft')");
+				$q=mysqli_query($con,"INSERT INTO detail_laporan ( id_laporan, no_center, status, doa,member, total_agt, total_bayar, total_tidak_bayar, status_detail_laporan,doortodoor) VALUES ( '$id_laporan', '".sprintf("%03d",$no_center[$x])."', '".$status[$x]."', '$doa[$x]', '".$member[$x]."','".$total_agt[$x]."', '".$total_bayar[$x]."', '".$total_tidak_bayar[$x]."', 'draft','".$dtd[$x] ."')");
 				
 			}
-			center($con,$no_center[$x],$doa[$x],$status[$x],$member[$x],$total_agt[$x],$total_bayar[$x],$id_cabang,$cek_laporan['id_karyawan'],$hari,$id_laporan,$jam[$x]);
+			center($con,$no_center[$x],$doa[$x],$status[$x],$member[$x],$total_agt[$x],$total_bayar[$x],$id_cabang,$cek_laporan['id_karyawan'],$hari,$id_laporan,$jam[$x],$dtd[$x]);
 		}
 	}
 	echo alert("Berhasil Disimpan");
@@ -382,6 +424,7 @@ if(isset($_POST['konfirmasi_laporan'])){
 	$total_agt=$_POST['total_agt'];
 	$member=$_POST['member'];
 	$doa=$_POST['doa'];
+	$dtd=$_POST['dtd'];
 	$total_bayar=$_POST['bayar'];
 	$total_tidak_bayar=$_POST['tidak_bayar'];
 	$jam=$_POST['jam'];
@@ -400,10 +443,10 @@ if(isset($_POST['konfirmasi_laporan'])){
 			}
 			else
 			{
-				$q=mysqli_query($con,"INSERT INTO detail_laporan ( id_laporan, no_center, status, doa,member, total_agt, total_bayar, total_tidak_bayar, status_detail_laporan) VALUES ( '$id_laporan', '".sprintf("%03d",$no_center[$x])."', '".$status[$x]."', '$doa[$x]', '".$member[$x]."','".$total_agt[$x]."', '".$total_bayar[$x]."', '".$total_tidak_bayar[$x]."', 'sukses')");
+				$q=mysqli_query($con,"INSERT INTO detail_laporan ( id_laporan, no_center, status, doa,member, total_agt, total_bayar, total_tidak_bayar, status_detail_laporan,doortodoor) VALUES ( '$id_laporan', '".sprintf("%03d",$no_center[$x])."', '".$status[$x]."', '$doa[$x]', '".$member[$x]."','".$total_agt[$x]."', '".$total_bayar[$x]."', '".$total_tidak_bayar[$x]."', 'sukses','".$dtd[$x] ."')");
 				
 			}
-			center($con,$no_center[$x],$doa[$x],$status[$x],$member[$x],$total_agt[$x],$total_bayar[$x],$id_cabang,$cek_laporan['id_karyawan'],$hari,$id_laporan,$jam[$x]);
+			center($con,$no_center[$x],$doa[$x],$status[$x],$member[$x],$total_agt[$x],$total_bayar[$x],$id_cabang,$cek_laporan['id_karyawan'],$hari,$id_laporan,$jam[$x],$dtd[$x]);
 		}
 	}
 	echo alert("LAPORAN BERHASIL KONFIRMASI, TERIMA KASIH :)");
