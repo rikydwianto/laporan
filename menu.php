@@ -5,6 +5,10 @@ if(isset($_GET['menu'])){
 		if($jabatan!="SL"){
 			switch($getmenu){
 				
+			case"file":
+				include("proses/file.php");
+			break;
+				
 			case"cabang":
 				include("proses/cabang.php");
 			break;

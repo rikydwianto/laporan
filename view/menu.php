@@ -52,6 +52,10 @@ else if(($_SESSION['id']) && $su=='y'){
 			<a href="<?php echo $url?>lokasi.php" class="w3-bar-item w3-button"><i class="fa fa-globe"></i> LOKASI</a>
 		</li>
 		<li><a href="<?php echo $url.$menu?>anggota" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Anggota</a></li>
+		</li>
+
+			<li><a href="<?php echo $url.$menu?>file" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> FILE</a></li>
+		<li>
 		<li><a href="<?php echo $url.$menu?>pemb_lain" class="w3-bar-item w3-button"><i class="fa fa-dollar"></i> Pembiayaan Lain</a></li>
 		<li>
 			<a href="#"><i class="fa fa-file-excel-o"></i> Laporan<span class="fa arrow"></span></a>
@@ -170,6 +174,11 @@ else if(($_SESSION['id']) && $jabatan=='MIS')
 
 				</li>
 		</ul>
+	</li>
+
+		<li><a href="<?php echo $url.$menu?>file" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> FILE</a></li>
+	<li>
+		
 	</li>
 
 		<li><a href="<?php echo $url.$menu?>anggota" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Anggota</a></li>
