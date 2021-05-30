@@ -7,7 +7,7 @@ require_once("../proses/fungsi.php");
 require_once("../model/model.php");
 
  //query tabel produk
- $sql="SELECT no_center,hari,jam_center,status_center,anggota_center,karyawan.nama_karyawan,
+ $sql="SELECT no_center,hari,jam_center,status_center,anggota_center,member_center,karyawan.nama_karyawan,
  center.latitude,center.longitude,cabang.nama_cabang
   FROM center 
   join karyawan on karyawan.id_karyawan=center.id_karyawan 
