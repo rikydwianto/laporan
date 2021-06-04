@@ -57,10 +57,11 @@ function ganti_bayar(id)
  	e.preventDefault();
  	var idd = $(this).data('idhapus');
  	$("#hapuscenter"+idd).val('');
- 	$("#agt-"+idd).val(0);
+ 	$("#agt-"+idd).val("");
+ 	$("#member-"+idd).val("");
 
-    $("#bayar-"+idd).val(0);
-    $("#tdk-"+idd).val(0);
+    $("#bayar-"+idd).val("");
+    $("#tdk-"+idd).val("");
 
  });
 
