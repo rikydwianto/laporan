@@ -31,14 +31,14 @@
 				<td><?=$no++;?></td>
 				<td><?=$detail['nama_cabang'];?></td>
 				<td><?=$detail['nama_karyawan'];?></td>
-				<td><img src="<?=$images['url_images'];?>" alt="" width="50px" height="50px"></td>
+				<td><img src="<?=$url?>assets/img/gambar/<?=$images['url_images'];?>" alt="" width="50px" height="50px"></td>
 				<td><?=$images['kategori_images'];?></td>
 				<td><?=$images['dekripsi_images'];?></td>
 				<td><?=$images['tanggal_images'];?></td>
 
 				<td>
 					<a href="#" onclick='pop_up("<?=$url_gambar ?>")' target="_parent" class='btn btn-success ' > <i class='fa fa-eye'></i> </a>
-					<a href="<?=$images['url_images'];?>" class='btn btn-info' > <i class='fa fa-download'></i> </a>
+					<a href="<?=$url?>/assets/img/gambar/<?=$images['url_images'] ?>" class='btn btn-info' > <i class='fa fa-download'></i> </a>
 
 
 				</td>

@@ -59,8 +59,8 @@ margin-top:0;
 </head>
 <body>
 <div class='tengah'>
-
-<center><img src="<?=$_GET['gambar']?>" id='img' alt=""><br/></center>
+<?php require_once "../config/seting.php"; ?>
+<center><img src="<?=$url?>assets/img/gambar/<?=$_GET['gambar']?>" id='img' alt=""><br/></center>
 </div>
 <div class="slidecontainer">
 
