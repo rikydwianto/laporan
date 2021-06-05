@@ -64,7 +64,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
 		<div class="card">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">KOMIDA <?=strtoupper($d['nama_cabang'])?></h1>
+                    <h1 class="page-header"><!--KOMIDA <?=strtoupper($d['nama_cabang'])?>--></h1>
                 </div>
             </div>
 

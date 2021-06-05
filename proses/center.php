@@ -27,9 +27,12 @@
   {
   	$idlama = $_POST['staf_lama'];
   	$idbaru = $_POST['staf_baru'];
-  	$query = mysqli_query($con,"UPDATE `laporan` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
+  	$query = mysqli_query($con,"UPDATE `anggota` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
   	$query1 = mysqli_query($con,"UPDATE `laporan` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
   	$query2 = mysqli_query($con,"UPDATE `center` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
+  	$query3 = mysqli_query($con,"UPDATE `group_user` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
+  	$query4 = mysqli_query($con,"UPDATE `cashflow` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
+  	$query4 = mysqli_query($con,"UPDATE `image` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
 
   }
 

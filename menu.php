@@ -1,126 +1,103 @@
 
-<?php 
-if(isset($_GET['menu'])){
-	$getmenu=$_GET['menu'];
-		if($jabatan!="SL"){
-			switch($getmenu){
-				
-			case"file":
-				include("proses/file.php");
-			break;
-				
-			case"cabang":
-				include("proses/cabang.php");
-			break;
-			case"wilayah":
-				include("proses/wilayah.php");
-			break;
-			case"rekap_bayar":
+<?php
+if (isset($_GET['menu'])) {
+	$getmenu = $_GET['menu'];
+	if ($jabatan != "SL") {
+		switch ($getmenu) {
+			case "rekap_bayar":
 				include("proses/rekap_bayar.php");
-			break;
-			case"logout":
-				include("proses/logout.php");
-			break;
-			case"tmb_laporan":
+				break;
+
+			case "tmb_laporan":
 				include("proses/tmb_laporan.php");
-			break;
-			case"tmb_laporan_baru":
+				break;
+			case "tmb_laporan_baru":
 				include("proses/tmb_laporan_baru.php");
-			break;
-			
-			case"rekap_laporan":
+				break;
+
+			case "rekap_laporan":
 				include("proses/rekap_laporan.php");
-			break;
+				break;
 
-			case"rekap_laporan_minggu":
+			case "rekap_laporan_minggu":
 				include("proses/rekap_laporan_minggu.php");
-			break;
+				break;
 
-			case"edit_laporan":
+			case "edit_laporan":
 				include("proses/edit_laporan.php");
-			break;
-			
-			case"laporan_bulanan":
+				break;
+
+			case "laporan_bulanan":
 				include("proses/rekap_bulanan.php");
-			break;
-			case"karyawan_su":
-				include("proses/karyawan_su.php");
-			break;
-			case"karyawan":
-				include("proses/karyawan.php");
-			break;
-			case"setting":
+				break;
+
+			case "setting":
 				include("proses/setting.php");
-			break;
-			case"center":
+				break;
+			case "center":
 				include("proses/center.php");
-			break;
-			case"laporan":
+				break;
+			case "laporan":
 				include("proses/laporan.php");
-			break;
-			case"anggota":
+				break;
+			case "anggota":
 				include("proses/anggota.php");
-			break;
-			case"cashflow":
-				include("proses/cashflow.php");
-			break;
-			case"pemb_lain":
+				break;
+			case "pemb_lain":
 				include("proses/pemb_lain.php");
-			break;
-			case"rekap_anggota":
+				break;
+			case "rekap_anggota":
 				include("proses/rekap_anggota.php");
-			break;
-			case"lokasi":
-				include("proses/lokasi.php");
-			break;
-			default:include"halaman-index.php";
-			break;
-			
+				break;
+			default:
+				if (file_exists("proses/$getmenu.php")) {
+					include "proses/$getmenu.php";
+				} else {
+					include "halaman-index.php";
+				}
+
+				break;
 		}
-	}
-	else
-	{
-		switch($getmenu){
-			case"logout":
+	} else {
+		switch ($getmenu) {
+			case "logout":
 				include("proses/logout.php");
-			break;
-			
-			case"lokasi":
+				break;
+
+			case "lokasi":
 				include("proses/lokasi.php");
-			break;
-			case"tmb_laporan":
+				break;
+			case "tmb_laporan":
 				include("proses/tmb_laporan.php");
-			break;
-			
-			case"cashflow_sl":
+				break;
+
+			case "cashflow_sl":
 				include("proses/cashflow_sl.php");
-			break;
-			
-			case"tmb_laporan_baru":
+				break;
+
+			case "tmb_laporan_baru":
 				include("proses/tmb_laporan_baru.php");
-			break;
+				break;
 
-			case"setting":
+			case "setting":
 				include("proses/setting.php");
-			break;
+				break;
 
-			case"center-staff":
+			case "center-staff":
 				include("proses/center-staff.php");
-			break;
+				break;
 
-			case"laporan":
+			case "laporan":
 				include("proses/laporan.php");
-			break;
+				break;
 
-			default:include"halaman-403.php";
-			break;
+			default:
+				include "halaman-403.php";
+				break;
 		}
 	}
-	
-	
-}
-else{
-	include"halaman-index.php";
+} else {
+	include "halaman-index.php";
 }
 
 ?>
