@@ -13,7 +13,7 @@
     <i>Kelompok/Groups melihat capaian per groups</i>
     <hr />
     <?php
-    $qGrup = mysqli_query($con, "select * from `group`   where id_cabang='$cabang'");
+    $qGrup = mysqli_query($con, "select * from `group`   where id_cabang='$cabang' order by nama_group asc");
     while ($tampilGrup = mysqli_fetch_array($qGrup)) {
 
     ?>
