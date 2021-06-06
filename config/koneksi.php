@@ -1,12 +1,13 @@
 <?php
 
-$con = mysqli_connect($host, $username, $password, $db_name);
+
 session_start();
-if($con){
-    echo "Koneksi Berhasil";
+if(file_exists("config/seting.php")){
+    $con = mysqli_connect($host, $username, $password, $db_name);
 }
 else{
-    echo "koneksi gagal";
+    
+    include("config/backset");
+    $con = mysqli_connect($host, $username, $password, $db_name);
 }
-echo $username.'- '.$password.'- '.$db_name;
 ?> 
