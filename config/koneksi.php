@@ -7,7 +7,7 @@ if(file_exists("config/seting.php")){
 }
 else{
     
-    include("config/backset");
+    include("config/server.php");
     $con = mysqli_connect($host, $username, $password, $db_name);
 }
 ?> 
