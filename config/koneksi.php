@@ -7,6 +7,6 @@ if($con){
 }
 else{
     echo "koneksi gagal";
-    echo $usernama.'- '.$password;
 }
+echo $username.'- '.$password.'- '.$db_name;
 ?> 
