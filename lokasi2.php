@@ -52,12 +52,9 @@ $nama_jabatan=$d['singkatan_jabatan'];
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-	
-		<link rel="stylesheet" href="<?=$url ?>assets/js/cluster/MarkerCluster.css" />
-	<link rel="stylesheet" href="<?=$url ?>assets/js/cluster/MarkerCluster.Default.css" />
-	<link rel="stylesheet" href="<?=$url ?>assets/js/search/leaflet-search.min.css" />
+
     
-	<style type="text/css">
+    <style type="text/css">
     #info {
     display: block;
     position: relative;
@@ -93,12 +90,12 @@ $nama_jabatan=$d['singkatan_jabatan'];
             <!-- ... Your content goes here ... -->
 			<?php
 
-			if( !isset($_SESSION['id'])){
+if( !isset($_SESSION['id'])){
 				pindah("auth.php");
 			}
 			else {
-
-				?>
+                
+                ?>
 
 
                 
@@ -138,7 +135,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
                     <script type="text/javascript">
                        
 
-                    </script>
+                       </script>
                 </div>
                 <?php
 			}
@@ -162,36 +159,32 @@ $nama_jabatan=$d['singkatan_jabatan'];
 <script src="<?=$url ?>assets/js/startmin.js"></script>
 <script src="<?=$url ?>assets/js/leaflet/leaflet.js"></script>
 
+<script src="https://raw.githubusercontent.com/Outdooractive/leaflet-singleclick_0.7/master/singleclick.js"></script>
 <script src="<?=$url ?>assets/js/popper.min.js"></script>
 <script src="<?=$url ?>assets/js/morris.min.js"></script>
 <!-- <script src="<?=$url ?>assets/js/morris.data.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.73.0/dist/L.Control.Locate.min.js" charset="utf-8"></script>
 
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
-<script src="<?=$url ?>assets/js/cluster/leaflet.markercluster-src.js"></script>
-<script src="<?=$url ?>assets/js/search/leaflet-search.src.js"></script>
+<script src="https://m165437.github.io/Leaflet.AccuratePosition/js/Leaflet.AccuratePosition.js"></script>
 <script type="text/javascript">
-      
     var latdb = '<?=$d['latitude'];?>';
     var lngdb = '<?=$d['longitude'];?>';
-
-    
-
-     if(latdb == '' || lngdb == ''){
+    if(latdb == '' || lngdb == ''){
         latdb = '-6.449471595334012';
         lngdb = '107.81619415504505';
     }
     else
     {
-        
-    } 
-
+        // console.log(latdb + " = " +  lngdb);
+    }
+    
     var url_link = "<?=$url ?>";
     
 
 </script>
 
 
-<script src="<?=$url ?>assets/js/lokasi.js"></script>
+<script src="<?=$url ?>assets/js/script-lokasi.js"></script>
 </body>
 </html>

@@ -1,78 +1,7 @@
 
-	$(document).ready( function () {
-    $('#data_karyawan').DataTable();
-} );
-	var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-	var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-	  return new bootstrap.Tooltip(tooltipTriggerEl)
-	})
-	$(document).ready( function () {
-    $('#data_center').DataTable();
-} );
-	var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-	var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-	  return new bootstrap.Tooltip(tooltipTriggerEl)
-	})
-
-
-function ganti_net(id)
-{
-	masuk = $("#masuk" + id).val();
-	keluar = $("#keluar" + id).val();
-	$("#nett" + id).val(masuk - keluar);
-}
-function ganti_bayar(id)
-{
-
-	masuk = $("#agt-" + id).val();
-	keluar = $("#bayar-" + id).val();
-	hasil = masuk - keluar;
-	if (hasil>0) {
-		$("#tdk-" + id).val(hasil);
-	}
-	else
-	{
-		$("#tdk-" + id).val(0);
-	}
-}
-
- $(document).on("click","#tombol_edit", function(){
-    var id = $(this).data('id');
-    var center = $(this).data('center');
-    var status = $(this).data('status');
-    var agt = $(this).data('agt');
-    var bayar = $(this).data('bayar');
-    var tdk = $(this).data('tdk');
-
-    $("#id").val(id);
-    $("#center").val(center);
-    $("#anggota").val(agt);
-    $("#status").val(status);
-    $("#bayar").val(bayar);
-    $("#tdk").val(tdk);
-
-  });
-
- $(document).on("click","#hapuscenter",function(e){
- 	e.preventDefault();
- 	var idd = $(this).data('idhapus');
- 	$("#hapuscenter"+idd).val('');
- 	$("#agt-"+idd).val("");
- 	$("#member-"+idd).val("");
-
-    $("#bayar-"+idd).val("");
-    $("#tdk-"+idd).val("");
-
- });
-
-
-// $(document).on("change","#wilayah",function(){
-// 	var id = $(this).val();
-// 	alert(id)
-// });
-
 
 var map = L.map('map').setView([latdb,lngdb], 14);
+
 
 
 
@@ -92,7 +21,8 @@ map.addControl(L.control.locate({
         title: "disini",  // title of the locate control
         popup: "akurat hingga {distance} {unit} ",  // text to appear if user clicks on circle
         outsideMapBoundsMsg: "You seem located outside the boundaries of the map" // default message for onLocationOutsideMapBounds
-    }
+    },
+    showPopup:false,
        
            
 
@@ -103,6 +33,8 @@ map.addControl(L.control.locate({
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
+
+
 
 
 
@@ -198,7 +130,7 @@ $.getJSON( url_link + "api/cabang.php", function( data ) {
               ikon_center=center;
             }
             
-            L.marker([data[i]['latitude'],data[i]['longitude']],{icon:ikon_center}).addTo(map)
+            var lokasi_center = L.marker([data[i]['latitude'],data[i]['longitude']],{icon:ikon_center}).addTo(map)
             .bindPopup(isi);
       });
           
@@ -206,8 +138,7 @@ $.getJSON( url_link + "api/cabang.php", function( data ) {
       
     });
 
-
-
+    
     //selain center
     var text ='';
     $.getJSON( url_link + "api/peta.php", function( data ) {
@@ -286,6 +217,13 @@ text += "<br><a class='btn' href='"+ url_link+"index.php?menu=lokasi&pilih=pu" +
     $("#pu").attr('href',pu +"&lat="+lat+"&lng="+lng);
 });
 
-function kembali() {
-  window.history.back();
-}
+
+
+map.on('accuratepositionprogress', onAccuratePositionProgress);
+map.on('accuratepositionfound', onAccuratePositionFound);
+map.on('accuratepositionerror', onAccuratePositionError);
+
+map.findAccuratePosition({
+    maxWait: 10000,
+    desiredAccuracy: 20
+});

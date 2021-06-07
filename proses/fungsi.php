@@ -15,6 +15,14 @@ function pindah($url){
   <?php
   
 }
+function kembali(){
+  ?>
+  <script>
+    w<script>window.history.back(-2);</script>
+  </script>
+  <?php
+  
+}
 
 
 function format_hari_tanggal($waktu)
@@ -209,3 +217,13 @@ function cabang($con,$wilayah){
 function link_maps($lat,$lng){
   return "https://www.google.com/maps/place/".$lat.",".$lng."/".$lat.",".$lng.",17z/data=!3m1!4b1";
 }
+
+
+
+
+function wilayah($con,$kode){
+  $wilaya  = mysqli_query($con, "SELECT * FROM daftar_wilayah WHERE kode='$kode' limit 0,1");
+  $wilaya = mysqli_fetch_array($wilaya);
+  return $wilaya['nama'];
+}
+

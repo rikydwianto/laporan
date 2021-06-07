@@ -1,0 +1,557 @@
+[33mcommit 65e33830fe8eefbfe3787f826a4128032339299d[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: rikydwianto <rikydwianto04@gmail.com>
+Date:   Sun Jun 6 09:49:31 2021 +0700
+
+    mengubah koneksi agar lokal/server1
+
+[33mcommit f4468f81a1fafab5799dcbd57357ea1a1e13b7ab[m
+Author: rikydwianto <rikydwianto04@gmail.com>
+Date:   Sun Jun 6 09:43:10 2021 +0700
+
+    mengubah koneksi agar lokal/server1
+
+[33mcommit 9e76c0ce73aa685b542e57f869d4eb4503101d56[m
+Author: rikydwianto <rikydwianto04@gmail.com>
+Date:   Sun Jun 6 09:41:19 2021 +0700
+
+    mengubah koneksi agar lokal/server1
+
+[33mcommit 6d158b88921c72e489ba2383570095a943158379[m
+Author: rikydwianto <rikydwianto04@gmail.com>
+Date:   Sun Jun 6 09:22:23 2021 +0700
+
+    mengubah koneksi agar lokal/server1
+
+[33mcommit 6a02906ad6fb69dd74ee596007e2d43faa3d767c[m
+Author: rikydwianto <rikydwianto04@gmail.com>
+Date:   Sun Jun 6 09:19:04 2021 +0700
+
+    mengubah koneksi agar lokal/server1
+
+[33mcommit 2ab36096cdded2d61ac6c67a26c56b11a2c914cd[m
+Author: rikydwianto <rikydwianto04@gmail.com>
+Date:   Sun Jun 6 09:17:17 2021 +0700
+
+    mengubah koneksi agar lokal/server1
+
+[33mcommit 04a3904c7dc3ce5f1d2c6d925529ef1bb6749997[m
+Author: rikydwianto <rikydwianto04@gmail.com>
+Date:   Sun Jun 6 09:10:10 2021 +0700
+
+    mengubah koneksi agar lokal/server
+
+[33mcommit 4e5ccdf846229c1e8fb71c38b90446d6f4d0dac9[m
+Author: rikydwianto <rikydwianto04@gmail.com>
+Date:   Sun Jun 6 01:51:39 2021 +0700
+
+    memperbaiki kelompok
+
+[33mcommit 7fcdcf124373a41e48fe1c9b0efdfbb0e4f5d572[m
+Author: rikydwianto <rikydwianto04@gmail.com>
+Date:   Sun Jun 6 01:42:01 2021 +0700
+
+    menambahkan kelompok
+
+[33mcommit 98e75a25ad6aae4982fd8eff03c794ac1349b0db[m
+Author: rikydwianto <rikydwianto04@gmail.com>
+Date:   Sat Jun 5 00:01:28 2021 +0700
+
+    menambahkan folder
+
+[33mcommit b450b27356bd13d0249ad15aa19dae5eb1c6ec38[m
+Author: rikydwianto <rikydwianto04@gmail.com>
+Date:   Sat Jun 5 00:01:05 2021 +0700
+
+    memperbaiki gambar
+
+[33mcommit d41344b26838b77e2e93320e2514d00818da595a[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Jun 4 23:42:30 2021 +0700
+
+    Rename setting.php to seting.php
+
+[33mcommit 31e6df4190555373640a240b6cd0da5ffe15d08a[m
+Merge: 52c1bf8 9b31df2
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Jun 4 23:28:54 2021 +0700
+
+    Merge pull request #10 from rikydwianto/fitur
+    
+    s
+
+[33mcommit 9b31df21cf64645d830c34a17a20dddd6e1060ac[m[33m ([m[1;31morigin/fitur[m[33m)[m
+Author: rikydwianto <rikydwianto04@gmail.com>
+Date:   Fri Jun 4 23:27:40 2021 +0700
+
+    s
+
+[33mcommit 52c1bf897f6bf6a67ff96bc526205c4ce7ed6dc3[m
+Merge: 61b3845 98d78dc
+Author: rikydwianto <rikydwianto04@gmail.com>
+Date:   Fri Jun 4 23:02:42 2021 +0700
+
+    Merge branch 'master' of https://github.com/rikydwianto/laporan
+
+[33mcommit 98d78dcde3cc940108f6560f0d24c5b0dab0e505[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Jun 4 23:01:48 2021 +0700
+
+    Create setting.php
+
+[33mcommit 61b38454f36e8927425130c503035c4d7a7d93b8[m
+Author: rikydwianto <rikydwianto04@gmail.com>
+Date:   Fri Jun 4 23:00:00 2021 +0700
+
+    aaa:
+
+[33mcommit 438e36a356b595c862545c5a86039eb4afa47d48[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Jun 4 22:59:15 2021 +0700
+
+    Delete setting.php
+
+[33mcommit 7e78456a3faa75f1716e95286aeb72d2a25d103b[m
+Author: rikydwianto <rikydwianto04@gmail.com>
+Date:   Fri Jun 4 22:57:31 2021 +0700
+
+    coba.txt
+
+[33mcommit 6d26428f1a8269de944e48e585932231dd925207[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Jun 4 22:13:13 2021 +0700
+
+    Create setting.php
+
+[33mcommit 54ac68f253e7027579595676c365152f75fafe73[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Jun 4 22:04:53 2021 +0700
+
+    Delete seting.php
+
+[33mcommit 935231ee3523a867d9b9c63f7affd371228992a6[m
+Merge: 6314ad3 80a53df
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Mon May 31 22:22:05 2021 +0700
+
+    Merge pull request #8 from rikydwianto/coba
+    
+    menambhkan anggota pada manager
+
+[33mcommit 80a53df4efb1dce7d5669c92bd5aa1baa59875b2[m
+Author: rikydwianto <rikydwianto04@gmail.com>
+Date:   Mon May 31 22:19:01 2021 +0700
+
+    menambhkan anggota pada manager
+
+[33mcommit 6314ad3df2010f2a2d24799e498aaa2d98e12fd6[m
+Merge: 62b6b73 34460af
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Sun May 30 10:39:11 2021 +0700
+
+    Merge pull request #7 from rikydwianto/coba
+    
+    menambahkan file gambar
+
+[33mcommit 34460af0a15a4467d037f8fe619d765fb5ff8efa[m
+Author: rikydwianto <rikydwianto04@gmail.com>
+Date:   Sun May 30 10:36:27 2021 +0700
+
+    menambahkan file gambar
+
+[33mcommit 62b6b731e4355d291992d145e74e940dd6212444[m
+Merge: b552352 9f97e8b
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Wed May 26 19:51:22 2021 +0700
+
+    Merge pull request #6 from rikydwianto/coba
+    
+    menambahkan doortodoor
+
+[33mcommit 9f97e8b9641688138422b07758dd095b81c194ef[m
+Author: rikydwianto <rikydwianto04@gmail.com>
+Date:   Wed May 26 19:42:34 2021 +0700
+
+    menambahkan doortodoor
+
+[33mcommit b5523520a8d6c8faaf88e82d8c25860675863565[m
+Merge: c4b9a4f 02dcc6a
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Wed May 26 00:08:10 2021 +0700
+
+    Merge pull request #5 from rikydwianto/coba
+    
+    menambahlan grafilk
+
+[33mcommit 02dcc6ac633f5e34a788f967706e7e059da2e7a1[m
+Author: rikydwianto <rikydwianto04@gmail.com>
+Date:   Wed May 26 00:07:23 2021 +0700
+
+    menambahlan grafil
+
+[33mcommit c4b9a4f58e1be7c5369e9113b57883d34986af9d[m
+Merge: 7b52f73 b690c7c
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Tue May 25 21:37:53 2021 +0700
+
+    Merge pull request #4 from rikydwianto/coba
+    
+    membuat member
+
+[33mcommit b690c7cc1201789870e1be4934909a7fd1230c65[m
+Author: rikydwianto <rikydwianto04@gmail.com>
+Date:   Tue May 25 21:24:33 2021 +0700
+
+    membuat member
+
+[33mcommit 7b52f73c9a518b09a68be36d58c3c33330fc5f0d[m
+Merge: 9952f6b b859a0a
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Mon May 24 23:10:00 2021 +0700
+
+    Merge pull request #3 from rikydwianto/coba
+    
+    menambahkan arah di cnter
+
+[33mcommit b859a0a815a34123053e640e27b1a6267ea7ebb8[m
+Author: rikydwianto <rikydwianto04@gmail.com>
+Date:   Mon May 24 22:54:13 2021 +0700
+
+    menambahkan arah di cnter
+
+[33mcommit 9952f6b6e93ef831fc785d567b9bd8ce24b615c0[m
+Merge: cb185af 7b2a085
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Mon May 24 22:03:06 2021 +0700
+
+    Merge pull request #2 from rikydwianto/laptop
+    
+    Create sss.txt
+
+[33mcommit cb185af193c4f0c8da1db75f0cfc155e5887b6f4[m
+Merge: c959e77 3a53207
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Mon May 24 21:51:32 2021 +0700
+
+    Merge pull request #1 from rikydwianto/coba
+    
+    a
+
+[33mcommit 3a532071f6dab1e5a2c4738ce133e9d52a759af4[m
+Author: rikydwianto <rikydwianto04@gmail.com>
+Date:   Mon May 24 21:50:31 2021 +0700
+
+    a
+
+[33mcommit 7b2a085c9951b97d7fe99b29ec6ae218b32abaa6[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Mon May 24 21:39:52 2021 +0700
+
+    Create sss.txt
+
+[33mcommit c959e77b79d7dd969c7741868bac7876782a66e6[m
+Author: rikydwianto <rikydwianto04@gmail.com>
+Date:   Mon May 24 21:20:44 2021 +0700
+
+    tambah readmi
+
+[33mcommit 77380e28b3c65b8ee3996a94f5c85f6c5f4d7478[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Wed Apr 14 12:48:01 2021 +0700
+
+    Update halaman-index.php
+
+[33mcommit 07dcb61a8271cf8ac4418f0ad98da3b3f3ca979c[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Sat Apr 3 09:47:40 2021 +0700
+
+    Update lokasi.js
+
+[33mcommit 72a88408ddf38632b69270e68f50ee295566d3e5[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Wed Mar 31 07:26:05 2021 +0700
+
+    Update rekap_laporan_minggu.php
+
+[33mcommit 7b52e03372d3302608ac5eb4e853aa96e8bca6e5[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Wed Mar 31 07:25:17 2021 +0700
+
+    Update rekap_laporan.php
+
+[33mcommit 635cc256fb7db62004b00ad5da265423b4676890[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Wed Mar 31 07:13:20 2021 +0700
+
+    Update halaman-index.php
+
+[33mcommit a151dace967a22d48e1f1abca32e2f206f491216[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Mon Mar 29 11:56:57 2021 +0700
+
+    Update lokasi.js
+
+[33mcommit 0c7d116384e094f5fdd84f1033fb044e6bfb7a00[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Sat Mar 27 05:53:23 2021 +0700
+
+    Update lokasi.js
+
+[33mcommit 767fa3976acf3c1005ffcf4be19e36c89d89ec60[m
+Author: riky Dwianto <rikydwianto04@gmail.com>
+Date:   Sat Mar 27 05:48:06 2021 +0700
+
+    aasas
+
+[33mcommit 2a9c0b612b74630329fa105b9b8d184ac800dbf3[m
+Author: riky Dwianto <rikydwianto04@gmail.com>
+Date:   Sat Mar 27 05:30:55 2021 +0700
+
+    aasas
+
+[33mcommit c78bc4533a6c822bb676e53c0e00699c7a7ae5f7[m
+Author: riky Dwianto <rikydwianto04@gmail.com>
+Date:   Sat Mar 27 05:26:34 2021 +0700
+
+    aasas
+
+[33mcommit 491c326fe03866be6a06b83b80530f7a0ed2bb40[m
+Author: riky Dwianto <rikydwianto04@gmail.com>
+Date:   Sat Mar 27 05:19:21 2021 +0700
+
+    aasas
+
+[33mcommit 4b9ca5eb9778138ebd0a58d3309cf7b08f2fa455[m
+Author: riky Dwianto <rikydwianto04@gmail.com>
+Date:   Sat Mar 27 05:12:55 2021 +0700
+
+    aasas
+
+[33mcommit 619ec23b3551e4a938f8a0caeeb3d7674a03c75a[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Sat Mar 27 04:22:25 2021 +0700
+
+    Update lokasi2.php
+
+[33mcommit 31034f6824f331264d937a413acedbc06f9180dc[m
+Author: riky Dwianto <rikydwianto04@gmail.com>
+Date:   Fri Mar 26 22:31:03 2021 +0700
+
+    seacrh
+
+[33mcommit debc91d47c70ec8264eb5caa8d9cf95c66e22a75[m
+Author: riky Dwianto <rikydwianto04@gmail.com>
+Date:   Fri Mar 26 22:24:01 2021 +0700
+
+    seacrh
+
+[33mcommit 2b7396773d3e8f33176870b2e36e60def27c2ae9[m
+Author: riky Dwianto <rikydwianto04@gmail.com>
+Date:   Fri Mar 26 22:15:19 2021 +0700
+
+    seacrh
+
+[33mcommit 07b17f192498e8515b9bf06debf47d40b2484bee[m
+Author: riky Dwianto <rikydwianto04@gmail.com>
+Date:   Fri Mar 26 22:03:47 2021 +0700
+
+    seacrh
+
+[33mcommit 14b4e813c79852b9aabe7528a31aa5add952449b[m
+Author: riky Dwianto <rikydwianto04@gmail.com>
+Date:   Fri Mar 26 21:07:24 2021 +0700
+
+    com
+
+[33mcommit 610780b3b40647cf861dbcf3b8e838a6f8a60700[m
+Author: riky Dwianto <rikydwianto04@gmail.com>
+Date:   Fri Mar 26 21:03:23 2021 +0700
+
+    cluster
+
+[33mcommit 1f01f70e79b28d3defe35ea660e228c6e11fbbff[m
+Author: riky Dwianto <rikydwianto04@gmail.com>
+Date:   Fri Mar 26 20:24:25 2021 +0700
+
+    aaaa
+
+[33mcommit 5b2049339d4ed190934c2b2dd36a02dbdf9c545e[m
+Author: riky Dwianto <rikydwianto04@gmail.com>
+Date:   Fri Mar 26 20:20:28 2021 +0700
+
+    aa
+
+[33mcommit 6ec8a713ec85ddb12b4a2d3c6f0d97baa4f9bd95[m
+Author: riky Dwianto <rikydwianto04@gmail.com>
+Date:   Fri Mar 26 20:16:31 2021 +0700
+
+    aa
+
+[33mcommit c7a05f813d651f304e6d131d522aff0fa96c698d[m
+Author: riky Dwianto <rikydwianto04@gmail.com>
+Date:   Fri Mar 26 19:44:02 2021 +0700
+
+    clustuer
+
+[33mcommit 3c3f911fa8ac5f9cad3d68f05d00e5cb5204f9b9[m
+Author: riky Dwianto <rikydwianto04@gmail.com>
+Date:   Fri Mar 26 19:33:53 2021 +0700
+
+    cluster
+
+[33mcommit d298cccd331b8c55aea8c7e6b6ea05fb27498dff[m
+Author: riky Dwianto <rikydwianto04@gmail.com>
+Date:   Fri Mar 26 18:48:18 2021 +0700
+
+    a
+
+[33mcommit 2df2890c8733150cb56a21071d5a3301151b7c57[m
+Author: riky Dwianto <rikydwianto04@gmail.com>
+Date:   Fri Mar 26 18:39:46 2021 +0700
+
+    mengganti poosisi jam
+
+[33mcommit 21d6a09930c655aa830a24223f5abeb911be966f[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Mar 26 11:11:46 2021 +0700
+
+    Dd
+
+[33mcommit 0b7601c75929cf3f9abe12738f89babc833bbaf0[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Mar 26 11:10:57 2021 +0700
+
+    Update script.js
+
+[33mcommit eb7f7676d88efc876230b70255edc476af10797e[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Mar 26 11:09:05 2021 +0700
+
+    Update script.js
+
+[33mcommit 3c26c62ced9ff97abdd6d9f6f4fd03983dbdbf99[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Mar 26 11:04:47 2021 +0700
+
+    Update script.js
+
+[33mcommit f86b10c9747880c1d26941539c315214902ebb57[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Mar 26 10:54:01 2021 +0700
+
+    Update script.js
+
+[33mcommit 538c4c8f19198ae8691f7fbe542f5ced4c1b5631[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Mar 26 10:51:46 2021 +0700
+
+    Update script.js
+
+[33mcommit 241c99d34132edde35225fb79520e210bd55330c[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Mar 26 10:42:17 2021 +0700
+
+    Update script.js
+
+[33mcommit 14f4d573e5ae0813f6d7a9bf2a7ad1d65ebe2148[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Mar 26 10:31:47 2021 +0700
+
+    Update script.js
+
+[33mcommit d3ec236ac461a8e6d4e80baa61bfdf32965cda2c[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Mar 26 10:24:18 2021 +0700
+
+    Update script.js
+
+[33mcommit 94363f2e19525736253209166f231caf8025ef88[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Mar 26 10:20:24 2021 +0700
+
+    Update script.js
+
+[33mcommit cd63830fd20f7bca11c904af9b783292ee9706e3[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Mar 26 10:09:44 2021 +0700
+
+    Update script.js
+
+[33mcommit 05fcf6ed0c918a923bc48f651bc6694aaec1aca5[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Mar 26 10:04:32 2021 +0700
+
+    Update script.js
+
+[33mcommit 3b0576fd5855b7707a424526a3a35ebb28b56863[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Mar 26 10:00:00 2021 +0700
+
+    Update script.js
+
+[33mcommit 43dff41dd324bfe7ec357fa74c13d2a2413e3869[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Mar 26 09:58:46 2021 +0700
+
+    Update script.js
+
+[33mcommit e716ce9aceae615c258621d9800081227eef16d7[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Mar 26 09:56:59 2021 +0700
+
+    Update script.js
+
+[33mcommit 228e7a4ca7d0c4bcace6878c1c31e2f4feaf33e6[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Mar 26 09:54:51 2021 +0700
+
+    Radius
+
+[33mcommit 651b4823d40a7bf075e7689cfb75a9d776d1c7a4[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Mar 26 09:50:01 2021 +0700
+
+    Update script.js
+
+[33mcommit 5535c6bb31a03d3a436b5a7b0b632415aa895773[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Mar 26 09:48:27 2021 +0700
+
+    Update script.js
+
+[33mcommit 0dc4712d256109c38aef9ddca5494e9398783299[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Mar 26 09:42:56 2021 +0700
+
+    Update script.js
+
+[33mcommit 5afa3d0697f23708fc764f9ae317f0043e2fa450[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Mar 26 09:36:50 2021 +0700
+
+    Update script.js
+
+[33mcommit 96b345eb93074b497080470966053d33d94dc597[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Mar 26 09:31:50 2021 +0700
+
+    Ww
+
+[33mcommit 6c89b0283c31c446a8eca5be217d63a254839f29[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Mar 26 08:41:43 2021 +0700
+
+    Update script.js
+
+[33mcommit d0b5f184dfef8c2d34af4a5d8364348b17010edc[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Mar 26 08:40:37 2021 +0700
+
+    Update script.js
+
+[33mcommit 20cf789f38d73416e4e8fc48dd3b90e818e701dc[m
+Author: rikydwianto <80996401+rikydwianto@users.noreply.github.com>
+Date:   Fri Mar 26 08:38:09 2021 +0700
+
+    Update script.js
+
+[33mcommit 1066ce9c78aba58ff89b
