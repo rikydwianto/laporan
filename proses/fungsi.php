@@ -18,7 +18,7 @@ function pindah($url){
 function kembali(){
   ?>
   <script>
-    w<script>window.history.back(-2);</script>
+    window.history.back(-2);
   </script>
   <?php
   
@@ -227,3 +227,32 @@ function wilayah($con,$kode){
   return $wilaya['nama'];
 }
 
+
+
+function daftar_wilayah($con,$kode){
+  $wilaya  = mysqli_query($con, "SELECT * FROM daftar_wilayah_cabang WHERE  id_daftar_wilayah='$kode' limit 0,1");
+  $wilaya = mysqli_fetch_array($wilaya);
+  return $wilaya;
+}
+
+
+function cek_center($con,$center){
+  if(empty($center))
+  {
+    echo "-";
+  }
+  else{
+    $q= mysqli_query($con,"select * from center left join karyawan on center.id_karyawan=karyawan.id_karyawan where center.no_center='$center'");
+
+    $cen = mysqli_fetch_array($q);
+    if($cen['no_center']!="")
+    {
+      echo "<small>$center/$cen[hari]/$cen[nama_karyawan]</small>";
+    }
+    else
+    {
+      echo "<i><small>center tidak ditemukan</small></i>";
+    }
+  }
+ 
+}

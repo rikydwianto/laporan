@@ -9,7 +9,10 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 	<li><a href="<?php echo $url . $menu ?>laporan" class="w3-bar-item w3-button"><i class="fa fa-search"></i> Lihat Laporan</a></li>
 	<li><a href="<?php echo $url . $menu ?>center-staff" class="w3-bar-item w3-button"><i class="fa fa-building"></i> Center</a></li>
 	<li><a href="<?php echo $url . $menu ?>cashflow_sl" class="w3-bar-item w3-button"><i class="fa fa-file-excel-o"></i> Cashflow </a></li>
-
+	
+	<li>
+		<a href="<?php echo $url . $menu ?>detail_center" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Data Wilayah</a>
+	</li>
 	<li>
 		<a href="<?php echo $url ?>lokasi.php" class="w3-bar-item w3-button"><i class="fa fa-globe"></i> LOKASI</a>
 	</li>
@@ -55,6 +58,10 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 
 	<li>
 		<a href="<?php echo $url ?>lokasi.php" class="w3-bar-item w3-button"><i class="fa fa-globe"></i> LOKASI</a>
+	</li>
+
+	<li>
+		<a href="<?php echo $url . $menu ?>detail_center" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Data Wilayah</a>
 	</li>
 
 	<li>
@@ -128,6 +135,10 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 		</ul>
 	</li>
 
+	
+	<li>
+		<a href="<?php echo $url . $menu ?>detail_center" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Data Wilayah</a>
+	</li>
 	<li>
 		<a href="<?php echo $url ?>lokasi.php" class="w3-bar-item w3-button"><i class="fa fa-globe"></i> LOKASI</a>
 	</li>
@@ -199,6 +210,10 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 	<li><a href="<?php echo $url . $menu ?>file" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> FILE</a></li>
 	<li>
 
+	</li>
+	
+	<li>
+		<a href="<?php echo $url . $menu ?>detail_center" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Data Wilayah</a>
 	</li>
 
 	<li><a href="<?php echo $url . $menu ?>anggota" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Anggota</a></li>

@@ -134,9 +134,9 @@ if (isset($_GET['satu_desa'])) {
         alert(" Desa $desa  Berhasil Ditambahkan $keterangan");
     }
 
-    
 
-   
+
+
     kembali();
 }
 if (isset($_GET['kecamatan_desa'])) {

@@ -63,6 +63,9 @@ if (isset($_GET['menu'])) {
 			case "logout":
 				include("proses/logout.php");
 				break;
+			case "detail_center":
+				include("proses/detail_center.php");
+				break;
 
 			case "lokasi":
 				include("proses/lokasi.php");
