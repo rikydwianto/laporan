@@ -178,7 +178,7 @@
                                             </td>
                                         </tr>
                                     <?php
-                                   if($detail['no_center']==""){
+                                   if($detail['no_center']!=""){
                                        $hitung_center[]=$no++;
                                    }
                                 
