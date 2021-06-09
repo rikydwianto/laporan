@@ -103,7 +103,128 @@
 
 
         <?php
-        } else {
+        } elseif (isset($_GET['edit'])) {
+            //EDIT
+            //PROSES EDIT
+            $id = $_GET['id'];
+            if (isset($_POST['edit_detail'])) {
+                $iddesa = $_POST['desa'];
+                $desa1 = daftar_wilayah($con, $iddesa);
+                $desa = $desa1['desa'];
+                $keca = $desa1['kecamatan'];
+                $alamat  = $_POST['alamat'];
+                $rt  = sprintf("%03d", $_POST['rt']);
+                $rw  = sprintf("%03d", $_POST['rw']);
+                $keterangan  = $_POST['keterangan'];
+                $center  = $_POST['center'];
+                $q = mysqli_query($con, "UPDATE `data_center` SET desa='$desa',kecamatan='$keca',`rw` = '$rw' , `rt` = '$rt' , `alamat` = '$alamat' , `no_center` = '$center' , `keterangan` = '$keterangan' WHERE `id_data_center` = '$id'; 
+                ");
+                if ($q) {
+                    alert("Berhasil diedit");
+                    pindah("$url$menu" . "detail_center&kecamatan=$keca&desa=$desa");
+                } else {
+                    alert("gagal Ditambahkan");
+                }
+            }
+
+            //FORM EDIT
+            
+            $sq = mysqli_query($con, "select * from data_center where id_data_center='$id'");
+            $editCenter = mysqli_fetch_array($sq);
+
+
+
+        ?>
+            <br>
+            <form action="" method="post">
+                <table class="table">
+                    <tr>
+                        <td>Kecamatan - Desa</td>
+                        <td>
+                            <select name='desa' required class="form-control" aria-label="Default select example " id='detail_wilayah'>
+                                <option value=''> -- Silahkan Pilih Kecamatan --</option>
+                                <?php
+                                $kec = mysqli_query($con, "select * from daftar_wilayah_cabang where id_cabang='$id_cabang' group by kecamatan ");
+                                while ($kec1 = mysqli_fetch_assoc($kec)) {
+                                    echo "<option  disabled>$kec1[kecamatan]</option>";
+                                    $desa = mysqli_query($con, "select * from daftar_wilayah_cabang where id_cabang='$id_cabang' and kecamatan='$kec1[kecamatan]'");
+                                    while ($TampilDesa = mysqli_fetch_array($desa)) {
+                                        if ($TampilDesa['desa'] == $editCenter['desa']) {
+
+                                            echo "<option value='$TampilDesa[id_daftar_wilayah]' selected> -   $TampilDesa[desa]</option>";
+                                        } else {
+                                            echo "<option value='$TampilDesa[id_daftar_wilayah]' > -   $TampilDesa[desa]</option>";
+                                        }
+                                    }
+                                }
+                                ?>
+                            </select>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>RT/RW</td>
+                        <td>
+                            <div class="col" style="float: left;">
+                                <input type="text" name="rt" id="" value="<?= $editCenter['rt'] ?>" style="width:150px" class='form-control' placeholder="RT (001)" />
+                            </div>
+                            <div class="col" style="float: left;">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="col">
+                                <input type="text" name="rw" value="<?= $editCenter['rw'] ?>" id="" style="width:150px" class='form-control' placeholder="RW (001)" />
+                            </div>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Alamat lengkap</td>
+                        <td>
+                            <textarea name="alamat" id="" class='form-control' cols="10" rows="5" placeholder="Patokan Alamat"><?= $editCenter['alamat'] ?></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Keterangan </td>
+                        <td>
+                            <textarea name="keterangan" id="" class='form-control' cols="10" rows="5" placeholder="Keterngan lain, contoh  no hp, keterangan center bermasalah atau tidak"><?= $editCenter['keterangan'] ?></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>NO CENTER
+                            <br>
+                            <i>
+                                Diisi jika di RT/RW ini ada CENTER
+                            </i>
+                        </td>
+                        <td>
+                            <input type="text" value='<?= $editCenter['no_center'] ?>' name="center" placeholder="001" class='form-control' id="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="submit" value="SIMPAN" class='btn btn-success' name='edit_detail' />
+                        </td>
+                    </tr>
+                </table>
+
+            </form>
+        <?php
+
+            //END EDIT
+        } 
+        elseif(isset($_GET['hapus'])){
+            $id = $_GET['id'];
+                $q = mysqli_query($con, "delete from data_center  WHERE `id_data_center` = '$id'; 
+                ");
+                if ($q) {
+                    alert("Berhasil Dihapus");
+                    pindah("$url$menu" . "detail_center&kecamatan=$keca&desa=$desa");
+                } else {
+                    alert("gagal Ditambahkan");
+                }
+        }
+        else {
         ?>
             <br>
             <table class='table table-bordered table-hovered'>
@@ -116,6 +237,7 @@
                         <th>ALAMAT</th>
                         <th>KETERANGAN</th>
                         <th>CENTER</th>
+                        <th>#</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -131,6 +253,7 @@
                                 </a>
 
                             </th>
+                            <th>&nbsp;</th>
                             <th>&nbsp;</th>
                             <th>&nbsp;</th>
                             <th>&nbsp;</th>
@@ -155,6 +278,7 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
+                                    <td></td>
                                     <td>
 
                                     </td>
@@ -163,37 +287,63 @@
                                 $desa = $_GET['desa'];
                                 if (strtolower($detailCenter['desa']) == $desa) {
                                     $qdetail = mysqli_query($con, "select * from data_center where kecamatan='$keca' and id_cabang='$id_cabang' and desa='$desa'  ");
-                                    $no2=1;
+                                    $no2 = 1;
                                     while ($detail = mysqli_fetch_array($qdetail)) {
                                 ?>
                                         <tr>
                                             <td>&nbsp;&nbsp;&nbsp;&nbsp;</i></td>
                                             <td></td>
-                                            <td><?=$no2++?>. <?= strtoupper($detailCenter['desa']) ?></td>
+                                            <td><?= $no2++ ?>. <?= strtoupper($detailCenter['desa']) ?></td>
                                             <td><?= $detail['rt'] ?>/<?= $detail['rw'] ?></td>
                                             <td><?= $detail['alamat'] ?></td>
                                             <td><?= $detail['keterangan'] ?></td>
                                             <td>
                                                 <?php $cent = cek_center($con, $detail['no_center']) ?>
                                             </td>
+                                            <td>
+                                                <?php
+                                                if ($jabatan == 'BM' || $jabatan == 'ASM' || $su == 'y') {
+                                                ?>
+                                                    <a href="<?= $url . $menu ?>detail_center&edit&id=<?= $detail['id_data_center'] ?>" class='btn'>
+                                                        <i class='fa fa-edit'></i>
+                                                    </a>
+                                                    <a href="<?= $url . $menu ?>detail_center&hapus&id=<?= $detail['id_data_center'] ?>" class='btn'>
+                                                        <i class='fa fa-times'></i>
+                                                    </a>
+                                                    <?php
+                                                } else {
+                                                    if ($id_karyawan == $detail['id_karyawan']) {
+                                                    ?>
+                                                        <a href="<?= $url . $menu ?>detail_center&edit&id=<?= $detail['id_data_center'] ?>" class='btn'>
+                                                            <i class='fa fa-edit'></i>
+                                                        </a>
+                                                        <a href="<?= $url . $menu ?>detail_center&hapus&id=<?= $detail['id_data_center'] ?>" class='btn'>
+                                                            <i class='fa fa-times'></i>
+                                                        </a>
+                                                <?php
+                                                    }
+                                                }
+                                                ?>
+
+                                            </td>
                                         </tr>
                                     <?php
-                                   if($detail['no_center']!=""){
-                                       $hitung_center[]=$no++;
-                                   }
-                                
-                                }
+                                        if ($detail['no_center'] != "") {
+                                            $hitung_center[] = $no++;
+                                        }
+                                    }
                                     ?>
                                     <tr>
-                                        <td colspan="7">
-                                        <center>
-                                        <b >
-                                            Total Center di Desa : <?=$desa?> <?=count($hitung_center)?></td>
+                                        <td colspan="8">
+                                            <center>
+                                                <b>
+                                                    Total Center di Desa : <?= $desa ?> <?= count($hitung_center) ?>
+                                        </td>
                                         </b>
                                         </center>
-                                        
+
                                     </tr>
-                                    <?php
+                    <?php
                                 }
                             }
                         }
