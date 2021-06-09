@@ -50,7 +50,8 @@ if (isset($_GET['menu'])) {
 				include("proses/rekap_anggota.php");
 				break;
 			case "daftar_wilayah":
-				include("proses/daftar_wilayah.php");
+				include("proses/tambah_wilayah.php");
+				
 				break;
 			default:
 				if (file_exists("proses/$getmenu.php")) {
