@@ -153,7 +153,7 @@
 
                                             echo "<option value='$TampilDesa[id_daftar_wilayah]' selected> -   $TampilDesa[desa]</option>";
                                         } else {
-                                            echo "<option value='$TampilDesa[id_daftar_wilayah]' > -   $TampilDesa[desa]</option>";
+                                            echo "<option value='{$TampilDesa['id_daftar_wilayah']}'> -   {$TampilDesa['desa']}</option>";
                                         }
                                     }
                                 }

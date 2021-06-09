@@ -49,6 +49,9 @@ if (isset($_GET['menu'])) {
 			case "rekap_anggota":
 				include("proses/rekap_anggota.php");
 				break;
+			case "daftar_wilayah":
+				include("proses/daftar_wilayah.php");
+				break;
 			default:
 				if (file_exists("proses/$getmenu.php")) {
 					include "proses/$getmenu.php";
