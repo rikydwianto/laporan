@@ -1,5 +1,5 @@
 <div class='content table-responsive'>
-    <h3 class='page-header'>SELURUH DATA KARYAWAN</h3>
+    <h3 class='page-header'>DATA WILAYAH KOMIDA CAB . <?=strtoupper($d['nama_cabang'])?></h3>
     <a href='<?= $url . $menu ?>detail_center&tambah' class='btn btn-info '><i class='fa fa-plus'></i> Detail Center</a>
     <a href='<?= $url . $menu ?>detail_center' class='btn btn-success '><i class='fa fa-eye'></i> Lihat</a>
     <a href='<?= $url ?>export/data_center.php' class='btn btn-info '><i class='fa fa-file-o'></i> Export</a>
@@ -128,7 +128,7 @@
             }
 
             //FORM EDIT
-            
+
             $sq = mysqli_query($con, "select * from data_center where id_data_center='$id'");
             $editCenter = mysqli_fetch_array($sq);
 
@@ -212,18 +212,39 @@
         <?php
 
             //END EDIT
-        } 
-        elseif(isset($_GET['hapus'])){
+        } elseif (isset($_GET['hapus'])) {
             $id = $_GET['id'];
-                $q = mysqli_query($con, "delete from data_center  WHERE `id_data_center` = '$id'; 
+            $q = mysqli_query($con, "delete from data_center  WHERE `id_data_center` = '$id'; 
                 ");
-                if ($q) {
-                    alert("Berhasil Dihapus");
-                    pindah("$url$menu" . "detail_center&kecamatan=$keca&desa=$desa");
-                } else {
-                    alert("gagal Ditambahkan");
-                }
-        }
+            if ($q) {
+                alert("Berhasil Dihapus");
+                pindah("$url$menu" . "detail_center&kecamatan=$keca&desa=$desa");
+            } else {
+                alert("gagal Ditambahkan");
+            }
+        } 
+        elseif (isset($_GET['hapus_kecamatan'])) {
+            $nama_kecamatan = $_GET['nama_kecamatan'];
+            $q = mysqli_query($con, "delete from daftar_wilayah_cabang  WHERE kecamatan = '$nama_kecamatan'; 
+                ");
+            if ($q) {
+                alert("Berhasil Dihapus");
+                pindah("$url$menu" . "detail_center");
+            } else {
+                alert("gagal Ditambahkan");
+            }
+        } 
+        elseif (isset($_GET['hapus_desa'])) {
+            $nama_desa = $_GET['nama_desa'];
+            $q = mysqli_query($con, "delete from daftar_wilayah_cabang  WHERE desa = '$nama_desa'; 
+                ");
+            if ($q) {
+                alert("Berhasil Dihapus");
+                pindah("$url$menu" . "detail_center");
+            } else {
+                alert("gagal dihapus");
+            }
+        } 
         else {
         ?>
             <br>
@@ -242,7 +263,7 @@
                 </thead>
                 <tbody>
                     <?php
-                    $kec = mysqli_query($con, "select * from data_center where id_cabang='$id_cabang' group by kecamatan order by kecamatan asc ");
+                    $kec = mysqli_query($con, "select * from daftar_wilayah_cabang where id_cabang='$id_cabang' group by kecamatan order by kecamatan asc ");
                     while ($kecamatan = mysqli_fetch_array($kec)) {
                     ?>
                         <tr>
@@ -258,12 +279,22 @@
                             <th>&nbsp;</th>
                             <th>&nbsp;</th>
                             <th>&nbsp;</th>
-                            <th>&nbsp;</th>
+                            <th>
+                                <?php
+                                if ($jabatan == 'BM' || $jabatan == 'ASM' || $su == 'y') {
+                                ?>
+                                    <a href="<?= $url . $menu ?>detail_center&hapus_kecamatan&nama_kecamatan=<?= $kecamatan['kecamatan'] ?>" onclick="return window.confirm('yakin akan menghapus ini Kecamatan : <?= $kecamatan['kecamatan'] ?>?')" class='btn'>
+                                        <i class='fa fa-times'></i>
+                                    </a>
+                                <?php
+                                }
+                                ?>
+                            </th>
                         </tr>
                         <?php
                         $keca = strtolower($_GET['kecamatan']);
                         if (strtolower($kecamatan['kecamatan']) == $keca) {
-                            $qdet = mysqli_query($con, "select * from data_center where kecamatan='$keca' and id_cabang='$id_cabang' group by desa ");
+                            $qdet = mysqli_query($con, "select * from daftar_wilayah_cabang where kecamatan='$keca' and id_cabang='$id_cabang' group by desa ");
                             $no1 = 1;
                             while ($detailCenter = mysqli_fetch_array($qdet)) {
                         ?>
@@ -280,7 +311,15 @@
                                     <td></td>
                                     <td></td>
                                     <td>
-
+                                    <?php
+                                if ($jabatan == 'BM' || $jabatan == 'ASM' || $su == 'y') {
+                                ?>
+                                    <a href="<?= $url . $menu ?>detail_center&hapus_desa&nama_desa=<?= $detailCenter['desa'] ?>" onclick="return window.confirm('yakin akan menghapus ini desa : <?= $detailCenter['desa'] ?>?')" class='btn'>
+                                        <i class='fa fa-times'></i>
+                                    </a>
+                                <?php
+                                }
+                                ?>
                                     </td>
                                 </tr>
                                 <?php
@@ -307,14 +346,14 @@
                                                     <a href="<?= $url . $menu ?>detail_center&edit&id=<?= $detail['id_data_center'] ?>" class='btn'>
                                                         <i class='fa fa-edit'></i>
                                                     </a>
-                                                    <a href="<?= $url . $menu ?>detail_center&hapus&id=<?= $detail['id_data_center'] ?>" class='btn'>
+                                                    <a href="<?= $url . $menu ?>detail_center&hapus&id=<?= $detail['id_data_center'] ?>" onclick="return window.confirm('yakin akan menghapus ini?')" class='btn'>
                                                         <i class='fa fa-times'></i>
                                                     </a>
                                                     <?php
                                                 } else {
                                                     if ($id_karyawan == $detail['id_karyawan']) {
                                                     ?>
-                                                        <a href="<?= $url . $menu ?>detail_center&edit&id=<?= $detail['id_data_center'] ?>" class='btn'>
+                                                        <a href="<?= $url . $menu ?>detail_center&edit&id=<?= $detail['id_data_center'] ?>" onclick="return window.confirm('yakin akan menghapus ini?')" class='btn'>
                                                             <i class='fa fa-edit'></i>
                                                         </a>
                                                         <a href="<?= $url . $menu ?>detail_center&hapus&id=<?= $detail['id_data_center'] ?>" class='btn'>
@@ -337,9 +376,9 @@
                                         <td colspan="8">
                                             <center>
                                                 <b>
-                                                    Total Center di Desa : <?= $desa ?> <?= count($hitung_center) ?>
+                                                    Total Center di Desa <?= $desa ?> : <?= count($hitung_center) ?>
+                                                </b>      
                                         </td>
-                                        </b>
                                         </center>
 
                                     </tr>

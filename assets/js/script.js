@@ -289,3 +289,6 @@ text += "<br><a class='btn' href='"+ url_link+"index.php?menu=lokasi&pilih=pu" +
 function kembali() {
   window.history.back();
 }
+
+
+

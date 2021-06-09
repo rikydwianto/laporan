@@ -108,6 +108,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
     var url_link = "<?=$url ?>";
     var idcab = "<?php echo $cabang ?>";
 </script>
+<script src="<?=$url ?>assets/js/script_wilayah.js"></script>
 <script src="<?=$url ?>assets/js/grafik.js"></script>
 <script src="<?=$url ?>assets/js/script.js"></script>
 </body>
