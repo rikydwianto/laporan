@@ -26,3 +26,12 @@ function pilih_prov(){
         $("#desa1").html(data);
        });
   }
+
+
+  function simpan_desa(kecamatan){
+      $.get(url_link+"api/proses_tambah_wilayah.php?kecamatan_desa&kec="+kecamatan,function(data,status){
+          alert(data);
+        //   pilih_kec();
+      });
+      
+  }

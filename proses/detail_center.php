@@ -1,5 +1,5 @@
 <div class='content table-responsive'>
-    <h3 class='page-header'>DATA WILAYAH KOMIDA CAB . <?=strtoupper($d['nama_cabang'])?></h3>
+    <h3 class='page-header'>DATA WILAYAH KOMIDA CAB . <?= strtoupper($d['nama_cabang']) ?></h3>
     <a href='<?= $url . $menu ?>detail_center&tambah' class='btn btn-info '><i class='fa fa-plus'></i> Detail Center</a>
     <a href='<?= $url . $menu ?>detail_center' class='btn btn-success '><i class='fa fa-eye'></i> Lihat</a>
     <a href='<?= $url ?>export/data_center.php' class='btn btn-info '><i class='fa fa-file-o'></i> Export</a>
@@ -222,8 +222,7 @@
             } else {
                 alert("gagal Ditambahkan");
             }
-        } 
-        elseif (isset($_GET['hapus_kecamatan'])) {
+        } elseif (isset($_GET['hapus_kecamatan'])) {
             $nama_kecamatan = $_GET['nama_kecamatan'];
             $q = mysqli_query($con, "delete from daftar_wilayah_cabang  WHERE kecamatan = '$nama_kecamatan'; 
                 ");
@@ -233,8 +232,7 @@
             } else {
                 alert("gagal Ditambahkan");
             }
-        } 
-        elseif (isset($_GET['hapus_desa'])) {
+        } elseif (isset($_GET['hapus_desa'])) {
             $nama_desa = $_GET['nama_desa'];
             $q = mysqli_query($con, "delete from daftar_wilayah_cabang  WHERE desa = '$nama_desa'; 
                 ");
@@ -244,20 +242,19 @@
             } else {
                 alert("gagal dihapus");
             }
-        } 
-        else {
+        } else {
         ?>
             <br>
-            <table class='table table-bordered table-hovered'>
+            <table class='table table-bordered'>
                 <thead>
                     <tr>
                         <th>NO.</th>
                         <th>KECAMATAN</th>
                         <th>DESA</th>
-                        <th>RT/RW</th>
-                        <th>ALAMAT</th>
-                        <th>KETERANGAN</th>
-                        <th>CENTER</th>
+                        <th>&nbsp;</th>
+                        <th>&nbsp;</th>
+                        <th>&nbsp;</th>
+                        <th>&nbsp;</th>
                         <th>#</th>
                     </tr>
                 </thead>
@@ -274,11 +271,19 @@
                                 </a>
 
                             </th>
-                            <th>&nbsp;</th>
-                            <th>&nbsp;</th>
-                            <th>&nbsp;</th>
-                            <th>&nbsp;</th>
-                            <th>&nbsp;</th>
+                            <th colspan="5">
+                                <?php
+                                $hitung_kec = mysqli_query($con, "SELECT COUNT(kecamatan) AS kecamatan FROM daftar_wilayah_cabang where kecamatan='$kecamatan[kecamatan]' and id_cabang='$id_cabang' GROUP BY kecamatan ");
+                                $hitung_kec = mysqli_fetch_array($hitung_kec);
+                                $hitung_kec = $hitung_kec['kecamatan'];
+                                echo "<b>" . $hitung_kec . " Desa</b> | ";
+
+                                $hitung_alamat = mysqli_query($con, "SELECT COUNT(rt) AS rt FROM data_center WHERE kecamatan='$kecamatan[kecamatan]' AND id_cabang='$id_cabang' GROUP BY kecamatan  ");
+                                $hitung_alamat = mysqli_fetch_array($hitung_alamat);
+                                $hitung_alamat = $hitung_alamat['rt'];
+                                echo "<b>" . (int)$hitung_alamat . " Alamat</b>";
+                                ?>
+                            </th>
                             <th>
                                 <?php
                                 if ($jabatan == 'BM' || $jabatan == 'ASM' || $su == 'y') {
@@ -293,6 +298,7 @@
                         </tr>
                         <?php
                         $keca = strtolower($_GET['kecamatan']);
+                        $dess = strtolower($_GET['desa']);
                         if (strtolower($kecamatan['kecamatan']) == $keca) {
                             $qdet = mysqli_query($con, "select * from daftar_wilayah_cabang where kecamatan='$keca' and id_cabang='$id_cabang' group by desa ");
                             $no1 = 1;
@@ -303,23 +309,39 @@
                                     <td><?= strtoupper($detailCenter['kecamatan']) ?></td>
                                     <td>
                                         <a href="<?= $url . $menu ?>detail_center&kecamatan=<?= strtolower($kecamatan['kecamatan']) ?>&desa=<?= strtolower($detailCenter['desa']) ?>">
-                                            <?= strtoupper($detailCenter['desa']) ?>
+                                            <?php echo strtoupper($detailCenter['desa']); 
+                                            $hitung_detail_alamat = mysqli_query($con, "SELECT COUNT(desa) AS desa FROM data_center WHERE desa='$detailCenter[desa]' AND id_cabang='$id_cabang' GROUP BY kecamatan  ");
+                                            $hitung_detail_alamat = mysqli_fetch_array($hitung_detail_alamat);
+                                            $hitung_detail_alamat = $hitung_detail_alamat['desa'];
+                                            echo "<b>(" . (int)$hitung_detail_alamat . ")</b>";
+                                            ?>
+
                                         </a>
                                     </td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
                                     <?php
-                                if ($jabatan == 'BM' || $jabatan == 'ASM' || $su == 'y') {
-                                ?>
-                                    <a href="<?= $url . $menu ?>detail_center&hapus_desa&nama_desa=<?= $detailCenter['desa'] ?>" onclick="return window.confirm('yakin akan menghapus ini desa : <?= $detailCenter['desa'] ?>?')" class='btn'>
-                                        <i class='fa fa-times'></i>
-                                    </a>
-                                <?php
-                                }
-                                ?>
+                                    if (strtolower($detailCenter['desa']) == $dess) {
+                                    ?>
+                                        <td>RT/RW</td>
+                                        <td>ALAMAT</td>
+                                        <td>KETERANGAN</td>
+                                        <td>CENTER</td>
+                                    <?php
+                                    } else {
+                                        ?>
+                                        <th colspan="4">&nbsp</th>
+                                        <?php
+                                    }
+                                    ?>
+                                    <td>
+                                        <?php
+                                        if ($jabatan == 'BM' || $jabatan == 'ASM' || $su == 'y') {
+                                        ?>
+                                            <a href="<?= $url . $menu ?>detail_center&hapus_desa&nama_desa=<?= $detailCenter['desa'] ?>" onclick="return window.confirm('yakin akan menghapus ini desa : <?= $detailCenter['desa'] ?>?')" class='btn'>
+                                                <i class='fa fa-times'></i>
+                                            </a>
+                                        <?php
+                                        }
+                                        ?>
                                     </td>
                                 </tr>
                                 <?php
@@ -377,7 +399,7 @@
                                             <center>
                                                 <b>
                                                     Total Center di Desa <?= $desa ?> : <?= count($hitung_center) ?>
-                                                </b>      
+                                                </b>
                                         </td>
                                         </center>
 

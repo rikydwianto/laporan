@@ -222,7 +222,7 @@ function link_maps($lat,$lng){
 
 
 function wilayah($con,$kode){
-  $wilaya  = mysqli_query($con, "SELECT * FROM daftar_wilayah WHERE kode='$kode' limit 0,1");
+  $wilaya  = mysqli_query($con, "SELECT nama FROM daftar_wilayah WHERE kode='$kode' limit 0,1");
   $wilaya = mysqli_fetch_array($wilaya);
   return $wilaya['nama'];
 }
