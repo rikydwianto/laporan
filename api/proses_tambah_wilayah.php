@@ -11,12 +11,11 @@ $su= $_SESSION['su'];
 if (isset($_GET['kecamatan_desa'])) {
     $idkec = $_GET['kec'];
     $total_desa =  count($_SESSION['nama_desa'][$idkec]);
-    $keca = wilayah($con, $idkec);
+    $keca = $_SESSION['nama_kec'][$idkec];
     for($i=0;$i<=$total_desa;$i++)
     {
         $desa =  $_SESSION['nama_desa'][$idkec][$i];
     // while ($desa2 = mysqli_fetch_array($qdesa2)) 
-        //$desa = wilayah($con, $desa2['kode']);
 
         $wilaya  = mysqli_query($con, "SELECT * FROM daftar_wilayah_cabang WHERE desa='$desa' and kecamatan='$keca' and id_cabang='$id_cabang' limit 0,1");
         $wilaya = mysqli_fetch_array($wilaya);
@@ -34,10 +33,11 @@ if (isset($_GET['kecamatan_desa'])) {
         echo("Semua Desa Di Kecamatan : $keca  Berhasil Ditambahkan $keterangan");
     }
     else{
-        echo("GAGAL : Sudah pernah diinput");
+        echo("GAGAL : Sudah pernah diinput $keterangan");
 
     }
 }
 unset($_SESSION['nama_desa'][$idkec]);
+unset($_SESSION['nama_kec'][$idkec]);
 
 ?>

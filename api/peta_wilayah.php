@@ -100,7 +100,7 @@ if (!empty($kec)) {
 	<div class="card" style="width: 18rem;">
 		<ul class="list-group list-group-flush">
 			<li class="list-group-item"> <b>
-					<center>Kecamatan <?= wilayah($con, $kec) ?></center>
+					<center>Kecamatan <?=$_SESSION['nama_kec'][$kec]= wilayah($con, $kec) ?></center>
 				</b></li>
 			<?php
 			$qdesa1  = mysqli_query($con, "SELECT * FROM daftar_wilayah WHERE LEFT(kode,8)='$kec' AND CHAR_LENGTH(kode)=13 ORDER BY nama");
