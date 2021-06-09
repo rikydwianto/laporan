@@ -107,6 +107,7 @@ if (!empty($kec)) {
 			while ($desa1 = mysqli_fetch_array($qdesa1)) {
 
 				echo "<li class='list-group-item'>$desa1[nama]</li>";
+				$_SESSION['nama_desa'][$kec][]=$desa1['nama'];
 			}
 			?>
 			<li class='list-group-item'> <button type="button" class='btn btn-danger' name='kecamatan_desa' onclick="simpan_desa('<?=$kec?>')">Tambahkan Semua </button></li>
