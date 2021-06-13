@@ -15,16 +15,16 @@ if (isset($_GET['kecamatan_desa'])) {
     for ($i = 0; $i <= $total_desa; $i++) {
         $desa =  $_SESSION['nama_desa'][$idkec][$i];
         // while ($desa2 = mysqli_fetch_array($qdesa2)) 
-        if (!empty($desa)) {
-            $q = mysqli_query($con, "INSERT INTO `daftar_wilayah_cabang` (`kecamatan`, `desa`, `id_cabang`) VALUES ('$keca', '$desa', '$cabang');");
+        
+        $wilaya  = mysqli_query($con, "SELECT * FROM daftar_wilayah_cabang WHERE desa='$desa' and kecamatan='$keca' and id_cabang='$id_cabang' limit 0,1");
+        $wilaya = mysqli_fetch_array($wilaya);
+        if ($wilaya['desa'] != '') {
+            $desa_T[] = $wilaya['desa'];
+        } else {
+            if (!empty($desa)) {
+                $q = mysqli_query($con, "INSERT INTO `daftar_wilayah_cabang` (`kecamatan`, `desa`, `id_cabang`) VALUES ('$keca', '$desa', '$cabang');");
+            }
         }
-        // $wilaya  = mysqli_query($con, "SELECT * FROM daftar_wilayah_cabang WHERE desa='$desa' and kecamatan='$keca' and id_cabang='$id_cabang' limit 0,1");
-        // $wilaya = mysqli_fetch_array($wilaya);
-        // if ($wilaya['desa'] != '') {
-        //     $desa_T[] = $wilaya['desa'];
-        // } else {
-        //     
-        // }
     }
     if (count($desa_T) > 0) $keterangan = " Kecuali " . implode(" , ", $desa_T,) . "Sudah Pernah di input";
     else $keterangan = "";
