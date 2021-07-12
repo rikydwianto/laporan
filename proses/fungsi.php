@@ -159,6 +159,7 @@ function detail_karyawan($con,$id)
   $karyawan = mysqli_fetch_array($query);
   return $karyawan;
 }
+
 function pesan($pesan,$warna='primary')
 {
   ?>

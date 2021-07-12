@@ -1,0 +1,126 @@
+<style>
+    .merah {
+        background-color: red;
+    }
+</style>
+
+<?php
+if (isset($_GET['tglawal']) || isset($_GET['tglakhir'])) {
+    $tglawal = $_GET['tglawal'];
+    $tglakhir = $_GET['tglakhir'];
+} else {
+    $tglawal = date("Y-m-d", strtotime('-4 day', strtotime(date("Y-m-d"))));
+    $tglakhir = date("Y-m-d");
+}
+
+?>
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">DAFTAR UPK NON REGULER</h1>
+            <br>
+        </div>
+    </div>
+    <form method='get' action='<?php echo $url . $menu ?>upk'>
+        <input type="hidden" name='menu' value='upk' />
+        <input type="hidden" name='list' value='cari' />
+        <input type="date" name='tglawal' value="<?= (isset($_GET['tglawal']) ?  $_GET['tglawal'] : date("Y-m-d", (strtotime('-4 day', strtotime(date("Y-m-d")))))) ?>" class="" />
+        <input type="date" name='tglakhir' value="<?= (isset($_GET['tglakhir']) ?  $_GET['tglakhir'] : date("Y-m-d")) ?>" class="" />
+        <input type='submit' class="btn btn-info" name='cari' value='FILTER' />
+    </form> <br/>
+    <a href="<?=$url.$menu?>upk" class='btn btn-success'>
+			<i class="fa fa-plus"></i> Tambah
+		</a>
+        <br/>
+    <?php
+    if (isset($_GET['list'])) {
+        include "list_upk.php";
+    } else {
+
+    ?>
+        <form method='post'>
+            <table class='table'>
+                <tr>
+                    <th>No. </th>
+                    <th>Center</th>
+                    <th>Total UPK</th>
+                    <th>Tanggal UPK</th>
+                    <th>Detail Center</th>
+                </tr>
+                <?php
+                for ($i = 1; $i <= 15; $i++) {
+                ?>
+                    <tr id='baris_<?= $i ?>' class=''>
+                        <td><?= $i ?></td>
+                        <td><input type="number" name='center[]' id="center_<?= $i ?>" onkeyup=" cek_center(<?= $i ?>)" style="width:100px" class='form-control'></td>
+                        <td><input type="number" name='total[]' id="total_<?= $i ?>" style="width:100px" class='form-control'></td>
+                        <td><input type="DATE" name='tgl[]' id='tgl_<?= $i ?>' style="width:140px" class='form-control'></td>
+                        <td>
+                            <small>
+                                <div id='detail_<?= $i ?>'></div>
+                            </small>
+                        </td>
+                    </tr>
+                <?php
+                }
+                ?>
+                <tr>
+                    <td colspan=4>
+                        &nbsp;
+                    </td>
+                    <td>
+                        <input type="submit" class="btn btn-success" name='simpan_upk' value='Simpan'>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    <?php } ?>
+</div>
+
+<?php
+if (isset($_POST['simpan_upk'])) {
+    $center = $_POST['center'];
+    $hit =  count($center);
+    $total = $_POST['total'];
+    $tgl  = $_POST['tgl'];
+    for ($i = 0; $i < $hit; $i++) {
+        if ($center[$i] != null) {
+            $cari = mysqli_query($con, "select * from center where id_cabang='$id_cabang' AND no_center='" . sprintf("%03d", $center[$i]) . "'");
+            $cari = mysqli_fetch_array($cari);
+            $id = $cari['id_karyawan'];
+            $sql = "INSERT INTO `upk` (`id_upk`, `no_center`, `tgl_upk`, `anggota_upk`, `id_karyawan`, `id_cabang`) VALUES (NULL, '". sprintf("%03d", $center[$i]) ."', '$tgl[$i]', '$total[$i]', '$id', '$id_cabang')
+            ";
+            $query = mysqli_query($con, $sql);
+
+            // INSERT INTO `upk` (`id_upk`, `no_center`, `tgl_upk`, `anggota_upk`, `id_karyawan`, `id_cabang`) VALUES (NULL, '001', '2021-07-12', '2', '1', '1')
+        }
+    }
+    if ($query) {
+        alert("Berhasil disimpan!");
+        pindah("$url$menu" . "upk");
+    } else {
+        pesan("Gagal disimpan,", 'danger');
+    }
+}
+
+?>
+
+<script>
+    function cek_center(no) {
+        $(document).ready(function() {
+            let center = $("#center_" + no).val();
+            var url_link = "<?php $url ?>";
+            var cab = "<?= $id_cabang ?>";
+            $.get(url_link + "api/cek_center.php?center=" + center + "&cab=" + cab, function(data, status) {
+                $("#detail_" + no).html(data);
+            });
+            if (center == null) {
+
+            } else {
+                $("#tgl_" + no).attr('required', 'required');
+                $("#total_" + no).attr('required', 'required');
+            }
+        });
+    }
+</script>

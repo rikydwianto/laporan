@@ -63,7 +63,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 	<li>
 		<a href="<?php echo $url . $menu ?>detail_center" class="w3-bar-item w3-button"><i class="fa fa-font-awesome"></i> Data Wilayah</a>
 	</li>
-
+	<li>
+		<a href="<?php echo $url . $menu ?>upk" class="w3-bar-item w3-button"><i class="fa fa-user-plus"></i> UPK NR</a>
+	</li>
 	<li>
 		<a href="<?php echo $url . $menu ?>kelompok" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Kelompok</a>
 	</li>
@@ -144,6 +146,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 	</li>
 	<li>
 		<a href="<?php echo $url . $menu ?>kelompok" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Kelompok</a>
+	</li>
+	<li>
+		<a href="<?php echo $url . $menu ?>upk" class="w3-bar-item w3-button"><i class="fa fa-user-plus"></i> UPK NR</a>
 	</li>
 	<li><a href="<?php echo $url . $menu ?>anggota" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Anggota</a></li>
 

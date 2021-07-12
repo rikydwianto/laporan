@@ -36,6 +36,9 @@ function ganti_bayar(id)
 	}
 }
 
+
+
+
  $(document).on("click","#tombol_edit", function(){
     var id = $(this).data('id');
     var center = $(this).data('center');
@@ -289,6 +292,5 @@ text += "<br><a class='btn' href='"+ url_link+"index.php?menu=lokasi&pilih=pu" +
 function kembali() {
   window.history.back();
 }
-
 
 

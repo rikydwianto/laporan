@@ -8,7 +8,7 @@
 		$qtgl=date("Y-m-d");
 	}
 ?>
-<div class="col-md-12" style=";">
+<div class="col-md-12" style="">
 	<div class="table-responsive " >
 		<h3 class="page-header">
 			EDIT LAPORAN
