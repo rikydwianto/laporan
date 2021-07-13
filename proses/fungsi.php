@@ -186,7 +186,7 @@ function hari(){
         'Jumat',
         'Sabtu'
     );
-    return strtolower($hari_array);
+    return ($hari_array);
 
 
 }

@@ -13,6 +13,7 @@
         <th>Center</th>
         <th>Hari/Jam</th>
         <th>Total UPK</th>
+        <th>Status</th>
         <th>Detail</th>
 
     </thead>
@@ -32,6 +33,7 @@
                 <td><?=$cari['no_center']?></td>
                 <td><?=$cari['hari']?>/<?=$cari['jam_center']?></td>
                 <td><?=$total = $upk['anggota_upk']?></td>
+                <td><?=$upk['status']?></td>
                 <td>
                 
                     <a href="#" onclick="detail_center('<?=$cari['no_center']?>')">Detail</a> | 
@@ -61,7 +63,7 @@
         ?>
         <tfoot>
             <tr>
-                <th colspan=7><center>Tidak ada data!</center></th>
+                <th colspan=8><center>Tidak ada data!</center></th>
                 
 
             </tr>

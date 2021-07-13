@@ -20,14 +20,14 @@ if(!$_SESSION['jabatan']){
 		include("view/statistik.php");
 ?>
 
-<div class="col-md-4 " style="">
+<div class="col-md-4 ">
   <div class="panel panel-default ">
 	
 
 	
 	<div class="panel-body ">
 		<h3 class='page-header'>INFORMASI ! <hr/></h3>
-		<div class="card" style=";">
+		<div class="card">
 		  <ul class="list-group list-group-flush">
 			<li class="list-group-item"><?php echo strtoupper($karyawan['nama_karyawan']) ?> </li>
 			<li class="list-group-item">Jabatan : (<?php echo $karyawan['singkatan_jabatan'] ?>) <?php echo $karyawan['nama_jabatan'] ?></li>
@@ -41,7 +41,7 @@ if(!$_SESSION['jabatan']){
 		{
 			?>
 			<h3 class='page-header'>STATUS CENTER<hr/></h3>
-			<div class="card divider" style=";">
+			<div class="card divider" >
 			  <ul class="list-group list-group-flush">
 				<li class="list-group-item"><b>MEMBER :  <span style='float:right;background: blue' class="badge rounded-pill bg-primary"><?=$hitung->hitung_client($con,$id_cabang);?> </span></b> </li>
 				<li class="list-group-item"><b>Total Center Doa  <span style='float:right;background: blue' class="badge rounded-pill bg-primary"><?=$status['doa']?> </span></b> </li>
@@ -72,112 +72,12 @@ if(!$_SESSION['jabatan']){
 </div>
 
 <div class="col-md-8" >
-  <div class="panel panel-default  " style="">
+  <div class="panel panel-default  " >
 	<?php 
 
 	if($jabatan=='SL')
 	{
-	?>
-		<h2 class="page-header">
-			<?php echo format_hari_tanggal(date("Y-m-d"))."<hr/>";?>
-		</h2>
-		<div class='table-responsive'>
-			<table class='table'>
-			<tr>
-				<th>No. CTR</th>
-				<th>Status</th>
-				<th>Doa</th>
-				<th>Anggota</th>
-				<th>Client</th>
-				<th>Bayar</th>
-				<th>Tidak Bayar</th>
-
-			</tr>
-			<?php 
-			
-			if(!mysqli_num_rows($cek_laporan1)){
-				echo"
-				<tr>
-					<td style='text-align:center' colspan=6>
-					<i>
-					Anda belum membuat laporan hari ini <br/>
-					silahkan 
-					<a href='$url$menu"."tmb_laporan"."'>disini </a>
-					
-					untuk menambahkan laporan hari ini!
-				<i>
-					</td>
-				</tr>
-				";
-				
-			}
-			else
-			{
-				$cq=mysqli_query($con,"select * from detail_laporan where id_laporan='$cek_laporan[id_laporan]'");
-				if(!mysqli_num_rows($cq))
-				{
-					echo"<tr>
-						<td colspan=7><i>data kosong!</i></td>
-					</tr>";
-				}
-				else{
-					$no1=1;
-					$hitung_member=0;
-					$hitung_agt=0;
-					$hitung_bayar=0;
-					$hitung_tdk_bayar=0;
-					while($ambil=mysqli_fetch_array($cq)){
-						?>
-						<tr>
-							<td><?php echo $no1++.". ". $ambil['no_center']?> (<?php echo round((($ambil['total_bayar']/$ambil['total_agt'])*100),2)?>%)</td>
-							<td><?php echo $ambil['status']?></td>
-							<td><?php echo ($ambil['doa']=="t" ? "T" : "Y")?></td>
-							<td><?php echo $ambil['member']?></td>
-							<td><?php echo $ambil['total_agt']?></td>
-							<td><?php echo $ambil['total_bayar']?></td>
-							<td><?php echo $ambil['total_tidak_bayar']?>
-							
-							</td>
-						</tr>
-						
-						<?php
-						$hitung_member = $hitung_member + $ambil['member'];
-						$hitung_agt = $hitung_agt + $ambil['total_agt'];
-						$hitung_bayar = $hitung_bayar + $ambil['total_bayar'];
-						$hitung_tdk_bayar = $hitung_tdk_bayar + $ambil['total_tidak_bayar'];
-					}
-				}
-			}
-			?>
-			<tr>
-				<th colspan=3>Total</th>
-				<th colspan=1><?php echo $hitung_member ?></th>
-				<th colspan=1><?php echo $hitung_agt ?></th>
-				<th ><?php echo $hitung_bayar ?></th>
-				<th>
-					<?php echo  $hitung_tdk_bayar ?>
-				</th>
-			</tr>
-			<tr>
-				<th colspan=5 style="text-align:center">
-					Prosentase pembayaran <?php echo round(($hitung_bayar/$hitung_agt)*100,2)?>% <br/>
-					<?php 
-					if($cek_laporan['status_laporan']=='pending'){
-						echo"<i>laporan belum di konfirmasi, silahkan selesaikan laporan</i>";
-						?>
-						<a href="<?php echo ("$url$menu"."tmb_laporan&id_laporan=".$cek_laporan['id_laporan']);?>" class=" ">tambah</a>
-						<?php
-					}
-					?>
-				</th>
-				<th>
-					
-				</th>
-			</tr>
-			</table>
-		</div>
-	<?php
-		
+		include "index-sl.php";
 	}
 	else if($jabatan=='BM' || $jabatan=='ASM' || $jabatan=='MIS' ){
 	?>
@@ -322,7 +222,7 @@ if(!$_SESSION['jabatan']){
   
 </div>
 
-<div class="col-md-12 " style="">
+<div class="col-md-12 " >
 <h1>Grafik Minggu</h1>
 <hr> <small>hanya 12 minggu terbaru </small>
   <div class="panel panel-default ">
