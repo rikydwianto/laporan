@@ -20,6 +20,7 @@
         <?php
         $sql = "SELECT * FROM upk where id_cabang ='$id_cabang' and tgl_upk >= '$tglawal' and tgl_upk <= '$tglakhir' order by tgl_upk,id_karyawan asc ";
         $query  = mysqli_query($con,$sql);
+        $total_anggota = 0;
         while ($upk = mysqli_fetch_array($query)) {
             $cari = mysqli_query($con, "select * from center where id_cabang='$id_cabang' AND no_center='" . $upk['no_center'] . "'");
             $cari = mysqli_fetch_array($cari);
@@ -33,14 +34,42 @@
                 <td><?=$total = $upk['anggota_upk']?></td>
                 <td>
                 
-                    <a href="#" onclick="detail_center('<?=$cari['no_center']?>')">Detail</a>
-                
+                    <a href="#" onclick="detail_center('<?=$cari['no_center']?>')">Detail</a> | 
+                    <a href="<?=$url . $menu?>upk&hapus&id_upk=<?=$upk['id_upk']?>"><i class='fa fa-times'></i></a>
                 </td>
             </tr>
         <?php
+        $total_anggota = $total_anggota + $total;
         }
         ?>
     </tbody>
+    <?php 
+    if(mysqli_num_rows($query)){
+        ?>
+    <tfoot>
+        <tr>
+            <th colspan=5>Total Anggota UPK</th>
+            <th align="center"><?=$total_anggota?></th>
+            <th></th>
+
+        </tr>
+
+    </tfoot>
+        <?php
+    }
+    else{
+        ?>
+        <tfoot>
+            <tr>
+                <th colspan=7><center>Tidak ada data!</center></th>
+                
+
+            </tr>
+
+        </tfoot>
+        <?php
+    }
+    ?>
 </table>
 
 

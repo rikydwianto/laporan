@@ -14,7 +14,6 @@ $id_cabang = $_GET['cab'];
   join cabang on cabang.id_cabang = karyawan.id_cabang
   where  center.no_center = '$center' and center.id_cabang='$id_cabang'
   ";
- // echo $sql;
  $query=mysqli_query($con,$sql);
 if(mysqli_num_rows($query)){    
     $data = mysqli_fetch_array($query);
@@ -22,13 +21,9 @@ if(mysqli_num_rows($query)){
     <?=$data['nama_karyawan']?> <br/>
     <?=$data['hari']?>(<?=$data['anggota_center']?>)/
     <?=$data['jam_center']?>
-    
     <?php
 }
 else{
     echo "Center Tidak ditemukan";
 }
-//data array
- 
-//mengubah data array menjadi json
 ?>

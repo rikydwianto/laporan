@@ -196,7 +196,7 @@ $hari = strtolower($hari[0]);
 							</select>
 						</td>
 
-						<td><input type=text class='form-control' name='jam[]' placeholder="12:00" value='<?= $cek_detail_center['jam_center'] ?>' style="width:70px" /></td>
+						<td><input type=text class='form-control' name='jam[]' id='jam-<?php echo $y ?>' placeholder="12:00" value='<?= $cek_detail_center['jam_center'] ?>' style="width:70px" /></td>
 
 
 						<td>
@@ -246,7 +246,7 @@ $hari = strtolower($hari[0]);
 
 					</td>
 
-					<td><input type=text class='form-control' name='jam[]' placeholder="12:00" value='' style="width:70px" /></td>
+					<td><input type=text class='form-control' name='jam[]' id='jam-<?php echo $y ?>' placeholder="12:00" value='' style="width:70px" /></td>
 
 
 					<td>
@@ -285,6 +285,7 @@ $hari = strtolower($hari[0]);
 		</table>
 	</div>
 </form>
+
 <?php
 
 

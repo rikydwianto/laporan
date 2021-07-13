@@ -1,6 +1,7 @@
 <style>
     .merah {
         background-color: red;
+        color:white;
     }
 </style>
 
@@ -9,8 +10,8 @@ if (isset($_GET['tglawal']) || isset($_GET['tglakhir'])) {
     $tglawal = $_GET['tglawal'];
     $tglakhir = $_GET['tglakhir'];
 } else {
-    $tglawal = date("Y-m-d", strtotime('-4 day', strtotime(date("Y-m-d"))));
-    $tglakhir = date("Y-m-d");
+    $tglawal = date("Y-m-d");
+    $tglakhir = date("Y-m-d", strtotime('+4 day', strtotime(date("Y-m-d"))));
 }
 
 ?>
@@ -25,18 +26,34 @@ if (isset($_GET['tglawal']) || isset($_GET['tglakhir'])) {
     <form method='get' action='<?php echo $url . $menu ?>upk'>
         <input type="hidden" name='menu' value='upk' />
         <input type="hidden" name='list' value='cari' />
-        <input type="date" name='tglawal' value="<?= (isset($_GET['tglawal']) ?  $_GET['tglawal'] : date("Y-m-d", (strtotime('-4 day', strtotime(date("Y-m-d")))))) ?>" class="" />
-        <input type="date" name='tglakhir' value="<?= (isset($_GET['tglakhir']) ?  $_GET['tglakhir'] : date("Y-m-d")) ?>" class="" />
+        <input type="date" name='tglawal' value="<?= (isset($_GET['tglawal']) ?  $_GET['tglawal'] : date("Y-m-d")) ?>" class="" />
+        <input type="date" name='tglakhir' value="<?= (isset($_GET['tglakhir']) ?  $_GET['tglakhir'] : date("Y-m-d", (strtotime('+4 day', strtotime(date("Y-m-d")))))) ?>" class="" />
         <input type='submit' class="btn btn-info" name='cari' value='FILTER' />
     </form> <br/>
     <a href="<?=$url.$menu?>upk" class='btn btn-success'>
 			<i class="fa fa-plus"></i> Tambah
 		</a>
+        <a href="<?=$url.$menu?>upk&list=cari&tglawal=<?=date("Y-m-d")?>&tglakhir=<?=date("Y-m-d")?>&cari=FILTER" class='btn btn-info'>
+			<i class="fa fa-eye"></i> Lihat Hari Ini
+		</a>
         <br/>
     <?php
     if (isset($_GET['list'])) {
         include "list_upk.php";
-    } else {
+    }
+    else if (isset($_GET['hapus'])) {
+        $id=$_GET['id_upk'];
+        $sql = mysqli_query($con,"delete from upk where id_upk='$id'");
+        if($sql){
+            alert("Berhasil dihapus!");
+        }
+        else
+        {
+            alert("gagal disimpan");
+        }
+        pindah("$url$menu"."upk&list=cari&tglawal=$tglawal&tglakhir=$tglakhir&cari=FILTER");
+    }
+     else {
 
     ?>
         <form method='post'>
@@ -98,10 +115,11 @@ if (isset($_POST['simpan_upk'])) {
     }
     if ($query) {
         alert("Berhasil disimpan!");
-        pindah("$url$menu" . "upk");
+        
     } else {
-        pesan("Gagal disimpan,", 'danger');
+        alert("Gagal disimpan,");
     }
+    pindah("$url$menu" . "upk");
 }
 
 ?>
@@ -114,13 +132,24 @@ if (isset($_POST['simpan_upk'])) {
             var cab = "<?= $id_cabang ?>";
             $.get(url_link + "api/cek_center.php?center=" + center + "&cab=" + cab, function(data, status) {
                 $("#detail_" + no).html(data);
+                var kon  = data;
+                kon = kon.trim();
+                    if(kon=="Center Tidak ditemukan"){
+                        $("#baris_"+no).addClass("merah");
+                    }
+                    else{
+                        $("#baris_"+no).removeClass("merah");
+                    }
+                
             });
+            
             if (center == null) {
 
             } else {
                 $("#tgl_" + no).attr('required', 'required');
                 $("#total_" + no).attr('required', 'required');
             }
+           
         });
     }
 </script>

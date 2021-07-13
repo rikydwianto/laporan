@@ -21,7 +21,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>KOMIDA PAGADEN | LAPORAN HARIAN</title>
+    <title>KOMIDA PAGADEN | LAPORAN HARIAN!</title>
 	<link rel="icon" type="image/png" sizes="16x16" href="<?=$url?>assets/logo.png">
     <!-- Bootstrap Core CSS -->
     <link href="<?=$url ?>assets/css/bootstrap.min.css" rel="stylesheet">
