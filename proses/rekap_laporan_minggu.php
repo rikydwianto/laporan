@@ -11,7 +11,7 @@ else{
 }
 	 
 ?>
-<div class="col-md-12" style="">
+<div class="col-md-12">
 	<div class="panel-body post-body table-responsive " >
 		<h3 class="page-header">
 			REKAP LAPORAN MINGGUAN

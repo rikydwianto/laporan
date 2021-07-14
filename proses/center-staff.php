@@ -17,6 +17,110 @@
   	}
   }
 
+
+  if(isset($_POST['edit_center']))
+  {
+		$iddet= $_GET['iddet'];
+		$jam = $_POST['jam'];
+		$hari = $_POST['hari'];
+		$staff = $_POST['staff'];
+		$q= mysqli_query($con,"UPDATE `center` SET `jam_center` = '$jam',hari='$hari',id_karyawan='$staff' WHERE `id_center` = '$iddet';  ");
+		
+		if($q){
+			alert("Berhasil");
+		}else{
+			echo "gagal";
+		}
+		
+	}
+
+
+
+
+  if(isset($_GET['edit']))
+  {
+	  $iddet = $_GET['iddet'];
+	  $cek_center = mysqli_query($con,"select * from center where id_center='$iddet'");
+	  $cek_center = mysqli_fetch_array($cek_center);
+  	?>
+  		<div class="col-md-7">
+		  <form method="post">
+		  	<h3 class="page-header">EDIT CENTER <?=$cek_center['no_center']?></h3>
+		  	<hr>
+			 <table class='table'>
+				<tr>
+					<td>No Center</td>
+					<td><input type="number" disabled class='form-control' name="center" value="<?=$cek_center['no_center']?>" id=""></td>
+				</tr>
+				<tr>
+					<td>Status</td>
+					<td><input type="text" disabled class='form-control'  value="<?=$cek_center['status_center']?>" id=""></td>
+				</tr>
+				<tr>
+					<td>Staff</td>
+					<td>
+						<select name='staff' class='form-control form-select' required>
+								<option value="">Silahkan Pilih Staff</option>
+								<?php 
+								$qk=mysqli_query($con,"select * from karyawan where id_cabang='$id_cabang' and status_karyawan='aktif' and id_jabatan=(select id_jabatan from jabatan where singkatan_jabatan='SL') order by nama_karyawan asc");
+								while($cek_ka=mysqli_fetch_array($qk))
+								{
+									if($cek_ka['id_karyawan']==$cek_center['id_karyawan']){
+										?>
+										<option value='<?=$cek_ka['id_karyawan']?>' selected><?=$cek_ka['nama_karyawan']?></option>
+										<?php
+									}
+									else{
+										?>
+										<option value='<?=$cek_ka['id_karyawan']?>'><?=$cek_ka['nama_karyawan']?></option>
+										<?php
+									}
+									?>
+									
+									<?php
+									
+								}
+								?>
+							</select>
+
+					</td>
+				</tr>
+				<tr>
+					<td>JAM</td>
+					<td><input type="text"  class='form-control' name="jam" value="<?=$cek_center['jam_center']?>" id=""></td>
+				</tr>
+				<tr>
+					<td>HARI</td>
+					<td>
+						<select name='hari' class='form-control'>
+						<?php $hari = hari();
+							for($i=0;$i<count($hari);$i++){
+								if(strtolower($hari[$i])==$cek_center['hari']){
+									echo"<option value='".strtolower($hari[$i])."' selected >$hari[$i]</option>";
+								}
+								else{
+									echo"<option value='".strtolower($hari[$i])."' >$hari[$i]</option>";
+								}
+								
+							}
+						?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<input type="submit" name='edit_center' class='btn btn-success' value="EDIT">
+					</td>
+				</tr>
+			 </table>
+		  	<br/>
+		  	
+		  </form>
+	  	
+	  </div>
+  	<?php
+  }
   ?>
 
 	<table id='data_center'>
@@ -59,7 +163,7 @@
 
 				<td>
 					<a href="<?=$url.$menu?>center-staff&del&iddet=<?=$center['id_center']?>" onclick="return window.confirm('Apakah yakin menghapus center ini')"> <i class='fa fa-times'></i> Hapus</a>
-
+					<a href="<?=$url.$menu?>center-staff&edit&iddet=<?=$center['id_center']?>"> <i class='fa fa-edit'></i> Edit</a>
 
 				</td>
 			</tr>

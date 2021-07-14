@@ -77,7 +77,25 @@ if(!$_SESSION['jabatan']){
 
 	if($jabatan=='SL')
 	{
-		include "index-sl.php";
+		$date = date("Y-m-d");
+		$hari = hari_biasa($date);
+		 $hari = explode("-",$hari)[0];
+		 $hari=strtolower($hari);
+		 
+		$cek_jam = mysqli_query($con,"select count(no_center) as belum from center where jam_center BETWEEN '00:00:00' and '07:00:00'
+		and id_karyawan='$id_karyawan' and hari='$hari'
+		");
+		$cekJam = mysqli_fetch_array($cek_jam);
+			
+		
+		if($cekJam['belum']){
+			echo "<h1>Silahkan Ubah jam center meeting hari ".strtoupper($hari)." terlebih dahulu</h1>";
+			echo "<h2><a href='".$url . $menu."center-staff'>Klik Disini</a></h2>";
+		}
+		else{
+			include "index-sl.php";
+		}
+		
 	}
 	else if($jabatan=='BM' || $jabatan=='ASM' || $jabatan=='MIS' ){
 	?>

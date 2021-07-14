@@ -34,7 +34,7 @@ else{
 								$select='selected';
 							else $select='';
 							
-							echo "<option value='$jab1[id_cabang]' $select>".strtoupper($jab1[nama_cabang])."</option>";
+							echo "<option value='$jab1[id_cabang]' $select>".strtoupper($jab1['nama_cabang'])."</option>";
 							
 						}
 						?>
