@@ -36,8 +36,12 @@ if($cekJam['belum']==0){
 		<a href="<?php echo $url . $menu ?>detail_center" class="w3-bar-item w3-button"><i class="fas fa-globe-europe"></i> Data Wilayah</a>
 	</li>
 	<li>
+		<a href="<?php echo $url . $menu ?>file_folder" class="w3-bar-item w3-button"><i class="fas fa-folder"></i> SOP</a>
+	</li>
+	<li>
 		<a href="<?php echo $url ?>lokasi.php" class="w3-bar-item w3-button"><i class="fa fa-globe"></i> LOKASI</a>
 	</li>
+	
 	<li><a href="<?php echo $url . $menu ?>setting" class="w3-bar-item w3-button"><i class="fa fa-gears"></i> Setting</a></li>
 	<li><a href="<?php echo $url . $menu ?>logout" class="w3-bar-item w3-button"><i class="fa fa-sign-out"></i> Logout</a></li>
 
@@ -96,6 +100,9 @@ if($cekJam['belum']==0){
 
 	<li><a href="<?php echo $url . $menu ?>file" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> FILE</a></li>
 	<li>
+	<li>
+		<a href="<?php echo $url . $menu ?>file_folder" class="w3-bar-item w3-button"><i class="fas fa-folder"></i> SOP</a>
+	</li>
 	<li><a href="<?php echo $url . $menu ?>pemb_lain" class="w3-bar-item w3-button"><i class="fa fa-dollar"></i> Pembiayaan Lain</a></li>
 	<li>
 		<a href="#"><i class="fa fa-file-excel-o"></i> Laporan<span class="fa arrow"></span></a>
@@ -173,6 +180,9 @@ if($cekJam['belum']==0){
 		<a href="<?php echo $url . $menu ?>upk" class="w3-bar-item w3-button"><i class="fa fa-user-plus"></i> UPK NR</a>
 	</li>
 	<li><a href="<?php echo $url . $menu ?>anggota" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Anggota</a></li>
+	<li>
+		<a href="<?php echo $url . $menu ?>file_folder" class="w3-bar-item w3-button"><i class="fas fa-folder"></i> SOP</a>
+	</li>
 
 	<li><a href="<?php echo $url . $menu ?>pemb_lain" class="w3-bar-item w3-button"><i class="fa fa-dollar"></i> Pembiayaan Lain</a></li>
 	<li>
@@ -236,9 +246,10 @@ if($cekJam['belum']==0){
 
 	<li><a href="<?php echo $url . $menu ?>file" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> FILE</a></li>
 	<li>
-
 	</li>
-	
+	<li>
+		<a href="<?php echo $url . $menu ?>file_folder" class="w3-bar-item w3-button"><i class="fas fa-folder"></i> SOP</a>
+	</li>
 	<li>
 		<a href="<?php echo $url . $menu ?>detail_center" class="w3-bar-item w3-button"><i class="fa fa-font-awesome"></i> Data Wilayah</a>
 	</li>

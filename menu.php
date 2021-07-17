@@ -70,6 +70,9 @@ if (isset($_GET['menu'])) {
 			case "detail_center":
 				include("proses/detail_center.php");
 				break;
+			case "file_folder":
+				include("proses/file_folder.php");
+				break;
 
 			case "lokasi":
 				include("proses/lokasi.php");
