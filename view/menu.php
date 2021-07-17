@@ -1,11 +1,33 @@
 <li>
 	<a href="<?= $url ?>" class="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
 </li>
+
 <?php
+$date = date("Y-m-d");
+$hari = hari_biasa($date);
+ $hari = explode("-",$hari)[0];
+ $hari=strtolower($hari);
+ 
+$cek_jam = mysqli_query($con,"select count(no_center) as belum from center where jam_center BETWEEN '00:00:00' and '07:00:00'
+and id_karyawan='$id_karyawan' and hari='$hari'
+");
+$cekJam = mysqli_fetch_array($cek_jam);
+	
+
+
 if (isset($_SESSION['id']) && $jabatan == 'SL') {
+
+	
+	
 ?>
 
+<?php  
+if($cekJam['belum']==0){
+	?>
 	<li><a href="<?php echo $url . $menu ?>tmb_laporan" class="w3-bar-item w3-button"><i class="fa fa-plus"></i> Tambah Laporan</a></i>
+	<?php
+}
+?>
 	<li><a href="<?php echo $url . $menu ?>laporan" class="w3-bar-item w3-button"><i class="fa fa-search"></i> Lihat Laporan</a></li>
 	<li><a href="<?php echo $url . $menu ?>center-staff" class="w3-bar-item w3-button"><i class="fa fa-building"></i> Center</a></li>
 	<li><a href="<?php echo $url . $menu ?>cashflow_sl" class="w3-bar-item w3-button"><i class="fa fa-file-excel-o"></i> Cashflow </a></li>
