@@ -84,6 +84,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
 				
 			}
 			?>
+
         </div>
     </div>
 
