@@ -53,8 +53,81 @@ if (isset($_GET['tglawal']) || isset($_GET['tglakhir'])) {
         }
         pindah("$url$menu"."upk&list=cari&tglawal=$tglawal&tglakhir=$tglakhir&cari=FILTER");
     }
-     else {
+    else if(isset($_GET['edit']))
+    {
+        $id_upk = $_GET['id_upk'];
+        $cari = mysqli_query($con, "select * from upk where id_upk='$id_upk' ");
+            $cari = mysqli_fetch_array($cari);
+     ?>
+     <form action="" method="post">
+        <table class='table'>
+            <tr>
+                <td>Staff</td>
+                <td>
+                    <input class='form-control' type="text" name="" value='<?=detail_karyawan($con,$cari['id_karyawan'])['nama_karyawan']?>' disabled id="">
+                    <input class='form-control' type="hidden" name="staff" value='<?=$cari['id_karyawan']?>'  id="">
+                </td>
+            </tr>
+            <tr>
+                <td>NO CENTER</td>
+                <td><input disabled class='form-control' type="text" name="center" value='<?=$cari['no_center']?>'  id=""></td>
+            </tr>
+            <tr>
+                <td>Total Anggota</td>
+                <td><input class='form-control' type="text" name="anggota" value='<?=$cari['anggota_upk']?>'  id=""></td>
+            </tr>
+            </tr>
+            <tr>
+                <td>Tanggal</td>
+                <td><input class='form-control' type="date" name="tgl" value='<?=$cari['tgl_upk']?>'  id=""></td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td>
+                    <select CLASS='form-control' name="status" id="">
+                    <?php 
+                    $status = status_upk();
+                        foreach($status as $st){
+                            if($st == $cari['status'])
+                                echo "<option value='$st' selected>".strtoupper($st)."</option>";
+                            else
+                                echo "<option value='$st'>".strtoupper($st)."</option>";
+                        }
+                    ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" class='btn btn-danger' name="edit_upk" value="SIMPAN" />
+                </td>
+            </tr>
+        </table>
+    </form>
+     <?php
+        if(isset($_POST['edit_upk'])){
+            $anggota  = $_POST['anggota'];
+            $staff  = $_POST['staff'];
+            $tanggal  = $_POST['tgl'];
+            $status  = $_POST['status'];
+            $qEdit = mysqli_query($con,"update upk set tgl_upk='$tanggal',status='$status',anggota_upk='$anggota' where id_upk='$id_upk'");
+            if($qEdit)
+            alert("Berhasiln Di rubah");
+            else alert("gagal di rubah");
 
+            if($status=='jadi'){
+                $insert = mysqli_query($con,"INSERT INTO `anggota` (`id_anggota`, `id_karyawan`, `tgl_anggota`, `anggota_masuk`, `anggota_keluar`, `net_anggota`, `psa`, `prr`, `ppd`, `arta`, `pmb`, `id_cabang`) VALUES (NULL, '$staff', '$tanggal', '$anggota', '0', '$anggota', 0, 0, 0, 0, 0, '$id_cabang');
+                ");
+            }
+
+
+            pindah("$url$menu"."upk&list=cari&tglawal=$tglawal&tglakhir=$tglakhir&cari=FILTER");
+            
+        }
+    }
+        else {
+            
     ?>
         <form method='post'>
             <table class='table'>

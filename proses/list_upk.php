@@ -36,8 +36,16 @@
                 <td><?=$upk['status']?></td>
                 <td>
                 
-                    <a href="#" onclick="detail_center('<?=$cari['no_center']?>')">Detail</a> | 
-                    <a href="<?=$url . $menu?>upk&hapus&id_upk=<?=$upk['id_upk']?>"><i class='fa fa-times'></i></a>
+                    <a href="#" onclick="detail_center('<?=$cari['no_center']?>')">Detail</a>
+                    <?php 
+                    if($upk['status']!='jadi'){
+
+                    
+                    ?> | 
+                    <a href="<?=$url . $menu?>upk&hapus&id_upk=<?=$upk['id_upk']?>&tglawal=<?=$tglawal?>&tglakhir=<?=$tglakhir?>&cari=FILTER" class='btn'><i class='fa fa-times'></i></a>
+                    <a href="<?=$url . $menu?>upk&edit&id_upk=<?=$upk['id_upk']?>&tglawal=<?=$tglawal?>&tglakhir=<?=$tglakhir?>&cari=FILTER" class='btn'><i class='fa fa-edit'></i></a>
+                    <?php }
+                    ?>
                 </td>
             </tr>
         <?php
