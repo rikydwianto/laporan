@@ -11,9 +11,11 @@
         if(isset($_GET['file'])){
             $filename  = $_GET['file'];
             ?>
-           <object data="<?=$dir.$filename?>" type="application/pdf" style="width:100%;height:100%">
-                <embed src="<?=$dir.$filename?>" type="application/pdf" />
-            </object>
+           <div style="height:1000px">
+                <object data="<?=$dir.$filename?>" type="application/pdf" style="width:100%;height:100%">
+                    <embed src="<?=$dir.$filename?>" type="application/pdf" />
+                </object>
+           </div>
 
             <?php
         }
