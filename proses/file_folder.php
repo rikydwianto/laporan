@@ -11,11 +11,15 @@
         if(isset($_GET['file'])){
             $filename  = $_GET['file'];
             ?>
+             <a href='<?=$url.$menu?>file_folder' class='btn btn-danger'>TUTUP PDF</a>
            <div style="height:1000px">
+           
                 <object data="<?=$dir.$filename?>" type="application/pdf" style="width:100%;height:100%">
                     <embed src="<?=$dir.$filename?>" type="application/pdf" />
                 </object>
            </div>
+           <br/>
+           <br/>
 
             <?php
         }
