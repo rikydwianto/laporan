@@ -34,7 +34,7 @@ if(mysqli_num_rows($query)){
             </td>
             <td>
                 <?php
-                $cek_alamat = mysqli_query($con,"select * from data_center where no_center='$center'");
+                $cek_alamat = mysqli_query($con,"select * from data_center where no_center='$center' and id_cabang='$id_cabang'");
                 if(mysqli_num_rows($cek_alamat)){
                    $alamat = mysqli_fetch_array($cek_alamat);
                    ?>

@@ -232,6 +232,7 @@ if(!$_SESSION['jabatan']){
 
 <div class="col-md-12 " >
 <h1>Grafik Minggu</h1>
+<h3>Baca Grafik dari kiri ke kanan</h3>
 <hr> <small>hanya 12 minggu terbaru </small>
   <div class="panel panel-default ">
   <canvas id="myChart" style="width:100%;max-width:100%;min-height:40px;"></canvas>
