@@ -8,7 +8,7 @@ require_once("../model/model.php");
 
  //query tabel produk
  $cab = $_GET['cab'];
- $sql="SELECT * from grafik where id_cabang='$cab' order by tgl_grafik asc limit 0,12 ";
+ $sql="SELECT * from grafik where id_cabang='$cab' order by id_grafik asc limit 0,12 ";
  $query=mysqli_query($con,$sql);
 
 //data array
