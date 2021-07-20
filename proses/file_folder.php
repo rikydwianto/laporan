@@ -13,10 +13,7 @@
             ?>
              <a href='<?=$url.$menu?>file_folder' class='btn btn-danger'>TUTUP PDF</a>
            <div style="height:1000px">
-           
-                <object data="<?=$dir.$filename?>" type="application/pdf" style="width:100%;height:100%">
-                    <embed src="<?=$dir.$filename?>" type="application/pdf" />
-                </object>
+           <iframe src = "assets/ViewerJS/#../../<?=$dir.$filename?>" width='100%' height='100%' allowfullscreen webkitallowfullscreen></iframe>
            </div>
            <br/>
            <br/>
@@ -29,6 +26,7 @@
                 <tr>
                     <th>NO</th>
                     <th>NAMA FILE</th>
+                    <th>#</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,7 +47,14 @@
                     <tr>
                         <td><?= $no++; ?></td>
                         <td>
-                            <a href="<?=$url.$menu."file_folder&file=$file"?>"><?=$file?></a>    
+                            <a href="<?=$url.$menu."file_folder&file=$file"?>"><?=$file?></a>  | 
+                                
+                        </td>
+
+                        <td>
+                        <a class='btn btn-success' target="_blank" href="<?=$url?>assets/ViewerJS/#../../<?=$file?>" ><i class="fa fa-eye"></i></a>
+                        <a class='btn btn-info'  href="<?=$url.$dir?><?=$file?>" ><i class="fa fa-download"></i></a>
+
                         </td>
                     </tr>
                 <?php
