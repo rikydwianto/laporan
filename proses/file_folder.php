@@ -47,7 +47,7 @@
                     <tr>
                         <td><?= $no++; ?></td>
                         <td>
-                            <a href="<?=$url.$menu."file_folder&file=$file"?>"><?=$file?></a>  | 
+                            <a href="<?=$url.$menu."file_folder&file=$file"?>"><?=$file?></a> 
                                 
                         </td>
 
@@ -72,7 +72,7 @@
     else{
                     
         ?>
-        <h1>Untuk menjaga privasi silahkan masukan password + tahun masuk <br/>
+        <h1>Untuk menjaga privasi silahkan masukan password  <br/>
     </h1>
         <div class='col-md-6'>
 
