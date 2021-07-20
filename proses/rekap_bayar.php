@@ -1,5 +1,5 @@
 <div class="row">
-		<h3 class="page-header">REKAP LAPORAN</h3>
+		<h3 class="page-header">REKAP LAPORAN HARIAN</h3>
 		<form>
 			<div>
 				FILTER
@@ -20,7 +20,7 @@
 								$select='selected';
 							else $select='';
 							
-							echo "<option value='$jab1[id_cabang]' $select>".strtoupper($jab1[nama_cabang])."</option>";
+							echo "<option value='$jab1[id_cabang]' $select>".strtoupper($jab1['nama_cabang'])."</option>";
 							
 						}
 						?>
@@ -43,6 +43,10 @@
 			$data = new Hitung();
 			$rekapp= $data->rekap_laporan($con,$id_cabang,$tglawal,$tglakhir,$su,$id_filter);
 			// echo json_encode(($rekapp));
+			//ANGGOTA MASUK
+			$upk = mysqli_query($con,"select sum(anggota_masuk) as upk from anggota where tgl_anggota BETWEEN '$tglawal' and '$tglakhir' and id_cabang='$id_cabang'   ");
+			$upk = mysqli_fetch_array($upk);
+			$upk = $upk['upk'];
 			foreach ($rekapp as $key => $value) {
 				if($value['anggota']==0){
 					pesan("Data tidak ditemukan","danger");
@@ -123,6 +127,11 @@
 								<td>TIDAK BAYAR</td>
 								<td><?=$value['anggota_tidak_bayar']?></td>
 								<td><?=round(($value['anggota_tidak_bayar']/$value['anggota'])*100)?>%</td>
+							</tr>
+							<tr>
+								<td>ANGGOTA MASUK</td>
+								<td><?=$upk?></td>
+								<td></td>
 							</tr>
 
 							<tr>

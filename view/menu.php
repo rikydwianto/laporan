@@ -135,7 +135,8 @@ if($cekJam['belum']==0){
 
 	</li>
 	<li><a href="<?php echo $url . $menu ?>setting" class="w3-bar-item w3-button"><i class="fa fa-gears"></i> Setting</a></li>
-	</li>
+	<li><a href="<?php echo $url . $menu ?>broadcast_telegram" class="w3-bar-item w3-button"><i class="fa fa-massage"></i> Broadcast</a></li>
+	
 	<li>
 		<a href="<?php echo $url . $menu ?>logout" class=""><i class="fa fa-sign-out"></i> Logout</a>
 	</li>
