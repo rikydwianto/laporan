@@ -30,7 +30,7 @@ $cek_upk = mysqli_query($con,"select * from upk join center on center.no_center=
                         <td><?=$no1++?></td>
                         <td><?=$upk['no_center']?>/<?=$upk['hari']?></td>
                         <td><?=$upk['jam_center']?></td>
-                        <td><input type='number' id='anggota-<?=$no1?>' value='<?=$anggota = $upk['anggota_upk']?>' class='form-control' style="width: 80px;;"></td>
+                        <td><input type='number' min="1" max="<?=$upk['anggota_upk']?>" id='anggota-<?=$no1?>' value='<?=$anggota = $upk['anggota_upk']?>' class='form-control' style="width: 80px;;"></td>
                         <td>
                             <select name='status' id='status-<?=$no1?>' onchange="cek_pending(<?=$no1?>)">
                                     <option value="jadi">JADI</option>
