@@ -83,11 +83,11 @@ $tanggal = cal_days_in_month(CAL_GREGORIAN, $bln1, $tahun);
 				  $cari_tgl = $cari_tgl[2];
 				  if($cari_tgl==$i)
 				  {
-				  	$isi = $buka['total_bayar'];
+				  	$isi = $buka['persen'];
 				  	$isi = ($isi=='NULL' ? 0 : $isi);
 				  	$hitung_bayar = $isi + $hitung_bayar;
 				  	$hitung_perhari = $hitung_perhari + $isi;
-					  echo"<td style='text-align:center;'><small>$isi</small></td>";
+					  echo"<td style='text-align:center;'><small>$isi %</small></td>";
 				  }
 
 			  }
