@@ -98,7 +98,7 @@ if (!empty($kec)) {
 <br>
 <br>
 	<div class="card" style="width: 18rem;">
-		<ul class="list-group list-group-flush">
+		<ul class="list-group list-group-flush"> 
 			<li class="list-group-item"> <b>
 					<center>Kecamatan <?=$_SESSION['nama_kec'][$kec]= wilayah($con, $kec) ?></center>
 				</b></li>

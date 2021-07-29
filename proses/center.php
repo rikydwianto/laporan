@@ -204,7 +204,7 @@
 	<table id='data_karyawan'>
 		<thead>
 			<tr>
-				<th>NO</th>
+				<!-- <th>NO</th> -->
 				<th>CENTER</th>
 				<th>ANGGOTA</th>
 				<th>CLIENT</th>
@@ -226,7 +226,7 @@
 			$data=detail_karyawan($con,$center['id_karyawan']);
 			?>
 			<tr>
-				<td><?=$no++;?></td>
+				<!-- <td><?=$no++;?></td> -->
 				<td><?=$center['no_center'];?></td>
 				<td><?=$center['member_center'];?></td>
 				<td><?=$center['anggota_center'];?></td>

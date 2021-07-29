@@ -36,6 +36,9 @@ if (isset($_GET['tglawal']) || isset($_GET['tglakhir'])) {
         <a href="<?=$url.$menu?>upk&list=cari&tglawal=<?=date("Y-m-d")?>&tglakhir=<?=date("Y-m-d")?>&cari=FILTER" class='btn btn-info'>
 			<i class="fa fa-eye"></i> Lihat Hari Ini
 		</a>
+        <a href="<?=$url."export/upk.php?"?>upk&list=cari&tglawal=<?=$tglawal?>&tglakhir=<?=$tglakhir?>&cari=FILTER" class='btn btn-danger'>
+			<i class="fa fa-file-excel-o"></i> EXPORT
+		</a>
         <br/>
     <?php
     if (isset($_GET['list'])) {
