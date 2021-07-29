@@ -28,16 +28,26 @@ if (isset($_GET['tglawal']) || isset($_GET['tglakhir'])) {
 	}
 	$hari = hari_biasa($qtgl);
 header("Content-type: application/vnd-ms-excel");
-header("Content-Disposition: attachment; filename=Data UPK .xls");
+header("Content-Disposition: attachment; filename=Data UPK.xls");
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<style type="text/css">
+    table{
+        border-collapse: collapse;
+    }
 	th, td {
 	  padding: 5px;
 	  text-align: left;
 	}
+    table, thead, tr,th{
+        text-align: center;
+    }
+    td {
+        height: 30px;
+        vertical-align:middle;
+    }
 	</style>
 	<title></title>
 </head>
@@ -45,14 +55,14 @@ header("Content-Disposition: attachment; filename=Data UPK .xls");
 
 <h2>UPK Tanggal <?=format_hari_tanggal($tglawal)?> s/d <?=format_hari_tanggal($tglakhir)?></h2>
 <table border="1" class='border: 1px solid;width:100%'>
-    <thead>
-        <th>No</th>
+    <thead style="text-align: center;">
+        <th >No</th>
         <th>Tanggal</th>
         <th>Staff</th>
         <th>Center</th>
         <th>Hari</th>
         <th>JAM</th>
-        <th>Total UPK</th>
+        <th>Anggota</th>
         <th>Status</th>
         <th style="width:200px">keterangan</th>
 

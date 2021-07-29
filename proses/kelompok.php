@@ -82,7 +82,10 @@
                                     <td><?= $keluar = $tampilData['keluar'] ?></td>
                                     <td><?php echo $nett = $tampilData['nett'] ?></td>
                                     <td><?php echo $target = $cashflow['nett'];
-                                        $persen = round(($nett / $target) * 100);
+                                        if($target>0){
+                                            $persen = round(($nett / $target) * 100);
+                                        }
+                                        else $persen =0;
                                         echo "($persen)%";
                                         ?></td>
                                 </tr>
@@ -94,11 +97,24 @@
                             }
                             ?>
                             <tr>
-                                <td colspan="">Total Kelompok</td>
-                                <td><?php echo $total_masuk ?></td>
-                                <td><?php echo $total_keluar ?></td>
-                                <td><?php echo $total_nett ?></td>
-                                <td><?php echo $total_target ?>(<?php echo $total_persen = round(($total_nett / $total_target) * 100) ?>%)</td>
+                                <th colspan="">Total Kelompok</th>
+                                <th><?php echo $total_masuk ?></th>
+                                <th><?php echo $total_keluar ?></th>
+                                <th><?php echo $total_nett ?></th>
+                                <th>
+                                <b>
+
+                                        <?php echo $total_target ?>(<?php 
+                                    if($total_target>0){
+                                        $hasil = $total_persen = round(($total_nett / $total_target) * 100) ;
+                                    }
+                                    else{
+                                        $hasil=0;
+                                        $total_persen=0;
+                                    } 
+                                    echo $hasil?>%)</th>
+                                    
+                                </b>
                             </tr>
                         </table>
                         </p>
@@ -116,6 +132,16 @@
                         }
 
                         ?>
+                        <h3>Capaian per Kelompok : <?=$total_nett?><br>
+                        CashFlow Kelompok : <?=$tampilGrup['nett_cashflow']?> <br>
+                        Persentasi Kelompok : <?php
+                        if((int) $tampilGrup['nett_cashflow']>0){
+                            $prosen = round(($total_nett/ $tampilGrup['nett_cashflow']) * 100);
+                        } 
+                        else $prosen = 0;
+                        echo $prosen."%";
+                        ?></h3>
+
                         <footer class="blockquote-footer"><?= $keterangan ?></footer>
                     </blockquote>
                 </div>

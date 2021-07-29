@@ -5,10 +5,17 @@
         <h3>Tambah Kelompok</h3>
         <table>
             <?php $nama_group = $_GET['namagroup']; ?>
+            <?php $nett = $_GET['cash']; ?>
             <tr>
                 <td>Nama Group</td>
-                <td><input type="text" value="<?= $nama_group ?>" name="nama_group" id="">
+                <td><input type="text" value="<?=$nama_group?>" class='form-control' name="nama_group" id="">
                     <br> <small>Tambahkan Urutan Kelompok misal 01 - senin</small>
+                </td>
+            </tr>
+            <tr>
+                <td>CashFlow Kelompok</td>
+                <td><input type="number" value="<?=$nett?>" class='form-control' name="cashflow" id="">
+                    <br> <small>Untuk target per kelompok</small>
                 </td>
             </tr>
             <tr>
@@ -20,6 +27,7 @@
             <tr>
                 <td>No.</td>
                 <td>Nama Kelompok</td>
+                <td>Chasflow Kelompok</td>
                 <td>#</td>
             </tr>
             <?php
@@ -30,8 +38,9 @@
                 <tr>
                     <td><?= $no++ ?></td>
                     <td><?= $tampilGroup['nama_group'] ?></td>
+                    <td><?= $tampilGroup['nett_cashflow'] ?></td>
                     <td>
-                        <a href="<?php echo "$url$menu" . "crud_kelompok&edit&idgroup=$tampilGroup[id_group]&namagroup=$tampilGroup[nama_group]" ?>">Edit</a>
+                        <a href="<?php echo "$url$menu" . "crud_kelompok&edit&idgroup=$tampilGroup[id_group]&namagroup=$tampilGroup[nama_group]&cash=$tampilGroup[nett_cashflow]" ?>">Edit</a>
                         <a href="<?php echo "$url$menu" . "crud_kelompok&hapus&idgroup=$tampilGroup[id_group]" ?>" onclick="window.confirm('Apakah yakin akan menghapus ini?')">Hapus</a>
                     </td>
                 </tr>
@@ -45,11 +54,13 @@
 if (isset($_POST['simpan_kelompok']) && isset($_GET['edit'])) {
     $nama_group = $_POST['nama_group'];
     $id_group = $_GET['idgroup'];
-    mysqli_query($con, "UPDATE `group` SET nama_group='$nama_group' WHERE `id_group` = '$id_group'");
+    $cash = $_POST['cashflow'];
+    mysqli_query($con, "UPDATE `group` SET nama_group='$nama_group',nett_cashflow='$cash' WHERE `id_group` = '$id_group'");
     pindah("$url$menu" . "crud_kelompok");
 } else if (isset($_POST['simpan_kelompok'])) {
     $nama_group = $_POST['nama_group'];
-    mysqli_query($con, "INSERT INTO `group` (`nama_group`,id_cabang) VALUES ('$nama_group','$id_cabang'); ");
+    $cash = $_POST['cashflow'];
+    mysqli_query($con, "INSERT INTO `group` (`nama_group`,nett_cashflow,id_cabang) VALUES ('$nama_group','$cash','$id_cabang'); ");
     pindah("$url$menu" . "crud_kelompok");
 }
 if (isset($_GET['hapus'])) {

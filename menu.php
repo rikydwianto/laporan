@@ -51,8 +51,8 @@ if (isset($_GET['menu'])) {
 				break;
 			case "daftar_wilayah":
 				include("proses/tambah_wilayah.php");
-				
 				break;
+			
 			default:
 				if (file_exists("proses/$getmenu.php")) {
 					include "proses/$getmenu.php";
@@ -100,6 +100,9 @@ if (isset($_GET['menu'])) {
 			case "laporan":
 				include("proses/laporan.php");
 				break;
+			case "penarikan_simpanan":
+				include("proses/penarikan_simpanan.php");
+			break;
 
 			default:
 				include "halaman-403.php";
