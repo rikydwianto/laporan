@@ -30,6 +30,7 @@ if($cekJam['belum']==0){
 ?>
 	<li><a href="<?php echo $url . $menu ?>laporan" class="w3-bar-item w3-button"><i class="fa fa-search"></i> Lihat Laporan</a></li>
 	<li><a href="<?php echo $url . $menu ?>center-staff" class="w3-bar-item w3-button"><i class="fa fa-building"></i> Center</a></li>
+	<li><a href="<?php echo $url . $menu ?>center-blacklist" class="w3-bar-item w3-button"><i class="fa fa-times"></i> Center BlackList</a></li>
 	<li><a href="<?php echo $url . $menu ?>cashflow_sl" class="w3-bar-item w3-button"><i class="fa fa-file-excel-o"></i> Cashflow </a></li>
 	
 	<li>
@@ -125,6 +126,9 @@ if($cekJam['belum']==0){
 			<li>
 				<a href="<?php echo $url . $menu ?>list_penarikan"><i class="fa fa-file-o"></i> Penarikan Simpanan</a>
 			</li>
+			<li>
+				<a href="<?php echo $url . $menu ?>list-center-blacklist"><i class="fa fa-building"></i> Center Ditutup</a>
+			</li>
 		</ul>
 
 	</li>
@@ -219,6 +223,9 @@ if($cekJam['belum']==0){
 			<li>
 				<a href="<?php echo $url . $menu ?>list_penarikan"><i class="fa fa-file-o"></i> Penarikan Simpanan</a>
 			</li>
+			<li>
+				<a href="<?php echo $url . $menu ?>list-center-blacklist"><i class="fa fa-building"></i> Center Ditutup</a>
+			</li>
 		</ul>
 
 	</li>
@@ -247,9 +254,7 @@ if($cekJam['belum']==0){
 			<li>
 				<a href="<?php echo $url . $menu ?>daftar_wilayah" class="w3-bar-item w3-button"><i class="fa fa-globes"></i> Daftar Wilayah</a>
 			</li>
-			<li>
-				<a href="<?php echo $url . $menu ?>list_penarikan"><i class="fa fa-file-o"></i> Penarikan Simpanan</a>
-			</li>
+			
 		</ul>
 	</li>
 
@@ -279,8 +284,13 @@ if($cekJam['belum']==0){
 		<li>
 			<a href="<?php echo $url . $menu ?>rekap_anggota"><i class="fa fa-users"></i> Rekap Anggota</a>
 		</li>
-
+		<li>
+				<a href="<?php echo $url . $menu ?>list_penarikan"><i class="fa fa-file-o"></i> Penarikan Simpanan</a>
+			</li>
+		<li>
+			<a href="<?php echo $url . $menu ?>list-center-blacklist"><i class="fa fa-building"></i> Center Ditutup</a>
 		</li>
+	</ul>
 		<li><a href="<?php echo $url . $menu ?>setting" class="w3-bar-item w3-button"><i class="fa fa-gears"></i> Setting</a></li>
 		</li>
 		<li>
@@ -293,20 +303,3 @@ if($cekJam['belum']==0){
 	?>
 
 
-	<!--
-<li>
-	<a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
-	<ul class="nav nav-second-level">
-		<li>
-			<a href="#">Second Level Item</a>
-		</li>
-		<li>
-			<a href="#">Third Level <span class="fa arrow"></span></a>
-			<ul class="nav nav-third-level">
-				<li>
-					<a href="#">Third Level Item</a>
-				</li>
-			</ul>
-		</li>
-	</ul>
-</li> -->
