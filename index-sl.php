@@ -65,7 +65,7 @@ $cek_upk = mysqli_query($con,"select * from upk join center on center.no_center=
 
             }
              if($status=='pending'){
-                $q = mysqli_query($con,"UPDATE upk set `status`='pending', tgl_upk='$tgl'  WHERE id_upk ='$id_upk'");
+                $q = mysqli_query($con,"UPDATE upk set `status`='pending', tgl_upk='$tgl', keterangan='pending minggu kemarin'  WHERE id_upk ='$id_upk'");
             }
              if($status =='batal'){
                $q1= mysqli_query($con,"UPDATE `upk` SET `status` = 'batal' WHERE `id_upk` = '$id_upk';");

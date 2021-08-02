@@ -8,7 +8,12 @@
         $tgl = $_POST['tgl'];
         for ($a = 0; $a < count($id); $a++) {
             if (($id[$a] != "") && ($nominal[$a] != null)) {
-                $query = mysqli_query($con, "INSERT INTO `penarikan_simpanan` (`id_anggota`, `tgl_penarikan`, `nominal_penarikan`, `id_karyawan`,`id_cabang`) VALUES ('$id[$a]', '$tgl[$a]', '$tgl[$a]', '$id_karyawan','$id_cabang'); ");
+                if($jabatan!="SL"){
+                    $id_karyawan = $_POST['staff'][$a];
+                }
+                else $id_karyawan = $id_karyawan;
+                $id_zero = sprintf("%00d",$id[$a]);
+                $query = mysqli_query($con, "INSERT INTO `penarikan_simpanan` (`id_anggota`, `tgl_penarikan`, `nominal_penarikan`, `id_karyawan`,`id_cabang`) VALUES ('$id_zero', '$tgl[$a]', '$nominal[$a]', '$id_karyawan','$id_cabang'); ");
                 if ($query) {
                     alert("Berhasil disimpan");
                     pindah($url . $menu . "penarikan_simpanan");
@@ -34,7 +39,7 @@
             <?php
             $tgl = date("Y-m-d");
             $total_penarikan = 0;
-            $penarikan = mysqli_query($con, "SELECT * FROM penarikan_simpanan left JOIN daftar_nasabah ON daftar_nasabah.`id_nasabah`=penarikan_simpanan.`id_anggota` where penarikan_simpanan.tgl_penarikan='$tgl'");
+            $penarikan = mysqli_query($con, "SELECT * FROM penarikan_simpanan left JOIN daftar_nasabah ON daftar_nasabah.`id_nasabah`=penarikan_simpanan.`id_anggota` where penarikan_simpanan.tgl_penarikan='$tgl' and penarikan_simpanan.id_karyawan='$id_karyawan' ");
             while ($simp = mysqli_fetch_array($penarikan)) {
                 $total_penarikan = $total_penarikan + $simp['nominal_penarikan'];
             ?>
@@ -79,6 +84,7 @@
                     <th>Tanggal</th>
                 </tr>
                 <?php
+                
                 for ($i = 1; $i <= 15; $i++) {
                 ?>
                     <tr>
@@ -92,6 +98,23 @@
                         <td>
                             <input type="date" class='form-control' name='tgl[]' value="<?= date("Y-m-d") ?>" id='tgl' />
                         </td>
+                        <?php 
+                        if($jabatan !='SL'){
+                            ?>
+                            <td>
+                                <select name="staff[]" class='form-control' id="">
+                                    <option>Pilih Staff</option>
+                                    <?php 
+                                    $k = mysqli_query($con,"select * from karyawan where id_cabang='$id_cabang' and status_karyawan ='aktif' order by nama_karyawan asc");
+                                    while($staff = mysqli_fetch_array($k)){
+                                        echo "<option value='$staff[id_karyawan]'>$staff[nama_karyawan]</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </td>
+                            <?php
+                        }
+                        ?>
                     </tr>
                 <?php
                 }

@@ -4,7 +4,7 @@ $bln1 = ($_GET['bln']=="" ? date("n") : $_GET['bln'] );
 $tahun = ($_GET['tahun']=="" ? date("Y") : $_GET['tahun'] );
 $tanggal = cal_days_in_month(CAL_GREGORIAN, $bln1, $tahun);
 ?>
-<div class="table-responsive" style=";">
+<div class="table-responsive" >
 	<div class="panel-body post-body " >
 		<h3 class="pager-header">
 			REKAP LAPORAN BAYAR
@@ -83,8 +83,11 @@ $tanggal = cal_days_in_month(CAL_GREGORIAN, $bln1, $tahun);
 				  $cari_tgl = $cari_tgl[2];
 				  if($cari_tgl==$i)
 				  {
-				  	$isi = $buka['persen'];
+				  	$isi = $buka['total_bayar'];
 				  	$isi = ($isi=='NULL' ? 0 : $isi);
+				  	$isi2 = $buka['total_agt'];
+				  	$isi2 = ($isi2=='NULL' ? 0 : $isi2);
+					  $isi = round($isi/$isi2 * 100);
 				  	$hitung_bayar = $isi + $hitung_bayar;
 				  	$hitung_perhari = $hitung_perhari + $isi;
 					  echo"<td style='text-align:center;'><small>$isi %</small></td>";

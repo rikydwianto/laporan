@@ -86,7 +86,7 @@ header("Content-Disposition: attachment; filename=Data UPK.xls");
                 <td><?=$total = $upk['anggota_upk']?></td>
                 <td><?=$upk['status']?></td>
                 <td>
-                
+                <?=$upk['keterangan']?>
                    
                 </td>
                 

@@ -14,6 +14,7 @@
         <th>Hari/Jam</th>
         <th>Total UPK</th>
         <th>Status</th>
+        <th>Keterangan</th>
         <th>Detail</th>
 
     </thead>
@@ -34,6 +35,7 @@
                 <td><?=$cari['hari']?>/<?=$cari['jam_center']?></td>
                 <td><?=$total = $upk['anggota_upk']?></td>
                 <td><?=$upk['status']?></td>
+                <td><?=$upk['keterangan']?></td>
                 <td>
                 
                     <a href="#" onclick="detail_center('<?=$cari['no_center']?>')">Detail</a>
@@ -58,7 +60,7 @@
         ?>
     <tfoot>
         <tr>
-            <th colspan=5>Total Anggota UPK</th>
+            <th colspan=6>Total Anggota UPK</th>
             <th align="center"><?=$total_anggota?></th>
             <th></th>
 
