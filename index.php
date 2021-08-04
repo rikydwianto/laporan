@@ -80,16 +80,65 @@ $nama_jabatan=$d['singkatan_jabatan'];
                 }
                 else{
                     include"menu.php";
+                  
                 }
 				
 			}
 			?>
+
+ <?php
+//  if(isset($_SESSION['informasi'])){
+     ?>
+      <!-- The Modal TAMBAH -->
+        <div class="modal fade" id="modalku">
+            <div class="modal-dialog">
+            <div class="modal-content">
+            
+                <!-- Ini adalah Bagian Header Modal -->
+                <div class="modal-header">
+                <h4 class="modal-title">INFORMASI</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                
+                <!-- Ini adalah Bagian Body Modal -->
+                <div class="modal-body">
+                
+                <p>
+                <h2 style="text-align: center;">Sistem Informasi Cabang <?=strtoupper($d['nama_cabang'])?></h2><br>
+                    <ul>
+                        <li> Selasa, 10 Agutus 2021 Tidak Libur tidak dipindah hari/NORMAL </li>
+                        <li> <b> Selasa, 17 Agutus 2021 </b> Libur Nasional Pindah Hari </li>
+                        <li>Jika ada center yang ditutup oleh aparat bisa diisi di menu -> "Center Blacklist"</li>
+                        <li>Untuk melihat Capaian Anggota Masuk dan Anggota Keluar bisa dilihat di menu Cashflow</li>
+                        <li>Anggota Keluar Update sampai Tanggal  <b>Kamis, 29 Juli 2021</b> </li>
+                    </ul>
+
+                </p>
+                    <br><br>
+
+                </div>
+                
+                <!-- Ini adalah Bagian Footer Modal -->
+                <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">x</button>
+                </div>
+                
+            </div>
+            </div>
+        </div>
+     <?php
+     
+//  }
+ 
+ ?>
+
 
         </div>
     </div>
 
 
 </div>
+</body>
 <!-- jQuery -->
 <script src="<?=$url ?>assets/js/jquery.min.js"></script>
 
@@ -108,9 +157,21 @@ $nama_jabatan=$d['singkatan_jabatan'];
 <script type="text/javascript">
     var url_link = "<?=$url ?>";
     var idcab = "<?php echo $cabang ?>";
+    
+    <?php 
+    if($_SESSION['informasi']<=2){
+        echo '$("#modalku").modal(); ';
+        $_SESSION['informasi']=$_SESSION['informasi']+1;
+    }
+    else{
+        
+    }
+    
+    ?>
 </script>
 <script src="<?=$url ?>assets/js/script_wilayah.js"></script>
 <script src="<?=$url ?>assets/js/grafik.js"></script>
 <script src="<?=$url ?>assets/js/script.js"></script>
-</body>
+
 </html>
+<?php echo $_SESSION['informasi'] ?>

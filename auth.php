@@ -60,6 +60,7 @@ require_once("model/model.php");
                             $_SESSION['id_cabang']=$cek['id_cabang'];
                             $_SESSION['cabang']=$cek['id_cabang'];
                             $_SESSION['su']=$cek['super_user'];
+                            $_SESSION['informasi']=1;
                             pesan("BERHASIL LOGIN",'success');
                             pindah("$url");
                                 

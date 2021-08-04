@@ -65,7 +65,7 @@ function ganti_bayar(id)
 
     $("#bayar-"+idd).val("");
     $("#tdk-"+idd).val("");
-    $("#dtd-"+idd).removeAttr("required");
+    $("#dtd-"+idd).prop('required',false);
  });
 
 
