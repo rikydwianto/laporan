@@ -17,7 +17,7 @@ $hari = format_hari_tanggal($cek_laporan['tgl_laporan']);
 $hari = explode(',', $hari);
 $hari = strtolower($hari[0]);
 ?>
-<form method=post>
+<form method="post" id="formlaporan">
 	<table class='table'>
 		<tr>
 			<th>NAMA STAFF</th>
@@ -169,12 +169,12 @@ $hari = strtolower($hari[0]);
 
 
 					$dtd_ = $cek_detail_center['doortodoor'];
-					if ($dtd_ == 't') $tidak = "selected";
-					else $tidak = "";
-					if ($dtd_ == 'y') $iya = "selected";
-					else $iya = "";
-					if ($dtd_ == 'r') $ragu = "selected";
-					else $ragu = "";
+					// if ($dtd_ == 't') $tidak = "selected";
+					// else $tidak = "";
+					// if ($dtd_ == 'y') $iya = "selected";
+					// else $iya = "";
+					// if ($dtd_ == 'r') $ragu = "selected";
+					// else $ragu = "";
 
 			?>
 					<tr style="background:<?= $border ?>">
@@ -188,7 +188,8 @@ $hari = strtolower($hari[0]);
 
 						<td>
 							<!-- sss -->
-							<select name='dtd[]' class='form-select ' id="inputGroupSelect01">
+							<select name='dtd[]' class='form-select ' id='dtd-<?php echo $y ?>' required id="inputGroupSelect01">
+								<option value="" >Pilih</option>
 								<option value='t' <?= $tidak ?>>TIDAK</option>
 								<option value='y' <?= $iya ?>>DTD</option>
 								<!-- <option value='r' <?= $ragu ?> >1/2 DTD</option> -->
@@ -200,7 +201,7 @@ $hari = strtolower($hari[0]);
 
 
 						<td>
-							<div class="input-group input-group-lg">
+							<div class="input-group input-group-lg" >
 								<select name='doa[]' class='form-select ' id="inputGroupSelect01">
 									<option value='y' <?= $doa_ ?>>doa</option>
 									<option value='t' <?= $doa_t ?>>Tdk </option>
@@ -238,6 +239,7 @@ $hari = strtolower($hari[0]);
 
 
 						<select name='dtd[]' class='form-select ' id="inputGroupSelect01">
+							<option >pilih</option>
 							<option value='t' <?= $merah ?>>TIDAK</option>
 							<option value='y' <?= $hijau ?>>DTD</option>
 							<!-- <option value='r' <?= $kuning ?> >1/2 DTD</option> -->
@@ -278,13 +280,17 @@ $hari = strtolower($hari[0]);
 				<td><input type="submit" name='simpan_detail' class='btn btn-primary' value="SIMPAN" /></td>
 				<td>
 
-					<input type="submit" name='konfirmasi_laporan' class='btn btn-success' style="" value="KONFIRMASI" onclick="return window.confirm('Apakah laporan sudah sesuai?? ')" />
+					<input type="submit" name='konfirmasi_laporan' class='btn btn-success'  value="KONFIRMASI" onclick="return window.confirm('Apakah sudah benar?')" />
 
 				</td>
 			</tr>
 		</table>
 	</div>
 </form>
+<!-- //JAVA script code -->
+<script>
+	
+</script>
 
 <?php
 

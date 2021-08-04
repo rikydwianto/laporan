@@ -220,7 +220,7 @@
 		</thead>
 		<tbody>
 		<?php 
-		$q=mysqli_query($con,"select * from center where id_cabang='$id_cabang' order by no_center asc");
+		$q=mysqli_query($con,"select * from center where id_cabang='$id_cabang' order by no_center desc");
 		while($center=mysqli_fetch_assoc($q))
 		{
 			$data=detail_karyawan($con,$center['id_karyawan']);
