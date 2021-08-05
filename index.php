@@ -174,4 +174,3 @@ $nama_jabatan=$d['singkatan_jabatan'];
 <script src="<?=$url ?>assets/js/script.js"></script>
 
 </html>
-<?php echo $_SESSION['informasi'] ?>

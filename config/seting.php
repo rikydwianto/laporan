@@ -14,6 +14,6 @@ $menu ="index.php?menu=";
 error_reporting(0);
  $no=1;
  $url = "http://localhost/laporan/";
- //$url = "https://4dfd873a0455.ngrok.iovbbbb/laporan/";
+ $url = "http://192.168.227.109/laporan/";
  
 ?>	
