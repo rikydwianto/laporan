@@ -15,4 +15,5 @@ error_reporting(0);
  $no=1;
  $url = "http://localhost/laporan/";
  //$url = "https://4dfd873a0455.ngrok.iovbbbb/laporan/";
+ //assss
 ?>	
