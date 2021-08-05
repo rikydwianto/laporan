@@ -5,7 +5,6 @@
 ehthumbs.db
 Thumbs.db
 Icon\?
-
 # Tool and Project Meta: Node, Composer, PHPStorm, VSCode, Vagrant, Yarn
 /node_modules
 /vendor
@@ -17,3 +16,5 @@ yarn-error.log
 .env
 
 nbproject/
+
+config/setting.php
