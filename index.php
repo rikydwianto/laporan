@@ -106,8 +106,9 @@ $nama_jabatan=$d['singkatan_jabatan'];
                 <p>
                 <h2 style="text-align: center;">Sistem Informasi Cabang <?=strtoupper($d['nama_cabang'])?></h2><br>
                     <ul>
-                        <li> Selasa, 10 Agutus 2021 Tidak Libur tidak dipindah hari/NORMAL </li>
+                        <!-- <li> Selasa, 10 Agutus 2021 Tidak Libur tidak dipindah hari/NORMAL </li> -->
                         <li> <b> Selasa, 17 Agutus 2021 </b> Libur Nasional Pindah Hari </li>
+                        <li> Rabu, 18 Agutus 2021 Tidak Libur tidak dipindah hari/NORMAL </li>
                         <li>Jika ada center yang ditutup oleh aparat bisa diisi di menu -> "Center Blacklist"</li>
                         <li>Untuk melihat Capaian Anggota Masuk dan Anggota Keluar bisa dilihat di menu Cashflow</li>
                         <li>Anggota Keluar Update sampai Tanggal  <b>Kamis, 29 Juli 2021</b> </li>
