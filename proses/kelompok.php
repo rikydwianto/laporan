@@ -1,17 +1,27 @@
 <div class='content table-responsive'>
     <?php
-    if (isset($_GET['tglawal']) || isset($_GET['tglakhir'])) {
+    if (isset($_GET['tglawal']) && isset($_GET['tglakhir'])) {
         $tglawal = $_GET['tglawal'];
         $tglakhir = $_GET['tglakhir'];
     } else {
-        $tglawal = date("2021-01-01");
-        $tglakhir = date("2021-12-31");
+        $tglawal = date("Y-01-01");
+        $tglakhir = date("Y-12-31");
         // dd
     }
+    
     ?>
     <h2 class='page-header'> KELOMPOK </h2>
     <i>Kelompok/Groups melihat capaian per groups</i>
     <hr />
+    <div>
+        <form action="" method="get">
+            <input type="hidden" name='menu' value='kelompok' />
+            <input type="date" name='tglawal' value="<?= (isset($_GET['tglawal']) ?  $_GET['tglawal'] : date("Y-m-d", (strtotime('-4 day', strtotime(date("Y-m-d")))))) ?>" class="" />
+            <input type="date" name='tglakhir' value="<?= (isset($_GET['tglakhir']) ?  $_GET['tglakhir'] : date("Y-m-d")) ?>" class="" />
+            <input type='submit' class="btn btn-info" name='cari' value='FILTER' />
+        </form>
+        <br>
+    </div>
     <?php
     $qGrup = mysqli_query($con, "select * from `group`   where id_cabang='$cabang' order by nama_group asc");
     while ($tampilGrup = mysqli_fetch_array($qGrup)) {
@@ -51,7 +61,7 @@
                         sum(anggota.pmb) as pmb,
                         karyawan.nama_karyawan FROM `anggota`,karyawan 
                         where anggota.id_karyawan=karyawan.id_karyawan and karyawan.id_cabang=$cabang 
-                        and anggota.tgl_anggota >= '$tglawal' and anggota.tgl_anggota <= '$tglakhir' and
+                        and  anggota.tgl_anggota between '$tglawal' and '$tglakhir' and
                         karyawan.id_karyawan='$tampilStaff[id_karyawan]'
                         GROUP by anggota.id_karyawan order by karyawan.nama_karyawan asc";
                                 $tampilData = mysqli_query($con, $q);
@@ -82,10 +92,9 @@
                                     <td><?= $keluar = $tampilData['keluar'] ?></td>
                                     <td><?php echo $nett = $tampilData['nett'] ?></td>
                                     <td><?php echo $target = $cashflow['nett'];
-                                        if($target>0){
+                                        if ($target > 0) {
                                             $persen = round(($nett / $target) * 100);
-                                        }
-                                        else $persen =0;
+                                        } else $persen = 0;
                                         echo "($persen)%";
                                         ?></td>
                                 </tr>
@@ -102,18 +111,18 @@
                                 <th><?php echo $total_keluar ?></th>
                                 <th><?php echo $total_nett ?></th>
                                 <th>
-                                <b>
+                                    <b>
 
-                                        <?php echo $total_target ?>(<?php 
-                                    if($total_target>0){
-                                        $hasil = $total_persen = round(($total_nett / $total_target) * 100) ;
-                                    }
-                                    else{
-                                        $hasil=0;
-                                        $total_persen=0;
-                                    } 
-                                    echo $hasil?>%)</th>
-                                    
+                                        <?php echo $total_target ?>(<?php
+                                                                    if ($total_target > 0) {
+                                                                        $hasil = $total_persen = round(($total_nett / $total_target) * 100);
+                                                                    } else {
+                                                                        $hasil = 0;
+                                                                        $total_persen = 0;
+                                                                    }
+                                                                    echo $hasil ?>%)
+                                </th>
+
                                 </b>
                             </tr>
                         </table>
@@ -132,15 +141,14 @@
                         }
 
                         ?>
-                        <h3>Capaian per Kelompok : <?=$total_nett?><br>
-                        CashFlow Kelompok : <?=$tampilGrup['nett_cashflow']?> <br>
-                        Persentasi Kelompok : <?php
-                        if((int) $tampilGrup['nett_cashflow']>0){
-                            $prosen = round(($total_nett/ $tampilGrup['nett_cashflow']) * 100);
-                        } 
-                        else $prosen = 0;
-                        echo $prosen."%";
-                        ?></h3>
+                        <h3>Capaian per Kelompok : <?= $total_nett ?><br>
+                            CashFlow Kelompok : <?= $tampilGrup['nett_cashflow'] ?> <br>
+                            Persentasi Kelompok : <?php
+                                                    if ((int) $tampilGrup['nett_cashflow'] > 0) {
+                                                        $prosen = round(($total_nett / $tampilGrup['nett_cashflow']) * 100);
+                                                    } else $prosen = 0;
+                                                    echo $prosen . "%";
+                                                    ?></h3>
 
                         <footer class="blockquote-footer"><?= $keterangan ?></footer>
                     </blockquote>
