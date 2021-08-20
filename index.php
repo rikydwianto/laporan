@@ -107,8 +107,8 @@ $nama_jabatan=$d['singkatan_jabatan'];
                 <h2 style="text-align: center;">Sistem Informasi Cabang <?=strtoupper($d['nama_cabang'])?></h2><br>
                     <ul>
                         <!-- <li> Selasa, 10 Agutus 2021 Tidak Libur tidak dipindah hari/NORMAL </li> -->
-                        <li> <b> Selasa, 17 Agutus 2021 </b> Libur Nasional Pindah Hari </li>
-                        <li> Rabu, 18 Agutus 2021 Tidak Libur tidak dipindah hari/NORMAL </li>
+                        <li> <b> PENARIKAN SIMPANAN OLEH MANAJER </b> Berlaku pada Rabu 24 Agustus s/d selasa 31 Agustus 2021 </li>
+                        <li> Untuk rekap bisa dilihat di menu   "PENARIKAN SIMPANAN" hanya memasukan id anggota dan nominal penarikan </li>
                         <li>Jika ada center yang ditutup oleh aparat bisa diisi di menu -> "Center Blacklist"</li>
                         <li>Untuk melihat Capaian Anggota Masuk dan Anggota Keluar bisa dilihat di menu Cashflow</li>
                         <li>Anggota Keluar Update sampai Tanggal  <b>Kamis, 29 Juli 2021</b> </li>
@@ -121,7 +121,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
                 
                 <!-- Ini adalah Bagian Footer Modal -->
                 <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">x</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">close</button>
                 </div>
                 
             </div>
