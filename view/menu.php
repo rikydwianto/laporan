@@ -8,8 +8,7 @@ $hari = hari_biasa($date);
  $hari = explode("-",$hari)[0];
  $hari=strtolower($hari);
  
-$cek_jam = mysqli_query($con,"select count(no_center) as belum from center where jam_center BETWEEN '00:00:00' and '07:00:00'
-and id_karyawan='$id_karyawan' and hari='$hari'
+$cek_jam = mysqli_query($con,"select count(no_center) as belum from center where konfirmasi='t' and id_karyawan='$id_karyawan' and hari='$hari'
 ");
 $cekJam = mysqli_fetch_array($cek_jam);
 	

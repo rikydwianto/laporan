@@ -11,6 +11,9 @@
   <a href="<?=$url?>/export/center.php" class='btn btn-success'>
 			<i class="fa fa-file-excel-o"></i> Export To Excel
 		</a>
+  <a href="<?=$url.$menu?>center&unkonfirmasi" class='btn btn-info'>
+			<i class="fa fa-file-excel-o"></i> UN - KONFIRMASI
+		</a>
 <br>
   <?php 
   if(isset($_GET['del']))
@@ -19,6 +22,14 @@
   	$del = mysqli_query($con,"delete from center where id_center='$iddet'");
   	if($del){
   		pesan("Center Berhasil dihapus",'success');
+  	}
+  }
+
+  if(isset($_GET['unkonfirmasi']))
+  {
+  	$del = mysqli_query($con,"UPDATE `center` SET `konfirmasi` = 't' WHERE `id_cabang` = '$id_cabang'; ");
+  	if($del){
+  		pesan("Center Berhasil di konfimasi",'success');
   	}
   }
 

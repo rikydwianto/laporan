@@ -79,8 +79,7 @@ if(!$_SESSION['jabatan']){
 	{
 		//ADA DI VIEW/MENU.PHP
 		if($cekJam['belum']!=0){
-			echo "<h1>Silahkan Ubah jam center meeting hari ".strtoupper($hari)." terlebih dahulu</h1>";
-			echo "<h2><a href='".$url . $menu."center-staff'>Klik Disini</a></h2>";
+			include "proses/konfirmasi_center.php";
 		}
 		else{
 			include "index-sl.php";
