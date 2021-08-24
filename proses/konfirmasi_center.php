@@ -50,7 +50,7 @@
                         </td>
                         <td><?= $center['no_center']; ?></td>
                         <td>
-                            <select name='hari[]' class='form-control'>
+                            <select name='hari[]' class='form-control' width="30">
                             <?php $hari = hari();
                                 for($i=0;$i<count($hari);$i++){
                                     if(strtolower($hari[$i])==$center['hari']){
