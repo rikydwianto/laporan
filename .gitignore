@@ -7,7 +7,7 @@ Thumbs.db
 Icon\?
 # Tool and Project Meta: Node, Composer, PHPStorm, VSCode, Vagrant, Yarn
 /node_modules
-/vendor
+/config
 /.idea
 /.vscode
 /.vagrant
@@ -17,4 +17,3 @@ yarn-error.log
 
 nbproject/
 
-config/*.php
