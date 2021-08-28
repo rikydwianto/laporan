@@ -6,8 +6,14 @@
     <a href="<?= $url . $menu ?>monitoring&tambah" class='btn btn-info'> <i class="fa fa-plus"></i> Tambah</a>
     <a href="<?= $url . $menu ?>monitoring&ganti" class='btn btn-success'> <i class="fa fa-refresh"></i> Refresh Data</a>
     <a href="<?= $url . $menu ?>monitoring&staff" class='btn btn-danger'> <i class="fa fa-users"></i> Daftar Staff</a>
-    <a href="<?= $url . $menu ?>monitoring"   target="popup" 
-  onclick="window.open('<?= $url ?>export/monitoring.php','popup',''); return false;" class='btn btn-info'> <i class="fa fa-file-excel-o"></i> Export</a>
+    <a href="<?= $url . $menu ?>monitoring"     onclick="buka()" class='btn btn-info'> <i class="fa fa-file-excel-o"></i> Export</a>
+  <?php 
+ if(isset( $_SESSION['nama_file'])){
+     ?>
+     <a href="<?= $url ?>export/excel/<?=$_SESSION['nama_file']?>.xlsx" class='btn btn-info'> <i class="fa fa-download"></i> UNDUH</a>
+     <?php
+ }
+  ?>
     <hr />
 
     <?php
@@ -280,6 +286,14 @@
     var cabang  = "<?=$id_cabang?>";
 
 
+    function buka(){
+        window.open(url+'export/monitoring.php','popup','width=10,height=10'); 
+        // window.href.location = url + "index.php?menu=monitoring";
+        window.location.assign(url + "index.php?menu=monitoring")
+
+        location.reload();
+
+    }
 
     function monitoring(id){
         var cek = $("#cek_"+id).val();

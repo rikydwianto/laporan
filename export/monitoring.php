@@ -116,7 +116,6 @@ $spreadsheet->setActiveSheetIndex(0);
 
 $writer = new Xlsx($spreadsheet);
 $writer->save('excel/'.$filename.'.xlsx');
-header("location:$url"."export/excel/".$filename.".xlsx");
 
 // unlink("excel/".$filename.".xlsx");
 // sleep(2);
