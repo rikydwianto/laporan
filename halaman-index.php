@@ -36,7 +36,21 @@ if(!$_SESSION['jabatan']){
 		  </ul>
 		</div>
 		
-		<?php 
+		<?php
+		if($jabatan=='SL'){
+			?>
+				<h3 class='page-header'>MONITORING ! <hr/></h3>
+				<div class="card">
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item"><?php echo strtoupper($karyawan['nama_karyawan']) ?> </li>
+				</ul>
+				</div>
+			<?php
+		}
+		
+
+
+		//STATISTIK
 		if($jabatan!='SL')
 		{
 			?>
@@ -217,7 +231,52 @@ if(!$_SESSION['jabatan']){
 		</div>
 	<?php
 		
+	}if($jabatan=='ADM') {
+		?>
+		<h2 class='page-header' style='text-align:center'>SISA MONITORING <hr/></h2>
+		<table class="table table-bordered">
+            <tr>
+                <td>
+                    NO 
+                </td>
+                <td>NIK</td>
+                <td>STAFF</td>
+                <td>SISA MONITORING</td>
+                <td></td>
+            </tr>
+            <?php
+            $total_monitoring = 0;
+            $cek_ka=mysqli_query($con,"SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_cabang='$cabang' and jabatan.singkatan_jabatan='SL' and karyawan.status_karyawan='aktif' order by karyawan.nama_karyawan asc");
+            while($karyawan = mysqli_fetch_array($cek_ka)){
+                ?>
+            <tr>
+                <td><?=$no++?></td>
+                <td><?=$karyawan['nik_karyawan']?></td>
+                <td><?=$karyawan['nama_karyawan']?></td>
+                <td>
+                    <?php 
+                    $q = mysqli_query($con,"select count(id_detail_nasabah) as total from pinjaman where monitoring='belum' and id_karyawan='$karyawan[id_karyawan]' and id_cabang='$id_cabang'");
+                    $total = mysqli_fetch_array($q);
+                    $total = $total['total'];
+                    $total_monitoring =$total + $total_monitoring;
+                    echo $total ;
+                    ?>
+                    
+                </td>
+                <td><a href="<?= $url . $menu ?>monitoring&id=<?=$karyawan['id_karyawan']?>" > Detail</a> </td>
+            </tr>
+                <?php
+            }
+            ?>
+            <tr>
+                <td colspan="3"></td>
+                <td><?=$total_monitoring?></td>
+            </tr>
+        </table>
+		<?php
+
 	}
+
 	?>
 
 

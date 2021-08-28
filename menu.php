@@ -106,6 +106,9 @@ if (isset($_GET['menu'])) {
 			case "center-blacklist":
 				include("proses/center-blacklist.php");
 			break;
+			case "list-monitoring":
+				include("proses/list-monitoring.php");
+			break;
 
 			default:
 				include "halaman-403.php";

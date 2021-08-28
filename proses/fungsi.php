@@ -272,3 +272,20 @@ function status_upk()
   );
   return ($status);
 }
+
+
+function karyawan($con,$id_cabang){
+  $cek_ka=mysqli_query($con,"SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_cabang='$id_cabang' and jabatan.singkatan_jabatan='SL' and karyawan.status_karyawan='aktif' order by karyawan.nama_karyawan asc");
+  $arra = array();
+  $arra['data'] = array();
+
+  while ($data = mysqli_fetch_array($cek_ka)) {
+    $h['id_karyawan'] = $data['id_karyawan'];
+    $h['nama_karyawan'] = $data['nama_karyawan'];
+    array_push($arra["data"], $h);}
+    return $arra;
+}
+
+function ganti_karakter($text){
+ return   preg_replace('/[^a-zA-Z0-9()_ .,"\'\-;]/', '', $text);
+}

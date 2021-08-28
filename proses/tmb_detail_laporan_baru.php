@@ -357,8 +357,8 @@ if (isset($_POST['simpan_detail'])) {
 
 	$doa = $_POST['doa'];
 	$dtd = $_POST['dtd'];
-	$member = $_POST['member'];
-	$total_agt = $_POST['total_agt'];
+	$member = $_POST['member']; //TOTAL ANGGOTA //TOTAL CLIENT
+	$total_agt = $_POST['total_agt']; //TOTAL CLIENT
 	$total_bayar = $_POST['bayar'];
 	$keterangan = $_POST['keterangan'];
 	$jam = $_POST['jam'];
@@ -388,7 +388,7 @@ if (isset($_POST['simpan_detail'])) {
 if (isset($_POST['konfirmasi_laporan'])) {
 	$no_center = $_POST['no_center'];
 	$keterangan = $_POST['keterangan'];
-	$total_agt = $_POST['total_agt'];
+	$total_agt = $_POST['total_agt'];//TOTAL ANGGOTA //TOTAL CLIENT
 	$member = $_POST['member'];
 	$doa = $_POST['doa'];
 	$dtd = $_POST['dtd'];
@@ -428,7 +428,7 @@ if (isset($_POST['edit_detail'])) {
 	$center = $_POST['center'];
 	$status = $_POST['status'];
 	$anggota = $_POST['anggota'];
-	$bayar = $_POST['bayar'];
+	$bayar = $_POST['bayar'];//TOTAL ANGGOTA //TOTAL CLIENT
 	$tdk = $_POST['tdk'];
 
 	$persen = round(($bayar / $anggota) * 100);
