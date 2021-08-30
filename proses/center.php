@@ -59,7 +59,8 @@
   	$query2 = mysqli_query($con,"UPDATE `center` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
   	$query3 = mysqli_query($con,"UPDATE `group_user` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
   	$query4 = mysqli_query($con,"UPDATE `cashflow` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
-  	$query4 = mysqli_query($con,"UPDATE `image` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
+  	$query5 = mysqli_query($con,"UPDATE `image` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
+  	$query6 = mysqli_query($con,"UPDATE `pinjaman` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
 
   }
 
