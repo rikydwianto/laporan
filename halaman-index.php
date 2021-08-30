@@ -38,15 +38,18 @@ if(!$_SESSION['jabatan']){
 		
 		<?php
 		if($jabatan=='SL'){
+			$qpin = mysqli_query($con,"select count(monitoring) as total from pinjaman where id_karyawan='$id_karyawan' and monitoring='belum'");
+			$mon = mysqli_fetch_array($qpin);
+			$mon = $mon['total'];
 			?>
 				<h3 class='page-header'>MONITORING ! <hr/></h3>
 				<div class="card">
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item"><?php echo strtoupper($karyawan['nama_karyawan']) ?> </li>
-				</ul>
+				
+					<h3>SISA  : <?=$mon?> </h3>
 				</div>
 			<?php
 		}
+
 		
 
 
@@ -73,6 +76,16 @@ if(!$_SESSION['jabatan']){
 			</div>
 			<?php
 		}
+		$qpin = mysqli_query($con,"select count(monitoring) as total from pinjaman where id_cabang='$id_cabang' and monitoring='belum'");
+			$mon = mysqli_fetch_array($qpin);
+			$mon = $mon['total'];
+			?>
+				<h3 class='page-header'>TOTAL MONITORING ! <hr/></h3>
+				<div class="card">
+				
+					<h3>SISA  : <?=$mon?> </h3>
+				</div>
+			<?php
 		?>
 		
 	</div>

@@ -73,8 +73,8 @@
     }
     ?>
 
-
-    <form action="" method="post">
+<form action="" method="post">
+        jangan gunakan titik(.)  masukan angka saja contoh Rp. 100.000 input (100000)
         <div class="col-md-8">
             <table class="table">
                 <tr>
@@ -93,7 +93,7 @@
                             <input type="number" class='form-control' name='id[]' />
                         </td>
                         <td>
-                            <input type="number" class='form-control' name='nominal[]' id='nominal' />
+                            <input type="number" class='form-control' name='nominal[]' id='nominal' pattern="\d+"/>
                         </td>
                         <td>
                             <input type="date" class='form-control' name='tgl[]' value="<?= date("Y-m-d") ?>" id='tgl' />
