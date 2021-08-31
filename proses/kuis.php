@@ -3,10 +3,7 @@
 
     <?php 
     @$act = $_GET['act'];
-    if($act=='edit-soal'){
-
-    }
-    elseif($act=='tambah-soal'){
+    if($act=='tambah-soal'){
         include("proses/kuis/soal.php");
 
     }

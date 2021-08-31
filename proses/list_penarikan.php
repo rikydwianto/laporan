@@ -7,10 +7,22 @@
 	else{
 		$qtgl=date("Y-m-d");
 	}
+
+    if(isset($_GET['del'])){
+        $id = aman($con,$_GET['id']);
+        $q = mysqli_query($con,"DELETE FROM `penarikan_simpanan` WHERE `id_penarikan` = '$id'; ");
+        if($q){
+            alert("Berhasil dihapus");
+        }
+        else{
+            alert("Gagal disimpan");
+        }
+        pindah("$url"."$menu"."list_penarikan");
+    }
 ?>
 <div class='content table-responsive'>
     <h2 class='page-header'>Penarikan Simpanan oleh Manager</h2>
-    <a href="<?=$url.$menu?>penarikan_simpanan&list=cari&tglawal=<?=$tglawal?>&tglakhir=<?=$tglakhir?>&cari=FILTER" class='btn btn-success'>
+    <a href="<?=$url.$menu?>penarikan_simpanan&list=cari&cari=FILTER" class='btn btn-success'>
         <i class="fa fa-plus"></i> Tambah
     </a>
     <a href="<?=$url."export/penarikan_simpanan.php?"?>upk&tgl=<?=$qtgl?>" class='btn btn-danger'>
@@ -32,6 +44,7 @@
             <th>Center</th>
             <th>Nasabah</th>
             <th >Nominal</th>
+            <th>#</th>
         </tr>
         
         <?php 
@@ -56,6 +69,9 @@
             
             <td><?=$simp['nama_nasabah']?></td>
             <td ><?=rupiah($simp['nominal_penarikan'])?></td>
+            <td>
+                <a href="<?=$url.$menu?>list_penarikan&del&id=<?=$simp['id_penarikan']?>" class="btn"><i class='fa fa-times'></i></a>
+            </td>
         </tr>
             <?php
         }

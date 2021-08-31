@@ -75,8 +75,7 @@ if(!$_SESSION['jabatan']){
 
 			</div>
 			<?php
-		}
-		$qpin = mysqli_query($con,"select count(monitoring) as total from pinjaman where id_cabang='$id_cabang' and monitoring='belum'");
+			$qpin = mysqli_query($con,"select count(monitoring) as total from pinjaman where id_cabang='$id_cabang' and monitoring='belum'");
 			$mon = mysqli_fetch_array($qpin);
 			$mon = $mon['total'];
 			?>
@@ -86,6 +85,7 @@ if(!$_SESSION['jabatan']){
 					<h3>SISA  : <?=$mon?> </h3>
 				</div>
 			<?php
+		}
 		?>
 		
 	</div>

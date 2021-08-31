@@ -4,12 +4,15 @@ $q = mysqli_query($con, "select * from kuis left join karyawan on kuis.id_karyaw
 $kuis = mysqli_fetch_array($q);
 ?>
 <h3 style="text-align:center"> NAMA KUIS : <?= $kuis['nama_kuis'] ?></h3>
-<?php 
-echo var_dump($_POST['pilihan']);
-?>
-<form method="post" action="">
 
-    <input type="submit" name='simpan' class='btn btn-success btn-lg ' value='SIMPAN'>
+<?php 
+if(isset($_GET['idsoal'])){
+    include("proses/kuis/edit-soal.php");
+
+}
+?>
+
+
     <table id='' CLASS='table table-bordered '>
         <thead>
             <tr>
@@ -28,11 +31,10 @@ echo var_dump($_POST['pilihan']);
                 <tr>
                     <td><?= $no ?></td>
                     <td>
-                        <textarea style='width:100%' class='form-control' name='soal[]' id='soal[]'><?= $soal['soal'] ?></textarea>
-
+                       <?= $soal['soal'] ?>
 
                     </td>
-                    <td><input type="number" value="<?= $soal['point'] ?>" style='width:70px' name="point" class='form-control' id=""></td>
+                    <td><input type="number" disabled value="<?= $soal['point'] ?>" style='width:70px' name="point" class='form-control' id=""></td>
                     <td>
 
 
@@ -47,15 +49,17 @@ echo var_dump($_POST['pilihan']);
                         $qjawab = mysqli_query($con, "select * from jawaban where id_soal ='$soal[id_soal]'");
                         while ($pilihan = mysqli_fetch_array($qjawab)) {
                         ?>
-                            <input type="text" name="pilihan[<?=$baris++?>][]" style="width:300px" class='form-control' value="<?= $pilihan['jawaban'] ?>" id="pilihan"><br />
-
+                            <input type="text" disabled name="pilihan[]" style="width:300px" class='form-control' value="<?= $pilihan['jawaban'] ?><?php echo $pilihan['jawaban_benar'] =='y' ? " - benar" : null  ?>" id="pilihan"> 
+                            <br>
+                            
                         <?php
                         }
                         ?>
 
                     </td>
                     <td>
-
+                        <a href="<?=$url.$menu?>kuis&act=tambah-soal&idkuis=<?=$id_kuis?>&idsoal=<?=$soal['id_soal']?>" class="btn btn-lg btn-info"> <i class="fa fa-edit"></i> Edit </a><br><br>
+                        <a href="" class="btn btn-lg btn-danger"> <i class="fa fa-times"></i> Hapus </a>
                     </td>
                     <td></td>
                 </tr>
@@ -66,62 +70,8 @@ echo var_dump($_POST['pilihan']);
             ?>
         </tbody>
     </table>
-    <table id='baris' CLASS='table table-bordered '>
-        <thead>
-            <tr>
-                <th>NO</th>
-                <th>SOAL</th>
-                <th>POINT</th>
-                <th>#</th>
 
-            </tr>
-        </thead>
-
-        <tbody>
-            <?php
-
-
-            ?>
-            <tr>
-                <td></td>
-                <td>
-                    <textarea style='width:100%' class='form-control' name='soal[]' id='soal[]'></textarea>
-
-
-                </td>
-                <td><input type="number" value="" style='width:70px' name="point[]" class='form-control' id=""></td>
-                <td>
-
-
-                </td>
-            </tr>
-            <tr>
-                <td>PILIHAN:</td>
-                <td>
-
-                    <?php
-                    for ($a = 1; $a < 5; $a++) {
-                    ?>
-                        <input type="text" name="pilihan[]" style="width:300px" class='form-control' value="<?= $pilihan['jawaban'] ?>" id="pilihan"><br />
-                    <?php
-                    }
-                    ?>
-
-                </td>
-                <td>
-
-                </td>
-                <td></td>
-            </tr>
-
-
-        </tbody>
-        <tfoot>
-
-        </tfoot>
-    </table>
-</form>
-<table class='table'>
+    <!-- <table class='table'>
     <tr>
         <td></td>
         <td></td>
@@ -132,16 +82,16 @@ echo var_dump($_POST['pilihan']);
             <button id='tambah_form' class='btn btn-lg btn-danger'>+ Tambah Soal</button>
         </td>
     </tr>
-</table>
+</table> -->
 
 
-<script>
-    var input = $('#baris');
+    <script>
+        var input = $('#baris');
 
-    $('#tambah_form').on('click', function(e) {
-        $('#baris').before(input.clone());
+        $('#tambah_form').on('click', function(e) {
+            $('#baris').before(input.clone());
 
-        e.preventDefault();
+            e.preventDefault();
 
-    });
-</script>
+        });
+    </script>

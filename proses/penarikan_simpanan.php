@@ -63,10 +63,11 @@
     }
     else{
         ?>
-            <a href="<?=$url.$menu?>penarikan_simpanan&list=cari&tglawal=<?=$tglawal?>&tglakhir=<?=$tglakhir?>&cari=FILTER" class='btn btn-success'>
+            <a href="<?=$url.$menu?>penarikan_simpanan&list=cari&cari=FILTER" class='btn btn-success'>
                 <i class="fa fa-plus"></i> Tambah
             </a>
-            <a href="<?=$url.$menu?>list_penarikan&list=cari&tglawal=<?=$tglawal?>&tglakhir=<?=$tglakhir?>&cari=FILTER" class='btn btn-info'>
+            <!-- tglawal=<?=$tglawal?>&tglakhir=<?=$tglakhir?>& -->
+            <a href="<?=$url.$menu?>list_penarikan&list=cari&cari=FILTER" class='btn btn-info'>
         <i class="fa fa-eye"></i> Lihat data
     </a>
         <?php
