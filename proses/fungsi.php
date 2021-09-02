@@ -230,6 +230,16 @@ function rupiah($angka){
   $hasil = "Rp. " . number_format($angka,2,',','.');
   return $hasil;
 }
+function angka_mentah($angka){
+  $angka1 =  str_replace(",","",$angka);
+  $angka1 = (int)$angka1;
+  return $angka1;
+}
+
+function angka($angka){
+  $hasil =  number_format($angka,2,',','.');
+  return $hasil;
+}
 
 function wilayah($con, $kode)
 {

@@ -4,6 +4,7 @@ require_once "config/koneksi.php";
 require_once("proses/fungsi.php");
 require_once("model/model.php");
 $id_karyawan = $_SESSION['id'];
+// $url="http://192.168.100.6/laporan/";
 $nama_karyawan = $_SESSION['nama_karyawan'];
 $jabatan = $_SESSION['jabatan'];
 $cabang = $_SESSION['cabang'];

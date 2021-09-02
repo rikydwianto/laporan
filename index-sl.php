@@ -12,7 +12,7 @@ $cek_upk = mysqli_query($con,"select * from upk join center on center.no_center=
         ?>
         UPK Hari INI<br/>
         <small>Harap konfirmasi UPK, Tidk bisa di esok harikan</small>
-        <table class='table'>
+        <table >
             <tr>
                 <td>No</td>
                 <td>Center</td>
@@ -42,7 +42,7 @@ $cek_upk = mysqli_query($con,"select * from upk join center on center.no_center=
                         </td>
                         <td>
                             <input type='hidden' id='id_upk_<?=$no1?>' value='<?=$upk['id_upk']?>' class='form-control'>
-                            <a href="<?=$url?>?kirim&id_upk=<?=$upk['id_upk']?>&status=jadi&anggota=<?=$anggota?>" id='link_upk' onclick="cek_upk(<?=$no1?>)">Kirim</a>
+                            <a href="<?=$url?>?kirim&id_upk=<?=$upk['id_upk']?>&status=jadi&anggota=<?=$anggota?>" id='link_upk' onclick="cek_upk(<?=$no1?>)" class='btn btn-danger'>KONFIRMASI</a>
                         </td>
                     </tr>
 
