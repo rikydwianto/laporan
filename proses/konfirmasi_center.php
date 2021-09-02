@@ -6,8 +6,9 @@
         $idcenter = $_POST['id_center'];
         $hari = $_POST['hari'];
         $jam = $_POST['jam'];
+        $karyawan = $_POST['karyawan'];
         for ($i = 0; $i < count($idcenter); $i++) {
-            $del = mysqli_query($con, "UPDATE `center` SET hari='$hari[$i]',jam_center='$jam[$i]', `konfirmasi` = 'y' WHERE `id_center` = '$idcenter[$i]'; ");
+            $del = mysqli_query($con, "UPDATE `center` SET hari='$hari[$i]',jam_center='$jam[$i]', `konfirmasi` = 'y', `id_karyawan`='$karyawan[$i]' WHERE `id_center` = '$idcenter[$i]'; ");
         }
         if ($del) {
             pesan("Center Berhasil dikonfirmasi", 'success');
