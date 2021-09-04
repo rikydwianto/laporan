@@ -80,6 +80,9 @@ $nama_jabatan = $d['singkatan_jabatan'];
                     if (!isset($_SESSION['id'])) {
                         pindah("auth.php?url");
                     } else {
+                        $hitung_banding = mysqli_query($con,"select count(id_detail_pinjaman) as banding from  banding_monitoring where id_cabang='$id_cabang' and status='belum'  ");
+        $hitung_banding = mysqli_fetch_array($hitung_banding);
+		$hitung_banding =$hitung_banding['banding'];
                         if ($d['password'] == md5(123456)) {
                             include("proses/setting.php");
                         } else {

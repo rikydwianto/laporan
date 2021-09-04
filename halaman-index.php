@@ -87,8 +87,10 @@ if(!$_SESSION['jabatan']){
 				 FROM pinjaman WHERE monitoring='belum' and id_cabang='$id_cabang' GROUP BY id_cabang ");
 			$mon = mysqli_fetch_array($qpin);
 			$mon1 = $mon['total'];
+			
 			?>
 				<div class="card">
+					<h4> KELUHAN MONITORING : <?=$hitung_banding?> </h4>
 					<h4> Monitoring 0 - 14 hari : <?=$mon['normal']?> </h4>
 					<h4>  lebih 14 hari : <?=$mon['kurang_normal']?> </h4>
 					<h3>Total Monitoring  : <?=$mon1?> </h3>

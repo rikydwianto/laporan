@@ -49,6 +49,15 @@
         </form>
     <?php
     }
+    else if(isset($_GET['hapus'])){
+        $id = aman($con,$_GET['id']);
+        $detail = aman($con,$_GET['detail']);
+        
+        $q = mysqli_query($con,"DELETE FROM `pinjaman` WHERE `id_pinjaman` = '$id' ; ");
+        $q1 = mysqli_query($con,"UPDATE `banding_monitoring` SET `status` = 'sudah' WHERE `id_detail_pinjaman` = '$detail'; ");
+        pindah("$url$menu".'banding');
+
+    }
     elseif(isset($_GET['staff'])){
         ?>
         <table class="table table-bordered">
@@ -306,14 +315,16 @@
             
         }
 
-
-
+        //hitung bandimg
+        
+       
     ?>
     
         <form action="" method="post">
             <!-- <input type="submit" value="SIMPAN" name='mtr' class='btn btn-danger'> -->
             <a href="<?= $url . $menu ?>monitoring" class='btn btn-success'> <i class="fa fa-list-ol"></i> Lihat yang belum</a> 
-            <a href="<?= $url . $menu ?>monitoring&filter" class='btn btn-danger'> <i class="fa fa-book"></i> Lihat Semua Data</a> <br/><br/>
+            <a href="<?= $url . $menu ?>monitoring&filter" class='btn btn-info'> <i class="fa fa-book"></i> Lihat Semua Data</a>
+            <a href="<?= $url . $menu ?>monitoring&banding" class='btn btn-warning'> <i class="fa fa-bell"></i> KELUHAN(<?=$hitung_banding?>)</a> <br/><br/>
             <a href="<?= $url . $menu ?>monitoring&tgl=14" class='btn btn-danger'> <i class="fa fa-angle-right"></i> Lebih 14 hari</a> <br/><br/>
             <TABLE class='table' id='data_karyawan'>
                 <thead>
@@ -325,9 +336,16 @@
                         <th>Jumlah Pinjaman</th>
                         <th>Produk</th>
                         <th>KE</th>
-                        
+                        <?php
+                        if(isset($_GET['banding'])){
+                            ?> 
+                            <th>Keluhan</th>
+                            <?php
+                        }
+                        ?>
                         <th>#</th>
                         <th>#</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -356,18 +374,39 @@
                     else{
                         $q_hari = "";
                     }
-                    $q = mysqli_query($con, "select * from pinjaman left join karyawan on karyawan.id_karyawan=pinjaman.id_karyawan where pinjaman.id_cabang='$id_cabang' $q_tambah $q_id $q_hari order by karyawan.nama_karyawan asc");
+
+                    if(isset($_GET['banding'])){
+                       
+                        $q_banding ="and pinjaman.id_detail_pinjaman IN(SELECT id_detail_pinjaman FROM banding_monitoring where status='belum' and id_cabang='$id_cabang')";
+                    }
+                    else{
+                        $q_banding = "";
+                    }
+                    $q = mysqli_query($con, "select * from pinjaman left join karyawan on karyawan.id_karyawan=pinjaman.id_karyawan where pinjaman.id_cabang='$id_cabang' $q_tambah $q_id $q_hari $q_banding order by karyawan.nama_karyawan asc");
                     while ($pinj = mysqli_fetch_array($q)) {
                     ?>
                         <tr>
                             <!-- <td><?= $no++ ?></td> -->
                             <td><?= $pinj['nama_karyawan'] ?></td>
                             <td><?= ganti_karakter($pinj['id_detail_pinjaman']) ?></td>
-                            <td><?= $pinj['nama_nasabah'] ?></td>
+                            <td>
+                                <?= $pinj['nama_nasabah'] ?>
+                               
+
+                            </td>
                             <td><?= $pinj['jumlah_pinjaman'] ?></td>
                             <td><?= ganti_karakter($pinj['produk']) ?></td>
                             <td><?= $pinj['pinjaman_ke'] ?></td>
-                           
+                            <?php
+                            if(isset($_GET['banding'])){
+                                $keluh = mysqli_query($con,"select * from banding_monitoring where id_detail_pinjaman='$pinj[id_detail_pinjaman]'");
+                                $keluh = mysqli_fetch_array($keluh);
+                                $keluh = $keluh['keterangan_banding'];
+                                ?> 
+                                <td><?=$keluh?></td>
+                                <?php
+                            }
+                        ?>
                             <td>
                                 <?php 
                                 if($pinj['monitoring']=='belum'){
@@ -378,9 +417,6 @@
                                     
                                     $tombol = "btn-info";
                                     $icon = '<i class="fa fa-check"></i>';
-                                //     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
-                                //     <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
-                                //   </svg>
                                 }
                                 else $tombol="btn-danger";
                                 ?>
@@ -392,10 +428,16 @@
                                 <?php 
                                 if($pinj['id_karyawan']!=null){
                                 ?>
-                                <input type="button" id="cek_<?=$pinj['id_pinjaman']?>" class='btn <?=$tombol?>' value='<?=$pinj['monitoring']?>' onclick="monitoring('<?=$pinj['id_pinjaman']?>')" id="">
-                                <?php } ?>
+                                <input type="button" id="cek_<?=$pinj['id_pinjaman']?>" class='btn <?=$tombol?>' value='<?=$pinj['monitoring']?>' onclick="monitoring('<?=$pinj['id_pinjaman']?>','<?=$pinj['id_detail_pinjaman']?>')" id="">
+                                <?php 
+                                if(isset($_GET['banding'])){
+                                    echo "<a href='$url$menu".'monitoring&hapus&id='.$pinj['id_pinjaman']."&detail=".$pinj['id_detail_pinjaman']."' onclick='return window.confirm(".'"'."Apakah anda yakin untuk menghapus data ini??".'"'.")' class='btn'><i class='fa fa-times'></i>  </a>";
+                                }
+                            } ?>
+                            
                             </td>
                         </tr>
+                        
                     <?php
                     }
                     ?>
@@ -450,12 +492,12 @@
 
     }
 
-    function monitoring(id){
+    function monitoring(id,detail){
         var cek = $("#cek_"+id).val();
         if(cek=='belum'){
             
             
-            $.get(url + "api/monitoring.php?mtr=sudah&id="+id, function(data, status){
+            $.get(url + "api/monitoring.php?mtr=sudah&id="+id+"&detail="+detail, function(data, status){
                 $("#loading_" + id).html("Proses");
                 setTimeout(function(){ 
                     $("#loading_"+id).html("<i class='fa fa-check'></i>");
