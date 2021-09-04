@@ -78,7 +78,7 @@ $nama_jabatan = $d['singkatan_jabatan'];
                     <?php
 
                     if (!isset($_SESSION['id'])) {
-                        pindah("auth.php");
+                        pindah("auth.php?url");
                     } else {
                         if ($d['password'] == md5(123456)) {
                             include("proses/setting.php");

@@ -38,14 +38,19 @@ if(!$_SESSION['jabatan']){
 		
 		<?php
 		if($jabatan=='SL'){
-			$qpin = mysqli_query($con,"select count(monitoring) as total from pinjaman where id_karyawan='$id_karyawan' and monitoring='belum'");
+			$qpin = mysqli_query($con,"SELECT id_karyawan,
+			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >0 AND (DATEDIFF(CURDATE(), tgl_cair)) <=14 THEN 1 ELSE 0 END) AS normal,
+			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >14  THEN 1 ELSE 0 END) AS kurang_normal,
+			COUNT(*) as total
+				 FROM pinjaman WHERE monitoring='belum' and id_karyawan='$id_karyawan' GROUP BY id_karyawan ");
 			$mon = mysqli_fetch_array($qpin);
-			$mon = $mon['total'];
+			$mon1 = $mon['total'];
 			?>
 				<h3 class='page-header'>MONITORING ! <hr/></h3>
 				<div class="card">
-				
-					<h3>SISA  : <?=$mon?> </h3>
+					<h4> Monitoring 0 - 14 hari : <?=$mon['normal']?> </h4>
+					<h4>  lebih 14 hari : <?=$mon['kurang_normal']?> </h4>
+					<h3>Total Monitoring  : <?=$mon1?> </h3>
 				</div>
 			<?php
 		}
@@ -75,14 +80,18 @@ if(!$_SESSION['jabatan']){
 
 			</div>
 			<?php
-			$qpin = mysqli_query($con,"select count(monitoring) as total from pinjaman where id_cabang='$id_cabang' and monitoring='belum'");
+			$qpin = mysqli_query($con,"SELECT id_karyawan,
+			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >0 AND (DATEDIFF(CURDATE(), tgl_cair)) <=14 THEN 1 ELSE 0 END) AS normal,
+			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >14  THEN 1 ELSE 0 END) AS kurang_normal,
+			COUNT(*) as total
+				 FROM pinjaman WHERE monitoring='belum' and id_cabang='$id_cabang' GROUP BY id_cabang ");
 			$mon = mysqli_fetch_array($qpin);
-			$mon = $mon['total'];
+			$mon1 = $mon['total'];
 			?>
-				<h3 class='page-header'>TOTAL MONITORING ! <hr/></h3>
 				<div class="card">
-				
-					<h3>SISA  : <?=$mon?> </h3>
+					<h4> Monitoring 0 - 14 hari : <?=$mon['normal']?> </h4>
+					<h4>  lebih 14 hari : <?=$mon['kurang_normal']?> </h4>
+					<h3>Total Monitoring  : <?=$mon1?> </h3>
 				</div>
 			<?php
 		}

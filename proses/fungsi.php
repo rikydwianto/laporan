@@ -299,3 +299,21 @@ function karyawan($con,$id_cabang){
 function ganti_karakter($text){
  return   preg_replace('/[^a-zA-Z0-9()_ .,"\'\-;]/', '', $text);
 }
+
+function hitung_monitoring($con,$id){
+  $sql = "SELECT  id_karyawan,
+	SUM(CASE WHEN produk = 'PINJAMAN UMUM' THEN 1 ELSE 0 END) AS pu,
+	SUM(CASE WHEN produk = 'PINJAMAN MIKROBISNIS' THEN 1 ELSE 0 END) AS pmb,
+	SUM(CASE WHEN produk = 'PINJAMAN SANITASI' THEN 1 ELSE 0 END) AS psa,
+	SUM(CASE WHEN produk = 'PINJAMAN DT. PENDIDIKAN' THEN 1 ELSE 0 END) AS ppd,
+	SUM(CASE WHEN produk = 'PINJAMAN ARTA' THEN 1 ELSE 0 END) AS arta,
+	SUM(CASE WHEN 
+	produk != 'PINJAMAN UMUM' AND  
+	produk != 'PINJAMAN SANITASI' AND
+	produk != 'PINJAMAN MIKROBISNIS' AND
+	produk != 'PINJAMAN DT. PENDIDIKAN' AND
+	produk != 'PINJAMAN ARTA' THEN 1 ELSE 0 END) AS lain_lain,
+	COUNT(*) AS total
+	
+FROM pinjaman GROUP BY id_karyawan";
+}

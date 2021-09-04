@@ -1,11 +1,21 @@
 
+<style>
+    .tengah{
+        text-align:center;
+        font-weight:bold;
+    }
+    .kotak{
+        width:50px;
+    }
+</style>
 <div class='content table-responsive'>
     <h2 class='page-header'>MONITORING </h2>
     <i>Tambah, kumpulkan monitoring, </i> <br />
     <a href="<?= $url . $menu ?>monitoring" class='btn btn-success'> <i class="fa fa-eye"></i> Lihat</a>
     <a href="<?= $url . $menu ?>monitoring&tambah" class='btn btn-info'> <i class="fa fa-plus"></i> Tambah</a>
-    <a href="<?= $url . $menu ?>monitoring&ganti" class='btn btn-success'> <i class="fa fa-refresh"></i> Refresh Data</a>
-    <a href="<?= $url . $menu ?>monitoring&staff" class='btn btn-danger'> <i class="fa fa-users"></i> Daftar Staff</a>
+    <a href="<?= $url . $menu ?>monitoring&ganti" class='btn btn-success'> <i class="fa fa-wrench"></i> Synchron Data</a>
+    <a href="<?= $url . $menu ?>monitoring&staff" class='btn btn-danger'> <i class="fa fa-users"></i> Total Monitoring</a>
+    <a href="<?= $url . $menu ?>monitoring&pu" class='btn btn-danger'> <i class="fa fa-users"></i> Detail Pinjaman umum</a>
     <a href="<?= $url . $menu ?>monitoring"     onclick="buka()" class='btn btn-info'> <i class="fa fa-file-excel-o"></i> Export</a>
   <?php 
  if(isset( $_SESSION['nama_file'])){
@@ -28,7 +38,9 @@
                 $text = str_replace("mytable","pinjaman",$text);
                 $query = mysqli_multi_query($con, $text);
                 if ($query) {
-                    alert("Berhasil");
+                    sleep(10);
+                    alert("Terima Kasih telah menunggu, Data berhasil input ...");
+                    
                 }else{
                     pesan("Gagal <br/> $text",'danger');
                 }
@@ -41,42 +53,167 @@
         ?>
         <table class="table table-bordered">
             <tr>
-                <td>
-                    NO Staff
-                </td>
-                <td>NIK</td>
-                <td>STAFF</td>
-                <td>SISA MONITORING</td>
-                <td></td>
+                <th>
+                    NO 
+                </th>
+                <!-- <th>NIK</th> -->
+                <th>STAFF</th>
+                <th class='tengah'>P.U</th>
+                <th class='tengah'>PMB</th>
+                <th class='tengah'>PPD</th>
+                <th class='tengah'>PSA</th>
+                <th class='tengah'>ARTA</th>
+                <th class='tengah'>PRR</th>
+                <th class='tengah'>LAIN-LAIN</th>
+                <th class='tengah' >TOTAL MONITORING</th>
+                <th class='tengah'></th>
             </tr>
             <?php
             $total_monitoring = 0;
+            $total_pu = 0;
+            $total_pmb = 0;
+            $total_ppd = 0;
+            $total_prr = 0;
+            $total_psa = 0;
+            $total_arta = 0;
+            $total_lain = 0;
+            
             $cek_ka=mysqli_query($con,"SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_cabang='$cabang' and jabatan.singkatan_jabatan='SL' and karyawan.status_karyawan='aktif' order by karyawan.nama_karyawan asc");
             while($karyawan = mysqli_fetch_array($cek_ka)){
-                ?>
-            <tr>
-                <td><?=$karyawan['id_karyawan']?></td>
-                <td><?=$karyawan['nik_karyawan']?></td>
-                <td><?=$karyawan['nama_karyawan']?></td>
-                <td>
-                    <?php 
-                    $q = mysqli_query($con,"select count(id_detail_nasabah) as total from pinjaman where monitoring='belum' and id_karyawan='$karyawan[id_karyawan]' and id_cabang='$id_cabang'");
-                    $total = mysqli_fetch_array($q);
-                    $total = $total['total'];
+                    $q = mysqli_query($con,"
+                SELECT  id_karyawan,
+                SUM(CASE WHEN produk = 'PINJAMAN UMUM' THEN 1 ELSE 0 END) AS pu,
+                SUM(CASE WHEN produk = 'PINJAMAN MIKROBISNIS' THEN 1 ELSE 0 END) AS pmb,
+                SUM(CASE WHEN produk = 'PINJAMAN SANITASI' THEN 1 ELSE 0 END) AS psa,
+                SUM(CASE WHEN produk = 'PINJAMAN DT. PENDIDIKAN' THEN 1 ELSE 0 END) AS ppd,
+                SUM(CASE WHEN produk = 'PINJAMAN ARTA' THEN 1 ELSE 0 END) AS arta,
+                SUM(CASE WHEN produk = 'PINJAMAN RENOVASIRUMAH' THEN 1 ELSE 0 END) AS prr,
+                    SUM(CASE WHEN 
+                produk != 'PINJAMAN UMUM' AND  
+                produk != 'PINJAMAN SANITASI' AND
+                produk != 'PINJAMAN MIKROBISNIS' AND
+                produk != 'PINJAMAN DT. PENDIDIKAN' AND
+                produk != 'PINJAMAN ARTA' AND produk != 'PINJAMAN RENOVASIRUMAH'
+                
+                THEN 1 ELSE 0 END) AS lain_lain,
+                COUNT(*) AS total
+                
+            FROM pinjaman where id_karyawan=$karyawan[id_karyawan] and monitoring='belum' GROUP BY id_karyawan ");
+                    $pemb = mysqli_fetch_array($q);
+                    $total = $pemb['total'];
+                    $pu = ($pemb['pu'] == null ? 0:$pemb['pu']);
+                    $pmb = ($pemb['pmb'] == null ? 0:$pemb['pmb']);;
+                    $psa = ($pemb['psa'] == null ? 0:$pemb['psa']);;
+                    $ppd = ($pemb['ppd'] == null ? 0:$pemb['ppd']);;
+                    $arta = ($pemb['arta'] == null ? 0:$pemb['arta']);;
+                    $lain = ($pemb['lain_lain'] == null ? 0:$pemb['lain_lain']);
+                    $prr = ($pemb['prr'] == null ? 0:$pemb['prr']);
+                    $total_pu  = $total_pu   + $pu;
+                    $total_pmb = $total_pmb + $pmb;
+                    $total_psa = $total_psa + $psa;
+                    $total_ppd = $total_ppd + $ppd;
+                    $total_arta= $total_arta + $arta;
+                    $total_lain= $total_lain + $lain;
+                    $total_prr = $total_prr + $prr;
+
                     $total_monitoring =$total + $total_monitoring;
-                    echo $total ;
-                    ?>
                     
+                    ?>
+            <tr>
+                <td><?=$no++?></td>
+                <!-- <td><?=$karyawan['nik_karyawan']?></td> -->
+                <td ><?=$karyawan['nama_karyawan']?></td>
+                <td class='tengah'><?=$pu?></td>
+                <td class='tengah'><?=$pmb?></td>
+                <td class='tengah'><?=$ppd?></td>
+                <td class='tengah'><?=$psa?></td>
+                <td class='tengah'><?=$arta?></td>
+                <td class='tengah'><?=$prr?></td>
+                <td class='tengah'><?=$lain?></td>
+                <td class='tengah'>
+                    <?=($total ==NULL ? 0 : $total)?>
                 </td>
                 <td><a href="<?= $url . $menu ?>monitoring&id=<?=$karyawan['id_karyawan']?>" > Detail</a> </td>
             </tr>
                 <?php
             }
             ?>
-            <tr>
-                <td colspan="3"></td>
-                <td><?=$total_monitoring?></td>
+            <tr style='background:#c8c9cc'>
+                <td colspan="2" class='tengah' >TOTAL</td>
+                <td class='tengah'><?=$total_pu?></td>
+                <td class='tengah'><?=$total_pmb?></td>
+                <td class='tengah'><?=$total_ppd?></td>
+                <td class='tengah'><?=$total_psa?></td>
+                <td class='tengah'><?=$total_arta?></td>
+                <td class='tengah'><?=$total_prr?></td>
+                <td class='tengah'><?=$total_lain?></td>
+                <td class='tengah'>
+                    <?=($total_monitoring )?>
+                </td>
+                <td></td>
             </tr>
+        </table>
+        <?php
+
+    }
+    elseif(isset($_GET['pu'])){
+        ?>
+        <table class="table table-bordered">
+            <tr style='background:#c8c9cc'>
+                <th>
+                    NO 
+                </th>
+                <!-- <th>NIK</th> -->
+                <th>STAFF</th>
+                <?php 
+                $col  = 0;
+                $pin = mysqli_query($con,"SELECT pinjaman_ke FROM pinjaman WHERE produk='PINJAMAN UMUM' and id_cabang='$id_cabang' GROUP BY pinjaman_ke ");
+                while($ke= mysqli_fetch_array($pin)){
+                    $col++;
+                    ?>
+                    <th class='tengah'><?=$ke['pinjaman_ke']?></th>
+                    <?php
+                }
+                ?>
+                
+                <th class='tengah'>TOTAL </th>
+            </tr>
+            <?php 
+            $total_monitoring=0;
+            $cek_ka=mysqli_query($con,"SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_cabang='$cabang' and jabatan.singkatan_jabatan='SL' and karyawan.status_karyawan='aktif' order by karyawan.nama_karyawan asc");
+            while($karyawan = mysqli_fetch_array($cek_ka)){
+                ?>
+                <tr>
+                <th>
+                    <?=$no++?> 
+                </th>
+                <!-- <th>NIK</th> -->
+                <th><?=$karyawan['nama_karyawan']?></th>
+                <?php 
+                $pin = mysqli_query($con,"SELECT pinjaman_ke FROM pinjaman WHERE produk='PINJAMAN UMUM' and id_cabang='$id_cabang' GROUP BY pinjaman_ke ");
+                $total_hitung = 0;
+                while($ke= mysqli_fetch_array($pin)){
+                    $hitung = mysqli_query($con,"SELECT COUNT(monitoring) AS monitoring FROM pinjaman WHERE id_karyawan='$karyawan[id_karyawan]' AND produk='PINJAMAN UMUM' and pinjaman_ke='$ke[pinjaman_ke]' and monitoring='belum'");
+                    $hitung = mysqli_fetch_array($hitung);
+                    $hitung=$hitung['monitoring'];
+                    $total_hitung = $hitung + $total_hitung; 
+                    ?>
+                    <th class='tengah kotak'><?=$hitung?></th>
+                    <?php
+                }
+                $total_monitoring = $total_monitoring + $total_hitung;
+                ?>
+                
+                <th class='tengah'><?=$total_hitung?></th>
+            </tr>
+                <?php
+            }
+            ?>
+            <tr style='background:#c8c9cc'>
+                <td class='tengah' colspan='<?=$col + 2 ?>'>TOTAL</td>
+                <td class='tengah'><?=$total_monitoring?></td>
+            </tr>
+           
         </table>
         <?php
 
@@ -101,6 +238,13 @@
                     if(isset($_POST['ganti'])){
                         $karyawan = $_POST['karyawan'];
                         $mdis = $_POST['nama_mdis'];
+                        $mon = mysqli_query($con,"select tgl_pencairan,id_pinjaman from pinjaman where id_karyawan is null and id_cabang='$id_cabang' ");
+                        while($moni = mysqli_fetch_array($mon)){
+                            $tgl= $moni['tgl_pencairan'];
+                            $tgl = explode("-",$tgl);
+                            $new_tgl = $tgl[2]."-".$tgl[1]."-".$tgl[0];
+                           mysqli_query($con,"UPDATE `pinjaman` SET `tgl_cair` = '$new_tgl'  WHERE `id_pinjaman` = '$moni[id_pinjaman]';");
+                        }
                         for($i=0;$i<count($mdis);$i++){
                             if(!empty($karyawan[$i]))
                            {
@@ -110,6 +254,7 @@
                            }
                             
                         }
+                        
                     }
 
 
@@ -123,7 +268,7 @@
                         </td>
                             <td>
                                
-                                <select name="karyawan[]" id=""  class='form-control'>
+                                <select name="karyawan[]" id=""  required  class='form-control'>
                                     <option value="">Pilih Staff</option>
                                     <?php  $data_karyawan  = (karyawan($con,$id_cabang)['data']);
                                     for($i=0;$i<count($data_karyawan);$i++){
@@ -167,8 +312,9 @@
     
         <form action="" method="post">
             <!-- <input type="submit" value="SIMPAN" name='mtr' class='btn btn-danger'> -->
-            <a href="<?= $url . $menu ?>monitoring" class='btn btn-success'> <i class="fa fa-eye"></i> Lihat yang belum</a> 
-            <a href="<?= $url . $menu ?>monitoring&filter" class='btn btn-danger'> <i class="fa fa-eye"></i> Lihat Semua Data</a> <br/><br/>
+            <a href="<?= $url . $menu ?>monitoring" class='btn btn-success'> <i class="fa fa-list-ol"></i> Lihat yang belum</a> 
+            <a href="<?= $url . $menu ?>monitoring&filter" class='btn btn-danger'> <i class="fa fa-book"></i> Lihat Semua Data</a> <br/><br/>
+            <a href="<?= $url . $menu ?>monitoring&tgl=14" class='btn btn-danger'> <i class="fa fa-angle-right"></i> Lebih 14 hari</a> <br/><br/>
             <TABLE class='table' id='data_karyawan'>
                 <thead>
                     <tr>
@@ -202,7 +348,15 @@
                     else{
                         $q_id = "";
                     }
-                    $q = mysqli_query($con, "select * from pinjaman left join karyawan on karyawan.id_karyawan=pinjaman.id_karyawan where pinjaman.id_cabang='$id_cabang' $q_tambah $q_id order by karyawan.nama_karyawan asc");
+
+                    if(isset($_GET['tgl'])){
+                        $id=aman($con,$_GET['tgl']);
+                        $q_hari ="and DATEDIFF(CURDATE(), tgl_cair) >$id";
+                    }
+                    else{
+                        $q_hari = "";
+                    }
+                    $q = mysqli_query($con, "select * from pinjaman left join karyawan on karyawan.id_karyawan=pinjaman.id_karyawan where pinjaman.id_cabang='$id_cabang' $q_tambah $q_id $q_hari order by karyawan.nama_karyawan asc");
                     while ($pinj = mysqli_fetch_array($q)) {
                     ?>
                         <tr>
@@ -223,9 +377,10 @@
                                 elseif($pinj['monitoring']=='sudah'){
                                     
                                     $tombol = "btn-info";
-                                    $icon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
-                                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
-                                  </svg>';
+                                    $icon = '<i class="fa fa-check"></i>';
+                                //     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                                //     <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                                //   </svg>
                                 }
                                 else $tombol="btn-danger";
                                 ?>

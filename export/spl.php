@@ -26,51 +26,40 @@ if (isset($_GET['tgl'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAMBAR</title>
+    <title>SPL</title>
     <style>
-        @page {
-            margin: 0;
+        *{
+            margin:0px;
         }
-
-        * {
-            margin: 0;
-        }
-        .tengah{
-            text-align: center;
-        }
-        .nama{
-            width: 27cm;
-            font-size: 2.1cm;
-        }
-        .kotak{
-            width: 8.5cm;
-            font-size: 2.5cm;
-        }
-        .panjang{
-            width: 15cm;
-            font-size: 1.8cm;
-        }
-      
-        td {
-            border: 3px solid black;
-            padding: 1cm;
-            height: 4cm;
-        }
-
-        table {
-            vertical-align: middle;
-            /* width:1200cm; */
-            font-weight: bolder;
-            font-size: 1.5cm;
-
-        }
-
-    </style>
+    .kotak{
+        border-style: solid;
+        /* padding:1cm; */
+    }
+    .tinggi{
+        height:4.5cm;
+    }
+    .text{
+        margin:1cm;
+        font-weight:bold;
+        font-size:4.5em;
+        /* margin-top:auto;
+        margin-bottom:auto; */
+    }
+    .ukuran{
+        width:19cm;
+    }
+    .ukuran8{
+        width:8cm;
+    }
+    .angka_center{
+        font-size:3em;
+    }
+</style>
 </head>
 
 <body>
     <?php
-    $sql = "select * from spl where tgl_spl='$qtgl'";
+    $sql = "select * from spl ";
     $query = mysqli_query($con, $sql);
 
     //data array
@@ -79,6 +68,18 @@ if (isset($_GET['tgl'])) {
 
     //mengubah data array menjadi json
     ?>
+    <div class='kotak tinggi ukuran'>
+        <div class='text '>
+            NAMA
+        </div>
+    </div>
+    <br/>
+    <div class='kotak tinggi ukuran8' >
+        <div class='text angka_center '>
+            CENTER
+        </div>
+    </div>
+    
     <table style="float:right">
         <tr >
             <td>NAMA</td>

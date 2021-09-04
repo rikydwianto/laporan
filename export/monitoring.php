@@ -23,15 +23,22 @@ $_SESSION['nama_file']=$filename;
 $spreadsheet = new Spreadsheet();
 
 $sheet = $spreadsheet->getActiveSheet();
+$sheet->getColumnDimension('B')->setAutoSize(true);
+$sheet->getColumnDimension('C')->setAutoSize(true);
 $sheet->setTitle('DATA STAFF');
 
 $sheet->setCellValue('A1', 'DATA MONITORING PER STAFF');
 $sheet->setCellValue('A2', 'NO');
 $sheet->setCellValue('b2', 'NIK STAFF');
 $sheet->setCellValue('c2', 'NAMA STAFF');
-$sheet->setCellValue('d2', 'MONITORING');
+$sheet->setCellValue('d2', 'P.U');
+$sheet->setCellValue('e2', 'PSA');
+$sheet->setCellValue('f2', 'PPD');
+$sheet->setCellValue('g2', 'ARTA');
+$sheet->setCellValue('h2', 'PRR');
+$sheet->setCellValue('i2', 'LAINNYA');
+$sheet->setCellValue('j2', 'TOTAL');
 
-$total_monitoring = 0;
 $baris = 3;
 $no1=1;
 $cek_ka=mysqli_query($con,"SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_cabang='$cabang' and jabatan.singkatan_jabatan='SL' and karyawan.status_karyawan='aktif' order by karyawan.nama_karyawan asc");
@@ -40,23 +47,86 @@ while($karyawan = mysqli_fetch_array($cek_ka)){
     $sheet->setCellValue('B'.$baris, $karyawan['nik_karyawan']);
     $sheet->setCellValue('C'.$baris, $karyawan['nama_karyawan']);
     
-    $q = mysqli_query($con,"select count(id_detail_nasabah) as total from pinjaman where monitoring='belum' and id_karyawan='$karyawan[id_karyawan]' and id_cabang='$id_cabang'");
-    $total = mysqli_fetch_array($q);
-    $total = $total['total'];
-    $total_monitoring =$total + $total_monitoring;
+    $q = mysqli_query($con,"
+    SELECT  id_karyawan,
+    SUM(CASE WHEN produk = 'PINJAMAN UMUM' THEN 1 ELSE 0 END) AS pu,
+    SUM(CASE WHEN produk = 'PINJAMAN MIKROBISNIS' THEN 1 ELSE 0 END) AS pmb,
+    SUM(CASE WHEN produk = 'PINJAMAN SANITASI' THEN 1 ELSE 0 END) AS psa,
+    SUM(CASE WHEN produk = 'PINJAMAN DT. PENDIDIKAN' THEN 1 ELSE 0 END) AS ppd,
+    SUM(CASE WHEN produk = 'PINJAMAN ARTA' THEN 1 ELSE 0 END) AS arta,
+    SUM(CASE WHEN produk = 'PINJAMAN RENOVASIRUMAH' THEN 1 ELSE 0 END) AS prr,
+        SUM(CASE WHEN 
+    produk != 'PINJAMAN UMUM' AND  
+    produk != 'PINJAMAN SANITASI' AND
+    produk != 'PINJAMAN MIKROBISNIS' AND
+    produk != 'PINJAMAN DT. PENDIDIKAN' AND
+    produk != 'PINJAMAN ARTA' AND produk != 'PINJAMAN RENOVASIRUMAH'
+    
+    THEN 1 ELSE 0 END) AS lain_lain,
+    COUNT(*) AS total
+    
+FROM pinjaman where id_karyawan=$karyawan[id_karyawan] and monitoring='belum' GROUP BY id_karyawan ");
+        $pemb = mysqli_fetch_array($q);
+        $total = ($pemb['total'] == null ? 0 : $pemb['total']);
+        $pu = ($pemb['pu'] == null ? 0:$pemb['pu']);
+        $pmb = ($pemb['pmb'] == null ? 0:$pemb['pmb']);;
+        $psa = ($pemb['psa'] == null ? 0:$pemb['psa']);;
+        $ppd = ($pemb['ppd'] == null ? 0:$pemb['ppd']);;
+        $arta = ($pemb['arta'] == null ? 0:$pemb['arta']);;
+        $lain = ($pemb['lain_lain'] == null ? 0:$pemb['lain_lain']);
+        $prr = ($pemb['prr'] == null ? 0:$pemb['prr']);
+        $total_pu  = $total_pu   + $pu;
+        $total_pmb = $total_pmb + $pmb;
+        $total_psa = $total_psa + $psa;
+        $total_ppd = $total_ppd + $ppd;
+        $total_arta= $total_arta + $arta;
+        $total_lain= $total_lain + $lain;
+        $total_prr = $total_prr + $prr;
 
-    $sheet->setCellValue('D'.$baris, $total);
+        $total_monitoring =$total + $total_monitoring;
+
+
+        $sheet->setCellValue('d'.$baris,$pu);
+        $sheet->setCellValue('e'.$baris, $psa);
+        $sheet->setCellValue('f'.$baris, $ppd);
+        $sheet->setCellValue('g'.$baris, $arta);
+        $sheet->setCellValue('h'.$baris, $prr);
+        $sheet->setCellValue('i'.$baris, $lain);
+        $sheet->setCellValue('j'.$baris, $total);
     $baris++;$no1++;
 }
 $baris_akhir = $baris +1;
-$sheet->setCellValue('D'.$baris_akhir,$total_monitoring);
-
+        $sheet->setCellValue('c'.$baris_akhir,"TOTAL MONITORING");
+        $sheet->setCellValue('d'.$baris_akhir,$total_pu);
+        $sheet->setCellValue('e'.$baris_akhir,$total_psa);
+        $sheet->setCellValue('f'.$baris_akhir,$total_ppd);
+        $sheet->setCellValue('g'.$baris_akhir,$total_arta);
+        $sheet->setCellValue('h'.$baris_akhir,$total_prr);
+        $sheet->setCellValue('i'.$baris_akhir,$total_lain);
+        $sheet->setCellValue('j'.$baris_akhir,$total_monitoring);
 
 $spreadsheet->createSheet();
 // Add some data
 $sheet2 = $spreadsheet->setActiveSheetIndex(1);
 $sheet2->setCellValue('A1', 'DATA MONITORING');
 // Rename worksheet
+$sheet2->getColumnDimension('C')->setAutoSize(true);
+$sheet2->getColumnDimension('D')->setAutoSize(true);
+$sheet2->getColumnDimension('E')->setAutoSize(true);
+$sheet2->getColumnDimension('F')->setAutoSize(true);
+$sheet2->getColumnDimension('G')->setAutoSize(true);
+$sheet2->getColumnDimension('H')->setAutoSize(true);
+$sheet2->getColumnDimension('I')->setAutoSize(true);
+$sheet2->getColumnDimension('J')->setAutoSize(true);
+$sheet2->getColumnDimension('K')->setAutoSize(true);
+$sheet2->getColumnDimension('L')->setAutoSize(true);
+$sheet2->getColumnDimension('M')->setAutoSize(true);
+$sheet2->getColumnDimension('N')->setAutoSize(true);
+$sheet2->getColumnDimension('O')->setAutoSize(true);
+$sheet2->getColumnDimension('P')->setAutoSize(true);
+$sheet2->getColumnDimension('Q')->setAutoSize(true);
+$sheet2->getColumnDimension('R')->setAutoSize(true);
+$sheet2->getColumnDimension('S')->setAutoSize(true);
 $row=2;
 $sheet2->setCellValue('A'.$row, "NO");
     $sheet2->setCellValue('B'.$row, 'id nasabah');

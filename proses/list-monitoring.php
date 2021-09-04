@@ -1,3 +1,5 @@
+<h2 style='text-align:center'>Monitoring <br><small>//Yang bertanda merah berarti monitoring lebih dari 14 hari</small></h2>
+
 <form action="" method="post">
             <!-- <input type="submit" value="SIMPAN" name='mtr' class='btn btn-danger'> -->
             <a href="<?= $url . $menu ?>list-monitoring" class='btn btn-success'> <i class="fa fa-eye"></i> Lihat yang belum</a> 
@@ -31,10 +33,16 @@
                         $q_id ="and pinjaman.id_karyawan = '$id_karyawan'";
                     
                    
-                    $q = mysqli_query($con, "select * from pinjaman left join karyawan on karyawan.id_karyawan=pinjaman.id_karyawan where pinjaman.id_cabang='$id_cabang' $q_tambah $q_id order by karyawan.nama_karyawan asc");
+                    $q = mysqli_query($con, "select *,DATEDIFF(CURDATE(), tgl_cair) as total_hari from pinjaman left join karyawan on karyawan.id_karyawan=pinjaman.id_karyawan where pinjaman.id_cabang='$id_cabang' $q_tambah $q_id order by karyawan.nama_karyawan asc");
                     while ($pinj = mysqli_fetch_array($q)) {
+                        if($pinj['total_hari']>14)
+                        {
+                            $tr = "#ffd4d4";
+                        }
+                        else $tr="#fffff";
+
                     ?>
-                        <tr>
+                        <tr style="background:<?=$tr?>">
                             <!-- <td><?= $no++ ?></td> -->
                             <td><?= $pinj['nama_karyawan'] ?></td>
                             <td><?= ganti_karakter($pinj['id_detail_pinjaman']) ?></td>
