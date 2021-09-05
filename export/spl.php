@@ -29,32 +29,65 @@ if (isset($_GET['tgl'])) {
     <title>SPL</title>
     <style>
         *{
-            margin:0px;
+            margin: 0px;
         }
-    .kotak{
-        border-style: solid;
-        /* padding:1cm; */
-    }
-    .tinggi{
-        height:4.5cm;
-    }
-    .text{
-        margin:1cm;
-        font-weight:bold;
-        font-size:4.5em;
-        /* margin-top:auto;
-        margin-bottom:auto; */
-    }
-    .ukuran{
-        width:19cm;
-    }
-    .ukuran8{
-        width:8cm;
-    }
-    .angka_center{
-        font-size:3em;
-    }
-</style>
+        .grid-container {
+            display: grid;
+            /* grid-template-columns: auto auto auto; */
+            /* background-; */
+            width: 33cm;
+            padding: 0px;
+            
+        }
+        }
+        .grid-container1 {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            /* background-; */
+            width: 33cm;
+            padding: 0px;
+            
+        }
+
+        .grid-item {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 2px solid rgba(0, 0, 0, 0.8);
+            /* padding: 1cm; */
+            /* padding-top: 1.4cm; */
+            height: 5cm;
+            font-size: 30px;
+            /* text-align: center; */
+            
+            display: block;
+            
+        }
+        .lebar{
+            width:20cm;
+        }
+        .text_nama{
+            
+            padding-top: 1.5cm;
+            padding-bottom: 1cm;
+            padding-left: 1cm;
+            font-size: 3.8rem;
+            font-weight: bolder;
+            display: block;
+            
+
+        }
+        .kotak{
+            width:8cm;
+            /* border; */
+        }
+        .text_kotak{
+            padding-top: 1.5cm;
+            padding-bottom: 1cm;
+            padding-left: 1cm;
+            font-size: 4rem;
+            font-weight: bolder;
+            display: block;
+        }
+    </style>
 </head>
 
 <body>
@@ -68,56 +101,36 @@ if (isset($_GET['tgl'])) {
 
     //mengubah data array menjadi json
     ?>
-    <div class='kotak tinggi ukuran'>
-        <div class='text '>
-            NAMA
-        </div>
-    </div>
-    <br/>
-    <div class='kotak tinggi ukuran8' >
-        <div class='text angka_center '>
-            CENTER
-        </div>
-    </div>
-    
-    <table style="float:right">
-        <tr >
-            <td>NAMA</td>
-        </tr>
+    <div class="grid-container">
         <?php
         foreach ($array as $val) {
         ?>
-            <tr>
-                <td class='nama'><?= str_replace("Sub. Tot ","",$val['staff']) ?></td>
-            </tr>
+                <div class="grid-item lebar"><span class="text_nama"><?= str_replace("Sub. Tot ", "", $val['staff']) ?></span></div>
+
         <?php
+
+        }
+        ?>
         
-        }
-        ?>
 
-    </table>
-    <br>
-    <table >
-        <tr >
-            <td> Center</td>
-            <td>Member</td>
-            <td>CLIENT</td>
+    </div>
+
+    <div class="grid-container1">
+        <div class="grid-item kotak"> <span class="text_kotak">center</span></div>
+        <div class="grid-item kotak"> <span class="text_kotak">center</span></div>
         </tr>
         <?php
         foreach ($array as $val) {
         ?>
-            <tr class='tengah'>
-                <td class='kotak'><?= $val['jumlah_center'] ?></td>
-                <td class='kotak'><?= $val['member'] ?></td>
-                <td class='kotak'><?= $val['client'] ?></td>
-            </tr>
+        <div class="grid-item kotak"> <span class="text_kotak"><?= $val['jumlah_center'] ?></span></div>
+        <div class="grid-item kotak"> <span class="text_kotak"><?= $val['member'] ?></span></div>
+        <div class="grid-item kotak"> <span class="text_kotak"><?= $val['client'] ?></span></div>
         <?php
         }
         ?>
-    </table>
-
+    </div>
     <br>
-    <table >
+    <table>
         <tr>
             <td>disburse</td>
             <td>outstanding</td>
@@ -132,19 +145,19 @@ if (isset($_GET['tgl'])) {
             $total_outstanding = $total_outstanding + $outstanding;
         ?>
             <tr class='tengah'>
-                <td class='panjang' ><?= angka($disburse); ?></td>
-                <td class='panjang' ><?= angka($outstanding) ?> </td>
+                <td class='panjang'><?= angka($disburse); ?></td>
+                <td class='panjang'><?= angka($outstanding) ?> </td>
             </tr>
         <?php
         }
         ?>
         <tr class='tengah'>
-            <td class='panjang'  ><?=angka($total_disburse)?></td>
-            <td class='panjang' ><?=angka($total_outstanding)?></td>
+            <td class='panjang'><?= angka($total_disburse) ?></td>
+            <td class='panjang'><?= angka($total_outstanding) ?></td>
         </tr>
     </table>
     <br>
-    <table >
+    <table>
         <tr>
             <td>masalah <br>outstanding</td>
             <td>par</td>
@@ -163,17 +176,17 @@ if (isset($_GET['tgl'])) {
             $total_new_member = $total_new_member + $new_member;
         ?>
             <tr class='tengah'>
-                <td class='panjang' ><?= angka($masalah) ?> </td>
+                <td class='panjang'><?= angka($masalah) ?> </td>
                 <td class='kotak'><?= $val['par'] ?></td>
-                <!-- <td class='kotak'><?= $new_member?></td> -->
+                <!-- <td class='kotak'><?= $new_member ?></td> -->
             </tr>
         <?php
         }
         ?>
         <tr class='tengah'>
-            <td class='panjang'><?=angka($total_masalah)?></td>
-            <td class='kotak'><?=round(($total_masalah/$total_outstanding)*100,2)?></td>
-            <!-- <td class='kotak'><?=$total_new_member?></td> -->
+            <td class='panjang'><?= angka($total_masalah) ?></td>
+            <td class='kotak'><?= round(($total_masalah / $total_outstanding) * 100, 2) ?></td>
+            <!-- <td class='kotak'><?= $total_new_member ?></td> -->
         </tr>
     </table>
 </body>
