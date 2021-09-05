@@ -29,7 +29,7 @@
   {
   	$del = mysqli_query($con,"UPDATE `center` SET `konfirmasi` = 't' WHERE `id_cabang` = '$id_cabang'; ");
   	if($del){
-  		pesan("Center Berhasil di konfimasi",'success');
+  		pesan("Center Berhasil di UN-Confirm",'success');
   	}
   }
 
