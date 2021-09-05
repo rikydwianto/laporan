@@ -116,7 +116,7 @@ if(!$_SESSION['jabatan']){
 	if($jabatan=='SL')
 	{
 		//ADA DI VIEW/MENU.PHP
-		if($cekJam['belum']!=0){
+		if($cekJam['belum']>0){
 			include "proses/konfirmasi_center.php";
 		}
 		else{
