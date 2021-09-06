@@ -237,7 +237,7 @@ function angka_mentah($angka){
 }
 
 function angka($angka){
-  $hasil =  number_format($angka,2,',','.');
+  $hasil =  number_format($angka,0,',','.');
   return $hasil;
 }
 
@@ -316,4 +316,20 @@ function hitung_monitoring($con,$id){
 	COUNT(*) AS total
 	
 FROM pinjaman GROUP BY id_karyawan";
+}
+
+
+function hapus_nama_belakang($nama){
+  $input = $nama;
+  // $output = substr($input, 0, strrpos($input, " "));
+  $pecah = explode(" ",$input);
+  $total = count($pecah);
+  if($total<3){
+    $output = $input;
+  }
+  else{
+    $output =$pecah[0]." ".$pecah[1]." ".$pecah[2][0].".";
+  }
+  // echo $
+  return $output;
 }

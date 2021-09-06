@@ -1,239 +1,334 @@
-<table cellspacing="0" border="0">
-	<colgroup width="237"></colgroup>
-	<colgroup width="107"></colgroup>
-	<colgroup width="51"></colgroup>
-	<colgroup width="105"></colgroup>
-	<colgroup width="88"></colgroup>
-	<colgroup span="2" width="94"></colgroup>
-	<colgroup width="153"></colgroup>
-	<colgroup width="41"></colgroup>
-	<colgroup width="79"></colgroup>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="center" valign=middle><b><font face="Arial" color="#000000">Dusun Name</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b><font face="Arial" color="#000000">Jumlah Center</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b><font face="Arial" color="#000000">Jumlah<br>Group</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b><font face="Arial" color="#000000">Jumlah Member</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b><font face="Arial" color="#000000">Jumlah Client</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b><font face="Arial" color="#000000">Disburse</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b><font face="Arial" color="#000000">Outstanding</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b><font face="Arial" color="#000000">Outstanding Bermasalah</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b><font face="Arial" color="#000000">Par</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b><font face="Arial" color="#000000">New Member</font></b></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="right" valign=middle><i><font face="Arial" color="#000000">Sub. Tot AGIANTARA MUJIZAT</font></i></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="25" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">25</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="79" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">79</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="280" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">280</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="268" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">268</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="7537880000" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">7,537,880,000</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="692908600" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">692,908,600</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="98158200" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">98,158,200</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="14.1661107972971" sdnum="1033;1033;[$-409]#,##0.00;\(#,##0.00\);&quot;-&quot;"><font face="Arial" color="#000000">14.17</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="3" sdnum="1033;"><font face="Arial" color="#000000">3</font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="right" valign=middle><i><font face="Arial" color="#000000">Sub. Tot AI WULANDARI</font></i></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="21" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">21</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="58" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">58</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="231" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">231</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="227" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">227</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="5544060000" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">5,544,060,000</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="802818400" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">802,818,400</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="193532700" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">193,532,700</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="24.1066597377439" sdnum="1033;1033;[$-409]#,##0.00;\(#,##0.00\);&quot;-&quot;"><font face="Arial" color="#000000">24.11</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="4" sdnum="1033;"><font face="Arial" color="#000000">4</font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="right" valign=middle><i><font face="Arial" color="#000000">Sub. Tot AIP HIDAYATULLAH</font></i></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="25" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">25</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="67" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">67</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="286" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">286</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="285" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">285</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="3663630000" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">3,663,630,000</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="727814000" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">727,814,000</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="128865300" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">128,865,300</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="17.7058012074514" sdnum="1033;1033;[$-409]#,##0.00;\(#,##0.00\);&quot;-&quot;"><font face="Arial" color="#000000">17.71</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="5" sdnum="1033;"><font face="Arial" color="#000000">5</font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="right" valign=middle><i><font face="Arial" color="#000000">Sub. Tot ALI ABDU RAHMAN</font></i></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="21" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">21</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="65" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">65</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="291" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">291</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="290" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">290</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="6946950000" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">6,946,950,000</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="862851700" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">862,851,700</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="72147500" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">72,147,500</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="8.36151797580048" sdnum="1033;1033;[$-409]#,##0.00;\(#,##0.00\);&quot;-&quot;"><font face="Arial" color="#000000">8.36</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="6" sdnum="1033;"><font face="Arial" color="#000000">6</font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="right" valign=middle><i><font face="Arial" color="#000000">Sub. Tot ALUN MUHAMAD S</font></i></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="22" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">22</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="69" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">69</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="276" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">276</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="272" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">272</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="6413320000" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">6,413,320,000</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="799065200" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">799,065,200</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="178384000" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">178,384,000</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="22.3240856941336" sdnum="1033;1033;[$-409]#,##0.00;\(#,##0.00\);&quot;-&quot;"><font face="Arial" color="#000000">22.32</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="5" sdnum="1033;"><font face="Arial" color="#000000">5</font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="right" valign=middle><i><font face="Arial" color="#000000">Sub. Tot ALVIN JAMALULAEL</font></i></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="23" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">23</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="68" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">68</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="331" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">331</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="328" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">328</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="3106360000" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">3,106,360,000</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="678013400" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">678,013,400</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="86756500" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">86,756,500</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="12.7956910586133" sdnum="1033;1033;[$-409]#,##0.00;\(#,##0.00\);&quot;-&quot;"><font face="Arial" color="#000000">12.80</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="10" sdnum="1033;"><font face="Arial" color="#000000">10</font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="right" valign=middle><i><font face="Arial" color="#000000">Sub. Tot DECKY PERMANA DANTA</font></i></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="23" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">23</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="47" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">47</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="211" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">211</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="210" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">210</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="3528430000" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">3,528,430,000</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="414410700" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">414,410,700</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="109872200" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">109,872,200</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="26.5128772012885" sdnum="1033;1033;[$-409]#,##0.00;\(#,##0.00\);&quot;-&quot;"><font face="Arial" color="#000000">26.51</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="0" sdnum="1033;"><font face="Arial" color="#000000">0</font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="right" valign=middle><i><font face="Arial" color="#000000">Sub. Tot DEYAN GILANG P</font></i></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="22" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">22</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="66" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">66</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="234" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">234</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="232" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">232</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="3683700000" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">3,683,700,000</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="525435300" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">525,435,300</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="180825300" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">180,825,300</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="34.4143798484799" sdnum="1033;1033;[$-409]#,##0.00;\(#,##0.00\);&quot;-&quot;"><font face="Arial" color="#000000">34.41</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="1" sdnum="1033;"><font face="Arial" color="#000000">1</font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="right" valign=middle><i><font face="Arial" color="#000000">Sub. Tot DIMAS DWIYANA</font></i></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="23" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">23</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="64" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">64</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="261" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">261</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="255" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">255</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="5146520000" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">5,146,520,000</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="596248400" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">596,248,400</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="87855700" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">87,855,700</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="14.7347481351732" sdnum="1033;1033;[$-409]#,##0.00;\(#,##0.00\);&quot;-&quot;"><font face="Arial" color="#000000">14.73</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="3" sdnum="1033;"><font face="Arial" color="#000000">3</font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="right" valign=middle><i><font face="Arial" color="#000000">Sub. Tot EKO HERRY SUTRISNO</font></i></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="26" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">26</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="74" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">74</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="236" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">236</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="230" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">230</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="5728730000" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">5,728,730,000</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="590059800" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">590,059,800</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="199010300" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">199,010,300</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="33.7271408762298" sdnum="1033;1033;[$-409]#,##0.00;\(#,##0.00\);&quot;-&quot;"><font face="Arial" color="#000000">33.73</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="6" sdnum="1033;"><font face="Arial" color="#000000">6</font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="right" valign=middle><i><font face="Arial" color="#000000">Sub. Tot FAJAR APIV IBRAHIM</font></i></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="29" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">29</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="81" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">81</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="312" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">312</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="294" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">294</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="4579630000" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">4,579,630,000</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="717713300" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">717,713,300</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="77706000" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">77,706,000</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="10.8268858888361" sdnum="1033;1033;[$-409]#,##0.00;\(#,##0.00\);&quot;-&quot;"><font face="Arial" color="#000000">10.83</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="16" sdnum="1033;"><font face="Arial" color="#000000">16</font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="right" valign=middle><i><font face="Arial" color="#000000">Sub. Tot IKBAL</font></i></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="16" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">16</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="39" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">39</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="182" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">182</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="178" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">178</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="6835530000" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">6,835,530,000</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="343619600" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">343,619,600</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="77169400" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">77,169,400</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="22.4577992640699" sdnum="1033;1033;[$-409]#,##0.00;\(#,##0.00\);&quot;-&quot;"><font face="Arial" color="#000000">22.46</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="10" sdnum="1033;"><font face="Arial" color="#000000">10</font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="right" valign=middle><i><font face="Arial" color="#000000">Sub. Tot ILHAM ILAHIYA</font></i></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="24" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">24</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="63" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">63</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="249" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">249</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="240" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">240</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="4217060000" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">4,217,060,000</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="615745400" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">615,745,400</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="39701400" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">39,701,400</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="6.44769737622076" sdnum="1033;1033;[$-409]#,##0.00;\(#,##0.00\);&quot;-&quot;"><font face="Arial" color="#000000">6.45</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="7" sdnum="1033;"><font face="Arial" color="#000000">7</font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="right" valign=middle><i><font face="Arial" color="#000000">Sub. Tot IRMAN NUGRAHA</font></i></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="23" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">23</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="60" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">60</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="178" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">178</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="166" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">166</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="3895000000" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">3,895,000,000</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="325637600" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">325,637,600</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="31934300" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">31,934,300</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="9.80669922637926" sdnum="1033;1033;[$-409]#,##0.00;\(#,##0.00\);&quot;-&quot;"><font face="Arial" color="#000000">9.81</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="12" sdnum="1033;"><font face="Arial" color="#000000">12</font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="right" valign=middle><i><font face="Arial" color="#000000">Sub. Tot JONY WANDANIEL</font></i></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="23" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">23</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="68" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">68</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="233" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">233</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="231" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">231</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="7188520000" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">7,188,520,000</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="726691200" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">726,691,200</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="57661800" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">57,661,800</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="7.93484219982298" sdnum="1033;1033;[$-409]#,##0.00;\(#,##0.00\);&quot;-&quot;"><font face="Arial" color="#000000">7.93</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="4" sdnum="1033;"><font face="Arial" color="#000000">4</font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="right" valign=middle><i><font face="Arial" color="#000000">Sub. Tot REYSHAL NANDA PRATAMA</font></i></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="21" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">21</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="75" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">75</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="321" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">321</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="315" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">315</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="7615100000" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">7,615,100,000</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="950348900" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">950,348,900</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="199818000" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">199,818,000</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="21.025751700244" sdnum="1033;1033;[$-409]#,##0.00;\(#,##0.00\);&quot;-&quot;"><font face="Arial" color="#000000">21.03</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="2" sdnum="1033;"><font face="Arial" color="#000000">2</font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="right" valign=middle><i><font face="Arial" color="#000000">Sub. Tot RIKY DWIANTO</font></i></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="21" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">21</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="70" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">70</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="298" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">298</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="292" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">292</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="6994110000" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">6,994,110,000</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="1025144700" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">1,025,144,700</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="101606700" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">101,606,700</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="9.91144957389918" sdnum="1033;1033;[$-409]#,##0.00;\(#,##0.00\);&quot;-&quot;"><font face="Arial" color="#000000">9.91</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="6" sdnum="1033;"><font face="Arial" color="#000000">6</font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="right" valign=middle><i><font face="Arial" color="#000000">Sub. Tot TAUFIQ HIDAYAT</font></i></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="19" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">19</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="65" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">65</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="244" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">244</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="241" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">241</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="6403100000" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">6,403,100,000</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="676734600" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">676,734,600</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="102794900" sdnum="1033;1033;[$-409]#,##0;\(#,##0\);&quot;-&quot;"><font face="Arial" color="#000000">102,794,900</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="15.1898395619198" sdnum="1033;1033;[$-409]#,##0.00;\(#,##0.00\);&quot;-&quot;"><font face="Arial" color="#000000">15.19</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="2" sdnum="1033;"><font face="Arial" color="#000000">2</font></td>
-	</tr>
-</table>
+<style>
+	.tengah {
+		text-align: center;
+		font-weight: bold;
+	}
+
+	.kotak {
+		width: 50px;
+		text-align: center;
+	}
+
+	table {
+		width: 60%;
+	}
+</style>
+<div class='content table-responsive'>
+	<h2 class='page-header'>STATISTIK PETUGAS LAPANG </h2>
+	<i></i> <br />
+	<a href="<?= $url . $menu ?>spl" class='btn btn-success'> <i class="fa fa-eye"></i> Lihat</a>
+	<a href="#" class='btn btn-danger' data-toggle="modal" data-target="#modalku"> <i class="fa fa-plus"></i> Tambah</a>
+
+	<?php
+	if (isset($_SESSION['nama_file'])) {
+	?>
+		<a href="<?= $url ?>export/excel/<?= $_SESSION['nama_file'] ?>.xlsx" class='btn btn-info'> <i class="fa fa-download"></i> UNDUH</a>
+	<?php
+	}
+	?>
+	<hr />
+
+	<?php
+	if (isset($_GET['tambah'])) {
+		$id = aman($con,$_GET['id']);
+	?>
+		<form action="" method="post">
+			<textarea name="query" class='form-control' id="" cols="50" rows="20"></textarea>
+			<input type="submit" value="Execute" name='ekse' />
+			<?php
+			if (isset($_POST['ekse'])) {
+				$text = ($_POST['query']);
+				$text = str_replace("**", ",id_statistik,id_cabang) ", $text);
+				$text = str_replace("###", ",'$id','$id_cabang'); ", $text);
+				// echo $text;
+				$query = mysqli_multi_query($con, $text);
+				if ($query) {
+					sleep(5);
+					alert("Terima Kasih telah menunggu, Data berhasil input ...");
+					pindah($url.$menu."spl");
+				} else {
+					pesan("Gagal <br/> $text", 'danger');
+				}
+			}
+			?>
+		</form>
+	<?php
+	} 
+	else if(isset($_GET['hapus'])){
+        $id = aman($con,$_GET['id']);
+        // $detail = aman($con,$_GET['detail']);
+        
+        $q1 = mysqli_query($con,"DELETE FROM `statistik` WHERE `id_statistik` = '$id' ; ");
+        $q1 = mysqli_query($con,"DELETE FROM `spl` WHERE `id_statistik` = '$id' ; ");
+        pindah("$url$menu".'spl');
+
+    }
+	elseif (isset($_GET['detail'])) {
+		$id = aman($con, $_GET['id']);
+		$tgl = aman($con, $_GET['tgl']);
+		$sql = "select * from spl join karyawan on karyawan.id_karyawan=spl.id_karyawan where id_statistik='$id' ";
+		$query = mysqli_query($con, $sql);
+		$array = array();
+		while ($data = mysqli_fetch_assoc($query)) $array[] = $data;
+
+	?>
+		<div class="col-2">
+
+		</div>
+		<div class="col-8">
+			<table border="1">
+				<tr>
+					<th colspan="9" style="text-align:center;font-size:20px"><?= format_hari_tanggal($tgl) ?></th>
+				</tr>
+				<tr>
+					<th>No.</th>
+					<th>Nama Staff</th>
+					<th> Center</th>
+					<th>Member</th>
+					<th>CLIENT</th>
+					<th>disburse</th>
+					<th>outstanding</th>
+					<th>outstanding<br>masalah </th>
+					<th>par</th>
+				</tr>
+				<?php
+				$total_disburse = 0;
+				$total_outstanding = 0;
+				$total_disburse = 0;
+				$total_masalah = 0;
+				$total_new_member = 0;
+				$jumlah_center = 0;
+				$jumlah_member = 0;
+				$jumlah_client = 0;
+				foreach ($array as $val) {
+
+				?>
+					<?php
+
+					$disburse =  angka_mentah($val['disburse']);
+					$outstanding = angka_mentah($val['outstanding']);
+					$total_disburse = $total_disburse + $disburse;
+					$total_outstanding = $total_outstanding + $outstanding;
+					?>
+					<?php
+
+					$disburse =  angka_mentah($val['disburse']);
+					$masalah = angka_mentah($val['masalah']);
+					$total_disburse = $total_disburse + $disburse;
+					$total_masalah = $total_masalah + $masalah;
+					$new_member = $val['new_member'];
+					$total_new_member = $total_new_member + $new_member;
+					$jumlah_center = $jumlah_center + $val['jumlah_center'];
+					$jumlah_member = $jumlah_member + $val['member'];
+					$jumlah_client = $jumlah_client + $val['client'];
+					?>
+					<tr>
+						<td class='nama'><?= $no++ ?></td>
+						<td class='nama'><?= str_replace("Sub. Tot ", "", $val['nama_karyawan']) ?></td>
+						<td class='kotak'><?= $val['jumlah_center'] ?></td>
+						<td class='kotak'><?= $val['member'] ?></td>
+						<td class='kotak'><?= $val['client'] ?></td>
+						<td class='kotak'><?= angka($disburse); ?></td>
+						<td class='kotak'><?= angka($outstanding) ?> </td>
+						<td class='kotak'><?= angka($masalah) ?> </td>
+						<td class='kotak'><?= round($val['par'],2) ?></td>
+					</tr>
+
+				<?php
+
+				}
+				?>
+				<tr class='tengah'>
+					<td></td>
+					<td></td>
+					<td><?= $jumlah_center ?></td>
+					<td><?= $jumlah_member ?></td>
+					<td><?= $jumlah_client ?></td>
+					<td><?= angka($total_disburse) ?></td>
+					<td><?= angka($total_outstanding) ?></td>
+					<td><?= angka($total_masalah) ?></td>
+					<td class='kotak'><?= round(($total_masalah / $total_outstanding) * 100, 2) ?></td>
+				</tr>
+
+
+			</table>
+
+		</div>
+	<?php
+
+	} else if (isset($_GET['ganti'])) {
+	?>
+		<form action="" method="post">
+			<!-- <input type="submit" value="SIMPAN" name='mtr' class='btn btn-danger'> -->
+			<TABLE class='table'>
+				<thead>
+					<tr>
+						<!-- <th>no</th> -->
+						<th>NO </th>
+						<th>NAMA MDIS</th>
+						<th>NAMA </th>
+					</tr>
+				</thead>
+				<tbody>
+
+
+					<?php
+					if (isset($_POST['ganti'])) {
+						$karyawan = $_POST['karyawan'];
+						$mdis = $_POST['nama_mdis'];
+
+						for ($i = 0; $i < count($mdis); $i++) {
+							if (!empty($karyawan[$i])) {
+								$text = " UPDATE `spl` SET `staff` = null , id_karyawan='$karyawan[$i]' WHERE `staff` = '$mdis[$i]'; ";
+								$q = mysqli_query($con, "$text");
+							}
+						}
+					}
+
+
+					$q = mysqli_query($con, "select staff from spl where id_karyawan is  null group by staff order by staff asc ");
+					while ($pinj = mysqli_fetch_array($q)) {
+					?>
+						<tr>
+							<td><?= $no++ ?></td>
+							<td><?= $pinj['staff'] ?>
+								<input type="hidden" name="nama_mdis[]" value="<?= $pinj['staff'] ?>">
+							</td>
+							<td>
+
+								<select name="karyawan[]" id="" required class='form-control'>
+									<option value="">Pilih Staff</option>
+									<?php $data_karyawan  = (karyawan($con, $id_cabang)['data']);
+									for ($i = 0; $i < count($data_karyawan); $i++) {
+										$nama_karyawan = $data_karyawan[$i]['nama_karyawan'];
+										if (strtolower($nama_karyawan) == strtolower($pinj['staff'])) {
+											echo "<option selected value='" . $data_karyawan[$i]['id_karyawan'] . "'>" . $nama_karyawan . "</option>";
+										} else {
+											echo "<option value='" . $data_karyawan[$i]['id_karyawan'] . "'>" . $nama_karyawan . "</option>";
+										}
+									}
+									?>
+								</select>
+							</td>
+						</tr>
+					<?php
+					}
+					?>
+					<tr>
+						<td colspan="2"></td>
+						<td>
+							<input type="submit" class='btn btn-success' value='KONFIRMASI' name='ganti' />
+						</td>
+					</tr>
+				</tbody>
+			</TABLE>
+		</form>
+	<?php
+	} else {
+	?>
+		<table class='table'>
+			<tr>
+				<th>No</th>
+				<th>Priode</th>
+				<th>#</th>
+			</tr>
+			<?php
+			$qstatistik = mysqli_query($con, "select * from statistik where id_cabang='$id_cabang' order by tgl_statistik desc");
+			while ($statistik = mysqli_fetch_array($qstatistik)) {
+			?>
+				<tr>
+					<td><?= $no++ ?></td>
+					<td>
+						<a href="<?= $url . $menu ?>spl&detail&id=<?= $statistik['id_statistik'] ?>&tgl=<?= $statistik['tgl_statistik'] ?>"> <?= format_hari_tanggal($statistik['tgl_statistik']) ?></a>
+					</td>
+					<td>
+						<?php 
+						$hitung_spl = mysqli_query($con,"select count(*) as hitung from spl where id_statistik='$statistik[id_statistik]'"); 
+						$hitung_spl = mysqli_fetch_array($hitung_spl);
+
+						if($hitung_spl['hitung']<1){
+							?>
+							<a href="<?= $url . $menu ?>spl&tambah&id=<?= $statistik['id_statistik'] ?>&tgl=<?= $statistik['tgl_statistik'] ?>" class="btn btn-danger"> <i class="fa fa-plus"></i></a>
+
+							<?php
+						}
+						?>
+						<a href="<?= $url . $menu ?>spl&ganti&tgl=<?= $statistik['tgl_statistik'] ?>" class="btn btn-success">Syncron</a>
+						<a href="<?= $url ?>export/spl.php?id=<?= $statistik['id_statistik'] ?>" class="btn btn-info"> <i class="fa fa-print"></i></a>
+						<a href="<?= $url . $menu ?>spl&hapus&tgl=<?= $statistik['tgl_statistik'] ?>&id=<?= $statistik['id_statistik'] ?>" class="btn btn-danger" onclick="return window.confirm('Yakin menghapus SPL ini?')"> <i class="fa fa-times"></i> </a>
+					</td>
+				</tr>
+			<?php
+
+			}
+			?>
+		</table>
+		<?php
+
+		?>
+
+
+	<?php
+
+	}
+	?>
+
+</div>
+<div class="modal fade" id="modalku">
+	<div class="modal-dialog ">
+		<div class="modal-content">
+
+			<!-- Ini adalah Bagian Header Modal -->
+			<div class="modal-header">
+				<h2 class="modal-title">TAMBAH STATISTIK</h2>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+
+			<!-- Ini adalah Bagian Body Modal -->
+			<div class="modal-body">
+				<form action="" method="post">
+					<div class="form-group">
+						<label class="col-md-4 control-label" for="tanggal">TANGGAL</label>
+						<div class="col-md-5">
+							<input id="tanggal" name="tanggal" type="date" placeholder="tanggal" class="form-control input-md">
+
+						</div>
+					</div>
+
+					<!-- Button -->
+					<div class="form-group">
+						<label class="col-md-4 control-label" for="tambah"></label>
+						<div class="col-md-4">
+							<button id="tambah" name="tambah_statistik" class="btn btn-primary">Tambah</button>
+						</div>
+					</div>
+
+				</form>
+
+				<br><br>
+				<br><br>
+
+			</div>
+
+			<!-- Ini adalah Bagian Footer Modal -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">close</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<?php
+
+
+if(isset($_POST['tambah_statistik'])){
+	mysqli_query($con,"INSERT INTO `statistik` (`tgl_statistik`, `id_cabang`) VALUES ('$_POST[tanggal]', '$id_cabang'); ");
+	$last = mysqli_insert_id($con);
+	pindah($url.$menu."spl&tambah&id=$last&tanggal=$_POST[tanggal]");
+}
+?>
+<script>
+	var url = "<?= $url ?>";
+	var cabang = "<?= $id_cabang ?>";
+</script>

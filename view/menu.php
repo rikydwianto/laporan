@@ -138,6 +138,7 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 		<li>
 			<a href="<?php echo $url . $menu ?>file_folder" class="w3-bar-item w3-button"><i class="fas fa-folder"></i> SOP</a>
 		</li>
+		<li><a href="<?php echo $url . $menu ?>spl" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> SPL</a></li>
 		<li>
 			<a href="<?php echo $url . $menu ?>monitoring" class="w3-bar-item w3-button"><i class="fas fa-folder"></i> MONITORING</a>
 		</li>
@@ -265,8 +266,8 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 		</li>
 
 		<li><a href="<?php echo $url . $menu ?>file" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> FILE</a></li>
-		<li>
-		</li>
+		<li><a href="<?php echo $url . $menu ?>spl" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> SPL</a></li>
+	
 		<li>
 			<a href="<?php echo $url . $menu ?>detail_center" class="w3-bar-item w3-button"><i class="fa fa-font-awesome"></i> Data Wilayah</a>
 		</li>
@@ -319,14 +320,14 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 
 			<a href="#"><i class="fa fa-file-excel-o"></i> Laporan<span class="fa arrow"></span></a>
 			<ul class="nav nav-second-level">
-				
+
 				<li>
 					<a href="<?php echo $url . $menu ?>rekap_anggota"><i class="fa fa-users"></i> Rekap Anggota</a>
 				</li>
 				<li>
 					<a href="<?php echo $url . $menu ?>list_penarikan"><i class="fa fa-file-o"></i> Penarikan Simpanan</a>
 				</li>
-				
+
 			</ul>
 		</li>
 		<li><a href="<?php echo $url . $menu ?>setting" class="w3-bar-item w3-button"><i class="fa fa-gears"></i> Setting</a></li>
@@ -334,7 +335,7 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 		<li>
 			<a href="<?php echo $url . $menu ?>logout" class=""><i class="fa fa-sign-out"></i> Logout</a>
 		</li>
-		
+
 	<?php
 }
 
