@@ -39,7 +39,7 @@ if (isset($_GET['tgl'])) {
             padding: 0px;
             
         }
-        }
+        
         .grid-container1 {
             display: grid;
             grid-template-columns: auto auto auto;

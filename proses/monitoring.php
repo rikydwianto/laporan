@@ -176,6 +176,7 @@
                 <th>STAFF</th>
                 <?php 
                 $col  = 0;
+                $data_pu = array();
                 $pin = mysqli_query($con,"SELECT pinjaman_ke FROM pinjaman WHERE produk='PINJAMAN UMUM' and id_cabang='$id_cabang' GROUP BY pinjaman_ke ");
                 while($ke= mysqli_fetch_array($pin)){
                     $col++;
@@ -194,7 +195,7 @@
                 ?>
                 <tr>
                 <th>
-                    <?=$no++?> 
+                    <?=$no?> 
                 </th>
                 <!-- <th>NIK</th> -->
                 <th><?=$karyawan['nama_karyawan']?></th>
@@ -210,16 +211,28 @@
                     <th class='tengah kotak'><?=$hitung?></th>
                     <?php
                 }
+                
+                
                 $total_monitoring = $total_monitoring + $total_hitung;
                 ?>
                 
                 <th class='tengah'><?=$total_hitung?></th>
             </tr>
                 <?php
+                $no++;
             }
             ?>
             <tr style='background:#c8c9cc'>
-                <td class='tengah' colspan='<?=$col + 2 ?>'>TOTAL</td>
+                <td class='tengah' colspan='<?= 2 ?>'>TOTAL</td>
+                <?php 
+                for($c=1;$c<=$col;$c++){
+                    $hitung_ = mysqli_query($con,"SELECT COUNT(monitoring) AS monitoring FROM pinjaman WHERE  produk='PINJAMAN UMUM' and pinjaman_ke='$c' and monitoring='belum' and pinjaman.id_cabang='$id_cabang'");
+                    $hitung_ = mysqli_fetch_array($hitung_);
+                    ?>
+                    <td class='tengah'><?=$hitung_['monitoring']?></td>
+                    <?php 
+                }
+                ?>
                 <td class='tengah'><?=$total_monitoring?></td>
             </tr>
            
@@ -382,10 +395,13 @@
                     else{
                         $q_banding = "";
                     }
-                    $q = mysqli_query($con, "select * from pinjaman left join karyawan on karyawan.id_karyawan=pinjaman.id_karyawan where pinjaman.id_cabang='$id_cabang' $q_tambah $q_id $q_hari $q_banding order by karyawan.nama_karyawan asc");
+                    $q = mysqli_query($con, "select *,DATEDIFF(CURDATE(), tgl_cair) as total_hari from pinjaman left join karyawan on karyawan.id_karyawan=pinjaman.id_karyawan where pinjaman.id_cabang='$id_cabang' $q_tambah $q_id $q_hari $q_banding order by karyawan.nama_karyawan asc");
                     while ($pinj = mysqli_fetch_array($q)) {
+                        if ($pinj['total_hari'] > 14) {
+                            $tr = "#ffd4d4";
+                        } else $tr = "#fffff";
                     ?>
-                        <tr>
+                        <tr style="background:<?= $tr ?>">
                             <!-- <td><?= $no++ ?></td> -->
                             <td><?= $pinj['nama_karyawan'] ?></td>
                             <td><?= ganti_karakter($pinj['id_detail_pinjaman']) ?></td>
