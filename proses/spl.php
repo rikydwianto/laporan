@@ -43,7 +43,7 @@
 				// echo $text;
 				$query = mysqli_multi_query($con, $text);
 				if ($query) {
-					sleep(5);
+					// sleep(5);
 					alert("Terima Kasih telah menunggu, Data berhasil input ...");
 					pindah($url.$menu."spl");
 				} else {
@@ -183,6 +183,7 @@
 								$q = mysqli_query($con, "$text");
 							}
 						}
+						pindah($url.$menu."spl");
 					}
 
 
@@ -252,8 +253,14 @@
 
 							<?php
 						}
+						else{
+							?>
+							<a href="<?= $url . $menu ?>spl&ganti&tgl=<?= $statistik['tgl_statistik'] ?>" class="btn btn-success">Syncron</a>
+
+							<?php
+						} 
 						?>
-						<a href="<?= $url . $menu ?>spl&ganti&tgl=<?= $statistik['tgl_statistik'] ?>" class="btn btn-success">Syncron</a>
+						
 						<a href="<?= $url ?>export/spl.php?id=<?= $statistik['id_statistik'] ?>" class="btn btn-info"> <i class="fa fa-print"></i></a>
 						<a href="<?= $url . $menu ?>spl&hapus&tgl=<?= $statistik['tgl_statistik'] ?>&id=<?= $statistik['id_statistik'] ?>" class="btn btn-danger" onclick="return window.confirm('Yakin menghapus SPL ini?')"> <i class="fa fa-times"></i> </a>
 					</td>

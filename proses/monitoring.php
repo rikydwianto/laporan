@@ -65,7 +65,6 @@
                 <th>
                     NO 
                 </th>
-                <!-- <th>NIK</th> -->
                 <th>STAFF</th>
                 <th class='tengah'>P.U</th>
                 <th class='tengah'>PMB</th>
@@ -75,6 +74,8 @@
                 <th class='tengah'>PRR</th>
                 <th class='tengah'>LAIN-LAIN</th>
                 <th class='tengah' >TOTAL MONITORING</th>
+                <th class='tengah' >AGT</th>
+                <th class='tengah' >3%</th>
                 <th class='tengah'></th>
             </tr>
             <?php
@@ -126,11 +127,12 @@
                     $total_prr = $total_prr + $prr;
 
                     $total_monitoring =$total + $total_monitoring;
-                    
+                    $hitung_agt = mysqli_query($con,"SELECT member FROM statistik JOIN spl ON statistik.`id_statistik`=spl.`id_statistik` WHERE id_karyawan='$karyawan[id_karyawan]'  ORDER BY statistik.tgl_statistik DESC "); 
+                    $hitung_agt = mysqli_fetch_array($hitung_agt);
+                    $hitung_agt = $hitung_agt['member'];
                     ?>
             <tr>
                 <td><?=$no++?></td>
-                <!-- <td><?=$karyawan['nik_karyawan']?></td> -->
                 <td ><?=$karyawan['nama_karyawan']?></td>
                 <td class='tengah'><?=$pu?></td>
                 <td class='tengah'><?=$pmb?></td>
@@ -142,6 +144,8 @@
                 <td class='tengah'>
                     <?=($total ==NULL ? 0 : $total)?>
                 </td>
+                <td class='tengah'><?=$hitung_agt?></td>
+                <td class='tengah'><?=($hitung_agt==null?"":round($hitung_agt*3/100));?></td>
                 <td><a href="<?= $url . $menu ?>monitoring&id=<?=$karyawan['id_karyawan']?>" > Detail</a> </td>
             </tr>
                 <?php
@@ -159,6 +163,8 @@
                 <td class='tengah'>
                     <?=($total_monitoring )?>
                 </td>
+                <td></td>
+                <td></td>
                 <td></td>
             </tr>
         </table>
@@ -324,11 +330,6 @@
     else {
         
 
-        if(isset($_POST['mtr'])){
-            
-        }
-
-        //hitung bandimg
         
        
     ?>
