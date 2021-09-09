@@ -148,6 +148,7 @@ if(!$_SESSION['jabatan']){
 				<td >Bayar</td>
 				<td >Tdk Bayar</td>
 				<td >%</td>
+				<td >Change</td>
 				<td >Keterangan</td>
 				<td >#</td>
 			</tr>
@@ -159,6 +160,7 @@ if(!$_SESSION['jabatan']){
 			$hitung_bayar = 0; 
 			$hitung_tdk_bayar= 0; 
 			$hitung_center= 0; 
+			$hitung_chg = 0;
 			while($tampil=mysqli_fetch_array($cek_ka)){
 				$cek_l1 = mysqli_query($con,"select * from laporan where id_karyawan='$tampil[id_karyawan]' and tgl_laporan=curdate()");
 
@@ -173,6 +175,32 @@ if(!$_SESSION['jabatan']){
 						$hitung_bayar = $hitung_bayar + $tampil_lapor['bayar']; 
 						$hitung_tdk_bayar= $hitung_tdk_bayar + $tampil_lapor['tidak_bayar']; 
 						$hitung_center= $hitung_center + $tampil_lapor['hitung_center']; 
+
+						$tgl1 = date("Y-m-d");// pendefinisian tanggal awal
+						$tgl2 = date('Y-m-d', strtotime('-7 days', strtotime($tgl1))); //operasi penjumlahan tanggal sebanyak 6 hari
+
+						
+						$qchg = mysqli_query($con,"SELECT SUM(detail_laporan.`total_bayar`) AS bayar,
+						SUM(detail_laporan.`total_tidak_bayar`) AS tidak_bayar,
+						(SUM(detail_laporan.`total_bayar`)/SUM(detail_laporan.`total_agt`) *100) AS persen
+						 FROM laporan JOIN detail_laporan ON laporan.`id_laporan`=detail_laporan.`id_laporan` 
+						
+						WHERE laporan.`tgl_laporan`='$tgl2' AND laporan.id_karyawan='$tampil[id_karyawan]'
+						 GROUP BY laporan.`id_karyawan`
+						 
+						");
+						$persen = round(($tampil_lapor['bayar']/$tampil_lapor['anggota'] *100  ),2);
+						$chg = mysqli_fetch_array($qchg);
+						$chg = round($chg['persen'],2);
+						$rubah = $persen - $chg ;
+						$hitung_chg = $rubah + $hitung_chg;
+						if($rubah>0){
+							$warna_chg = "#52eb34";
+						}
+						else{
+							$warna_chg = "#e4544d";
+							
+						}
 				?>
 					<tr>
 						<td><?php echo $no++ ?>.</td>
@@ -183,7 +211,11 @@ if(!$_SESSION['jabatan']){
 						<td><?php echo $tampil_lapor['anggota'] ?></td>
 						<td><?php echo $tampil_lapor['bayar'] ?></td>
 						<td><?php echo $tampil_lapor['tidak_bayar'] ?></td>
-						<td><?php echo round(($tampil_lapor['bayar']/$tampil_lapor['anggota'] *100  ),2)?>%</td>
+						<td><?php echo $persen ?>%</td>
+						<td style="color:<?=$warna_chg?>">
+							<?php echo ($rubah==null?"":$rubah."%") ?>
+
+						</td>
 
 						<td><?php echo $tampil_lapor['keterangan_laporan'] ?></td>
 						<td><small><i><?php echo $tampil_lapor['status_laporan'] ?></i></small></td>
@@ -241,6 +273,13 @@ if(!$_SESSION['jabatan']){
 			<?php
 				
 			}
+			if($hitung_chg>0){
+				$warna_chg = "#52eb34";
+			}
+			else{
+				$warna_chg = "#e4544d";
+				
+			}
 			?>
 			<tr>
 				<th colspan=2>Total</th>
@@ -249,7 +288,8 @@ if(!$_SESSION['jabatan']){
 				<th ><?php echo $hitung_agt ?></th>
 				<th ><?php echo $hitung_bayar ?></th>
 				<th ><?php echo $hitung_tdk_bayar ?></th>
-				<th colspan=6><?php echo $persen = round(($hitung_bayar/$hitung_agt)*100,2) ?>%</th>
+				<th ><?php echo $persen = round(($hitung_bayar/$hitung_agt)*100,2) ?>%</th>
+				<th style="color:<?=$warna_chg?>" ><?php echo $hitung_chg ?></th>
 			</tr>
 		</table>
 		</div>
