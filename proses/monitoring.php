@@ -433,7 +433,7 @@
                                 elseif($pinj['monitoring']=='sudah'){
                                     
                                     $tombol = "btn-info";
-                                    $icon = '<i class="fa fa-check"></i>';
+                                    $icon = ' Sudah <i class="fa fa-check"></i>';
                                 }
                                 else $tombol="btn-danger";
                                 ?>
