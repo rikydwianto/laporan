@@ -13,6 +13,7 @@
     <i>Tambah, kumpulkan monitoring, </i> <br />
     <a href="<?= $url . $menu ?>monitoring" class='btn btn-success'> <i class="fa fa-eye"></i> Lihat</a>
     <a href="<?= $url . $menu ?>monitoring&tambah" class='btn btn-info'> <i class="fa fa-plus"></i> Tambah</a>
+    <a href="<?= $url . $menu ?>monitoring&kosong" class='btn btn-danger' onclick="return window.confirm('Apakah anda yakin untuk hapus semuadata monitoring??')"> <i class="fa fa-trash"></i> Kosongkan</a>
     <a href="<?= $url . $menu ?>monitoring&ganti" class='btn btn-success'> <i class="fa fa-wrench"></i> Synchron Data</a>
     <a href="<?= $url . $menu ?>monitoring&staff" class='btn btn-danger'> <i class="fa fa-users"></i> Total Monitoring</a>
     <a href="<?= $url . $menu ?>monitoring&pu" class='btn btn-danger'> <i class="fa fa-users"></i> Detail Pinjaman umum</a>
@@ -48,6 +49,12 @@
             ?>
         </form>
     <?php
+    }
+    elseif(isset($_GET['kosong'])){
+        mysqli_query($con,"DELETE FROM `pinjaman` WHERE `id_cabang` = '$id_cabang'");
+        // echo "DELETE FROM `upk` WHERE `id_cabang` = '$id_cabang'";
+        pindah("$url$menu".'monitoring');
+
     }
     else if(isset($_GET['hapus'])){
         $id = aman($con,$_GET['id']);
