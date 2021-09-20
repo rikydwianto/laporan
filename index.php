@@ -80,9 +80,9 @@ $nama_jabatan = $d['singkatan_jabatan'];
                     if (!isset($_SESSION['id'])) {
                         pindah("auth.php?url");
                     } else {
-                        $hitung_banding = mysqli_query($con,"select count(id_detail_pinjaman) as banding from  banding_monitoring where id_cabang='$id_cabang' and status='belum'  ");
-        $hitung_banding = mysqli_fetch_array($hitung_banding);
-		$hitung_banding =$hitung_banding['banding'];
+                        $hitung_banding = mysqli_query($con, "select count(id_detail_pinjaman) as banding from  banding_monitoring where id_cabang='$id_cabang' and status='belum'  ");
+                        $hitung_banding = mysqli_fetch_array($hitung_banding);
+                        $hitung_banding = $hitung_banding['banding'];
                         if ($d['password'] == md5(123456)) {
                             include("proses/setting.php");
                         } else {
@@ -112,11 +112,11 @@ $nama_jabatan = $d['singkatan_jabatan'];
                                     <h2 style="text-align: center;">Sistem Informasi Cabang <?= strtoupper($d['nama_cabang']) ?></h2><br>
                                     <ul>
                                         <!-- <li> Selasa, 10 Agutus 2021 Tidak Libur tidak dipindah hari/NORMAL </li> -->
-                                        <li> <b> PENARIKAN SIMPANAN OLEH MANAJER </b> Berlaku pada Rabu 24 Agustus s/d selasa 31 Agustus 2021 </li>
+                                        <li> <b> PENARIKAN SIMPANAN OLEH MANAJER </b> Berlaku pada Senin 27 September s/d Kamis 30 September 2021 </li>
                                         <li> Untuk rekap bisa dilihat di menu "PENARIKAN SIMPANAN" hanya memasukan id anggota dan nominal penarikan </li>
                                         <li>Jika ada center yang ditutup oleh aparat bisa diisi di menu -> "Center Blacklist"</li>
                                         <li>Untuk melihat Capaian Anggota Masuk dan Anggota Keluar bisa dilihat di menu Cashflow</li>
-                                        <li>Anggota Keluar Update sampai Tanggal <b>Kamis, 29 Juli 2021</b> </li>
+                                        <!-- <li>Anggota Keluar Update sampai Tanggal <b>Kamis, 29 Juli 2021</b> </li> -->
                                     </ul>
 
                                     </p>
@@ -178,14 +178,14 @@ $nama_jabatan = $d['singkatan_jabatan'];
     $(document).ready(function() {
         $('#modalku1').on('show.bs.modal', function(e) {
             var rowid = $(e.relatedTarget).data('id');
-            $.get(url + "api/detail_monitoring.php?id="+rowid, function(data, status) {
+            $.get(url + "api/detail_monitoring.php?id=" + rowid, function(data, status) {
 
                 setTimeout(function() {
                     $("#isi_detail").html("Mohon Tunggu");
-                },0);
+                }, 0);
                 setTimeout(function() {
                     $("#isi_detail").html(data);
-                },800);
+                }, 800);
             });
         });
     });
