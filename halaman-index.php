@@ -213,7 +213,7 @@ if(!$_SESSION['jabatan']){
 						<td><?php echo $tampil_lapor['tidak_bayar'] ?></td>
 						<td><?php echo $persen ?>%</td>
 						<td style="color:<?=$warna_chg?>">
-							<?php echo ($rubah==null?"":$rubah."%") ?>
+							<?php echo ($rubah==null?"0":$rubah."%") ?>
 
 						</td>
 
