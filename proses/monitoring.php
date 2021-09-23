@@ -369,7 +369,9 @@
             <a href="<?= $url . $menu ?>monitoring" class='btn btn-success'> <i class="fa fa-list-ol"></i> Lihat yang belum</a>
             <a href="<?= $url . $menu ?>monitoring&filter" class='btn btn-info'> <i class="fa fa-book"></i> Lihat Semua Data</a>
             <a href="<?= $url . $menu ?>monitoring&banding" class='btn btn-warning'> <i class="fa fa-bell"></i> KELUHAN(<?= $hitung_banding ?>)</a> <br /><br />
-            <a href="<?= $url . $menu ?>monitoring&tgl=14" class='btn btn-danger'> <i class="fa fa-angle-right"></i> Lebih 14 hari</a> <br /><br />
+            <a href="<?= $url . $menu ?>monitoring&tgl=14" class='btn btn-danger'> <i class="fa fa-angle-right"></i> Lebih 14 hari</a> 
+            <a href="<?= $url . $menu ?>monitoring&tgl=21" class='btn btn-danger'> <i class="fa fa-angle-right"></i> Lebih 21 hari</a> 
+            <a href="<?= $url . $menu ?>monitoring&tgl=30" class='btn btn-danger'> <i class="fa fa-angle-right"></i> Lebih 30 hari</a> <br /><br />
             <TABLE class='table' id='data_karyawan'>
                 <thead>
                     <tr>
@@ -379,6 +381,7 @@
                         <th>Nama</th>
                         <th>Jumlah Pinjaman</th>
                         <th>Produk</th>
+                        <th>Cair</th>
                         <th>KE</th>
                         <?php
                         if (isset($_GET['banding'])) {
@@ -438,7 +441,23 @@
 
                             </td>
                             <td><?= $pinj['jumlah_pinjaman'] ?></td>
-                            <td><?= ganti_karakter($pinj['produk']) ?></td>
+                            <td>
+                                
+                                
+                                <?php
+                                
+                                $produk = strtolower($pinj['produk']); 
+                                if($produk=="pinjaman umum") $kode = "P.U";
+                                else if($produk=="pinjaman sanitasi") $kode = "PSA";
+                                else if($produk=="pinjaman mikrobisnis") $kode = "PMB";
+                                else if($produk=="pinjaman arta") $kode = "ARTA";
+                                else if($produk=="pinjaman dt. pendidikan") $kode = "PPD";
+                                else if($produk=="pinjaman renovasirumah") $kode = "PRR";
+                                else $kode="LL";
+                                 
+                                 echo $kode;?>
+                            </td>
+                            <td><?=$pinj['tgl_cair']?></td>
                             <td><?= $pinj['pinjaman_ke'] ?></td>
                             <?php
                             if (isset($_GET['banding'])) {
