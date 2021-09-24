@@ -57,7 +57,7 @@
         $detail = aman($con, $_GET['detail']);
 
         $q = mysqli_query($con, "DELETE FROM `pinjaman` WHERE `id_pinjaman` = '$id' ; ");
-        $q1 = mysqli_query($con, "UPDATE `banding_monitoring` SET `status` = 'selesai' WHERE `id_detail_pinjaman` = '$detail'; ");
+        // $q1 = mysqli_query($con, "UPDATE `banding_monitoring` SET `status` = 'selesai' WHERE `id_detail_pinjaman` = '$detail'; ");
         pindah("$url$menu" . 'monitoring&banding');
     }
     else if(isset($_GET['tutupbanding'])){
