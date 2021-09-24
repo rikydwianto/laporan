@@ -80,6 +80,7 @@
                     <!-- <th>no</th> -->
                     <!-- <th>Staff</th> -->
                     <th>NASABAH</th>
+                    <th>Center</th>
                     <th>NO Pinjaman</th>
                     <th>Jumlah Pinjaman</th>
                     <th>Produk</th>
@@ -122,6 +123,7 @@
                         <!-- <td><?= $no ?></td> -->
                         <!-- <td><?= $pinj['nama_karyawan'] ?></td> -->
                         <td><?= $pinj['nama_nasabah'] ?></td>
+                        <td><?= $pinj['center'] ?></td>
                         <td><?= ganti_karakter($pinj['id_detail_pinjaman']) ?></td>
                         <td><?= $pinj['jumlah_pinjaman'] ?></td>
                         <td><?= ganti_karakter($pinj['produk']) ?></td>
