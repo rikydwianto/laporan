@@ -66,7 +66,7 @@
 
         // $q = mysqli_query($con, "DELETE FROM `pinjaman` WHERE `id_pinjaman` = '$id' ; ");
         $q = mysqli_query($con, "UPDATE `banding_monitoring` SET `status` = 'selesai' WHERE `id_banding_monitoring` = '$id'; ");
-        // pindah("$url$menu" . 'monitoring&banding');
+        pindah("$url$menu" . 'monitoring&banding');
     }
      elseif (isset($_GET['staff'])) {
     ?>
