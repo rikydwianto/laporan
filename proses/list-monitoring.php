@@ -6,6 +6,12 @@
     <a href="<?= $url . $menu ?>list-monitoring" class='btn btn-success'> <i class="fa fa-eye"></i> Lihat yang belum</a>
     <a href="<?= $url . $menu ?>list-monitoring&filter" class='btn btn-danger'> <i class="fa fa-eye"></i> Lihat Semua Data</a> <br /><br />
 
+    <form method='get' action='<?php echo $url . $menu ?>monitoring'>
+            <input type=hidden name='menu' value="list-monitoring" />
+            <!-- <input type=hidden name='staff' /> -->
+            Sampai Dengan <input type=date name='tgl' value='<?php echo isset($_GET['tgl']) ? $_GET['tgl'] : date("Y-m-d") ?>' />
+            <input type=submit name='cari' value='CARI' />
+        </form>
     <form action="" method="post">
         <?php
         if (isset($_POST['lapor'])) {
@@ -94,11 +100,17 @@
                 } else {
                     $q_tambah = "and pinjaman.monitoring ='belum'";
                 }
+                @$tgl = $_GET['tgl'];
 
+                if (empty($tgl)) {
+                    $tgl = date("Y-m-d");
+                } else {
+                    $tgl = $tgl;
+                }
                 $q_id = "and pinjaman.id_karyawan = '$id_karyawan'";
 
 
-                $q = mysqli_query($con, "select *,DATEDIFF(CURDATE(), tgl_cair) as total_hari from pinjaman left join karyawan on karyawan.id_karyawan=pinjaman.id_karyawan where pinjaman.id_cabang='$id_cabang' $q_tambah $q_id order by pinjaman.nama_nasabah,pinjaman.id_detail_pinjaman asc");
+                $q = mysqli_query($con, "select *,DATEDIFF(CURDATE(), tgl_cair) as total_hari from pinjaman left join karyawan on karyawan.id_karyawan=pinjaman.id_karyawan where pinjaman.id_cabang='$id_cabang' $q_tambah $q_id and tgl_cair <='$tgl' order by pinjaman.nama_nasabah,pinjaman.id_detail_pinjaman asc");
                 while ($pinj = mysqli_fetch_array($q)) {
                     if ($pinj['total_hari'] > 14) {
                         $tr = "#ffd4d4";
