@@ -62,11 +62,52 @@
     }
     else if(isset($_GET['tutupbanding'])){
         $id = aman($con, $_GET['id']);
-        // $detail = aman($con, $_GET['detail']);
+        $detail = aman($con,$_GET['detail']);
+        // $detail = aman($con, $_GET['detail']);   
+        if(isset($_POST['kirim'])){
+            $pesan = aman($con,$_POST['pesan_balik']);
 
-        // $q = mysqli_query($con, "DELETE FROM `pinjaman` WHERE `id_pinjaman` = '$id' ; ");
-        $q = mysqli_query($con, "UPDATE `banding_monitoring` SET `status` = 'selesai' WHERE `id_banding_monitoring` = '$id'; ");
-        pindah("$url$menu" . 'monitoring&banding');
+            
+            $q = mysqli_query($con, "UPDATE `banding_monitoring` SET `status` = 'selesai', pesan='$pesan' WHERE `id_banding_monitoring` = '$id'; ");
+            pindah("$url$menu" . 'monitoring&banding');
+
+        }
+        $qdetail = mysqli_query($con,"select * from pinjaman join karyawan on karyawan.id_karyawan=pinjaman.id_karyawan join banding_monitoring on banding_monitoring.id_detail_pinjaman=pinjaman.id_detail_pinjaman where pinjaman.id_detail_pinjaman='$detail' ");
+        $detail_pinjaman = mysqli_fetch_array($qdetail);
+        ?>
+        <form action="" method="post">
+            <table class='table'>
+                <tr>
+                    <td>ID PINJAMAN</td>
+                    <td><?=$detail?></td>
+                </tr>
+                <tr>
+                    <td>NAMA</td>
+                    <td><?=$detail_pinjaman['nama_nasabah']?></td>
+                </tr>
+                <tr>
+                    <td>STAFF</td>
+                    <td><?=$detail_pinjaman['nama_karyawan']?></td>
+                </tr>
+                <tr>
+                    <td>KELUHAN</td>
+                    <td><?=$detail_pinjaman['keterangan_banding']?></td>
+                </tr>
+                <tr>
+                    <td>PESAN BALIK</td>
+                    <td>
+                        <textarea name="pesan_balik" id="" cols="30" rows="10" class='form-control' placeholder="Kirim pesan keterangan pada Staff"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" class='btn btn-danger' name="kirim" value='KIRIM dan dan tutup laporan?'>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <?php
     }
      elseif (isset($_GET['staff'])) {
     ?>
@@ -358,6 +399,8 @@
     } 
    
     else {
+    
+    
 
 
 
@@ -425,7 +468,10 @@
                     } else {
                         $q_banding = "";
                     }
-                    $q = mysqli_query($con, "select *,DATEDIFF(CURDATE(), tgl_cair) as total_hari from pinjaman left join karyawan on karyawan.id_karyawan=pinjaman.id_karyawan where pinjaman.id_cabang='$id_cabang' $q_tambah $q_id $q_hari $q_banding order by karyawan.nama_karyawan asc");
+                    $q = mysqli_query($con, "select *,DATEDIFF(CURDATE(), tgl_cair) as total_hari from pinjaman left 
+                        join karyawan on karyawan.id_karyawan=pinjaman.id_karyawan 
+                        
+                        where pinjaman.id_cabang='$id_cabang' $q_tambah $q_id $q_hari $q_banding order by karyawan.nama_karyawan asc");
                     while ($pinj = mysqli_fetch_array($q)) {
                         if ($pinj['total_hari'] > 14) {
                             $tr = "#ffd4d4";
@@ -491,7 +537,7 @@
                                     <input type="button" id="cek_<?= $pinj['id_pinjaman'] ?>" class='btn <?= $tombol ?>' value='<?= $pinj['monitoring'] ?>' onclick="monitoring('<?= $pinj['id_pinjaman'] ?>','<?= $pinj['id_detail_pinjaman'] ?>')" id="">
                                 <?php
                                     if (isset($_GET['banding'])) {
-                                        echo "<a href='$url$menu" . 'monitoring&tutupbanding&id=' . $keluh1['id_banding_monitoring']. "'  class='btn'>Selesai?  </a>";
+                                        echo "<a href='$url$menu" . 'monitoring&tutupbanding&id=' . $keluh1['id_banding_monitoring']."&detail=" . $pinj['id_detail_pinjaman']. "'  class='btn'>Selesai?  </a>";
                                         echo "<a href='$url$menu" . 'monitoring&hapus&id=' . $pinj['id_pinjaman'] . "&detail=" . $pinj['id_detail_pinjaman'] . "' onclick='return window.confirm(" . '"' . "Apakah anda yakin untuk menghapus data ini??" . '"' . ")' class='btn'><i class='fa fa-times'></i>  </a>";
                                     }
                                 } ?>

@@ -84,6 +84,7 @@
                     <th>NO Pinjaman</th>
                     <th>Jumlah Pinjaman</th>
                     <th>Produk</th>
+                    <th>Pesan</th>
                     <th>KE</th>
 
                     <th>#</th>
@@ -111,7 +112,9 @@
                 $q_id = "and pinjaman.id_karyawan = '$id_karyawan'";
 
 
-                $q = mysqli_query($con, "select *,DATEDIFF(CURDATE(), tgl_cair) as total_hari from pinjaman left join karyawan on karyawan.id_karyawan=pinjaman.id_karyawan where pinjaman.id_cabang='$id_cabang' $q_tambah $q_id and tgl_cair <='$tgl' order by pinjaman.nama_nasabah,pinjaman.id_detail_pinjaman asc");
+                $q = mysqli_query($con, "select *,pinjaman.id_detail_pinjaman as detail,DATEDIFF(CURDATE(), tgl_cair) as total_hari from pinjaman left join karyawan on karyawan.id_karyawan=pinjaman.id_karyawan
+                left join banding_monitoring on banding_monitoring.id_detail_pinjaman=pinjaman.id_detail_pinjaman
+                    where pinjaman.id_cabang='$id_cabang' $q_tambah $q_id and tgl_cair <='$tgl' order by pinjaman.nama_nasabah,pinjaman.id_detail_pinjaman asc");
                 while ($pinj = mysqli_fetch_array($q)) {
                     if ($pinj['total_hari'] > 14) {
                         $tr = "#ffd4d4";
@@ -124,9 +127,23 @@
                         <!-- <td><?= $pinj['nama_karyawan'] ?></td> -->
                         <td><?= $pinj['nama_nasabah'] ?></td>
                         <td><?= $pinj['center'] ?></td>
-                        <td><?= ganti_karakter($pinj['id_detail_pinjaman']) ?></td>
+                        <td><?= ($pinj['detail']) ?></td>
                         <td><?= $pinj['jumlah_pinjaman'] ?></td>
-                        <td><?= ganti_karakter($pinj['produk']) ?></td>
+                        <td>
+                            <?php 
+                            $produk = strtolower($pinj['produk']); 
+                            if($produk=="pinjaman umum") $kode = "P.U";
+                            else if($produk=="pinjaman sanitasi") $kode = "PSA";
+                            else if($produk=="pinjaman mikrobisnis") $kode = "PMB";
+                            else if($produk=="pinjaman arta") $kode = "ARTA";
+                            else if($produk=="pinjaman dt. pendidikan") $kode = "PPD";
+                            else if($produk=="pinjaman renovasirumah") $kode = "PRR";
+                            else $kode="LL";
+                             
+                             echo $kode;
+                            ?>    
+                        </td>
+                        <td><?=$pinj['pesan']?></td>
                         <td><?= $pinj['pinjaman_ke'] ?></td>
 
                         <td>
