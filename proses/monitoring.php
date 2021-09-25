@@ -537,7 +537,7 @@
                                     <input type="button" id="cek_<?= $pinj['id_pinjaman'] ?>" class='btn <?= $tombol ?>' value='<?= $pinj['monitoring'] ?>' onclick="monitoring('<?= $pinj['id_pinjaman'] ?>','<?= $pinj['id_detail_pinjaman'] ?>')" id="">
                                 <?php
                                     if (isset($_GET['banding'])) {
-                                        echo "<a href='$url$menu" . 'monitoring&tutupbanding&id=' . $keluh1['id_banding_monitoring']."&detail=" . $pinj['id_detail_pinjaman']. "'  class='btn'>Selesai?  </a>";
+                                        echo "<a href='$url$menu" . 'monitoring&tutupbanding&id=' . $keluh1['id_banding_monitoring']."&detail=" . $pinj['id_detail_pinjaman']. "'  class='btn'>Kirim Pesan?  </a>";
                                         echo "<a href='$url$menu" . 'monitoring&hapus&id=' . $pinj['id_pinjaman'] . "&detail=" . $pinj['id_detail_pinjaman'] . "' onclick='return window.confirm(" . '"' . "Apakah anda yakin untuk menghapus data ini??" . '"' . ")' class='btn'><i class='fa fa-times'></i>  </a>";
                                     }
                                 } ?>

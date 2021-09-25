@@ -112,7 +112,9 @@
                 $q_id = "and pinjaman.id_karyawan = '$id_karyawan'";
 
 
-                $q = mysqli_query($con, "select *,pinjaman.id_detail_pinjaman as detail,DATEDIFF(CURDATE(), tgl_cair) as total_hari from pinjaman left join karyawan on karyawan.id_karyawan=pinjaman.id_karyawan
+                $q = mysqli_query($con, "select *,pinjaman.id_detail_pinjaman as detail,DATEDIFF(CURDATE(), tgl_cair) as total_hari,
+                pinjaman.id_pinjaman as id_pinjaman 
+                from pinjaman left join karyawan on karyawan.id_karyawan=pinjaman.id_karyawan
                 left join banding_monitoring on banding_monitoring.id_detail_pinjaman=pinjaman.id_detail_pinjaman
                     where pinjaman.id_cabang='$id_cabang' $q_tambah $q_id and tgl_cair <='$tgl' order by pinjaman.nama_nasabah,pinjaman.id_detail_pinjaman asc");
                 while ($pinj = mysqli_fetch_array($q)) {
@@ -164,7 +166,7 @@
                             <a href="#modalku1" id="custId" data-toggle="modal" data-id="<?= $pinj['id_pinjaman'] ?>">Detail</a>
                         </td>
                         <td>
-                            <input type="checkbox" name="sudah[]" class='form-control' id="centang-<?= $no ?>" onclick="centang('<?= $no ?>','<?= $pinj['id_detail_pinjaman'] ?>')">
+                            <input type="checkbox" name="sudah[]" class='form-control' id="centang-<?= $no ?>" onclick="centang('<?= $no ?>','<?= $pinj['detail'] ?>')">
                         </td>
                     </tr>
                 <?php
