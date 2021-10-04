@@ -148,32 +148,25 @@ $nama_jabatan = $d['singkatan_jabatan'];
                                     
                                 
                                 <?php 
-                                $ch = curl_init();
-                            // IMPORTANT: the below line is a security risk, read https://paragonie.com/blog/2017/10/certainty-automated-cacert-pem-management-for-php-software
-                            // in most cases, you should set it to true
-                            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                            curl_setopt($ch, CURLOPT_URL, 'https://hadits-api.herokuapp.com/api');
-                            $result = curl_exec($ch);
-                            curl_close($ch);
-
-                            $obj = json_decode($result);
+                                
+                                
+                                
                                 ?>
 
                                     <p>
-                                    <h3 style="text-align: center;">"<?=$obj->judul;?>"</h3><br>
+                                    <h3 style="text-align: center;">"<?=$hadis['AllChapters'][$hitung_hadis]['En_Text']?>"</h3><br>
                                     </p>
                                     <p style="font-size: 25px;">
-                                        "<?=$obj->isi?>"
+                                        "<?=$hadis['isi']?>"
                                         <br>
                                     </p>
                                     <p>
                                         <b>Terjemahan : </b>
-                                        "<?=$obj->terjemah?>"
+                                        "<?=$hadis['terjemah']?>"
                                         
                                     </p>
                                     <p style='text-align:right;font-weight:bold'>
-                                        <?=$obj->src?>
+                                        <?=$hadis['src']?>
 
                                     </p>
                                     <br><br>
@@ -188,7 +181,7 @@ $nama_jabatan = $d['singkatan_jabatan'];
                             </div>
                         </div>
                     </div>
-                    <a href="#" id='tutup_pesan1' class="btn">hadis</a>
+                    <!-- <a href="#" id='tutup_pesan1' class="btn">hadis</a> -->
                     <?php
 
                     //  }
@@ -234,9 +227,9 @@ $nama_jabatan = $d['singkatan_jabatan'];
 
 
     $(document).ready(function() {
-        $("#tutup_pesan").on('click', function() {
-            $("#hadis").modal();
-        });
+        // $("#tutup_pesan").on('click', function() {
+        //     $("#hadis").modal();
+        // });
         $("#tutup_pesan1").on('click', function() {
             $("#hadis").modal();
         });
