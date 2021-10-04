@@ -102,7 +102,7 @@ $nama_jabatan = $d['singkatan_jabatan'];
                                 <!-- Ini adalah Bagian Header Modal -->
                                 <div class="modal-header">
                                     <h4 class="modal-title">INFORMASI</h4>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
                                 </div>
 
                                 <!-- Ini adalah Bagian Body Modal -->
@@ -126,12 +126,69 @@ $nama_jabatan = $d['singkatan_jabatan'];
 
                                 <!-- Ini adalah Bagian Footer Modal -->
                                 <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" id='tutup_pesan' data-dismiss="modal">close</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="hadis">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+
+                                <!-- Ini adalah Bagian Header Modal -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">RANDOM HADIST</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+
+                                <!-- Ini adalah Bagian Body Modal -->
+                                <div class="modal-body">
+                                    
+                                
+                                <?php 
+                                $ch = curl_init();
+                            // IMPORTANT: the below line is a security risk, read https://paragonie.com/blog/2017/10/certainty-automated-cacert-pem-management-for-php-software
+                            // in most cases, you should set it to true
+                            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                            curl_setopt($ch, CURLOPT_URL, 'https://hadits-api.herokuapp.com/api');
+                            $result = curl_exec($ch);
+                            curl_close($ch);
+
+                            $obj = json_decode($result);
+                                ?>
+
+                                    <p>
+                                    <h3 style="text-align: center;">"<?=$obj->judul;?>"</h3><br>
+                                    </p>
+                                    <p style="font-size: 25px;">
+                                        "<?=$obj->isi?>"
+                                        <br>
+                                    </p>
+                                    <p>
+                                        <b>Terjemahan : </b>
+                                        "<?=$obj->terjemah?>"
+                                        
+                                    </p>
+                                    <p style='text-align:right;font-weight:bold'>
+                                        <?=$obj->src?>
+
+                                    </p>
+                                    <br><br>
+
+                                </div>
+
+                                <!-- Ini adalah Bagian Footer Modal -->
+                                <div class="modal-footer">
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">close</button>
                                 </div>
 
                             </div>
                         </div>
                     </div>
+                    <a href="#" id='tutup_pesan1' class="btn">hadis</a>
                     <?php
 
                     //  }
@@ -175,7 +232,14 @@ $nama_jabatan = $d['singkatan_jabatan'];
 
     ?>
 
+
     $(document).ready(function() {
+        $("#tutup_pesan").on('click', function() {
+            $("#hadis").modal();
+        });
+        $("#tutup_pesan1").on('click', function() {
+            $("#hadis").modal();
+        });
         $('#modalku1').on('show.bs.modal', function(e) {
             var rowid = $(e.relatedTarget).data('id');
             $.get(url + "api/detail_monitoring.php?id=" + rowid, function(data, status) {
