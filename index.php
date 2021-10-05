@@ -139,7 +139,7 @@ $nama_jabatan = $d['singkatan_jabatan'];
 
                                 <!-- Ini adalah Bagian Header Modal -->
                                 <div class="modal-header">
-                                    <h4 class="modal-title">RANDOM HADIST</h4>
+                                    <h4 class="modal-title">RANDOM QUOTES</h4>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
 
@@ -148,27 +148,21 @@ $nama_jabatan = $d['singkatan_jabatan'];
                                     
                                 
                                 <?php 
-                                
+                                $quote = mysqli_query($con,"SELECT * FROM quotes ORDER BY RAND() LIMIT 1");
+                                $quote = mysqli_fetch_array($quote);
+                                $quotes = $quote['quotes'];
                                 
                                 
                                 ?>
 
                                     <p>
-                                    <h3 style="text-align: center;">"<?=$hadis['AllChapters'][$hitung_hadis]['En_Text']?>"</h3><br>
+                                    <h3 style="text-align: center;">"Random Quotes"</h3><br>
                                     </p>
                                     <p style="font-size: 25px;">
-                                        "<?=$hadis['isi']?>"
+                                        "<?=$quotes?>"
                                         <br>
                                     </p>
-                                    <p>
-                                        <b>Terjemahan : </b>
-                                        "<?=$hadis['terjemah']?>"
-                                        
-                                    </p>
-                                    <p style='text-align:right;font-weight:bold'>
-                                        <?=$hadis['src']?>
-
-                                    </p>
+                                    
                                     <br><br>
 
                                 </div>
@@ -227,9 +221,9 @@ $nama_jabatan = $d['singkatan_jabatan'];
 
 
     $(document).ready(function() {
-        // $("#tutup_pesan").on('click', function() {
-        //     $("#hadis").modal();
-        // });
+        $("#tutup_pesan").on('click', function() {
+            $("#hadis").modal();
+        });
         $("#tutup_pesan1").on('click', function() {
             $("#hadis").modal();
         });
