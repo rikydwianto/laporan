@@ -103,11 +103,13 @@
                     $lebih = "Lebih";
                    
                     $warna = '#fcc0c0';
+                   
                 }
                 if($total==0){
-                        $warna = '#fcc0c0';
+                    $warna = '#50ff4a';
+                    $lebih="NOL";
 
-                    }
+                }
             ?>
                 <tr style='background:<?=$warna?>;'>
                     <td><?= $no++ ?></td>
