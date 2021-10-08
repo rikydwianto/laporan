@@ -93,7 +93,7 @@
                 elseif($tiga_persen>=$total){
                     
                     $warna ='';
-                    $lebih="kurang";
+                    $lebih="<i class='fa fa-thumbs-up'></i>";
                 }
                 elseif($total>=($tiga_persen*3)){
                     $lebih ="lebih dari 9%";
