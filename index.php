@@ -112,11 +112,9 @@ $nama_jabatan = $d['singkatan_jabatan'];
                                     <h2 style="text-align: center;">Sistem Informasi Cabang <?= strtoupper($d['nama_cabang']) ?></h2><br>
                                     <ul>
                                         <!-- <li> Selasa, 10 Agutus 2021 Tidak Libur tidak dipindah hari/NORMAL </li> -->
-                                        <li> <b> PENARIKAN SIMPANAN OLEH MANAJER </b> Berlaku pada Senin 27 September s/d Kamis 30 September 2021 </li>
+                                        <li> <b> PENARIKAN SIMPANAN OLEH MANAJER </b> Berlaku pada Senin 25 OKTOBER s/d JUMAT 29 OKTOBER 2021 </li>
                                         <li> Untuk rekap bisa dilihat di menu "PENARIKAN SIMPANAN" hanya memasukan id anggota dan nominal penarikan </li>
-                                        <li>Jika ada center yang ditutup oleh aparat bisa diisi di menu -> "Center Blacklist"</li>
                                         <li>Untuk melihat Capaian Anggota Masuk dan Anggota Keluar bisa dilihat di menu Cashflow</li>
-                                        <!-- <li>Anggota Keluar Update sampai Tanggal <b>Kamis, 29 Juli 2021</b> </li> -->
                                     </ul>
 
                                     </p>

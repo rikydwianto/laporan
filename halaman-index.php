@@ -153,6 +153,8 @@ if(!$_SESSION['jabatan']){
 				<td >#</td>
 			</tr>
 			<?php 
+			$tgl1 = date("Y-m-d");// pendefinisian tanggal awal
+			$tgl2 = date('Y-m-d', strtotime('-7 days', strtotime($tgl1))); //operasi penjumlahan tanggal sebanyak 6 hari
 
 			$cek_ka=mysqli_query($con,"SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_cabang='$cabang' and jabatan.singkatan_jabatan='SL' and karyawan.status_karyawan='aktif' order by karyawan.nama_karyawan asc");
 			$hitung_member = 0; 
@@ -176,8 +178,6 @@ if(!$_SESSION['jabatan']){
 						$hitung_tdk_bayar= $hitung_tdk_bayar + $tampil_lapor['tidak_bayar']; 
 						$hitung_center= $hitung_center + $tampil_lapor['hitung_center']; 
 
-						$tgl1 = date("Y-m-d");// pendefinisian tanggal awal
-						$tgl2 = date('Y-m-d', strtotime('-7 days', strtotime($tgl1))); //operasi penjumlahan tanggal sebanyak 6 hari
 
 						
 						$qchg = mysqli_query($con,"SELECT SUM(detail_laporan.`total_bayar`) AS bayar,
@@ -273,6 +273,19 @@ if(!$_SESSION['jabatan']){
 			<?php
 				
 			}
+			
+			$total__cgh = mysqli_query($con,"SELECT SUM(detail_laporan.`total_bayar`) AS bayar,
+						SUM(detail_laporan.`total_tidak_bayar`) AS tidak_bayar,
+						(SUM(detail_laporan.`total_bayar`)/SUM(detail_laporan.`total_agt`) *100) AS persen
+						 FROM laporan JOIN detail_laporan ON laporan.`id_laporan`=detail_laporan.`id_laporan` 
+						
+						WHERE laporan.`tgl_laporan`='$tgl2' 
+						 GROUP BY laporan.`id_karyawan`
+						 
+						");
+			$total_chg_persen = mysqli_fetch_array($total__cgh);
+			$persen = round(($hitung_bayar/$hitung_agt)*100,2);
+			$hitung_chg = $total_chg_persen['persen'] - $persen;
 			if($hitung_chg>0){
 				$warna_chg = "#52eb34";
 			}
@@ -288,8 +301,8 @@ if(!$_SESSION['jabatan']){
 				<th ><?php echo $hitung_agt ?></th>
 				<th ><?php echo $hitung_bayar ?></th>
 				<th ><?php echo $hitung_tdk_bayar ?></th>
-				<th ><?php echo $persen = round(($hitung_bayar/$hitung_agt)*100,2) ?>%</th>
-				<th style="color:<?=$warna_chg?>" ><?php echo $hitung_chg ?></th>
+				<th ><?php echo $persen ?>%</th>
+				<th style="color:<?=$warna_chg?>" ><?php echo round($hitung_chg,2) ?></th>
 			</tr>
 		</table>
 		</div>
