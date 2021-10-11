@@ -164,6 +164,7 @@ $nama_jabatan = $d['singkatan_jabatan'];
                                     </p>
                                     
                                     <br><br>
+                                    <a href="<?=$url.$menu?>quotes">Tambah Quote Disini</a>
 
                                 </div>
 
