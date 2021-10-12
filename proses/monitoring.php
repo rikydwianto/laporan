@@ -385,6 +385,7 @@
                         <th>Staff</th>
                         <th>NO Pinjaman</th>
                         <th>Nama</th>
+                        <th>CTR</th>
                         <th>Jumlah Pinjaman</th>
                         <th>Produk</th>
                         <th>Cair</th>
@@ -446,8 +447,13 @@
                             <td><?= ganti_karakter($pinj['id_detail_pinjaman']) ?></td>
                             <td>
                                 <?= $pinj['nama_nasabah'] ?>
-
-
+                            </td>
+                            <td>
+                                <?php 
+                                $cen = $pinj['center'];
+                                $center = (explode(" ",$cen)[0]);
+                                echo $center;
+                                ?>
                             </td>
                             <td><?= $pinj['jumlah_pinjaman'] ?></td>
                             <td>
