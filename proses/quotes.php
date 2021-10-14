@@ -43,6 +43,20 @@
                 <td><?=$no++?></td>
                 <td><?=$qoutes['quotes']?></td>
                 <td>
+                    <?php 
+                    $aktif = $qoutes['prioritas'];
+                    if($aktif=='y'){
+                        ?>
+                        <a href="<?=$url.$menu?>quotes&tidak-aktif&id=<?=$qoutes['id_quotes']?>" >Tidak Aktif</a> | <br>
+                        <?php
+                    }
+                    else{
+                        ?>
+                        <a href="<?=$url.$menu?>quotes&aktif&id=<?=$qoutes['id_quotes']?>" >Set Aktif</a> | <br>
+                        <?php
+                    }
+                    ?>
+                    
                     <a href="<?=$url.$menu?>quotes&hapus&id=<?=$qoutes['id_quotes']?>" onclick="return window.confirm('Apakah anda yakin menghapus ini?')"><i class="fa fa-times"></i></a>
                 </td>
             </tr>
@@ -58,6 +72,18 @@ if(isset($_GET['hapus']) && !empty($_GET['id'])){
     $id = aman($con,$_GET['id']);
     mysqli_query($con,"delete from quotes where id_quotes='$id'");
     alert("berhasil dihapus");
+    pindah($url.$menu."quotes");
+}
+if(isset($_GET['aktif']) && !empty($_GET['id'])){
+    $id = aman($con,$_GET['id']);
+    mysqli_query($con,"UPDATE `quotes` SET `prioritas` = 'y' WHERE  id_quotes='$id'");
+    alert("berhasil di aktifkan");
+    pindah($url.$menu."quotes");
+}
+if(isset($_GET['tidak-aktif']) && !empty($_GET['id'])){
+    $id = aman($con,$_GET['id']);
+    mysqli_query($con,"UPDATE `quotes` SET `prioritas` = null WHERE  id_quotes='$id'");
+    alert("berhasil di aktifkan");
     pindah($url.$menu."quotes");
 }
 
