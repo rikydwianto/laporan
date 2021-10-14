@@ -50,7 +50,7 @@ if(!$_SESSION['jabatan']){
 				<div class="card">
 					<h4> Monitoring 0 - 14 hari : <?=$mon['normal']?> </h4>
 					<h4>  lebih 14 hari : <?=$mon['kurang_normal']?> </h4>
-					<h3>Total Monitoring  : <?=$mon1?> </h3>
+					<h3><a href='<?=$url.$menu?>list-monitoring'>Total Monitoring  : <?=$mon1?></a> </h3>
 				</div>
 			<?php
 		}
@@ -93,7 +93,7 @@ if(!$_SESSION['jabatan']){
 					<h4> KELUHAN MONITORING : <?=$hitung_banding?> </h4>
 					<h4> Monitoring 0 - 14 hari : <?=$mon['normal']?> </h4>
 					<h4>  lebih 14 hari : <?=$mon['kurang_normal']?> </h4>
-					<h3>Total Monitoring  : <?=$mon1?> </h3>
+					<h3><a href='<?=$url.$menu?>monitoring'>Total Monitoring  : <?=$mon1?></a> </h3>
 				</div>
 			<?php
 		}
