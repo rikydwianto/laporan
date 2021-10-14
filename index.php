@@ -146,7 +146,7 @@ $nama_jabatan = $d['singkatan_jabatan'];
                                     
                                 
                                 <?php 
-                                $quote = mysqli_query($con,"SELECT * FROM quotes where id_quotes='128' ORDER BY RAND() LIMIT 1");
+                                $quote = mysqli_query($con,"SELECT * FROM quotes where prioritas='y' ORDER BY RAND() LIMIT 1");
                                 $quote = mysqli_fetch_array($quote);
                                 $quotes = $quote['quotes'];
                                 
