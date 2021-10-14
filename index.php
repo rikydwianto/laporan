@@ -114,7 +114,13 @@ $nama_jabatan = $d['singkatan_jabatan'];
                                         <!-- <li> Selasa, 10 Agutus 2021 Tidak Libur tidak dipindah hari/NORMAL </li> -->
                                         <li> <b> PENARIKAN SIMPANAN OLEH MANAJER </b> Berlaku pada Senin 25 OKTOBER s/d JUMAT 29 OKTOBER 2021 </li>
                                         <li> Untuk rekap bisa dilihat di menu "PENARIKAN SIMPANAN" hanya memasukan id anggota dan nominal penarikan </li>
-                                        <li>Untuk melihat Capaian Anggota Masuk dan Anggota Keluar bisa dilihat di menu Cashflow</li>
+                                        <li>
+                                            <?php 
+                                            $qmax = mysqli_query($con,"SELECT MAX(tgl_cair) AS cair FROM pinjaman WHERE id_cabang='1' LIMIT 0,1");
+                                            $info =  mysqli_fetch_array($qmax);
+                                            ?>    
+                                            Monitoring diupdate sampai dengan <b><?=format_hari_tanggal($info['cair'])?></b>
+                                        </li>
                                     </ul>
 
                                     </p>

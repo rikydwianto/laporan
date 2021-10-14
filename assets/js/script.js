@@ -10,6 +10,13 @@
     }
     );
 } );
+	$(document).ready( function () {
+    $('#riwayat_monitoring').DataTable(
+      {
+        "ordering": false
+      }
+    );
+} );
 
 
 	var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
