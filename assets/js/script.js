@@ -2,6 +2,16 @@
 	$(document).ready( function () {
     $('#data_karyawan').DataTable();
 } );
+
+	$(document).ready( function () {
+    $('#data_monitoring').DataTable(
+      {
+        paging: false
+    }
+    );
+} );
+
+
 	var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 	var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 	  return new bootstrap.Tooltip(tooltipTriggerEl)

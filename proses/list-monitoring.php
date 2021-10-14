@@ -74,7 +74,7 @@
 
 
 
-        <TABLE class='table' id='data_karyawan'>
+        <TABLE class='table' id='data_monitoring'>
             <thead>
                 <tr>
                     <!-- <th>no</th> -->
