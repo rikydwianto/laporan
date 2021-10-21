@@ -14,6 +14,7 @@
                     <th>ID Detail</th>
                     <th>NAMA</th>
                     <th>SUAMI</th>
+                    <th>KTP</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,6 +30,7 @@
                         <td><?=$dup['id_detail_nasabah']?></td>
                         <td><?=$dup['nama_nasabah']?></td>
                         <td><?=$dup['suami_nasabah']?></td>
+                        <td><?=$dup['no_ktp']?></td>
                     </tr>
                 <?php
 
