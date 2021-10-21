@@ -136,7 +136,10 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 
 		</li>
 		<li>
-			<a href="<?php echo $url . $menu ?>file_folder" class="w3-bar-item w3-button"><i class="fas fa-folder"></i> SOP</a>
+			<a href="<?php echo $url . $menu ?>file_folder" class="w3-bar-item w3-button"><i class="fas fa-folder"></i> #</a>
+		</li>
+		<li>
+			<a href="<?php echo $url . $menu ?>quotes" class="w3-bar-item w3-button"><i class="fas fa-folder"></i> Quotes</a>
 		</li>
 		<li><a href="<?php echo $url . $menu ?>spl" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> SPL</a></li>
 		<li>
@@ -200,6 +203,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 		<li><a href="<?php echo $url . $menu ?>anggota" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Anggota</a></li>
 
 		<li><a href="<?php echo $url . $menu ?>pemb_lain" class="w3-bar-item w3-button"><i class="fa fa-dollar"></i> Pembiayaan Lain</a></li>
+		<li>
+			<a href="<?php echo $url . $menu ?>quotes" class="w3-bar-item w3-button"><i class="fas fa-folder"></i> Quotes</a>
+		</li>
 		<li>
 			<a href="#"><i class="fa fa-file-excel-o"></i> Laporan<span class="fa arrow"></span></a>
 			<ul class="nav nav-second-level">
@@ -275,7 +281,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 			<a href="<?php echo $url . $menu ?>upk" class="w3-bar-item w3-button"><i class="fa fa-user-plus"></i> UPK NR</a>
 		</li>
 		<li><a href="<?php echo $url . $menu ?>anggota" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Anggota</a></li>
-
+		<li>
+			<a href="<?php echo $url . $menu ?>quotes" class="w3-bar-item w3-button"><i class="fas fa-folder"></i> Quotes</a>
+		</li>
 		<li><a href="<?php echo $url . $menu ?>pemb_lain" class="w3-bar-item w3-button"><i class="fa fa-dollar"></i> Pembiayaan Lain</a></li>
 		<a href="#"><i class="fa fa-file-excel-o"></i> Laporan<span class="fa arrow"></span></a>
 		<ul class="nav nav-second-level">
@@ -329,6 +337,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 				</li>
 
 			</ul>
+		</li>
+		<li>
+			<a href="<?php echo $url . $menu ?>quotes" class="w3-bar-item w3-button"><i class="fas fa-folder"></i> Quotes</a>
 		</li>
 		<li><a href="<?php echo $url . $menu ?>setting" class="w3-bar-item w3-button"><i class="fa fa-gears"></i> Setting</a></li>
 		</li>

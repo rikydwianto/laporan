@@ -1,6 +1,6 @@
 <div class='content table-responsive'>
-    <h2 class='page-header'>FILE SOP </h2>
-    <i>SOP ATAU PROSEDUR</i>
+    <h2 class='page-header'>FILE FOLDER </h2>
+    <i>FILE FOLDER</i>
     <hr />
     <!-- Button to Open the Modal -->
 
