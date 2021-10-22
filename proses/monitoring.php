@@ -272,7 +272,12 @@
     } else if (isset($_GET['riwayat'])) {
         //RIWAYAT MONITORING
         include("proses/riwayat_monitoring.php");
-    } else {
+    }
+    else if (isset($_GET['pindahstaff'])) {
+        //RIWAYAT MONITORING
+        include("proses/pindahstaff.php");
+    }  
+    else {
 
 
 
@@ -356,15 +361,21 @@
                     ?>
                         <tr style="background:<?= $tr ?>">
                             <!-- <td><?= $no++ ?></td> -->
-                            <td><?= $pinj['nama_karyawan'] ?></td>
+                            <td>
+                                <a href="<?= $url . $menu ?>monitoring&pindahstaff&idpinjaman=<?= $pinj['id_pinjaman'] ?>" class="">
+                                <i class="fa fa-gears"></i>
+                            </a>
+                            <?= $pinj['nama_karyawan'] ?>
+                            </td>
                             <td><?= ganti_karakter($pinj['id_detail_pinjaman']) ?></td>
                             <td>
                                 <?= $pinj['nama_nasabah'] ?>
+
                             </td>
                             <td>
-                                <?php 
+                                <?php
                                 $cen = $pinj['center'];
-                                $center = (explode(" ",$cen)[0]);
+                                $center = (explode(" ", $cen)[0]);
                                 echo $center;
                                 ?>
                             </td>
