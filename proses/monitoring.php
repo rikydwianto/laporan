@@ -13,6 +13,7 @@
     <i>Tambah, kumpulkan monitoring, </i> <br />
     <a href="<?= $url . $menu ?>monitoring" class='btn btn-success'> <i class="fa fa-eye"></i> Lihat</a>
     <a href="<?= $url . $menu ?>monitoring&tambah" class='btn btn-info'> <i class="fa fa-plus"></i> Tambah</a>
+    <a href="<?= $url . $menu ?>monitoring&nasabah_staff" class='btn btn-info'> <i class="fa fa-users"></i> Nasabah Staff</a>
     <a href="<?= $url . $menu ?>monitoring&kosong" class='btn btn-danger' onclick="return window.confirm('Apakah anda yakin untuk hapus semuadata monitoring??')"> <i class="fa fa-trash"></i> Kosongkan</a>
     <a href="<?= $url . $menu ?>monitoring&ganti" class='btn btn-success'> <i class="fa fa-wrench"></i> Synchron Data</a>
     <a href="<?= $url . $menu ?>monitoring&staff" class='btn btn-danger'> <i class="fa fa-users"></i> Total Monitoring</a>
@@ -276,6 +277,10 @@
     else if (isset($_GET['pindahstaff'])) {
         //RIWAYAT MONITORING
         include("proses/pindahstaff.php");
+    }  
+    else if (isset($_GET['nasabah_staff'])) {
+        //RIWAYAT MONITORING
+        include("proses/nasabah_staff.php");
     }  
     else {
 

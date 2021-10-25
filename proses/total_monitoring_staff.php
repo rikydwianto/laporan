@@ -80,7 +80,9 @@
                 $total_prr = $total_prr + $prr;
 
                 $total_monitoring = $total + $total_monitoring;
-                $hitung_agt = mysqli_query($con, "SELECT member FROM statistik JOIN spl ON statistik.`id_statistik`=spl.`id_statistik` WHERE id_karyawan='$karyawan[id_karyawan]'  ORDER BY statistik.tgl_statistik DESC ");
+                // $hitung_agt = mysqli_query($con, "SELECT member FROM statistik JOIN spl ON statistik.`id_statistik`=spl.`id_statistik` WHERE id_karyawan='$karyawan[id_karyawan]'  ORDER BY statistik.tgl_statistik DESC ");
+
+                $hitung_agt = mysqli_query($con, "select total_nasabah as member from total_nasabah where id_cabang='$id_cabang' and id_karyawan='$karyawan[id_karyawan]'");
                 $hitung_agt = mysqli_fetch_array($hitung_agt);
                 $hitung_agt = $hitung_agt['member'];
                 $tiga_persen = ($hitung_agt == null ? "" : round($hitung_agt * 3 / 100));
