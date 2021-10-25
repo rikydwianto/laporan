@@ -5,6 +5,7 @@
             <input type=submit name='cari' value='CARI' />
         </form>
         <br>
+        untuk mengisi anggota silahkan pilih menu "NASABAH STAFF" diatas
         <table class="table table-bordered">
             <tr>
                 <th>
