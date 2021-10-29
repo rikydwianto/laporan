@@ -26,7 +26,7 @@
         }
         $q = mysqli_query($con, "SELECT *,DATEDIFF(CURDATE(), tgl_cair) AS total_hari FROM pinjaman 
         LEFT JOIN karyawan ON karyawan.id_karyawan=pinjaman.id_karyawan 
- WHERE pinjaman.id_cabang='$id_cabang' AND
+ WHERE pinjaman.id_cabang='$id_cabang' AND pinjaman.monitoring='belum' and
        pinjaman.id_detail_pinjaman IN (SELECT pinjaman.id_detail_pinjaman FROM `pinjaman`
              GROUP BY  pinjaman.id_detail_pinjaman HAVING COUNT(*) > 1) ORDER BY pinjaman.nama_nasabah
 ");
