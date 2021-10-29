@@ -53,7 +53,10 @@ $pinjaman = mysqli_fetch_array($query);
         </tr>
             <td></td>
             <td>
-                <input type="submit" value="SIMPAN" name='pindah' class='btn btn-danger'>
+                <input type="submit" value="SIMPAN" name='pindah' class='btn btn-info'>
+
+
+                <a href="<?=$url.$menu?>monitoring&hapus&id=<?=$pinjaman['id_pinjaman']?>&ref=monitoring" class="btn btn-danger">HAPUS DATA</a>
             </td>
         </tr>
     </table>

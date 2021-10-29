@@ -59,7 +59,15 @@
 
         $q = mysqli_query($con, "DELETE FROM `pinjaman` WHERE `id_pinjaman` = '$id' ; ");
         // $q1 = mysqli_query($con, "UPDATE `banding_monitoring` SET `status` = 'selesai' WHERE `id_detail_pinjaman` = '$detail'; ");
-        pindah("$url$menu" . 'monitoring&banding');
+        if(isset($_GET['ref'])){
+            $ref = $_GET['ref'];
+            pindah("$url$menu" ."monitoring&". $ref);
+
+        }
+        else{
+            pindah("$url$menu" . 'monitoring&banding');
+
+        }
     } else if (isset($_GET['tutupbanding'])) {
         $id = aman($con, $_GET['id']);
         $detail = aman($con, $_GET['detail']);
@@ -282,6 +290,10 @@
         //RIWAYAT MONITORING
         include("proses/nasabah_staff.php");
     }  
+    else if (isset($_GET['duplikat'])) {
+        //RIWAYAT MONITORING
+        include("proses/monitoring_duplikat.php");
+    }  
     else {
 
 
@@ -296,6 +308,7 @@
             <a href="<?= $url . $menu ?>monitoring" class='btn btn-success'> <i class="fa fa-list-ol"></i> Lihat yang belum</a>
             <a href="<?= $url . $menu ?>monitoring&filter" class='btn btn-info'> <i class="fa fa-book"></i> Lihat Semua Data</a>
             <a href="<?= $url . $menu ?>monitoring&banding" class='btn btn-warning'> <i class="fa fa-bell"></i> KELUHAN(<?= $hitung_banding ?>)</a>
+            <a href="<?= $url . $menu ?>monitoring&duplikat" class='btn btn-danger'> <i class="fa fa-users"></i> DUPLIKAT</a>
             <a href="<?= $url . $menu ?>monitoring&riwayat" class='btn btn-info'> <i class="fa fa-check"></i> Riwayat Monitoring</a> <br /><br />
             <a href="<?= $url . $menu ?>monitoring&tgl=14" class='btn btn-danger'> <i class="fa fa-angle-right"></i> Lebih 14 hari</a>
             <a href="<?= $url . $menu ?>monitoring&tgl=21" class='btn btn-danger'> <i class="fa fa-angle-right"></i> Lebih 21 hari</a>
