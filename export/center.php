@@ -25,14 +25,30 @@ $nama_jabatan=$d['singkatan_jabatan'];
 <!DOCTYPE html>
 <html>
 <head>
-	<style type="text/css">
-	th, td {
-	  padding: 5px;
-	  text-align: left;
-	}
-	</style>
+	
 </head>
 <body>
+	<table border="1">
+		<tr>
+			<td>NO</td>
+			<td>STAFF</td>
+			<td>HARI</td>
+			<td>id_karyawan</td>
+		</tr>
+		<?php 
+		$q=mysqli_query($con,"SELECT * FROM center RIGHT JOIN karyawan ON center.id_karyawan=karyawan.id_karyawan WHERE center.id_cabang='$id_cabang' order by center.no_center asc");
+		while($ctr = mysqli_fetch_array($q)){
+			?>
+		<tr>
+			<td><?=$ctr['no_center']?></td>
+			<td><?=$ctr['nama_karyawan']?></td>
+			<td><?=strtoupper($ctr['hari'])?></td>
+			<td><?=($ctr['id_karyawan'])?></td>
+		</tr>
+			<?php
+		}
+		?>
+	</table>
 	
 </body>
 </html>
