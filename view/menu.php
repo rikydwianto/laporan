@@ -275,6 +275,10 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 
 				</li>
 				<li>
+					<a href="<?php echo $url . $menu ?>perbaikan" class="w3-bar-item w3-button"><i class="fa fa-gear"></i> Perbaikan data</a>
+
+				</li>
+				<li>
 					<a href="<?php echo $url . $menu ?>cashflow" class="w3-bar-item w3-button"><i class="fa fa-file-excel-o"></i> Cashflow</a>
 
 				</li>
