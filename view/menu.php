@@ -41,6 +41,10 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 		</li>
 
 		<li>
+			<a href="<?php echo $url . $menu ?>perbaikan_sl" class="w3-bar-item w3-button"><i class="fas fa-gears"></i> PERBAIKAN DATA</a>
+		</li>
+
+		<li>
 			<a href="<?php echo $url . $menu ?>penarikan_simpanan" class="w3-bar-item w3-button"><i class="fas fa-dollar"></i> Penarikan Simpanan</a>
 		</li>
 		<li>
@@ -65,6 +69,10 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 				</li>
 				<li>
 					<a href="<?php echo $url . $menu ?>center" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Center</a>
+
+				</li>
+				<li>
+					<a href="<?php echo $url . $menu ?>perbaikan" class="w3-bar-item w3-button"><i class="fa fa-gear"></i> Perbaikan data</a>
 
 				</li>
 				<li>
