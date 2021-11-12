@@ -85,8 +85,7 @@
                         <td><?= $kes['nama_nasabah'] ?></td>
                         <td><?= $kes['kesalahan'] ?></td>
                         <td><?= $kes['no_hp'] ?></td>
-                        <td><b>
-                                <?php
+                        <td><b><?php
                                 echo ($kes['nama_ibu_kandung'] === null ? "" : "Ibu : $kes[nama_ibu_kandung]<br/>");
                                 echo ($kes['nik_ktp'] === null ? "" : "ktp : $kes[nik_ktp]<br/>");
                                 echo ($kes['status_pernikahan'] === null ? "" : "status : $kes[status_pernikahan]<br/>");
@@ -95,12 +94,9 @@
                                 if ($kes['status_input'] == 'sudah') {
                                     $tmb = "btn-success";
                                 } else $tmb = 'btn-danger';
-                                ?>
-                            </b>
+                                ?></b>
                         </td>
-                        <td>
-                            <?= ($kes['keterangan_lain']) ?>
-                        </td>
+                        <td><?= ($kes['keterangan_lain']) ?></td>
                         <td><?= ($kes['nama_karyawan']) ?></td>
 
                         <td>

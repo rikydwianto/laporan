@@ -303,7 +303,8 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 			<a href="<?php echo $url . $menu ?>quotes" class="w3-bar-item w3-button"><i class="fas fa-folder"></i> Quotes</a>
 		</li>
 		<li><a href="<?php echo $url . $menu ?>pemb_lain" class="w3-bar-item w3-button"><i class="fa fa-dollar"></i> Pembiayaan Lain</a></li>
-		<a href="#"><i class="fa fa-file-excel-o"></i> Laporan<span class="fa arrow"></span></a>
+		<li>
+			 <a href="#"><i class="fa fa-file-excel-o"></i> Laporan<span class="fa arrow"></span></a>
 		<ul class="nav nav-second-level">
 			<li>
 				<a href="<?php echo $url . $menu ?>tmb_laporan" class="w3-bar-item w3-button"><i class="fa fa-plus"></i> Tambah Laporan</a>
@@ -324,6 +325,7 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 				<a href="<?php echo $url . $menu ?>list-center-blacklist"><i class="fa fa-building"></i> Center Ditutup</a>
 			</li>
 		</ul>
+</li>
 		<li><a href="<?php echo $url . $menu ?>setting" class="w3-bar-item w3-button"><i class="fa fa-gears"></i> Setting</a></li>
 		</li>
 		<li>
