@@ -2,6 +2,8 @@
     <h2 class='page-header'>PERBAIKAN DATA </h2>
     <i></i>
     <a href="<?= $url . $menu ?>perbaikan" class="btn btn-info"> Lihat Data</a>
+    <a href="<?= $url . $menu ?>perbaikan&belum_input" class="btn btn-warning"> Lihat Belum Input SL</a>
+    <a href="<?= $url . $menu ?>perbaikan&statistik" class="btn btn-danger"> Statistik</a>
     <a href="<?= $url . "export/" ?>perbaikan.php" class="btn btn-success"> EXPORT DATA</a>
     <hr />
     <!-- Button to Open the Modal -->
@@ -12,8 +14,40 @@
     if (isset($_GET['belum'])) {
         mysqli_query($con, "UPDATE perbaikan set status='belum' where id_perbaikan='$id_perbaikan'");
         pindah($url . $menu . "perbaikan");
-    } else {
+    }
+    else if (isset($_GET['belum_input'])) {
+        include("./proses/perbaikan_belum_input.php");
+    }
+    else if (isset($_GET['statistik'])) {
+        ?>
+        <h3>DATA BELUM DIKERJAKAN</h3>
+        <table class='table'>
+            <tr>
+                <th>KESALAHAN</th>
+                <th>TOTAL</th>
+            </tr>
+        <?php
+        $qs = mysqli_query($con,"SELECT kesalahan,COUNT(kesalahan) AS total_kesalahan FROM perbaikan JOIN karyawan ON karyawan.id_karyawan=perbaikan.id_karyawan WHERE karyawan.id_cabang='$id_cabang' and status='belum' and status_input is null GROUP BY perbaikan.kesalahan");
+        while($kesalahan  = mysqli_fetch_array($qs)){
+            ?>
+            <tr>
+                <td>
+                <?=$kesalahan['kesalahan']?>
+                </td>
+                <td>
+                 <a href="<?=$url.$menu?>perbaikan&belum_input&fil=<?=$kesalahan['kesalahan']?>" class="">   <?=$kesalahan['total_kesalahan']?></a>
+                </td>
+            </tr>
+            <?php
+        }
+        ?>
+        </table>
+        <?php
+
+    }
+     else {
     ?>
+    
         <table id='data_center' class='table-bordered'>
             <thead>
                 <tr>
@@ -30,6 +64,7 @@
             </thead>
             <tbody>
                 <?php
+                
                 $q = mysqli_query($con, "SELECT * from perbaikan 
         JOIN karyawan on perbaikan.id_karyawan=karyawan.id_karyawan
         JOIN center on perbaikan.no_center=center.no_center where perbaikan.status='sudah' and karyawan.id_cabang='$id_cabang' and status_input is NULL ");

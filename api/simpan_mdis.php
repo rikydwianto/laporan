@@ -7,6 +7,6 @@ require_once("../model/model.php");
 
 if( isset($_GET['id'])){
     $id = aman($con,$_GET['id']);
-    $edit  = mysqli_query($con, "update perbaikan set status_input='sudah' where id_perbaikan='$id'");
+    $edit  = mysqli_query($con, "update perbaikan set status_input='sudah', status='sudah' where id_perbaikan='$id'");
 
 }

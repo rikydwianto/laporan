@@ -42,7 +42,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
 		while($ctr = mysqli_fetch_array($q)){
 			?>
 		<tr>
-			<td><?=$ctr['id_detail_nasabah']?></td>
+			<td><?=trim($ctr['id_detail_nasabah'])?></td>
 			<td><?=strtoupper($ctr['nama_nasabah'])?></td>
 			<td><?=($ctr['nama_karyawan'])?></td>
 			<td><?=($ctr['status_input'])?></td>
