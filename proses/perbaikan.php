@@ -52,6 +52,36 @@
             </td>
         </tr>
         </table>
+        <table class='table'>
+            <tr>
+                <th>NO</th>
+                <th>STAFF</th>
+                <th>TOTAL</th>
+            </tr>
+            <?php 
+            $total_semua = 0;
+            $qq = mysqli_query($con,"SELECT karyawan.`nama_karyawan`,COUNT(kesalahan) AS total_kesalahan,karyawan.id_karyawan FROM perbaikan JOIN karyawan ON karyawan.id_karyawan=perbaikan.id_karyawan WHERE perbaikan.status_input is null and karyawan.id_cabang='$id_cabang' GROUP BY perbaikan.id_karyawan order by  total_kesalahan desc");
+            while($staff = mysqli_fetch_array($qq)){
+                ?>
+            <tr>
+                <td><?=$no++ ?></td>
+                <td><?=$staff['nama_karyawan']?></td>
+                <td>
+                   <a href="<?=$url.$menu?>perbaikan&belum_input&id_staff=<?=$staff['id_karyawan']?>"> <?=$staff['total_kesalahan']?></a>
+                </td>
+            </tr>
+                <?php
+                $total_semua  = $total_semua + $staff['total_kesalahan'];
+            }
+            ?>
+            <tr>
+                <td>
+                    TOTAL SEMUA STAFF
+                </td>
+                <td></td>
+                <td><?=$total_semua?></td>
+            </tr>
+        </table>
         <?php
 
     }

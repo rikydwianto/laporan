@@ -22,9 +22,16 @@
         else{
             $sqt="";
         }
+        if(isset($_GET['id_staff'])){
+            $id=$_GET['id_staff'];
+            $filter_staff = "and perbaikan.id_karyawan='$id'";
+        }
+        else{
+            $filter_staff="";
+        }
         $q = mysqli_query($con, "SELECT * from perbaikan 
 JOIN karyawan on perbaikan.id_karyawan=karyawan.id_karyawan
-JOIN center on perbaikan.no_center=center.no_center where  karyawan.id_cabang='$id_cabang' and status_input is NULL $sqt ");
+JOIN center on perbaikan.no_center=center.no_center where  karyawan.id_cabang='$id_cabang' and status_input is NULL $sqt $filter_staff");
         while ($kes = mysqli_fetch_array($q)) {
         ?>
             <tr id='ganti-<?= $kes['id_perbaikan'] ?>'>
