@@ -27,8 +27,10 @@
                 <th>TOTAL</th>
             </tr>
         <?php
+        $keseluruhan = 0;
         $qs = mysqli_query($con,"SELECT kesalahan,COUNT(kesalahan) AS total_kesalahan FROM perbaikan JOIN karyawan ON karyawan.id_karyawan=perbaikan.id_karyawan WHERE karyawan.id_cabang='$id_cabang' and status='belum' and status_input is null GROUP BY perbaikan.kesalahan");
         while($kesalahan  = mysqli_fetch_array($qs)){
+            $keseluruhan = $keseluruhan+$kesalahan['total_kesalahan'];
             ?>
             <tr>
                 <td>
@@ -41,6 +43,14 @@
             <?php
         }
         ?>
+        <tr>
+            <td >
+                TOTAL
+            </td>
+            <td>
+                <h2><?=$keseluruhan?></h2>
+            </td>
+        </tr>
         </table>
         <?php
 
