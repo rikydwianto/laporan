@@ -60,8 +60,8 @@ $cek_upk = mysqli_query($con,"select * from upk join center on center.no_center=
             $tgl = $_GET['tgl'];
             if($status == 'jadi'){
                $q_status =  mysqli_query($con,"UPDATE `upk` SET `status` = 'jadi' WHERE `id_upk` = '$id_upk'");
-               $insert = mysqli_query($con,"INSERT INTO `anggota` (`id_anggota`, `id_karyawan`, `tgl_anggota`, `anggota_masuk`, `anggota_keluar`, `net_anggota`, `psa`, `prr`, `ppd`, `arta`, `pmb`, `id_cabang`) VALUES (NULL, '$id_karyawan', curdate(), '$anggota', '0', '$anggota', 0, 0, 0, 0, 0, '$id_cabang');
-                ");
+            //    $insert = mysqli_query($con,"INSERT INTO `anggota` (`id_anggota`, `id_karyawan`, `tgl_anggota`, `anggota_masuk`, `anggota_keluar`, `net_anggota`, `psa`, `prr`, `ppd`, `arta`, `pmb`, `id_cabang`) VALUES (NULL, '$id_karyawan', curdate(), '$anggota', '0', '$anggota', 0, 0, 0, 0, 0, '$id_cabang');
+                // ");
 
             }
              if($status=='pending'){

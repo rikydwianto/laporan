@@ -120,8 +120,8 @@ if (isset($_GET['tglawal']) || isset($_GET['tglakhir'])) {
             else alert("gagal di rubah");
 
             if($status=='jadi'){
-                $insert = mysqli_query($con,"INSERT INTO `anggota` (`id_anggota`, `id_karyawan`, `tgl_anggota`, `anggota_masuk`, `anggota_keluar`, `net_anggota`, `psa`, `prr`, `ppd`, `arta`, `pmb`, `id_cabang`) VALUES (NULL, '$staff', '$tanggal', '$anggota', '0', '$anggota', 0, 0, 0, 0, 0, '$id_cabang');
-                ");
+                // $insert = mysqli_query($con,"INSERT INTO `anggota` (`id_anggota`, `id_karyawan`, `tgl_anggota`, `anggota_masuk`, `anggota_keluar`, `net_anggota`, `psa`, `prr`, `ppd`, `arta`, `pmb`, `id_cabang`) VALUES (NULL, '$staff', '$tanggal', '$anggota', '0', '$anggota', 0, 0, 0, 0, 0, '$id_cabang');
+                // ");
             }
 
 

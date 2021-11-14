@@ -300,6 +300,7 @@ function ganti_karakter($text){
  return   preg_replace('/[^a-zA-Z0-9()_ .,"\'\-;]/', '', $text);
 }
 
+
 function hitung_monitoring($con,$id){
   $sql = "SELECT  id_karyawan,
 	SUM(CASE WHEN produk = 'PINJAMAN UMUM' THEN 1 ELSE 0 END) AS pu,
