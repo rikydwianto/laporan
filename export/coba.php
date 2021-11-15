@@ -10,23 +10,34 @@ $cabang= $_SESSION['cabang'];
 $id_cabang= $_SESSION['cabang'];
 $su= $_SESSION['su'];
 require("../vendor/PHPExcel/Classes/PHPExcel.php");
-$path = "../RAHASIA/anggota.xlsx";
+$path = "../RAHASIA/nasabah_keluar.xlsx";
 $reader = PHPExcel_IOFactory::createReaderForFile($path);
 $objek = $reader->load($path);
 $ws = $objek->getActiveSheet();
 $last_row = $ws->getHighestDataRow();
 
-for($row = 2;$row<=$last_row;$row++){
-    $no =  $ws->getCell("B" . $row)->getValue();
-    if($no==null){
+for($row = 4;$row<=$last_row;$row++){
+    $no_id =  $ws->getCell("D" . $row)->getValue();
+    if($no_id==null){
         
     }
     else{
-        $agt = ganti_karakter(substr($no,0,5));
+        $agt = (substr($no_id,0,3));
+        // echo $agt;
         if($agt=='AGT'){
-            $staff =  ganti_karakter($ws->getCell("W".$row)->getValue());
-            $gabung = ganti_karakter($ws->getCell("L".$row)->getValue());
-            mysqli_query($con,"INSERT INTO `temp_anggota` (`staff`, `tgl_bergabung`, `status_input`, `id_cabang`) VALUES ('$staff', '$gabung', 'belum', '$id_cabang'); ");
+            $id_nasabah =  $ws->getCell("D" . $row)->getValue();
+            $ID = explode("-",$id_nasabah)[1];
+            
+            $nasabah =  ($ws->getCell("E".$row)->getValue());
+            $alasan = ($ws->getCell("J".$row)->getValue());
+            $staff = ($ws->getCell("A".$row)->getValue());
+
+            
+            $cari_staff  = mysqli_query($con,"select * from daftar_nasabah where id_nasabah='$ID'");
+            $cari_staff = mysqli_fetch_array($cari_staff);
+            echo $cari_staff['staff'];
+            // echo $no++.$id_nasabah.'  -  '.$nasabah." - ".$alasan."<br/>";
+            // mysqli_query($con,"INSERT INTO `temp_anggota` (`staff`, `tgl_bergabung`, `status_input`, `id_cabang`) VALUES ('$staff', '$gabung', 'belum', '$id_cabang'); ");
         }
     }
 }

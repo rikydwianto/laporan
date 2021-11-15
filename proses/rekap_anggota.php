@@ -85,7 +85,14 @@ else{
 		 	$prr = 0;
 		 	$arta = 0;
 		 	foreach ($data_ as $key => $val ) {
-		 		
+				 //SEMENTARA
+				 if($val['masuk']==0 && $val['keluar']==0 && $val['nett']==0 )
+		 		{
+
+				 }
+				 else{
+
+				 
 		 		?>
 
 		 	<tr>
@@ -110,6 +117,8 @@ else{
 		 		$prr=$prr1+$prr;
 		 		$arta=$arta1+$arta;
 		 	}
+		}
+
 		 	?>
 		 	<tr>
 		 		<th colspan=2>Total</th>
@@ -124,6 +133,7 @@ else{
 		 	</tr>
 		 </table>
 			 <?php
+			 
 		}
 		?>
 </div>

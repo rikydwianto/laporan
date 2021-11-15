@@ -176,7 +176,12 @@
 
 				for ($x = 0; $x < count($idk); $x++) {
 					$nett = $masuk[$x] - $keluar[$x];
-					$query = mysqli_query($con, "INSERT INTO anggota (id_anggota, id_karyawan, tgl_anggota, anggota_masuk, anggota_keluar, net_anggota, id_cabang) VALUES (NULL, '$idk[$x]', '$tgl', '$masuk[$x]', '$keluar[$x]', '$nett', '$id_cabang');");
+					IF($masuk[$x]==0 && $keluar[$x]==0){
+
+					}else{
+
+						$query = mysqli_query($con, "INSERT INTO anggota (id_anggota, id_karyawan, tgl_anggota, anggota_masuk, anggota_keluar, net_anggota, id_cabang) VALUES (NULL, '$idk[$x]', '$tgl', '$masuk[$x]', '$keluar[$x]', '$nett', '$id_cabang');");
+					}
 				}
 				if ($query) {
 					pesan("Berhasil ditambahkan", 'success');
