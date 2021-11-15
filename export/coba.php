@@ -31,11 +31,12 @@ for($row = 4;$row<=$last_row;$row++){
             $nasabah =  ($ws->getCell("E".$row)->getValue());
             $alasan = ($ws->getCell("J".$row)->getValue());
             $staff = ($ws->getCell("A".$row)->getValue());
-
-            
-            $cari_staff  = mysqli_query($con,"select * from daftar_nasabah where id_nasabah='$ID'");
+            $ID = sprintf("%0d",$ID);
+            $center = $ws->getCell("C".$row)->getValue();
+            $center = str_replace(" ","",explode("/",$center)[0]);
+            $cari_staff  = mysqli_query($con,"select * from center join karyawan on karyawan.id_karyawan=center.id_karyawan where no_center='$center'");
             $cari_staff = mysqli_fetch_array($cari_staff);
-            echo $cari_staff['staff'];
+            echo $no++.$cari_staff['nama_karyawan']."<br/>";
             // echo $no++.$id_nasabah.'  -  '.$nasabah." - ".$alasan."<br/>";
             // mysqli_query($con,"INSERT INTO `temp_anggota` (`staff`, `tgl_bergabung`, `status_input`, `id_cabang`) VALUES ('$staff', '$gabung', 'belum', '$id_cabang'); ");
         }

@@ -48,6 +48,8 @@ else{
 			<a href="<?=$url?>/export/rekap_agt_lainnya.php?&tglawal=<?=$tglawal?>&tglakhir=<?=$tglakhir?>&cari=FILTER" class='btn btn-success'>
 			<i class="fa fa-file-excel-o"></i> Export To Excel
 		</a>
+		<a href="<?=$url.$menu?>rekap_anggota&tglawal=<?=date("Y-m-d",(strtotime ( '-1 day' , strtotime ( date("Y-m-d"))  )))?>&tglakhir=<?=date("Y-m-d",(strtotime ( '-1 day' , strtotime ( date("Y-m-d"))  )))?>&cari=FILTER" class="btn btn-danger">KEMARIN</a>
+		<a href="<?=$url.$menu?>rekap_anggota&tglawal=<?=date("Y-m-d")?>&tglakhir=<?=date("Y-m-d")?>&cari=FILTER" class="btn btn-danger">HARI INI</a>
 		</form>
 		<?php
 		if(isset($_GET['cari']))
@@ -91,7 +93,19 @@ else{
 
 				 }
 				 else{
-
+					 if($val['nett']>0){
+						 $bg_color = "#4cae4c";
+					 }
+					 elseif($val['nett']==0){
+						 $bg_color="#ffff";
+					 }
+					 else{
+						 $bg_color="#d9534f";
+					 }
+					 if($val['keluar']>0){
+						 $bg_keluar = "#FF4D4D";
+					 }
+					 else $bg_keluar="";
 				 
 		 		?>
 
@@ -99,8 +113,8 @@ else{
 		 		<td><?=$no++ ?></td>
 		 		<td><?=$val['nama_karyawan'] ?></td>
 		 		<td><?=$masuk1 = $val['masuk'] ?></td>
-		 		<td><?=$keluar1 =$val['keluar'] ?></td>
-		 		<td><?=$nett1= $val['nett'] ?></td>
+		 		<td style='background-color:<?=$bg_keluar?> '><?=$keluar1 =$val['keluar'] ?></td>
+		 		<td style="background-color: <?=$bg_color?>;"><?=$nett1= $val['nett'] ?></td>
 		 		<td><?=$pmb1= $val['pmb'] ?></td>
 		 		<td><?=$psa1= $val['psa'] ?></td>
 		 		<td><?=$ppd1= $val['ppd'] ?></td>
