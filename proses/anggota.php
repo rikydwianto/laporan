@@ -29,7 +29,6 @@
 				
 			}
 			if (isset($_POST['preview'])) {
-				require("vendor/PHPExcel/Classes/PHPExcel.php");
 				$nama_file = $_FILES['file']['tmp_name'];
 				$_SESSION['nama_file'] = $nama_file;
 				$path = $_SESSION['nama_file'];
@@ -80,7 +79,107 @@
 		</table>
 	<?php
 
-	} else if (isset($_GET['sinkron'])) {
+	}else if(isset($_GET['anggota_keluar'])){
+
+
+			?>
+				<form method="post" enctype="multipart/form-data">
+					<div class="col-md-4">
+						<label for="formFile" class="form-label">ANGGOTA KELUAR : SILAHKAN PILIH FILE</label>
+						<input class="form-control" type="file" name='file' accept=".xls,.xlsx,.csv" id="formFile">
+						<input type="submit" value="Proses" class='btn btn-danger' name='preview'>
+					</div>
+				</form>
+				<br />
+				<table class='table'>
+					<tr>
+						<th>NO</th>
+						<th>STAFF</th>
+						<th>TANGGAL</th>
+					</tr>
+		
+					<?php
+					if (isset($_POST['simpan'])) {
+						
+						pindah($url . $menu . "anggota&sinkron");
+						
+					}
+					if (isset($_POST['preview'])) {
+						
+						$path = "./RAHASIA/nasabah_keluar.xlsx";
+						$reader = PHPExcel_IOFactory::createReaderForFile($path);
+						$objek = $reader->load($path);
+						$ws = $objek->getActiveSheet();
+						$last_row = $ws->getHighestDataRow();
+
+						for($row = 4;$row<=$last_row;$row++){
+							$no_id =  $ws->getCell("D" . $row)->getValue();
+							if($no_id==null){
+								
+							}
+							else{
+								$agt = (substr($no_id,0,3));
+								// echo $agt;
+								if($agt=='AGT'){
+									$id_nasabah =  $ws->getCell("D" . $row)->getValue();
+									$ID = explode("-",$id_nasabah)[1];
+									
+									$nasabah =  ($ws->getCell("E".$row)->getValue());
+									$alasan = ($ws->getCell("J".$row)->getValue());
+									$staff = ($ws->getCell("A".$row)->getValue());
+									$tgl = $ws->getCell("I".$row)->getValue();
+									$ID = sprintf("%0d",$ID);
+									$center = $ws->getCell("C".$row)->getValue();
+									$center = str_replace(" ","",explode("/",$center)[0]);
+									$cari_keluar  = mysqli_query($con,"select * from temp_anggota_keluar where id_nasabah='$ID'");
+									if(mysqli_num_rows($cari_keluar)){
+
+									}
+									else{
+										$cari_staff  = mysqli_query($con,"select * from center join karyawan on karyawan.id_karyawan=center.id_karyawan where no_center='$center'");
+										$cari_staff  = mysqli_fetch_array($cari_staff);
+										
+										mysqli_query($con,"INSERT INTO `temp_anggota_keluar` (`id_nasabah`, `tgl_keluar`, `id_karyawan`, `id_cabang`, `status`) 
+										VALUES ('$ID', '$tgl', '$cari_staff[id_karyawan]', '$id_cabang', 'belum'); ");
+
+									}
+									// echo $no++.$cari_staff['nama_karyawan']."<br/>";
+									// echo $no++.$id_nasabah.'  -  '.$nasabah." - ".$alasan."<br/>";
+						
+
+						?>
+									<tr>
+										<td><?= $no++ ?></td>
+										<td><?= $staff ?></td>
+										<td><?= $new_tgl ?></td>
+									</tr>
+						<?php
+								}
+							}
+						}
+						?>
+						<tr>
+							<td></td>
+							<td></td>
+		
+							<td>
+								<form method="post">
+		
+									<input type="submit" name='simpan' class='btn btn-info' value='SIMPAN' onclick="return confirm('Apakah Yakin?')" />
+								</form>
+							</td>
+						</tr>
+					<?php
+					// pindah($url.$menu."anggota&sinkron");
+					}
+		
+					?>
+				</table>
+			<?php
+		
+			
+	} 
+	else if (isset($_GET['sinkron'])) {
 		if (isset($_POST['konfirmasi'])) {
 			$staf = $_POST['nama_mdis'];
 			$id_k = $_POST['karyawan'];

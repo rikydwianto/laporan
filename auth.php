@@ -15,7 +15,7 @@ require_once("model/model.php");
     <meta name="author" content="">
 
     <title>Komida Pagaden</title>
-
+	<link rel="icon" type="image/png" sizes="16x16" href="<?= $url ?>assets/logo.png">
     <!-- Bootstrap Core CSS -->
     <link href="<?= $url ?>assets/css/bootstrap.min.css" rel="stylesheet">
 
@@ -43,7 +43,7 @@ require_once("model/model.php");
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Silahkan Login </h3>
+                        <h3 class="panel-title">Silahkan Login !</h3>
                     </div>
                     <div class="panel-body">
                         <form role="form" method="post">
