@@ -44,9 +44,23 @@
 			$rekapp= $data->rekap_laporan($con,$id_cabang,$tglawal,$tglakhir,$su,$id_filter);
 			// echo json_encode(($rekapp));
 			//ANGGOTA MASUK
-			$upk = mysqli_query($con,"select sum(anggota_masuk) as upk from anggota where tgl_anggota BETWEEN '$tglawal' and '$tglakhir' and id_cabang='$id_cabang'   ");
+			
+			$qc="SELECT sum(anggota.anggota_masuk) as masuk,
+			sum(anggota.anggota_keluar) as keluar,
+			sum(anggota.net_anggota) as nett,
+			sum(anggota.psa) as psa,
+			sum(anggota.ppd) as ppd,
+			sum(anggota.prr) as prr,
+			sum(anggota.arta) as arta,
+			sum(anggota.pmb) as pmb FROM `anggota`
+			where
+			 anggota.tgl_anggota >= '$tglawal' and anggota.tgl_anggota <= '$tglakhir'
+			";
+			$upk = mysqli_query($con,$qc);
 			$upk = mysqli_fetch_array($upk);
-			$upk = $upk['upk'];
+			$am = $upk['masuk'];
+			$ak = $upk['keluar'];
+			$nett = $am - $ak;
 			foreach ($rekapp as $key => $value) {
 				if($value['anggota']==0){
 					pesan("Data tidak ditemukan","danger");
@@ -129,8 +143,8 @@
 								<td><?=round(($value['anggota_tidak_bayar']/$value['anggota'])*100)?>%</td>
 							</tr>
 							<tr>
-								<td>ANGGOTA MASUK</td>
-								<td><?=$upk?></td>
+								<td>ANGGOTA MASUK - KELUAR</td>
+								<td><?=$am?> - <?=$ak?> = <?=$nett?></td>
 								<td></td>
 							</tr>
 

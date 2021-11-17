@@ -1,7 +1,8 @@
 <div class="row">
 	<h3 class="page-header">Input Anggota Masuk/Keluar</h3>
-	<a href="<?= $url . $menu ?>anggota&tambah" class="btn btn-danger">TAMBAH </a>
-	<a href="<?= $url . $menu ?>anggota&sinkron" class="btn btn-danger">SINKRON </a>
+	<a href="<?= $url . $menu ?>anggota&tambah" class="btn btn-info">ANGGOTA MASUK </a>
+	<a href="<?= $url . $menu ?>anggota&anggota_keluar" class="btn btn-danger">ANGGOTA KELUAR </a>
+	<a href="<?= $url . $menu ?>anggota&sinkron" class="btn btn-success">SINKRON </a>
 	<hr />
 	<?php
 	if (isset($_GET['tambah'])) {
@@ -81,7 +82,6 @@
 
 	}else if(isset($_GET['anggota_keluar'])){
 
-
 			?>
 				<form method="post" enctype="multipart/form-data">
 					<div class="col-md-4">
@@ -91,22 +91,25 @@
 					</div>
 				</form>
 				<br />
-				<table class='table'>
-					<tr>
-						<th>NO</th>
-						<th>STAFF</th>
-						<th>TANGGAL</th>
-					</tr>
-		
 					<?php
-					if (isset($_POST['simpan'])) {
-						
-						pindah($url . $menu . "anggota&sinkron");
+					if (isset($_POST['konfirmasi_keluar'])) {
+						$ck = mysqli_query($con,"select *, count(id_nasabah) as total from temp_anggota_keluar b join karyawan a on a.id_karyawan=b.id_karyawan where b.status='belum' and b.id_cabang='$id_cabang' group by b.id_karyawan,b.tgl_keluar order by b.tgl_keluar");
+						while($keluarkan = mysqli_fetch_array($ck)){
+							// mysqli_query($con,"INSERT INTO `anggota` (`id_karyawan`, `tgl_anggota`, `anggota_masuk`, `anggota_keluar`, `net_anggota`,id_cabang) VALUES ('$keluarkan[id_karyawan]', '$keluarkan[tgl_keluar]', '0', '$keluarkan[total]', '-$keluarkan[total]','$id_cabang'); ");
+						}
+						$upd = mysqli_query($con,"select * from temp_anggota_keluar where status='belum' and id_cabang='$id_cabang'");
+						while($update = mysqli_fetch_array($upd)){
+							mysqli_query($con,"UPDATE `temp_anggota_keluar` SET `status` = 'sudah' WHERE `id` = '$update[id]'; ");
+							mysqli_query($con,"INSERT INTO `daftar_nasabah_mantan` 
+							SELECT * FROM daftar_nasabah where id_nasabah='$update[id_nasabah]'
+						");
+						}
 						
 					}
+
 					if (isset($_POST['preview'])) {
-						
-						$path = "./RAHASIA/nasabah_keluar.xlsx";
+						$nama_file = $_FILES['file']['tmp_name'];
+						$path = $nama_file;
 						$reader = PHPExcel_IOFactory::createReaderForFile($path);
 						$objek = $reader->load($path);
 						$ws = $objek->getActiveSheet();
@@ -127,7 +130,8 @@
 									$nasabah =  ($ws->getCell("E".$row)->getValue());
 									$alasan = ($ws->getCell("J".$row)->getValue());
 									$staff = ($ws->getCell("A".$row)->getValue());
-									$tgl = $ws->getCell("I".$row)->getValue();
+									$tgl =$ws->getCell("I".$row)->getValue();
+									$tgl =  date("Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($tgl));
 									$ID = sprintf("%0d",$ID);
 									$center = $ws->getCell("C".$row)->getValue();
 									$center = str_replace(" ","",explode("/",$center)[0]);
@@ -139,45 +143,54 @@
 										$cari_staff  = mysqli_query($con,"select * from center join karyawan on karyawan.id_karyawan=center.id_karyawan where no_center='$center'");
 										$cari_staff  = mysqli_fetch_array($cari_staff);
 										
-										mysqli_query($con,"INSERT INTO `temp_anggota_keluar` (`id_nasabah`, `tgl_keluar`, `id_karyawan`, `id_cabang`, `status`) 
-										VALUES ('$ID', '$tgl', '$cari_staff[id_karyawan]', '$id_cabang', 'belum'); ");
-
+										mysqli_query($con,"INSERT INTO `temp_anggota_keluar` (`id_nasabah`, `tgl_keluar`, `id_karyawan`, `id_cabang`, `status`,`alasan`) 
+										VALUES ('$ID', '$tgl', '$cari_staff[id_karyawan]', '$id_cabang', 'belum','$alasan'); ");
+										?>
+										
+										<?php
 									}
-									// echo $no++.$cari_staff['nama_karyawan']."<br/>";
-									// echo $no++.$id_nasabah.'  -  '.$nasabah." - ".$alasan."<br/>";
-						
-
-						?>
-									<tr>
-										<td><?= $no++ ?></td>
-										<td><?= $staff ?></td>
-										<td><?= $new_tgl ?></td>
-									</tr>
-						<?php
 								}
 							}
 						}
-						?>
-						<tr>
-							<td></td>
-							<td></td>
-		
-							<td>
-								<form method="post">
-		
-									<input type="submit" name='simpan' class='btn btn-info' value='SIMPAN' onclick="return confirm('Apakah Yakin?')" />
-								</form>
-							</td>
-						</tr>
-					<?php
+
+
+						
 					// pindah($url.$menu."anggota&sinkron");
 					}
-		
-					?>
-				</table>
+		?>
+		<form method="post">
+		<table class='table'>
+				<tr>
+					<th>NO</th>
+					<th>STAFF</th>
+					<th>TGL KELUAR</th>
+					<th>TOTAL AK</th>
+				</tr>
 			<?php
-		
-			
+			$total_ak = 0;
+			$cek_keluar = mysqli_query($con,"select *, count(id_nasabah) as total from temp_anggota_keluar b join karyawan a on a.id_karyawan=b.id_karyawan where b.status='belum' and b.id_cabang='$id_cabang' group by b.id_karyawan,b.tgl_keluar order by b.tgl_keluar");
+			while($keluar = mysqli_fetch_array($cek_keluar)){
+				?>
+				<tr>
+					<td><?=$no++?></td>
+					<td><?=$keluar['nama_karyawan']?></td>
+					<td><?=$keluar['tgl_keluar']?></td>
+					<td><?=$keluar['total']?></td>
+				</tr>
+				<?php
+				$total_ak = $keluar['total'] + $total_ak;
+			}
+			?>
+			<tr>
+				<td></td>
+				<td></td>
+				<td><input type="submit" value="KONFIRMASI" name='konfirmasi_keluar' class='btn btn-danger'></td>
+				<td><?=$total_ak?></td>
+			</tr>
+		</form>
+
+		</table>
+		<?php			
 	} 
 	else if (isset($_GET['sinkron'])) {
 		if (isset($_POST['konfirmasi'])) {
