@@ -93,9 +93,10 @@
 				<br />
 					<?php
 					if (isset($_POST['konfirmasi_keluar'])) {
-						$ck = mysqli_query($con,"select *, count(id_nasabah) as total from temp_anggota_keluar b join karyawan a on a.id_karyawan=b.id_karyawan where b.status='belum' and b.id_cabang='$id_cabang' group by b.id_karyawan,b.tgl_keluar order by b.tgl_keluar");
+						$tgl_file=date("Y-m-d");
+						$ck = mysqli_query($con,"select *, count(id_nasabah) as total from temp_anggota_keluar b join karyawan a on a.id_karyawan=b.id_karyawan where b.status='belum' and b.id_cabang='$id_cabang' and b.tgl_keluar='$tgl_file' group by b.id_karyawan,b.tgl_keluar order by b.tgl_keluar");
 						while($keluarkan = mysqli_fetch_array($ck)){
-							// mysqli_query($con,"INSERT INTO `anggota` (`id_karyawan`, `tgl_anggota`, `anggota_masuk`, `anggota_keluar`, `net_anggota`,id_cabang) VALUES ('$keluarkan[id_karyawan]', '$keluarkan[tgl_keluar]', '0', '$keluarkan[total]', '-$keluarkan[total]','$id_cabang'); ");
+							mysqli_query($con,"INSERT INTO `anggota` (`id_karyawan`, `tgl_anggota`, `anggota_masuk`, `anggota_keluar`, `net_anggota`,id_cabang) VALUES ('$keluarkan[id_karyawan]', '$keluarkan[tgl_keluar]', '0', '$keluarkan[total]', '-$keluarkan[total]','$id_cabang'); ");
 						}
 						$upd = mysqli_query($con,"select * from temp_anggota_keluar where status='belum' and id_cabang='$id_cabang'");
 						while($update = mysqli_fetch_array($upd)){
@@ -104,6 +105,7 @@
 							SELECT * FROM daftar_nasabah where id_nasabah='$update[id_nasabah]'
 						");
 						}
+						pesan("Berhasil ditambahkan!",'success');
 						
 					}
 
@@ -135,7 +137,7 @@
 									$ID = sprintf("%0d",$ID);
 									$center = $ws->getCell("C".$row)->getValue();
 									$center = str_replace(" ","",explode("/",$center)[0]);
-									$cari_keluar  = mysqli_query($con,"select * from temp_anggota_keluar where id_nasabah='$ID'");
+									$cari_keluar  = mysqli_query($con,"select * from temp_anggota_keluar where id_nasabah='$ID' ");
 									if(mysqli_num_rows($cari_keluar)){
 
 									}
