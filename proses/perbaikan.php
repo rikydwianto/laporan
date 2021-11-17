@@ -109,14 +109,15 @@
         JOIN karyawan on perbaikan.id_karyawan=karyawan.id_karyawan
         JOIN center on perbaikan.no_center=center.no_center where perbaikan.status='sudah' and karyawan.id_cabang='$id_cabang' and status_input is NULL ");
                 while ($kes = mysqli_fetch_array($q)) {
+                    $hp = $kes['no_hp'];
                 ?>
                     <tr id='ganti-<?= $kes['id_perbaikan'] ?>'>
                         <td><?= $kes['id_detail_nasabah'] ?></td>
                         <td><?= $kes['nama_nasabah'] ?></td>
                         <td><?= $kes['kesalahan'] ?></td>
-                        <td><?= $kes['no_hp'] ?></td>
+                        <td><?= preg_replace('/[^0-9]/', '', str_replace("+62",'0',$hp))?></td>
                         <td><b><?php
-                                echo ($kes['nama_ibu_kandung'] === null ? "" : "Ibu : $kes[nama_ibu_kandung]<br/>");
+                                echo ($kes['nama_ibu_kandung'] === null ? "" : "Ibu : ".strtoupper($kes['nama_ibu_kandung'])."<br/>");
                                 echo ($kes['nik_ktp'] === null ? "" : "ktp : $kes[nik_ktp]<br/>");
                                 echo ($kes['status_pernikahan'] === null ? "" : "status : $kes[status_pernikahan]<br/>");
                                 echo ($kes['tgl_lahir'] === null ? "" : "lahir : $kes[tgl_lahir]<br/>");
