@@ -91,7 +91,7 @@ if(isset($_POST['tambah']))
 {
     
     $quotes = aman($con,$_POST['quotes']);
-    $insert = mysqli_query($con,"INSERT INTO `quotes` (`quotes`,`prioritas`) VALUES ('$quotes - $d[nama_karyawan]','y'); ");
+    $insert = mysqli_query($con,"INSERT INTO `quotes` (`quotes`,`prioritas`) VALUES ('$quotes ','y'); ");
     alert("berhasil ditambahkan");  
     pindah($url.$menu."quotes");
 }
