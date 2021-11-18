@@ -241,10 +241,10 @@ if (isset($_POST['submit_semua'])) {
      no_hp='$no_hp',
      tgl_lahir = '$tgl_lahir',
      keterangan_lain='$keterangan',
-     ibu_kandung='$ibu_kandung',
-     status_pernikahan='$status_nikan',
-
+     nama_ibu_kandung='$ibu_kandung',
+     status_pernikahan='$status_nikah',
       status='sudah'  WHERE `id_perbaikan` = '$id_perbaikan'; ");
+      
     pindah($url . $menu . "perbaikan_sl");
 }
 ?>
