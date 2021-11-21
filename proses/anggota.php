@@ -10,7 +10,7 @@
 	?>
 		<form method="post" enctype="multipart/form-data">
 			<div class="col-md-4">
-				<label for="formFile" class="form-label">SILAHKAN PILIH FILE</label>
+				<label for="formFile" class="form-label">SILAHKAN PILIH FILE : ANGGOA MASUK/ DETAIL NASABAH</label>
 				<input class="form-control" type="file" name='file' accept=".xls,.xlsx,.csv" id="formFile">
 				<input type="submit" value="Proses" class='btn btn-danger' name='preview'>
 			</div>
@@ -117,7 +117,7 @@
 						$ws = $objek->getActiveSheet();
 						$last_row = $ws->getHighestDataRow();
 
-						for($row = 4;$row<=$last_row;$row++){
+						for($row = 2;$row<=$last_row;$row++){
 							$no_id =  $ws->getCell("D" . $row)->getValue();
 							if($no_id==null){
 								

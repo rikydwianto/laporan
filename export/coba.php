@@ -2,22 +2,17 @@
     <tr>
         <td>no</td>
         <td>ID NASABAH</td>
-        <td>LOAN</td>
-        <td>NASABAH</td>
-        <td>NO HP</td>
-        <td>CENTER</td>
-        <td>KELOMPOK</td>
-        <td>PRODUK</td>
-        <td>PINJAMAN</td>
-        <td>OUTSTANDING</td>
-        <td>J. WAKTU</td>
-        <td>ANGSURAN</td>
-        <td>TUJUAN</td>
-        <td>PIN. KE</td>
+        <td>NO CENTER</td>
+        <td>DETAIL NASABAH</td>
+        <td>NAMA</td>
+        <td>SUAMI</td>
+        <td>NO KTP</td>
+        <td>ALAMAT</td>
+        <td>TGL BERGABUNG</td>
+        <td>HP NASABAH</td>
         <td>STAFF</td>
-        <td>TGL PENGAJUAN</td>
-        <td>TGL PENCAIRAN</td>
-        <td>TGL ANGSURAN</td>
+        <td>HARI</td>
+        <td>CABANG</td>
     </tr>
 
 
@@ -33,14 +28,15 @@ $cabang= $_SESSION['cabang'];
 $id_cabang= $_SESSION['cabang'];
 $su= $_SESSION['su'];
 require("../vendor/PHPExcel/Classes/PHPExcel.php");
-$path = "../RAHASIA/monitoring.xlsx";
+$path = "../RAHASIA/daftar_nasabah.xlsx";
 $reader = PHPExcel_IOFactory::createReaderForFile($path);
 $objek = $reader->load($path);
 $ws = $objek->getActiveSheet();
 $last_row = $ws->getHighestDataRow();
-
-for($row = 7;$row<=$last_row;$row++){
-    $id_nasabah =  $ws->getCell("B" . $row)->getValue();
+echo $last_row;
+$no_input=0;
+for($row = 5;$row<=$last_row;$row++){
+    $id_nasabah =  $ws->getCell("F" . $row)->getValue();
     if($id_nasabah==null){
         
     }
@@ -48,56 +44,73 @@ for($row = 7;$row<=$last_row;$row++){
         $agt = (substr(ganti_karakter($id_nasabah),0,3));
 
         if( $agt=="AGT"){
-            $nasabah =  ganti_karakter($ws->getCell("D".$row)->getValue());
-           $loan = ganti_karakter($ws->getCell("C".$row)->getValue());
-           $no_center = ganti_karakter($ws->getCell("F".$row)->getValue());
-           $id_nasabah = ganti_karakter1($ws->getCell("B".$row)->getValue());
-           $kelompok = ganti_karakter1($ws->getCell("G".$row)->getValue());
-           $hp = ganti_karakter1($ws->getCell("E".$row)->getValue());
-           $produk = ganti_karakter1($ws->getCell("H".$row)->getValue());
-           $tujuan = ganti_karakter1($ws->getCell("N".$row)->getValue());
-           $pinj_ke = ganti_karakter1($ws->getCell("O".$row)->getValue());
-           $staff = ganti_karakter1($ws->getCell("P".$row)->getValue());
-           $tgl_pengajuan = str_replace("/","-",ganti_karakter1($ws->getCell("Q".$row)->getValue()));
-           $tgl_pencairan = str_replace("/","-",ganti_karakter1($ws->getCell("R".$row)->getValue()));
-           $tgl_angsuran = str_replace("/","-",ganti_karakter1($ws->getCell("S".$row)->getValue()));
-           $margin = ganti_karakter1($ws->getCell("L".$row)->getValue());
+            $id_nasabah = ganti_karakter1($ws->getCell("F".$row)->getValue());
+            $no_id  = explode("-",$id_nasabah)[1];
+            $no_id = sprintf("%0d",$no_id);
+            $nasabah =  ganti_karakter($ws->getCell("G".$row)->getValue());
+            $suami =  ganti_karakter($ws->getCell("I".$row)->getValue());
+           $no_center = ganti_karakter($ws->getCell("D".$row)->getValue());
+           $kelompok = ganti_karakter1($ws->getCell("E".$row)->getValue());
+           $hp = ganti_karakter1($ws->getCell("S".$row)->getValue());
+           $ktp = ganti_karakter1($ws->getCell("L".$row)->getValue());
+           $rt = ganti_karakter1($ws->getCell("Q".$row)->getValue());
+           $rw = ganti_karakter1($ws->getCell("R".$row)->getValue());
+           
+           $alamat = "RT $rt / RW. $rw ". ganti_karakter1($ws->getCell("J".$row)->getValue());
+           $staff = ganti_karakter1($ws->getCell("U".$row)->getValue());
+           $hari = ganti_karakter1($ws->getCell("T".$row)->getValue());
+           $tgl_bergabung = str_replace("/","-",ganti_karakter1($ws->getCell("K".$row)->getValue()));
+           $tgl_bergabung =  date("Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($tgl_bergabung));
+           $q = mysqli_query($con,"select id_detail_nasabah from daftar_nasabah where id_detail_nasabah='$id_nasabah' and id_cabang='$id_cabang'");
+           if(mysqli_num_rows($q)){
+            $ket="ada di db";   
+            //tidak usah di insert
+            mysqli_query($con,"update daftar_nasabah set  hp_nasabah='$hp', staff='$staff', hari='$hari',no_ktp='$ktp' where id_detail_nasabah='$id_nasabah'");
+           }
+           else{
+                $cari_mantan = mysqli_num_rows(mysqli_query($con,"select id_detail_nasabah from daftar_nasabah_mantan where id_detail_nasabah='$id_nasabah'"));
+                if($cari_mantan){
+                    $ket = "harus di insert nih";
+                    $no_input++;
+                    mysqli_query($con,"
+                    INSERT INTO `daftar_nasabah` 
+                    ( `id_nasabah`, `no_center`, `id_detail_nasabah`, `nama_nasabah`, `suami_nasabah`, `no_ktp`, `alamat_nasabah`, `tgl_bergabung`, `hp_nasabah`, `staff`, `hari`, `id_cabang`) VALUES 
+                    ( '$no_id', '$no_center', '$id_nasabah', '$nasabah', '$suami', '$ktp', '$alamat', '$tgl_bergabung', '$hp', '$staff', '$hari', '$id_cabang'); 
 
+                    ");
 
+                }   
+                else{
+                    //keluar tidak ada ditable mantan
+                    mysqli_query($con,"
+                    INSERT INTO `daftar_nasabah_mantan` 
+                    ( `id_nasabah`, `no_center`, `id_detail_nasabah`, `nama_nasabah`, `suami_nasabah`, `no_ktp`, `alamat_nasabah`, `tgl_bergabung`, `hp_nasabah`, `staff`, `hari`, `id_cabang`) VALUES 
+                    ( '$no_id', '$no_center', '$id_nasabah', '$nasabah', '$suami', '$ktp', '$alamat', '$tgl_bergabung', '$hp', '$staff', '$hari', '$id_cabang'); 
 
-           $pinjaman = (int)ganti_karakter(str_replace(",","",$ws->getCell("I".$row)->getValue()));
-           $outstanding = (int)ganti_karakter(str_replace(",","",$ws->getCell("J".$row)->getValue()));
-           $jk = (int)ganti_karakter(str_replace(",","",$ws->getCell("K".$row)->getValue()));
-           $angsuran = (int)ganti_karakter(str_replace(",","",$ws->getCell("M".$row)->getValue()));
-           $tunggakan = (int)ganti_karakter(str_replace(",","",$ws->getCell("L".$row)->getValue()));
-           $minggu = (int)ganti_karakter(str_replace(",","",$ws->getCell("M".$row)->getValue()));
+                    ");
+                }
+           }
            ?>
            <tr>
                 <td><?=$no++?></td>
-                <td><?=$id_nasabah?></td>
-                <td><?=$loan?></td>
-                <td><?=$nasabah?></td>
-                <td><?=$hp?></td>
+                <td><?=$no_id?></td>
                 <td><?=$no_center?></td>
-                <td><?=$kelompok?></td>
-                <td><?=$produk?></td>
-                <td><?=$pinjaman?></td>
-                <td><?=$outstanding?></td>
-                <td><?=$jk?></td>
-                <td><?=$angsuran?></td>
-                <td><?=$tujuan?></td>
-                <td><?=$pinj_ke?></td>
+                <td><?=$id_nasabah?></td>
+                <td><?=$nasabah?></td>
+                <td><?=$suami?></td>
+                <td><?=$ktp?></td>
+                <td><?=$alamat?></td>
+                <td><?=$tgl_bergabung?></td>
+                <td><?=$hp?></td>
                 <td><?=$staff?></td>
-                <td><?=$tgl_pengajuan?></td>
-                <td><?=$tgl_pencairan?></td>
-                <td><?=$tgl_angsuran?></td>
+                <td><?=$hari?></td>
+                <td><?=$id_cabang?></td>
+                <td><?=$ket?></td>
                 
            </tr>
            <?php
 
-            mysqli_query($con,"INSERT INTO `pinjaman` 
-            (`id_detail_nasabah`, `id_detail_pinjaman`, `nama_nasabah`, `no_hp`, `center`, `kelompok`, `produk`, `jumlah_pinjaman`, `outstanding`, `jk_waktu`, `margin`, `angsuran`, `tujuan_pinjaman`, `pinjaman_ke`, `staff`, `tgl_pengajuan`, `tgl_pencairan`, `tgl_angsuran`,  `id_cabang`)
-    VALUES ('$id_nasabah', '$loan', '$nasabah', '$hp', '$no_center', '$kelompok', '$produk', '$pinjaman', '$outstanding', '$jk', '$margin', '$angsuran', '$tujuan', '$pinj_ke', '$staff', '$tgl_pengajuan', '$tgl_pencairan', '$tgl_angsuran',  '$id_cabang'); ");
+           
     
         }
         
@@ -106,6 +119,6 @@ for($row = 7;$row<=$last_row;$row++){
         
     }
 }
-alert("Sebanyak ". ($no - 1) . " telah diinput, silahkan sinkron");
+ alert("Sebanyak ". ($no_input) . " telah diinput, silahkan sinkron");
 ?>
 </table>

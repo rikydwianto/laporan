@@ -3,7 +3,99 @@
     <i>DAFTAR NASABAH </i>
     <hr />
     <a href="<?= $url . $menu ?>daftar_nasabah&duplikat" class="btn btn-danger"> Nasabah Duplikat</a>
+    <a href="<?= $url . $menu ?>daftar_nasabah&sinkron" class="btn btn-success"> Synchron</a>
+    <br/>
+    <br/>
+    <br/>
+    <form method="post"  enctype="multipart/form-data">
+            <div class="col-md-4">
+                <label for="formFile" class="form-label">SILAHKAN PILIH FILE : DETAIL NASABAH SRSS</label>
+                <input class="form-control" type="file" name='file' accept=".xls,.xlsx,.csv" id="formFile">
+                <input type="submit" value="Proses" onclick="return confirm('Apakah Sudah yakin? ')" class='btn btn-danger' name='preview'>
+            </div>
+
     <?php
+
+    if(isset($_POST['preview'])){
+        set_time_limit(500);
+        alert("tunggu ya proses ini akan memakan waktu agak lama, karena banyak nya data, jangan diclose sampe proses selesai!!");
+        ?>
+        <table border=1>
+            
+
+        <?php 
+        $file = $_FILES['file']['tmp_name'];
+        $path = $file;
+        $reader = PHPExcel_IOFactory::createReaderForFile($path);
+        $objek = $reader->load($path);
+        $ws = $objek->getActiveSheet();
+        $last_row = $ws->getHighestDataRow();
+       
+        $no_input=0;
+        for($row = 5;$row<=$last_row;$row++){
+            $id_nasabah =  $ws->getCell("F" . $row)->getValue();
+            if($id_nasabah==null){
+                
+            }
+            else{
+                $agt = (substr(ganti_karakter($id_nasabah),0,3));
+        
+                if( $agt=="AGT"){
+                    $id_nasabah = ganti_karakter1($ws->getCell("F".$row)->getValue());
+                    $no_id  = explode("-",$id_nasabah)[1];
+                    $no_id = sprintf("%0d",$no_id);
+                    $nasabah =  ganti_karakter($ws->getCell("G".$row)->getValue());
+                    $suami =  ganti_karakter($ws->getCell("I".$row)->getValue());
+                   $no_center = ganti_karakter($ws->getCell("D".$row)->getValue());
+                   $kelompok = ganti_karakter1($ws->getCell("E".$row)->getValue());
+                   $hp = ganti_karakter1($ws->getCell("S".$row)->getValue());
+                   $ktp = ganti_karakter1($ws->getCell("L".$row)->getValue());
+                   $rt = ganti_karakter1($ws->getCell("Q".$row)->getValue());
+                   $rw = ganti_karakter1($ws->getCell("R".$row)->getValue());
+                   
+                   $alamat = "RT $rt / RW. $rw ". ganti_karakter1($ws->getCell("J".$row)->getValue());
+                   $staff = ganti_karakter1($ws->getCell("U".$row)->getValue());
+                   $hari = ganti_karakter1($ws->getCell("T".$row)->getValue());
+                   $tgl_bergabung = str_replace("/","-",ganti_karakter1($ws->getCell("K".$row)->getValue()));
+                   $tgl_bergabung =  date("Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($tgl_bergabung));
+                   $q = mysqli_query($con,"select id_detail_nasabah from daftar_nasabah where id_detail_nasabah='$id_nasabah' and id_cabang='$id_cabang'");
+                   if(mysqli_num_rows($q)){
+                    // $ket="ada di db";   
+                    //tidak usah di insert
+                    mysqli_query($con,"update daftar_nasabah set  hp_nasabah='$hp', staff='$staff', hari='$hari',no_ktp='$ktp' where id_detail_nasabah='$id_nasabah'");
+                   }
+                   else{
+                       
+                            // $ket = "harus di insert nih";
+                            $no_input++;
+                            mysqli_query($con,"
+                            INSERT INTO `daftar_nasabah` 
+                            ( `id_nasabah`, `no_center`, `id_detail_nasabah`, `nama_nasabah`, `suami_nasabah`, `no_ktp`, `alamat_nasabah`, `tgl_bergabung`, `hp_nasabah`, `staff`, `hari`, `id_cabang`) VALUES 
+                            ( '$no_id', '$no_center', '$id_nasabah', '$nasabah', '$suami', '$ktp', '$alamat', '$tgl_bergabung', '$hp', '$staff', '$hari', '$id_cabang'); 
+        
+                            ");
+        
+                        
+                        
+                   }
+                  
+        
+                   
+            
+                }
+                
+                   
+                    
+                
+            }
+        }
+         alert("Sebanyak ". ($no_input) . " telah diinput, silahkan sinkron");
+         pindah($url.$menu."daftar_nasabah&sinkron");
+        ?>
+        </table> 
+        <?php
+    }
+
     if (isset($_GET['duplikat'])) {
     ?>
         <table class='table'>
@@ -15,6 +107,7 @@
                     <th>NAMA</th>
                     <th>SUAMI</th>
                     <th>KTP</th>
+                    <th>STAFF</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,6 +124,7 @@
                         <td><?=$dup['nama_nasabah']?></td>
                         <td><?=$dup['suami_nasabah']?></td>
                         <td><?=$dup['no_ktp']?></td>
+                        <td><?=$dup['staff']?></td>
                     </tr>
                 <?php
 
@@ -41,6 +135,70 @@
             </tbody>
         </table>
     <?php
+    }
+    elseif(isset($_GET['sinkron'])){
+
+
+        if (isset($_POST['ganti'])) {
+            $karyawan = $_POST['karyawan'];
+            $mdis = $_POST['nama_mdis'];
+
+            for ($i = 0; $i < count($mdis); $i++) {
+                if (!empty($karyawan[$i])) {
+                    $text = " UPDATE `daftar_nasabah` SET  id_karyawan='$karyawan[$i]' WHERE `staff` = '$mdis[$i]' and id_cabang='$id_cabang'; ";
+                    $q = mysqli_query($con, "$text");
+                }
+            }
+        }
+
+
+        ?>
+        <div class="col-md-12">
+            <table class='table'>
+                <tr>
+                    <th>NO</th>
+                    <th>NAMA MDIS</th>
+                    <th>TOTAL AGT </th>
+                    <th>GANTI </th>
+                </tr>
+                <?php 
+                $q_nama =mysqli_query($con,"select count(id_nasabah) as total, staff from daftar_nasabah where id_cabang='$id_cabang' and id_karyawan is null group by staff");
+                while($nama = mysqli_fetch_array($q_nama)){
+                    ?>
+                    <tr>
+                        <td><?=$no++?></td>
+                        <td><?=$nama['staff']?></td>
+                        <td><?=$nama['total']?></td>
+                        <td>
+                        <input type="hidden" name="nama_mdis[]" value="<?= $nama['staff'] ?>">
+                             <select name="karyawan[]" id="" required class='form-control'>
+                                    <option value="">Pilih Staff</option>
+                                    <?php $data_karyawan  = (karyawan($con, $id_cabang)['data']);
+                                    for ($i = 0; $i < count($data_karyawan); $i++) {
+                                        $nama_karyawan = $data_karyawan[$i]['nama_karyawan'];
+                                        if (strtolower($nama_karyawan) == strtolower($nama['staff'])) {
+                                            echo "<option selected value='" . $data_karyawan[$i]['id_karyawan'] . "'>" . $nama_karyawan . "</option>";
+                                        } else {
+                                            echo "<option value='" . $data_karyawan[$i]['id_karyawan'] . "'>" . $nama_karyawan . "</option>";
+                                        }
+                                    }
+                                    ?>
+                                </select>    
+                        </td>
+                    </tr>
+                    <?php
+                }
+                ?>
+                <tr>
+                        <td colspan="3"></td>
+                        <td>
+                            <input type="submit" class='btn btn-success' value='KONFIRMASI' name='ganti' />
+                        </td>
+                    </tr>
+                
+            </table>
+        </div>
+        <?php
     }
     ?>
 </div>
