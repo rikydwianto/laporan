@@ -30,25 +30,7 @@
 
     <?php
     if (isset($_GET['tambah'])) {
-    ?>
-        <form action="" method="post">
-            <textarea name="query" class='form-control' id="" cols="50" rows="20"></textarea>
-            <input type="submit" value="Execute" name='ekse' />
-            <?php
-            if (isset($_POST['ekse'])) {
-                $text = ganti_karakter($_POST['query']);
-                $text = str_replace("mytable", "pinjaman", $text);
-                $query = mysqli_multi_query($con, $text);
-                if ($query) {
-                    sleep(10);
-                    alert("Terima Kasih telah menunggu, Data berhasil input ...");
-                } else {
-                    pesan("Gagal <br/> $text", 'danger');
-                }
-            }
-            ?>
-        </form>
-    <?php
+    include("./proses/monitoring_tambah.php");
     } elseif (isset($_GET['kosong'])) {
         mysqli_query($con, "DELETE FROM `pinjaman` WHERE `id_cabang` = '$id_cabang'");
         // echo "DELETE FROM `upk` WHERE `id_cabang` = '$id_cabang'";

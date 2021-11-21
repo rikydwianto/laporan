@@ -170,7 +170,7 @@ while ($pinj = mysqli_fetch_array($q)) {
     $sheet2->setCellValue('o'.$row, $pinj['pinjaman_ke']);
     $sheet2->setCellValue('p'.$row, $pinj['nama_karyawan']);
     $sheet2->setCellValue('q'.$row, $pinj['tgl_pengajuan']);
-    $sheet2->setCellValue('r'.$row, $pinj['tgl_pencairan']);
+    $sheet2->setCellValue('r'.$row, $pinj['tgl_cair']);
     $sheet2->setCellValue('s'.$row, $pinj['tgl_angsuran']);
     $row++;$no++;
 

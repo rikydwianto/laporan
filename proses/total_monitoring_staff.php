@@ -86,7 +86,7 @@
                 $hitung_agt = mysqli_query($con, "select total_nasabah as member from total_nasabah where id_cabang='$id_cabang' and id_karyawan='$karyawan[id_karyawan]'");
                 $hitung_agt = mysqli_fetch_array($hitung_agt);
                 $hitung_agt = $hitung_agt['member'];
-                $tiga_persen = ($hitung_agt == null ? "" : round($hitung_agt * 3 / 100));
+                $tiga_persen = ($hitung_agt == null ? 0 : round($hitung_agt * 3 / 100));
               
                 
                 if($tiga_persen==$total){

@@ -1,15 +1,25 @@
-<table>
+<table border=1>
     <tr>
         <td>no</td>
-        <td>loan</td>
-        <td>no_center</td>
-        <td>id_nasabah</td>
-        <td>nasabah</td>
-        <td>amount</td>
-        <td>balance</td>
-        <td>tunggakan</td>
-        <td>minggu</td>
+        <td>ID NASABAH</td>
+        <td>LOAN</td>
+        <td>NASABAH</td>
+        <td>NO HP</td>
+        <td>CENTER</td>
+        <td>KELOMPOK</td>
+        <td>PRODUK</td>
+        <td>PINJAMAN</td>
+        <td>OUTSTANDING</td>
+        <td>J. WAKTU</td>
+        <td>ANGSURAN</td>
+        <td>TUJUAN</td>
+        <td>PIN. KE</td>
+        <td>STAFF</td>
+        <td>TGL PENGAJUAN</td>
+        <td>TGL PENCAIRAN</td>
+        <td>TGL ANGSURAN</td>
     </tr>
+
 
 <?php 
 require_once "../config/seting.php";
@@ -23,14 +33,14 @@ $cabang= $_SESSION['cabang'];
 $id_cabang= $_SESSION['cabang'];
 $su= $_SESSION['su'];
 require("../vendor/PHPExcel/Classes/PHPExcel.php");
-$path = "../RAHASIA/deliq.xlsx";
+$path = "../RAHASIA/monitoring.xlsx";
 $reader = PHPExcel_IOFactory::createReaderForFile($path);
 $objek = $reader->load($path);
 $ws = $objek->getActiveSheet();
 $last_row = $ws->getHighestDataRow();
 
 for($row = 7;$row<=$last_row;$row++){
-    $id_nasabah =  $ws->getCell("D" . $row)->getValue();
+    $id_nasabah =  $ws->getCell("B" . $row)->getValue();
     if($id_nasabah==null){
         
     }
@@ -38,29 +48,57 @@ for($row = 7;$row<=$last_row;$row++){
         $agt = (substr(ganti_karakter($id_nasabah),0,3));
 
         if( $agt=="AGT"){
-            $nasabah =  ganti_karakter($ws->getCell("E".$row)->getValue());
-           $loan = ganti_karakter($ws->getCell("B".$row)->getValue());
-           $no_center = ganti_karakter($ws->getCell("C".$row)->getValue());
-           $id_nasabah = ganti_karakter1($ws->getCell("D".$row)->getValue());
-           $amount = (int)ganti_karakter(str_replace(",","",$ws->getCell("F".$row)->getValue()));
-           $balance = (int)ganti_karakter(str_replace(",","",$ws->getCell("K".$row)->getValue()));
+            $nasabah =  ganti_karakter($ws->getCell("D".$row)->getValue());
+           $loan = ganti_karakter($ws->getCell("C".$row)->getValue());
+           $no_center = ganti_karakter($ws->getCell("F".$row)->getValue());
+           $id_nasabah = ganti_karakter1($ws->getCell("B".$row)->getValue());
+           $kelompok = ganti_karakter1($ws->getCell("G".$row)->getValue());
+           $hp = ganti_karakter1($ws->getCell("E".$row)->getValue());
+           $produk = ganti_karakter1($ws->getCell("H".$row)->getValue());
+           $tujuan = ganti_karakter1($ws->getCell("N".$row)->getValue());
+           $pinj_ke = ganti_karakter1($ws->getCell("O".$row)->getValue());
+           $staff = ganti_karakter1($ws->getCell("P".$row)->getValue());
+           $tgl_pengajuan = str_replace("/","-",ganti_karakter1($ws->getCell("Q".$row)->getValue()));
+           $tgl_pencairan = str_replace("/","-",ganti_karakter1($ws->getCell("R".$row)->getValue()));
+           $tgl_angsuran = str_replace("/","-",ganti_karakter1($ws->getCell("S".$row)->getValue()));
+           $margin = ganti_karakter1($ws->getCell("L".$row)->getValue());
+
+
+
+           $pinjaman = (int)ganti_karakter(str_replace(",","",$ws->getCell("I".$row)->getValue()));
+           $outstanding = (int)ganti_karakter(str_replace(",","",$ws->getCell("J".$row)->getValue()));
+           $jk = (int)ganti_karakter(str_replace(",","",$ws->getCell("K".$row)->getValue()));
+           $angsuran = (int)ganti_karakter(str_replace(",","",$ws->getCell("M".$row)->getValue()));
            $tunggakan = (int)ganti_karakter(str_replace(",","",$ws->getCell("L".$row)->getValue()));
            $minggu = (int)ganti_karakter(str_replace(",","",$ws->getCell("M".$row)->getValue()));
            ?>
            <tr>
-               <td><?=$no++?></td>
-               <td><?=$loan?></td>
-               <td><?=$no_center?></td>
-               <td><?=$id_nasabah?></td>
-               <td><?=$nasabah?></td>
-               <td><?=$amount?></td>
-               <td><?=$balance?></td>
-               <td><?=$tunggakan?></td>
-               <td><?=$minggu?></td>
+                <td><?=$no++?></td>
+                <td><?=$id_nasabah?></td>
+                <td><?=$loan?></td>
+                <td><?=$nasabah?></td>
+                <td><?=$hp?></td>
+                <td><?=$no_center?></td>
+                <td><?=$kelompok?></td>
+                <td><?=$produk?></td>
+                <td><?=$pinjaman?></td>
+                <td><?=$outstanding?></td>
+                <td><?=$jk?></td>
+                <td><?=$angsuran?></td>
+                <td><?=$tujuan?></td>
+                <td><?=$pinj_ke?></td>
+                <td><?=$staff?></td>
+                <td><?=$tgl_pengajuan?></td>
+                <td><?=$tgl_pencairan?></td>
+                <td><?=$tgl_angsuran?></td>
+                
            </tr>
            <?php
-        //    INSERT INTO `deliquency` (`id`, `loan`, `no_center`, `id_detail_nasabah`, `nasabah`, `amount`, `sisa_saldo`, `tunggakan`, `minggu`, `tgl_input`, `id_cabang`) VALUES (NULL, 'PU-072-21-01-000216', '003', 'AGT/072/01/003-000034', 'RUMNASIH', '6', '2', '1', '8', NULL, NULL); 
 
+            mysqli_query($con,"INSERT INTO `pinjaman` 
+            (`id_detail_nasabah`, `id_detail_pinjaman`, `nama_nasabah`, `no_hp`, `center`, `kelompok`, `produk`, `jumlah_pinjaman`, `outstanding`, `jk_waktu`, `margin`, `angsuran`, `tujuan_pinjaman`, `pinjaman_ke`, `staff`, `tgl_pengajuan`, `tgl_pencairan`, `tgl_angsuran`,  `id_cabang`)
+    VALUES ('$id_nasabah', '$loan', '$nasabah', '$hp', '$no_center', '$kelompok', '$produk', '$pinjaman', '$outstanding', '$jk', '$margin', '$angsuran', '$tujuan', '$pinj_ke', '$staff', '$tgl_pengajuan', '$tgl_pencairan', '$tgl_angsuran',  '$id_cabang'); ");
+    
         }
         
            
@@ -68,5 +106,6 @@ for($row = 7;$row<=$last_row;$row++){
         
     }
 }
+alert("Sebanyak ". ($no - 1) . " telah diinput, silahkan sinkron");
 ?>
 </table>
