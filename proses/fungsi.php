@@ -297,7 +297,11 @@ function karyawan($con,$id_cabang){
 }
 
 function ganti_karakter($text){
- return   preg_replace('/[^a-zA-Z0-9()_ .,"\'\-;]/', '', $text);
+ return   preg_replace('/[^a-zA-Z0-9()_ .,"\'\\-;]/', '', $text);
+}
+
+function ganti_karakter1($text){
+ return   preg_replace('/[^a-zA-Z0-9()_ .,"\'-;]/', '', $text);
 }
 
 

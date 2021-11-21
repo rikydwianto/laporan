@@ -61,6 +61,10 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 		<li>
 			<a href="#"><i class="fa fa-building"></i> Master Data<span class="fa arrow"></span></a>
 			<ul class="nav nav-second-level">
+			<li><a href="<?php echo $url . $menu ?>anggota" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Anggota</a></li>
+		</li>
+		<li><a href="<?php echo $url . $menu ?>pemb_lain" class="w3-bar-item w3-button"><i class="fa fa-dollar"></i> Pembiayaan Lain</a></li>
+
 				<li>
 					<a href="<?php echo $url . $menu ?>karyawan_su" class=""><i class="fa fa-odnoklassniki"></i> Karyawan SU</a>
 				</li>
@@ -109,8 +113,6 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 
 		<li><a href="<?php echo $url . $menu ?>file" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> FILE</a></li>
 		<li>
-		<li><a href="<?php echo $url . $menu ?>pemb_lain" class="w3-bar-item w3-button"><i class="fa fa-dollar"></i> Pembiayaan Lain</a></li>
-		<li>
 			<a href="#"><i class="fa fa-file-excel-o"></i> Laporan<span class="fa arrow"></span></a>
 			<ul class="nav nav-second-level">
 				<li>
@@ -152,6 +154,22 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 		<li>
 			<a href="<?php echo $url . $menu ?>quotes" class="w3-bar-item w3-button"><i class="fas fa-folder"></i> Quotes</a>
 		</li>
+		<li>
+			<a href="#"><i class="fa fa-file-excel-o"></i> ANALISA PAR<span class="fa arrow"></span></a>
+			<ul class="nav nav-second-level">
+				<li>
+					<a href="<?php echo $url . $menu ?>blk_input" class="w3-bar-item w3-button"><i class="fa fa-plus"></i> BLK</a>
+
+				</li>
+
+				<li>
+					<a href="<?php echo $url . $menu ?>par" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> Deliquency</a>
+
+				</li>
+				
+			</ul>
+
+		</li>
 		<li><a href="<?php echo $url . $menu ?>spl" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> SPL</a></li>
 		<li>
 			<a href="<?php echo $url . $menu ?>monitoring" class="w3-bar-item w3-button"><i class="fas fa-folder"></i> MONITORING</a>
@@ -162,11 +180,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 		<li>
 			<a href="<?php echo $url . $menu ?>kelompok" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Kelompok</a>
 		</li>
-		<li><a href="<?php echo $url . $menu ?>anggota" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Anggota</a></li>
-		</li>
+		
 
 		<li><a href="<?php echo $url . $menu ?>setting" class="w3-bar-item w3-button"><i class="fa fa-gears"></i> Setting</a></li>
-		<li><a href="<?php echo $url . $menu ?>broadcast_telegram" class="w3-bar-item w3-button"><i class="fa fa-massage"></i> Broadcast</a></li>
 
 		<li>
 			<a href="<?php echo $url . $menu ?>logout" class=""><i class="fa fa-sign-out"></i> Logout</a>
@@ -256,6 +272,22 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 			</ul>
 
 		</li>
+		<li>
+			<a href="#"><i class="fa fa-file-excel-o"></i> ANALISA PAR<span class="fa arrow"></span></a>
+			<ul class="nav nav-second-level">
+				<li>
+					<a href="<?php echo $url . $menu ?>blk_input" class="w3-bar-item w3-button"><i class="fa fa-plus"></i> BLK</a>
+
+				</li>
+
+				<li>
+					<a href="<?php echo $url . $menu ?>par" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> Deliquency</a>
+
+				</li>
+				
+			</ul>
+
+		</li>
 		<li><a href="<?php echo $url . $menu ?>setting" class="w3-bar-item w3-button"><i class="fa fa-gears"></i> Setting</a></li>
 		</li>
 		<li>
@@ -325,7 +357,23 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 				<a href="<?php echo $url . $menu ?>list-center-blacklist"><i class="fa fa-building"></i> Center Ditutup</a>
 			</li>
 		</ul>
-</li>
+		</li>
+		<li>
+			<a href="#"><i class="fa fa-file-excel-o"></i> ANALISA PAR<span class="fa arrow"></span></a>
+			<ul class="nav nav-second-level">
+				<li>
+					<a href="<?php echo $url . $menu ?>blk_input" class="w3-bar-item w3-button"><i class="fa fa-plus"></i> BLK</a>
+
+				</li>
+
+				<li>
+					<a href="<?php echo $url . $menu ?>par" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> Deliquency</a>
+
+				</li>
+				
+			</ul>
+
+		</li>
 		<li><a href="<?php echo $url . $menu ?>setting" class="w3-bar-item w3-button"><i class="fa fa-gears"></i> Setting</a></li>
 		</li>
 		<li>

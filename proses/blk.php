@@ -1,5 +1,7 @@
+<a href="<?=$url.$menu?>blk_input" class="btn btn-success"> Kembali</a>
 <?php
-$path = "./RAHASIA/blk_selasa.xlsx";
+$file = $_FILES['file']['tmp_name'];
+$path = $file;
 $reader = PHPExcel_IOFactory::createReaderForFile($path);
 $objek = $reader->load($path);
 $ws = $objek->getActiveSheet();
@@ -9,9 +11,9 @@ $last_row = $ws->getHighestDataRow();
 <table id='data_blk' class='table-bordered'>
     <thead>
         <tr>
-            <th>NO</th>
-            <th>ID</th>
+            <!-- <th>NO</th> -->
             <th>CTR</th>
+            <th>ID</th>
             <th>NAMA</th>
             <th> </th>
             <th>KE</th>
@@ -76,6 +78,22 @@ for($row = 7;$row<=$last_row;$row++){
             $os =       (int)ganti_karakter(str_replace(",","",$ws->getCell("G".$row)->getValue()));
             $ke =       (int)ganti_karakter(str_replace(",","",$ws->getCell("D".$row)->getValue()));
             $rill =     (int)ganti_karakter(str_replace(",","",$ws->getCell("E".$row)->getValue()));
+
+            $wajib_minggu=0;
+            if($kode_pemb=='PU' || $kode_pemb=='PMB'){
+                $wajib_minggu = $amount /1000;
+                if(is_float($wajib_minggu )){
+                    $pecah=explode(".",$wajib_minggu);
+                    $awal = $pecah[0];
+                    $wajib_minggu = ($awal + 1) * 1000;
+
+                }
+                else{
+                    $wajib_minggu = $wajib_minggu * 1000 ;
+                }
+            }
+           
+
             // $tgl = $ws->getCell("I".$row)->getValue();
             // $tgl =  date("Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($tgl));
             $q = mysqli_query($con,"SELECT a.`status_center`,b.`nama_karyawan`,a.`no_center`
@@ -86,7 +104,7 @@ for($row = 7;$row<=$last_row;$row++){
             WHERE c.`id_nasabah`='$ID' AND a.`id_cabang`='$id_cabang'");
             $nama = mysqli_fetch_array($q);
             $warna="";
-            $cicilan = $pokok + $margin;
+            $cicilan = $pokok + $margin + $wajib_minggu;
             $selisih = $ke - $rill;
             $ket='';
             $satu_angsuran=0;
@@ -140,9 +158,9 @@ for($row = 7;$row<=$last_row;$row++){
             ?>
         
             <tr style="background-color: <?=$warna_baris?>">
-                <td><?=$no++?></td>
-                <td><?=$id_nasabah?></td>
                 <td><?=$nama['no_center']?></td>
+                <!-- <td><?=$no++?></td> -->
+                <td><?=$id_nasabah?></td>
                 <td><?=$nasabah?></td>
                 <td><?=$kode_pemb?></td>
                 <td><?=$ke?></td>

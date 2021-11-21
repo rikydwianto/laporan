@@ -1,0 +1,352 @@
+
+<div class="row">
+	<h3 class="page-header">INPUT ANGGOTA PAR</h3>
+    <form method="post" enctype="multipart/form-data">
+        <div class="col-md-4">
+            <label for="formFile" class="form-label">SILAHKAN PILIH FILE</label>
+            <input class="form-control" required type="file" name='file' accept=".xls,.xlsx,.csv" id="formFile">
+            <input type="date" required name="tgl" class='form-control' id="">
+            <input type="submit" onclick="return confirm('yakin sudah benar?/')" value="KONFIRMASI" class='btn btn-danger' name='preview'>
+        </div>
+    </form>
+        <div class="col-md-8">
+        <form action="" method="get">
+            <input type="hidden" name="menu" value="par">
+                <div class="col-md-4">
+                    <h3>MINGGU SEBELUM NYA</h3>
+                    <select name='sebelum' class='form-control' required>
+                        
+                        <option value="">PILIH MINGGU SEBELUM</option>
+                        <?php 
+                        error_reporting(0);
+                        $q_tgl = mysqli_query($con,"SELECT DISTINCT tgl_input FROM deliquency where id_cabang='$id_cabang'  order by tgl_input desc");
+                        while($tgl_ = mysqli_fetch_array($q_tgl)){
+                            ?>
+                            <option value="<?=$tgl_['tgl_input']?>" <?=($_GET['sebelum']===$tgl_['tgl_input']?"selected":"")?>><?=$tgl_['tgl_input']?></option>
+                            <?php
+                        }
+                        ?>
+
+                    </select>
+                    
+                </div>
+                <div class="col-md-4">
+                    <h3>MINGGU INI</h3>
+                    <select name='minggu_ini' class='form-control' required>
+                        
+                        <option value="">PILIH MINGGU INI</option>
+                        <?php 
+                        $q_tgl = mysqli_query($con,"SELECT DISTINCT tgl_input FROM deliquency where id_cabang='$id_cabang' order by tgl_input desc");
+                        while($tgl_ = mysqli_fetch_array($q_tgl)){
+                            ?>
+                            <option value="<?=$tgl_['tgl_input']?>" <?=($_GET['minggu_ini']===$tgl_['tgl_input']?"selected":"")?>><?=$tgl_['tgl_input']?></option>
+                            <?php
+                        }
+                        ?>
+
+                    </select>
+                    <input type="submit" value="BANDINGKAN" name='bandingkan' class='btn btn-md btn-danger'>
+                    <input type="submit" value="REKAP" name='rekap' class='btn btn-md btn-info'>
+
+                </div>
+            </form>
+        </div>
+
+
+<?php 
+
+if(isset($_POST['preview'])){
+    ?>
+    <table class='table'>
+        <tr>
+            <td>no</td>
+            <td>loan</td>
+            <td>no_center</td>
+            <td>id_nasabah</td>
+            <td>nasabah</td>
+            <td>amount</td>
+            <td>balance</td>
+            <td>tunggakan</td>
+            <td>minggu</td>
+        </tr>
+    <?php
+    $file = $_FILES['file']['tmp_name'];
+    $path = $file;
+    $tgl = $_POST['tgl'];
+    $reader = PHPExcel_IOFactory::createReaderForFile($path);
+    $objek = $reader->load($path);
+    $ws = $objek->getActiveSheet();
+    $last_row = $ws->getHighestDataRow();
+
+    for($row = 7;$row<=$last_row;$row++){
+        $id_nasabah =  $ws->getCell("D" . $row)->getValue();
+        if($id_nasabah==null){
+            
+        }
+        else{
+            $agt = (substr(ganti_karakter($id_nasabah),0,3));
+
+            if( $agt=="AGT"){
+                $nasabah =  ganti_karakter($ws->getCell("E".$row)->getValue());
+            $loan = ganti_karakter($ws->getCell("B".$row)->getValue());
+            $no_center = ganti_karakter($ws->getCell("C".$row)->getValue());
+            $id_nasabah = ganti_karakter1($ws->getCell("D".$row)->getValue());
+            $amount = (int)ganti_karakter(str_replace(",","",$ws->getCell("F".$row)->getValue()));
+            $balance = (int)ganti_karakter(str_replace(",","",$ws->getCell("K".$row)->getValue()));
+            $tunggakan = (int)ganti_karakter(str_replace(",","",$ws->getCell("L".$row)->getValue()));
+            $minggu = (int)ganti_karakter(str_replace(",","",$ws->getCell("M".$row)->getValue()));
+            ?>
+            <tr>
+                <td><?=$no++?></td>
+                <td><?=$loan?></td>
+                <td><?=$no_center?></td>
+                <td><?=$id_nasabah?></td>
+                <td><?=$nasabah?></td>
+                <td><?=$amount?></td>
+                <td><?=$balance?></td>
+                <td><?=$tunggakan?></td>
+                <td><?=$minggu?></td>
+            </tr>
+            <?php
+            //    INSERT INTO `deliquency` (`id`, `loan`, `no_center`, `id_detail_nasabah`, `nasabah`, `amount`, `sisa_saldo`, `tunggakan`, `minggu`, `tgl_input`, `id_cabang`) VALUES (NULL, 'PU-072-21-01-000216', '003', 'AGT/072/01/003-000034', 'RUMNASIH', '6', '2', '1', '8', NULL, NULL); 
+            mysqli_query($con,"INSERT INTO `deliquency` 
+            ( id,`loan`, `no_center`, `id_detail_nasabah`, `nasabah`, `amount`, `sisa_saldo`, `tunggakan`, `minggu`, `tgl_input`, `id_cabang`) VALUES 
+            (NULL, '$loan', '$no_center', '$id_nasabah', '$nasabah', '$amount', '$balance', '$tunggakan', '$minggu', '$tgl', '$id_cabang'); 
+            ");
+            }
+            
+            
+                
+            
+        }
+    }
+    alert("Berhasil ditambahkan!");
+    pindah($url.$menu."par");
+    ?>
+    </table>
+    <?php
+}
+if(isset($_GET['bandingkan'])){
+    $tgl_awal  = $_GET['sebelum'];
+    $tgl_banding = $_GET['minggu_ini'];
+    ?>
+    <h3>PENURUNANN ANGGOTA PAR</h3>
+    <table class='table'>
+        <tr>
+            <th>NO</th>
+            <th>LOAN</th>
+            <th>CENTER</th>
+            <th>ID AGT</th>
+            <th>ANGGOTA</th>
+            <th>DISBURSE</th>
+            <th>BALANCE</th>
+            <th>ARREAS</th>
+            <th>WEEK PAS</th>
+            <th>STAFF</th>
+        </tr>
+    
+    <?php
+    $total_os = 0;
+    $query = mysqli_query($con," SELECT d.*,k.nama_karyawan FROM deliquency d 
+	JOIN center c ON c.`no_center`=d.`no_center` 
+	JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
+     where d.loan not in (select loan from deliquency where tgl_input='$tgl_banding') and d.tgl_input='$tgl_awal' and c.id_cabang='$id_cabang' order by k.nama_karyawan asc");
+    while($data = mysqli_fetch_array($query)){
+        $total_os+=$data['sisa_saldo'];
+        ?>
+        <tr>
+            <td><?=$no++?></td>
+            <td><?=$data['loan']?></td>
+            <td><?=$data['no_center']?></td>
+            <td><?=$data['id_detail_nasabah']?></td>
+            <td><?=$data['nasabah']?></td>
+            <td><?=angka($data['amount'])?></td>
+            <td><?=angka($data['sisa_saldo'])?></td>
+            <td><?=angka($data['tunggakan'])?></td>
+            <td><?=$data['minggu']?></td>
+            <td><?=$data['nama_karyawan']?></td>
+        </tr>
+        <?php
+    }?>
+     <tr>
+        <th colspan="6">TOTAL OUTSTANDING BERKURANG</th>
+        <th>-<?=angka($total_os)?></th>
+    </tr>
+    </table>
+
+
+
+    
+    <h3>PENAMBAHAN ANGGOTA PAR</h3>
+    <table class='table'>
+        <tr>
+            <td>NO</td>
+            <td>LOAN</td>
+            <td>CENTER</td>
+            <td>ID AGT</td>
+            <td>ANGGOTA</td>
+            <td>DISBURSE</td>
+            <td>BALANCE</td>
+            <td>ARREAS</td>
+            <td>WEEK PAS</td>
+            <td>STAFF</td>
+        </tr>
+    
+    <?php
+    $no=1;
+    $total_tambah=0;
+    $query1 = mysqli_query($con,"
+    SELECT d.*,k.nama_karyawan FROM deliquency d 
+	JOIN center c ON c.`no_center`=d.`no_center` 
+	JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
+     where d.loan not in (select loan from deliquency where tgl_input='$tgl_awal') and d.tgl_input='$tgl_banding' and c.id_cabang='$id_cabang' order by k.nama_karyawan asc");
+    while($data = mysqli_fetch_array($query1)){
+        $total_tambah+=$data['sisa_saldo'];
+        ?>
+        <tr>
+            <td><?=$no++?></td>
+            <td><?=$data['loan']?></td>
+            <td><?=$data['no_center']?></td>
+            <td><?=$data['id_detail_nasabah']?></td>
+            <td><?=$data['nasabah']?></td>
+            <td><?=angka($data['amount'])?></td>
+            <td><?=angka($data['sisa_saldo'])?></td>
+            <td><?=angka($data['tunggakan'])?></td>
+            <td><?=$data['minggu']?></td>
+            <td><?=$data['nama_karyawan']?></td>
+        </tr>
+        <?php
+    }?>
+     <tr>
+        <th colspan="6">TOTAL OUTSTANDING BERTAMBAH</th>
+        <th>+<?=angka($total_tambah)?></th>
+    </tr>
+    </table>
+
+
+    <!-- PENGURANGAN OUTSTANDING PAR -->
+    <!-- PENGURANGAN OUTSTANDING PAR -->
+    <!-- PENGURANGAN OUTSTANDING PAR -->
+    <!-- PENGURANGAN OUTSTANDING PAR -->
+    <h3> PENGURANGAN OUTSTANDING PAR</h3>
+    <table class='table'>
+        <tr>
+            <td>NO</td>
+            <td>LOAN</td>
+            <td>CENTER</td>
+            <td>ID AGT</td>
+            <td>ANGGOTA</td>
+            <td>DISBURSE</td>
+            <td>BALANCE</td>
+            <td>BALANCE </td>
+            <td>MINUS</td>
+            <td>WEEK</td>
+            <td>STAFF</td>
+        </tr>
+    
+    <?php
+    $no=1;
+    $total_minus=0;
+    $query = mysqli_query($con,"
+    SELECT d.*,k.nama_karyawan FROM deliquency d 
+	JOIN center c ON c.`no_center`=d.`no_center` 
+	JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` 
+    where d.loan  in (select loan from deliquency where tgl_input='$tgl_banding') and d.tgl_input='$tgl_awal' and c.id_cabang='$id_cabang' order by k.nama_karyawan asc");
+    while($data = mysqli_fetch_array($query)){
+
+        $loan = $data['loan'];
+        $banding = mysqli_query($con,"select sisa_saldo from deliquency where loan='$loan' and tgl_input='$tgl_banding'");
+        $banding = mysqli_fetch_array($banding);
+        $saldo_awal=$data['sisa_saldo'];
+        $saldo_akhir = $banding['sisa_saldo'];
+        $total = $saldo_awal - $saldo_akhir;
+        
+        if($total>0){
+            $total_minus +=  $total;
+        
+            ?>
+            <tr>
+                <td><?=$no++?></td>
+                <td><?=$data['loan']?></td>
+                <td><?=$data['no_center']?></td>
+                <td><?=$data['id_detail_nasabah']?></td>
+                <td><?=$data['nasabah']?></td>
+                <td><?=$data['amount']?></td>
+                <td><?=angka($saldo_awal)?></td>
+                <td><?=angka($saldo_akhir)?></td>
+                <td>-<?=angka($total)?></td>
+                <td><?=$data['minggu']?></td>
+                <td><?=$data['nama_karyawan']?></td>
+            </tr>
+            <?php
+        }
+    }?>
+    <tr>
+        <th colspan="8">TOTAL OUTSTANDING BERKURANG</th>
+        <th>-<?=angka($total_minus)?></th>
+    </tr>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h3> ANGGOTA PAR <?=$tgl_banding?></h3>
+    <table class='table'>
+        <tr>
+            <td>NO</td>
+            <td>LOAN</td>
+            <td>CENTER</td>
+            <td>ID AGT</td>
+            <td>ANGGOTA</td>
+            <td>DISBURSE</td>
+            <td>BALANCE</td>
+            <td>ARREAS</td>
+            <td>WEEK PAS</td>
+            <td>STAFF</td>
+        </tr>
+    
+    <?php
+    $no=1;
+    $total_bermasalah=0;
+    $query = mysqli_query($con,"
+    SELECT d.*,k.nama_karyawan FROM deliquency d 
+	JOIN center c ON c.`no_center`=d.`no_center` 
+	JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` where d.tgl_input='$tgl_banding' and c.id_cabang='$id_cabang' order by k.nama_karyawan asc");
+    while($data = mysqli_fetch_array($query)){
+        $total_bermasalah+=$data['sisa_saldo'];
+        ?>
+        <tr>
+            <td><?=$no++?></td>
+            <td><?=$data['loan']?></td>
+            <td><?=$data['no_center']?></td>
+            <td><?=$data['id_detail_nasabah']?></td>
+            <td><?=$data['nasabah']?></td>
+            <td><?=angka($data['amount'])?></td>
+            <td><?=angka($data['sisa_saldo'])?></td>
+            <td><?=angka($data['tunggakan'])?></td>
+            <td><?=$data['minggu']?></td>
+            <td><?=$data['nama_karyawan']?></td>
+        </tr>
+        <?php
+    }?>
+    <tr>
+        <th colspan="6">TOTAL OUTSTANDING BERMASALAH</th>
+        <th><?=angka($total_bermasalah)?></th>
+    </tr>
+    </table>
+<?php
+}
+elseif(isset($_GET['rekap'])){
+    include("./proses/rekap_par.php");
+}
+?>
+</div>
