@@ -104,6 +104,7 @@
 							mysqli_query($con,"INSERT INTO `daftar_nasabah_mantan` 
 							SELECT * FROM daftar_nasabah where id_nasabah='$update[id_nasabah]'
 						");
+						mysqli_query($con,"delete from daftar_nasabah where id_nasabah='$update[id_nasabah]'");
 						}
 						pesan("Berhasil ditambahkan!",'success');
 						
