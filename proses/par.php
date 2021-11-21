@@ -22,7 +22,7 @@
                         $q_tgl = mysqli_query($con,"SELECT DISTINCT tgl_input FROM deliquency where id_cabang='$id_cabang'  order by tgl_input desc");
                         while($tgl_ = mysqli_fetch_array($q_tgl)){
                             ?>
-                            <option value="<?=$tgl_['tgl_input']?>" <?=($_GET['sebelum']===$tgl_['tgl_input']?"selected":"")?>><?=$tgl_['tgl_input']?></option>
+                            <option value="<?=$tgl_['tgl_input']?>" <?=($_GET['sebelum']===$tgl_['tgl_input']?"selected":"")?>><?=format_hari_tanggal($tgl_['tgl_input'])?></option>
                             <?php
                         }
                         ?>
@@ -39,7 +39,7 @@
                         $q_tgl = mysqli_query($con,"SELECT DISTINCT tgl_input FROM deliquency where id_cabang='$id_cabang' order by tgl_input desc");
                         while($tgl_ = mysqli_fetch_array($q_tgl)){
                             ?>
-                            <option value="<?=$tgl_['tgl_input']?>" <?=($_GET['minggu_ini']===$tgl_['tgl_input']?"selected":"")?>><?=$tgl_['tgl_input']?></option>
+                            <option value="<?=$tgl_['tgl_input']?>" <?=($_GET['minggu_ini']===$tgl_['tgl_input']?"selected":"")?>><?=format_hari_tanggal($tgl_['tgl_input'])?></option>
                             <?php
                         }
                         ?>
@@ -51,10 +51,11 @@
                 </div>
             </form>
         </div>
+       
 
 
 <?php 
-
+$no=1;
 if(isset($_POST['preview'])){
     ?>
     <table class='table'>
@@ -347,6 +348,52 @@ if(isset($_GET['bandingkan'])){
 }
 elseif(isset($_GET['rekap'])){
     include("./proses/rekap_par.php");
+}
+else{
+    ?>
+    <div class="col-md-12">
+            <div class="col-md-8">
+
+            <h3>Harap hapus data ke 4 dan seterusnya, jika sudah tidak diperlukan</h3>
+            <table class='table'>
+                <tr>
+                    <th>NO</th>
+                    <th>Tanggal</th>
+                    <th>Hari</th>
+                    <th>#</th>
+                </tr>
+                <?php 
+                $q_tgl1 = mysqli_query($con,"SELECT DISTINCT tgl_input FROM deliquency where id_cabang='$id_cabang' order by tgl_input desc");
+                while($cari = mysqli_fetch_array($q_tgl1)){
+                    
+                    ?>
+                    <tr>
+                        <td><?=$no++?></td>
+                        <td><?=$cari['tgl_input']?></td>
+                        <td><?=format_hari_tanggal($cari['tgl_input'])?></td>
+                        <td>
+                            <a href="<?=$url.$menu?>par&delete&tgl=<?=$cari['tgl_input']?>" onclick="return window.confirm('apakah yakin menghapus semua data <?=format_hari_tanggal($cari['tgl_input'])?>')" class="btn btn-danger"> <i class="fa fa-times"></i> </a>
+                        </td>
+                    </tr>
+                    <?php
+                }
+                ?>
+            </table>
+            </div>
+
+       </div>
+    <?php
+    if(isset($_GET['delete'])){
+        $tgl = $_GET['tgl'];
+        $hapus = mysqli_query($con,"delete from deliquency where tgl_input='$tgl' and id_cabang='$id_cabang'");
+
+        if($hapus){
+            alert("Data Berhasil dihapus");
+        }
+        else alert("Data gagal dihapus");
+
+        pindah($url.$menu."par");
+    }
 }
 ?>
 </div>
