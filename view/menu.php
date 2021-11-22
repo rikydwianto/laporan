@@ -174,6 +174,7 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 
 		</li>
 		<li><a href="<?php echo $url . $menu ?>spl" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> SPL</a></li>
+		<li><a href="<?php echo $url . $menu ?>cek_nik" class="w3-bar-item w3-button"><i class="fa fa-search"></i> CEK NIK</a></li>
 		<li>
 			<a href="<?php echo $url . $menu ?>monitoring" class="w3-bar-item w3-button"><i class="fas fa-folder"></i> MONITORING</a>
 		</li>

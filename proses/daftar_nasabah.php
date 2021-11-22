@@ -4,6 +4,7 @@
     <hr />
     <a href="<?= $url . $menu ?>daftar_nasabah&duplikat" class="btn btn-danger"> Nasabah Duplikat</a>
     <a href="<?= $url . $menu ?>daftar_nasabah&sinkron" class="btn btn-success"> Synchron</a>
+    <a href="<?= $url . $menu ?>daftar_nasabah&cek_nik" class="btn btn-info"> CEK NIK KTP</a>
     <br/>
     <br/>
     <br/>
@@ -107,13 +108,15 @@
                     <th>NAMA</th>
                     <th>SUAMI</th>
                     <th>KTP</th>
+                    <th>TGL BERGABUNG</th>
+                    <th>HARI</th>
                     <th>STAFF</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
                 $query = mysqli_query($con, "SELECT * from daftar_nasabah where no_ktp in (SELECT daftar_nasabah.no_ktp FROM `daftar_nasabah`
-                 GROUP BY nama_nasabah, no_ktp HAVING count(*) > 1) and id_cabang='$id_cabang' order by no_ktp asc
+                 GROUP BY  no_ktp HAVING count(*) > 2) and id_cabang='$id_cabang' order by no_ktp,nama_nasabah asc
                 ");
                 while ($dup = mysqli_fetch_array($query)) {
                 ?>
@@ -123,7 +126,9 @@
                         <td><?=$dup['id_detail_nasabah']?></td>
                         <td><?=$dup['nama_nasabah']?></td>
                         <td><?=$dup['suami_nasabah']?></td>
-                        <td><?=$dup['no_ktp']?></td>
+                        <td><?=$dup['no_ktp']?></tdd>
+                        <td><?=$dup['tgl_bergabung']?></td>
+                        <td><?=$dup['hari']?></td>
                         <td><?=$dup['staff']?></td>
                     </tr>
                 <?php
