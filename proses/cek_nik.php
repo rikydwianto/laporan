@@ -17,7 +17,7 @@
             </select>
             <select id='berdasarkan' class='btn btn-success '>
                 <option value="no_ktp">NIK</option>
-                <option value="id_nasabah">ID NASABAH</option>
+                <option value="id_nasabah" selected>ID NASABAH</option>
                 <option value="nama_nasabah">NAMA</option>
                 <option value="suami_nasabah">SUAMI</option>
                 <option value="no_center">CENTER</option>
@@ -47,7 +47,9 @@
             let cari = $(this).val();
             let kategori = $("#kategori").val();
             let berdasarkan = $("#berdasarkan").val();
-            $.get(url + "api/cek_nik.php?cari=" + cari + "&id="+cabang+"&kategori=" + kategori+"&berdasarkan=" + berdasarkan , function(data, status) {
+            let berdasarkan_hasil = $("#berdasarkan").find('option').filter(':selected').text();
+            // alert(berdasarkan_hasil);
+            $.get(url + "api/cek_nik.php?cari=" + cari + "&id="+cabang+"&kategori=" + kategori+"&berdasarkan=" + berdasarkan +"&berdasarkan_hasil=" + berdasarkan_hasil , function(data, status) {
                 $("#hasil").html(data);
 
             });

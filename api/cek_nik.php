@@ -7,6 +7,7 @@ $cari = aman($con,$_GET['cari']);
 $id_cabang = aman($con,$_GET['id']);
 $kategori = aman($con,$_GET['kategori']);
 $berdasarkan = aman($con,$_GET['berdasarkan']);
+$berdasarkan_hasil = aman($con,$_GET['berdasarkan_hasil']);
 if($cari!=null){
 if($kategori=='aktif') $table='daftar_nasabah';
 else $table='daftar_nasabah_mantan';
@@ -44,33 +45,44 @@ else $table='daftar_nasabah_mantan';
          and $table.id_cabang='$id_cabang' group by id_detail_nasabah order by nama_nasabah asc limit 0,100
         ");
         echo mysqli_error($con);
-        while ($dup = mysqli_fetch_array($query)) {
-        ?>
+        if(mysqli_num_rows($query)<1){
+            ?>
             <tr>
-                <td><?=$no++?></td>
-                <td><?=$dup['id_nasabah']?></td>
-                <td><?=$dup['id_detail_nasabah']?></td>
-                <td><?=$dup['nama_nasabah']?></td>
-                <td><?=$dup['suami_nasabah']?></td>
-                <td><?=$dup['no_ktp']?></tdd>
-                <td><?=$dup['tgl_bergabung']?></td>
-                <?php 
-                if($kategori=='mantan') {
-                    $text ="select * from temp_anggota_keluar d where d.id_cabang='$id_cabang' and d.id_nasabah='$dup[id_nasabah]'";
-                    $query1  = mysqli_query($con,$text);
-                    $cek  = mysqli_fetch_array($query1);
-                    ?>
-                <td><?=$cek['tgl_keluar']?></td>
-                <td><?=$cek['alasan']?></td>
-                    <?php
-                }
-                
-                ?>
-                <td><?=$dup['hari']?></td>
-                <td><?=($dup['nama_karyawan']==null?$dup['staff']:$dup['nama_karyawan'])?></td>
-            </tr>
-        <?php
+                <th colspan="10"><h3>Hasil pencarian <code><?=$cari?></code> Berdasarkan <code><?=$berdasarkan_hasil?></code>  tidak ditemukan.</h3></th>
 
+            </tr>
+            <?php
+        }
+        else{
+            echo "Hasil pencarian ditemukan ". mysqli_num_rows($query);
+            while ($dup = mysqli_fetch_array($query)) {
+                ?>
+                    <tr>
+                        <td><?=$no++?></td>
+                        <td><?=$dup['id_nasabah']?></td>
+                        <td><?=$dup['id_detail_nasabah']?></td>
+                        <td><?=$dup['nama_nasabah']?></td>
+                        <td><?=$dup['suami_nasabah']?></td>
+                        <td><?=$dup['no_ktp']?></tdd>
+                        <td><?=$dup['tgl_bergabung']?></td>
+                        <?php 
+                        if($kategori=='mantan') {
+                            $text ="select * from temp_anggota_keluar d where d.id_cabang='$id_cabang' and d.id_nasabah='$dup[id_nasabah]'";
+                            $query1  = mysqli_query($con,$text);
+                            $cek  = mysqli_fetch_array($query1);
+                            ?>
+                        <td><?=$cek['tgl_keluar']?></td>
+                        <td><?=$cek['alasan']?></td>
+                            <?php
+                        }
+                        
+                        ?>
+                        <td><?=$dup['hari']?></td>
+                        <td><?=($dup['nama_karyawan']==null?$dup['staff']:$dup['nama_karyawan'])?></td>
+                    </tr>
+                <?php
+        
+                }
         }
         ?>
 
