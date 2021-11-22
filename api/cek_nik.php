@@ -40,7 +40,7 @@ else $table='daftar_nasabah_mantan';
     <tbody>
         <?php
         $query = mysqli_query($con, "SELECT * from $table left JOIN   karyawan on karyawan.id_karyawan=$table.id_karyawan where 
-        $berdasarkan like '%$cari%'  
+        $berdasarkan like '$cari%'  
         
          and $table.id_cabang='$id_cabang' group by id_detail_nasabah order by nama_nasabah asc limit 0,100
         ");
