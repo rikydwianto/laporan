@@ -162,7 +162,7 @@
                     $q = mysqli_query($con, "$text");
                 }
             }
-            mysqli_query($con,"DELETE from daftar_nasabah WHERE no_center NOT IN (SELECT DISTINCT no_center FROM daftar_nasabah WHERE id_cabang='$id_cabang') AND id_cabang='$id_cabang'");
+            mysqli_query($con,"DELETE from center WHERE no_center NOT IN (SELECT DISTINCT no_center FROM daftar_nasabah WHERE id_cabang='$id_cabang') AND id_cabang='$id_cabang'");
             $qcek_center = mysqli_query($con,"select *,count(*) as total_anggota from daftar_nasabah where id_cabang='$id_cabang'  group by no_center");
             while($cek_center =mysqli_fetch_array($qcek_center)){
                 $hitung_center = mysqli_fetch_array(mysqli_query($con,"select * from center where no_center='$cek_center[no_center]' and id_cabang='$id_cabang'"));
