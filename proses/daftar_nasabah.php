@@ -167,7 +167,8 @@
             while($cek_center =mysqli_fetch_array($qcek_center)){
                 $hitung_center = mysqli_fetch_array(mysqli_query($con,"select * from center where no_center='$cek_center[no_center]' and id_cabang='$id_cabang'"));
                 if($hitung_center){
-                    mysqli_query($con,"UPDATE `center` SET `member_center` = '$cek_center[total_anggota]' WHERE `no_center` = '$cek_center[no_center]' and id_cabang='$id_cabang'; ");
+                    $hari = ($cek_center['hari']);
+                    mysqli_query($con,"UPDATE `center` SET `member_center` = '$cek_center[total_anggota]',hari='$hari' WHERE `no_center` = '$cek_center[no_center]' and id_cabang='$id_cabang'; ");
                     // echo $cek_center['no_center'].' - '.$cek_center['id_karyawan']."|".$cek_center['total_anggota']."<br/>";
                 }
                 else{
