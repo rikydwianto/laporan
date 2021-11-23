@@ -35,6 +35,10 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 		<li>
 			<a href="<?php echo $url . $menu ?>detail_center" class="w3-bar-item w3-button"><i class="fas fa-globe-europe"></i> Data Wilayah</a>
 		</li>
+		
+		<li>
+			<a href="<?php echo $url . $menu ?>deliquency_sl" class="w3-bar-item w3-button"><i class="fas fa-globe-europe"></i> ANGGOTA PAR</a>
+		</li>
 		<li><a href="<?php echo $url . $menu ?>cek_nik" class="w3-bar-item w3-button"><i class="fa fa-search"></i> CEK NIK</a></li>
 
 		<li>
