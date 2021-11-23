@@ -63,7 +63,7 @@
                    if(mysqli_num_rows($q)){
                     // $ket="ada di db";   
                     //tidak usah di insert
-                    mysqli_query($con,"update daftar_nasabah set  hp_nasabah='$hp', staff='$staff', hari='$hari',no_ktp='$ktp' where id_detail_nasabah='$id_nasabah'");
+                    mysqli_query($con,"update daftar_nasabah set  hp_nasabah='$hp', staff='$staff',id_karyawan=null, hari='$hari',no_ktp='$ktp' where id_detail_nasabah='$id_nasabah'");
                    }
                    else{
                        
@@ -110,13 +110,14 @@
                     <th>KTP</th>
                     <th>TGL BERGABUNG</th>
                     <th>HARI</th>
+                    <th>ALAMAT</th>
                     <th>STAFF</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
                 $query = mysqli_query($con, "SELECT * from daftar_nasabah where no_ktp in (SELECT daftar_nasabah.no_ktp FROM `daftar_nasabah`
-                 GROUP BY  no_ktp HAVING count(*) > 2) and id_cabang='$id_cabang' order by no_ktp,nama_nasabah asc
+                 GROUP BY  no_ktp HAVING count(*) > 1) and id_cabang='$id_cabang' order by no_ktp,nama_nasabah asc
                 ");
                 while ($dup = mysqli_fetch_array($query)) {
                 ?>
@@ -129,6 +130,7 @@
                         <td><?=$dup['no_ktp']?></tdd>
                         <td><?=$dup['tgl_bergabung']?></td>
                         <td><?=$dup['hari']?></td>
+                        <td><?=$dup['alamat_nasabah']?></td>
                         <td><?=$dup['staff']?></td>
                     </tr>
                 <?php
@@ -147,11 +149,29 @@
         if (isset($_POST['ganti'])) {
             $karyawan = $_POST['karyawan'];
             $mdis = $_POST['nama_mdis'];
-
+            $total_nasabah = $_POST['total_nasabah'];
             for ($i = 0; $i < count($mdis); $i++) {
                 if (!empty($karyawan[$i])) {
+                    $cek_total_anggota = mysqli_num_rows(mysqli_query($con,"select * from total_nasabah where id_cabang='$id_cabang' and id_karyawan='$karyawan[$i]'"));
+                    if($cek_total_anggota>0){
+                        mysqli_query($con,"UPDATE `total_nasabah` SET `total_nasabah` = '$total_nasabah[$i]' WHERE `id_karyawan` = '$karyawan[$i]';");
+                    } else{
+                        mysqli_query($con,"insert into total_nasabah(id_karyawan,total_nasabah,id_cabang) values('$karyawan[$i]','$total_nasabah[$i]','$id_cabang')");
+                    }
                     $text = " UPDATE `daftar_nasabah` SET  id_karyawan='$karyawan[$i]' WHERE `staff` = '$mdis[$i]' and id_cabang='$id_cabang'; ";
                     $q = mysqli_query($con, "$text");
+                }
+            }
+            mysqli_query($con,"DELETE from daftar_nasabah WHERE no_center NOT IN (SELECT DISTINCT no_center FROM daftar_nasabah WHERE id_cabang='$id_cabang') AND id_cabang='$id_cabang'");
+            $qcek_center = mysqli_query($con,"select *,count(*) as total_anggota from daftar_nasabah where id_cabang='$id_cabang'  group by no_center");
+            while($cek_center =mysqli_fetch_array($qcek_center)){
+                $hitung_center = mysqli_fetch_array(mysqli_query($con,"select * from center where no_center='$cek_center[no_center]' and id_cabang='$id_cabang'"));
+                if($hitung_center){
+                    mysqli_query($con,"UPDATE `center` SET `member_center` = '$cek_center[total_anggota]' WHERE `no_center` = '$cek_center[no_center]' and id_cabang='$id_cabang'; ");
+                    // echo $cek_center['no_center'].' - '.$cek_center['id_karyawan']."|".$cek_center['total_anggota']."<br/>";
+                }
+                else{
+                    // echo "center tidak ditemukan di table center<br/>";
                 }
             }
         }
@@ -176,6 +196,7 @@
                         <td><?=$nama['total']?></td>
                         <td>
                         <input type="hidden" name="nama_mdis[]" value="<?= $nama['staff'] ?>">
+                        <input type="hidden" name="total_nasabah[]" value="<?= $nama['total'] ?>">
                              <select name="karyawan[]" id="" required class='form-control'>
                                     <option value="">Pilih Staff</option>
                                     <?php $data_karyawan  = (karyawan($con, $id_cabang)['data']);

@@ -1,7 +1,9 @@
 <?php $tgl_awal  = $_GET['sebelum'];
     $tgl_banding = $_GET['minggu_ini']; ?>
+    <a href="#rekap" onclick="printPageArea('rekap_tambah_par')" class="btn btn-success"> PRINT PENAMBAHAN <i class="fa fa-print"></i></a>
+    <a href="#rekap" onclick="printPageArea('rekap_penurunan_par')" class="btn btn-success"> PRINT PENURUNAN <i class="fa fa-print"></i></a>
     <h2>REKAP DELIQUENCY</h2><hr/>
-<div class='col-lg-6'>
+<div class='col-lg-6' id='rekap_penurunan_par'>
     <table class="table table-bordered">
         <tr>
             <th colspan="4"><h3>REKAP PENURUNAN PAR</h3></th>
@@ -42,7 +44,7 @@
     </table>
 
 </div>
-<div class='col-lg-6'>
+<div class='col-lg-6' id='rekap_tambah_par'>
     <table class="table table-bordered">
         <tr>
             <th colspan="4"><h3>REKAP PENAMBAHAN PAR</h3></th>
@@ -87,7 +89,8 @@
 
 
 
-<div class='col-lg-6'>
+<div class='col-lg-6' id='rekap_turun_os'>
+<a href="#rekap" onclick="printPageArea('rekap_turun_os')" class="btn btn-success">print <i class="fa fa-print"></i></a>
     <table class="table table-bordered">
         <tr>
             <th colspan="5"><h3>REKAP PENURUNAN OUTSTANDING PAR</h3></th>
@@ -155,7 +158,8 @@
 
 
 
-<div class='col-lg-6'>
+<div class='col-lg-6' id='rekap_total_os'>
+    <a href="#rekap" onclick="printPageArea('rekap_total_os')" class="btn btn-success">print <i class="fa fa-print"></i></a>
     <table class="table table-bordered">
         <tr>
             <th colspan="4"><h3>REKAP TOTAL OUTSTANDING PAR</h3></th>
@@ -202,12 +206,12 @@
 
 
 
-<a href="#rekap" onclick="printPageArea('rekap')" class="btn btn-success">print <i class="fa fa-print"></i></a>
 
 <div class='col-lg-12' id='rekap'>
-    <table class="table table-bordered">
+    <a href="#rekap" onclick="printPageArea('rekap')" class="btn btn-success">print <i class="fa fa-print"></i></a>
+    <table class="table table-bordered" style="border: 1px;">
         <tr>
-            <th colspan="8" style="text-align: center;font-weight:bold"><h3>REKAP SEMUA PAR</h3></th>
+            <th colspan="9" style="text-align: center;font-weight:bold"><h3>REKAP SEMUA PAR</h3></th>
         </tr>
         <tr>
             <th>NO</th>
@@ -215,6 +219,7 @@
             <th>TOTAL O.S PAR <br/> <?=$tgl_awal?> </th>
             <th>PENURUNAN AGT </th>
             <th>PENGURANGAN O.S </th>
+            <th>TOTAL PENURUNAN O.S</th>
             <th>PENAMBAHAN AGT </th>
             <th>PERUBAHAN </th>
             <th>TOTAL O.S PAR <br/> <?=$tgl_banding?></th>
@@ -309,6 +314,7 @@
                 <td><?=($minggu_kemarin==null?"-":rupiah($minggu_kemarin))?> </td>
                 <td><?=($turun==null?"-":rupiah($turun))?> </td>
                 <td><?=($turun_os==null?"-":rupiah($turun_os))?> </td>
+                <td><?=rupiah($turun + $turun_os)?></td>
                 <td><?=($tambah==null?"-":rupiah($tambah))?></td>
                 <td style="color:<?=$warna?>"><?=$icon.rupiah($perubahan_minggu_ini)?></td>
                 <td><?=($balance==null?"-":rupiah($balance))?></td>
@@ -329,29 +335,10 @@
                 <th><?=($total_minggu_sebelumnya==null?"-":rupiah($total_minggu_sebelumnya))?> </th>
                 <th><?=($total_turun==null?"-":rupiah($total_turun))?> </th>
                 <th><?=($total_turun_os==null?"-":rupiah($total_turun_os))?> </th>
+                <th><?=rupiah($total_turun_os + $total_turun)?> </th>
                 <th><?=($total_tambah==null?"-":rupiah($total_tambah))?></th>
                 <td style="color:<?=$warna_total?>"><?=$icon_total.rupiah($total_perubahan)?></td>
                 <th><?=($total_balance==null?"-":rupiah($total_balance))?></th>
             </tr>
     </table>
 </div>
-<style>
-    /* style sheet for "A4" printing */
-    @page {
-    size: auto;
-    size: F4;
-    margin: 0mm;
-}
-
-</style>
-<script>
-    function printPageArea(areaID){
-    var printContent = document.getElementById(areaID);
-    var WinPrint = window.open('', '', 'width=900,height=650');
-    WinPrint.document.write(printContent.innerHTML);
-    WinPrint.document.close();
-    WinPrint.focus();
-    WinPrint.print();
-    WinPrint.close();
-}
-</script>

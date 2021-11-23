@@ -131,162 +131,202 @@ if(isset($_GET['bandingkan'])){
     $tgl_awal  = $_GET['sebelum'];
     $tgl_banding = $_GET['minggu_ini'];
     ?>
-    <h3>PENURUNANN ANGGOTA PAR</h3>
-    <table class='table'>
-        <tr>
-            <th>NO</th>
-            <th>LOAN</th>
-            <th>CENTER</th>
-            <th>ID AGT</th>
-            <th>ANGGOTA</th>
-            <th>DISBURSE</th>
-            <th>BALANCE</th>
-            <th>ARREAS</th>
-            <th>WEEK PAS</th>
-            <th>STAFF</th>
-        </tr>
-    
-    <?php
-    $total_os = 0;
-    $query = mysqli_query($con," SELECT d.*,k.nama_karyawan FROM deliquency d 
-	JOIN center c ON c.`no_center`=d.`no_center` 
-	JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
-     where d.loan not in (select loan from deliquency where tgl_input='$tgl_banding') and d.tgl_input='$tgl_awal' and c.id_cabang='$id_cabang' order by k.nama_karyawan asc");
-    while($data = mysqli_fetch_array($query)){
-        $total_os+=$data['sisa_saldo'];
-        ?>
-        <tr>
-            <td><?=$no++?></td>
-            <td><?=$data['loan']?></td>
-            <td><?=$data['no_center']?></td>
-            <td><?=$data['id_detail_nasabah']?></td>
-            <td><?=$data['nasabah']?></td>
-            <td><?=angka($data['amount'])?></td>
-            <td><?=angka($data['sisa_saldo'])?></td>
-            <td><?=angka($data['tunggakan'])?></td>
-            <td><?=$data['minggu']?></td>
-            <td><?=$data['nama_karyawan']?></td>
-        </tr>
-        <?php
-    }?>
-     <tr>
-        <th colspan="6">TOTAL OUTSTANDING BERKURANG</th>
-        <th>-<?=angka($total_os)?></th>
-    </tr>
-    </table>
-
-
-
-    
-    <h3>PENAMBAHAN ANGGOTA PAR</h3>
-    <table class='table'>
-        <tr>
-            <td>NO</td>
-            <td>LOAN</td>
-            <td>CENTER</td>
-            <td>ID AGT</td>
-            <td>ANGGOTA</td>
-            <td>DISBURSE</td>
-            <td>BALANCE</td>
-            <td>ARREAS</td>
-            <td>WEEK PAS</td>
-            <td>STAFF</td>
-        </tr>
-    
-    <?php
-    $no=1;
-    $total_tambah=0;
-    $query1 = mysqli_query($con,"
-    SELECT d.*,k.nama_karyawan FROM deliquency d 
-	JOIN center c ON c.`no_center`=d.`no_center` 
-	JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
-     where d.loan not in (select loan from deliquency where tgl_input='$tgl_awal') and d.tgl_input='$tgl_banding' and c.id_cabang='$id_cabang' order by k.nama_karyawan asc");
-    while($data = mysqli_fetch_array($query1)){
-        $total_tambah+=$data['sisa_saldo'];
-        ?>
-        <tr>
-            <td><?=$no++?></td>
-            <td><?=$data['loan']?></td>
-            <td><?=$data['no_center']?></td>
-            <td><?=$data['id_detail_nasabah']?></td>
-            <td><?=$data['nasabah']?></td>
-            <td><?=angka($data['amount'])?></td>
-            <td><?=angka($data['sisa_saldo'])?></td>
-            <td><?=angka($data['tunggakan'])?></td>
-            <td><?=$data['minggu']?></td>
-            <td><?=$data['nama_karyawan']?></td>
-        </tr>
-        <?php
-    }?>
-     <tr>
-        <th colspan="6">TOTAL OUTSTANDING BERTAMBAH</th>
-        <th>+<?=angka($total_tambah)?></th>
-    </tr>
-    </table>
-
-
-    <!-- PENGURANGAN OUTSTANDING PAR -->
-    <!-- PENGURANGAN OUTSTANDING PAR -->
-    <!-- PENGURANGAN OUTSTANDING PAR -->
-    <!-- PENGURANGAN OUTSTANDING PAR -->
-    <h3> PENGURANGAN OUTSTANDING PAR</h3>
-    <table class='table'>
-        <tr>
-            <td>NO</td>
-            <td>LOAN</td>
-            <td>CENTER</td>
-            <td>ID AGT</td>
-            <td>ANGGOTA</td>
-            <td>DISBURSE</td>
-            <td>BALANCE</td>
-            <td>BALANCE </td>
-            <td>MINUS</td>
-            <td>WEEK</td>
-            <td>STAFF</td>
-        </tr>
-    
-    <?php
-    $no=1;
-    $total_minus=0;
-    $query = mysqli_query($con,"
-    SELECT d.*,k.nama_karyawan FROM deliquency d 
-	JOIN center c ON c.`no_center`=d.`no_center` 
-	JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` 
-    where d.loan  in (select loan from deliquency where tgl_input='$tgl_banding') and d.tgl_input='$tgl_awal' and c.id_cabang='$id_cabang' order by k.nama_karyawan asc");
-    while($data = mysqli_fetch_array($query)){
-
-        $loan = $data['loan'];
-        $banding = mysqli_query($con,"select sisa_saldo from deliquency where loan='$loan' and tgl_input='$tgl_banding'");
-        $banding = mysqli_fetch_array($banding);
-        $saldo_awal=$data['sisa_saldo'];
-        $saldo_akhir = $banding['sisa_saldo'];
-        $total = $saldo_awal - $saldo_akhir;
-        
-        if($total>0){
-            $total_minus +=  $total;
-        
-            ?>
+    <a href="#rekap" onclick="printPageArea('turun_par')" class="btn btn-success">print <i class="fa fa-print"></i></a>
+    <div id='turun_par'>
+        <h3>PENURUNAN ANGGOTA PAR</h3>
+        <table class='table table-bordered'>
             <tr>
+                <th>NO</th>
+                <th>LOAN</th>
+                <th>CENTER</th>
+                <th>ID AGT</th>
+                <th>ANGGOTA</th>
+                <th>DISBURSE</th>
+                <th>BALANCE</th>
+                <th>ARREAS</th>
+                <th>WEEK PAS</th>
+                <th>STAFF</th>
+            </tr>
+        
+        <?php
+        $total_os = 0;
+        $query = mysqli_query($con," SELECT d.*,k.nama_karyawan FROM deliquency d 
+        JOIN center c ON c.`no_center`=d.`no_center` 
+        JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
+        where d.loan not in (select loan from deliquency where tgl_input='$tgl_banding') and d.tgl_input='$tgl_awal' and c.id_cabang='$id_cabang' order by k.nama_karyawan asc");
+        while($data = mysqli_fetch_array($query)){
+            $total_os+=$data['sisa_saldo'];
+            $par = mysqli_num_rows(mysqli_query($con,"select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]'"));
+            if($par){
+                $baris['baris']= "#c9c7c1";
+                $baris['text']= "red";
+            }
+            else{
+                $baris['baris'] = "#ffff";
+                $baris['text'] = "#black";
+
+            } 
+            ?>
+            <tr style="background-color:<?=$baris['baris']?>;color:<?=$baris['text']?>">
                 <td><?=$no++?></td>
                 <td><?=$data['loan']?></td>
                 <td><?=$data['no_center']?></td>
                 <td><?=$data['id_detail_nasabah']?></td>
                 <td><?=$data['nasabah']?></td>
-                <td><?=$data['amount']?></td>
-                <td><?=angka($saldo_awal)?></td>
-                <td><?=angka($saldo_akhir)?></td>
-                <td>-<?=angka($total)?></td>
+                <td><?=angka($data['amount'])?></td>
+                <td><?=angka($data['sisa_saldo'])?></td>
+                <td><?=angka($data['tunggakan'])?></td>
                 <td><?=$data['minggu']?></td>
                 <td><?=$data['nama_karyawan']?></td>
             </tr>
             <?php
-        }
-    }?>
-    <tr>
-        <th colspan="8">TOTAL OUTSTANDING BERKURANG</th>
-        <th>-<?=angka($total_minus)?></th>
-    </tr>
-    </table>
+        }?>
+        <tr>
+            <th colspan="6">TOTAL OUTSTANDING BERKURANG</th>
+            <th>-<?=angka($total_os)?></th>
+        </tr>
+        </table>
+    </div>
+
+
+
+    
+    <a href="#rekap" onclick="printPageArea('tambah_par')" class="btn btn-success">print <i class="fa fa-print"></i></a>
+    
+    <div id='tambah_par'>
+        <h3>PENAMBAHAN ANGGOTA PAR</h3>
+        <table class='table' >
+            <tr>
+                <td>NO</td>
+                <td>LOAN</td>
+                <td>CENTER</td>
+                <td>ID AGT</td>
+                <td>ANGGOTA</td>
+                <td>DISBURSE</td>
+                <td>BALANCE</td>
+                <td>ARREAS</td>
+                <td>WEEK PAS</td>
+                <td>STAFF</td>
+            </tr>
+        
+        <?php
+        $no=1;
+        $total_tambah=0;
+        $query1 = mysqli_query($con,"
+        SELECT d.*,k.nama_karyawan FROM deliquency d 
+        JOIN center c ON c.`no_center`=d.`no_center` 
+        JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
+        where d.loan not in (select loan from deliquency where tgl_input='$tgl_awal') and d.tgl_input='$tgl_banding' and c.id_cabang='$id_cabang' and d.minggu=1 order by k.nama_karyawan asc");
+        while($data = mysqli_fetch_array($query1)){
+            $par = mysqli_num_rows(mysqli_query($con,"select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]'"));
+            if($par){
+                $baris['baris']= "#c9c7c1";
+                $baris['text']= "red";
+            }
+            else{
+                $baris['baris'] = "#ffff";
+                $baris['text'] = "#black";
+
+            } 
+            $total_tambah+=$data['sisa_saldo'];
+            ?>
+            <tr style="background-color:<?=$baris['baris']?>;color:<?=$baris['text']?>">
+                <td><?=$no++?></td>
+                <td><?=$data['loan']?></td>
+                <td><?=$data['no_center']?></td>
+                <td><?=$data['id_detail_nasabah']?></td>
+                <td><?=$data['nasabah']?></td>
+                <td><?=angka($data['amount'])?></td>
+                <td><?=angka($data['sisa_saldo'])?></td>
+                <td><?=angka($data['tunggakan'])?></td>
+                <td><?=$data['minggu']?></td>
+                <td><?=$data['nama_karyawan']?></td>
+            </tr>
+            <?php
+        }?>
+        <tr>
+            <th colspan="6">TOTAL OUTSTANDING BERTAMBAH</th>
+            <th>+<?=angka($total_tambah)?></th>
+        </tr>
+        </table>
+    </div>
+
+
+    <!-- PENGURANGAN OUTSTANDING PAR -->
+    <!-- PENGURANGAN OUTSTANDING PAR -->
+    <!-- PENGURANGAN OUTSTANDING PAR -->
+    <!-- PENGURANGAN OUTSTANDING PAR -->
+    <a href="#rekap" onclick="printPageArea('turun_os')" class="btn btn-success">print <i class="fa fa-print"></i></a>
+   <div id='turun_os'>
+   <h3> PENGURANGAN OUTSTANDING PAR</h3>
+        <table class='table'>
+            <tr>
+                <td>NO</td>
+                <td>LOAN</td>
+                <td>CENTER</td>
+                <td>ID AGT</td>
+                <td>ANGGOTA</td>
+                <td>DISBURSE</td>
+                <td>BALANCE</td>
+                <td>BALANCE </td>
+                <td>MINUS</td>
+                <td>WEEK</td>
+                <td>STAFF</td>
+            </tr>
+        
+        <?php
+        $no=1;
+        $total_minus=0;
+        $query = mysqli_query($con,"
+        SELECT d.*,k.nama_karyawan FROM deliquency d 
+        JOIN center c ON c.`no_center`=d.`no_center` 
+        JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` 
+        where d.loan  in (select loan from deliquency where tgl_input='$tgl_banding') and d.tgl_input='$tgl_awal' and c.id_cabang='$id_cabang' order by k.nama_karyawan asc");
+        while($data = mysqli_fetch_array($query)){
+            
+            $loan = $data['loan'];
+            $banding = mysqli_query($con,"select sisa_saldo from deliquency where loan='$loan' and tgl_input='$tgl_banding'");
+            $banding = mysqli_fetch_array($banding);
+            $saldo_awal=$data['sisa_saldo'];
+            $saldo_akhir = $banding['sisa_saldo'];
+            $total = $saldo_awal - $saldo_akhir;
+            
+            if($total>0){
+                $total_minus +=  $total;
+            
+                $par = mysqli_num_rows(mysqli_query($con,"select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]'"));
+            if($par){
+                $baris['baris']= "#c9c7c1";
+                $baris['text']= "red";
+            }
+            else{
+                $baris['baris'] = "#ffff";
+                $baris['text'] = "#black";
+
+            } 
+            ?>
+            <tr style="background-color:<?=$baris['baris']?>;color:<?=$baris['text']?>">
+                    <td><?=$no++?></td>
+                    <td><?=$data['loan']?></td>
+                    <td><?=$data['no_center']?></td>
+                    <td><?=$data['id_detail_nasabah']?></td>
+                    <td><?=$data['nasabah']?></td>
+                    <td><?=$data['amount']?></td>
+                    <td><?=angka($saldo_awal)?></td>
+                    <td><?=angka($saldo_akhir)?></td>
+                    <td>-<?=angka($total)?></td>
+                    <td><?=$data['minggu']?></td>
+                    <td><?=$data['nama_karyawan']?></td>
+                </tr>
+                <?php
+            }
+        }?>
+        <tr>
+            <th colspan="8">TOTAL OUTSTANDING BERKURANG</th>
+            <th>-<?=angka($total_minus)?></th>
+        </tr>
+        </table>
+   </div>
 
 
 
@@ -324,8 +364,18 @@ if(isset($_GET['bandingkan'])){
 	JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` where d.tgl_input='$tgl_banding' and c.id_cabang='$id_cabang' order by k.nama_karyawan asc");
     while($data = mysqli_fetch_array($query)){
         $total_bermasalah+=$data['sisa_saldo'];
+        $par = mysqli_num_rows(mysqli_query($con,"select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]'"));
+        if($par){
+            $baris['baris']= "#c9c7c1";
+            $baris['text']= "red";
+        }
+        else{
+            $baris['baris'] = "#ffff";
+            $baris['text'] = "#black";
+
+        } 
         ?>
-        <tr>
+        <tr style="background-color:<?=$baris['baris']?>;color:<?=$baris['text']?>">
             <td><?=$no++?></td>
             <td><?=$data['loan']?></td>
             <td><?=$data['no_center']?></td>
@@ -397,3 +447,25 @@ else{
 }
 ?>
 </div>
+
+
+<style>
+    /* style sheet for "A4" printing */
+    @page {
+    size: auto;
+    size: F4;
+    margin: 0mm;
+}
+
+</style>
+<script>
+    function printPageArea(areaID){
+    var printContent = document.getElementById(areaID);
+    var WinPrint = window.open('', '', 'width=900,height=650');
+    WinPrint.document.write(printContent.innerHTML);
+    WinPrint.document.close();
+    WinPrint.focus();
+    WinPrint.print();
+    WinPrint.close();
+}
+</script>
