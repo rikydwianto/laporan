@@ -38,8 +38,8 @@
                     <input type="hidden" name="nasabah[]" value="<?=$row['id_detail_nasabah']?>">
                     <input type="hidden" name="loan[]" value="<?=$row['loan']?>">
                     <select name='bermasalah[]'>
+                        <option value='ya'  <?=($par>0?"selected":"")?>>RE</option>
                         <option value='tidak' >TIDAK</option>
-                        <option value='ya'  <?=($par>0?"selected":"")?>>YA</option>
                     </select>
                 </td>
                     <td><?=$row['no_center']?></td>
