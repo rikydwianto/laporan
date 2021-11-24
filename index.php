@@ -124,7 +124,7 @@ $nama_jabatan = $d['singkatan_jabatan'];
                                         <li> Untuk rekap bisa dilihat di menu "PENARIKAN SIMPANAN" hanya memasukan id anggota dan nominal penarikan </li>
                                         <li>
                                             <?php 
-                                            $qmax = mysqli_query($con,"SELECT MAX(tgl_cair) AS cair FROM pinjaman WHERE id_cabang='1' LIMIT 0,1");
+                                            $qmax = mysqli_query($con,"SELECT MAX(tgl_cair) AS cair FROM pinjaman WHERE id_cabang='$id_cabang' LIMIT 0,1");
                                             $info =  mysqli_fetch_array($qmax);
                                             $sq = mysqli_query($con,"SELECT karyawan.nama_karyawan,COUNT(id_detail_nasabah) AS total_monitoring 
                                             FROM pinjaman JOIN karyawan ON karyawan.`id_karyawan`=pinjaman.`id_karyawan`
