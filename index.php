@@ -112,8 +112,15 @@ $nama_jabatan = $d['singkatan_jabatan'];
                                     <p>
                                     <h2 style="text-align: center;">Sistem Informasi Cabang <?= strtoupper($d['nama_cabang']) ?></h2><br>
                                     <ul>
+                                        <?php 
+                                        $number = cal_days_in_month(CAL_GREGORIAN,date("m"), date("Y"));
+;                                        
+                                        $tgl_akhir = date("Y-m-$number");
+                                        $tgl_depan = date("Y-m-".($number-6));
+
+                                        ?>
                                         <!-- <li> Selasa, 10 Agutus 2021 Tidak Libur tidak dipindah hari/NORMAL </li> -->
-                                        <li> <b> PENARIKAN SIMPANAN OLEH MANAJER </b> Berlaku pada Senin 25 OKTOBER s/d JUMAT 29 OKTOBER 2021 </li>
+                                        <li> <b> PENARIKAN SIMPANAN OLEH MANAJER </b> Berlaku pada <?=format_hari_tanggal($tgl_depan)?> s/d <?=format_hari_tanggal($tgl_akhir)?> </li>
                                         <li> Untuk rekap bisa dilihat di menu "PENARIKAN SIMPANAN" hanya memasukan id anggota dan nominal penarikan </li>
                                         <li>
                                             <?php 
