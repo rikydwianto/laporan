@@ -44,19 +44,21 @@
 						$agt = ganti_karakter(substr($no_id, 0, 5));
 						if ($agt == 'AGT') {
 							$staff =  ganti_karakter($ws->getCell("W" . $row)->getValue());
+							$id_detail =  ganti_karakter1($ws->getCell("B" . $row)->getValue());
 							$tgl = ($ws->getCell("L" . $row)->getValue());
 							$tgl = $tgl;
 							$tgl = explode("/", $tgl);
-							$new_tgl = ganti_karakter($tgl[2]) . "-" . ganti_karakter($tgl[1]) . "-" . ganti_karakter($tgl[0]);
-							mysqli_query($con, "INSERT INTO `temp_anggota` (`staff`, `tgl_bergabung`, `status_input`, `id_cabang`) VALUES ('$staff', '$new_tgl', 'belum', '$id_cabang'); ");
+							$cek_ang = mysqli_num_rows(mysqli_query($con,"select id_detail_nasabah from temp_anggota where id_detail_nasabah='$id_detail'"));
+							if($cek_ang){
 
-				?>
-							<tr>
-								<td><?= $no++ ?></td>
-								<td><?= $staff ?></td>
-								<td><?= $new_tgl ?></td>
-							</tr>
-				<?php
+							}
+							else{
+								$new_tgl = ganti_karakter($tgl[2]) . "-" . ganti_karakter($tgl[1]) . "-" . ganti_karakter($tgl[0]);
+								mysqli_query($con, "INSERT INTO `temp_anggota` (`staff`,id_detail_nasabah, `tgl_bergabung`, `status_input`, `id_cabang`) VALUES ('$staff','$id_detail', '$new_tgl', 'belum', '$id_cabang'); ");
+
+							}
+
+				
 						}
 					}
 				}
@@ -219,7 +221,7 @@
 					mysqli_query($con, "INSERT INTO `anggota` (`id_karyawan`, `tgl_anggota`, `anggota_masuk`, `anggota_keluar`, `net_anggota`) VALUES ('$cariStaff[id_karyawan]', '$tgl', '$cariStaff[total_anggota]', '0', '$cariStaff[total_anggota]'); ");
 				}
 			}
-			mysqli_query($con,"delete from temp_anggota where id_cabang='$id_cabang' ");
+			// mysqli_query($con,"delete from temp_anggota where id_cabang='$id_cabang' ");
 			echo "Proses selesai tunggu prosess slanjutnya!";
 			pindah($url.$menu."anggota&tambah");
 		}
@@ -279,7 +281,11 @@
 		</form>
 
 	<?php
-	} else {
+	}
+	elseif(isset($_GET['edit_anggota'])){
+		include("./proses/edit_anggota.php");
+	} 
+	else {
 	?>
 		<form method="post">
 			<?php

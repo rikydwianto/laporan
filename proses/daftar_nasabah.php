@@ -18,7 +18,7 @@
     <?php
 
     if(isset($_POST['preview'])){
-        set_time_limit(500);
+        set_time_limit(5000);
         alert("tunggu ya proses ini akan memakan waktu agak lama, karena banyak nya data, jangan diclose sampe proses selesai!!");
         ?>
         <table border=1>
@@ -188,8 +188,10 @@
                     <th>GANTI </th>
                 </tr>
                 <?php 
+                $total_n = 0;
                 $q_nama =mysqli_query($con,"select count(id_nasabah) as total, staff from daftar_nasabah where id_cabang='$id_cabang' and id_karyawan is null group by staff");
                 while($nama = mysqli_fetch_array($q_nama)){
+                    $total_n +=$nama['total'];
                     ?>
                     <tr>
                         <td><?=$no++?></td>
@@ -217,7 +219,8 @@
                 }
                 ?>
                 <tr>
-                        <td colspan="3"></td>
+                        <td colspan="2"></td>
+                        <td colspan="1"><?=$total_n?></td>
                         <td>
                             <input type="submit" class='btn btn-success' value='KONFIRMASI' name='ganti' />
                         </td>
