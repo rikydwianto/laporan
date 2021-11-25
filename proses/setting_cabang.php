@@ -54,7 +54,7 @@
                 <tr>
                     <td><?=$no++?></td>
                     <td><input type="text" name="nama_karyawan[]" value="<?=$staff['staff']?>" id=""></td>
-                    <td><input type="text" name="nik[]" value="" id=""></td>
+                    <td><input type="text" name="nik[]" required value="" id=""></td>
                     <td><input type="text" name="password[]" value="123456" id=""></td>
                 </tr>
                 <?php

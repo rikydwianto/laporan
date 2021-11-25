@@ -33,7 +33,7 @@
         $last_row = $ws->getHighestDataRow();
        
         $no_input=0;
-        for($row = 5;$row<=$last_row;$row++){
+        for($row = 2;$row<=$last_row;$row++){
             $id_nasabah =  $ws->getCell("F" . $row)->getValue();
             if($id_nasabah==null){
                 

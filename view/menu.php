@@ -341,7 +341,8 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 
 		<li><a href="<?php echo $url . $menu ?>file" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> FILE</a></li>
 		<li><a href="<?php echo $url . $menu ?>spl" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> SPL</a></li>
-	
+		
+		
 		<li>
 			<a href="<?php echo $url . $menu ?>detail_center" class="w3-bar-item w3-button"><i class="fa fa-font-awesome"></i> Data Wilayah</a>
 		</li>
@@ -376,6 +377,7 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 			</li>
 		</ul>
 		</li>
+		<li><a href="<?php echo $url . $menu ?>cek_nik" class="w3-bar-item w3-button"><i class="fa fa-search"></i> CEK NIK</a></li>
 		<li>
 			<a href="#"><i class="fa fa-file-excel-o"></i> ANALISA PAR<span class="fa arrow"></span></a>
 			<ul class="nav nav-second-level">
