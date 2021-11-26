@@ -3,6 +3,7 @@
 	<a href="<?= $url . $menu ?>anggota&tambah" class="btn btn-info">ANGGOTA MASUK </a>
 	<a href="<?= $url . $menu ?>anggota&anggota_keluar" class="btn btn-danger">ANGGOTA KELUAR </a>
 	<a href="<?= $url . $menu ?>anggota&sinkron" class="btn btn-success">SINKRON </a>
+	<a href="<?= $url . $menu ?>anggota&edit_anggota" class="btn btn-info">EDIT  </a>
 	<hr />
 	<?php
 	if (isset($_GET['tambah'])) {
@@ -30,6 +31,7 @@
 				
 			}
 			if (isset($_POST['preview'])) {
+				echo $id_cabang;
 				$nama_file = $_FILES['file']['tmp_name'];
 				$_SESSION['nama_file'] = $nama_file;
 				$path = $_SESSION['nama_file'];
@@ -54,7 +56,7 @@
 							}
 							else{
 								$new_tgl = ganti_karakter($tgl[2]) . "-" . ganti_karakter($tgl[1]) . "-" . ganti_karakter($tgl[0]);
-								mysqli_query($con, "INSERT INTO `temp_anggota` (`staff`,id_detail_nasabah, `tgl_bergabung`, `status_input`, `id_cabang`) VALUES ('$staff','$id_detail', '$new_tgl', 'belum', '$id_cabang'); ");
+								mysqli_query($con, "INSERT INTO `temp_anggota` (`staff`,`id_detail_nasabah`, `tgl_bergabung`, `status_input`, `id_cabang`) VALUES ('$staff','$id_detail', '$new_tgl', 'belum', '$id_cabang'); ");
 
 							}
 
@@ -75,7 +77,7 @@
 					</td>
 				</tr>
 			<?php
-			pindah($url.$menu."anggota&sinkron");
+			// pindah($url.$menu."anggota&sinkron");
 			}
 
 			?>
@@ -218,7 +220,7 @@
 				while ($cariStaff = mysqli_fetch_array($qcariStaff)) {
 					$total_semua = $total_semua + $cariStaff['total_anggota'];
 					// echo $cariStaff['id_karyawan'];
-					mysqli_query($con, "INSERT INTO `anggota` (`id_karyawan`, `tgl_anggota`, `anggota_masuk`, `anggota_keluar`, `net_anggota`) VALUES ('$cariStaff[id_karyawan]', '$tgl', '$cariStaff[total_anggota]', '0', '$cariStaff[total_anggota]'); ");
+					mysqli_query($con, "INSERT INTO `anggota` (`id_karyawan`, `tgl_anggota`, `anggota_masuk`, `anggota_keluar`, `net_anggota`,`id_cabang`) VALUES ('$cariStaff[id_karyawan]', '$tgl', '$cariStaff[total_anggota]', '0', '$cariStaff[total_anggota]','$id_cabang'); ");
 				}
 			}
 			// mysqli_query($con,"delete from temp_anggota where id_cabang='$id_cabang' ");
