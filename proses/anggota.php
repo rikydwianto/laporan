@@ -4,6 +4,7 @@
 	<a href="<?= $url . $menu ?>anggota&anggota_keluar" class="btn btn-danger">ANGGOTA KELUAR </a>
 	<a href="<?= $url . $menu ?>anggota&sinkron" class="btn btn-success">SINKRON </a>
 	<a href="<?= $url . $menu ?>anggota&edit_anggota" class="btn btn-info">EDIT  </a>
+	<a href="<?= $url . $menu ?>anggota" class="btn btn-danger">TAMBAH ANGGOTA MANUAL  </a>
 	<hr />
 	<?php
 	if (isset($_GET['tambah'])) {
