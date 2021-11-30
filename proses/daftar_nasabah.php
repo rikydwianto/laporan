@@ -31,7 +31,7 @@
         $objek = $reader->load($path);
         $ws = $objek->getActiveSheet();
         $last_row = $ws->getHighestDataRow();
-       
+    //    mysqli_query($con,"delete from daftar_nasabah where id_cabang='$id_cabang'");
         $no_input=0;
         for($row = 2;$row<=$last_row;$row++){
             $id_nasabah =  $ws->getCell("F" . $row)->getValue();
@@ -45,8 +45,8 @@
                     $id_nasabah = ganti_karakter1($ws->getCell("F".$row)->getValue());
                     $no_id  = explode("-",$id_nasabah)[1];
                     $no_id = sprintf("%0d",$no_id);
-                    $nasabah =  ganti_karakter($ws->getCell("G".$row)->getValue());
-                    $suami =  ganti_karakter($ws->getCell("I".$row)->getValue());
+                    $nasabah =  htmlspecialchars( ganti_karakter($ws->getCell("G".$row)->getValue()),ENT_QUOTES);
+                    $suami =  htmlspecialchars(ganti_karakter($ws->getCell("I".$row)->getValue()),ENT_QUOTES);
                    $no_center = ganti_karakter($ws->getCell("D".$row)->getValue());
                    $kelompok = ganti_karakter1($ws->getCell("E".$row)->getValue());
                    $hp = ganti_karakter1($ws->getCell("S".$row)->getValue());
@@ -175,6 +175,9 @@
                     // echo "center tidak ditemukan di table center<br/>";
                 }
             }
+            alert("DAFTAR NASABAH DAN TOTAL ANGGOTA BERHASIL DIUPDATE");
+            pindah($url.$menu."daftar_nasabah&sinkron&update_nasabah");
+
         }
 
 

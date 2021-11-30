@@ -47,6 +47,7 @@
                     </select>
                     <input type="submit" value="BANDINGKAN" name='bandingkan' class='btn btn-md btn-danger'>
                     <input type="submit" value="REKAP" name='rekap' class='btn btn-md btn-info'>
+                    <input type="submit" value="REKAP SEMUA" name='rekap_semua' class='btn btn-danger btn-md btn-info'>
 
                 </div>
             </form>
@@ -145,6 +146,7 @@ if(isset($_GET['bandingkan'])){
                 <th>BALANCE</th>
                 <th>ARREAS</th>
                 <th>WEEK PAS</th>
+                <th>STATUS</th>
                 <th>STAFF</th>
             </tr>
         
@@ -160,10 +162,12 @@ if(isset($_GET['bandingkan'])){
             if($par){
                 $baris['baris']= "#c9c7c1";
                 $baris['text']= "red";
+                $baris['ket']='RE/DTD';
             }
             else{
                 $baris['baris'] = "#ffff";
                 $baris['text'] = "#black";
+                $baris['ket']='';
 
             } 
             ?>
@@ -177,12 +181,13 @@ if(isset($_GET['bandingkan'])){
                 <td><?=angka($data['sisa_saldo'])?></td>
                 <td><?=angka($data['tunggakan'])?></td>
                 <td><?=$data['minggu']?></td>
+                <td><?=$baris['ket']?></td>
                 <td><?=$data['nama_karyawan']?></td>
             </tr>
             <?php
         }?>
         <tr>
-            <th colspan="6">TOTAL OUTSTANDING BERKURANG</th>
+            <th colspan="7">TOTAL OUTSTANDING BERKURANG</th>
             <th>-<?=angka($total_os)?></th>
         </tr>
         </table>
@@ -197,16 +202,17 @@ if(isset($_GET['bandingkan'])){
         <h3>PENAMBAHAN ANGGOTA PAR</h3>
         <table class='table' >
             <tr>
-                <td>NO</td>
-                <td>LOAN</td>
-                <td>CENTER</td>
-                <td>ID AGT</td>
-                <td>ANGGOTA</td>
-                <td>DISBURSE</td>
-                <td>BALANCE</td>
-                <td>ARREAS</td>
-                <td>WEEK PAS</td>
-                <td>STAFF</td>
+                <th>NO</th>
+                <th>LOAN</th>
+                <th>CENTER</th>
+                <th>ID AGT</th>
+                <th>ANGGOTA</th>
+                <th>DISBURSE</th>
+                <th>BALANCE</th>
+                <th>ARREAS</th>
+                <th>WEEK PAS</th>
+                <th>STATUS</th>
+                <th>STAFF</th>
             </tr>
         
         <?php
@@ -222,10 +228,12 @@ if(isset($_GET['bandingkan'])){
             if($par){
                 $baris['baris']= "#c9c7c1";
                 $baris['text']= "red";
+                $baris['ket']='RE/DTD';
             }
             else{
                 $baris['baris'] = "#ffff";
                 $baris['text'] = "#black";
+                $baris['ket']='';
 
             } 
             $total_tambah+=$data['sisa_saldo'];
@@ -240,12 +248,13 @@ if(isset($_GET['bandingkan'])){
                 <td><?=angka($data['sisa_saldo'])?></td>
                 <td><?=angka($data['tunggakan'])?></td>
                 <td><?=$data['minggu']?></td>
+                <td><?=$baris['ket']?></td>
                 <td><?=$data['nama_karyawan']?></td>
             </tr>
             <?php
         }?>
         <tr>
-            <th colspan="6">TOTAL OUTSTANDING BERTAMBAH</th>
+            <th colspan="7">TOTAL OUTSTANDING BERTAMBAH</th>
             <th>+<?=angka($total_tambah)?></th>
         </tr>
         </table>
@@ -261,17 +270,18 @@ if(isset($_GET['bandingkan'])){
    <h3> PENGURANGAN OUTSTANDING PAR</h3>
         <table class='table'>
             <tr>
-                <td>NO</td>
-                <td>LOAN</td>
-                <td>CENTER</td>
-                <td>ID AGT</td>
-                <td>ANGGOTA</td>
-                <td>DISBURSE</td>
-                <td>BALANCE</td>
-                <td>BALANCE </td>
-                <td>MINUS</td>
-                <td>WEEK</td>
-                <td>STAFF</td>
+                <th>NO</th>
+                <th>LOAN</th>
+                <th>CENTER</th>
+                <th>ID AGT</th>
+                <th>ANGGOTA</th>
+                <th>DISBURSE</th>
+                <th>BALANCE</th>
+                <th>BALANCE </th>
+                <th>MINUS</th>
+                <th>WEEK</th>
+                <th>STATUS</th>
+                <th>STAFF</th>
             </tr>
         
         <?php
@@ -298,10 +308,12 @@ if(isset($_GET['bandingkan'])){
             if($par){
                 $baris['baris']= "#c9c7c1";
                 $baris['text']= "red";
+                $baris['ket']='RE/DTD';
             }
             else{
                 $baris['baris'] = "#ffff";
                 $baris['text'] = "#black";
+                $baris['ket']='';
 
             } 
             ?>
@@ -316,6 +328,7 @@ if(isset($_GET['bandingkan'])){
                     <td><?=angka($saldo_akhir)?></td>
                     <td>-<?=angka($total)?></td>
                     <td><?=$data['minggu']?></td>
+                    <td><?=$baris['ket']?></td>
                     <td><?=$data['nama_karyawan']?></td>
                 </tr>
                 <?php
@@ -352,6 +365,7 @@ if(isset($_GET['bandingkan'])){
             <td>BALANCE</td>
             <td>ARREAS</td>
             <td>WEEK PAS</td>
+            <td>STATUS</td>
             <td>STAFF</td>
         </tr>
     
@@ -368,10 +382,12 @@ if(isset($_GET['bandingkan'])){
         if($par){
             $baris['baris']= "#c9c7c1";
             $baris['text']= "red";
+            $baris['ket']='RE/DTD';
         }
         else{
             $baris['baris'] = "#ffff";
             $baris['text'] = "#black";
+            $baris['ket']='';
 
         } 
         ?>
@@ -385,12 +401,13 @@ if(isset($_GET['bandingkan'])){
             <td><?=angka($data['sisa_saldo'])?></td>
             <td><?=angka($data['tunggakan'])?></td>
             <td><?=$data['minggu']?></td>
+            <td><?=$baris['ket']?></td>
             <td><?=$data['nama_karyawan']?></td>
         </tr>
         <?php
     }?>
     <tr>
-        <th colspan="6">TOTAL OUTSTANDING BERMASALAH</th>
+        <th colspan="7">TOTAL OUTSTANDING BERMASALAH</th>
         <th><?=angka($total_bermasalah)?></th>
     </tr>
     </table>
@@ -398,6 +415,9 @@ if(isset($_GET['bandingkan'])){
 }
 elseif(isset($_GET['rekap'])){
     include("./proses/rekap_par.php");
+}
+elseif(isset($_GET['rekap_semua'])){
+    include("./proses/rekap_semua.php");
 }
 else{
     ?>

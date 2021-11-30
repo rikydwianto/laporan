@@ -241,7 +241,7 @@
             JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
             where d.loan not in (select loan from deliquency where tgl_input='$tgl_banding') and d.tgl_input='$tgl_awal' and c.id_karyawan='$staff[id_karyawan]' group by k.id_karyawan ");
             $turun = mysqli_fetch_array($query1);
-            //PENAMBAHAN
+            //PENAMBAHAN 
             $query2 = mysqli_query($con," SELECT count(d.id) as total, sum(d.sisa_saldo) as balance FROM deliquency d 
             JOIN center c ON c.`no_center`=d.`no_center` 
             JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
@@ -306,6 +306,10 @@
                 $warna ="red";
                 $icon = "<i class='fa fa-2 fa-sort-asc'></i> ";
             }
+
+
+
+            // $anggota  = mysqli_query($con,"select * from ");
             
              ?>
               <tr>
@@ -342,3 +346,5 @@
             </tr>
     </table>
 </div>
+
+
