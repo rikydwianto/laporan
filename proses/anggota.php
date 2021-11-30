@@ -78,7 +78,7 @@
 					</td>
 				</tr>
 			<?php
-			// pindah($url.$menu."anggota&sinkron");
+			pindah($url.$menu."anggota&sinkron");
 			}
 
 			?>
@@ -206,18 +206,18 @@
 			$id_k = $_POST['karyawan'];
 			for ($i = 0; $i < count($staf); $i++) {
 				if (!empty($id_k[$i])) {
-					$text = " UPDATE `temp_anggota` SET `staff` = null , id_karyawan='$id_k[$i]' WHERE `staff` = '$staf[$i]' and id_cabang='$id_cabang'; ";
+					$text = " UPDATE `temp_anggota` SET `staff` = null , id_karyawan='$id_k[$i]', status_input='sudah' WHERE `staff` = '$staf[$i]' and id_cabang='$id_cabang'; ";
 					mysqli_query($con, $text);
 				}
 			}
 			
 			$total_semua = 0;
-			$cari_tgl = mysqli_query($con, "SELECT tgl_bergabung FROM temp_anggota where id_cabang='$id_cabang' GROUP BY tgl_bergabung");
+			$cari_tgl = mysqli_query($con, "SELECT tgl_bergabung FROM temp_anggota where id_cabang='$id_cabang' and status_input='belum' GROUP BY tgl_bergabung");
 			while ($tgll = mysqli_fetch_array($cari_tgl)) {
 				$tgl = $tgll['tgl_bergabung'];
 				echo $tgl." Proses <br/>";
 				$total_semua = $total_semua;
-				$qcariStaff = mysqli_query($con, "select *,count(id) as total_anggota from temp_anggota where tgl_bergabung='$tgl' and id_cabang='$id_cabang' group by id_karyawan");
+				$qcariStaff = mysqli_query($con, "select *,count(id) as total_anggota from temp_anggota where tgl_bergabung='$tgl' and id_cabang='$id_cabang' and status_input='belum' group by id_karyawan");
 				while ($cariStaff = mysqli_fetch_array($qcariStaff)) {
 					$total_semua = $total_semua + $cariStaff['total_anggota'];
 					// echo $cariStaff['id_karyawan'];
