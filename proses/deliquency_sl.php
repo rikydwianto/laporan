@@ -18,7 +18,9 @@
             $total_sisa_saldo = 0;
             $q = mysqli_query($con,"SELECT *,c.`id_karyawan` FROM deliquency d JOIN center c ON c.`no_center`=d.`no_center`
             JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
-            WHERE tgl_input IN(SELECT MAX(tgl_input) FROM deliquency) AND k.`id_cabang`='$id_cabang' AND k.`id_karyawan`='$id_karyawan' order by d.no_center,d.nasabah asc");
+            WHERE  k.`id_cabang`='$id_cabang' AND k.`id_karyawan`='$id_karyawan' group by d.loan order by d.no_center,d.nasabah asc");
+            //tgl_input IN(SELECT MAX(tgl_input) FROM deliquency) AND
+            
             while($row = mysqli_fetch_array($q)){
                 $par = mysqli_num_rows(mysqli_query($con,"select * from anggota_par where id_detail_nasabah='$row[id_detail_nasabah]'"));
                 $sisa_saldo = $row['sisa_saldo'];
