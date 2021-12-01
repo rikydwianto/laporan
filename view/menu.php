@@ -153,6 +153,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 				<li>
 					<a href="<?php echo $url . $menu ?>list-center-blacklist"><i class="fa fa-building"></i> Center Ditutup</a>
 				</li>
+				<li>
+					<a href="<?php echo $url . $menu ?>rekap_all"><i class="fa fa-file-excel-o"></i> REKAP SEMUA</a>
+				</li>
 			</ul>
 
 		</li>
@@ -282,6 +285,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 				<li>
 					<a href="<?php echo $url . $menu ?>list-center-blacklist"><i class="fa fa-building"></i> Center Ditutup</a>
 				</li>
+				<li>
+					<a href="<?php echo $url . $menu ?>rekap_all"><i class="fa fa-file-excel-o"></i> REKAP SEMUA</a>
+				</li>
 			</ul>
 
 		</li>
@@ -375,6 +381,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 			<li>
 				<a href="<?php echo $url . $menu ?>list-center-blacklist"><i class="fa fa-building"></i> Center Ditutup</a>
 			</li>
+			<li>
+					<a href="<?php echo $url . $menu ?>rekap_all"><i class="fa fa-file-excel-o"></i> REKAP SEMUA</a>
+				</li>
 		</ul>
 		</li>
 		<li><a href="<?php echo $url . $menu ?>cek_nik" class="w3-bar-item w3-button"><i class="fa fa-search"></i> CEK NIK</a></li>
@@ -422,6 +431,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 				</li>
 				<li>
 					<a href="<?php echo $url . $menu ?>list_penarikan"><i class="fa fa-file-o"></i> Penarikan Simpanan</a>
+				</li>
+				<li>
+					<a href="<?php echo $url . $menu ?>rekap_all"><i class="fa fa-file-excel-o"></i> REKAP SEMUA</a>
 				</li>
 
 			</ul>

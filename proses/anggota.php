@@ -206,7 +206,7 @@
 			$id_k = $_POST['karyawan'];
 			for ($i = 0; $i < count($staf); $i++) {
 				if (!empty($id_k[$i])) {
-					$text = " UPDATE `temp_anggota` SET `staff` = null , id_karyawan='$id_k[$i]', status_input='sudah' WHERE `staff` = '$staf[$i]' and id_cabang='$id_cabang'; ";
+					$text = " UPDATE `temp_anggota` SET `staff` = null , id_karyawan='$id_k[$i]' WHERE `staff` = '$staf[$i]' and id_cabang='$id_cabang'; ";
 					mysqli_query($con, $text);
 				}
 			}
@@ -223,10 +223,12 @@
 					// echo $cariStaff['id_karyawan'];
 					mysqli_query($con, "INSERT INTO `anggota` (`id_karyawan`, `tgl_anggota`, `anggota_masuk`, `anggota_keluar`, `net_anggota`,`id_cabang`) VALUES ('$cariStaff[id_karyawan]', '$tgl', '$cariStaff[total_anggota]', '0', '$cariStaff[total_anggota]','$id_cabang'); ");
 				}
+				mysqli_query($con,"UPDATE temp_anggota set status_input='sudah' where id_cabang='$id_cabang' and tgl_bergabung='$tgl'");
 			}
+			
 			// mysqli_query($con,"delete from temp_anggota where id_cabang='$id_cabang' ");
 			echo "Proses selesai tunggu prosess slanjutnya!";
-			pindah($url.$menu."anggota&tambah");
+			// pindah($url.$menu."anggota&tambah");
 		}
 
 	?>

@@ -9,7 +9,9 @@
     <table class="table table-bordered" style="border: 1px;">
         <thead>
             <tr>
-                <th colspan="13" style="text-align: center;font-weight:bold"><h3>REKAP ANGGOTA, MONITORING , PAR</h3></th>
+                <th colspan="13" style="text-align: center;font-weight:bold"><h3>REKAP ANGGOTA, MONITORING , PAR<br/>
+                    <?=format_hari_tanggal($tgl_awal)?> s/d <?= format_hari_tanggal( $tgl_banding)?>
+                </h3></th>
             </tr>
             
             <tr >
@@ -189,7 +191,7 @@
                 $cek_l=mysqli_query($con,"SELECT sum(detail_laporan.total_agt)as anggota,sum(detail_laporan.member)as member, sum(detail_laporan.total_bayar)as bayar,sum(detail_laporan.total_tidak_bayar)as tidak_bayar, laporan.* FROM laporan,detail_laporan where laporan.id_laporan=detail_laporan.id_laporan and laporan.id_karyawan='$staff[id_karyawan]'  and laporan.tgl_laporan >= '$tgl_awal' and laporan.tgl_laporan <= '$tgl_banding'");
                 $bayar_f = mysqli_fetch_array($cek_l);
                 $bayar = $bayar_f['bayar'];
-                $tidak_bayar = $member - $bayar;
+                $tidak_bayar =  $bayar_f['tidak_bayar'];
 
 
                 $total_tidak_bayar += $tidak_bayar;
