@@ -18,6 +18,9 @@
     else if (isset($_GET['belum_input'])) {
         include("./proses/perbaikan_belum_input.php");
     }
+    else if (isset($_GET['tambah'])) {
+        include("./proses/tambah_perbaikan.php");
+    }
     else if (isset($_GET['statistik'])) {
         ?>
         <h3>DATA BELUM DIKERJAKAN</h3>
