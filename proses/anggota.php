@@ -228,7 +228,7 @@
 			
 			// mysqli_query($con,"delete from temp_anggota where id_cabang='$id_cabang' ");
 			echo "Proses selesai tunggu prosess slanjutnya!";
-			// pindah($url.$menu."anggota&tambah");
+			pindah($url.$menu."anggota&tambah");
 		}
 
 	?>
