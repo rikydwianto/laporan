@@ -16,50 +16,56 @@
         </div>
     </form>
 <div class="col-md-12">
-    <table class='table'>
-        <tr>
-            <th>NO</th>
-            <th>NIK</th>
-            <th>STAFF</th>
-            <th>MONITORING <br/> DIKUMPULKAN</th>
-            <th>KETERANGAN</th>
-        </tr>
-        
-        <?php 
-        $total_mtr = 0;
-        $cek_ka = mysqli_query($con, "SELECT * FROM karyawan k 
-        join jabatan j on  j.id_jabatan=k.id_jabatan 
-        where j.singkatan_jabatan='SL' and k.id_cabang='$id_cabang' and k.status_karyawan='aktif'
-        order by k.nama_karyawan asc
-        ");
-        while($r = mysqli_fetch_array($cek_ka)){
-            $total = mysqli_fetch_array(mysqli_query($con,"SELECT count(*) as total_mtr from monitoring m 
-            join pinjaman p on p.id_pinjaman=m.id_pinjaman 
-            where p.id_karyawan='$r[id_karyawan]' and p.monitoring='sudah' and m.tgl_monitoring >= '$tgl_awal' and  m.tgl_monitoring <= '$tgl_akhir'
-            "));
-            $total = $total['total_mtr'];
-            $total_mtr +=$total;
-            if($total<1){
-                $ket='Tidak Mengumpulkan Monitoring';
-            }
-            else{
-                $ket="";
-            }
-            ?>
-        <tr>
-            <td><?=$no++?></td>
-            <td><?=$r['nik_karyawan']?></td>
-            <td><?=$r['nama_karyawan']?></td>
-            <td><?=$total?></td>
-            <td><?=$ket?></td>
-        </tr>
-        <?php
-        }
+    <?php 
+    if(isset($_GET['tgl_awal'])){
         ?>
-         <tr>
-            <td colspan="3">Total Monitoring Dikumpulkan</td>
-            <td><?=$total_mtr?></td>
-            <td></td>
-        </tr>
-    </table>
+            <table class='table'>
+                <tr>
+                    <th>NO</th>
+                    <th>NIK</th>
+                    <th>STAFF</th>
+                    <th>MONITORING <br/> DIKUMPULKAN</th>
+                    <th>KETERANGAN</th>
+                </tr>
+                
+                <?php 
+                $total_mtr = 0;
+                $cek_ka = mysqli_query($con, "SELECT * FROM karyawan k 
+                join jabatan j on  j.id_jabatan=k.id_jabatan 
+                where j.singkatan_jabatan='SL' and k.id_cabang='$id_cabang' and k.status_karyawan='aktif'
+                order by k.nama_karyawan asc
+                ");
+                while($r = mysqli_fetch_array($cek_ka)){
+                    $total = mysqli_fetch_array(mysqli_query($con,"SELECT count(*) as total_mtr from monitoring m 
+                    join pinjaman p on p.id_pinjaman=m.id_pinjaman 
+                    where p.id_karyawan='$r[id_karyawan]' and p.monitoring='sudah' and m.tgl_monitoring >= '$tgl_awal' and  m.tgl_monitoring <= '$tgl_akhir'
+                    "));
+                    $total = $total['total_mtr'];
+                    $total_mtr +=$total;
+                    if($total<1){
+                        $ket='Tidak Mengumpulkan Monitoring';
+                    }
+                    else{
+                        $ket="";
+                    }
+                    ?>
+                <tr>
+                    <td><?=$no++?></td>
+                    <td><?=$r['nik_karyawan']?></td>
+                    <td><?=$r['nama_karyawan']?></td>
+                    <td><?=$total?></td>
+                    <td><?=$ket?></td>
+                </tr>
+                <?php
+                }
+                ?>
+                <tr>
+                    <td colspan="3">Total Monitoring Dikumpulkan</td>
+                    <td><?=$total_mtr?></td>
+                    <td></td>
+                </tr>
+            </table>
+        <?php
+    }
+    ?>
 </div>
