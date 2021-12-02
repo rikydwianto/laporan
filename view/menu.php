@@ -201,7 +201,7 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 		</li>
 
 	<?php
-} else if (($_SESSION['id']) && $jabatan == 'BM' || $jabatan == 'ASM') {
+} else if (($_SESSION['id']) && $jabatan == 'BM' || $jabatan == 'ASM'|| $jabatan == 'PJS') {
 	?>
 		<li>
 			<a href="#"><i class="fa fa-building"></i> Master Data<span class="fa arrow"></span></a>
@@ -313,7 +313,7 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 			<a href="<?php echo $url . $menu ?>logout" class=""><i class="fa fa-sign-out"></i> Logout</a>
 		</li>
 	<?php
-} else if (($_SESSION['id']) && $jabatan == 'MIS') {
+} else if (($_SESSION['id']) && $jabatan == 'MIS' ) {
 	?>
 		<li>
 			<a href="#"><i class="fa fa-building"></i> Master Data<span class="fa arrow"></span></a>

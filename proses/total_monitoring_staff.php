@@ -1,7 +1,16 @@
+<?php 
+@$batas = $_GET['batas'];
+if (empty($batas)) {
+    $batas = 3;
+} else {
+    $batas = $batas;
+}
+?>
 <form method='get' action='<?php echo $url . $menu ?>monitoring'>
             <input type=hidden name='menu' value="monitoring" />
             <input type=hidden name='staff' />
             Sampai Dengan <input type=date name='tgl' value='<?php echo isset($_GET['tgl']) ? $_GET['tgl'] : date("Y-m-d") ?>' />
+           <br/> BATAS MONITORING(PERSEN)<input type=number class='' style="width:100px" name='batas' value='<?php echo isset($_GET['batas']) ? $_GET['batas'] : 3 ?>' />
             <input type=submit name='cari' value='CARI' />
         </form>
         <br>
@@ -21,7 +30,7 @@
                 <th class='tengah'>LAIN-LAIN</th>
                 <th class='tengah'>TOTAL MONITORING</th>
                 <th class='tengah'>AGT</th>
-                <th class='tengah'>3%</th>
+                <th class='tengah'><?=$batas?>%</th>
                 <th class='tengah'>Ket</th>
                 <th class='tengah'></th>
             </tr>
@@ -35,11 +44,13 @@
             $total_arta = 0;
             $total_lain = 0;
             @$tgl = $_GET['tgl'];
+            
             if (empty($tgl)) {
                 $tgl = date("Y-m-d");
             } else {
                 $tgl = $tgl;
             }
+            
             $cek_ka = mysqli_query($con, "SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_cabang='$cabang' and jabatan.singkatan_jabatan='SL' and karyawan.status_karyawan='aktif' order by karyawan.nama_karyawan asc");
             while ($karyawan = mysqli_fetch_array($cek_ka)) {
                 $q = mysqli_query($con, "
@@ -86,7 +97,7 @@
                 $hitung_agt = mysqli_query($con, "select total_nasabah as member from total_nasabah where id_cabang='$id_cabang' and id_karyawan='$karyawan[id_karyawan]'");
                 $hitung_agt = mysqli_fetch_array($hitung_agt);
                 $hitung_agt = $hitung_agt['member'];
-                $tiga_persen = ($hitung_agt == null ? 0 : round($hitung_agt * 3 / 100));
+                $tiga_persen = ($hitung_agt == null ? 0 : round($hitung_agt * $batas / 100));
               
                 
                 if($tiga_persen==$total){

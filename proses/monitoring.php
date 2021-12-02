@@ -268,6 +268,10 @@
         //RIWAYAT MONITORING
         include("proses/pindahstaff.php");
     }  
+    else if (isset($_GET['pengumpulan_mtr'])) {
+        //RIWAYAT MONITORING
+        include("proses/kumpul_monitoring.php");
+    }  
     else if (isset($_GET['nasabah_staff'])) {
         //RIWAYAT MONITORING
         include("proses/nasabah_staff.php");
@@ -291,7 +295,8 @@
             <a href="<?= $url . $menu ?>monitoring&filter" class='btn btn-info'> <i class="fa fa-book"></i> Lihat Semua Data</a>
             <a href="<?= $url . $menu ?>monitoring&banding" class='btn btn-warning'> <i class="fa fa-bell"></i> KELUHAN(<?= $hitung_banding ?>)</a>
             <a href="<?= $url . $menu ?>monitoring&duplikat" class='btn btn-danger'> <i class="fa fa-users"></i> DUPLIKAT</a>
-            <a href="<?= $url . $menu ?>monitoring&riwayat" class='btn btn-info'> <i class="fa fa-check"></i> Riwayat Monitoring</a> <br /><br />
+            <a href="<?= $url . $menu ?>monitoring&riwayat" class='btn btn-info'> <i class="fa fa-check"></i> Riwayat Monitoring</a> 
+            <a href="<?= $url . $menu ?>monitoring&pengumpulan_mtr" class='btn btn-success'> <i class="fa fa-report"></i> Rekap Pengumpulan</a> <br /><br />
             <a href="<?= $url . $menu ?>monitoring&tgl=14" class='btn btn-danger'> <i class="fa fa-angle-right"></i> Lebih 14 hari</a>
             <a href="<?= $url . $menu ?>monitoring&tgl=21" class='btn btn-danger'> <i class="fa fa-angle-right"></i> Lebih 21 hari</a>
             <a href="<?= $url . $menu ?>monitoring&tgl=30" class='btn btn-danger'> <i class="fa fa-angle-right"></i> Lebih 30 hari</a> <br /><br />
