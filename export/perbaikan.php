@@ -38,7 +38,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
 		<?php 
 		 $q = mysqli_query($con, "SELECT * from perbaikan 
          JOIN karyawan on perbaikan.id_karyawan=karyawan.id_karyawan
-         JOIN center on perbaikan.no_center=center.no_center where perbaikan.status='sudah' and karyawan.id_cabang='$id_cabang' and status_input ='sudah' ");
+         JOIN center on perbaikan.no_center=center.no_center where  karyawan.id_cabang='$id_cabang' and perbaikan.status='sudah' and status_input ='sudah' ");
 		while($ctr = mysqli_fetch_array($q)){
 			?>
 		<tr>

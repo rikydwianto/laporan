@@ -2,6 +2,7 @@
     <h2 class='page-header'>PERBAIKAN DATA </h2>
     <i></i>
     <a href="<?= $url . $menu ?>perbaikan" class="btn btn-info"> Lihat Data</a>
+    <a href="<?= $url . $menu ?>perbaikan&tambah" class="btn btn-danger"> TAMBAH Data</a>
     <a href="<?= $url . $menu ?>perbaikan&belum_input" class="btn btn-warning"> Lihat Belum Input SL</a>
     <a href="<?= $url . $menu ?>perbaikan&statistik" class="btn btn-danger"> Statistik</a>
     <a href="<?= $url . "export/" ?>perbaikan.php" class="btn btn-success"> EXPORT DATA</a>

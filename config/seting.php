@@ -2,7 +2,7 @@
 $host = 'localhost';
 $username = 'root';
 $password = '';
-$db_name = 'komida'; // nama databasenya
+$db_name = 'komida_backup'; // nama databasenya
 $server = $_SERVER['HTTP_HOST'];
 $index =  $_SERVER['REQUEST_URI'];
 $port = ":8080/";
@@ -14,6 +14,12 @@ $menu ="index.php?menu=";
 // error_reporting(0);
  $no=1;
  $url = "http://localhost/laporan/";
-//  $url = "http://192.168.227.109/laporan/";
+ if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
+		$uri = 'https://';
+	} else {
+		$uri = 'http://';
+	}
+	$uri .= $_SERVER['HTTP_HOST'];
+$url = $uri."/laporan/";
  
 ?>	
