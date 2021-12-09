@@ -172,7 +172,9 @@
                     // echo $cek_center['no_center'].' - '.$cek_center['id_karyawan']."|".$cek_center['total_anggota']."<br/>";
                 }
                 else{
-                    // echo "center tidak ditemukan di table center<br/>";
+                    // echo "center tida k ditemukan di table center<br/>";
+                    center($con, $cek_center['no_center'], 'y', 'hijau', $cek_center['total_anggota'], $cek_center['total_anggota'], $cek_center['total_anggota'], $id_cabang, $cek_center['id_karyawan'], strtolower($cek_center['hari']), '0', '00:00:00', 't');
+
                 }
             }
             alert("DAFTAR NASABAH DAN TOTAL ANGGOTA BERHASIL DIUPDATE");

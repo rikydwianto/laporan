@@ -88,11 +88,11 @@ else{
 		 	$arta = 0;
 		 	foreach ($data_ as $key => $val ) {
 				 //SEMENTARA
-				 if($val['masuk']==0 && $val['keluar']==0 && $val['nett']==0 )
-		 		{
+				//  if($val['masuk']==0 && $val['keluar']==0 && $val['nett']==0 )
+		 		// {
 
-				 }
-				 else{
+				//  }
+				//  else{
 					 if($val['nett']>0){
 						 $bg_color = "#4cae4c";
 					 }
@@ -130,7 +130,7 @@ else{
 		 		$ppd=$ppd1+$ppd;
 		 		$prr=$prr1+$prr;
 		 		$arta=$arta1+$arta;
-		 	}
+		 	// }
 		}
 
 		 	?>

@@ -43,6 +43,7 @@ if (empty($batas)) {
             $total_psa = 0;
             $total_arta = 0;
             $total_lain = 0;
+            $total_agt = 0;
             @$tgl = $_GET['tgl'];
             
             if (empty($tgl)) {
@@ -124,6 +125,7 @@ if (empty($batas)) {
                     $lebih="NOL";
 
                 }
+                $total_agt +=$hitung_agt;
             ?>
                 <tr style='background:<?=$warna?>;'>
                     <td><?= $no++ ?></td>
@@ -159,7 +161,8 @@ if (empty($batas)) {
                 <td class='tengah'>
                     <?= ($total_monitoring) ?>
                 </td>
-                <td></td>
+                <td><?= ($total_agt) ?></td>
+                <td><?= round(($total_monitoring/$total_agt)*100) ?>%</td>
                 <td></td>
                 <td></td>
             </tr>

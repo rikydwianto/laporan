@@ -6,7 +6,7 @@
     if(isset($_GET['center'])){
         ?>
         <form  method="post"></form>
-        <table>
+        <table >
                 <tr>
                 <td>NO</td>
                 <td>ID STAFF</td>
@@ -40,7 +40,7 @@
         ?>
         <form action="" method="post">
 
-            <table>
+            <table class='table'>
                 <tr>
                 <td>NO</td>
                 <td>NAMA STAFF</td>
@@ -48,14 +48,14 @@
                 <td>PASSWORD</td>
             </tr>
             <?php 
-            $q1 = mysqli_query($con,"select distinct staff from daftar_nasabah where id_cabang='$id_cabang'");
+            $q1 = mysqli_query($con,"select distinct staff from daftar_nasabah where id_cabang='$id_cabang' and id_karyawan is not null");
             while($staff = mysqli_fetch_array($q1)){
                 ?>
                 <tr>
                     <td><?=$no++?></td>
-                    <td><input type="text" name="nama_karyawan[]" value="<?=$staff['staff']?>" id=""></td>
-                    <td><input type="text" name="nik[]" required value="" id=""></td>
-                    <td><input type="text" name="password[]" value="123456" id=""></td>
+                    <td><input type="text" class='form-control' name="nama_karyawan[]" value="<?=$staff['staff']?>" id=""></td>
+                    <td><input type="text" class='form-control' name="nik[]" required value="" id=""></td>
+                    <td><input type="text" class='form-control' name="password[]" value="123456" id=""></td>
                 </tr>
                 <?php
             }

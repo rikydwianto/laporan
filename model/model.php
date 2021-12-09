@@ -34,7 +34,7 @@ and laporan.status_laporan='sukses' and karyawan.id_cabang=$cabang and tgl_lapor
 	}
 
 	public function hitung_member($con,$cabang){
-		$q=mysqli_query($con,"select sum(member_center) as member from center where  id_cabang=$cabang");
+		$q=mysqli_query($con,"select sum(total_nasabah) as member from total_nasabah where  id_cabang=$cabang");
 		$hit = mysqli_fetch_array($q);
 		if ($hit['member']>0)
 			return $hit['member'];

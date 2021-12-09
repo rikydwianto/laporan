@@ -166,6 +166,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 			<a href="<?php echo $url . $menu ?>quotes" class="w3-bar-item w3-button"><i class="fas fa-folder"></i> Quotes</a>
 		</li>
 		<li>
+			<a href="<?php echo $url . $menu ?>surat" class="w3-bar-item w3-button"><i class="fa fa-inbox"></i> SURAT</a>
+		</li>
+		<li>
 			<a href="#"><i class="fa fa-file-excel-o"></i> ANALISA PAR<span class="fa arrow"></span></a>
 			<ul class="nav nav-second-level">
 				<li>
@@ -175,6 +178,10 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 
 				<li>
 					<a href="<?php echo $url . $menu ?>par" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> Deliquency</a>
+
+				</li>
+				<li>
+					<a href="<?php echo $url . $menu ?>par&anal_topup=ANALISA+TOPUP" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> Top up Khusus</a>
 
 				</li>
 				
@@ -242,6 +249,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 		<li>
 			<a href="<?php echo $url . $menu ?>kelompok" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Kelompok</a>
 		</li>
+		<li>
+			<a href="<?php echo $url . $menu ?>surat" class="w3-bar-item w3-button"><i class="fa fa-inbox"></i> SURAT</a>
+		</li>
 		<li><a href="<?php echo $url . $menu ?>cek_nik" class="w3-bar-item w3-button"><i class="fa fa-search"></i> CEK NIK</a></li>
 		<li>
 			<a href="<?php echo $url . $menu ?>upk" class="w3-bar-item w3-button"><i class="fa fa-user-plus"></i> UPK NR</a>
@@ -301,6 +311,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 
 				<li>
 					<a href="<?php echo $url . $menu ?>par" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> Deliquency</a>
+				</li>
+				<li>
+					<a href="<?php echo $url . $menu ?>par&anal_topup=ANALISA+TOPUP" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> Top up Khusus</a>
 
 				</li>
 				
@@ -386,6 +399,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 				</li>
 		</ul>
 		</li>
+		<li>
+			<a href="<?php echo $url . $menu ?>surat" class="w3-bar-item w3-button"><i class="fa fa-inbox"></i> SURAT</a>
+		</li>
 		<li><a href="<?php echo $url . $menu ?>cek_nik" class="w3-bar-item w3-button"><i class="fa fa-search"></i> CEK NIK</a></li>
 		<li>
 			<a href="#"><i class="fa fa-file-excel-o"></i> ANALISA PAR<span class="fa arrow"></span></a>
@@ -399,7 +415,10 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 					<a href="<?php echo $url . $menu ?>par" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> Deliquency</a>
 
 				</li>
-				
+				<li>
+					<a href="<?php echo $url . $menu ?>par&anal_topup=ANALISA+TOPUP" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> Top up Khusus</a>
+
+				</li>
 			</ul>
 
 		</li>
@@ -437,6 +456,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 				</li>
 
 			</ul>
+		</li>
+		<li>
+			<a href="<?php echo $url . $menu ?>surat" class="w3-bar-item w3-button"><i class="fa fa-inbox"></i> SURAT</a>
 		</li>
 		<li><a href="<?php echo $url . $menu ?>cek_nik" class="w3-bar-item w3-button"><i class="fa fa-search"></i> CEK NIK</a></li>
 		<li>

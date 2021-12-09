@@ -48,6 +48,7 @@
                     <input type="submit" value="BANDINGKAN" name='bandingkan' class='btn btn-md btn-danger'>
                     <input type="submit" value="REKAP" name='rekap' class='btn btn-md btn-info'>
                     <input type="submit" value="REKAP SEMUA" name='rekap_semua' class='btn btn-danger btn-md btn-info'>
+                    <input type="submit" value="ANALISA TOPUP" name='anal_topup' class='btn btn- btn-md btn-info'>
 
                 </div>
             </form>
@@ -418,6 +419,9 @@ elseif(isset($_GET['rekap'])){
 }
 elseif(isset($_GET['rekap_semua'])){
     include("./proses/rekap_semua.php");
+}
+elseif(isset($_GET['anal_topup'])){
+    include("./proses/anal_topup.php");
 }
 else{
     ?>

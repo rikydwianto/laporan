@@ -19,8 +19,8 @@ $nama_jabatan=$d['singkatan_jabatan'];
 		$qtgl=date("Y-m-d");
 	}
 	$hari = hari_biasa($qtgl);
-header("Content-type: application/vnd-ms-excel");
-header("Content-Disposition: attachment; filename=laporan harian $hari .xls");
+// header("Content-type: application/vnd-ms-excel");
+// header("Content-Disposition: attachment; filename=laporan harian $hari .xlsx");
 ?>
 <!DOCTYPE html>
 <html>

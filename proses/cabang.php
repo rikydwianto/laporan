@@ -39,6 +39,12 @@
 	  				</td>
 	  			</tr>	
 	  			<tr>
+	  				<td>SINGKATAN</td>
+	  				<td>
+	  					<input name='singkatan_cabang' class="form-control"></input>
+	  				</td>
+	  			</tr>	
+	  			<tr>
 	  				<td>Latitude</td>
 	  				<td>
 	  					<input name='lat' value="" class="form-control"></input>
@@ -92,6 +98,7 @@
   	$kode = $_GET['kode_cabang'];
   	$nama = $_GET['nama_cabang'];
   	$wilayah = $_GET['wilayah'];
+	  $singkatan = $_GET['singkatan_cabang'];
   	$lat = $_GET['lat'];
   	$lng = $_GET['lng'];
   	?>
@@ -111,6 +118,12 @@
 	  				<td>Nama Cabang</td>
 	  				<td>
 	  					<input name='nama_cabang' value="<?=$nama?>" class="form-control"></input>
+	  				</td>
+	  			</tr>		
+	  			<tr>
+	  				<td>Singkatan Cabang</td>
+	  				<td>
+	  					<input name='singkatan_cabang' value="<?=$singkatan?>" class="form-control"></input>
 	  				</td>
 	  			</tr>		
 
@@ -222,10 +235,11 @@ if(isset($_GET['tambah_wilayah']))
 	  	$kode = $_POST['kode_cabang'];
 	  	$nama = $_POST['nama_cabang'];
 	  	$wilayah = $_POST['wilayah'];
+	  	$singkatan = $_POST['singkatan_cabang'];
 	  	$lat = $_POST['lat'];
 	  	$lng = $_POST['lng'];
 	  	$qtambah = mysqli_query($con,"
-			INSERT INTO `cabang` (`id_cabang`, `kode_cabang`, `nama_cabang`, `latitude`, `longitude`, `id_wilayah`) VALUES (NULL, '$kode', '$nama', '$lat','$lng','$wilayah'); 
+			INSERT INTO `cabang` (`id_cabang`, `kode_cabang`, `nama_cabang`, `latitude`, `longitude`, `id_wilayah`,`singkatan_cabang`) VALUES (NULL, '$kode', '$nama', '$lat','$lng','$wilayah','$singkatan'); 
 	  		");
 	  	if($qtambah){
 	  		pesan("Cabang Berhasil Ditambahkan");
@@ -238,10 +252,11 @@ if(isset($_GET['tambah_wilayah']))
 	  	$kode = $_POST['kode_cabang'];
 	  	$nama = $_POST['nama_cabang'];
 	  	$wilayah = $_POST['wilayah'];
+		  $singkatan = $_POST['singkatan_cabang'];
 	  	$lat = $_POST['lat'];
 	  	$lng = $_POST['lng'];
 	  	$qtambah = mysqli_query($con,"
-			UPDATE `cabang` SET `kode_cabang` = '$kode', `nama_cabang` = '$nama', `id_wilayah` = '$wilayah', latitude='$lat', longitude='$lng' WHERE `cabang`.`id_cabang` = $idcab; 
+			UPDATE `cabang` SET `kode_cabang` = '$kode', singkatan_cabang='$singkatan',`nama_cabang` = '$nama', `id_wilayah` = '$wilayah', latitude='$lat', longitude='$lng' WHERE `cabang`.`id_cabang` = $idcab; 
 	  		");
 	  	if($qtambah){
 	  		pesan("Cabang Berhasil DISIMPAN","success");
@@ -309,7 +324,7 @@ if(isset($_GET['tambah_wilayah']))
 
 					<td>
 						<a href="<?=$url.$menu?>cabang&del&idcab=<?=$center['id_cabang']?>" onclick="return window.confirm('Menghapus cabang dapat mempengaruhi SEMUA')"> <i class='fa fa-times'></i> Hapus</a>
-						<a href="<?=$url.$menu?>cabang&edit&idcab=<?=$center['id_cabang']?>&kode_cabang=<?=$center['kode_cabang']?>&nama_cabang=<?=$center['nama_cabang']?>&wilayah=<?=$center['id_wilayah']?>&lat=<?=$center['latitude']?>&lng=<?=$center['longitude']?>" > <i class='fa fa-edit'></i> EDIT</a>
+						<a href="<?=$url.$menu?>cabang&edit&idcab=<?=$center['id_cabang']?>&kode_cabang=<?=$center['kode_cabang']?>&nama_cabang=<?=$center['nama_cabang']?>&wilayah=<?=$center['id_wilayah']?>&lat=<?=$center['latitude']?>&lng=<?=$center['longitude']?>&singkatan_cabang=<?=$center['singkatan_cabang']?>" > <i class='fa fa-edit'></i> EDIT</a>
 
 					</td>
 				</tr>

@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 require_once "config/seting.php";
 require_once "config/koneksi.php";
 require_once("proses/fungsi.php");
@@ -14,6 +15,8 @@ $su = $_SESSION['su'];
 $d = detail_karyawan($con, $id_karyawan);
 $nama_jabatan = $d['singkatan_jabatan'];
 $_SESSION['kode_cabang']=$d['kode_cabang'];
+$kode_cabang = $_SESSION['kode_cabang']; 
+$singkatan_cabang = $d['singkatan_cabang']; 
 ?>
 <!DOCTYPE html>
 <html lang="en">

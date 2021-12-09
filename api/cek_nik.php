@@ -24,6 +24,7 @@ else $table='daftar_nasabah_mantan';
             <th>SUAMI</th>
             <th>KTP</th>
             <th>TGL BERGABUNG</th>
+            <th>HP</th>
             <?php 
             if($kategori=='mantan') {
                 ?>
@@ -65,6 +66,7 @@ else $table='daftar_nasabah_mantan';
                         <td><?=$dup['suami_nasabah']?></td>
                         <td><?=$dup['no_ktp']?></tdd>
                         <td><?=$dup['tgl_bergabung']?></td>
+                        <td><?=$dup['hp_nasabah']?></td>
                         <?php 
                         if($kategori=='mantan') {
                             $text ="select * from temp_anggota_keluar d where d.id_cabang='$id_cabang' and d.id_nasabah='$dup[id_nasabah]'";

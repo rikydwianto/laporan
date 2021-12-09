@@ -26,7 +26,7 @@
 				$nama=$_POST['nama'];
 				$jabat=$_POST['jabatan'];
 				$pass=$_POST['password1'];
-				$cek_nik=mysqli_query($con,"select * from karyawan where nik_karyawan='$nik'");
+				$cek_nik=mysqli_query($con,"select * from karyawan where nik_karyawan='$nik' and id_cabang='$id_cabang'");
 				$cek_nik1=mysqli_fetch_assoc($cek_nik);
 				if($cek_nik1['nik_karyawan']==$nik){
 					$_SESSION['pesan']="NIK $nik Sudah ada tidak input yang sama 2 kali";
