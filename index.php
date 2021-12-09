@@ -274,6 +274,14 @@ $singkatan_cabang = $d['singkatan_cabang'];
             });
         });
     });
+    function salin(text) {
+            var sampleTextarea = document.createElement("textarea");
+            document.body.appendChild(sampleTextarea);
+            sampleTextarea.value = text; //save main text in it
+            sampleTextarea.select(); //select textarea contenrs
+            document.execCommand("copy");
+            document.body.removeChild(sampleTextarea);
+        }
 </script>
 <script src="<?= $url ?>assets/js/script_wilayah.js"></script>
 <script src="<?= $url ?>assets/js/grafik.js"></script>

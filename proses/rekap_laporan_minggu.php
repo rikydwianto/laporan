@@ -28,7 +28,7 @@ else{
 	<table class='table'>
 		<tr>					
 			
-			<th colspan=7 style="text-align:center">LAPORAN <?php echo format_hari_tanggal($tglawal);?> - <?php echo format_hari_tanggal($tglakhir);?></th>
+			<th colspan=10 style="text-align:center">LAPORAN <?php echo format_hari_tanggal($tglawal);?> - <?php echo format_hari_tanggal($tglakhir);?></th>
 		</tr>
 		<tr>				
 			<th >NO</th>
@@ -40,6 +40,7 @@ else{
 			<td >Bayar</td>
 			<td >Tdk Bayar</td>
 			<td >Persen</td>
+			<td >Par Turun</td>
 		</tr>
 		<?php 
 		
@@ -74,6 +75,15 @@ else{
 					<td><?php echo $tampil_lapor['bayar'] ?></td>
 					<td><?php echo $tampil_lapor['tidak_bayar'] ?></td>
 					<td><?php echo round(($tampil_lapor['bayar']/$tampil_lapor['anggota'] *100  ))?>%</td>					
+					<td>
+						<?php
+						while($ket= mysqli_fetch_array($cek_l1)){
+							if($ket['keterangan_lain']!=null){
+								echo $ket['keterangan_lain']."<br/>";
+							}
+						}
+						?>
+					</td>					
 				</tr>
 					<?php
 				}
@@ -88,6 +98,7 @@ else{
 								<td><?php echo $no++ ?>.</td>
 
 								<td><?php echo $tampil['nama_karyawan'] ?></td>
+								<td>0</td>
 								<td>0</td>
 								<td>0</td>
 								<td>0</td>

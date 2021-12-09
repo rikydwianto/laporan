@@ -418,7 +418,7 @@ if (isset($_POST['konfirmasi_laporan'])) {
 		}
 	}
 	echo alert("LAPORAN BERHASIL KONFIRMASI, TERIMA KASIH :)");
-	pindah("$url");
+	pindah("$url$menu" . "ket_laporan&id_laporan=" . $id_laporan);
 }
 
 

@@ -138,7 +138,7 @@ if(!$_SESSION['jabatan']){
 			<tr>					
 				<th rowspan=2>NO</th>
 				<th rowspan=2>NAMA</th>
-				<th colspan=8 style="text-align:center">LAPORAN</th>
+				<th colspan=10 style="text-align:center">LAPORAN</th>
 			</tr>
 			<tr>					
 

@@ -3,7 +3,7 @@ $bln1 = ($_POST['bln']=="" ? date("n") : $_POST['bln'] );
 $tahun = ($_POST['tahun']=="" ? date("Y") : $_POST['tahun'] );
 
 ?>
-<div class="col-md-6" style="">
+<div class="col-md-6" >
       <div class="panel panel-default ">
 
 

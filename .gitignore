@@ -8,6 +8,7 @@ Icon\?
 # Tool and Project Meta: Node, Composer, PHPStorm, VSCode, Vagrant, Yarn
 /node_modules
 /config
+/config/seting.php
 /.idea
 /.vscode
 /.vagrant

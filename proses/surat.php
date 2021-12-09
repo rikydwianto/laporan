@@ -210,22 +210,16 @@ $romawi = ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII',''];
        
        }
 
-       function copyToClipboard(text) {
-            var sampleTextarea = document.createElement("textarea");
-            document.body.appendChild(sampleTextarea);
-            sampleTextarea.value = text; //save main text in it
-            sampleTextarea.select(); //select textarea contenrs
-            document.execCommand("copy");
-            document.body.removeChild(sampleTextarea);
-        }
+       
 
         $("#copi").on("click",function(e){
             e.preventDefault();
-            copyToClipboard($("#no_surat").val());
+            salin($("#no_surat").val());
             $(this).html('tersalin');
             setTimeout(function(){
                 $("#copi").html('salin');
             },3000);
         });
+        
     
 </script>

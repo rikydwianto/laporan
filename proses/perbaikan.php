@@ -91,7 +91,7 @@
     }
      else {
     ?>
-    
+    klik id anggota untuk menyalin id anggota
         <table id='data_center' class='table-bordered'>
             <thead>
                 <tr>
@@ -116,12 +116,12 @@
                     $hp = $kes['no_hp'];
                 ?>
                     <tr id='ganti-<?= $kes['id_perbaikan'] ?>'>
-                        <td><?= $kes['id_detail_nasabah'] ?></td>
+                        <td><a class="btn" id='detail<?= $kes['id_perbaikan'] ?>' onclick="salin_id('<?= $kes['id_detail_nasabah'] ?>','<?= $kes['id_perbaikan'] ?>')" title='Klik untuk salin'><?= $kes['id_detail_nasabah'] ?></a></td>
                         <td><?= $kes['nama_nasabah'] ?></td>
                         <td><?= $kes['kesalahan'] ?></td>
                         <td><?= preg_replace('/[^0-9]/', '', str_replace("+62",'0',$hp))?></td>
                         <td><b><?php
-                                echo ($kes['nama_ibu_kandung'] === null ? "" : "Ibu : ".strtoupper($kes['nama_ibu_kandung'])."<br/>");
+                                echo ($kes['nama_ibu_kandung'] === null ? "" : "Ibu ".'<a class="btn" onclick="salin('."'".strtoupper($kes['nama_ibu_kandung'])."'".')">'.strtoupper($kes['nama_ibu_kandung'])."</a><br/>");
                                 echo ($kes['nik_ktp'] === null ? "" : "ktp : $kes[nik_ktp]<br/>");
                                 echo ($kes['status_pernikahan'] === null ? "" : "status : $kes[status_pernikahan]<br/>");
                                 echo ($kes['tgl_lahir'] === null ? "" : "lahir : $kes[tgl_lahir]<br/>");
@@ -166,5 +166,13 @@
                 // alert(id)
             });
         });
+    }
+    function salin_id(detail,no){
+        salin(detail);
+        $("#detail"+no).html("tersalin");
+        setTimeout(function(){
+            $("#detail"+no).html(detail);
+
+        },3000);
     }
 </script>

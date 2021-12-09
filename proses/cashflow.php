@@ -45,7 +45,7 @@
 				<input type='hidden' name='menu' class="form-control" value='cashflow'></input>
 				<tr>
 					<th>NO</th>
-					<th>Staff</th>
+					<th>STAFF</th>
 					<th>TAHUN</th>
 					<th>BULAN</th>
 					<th>MINGGU</th>
@@ -62,7 +62,7 @@
 						<td><?=$no++?></td>
 						<td><?=$cek_ka['nama_karyawan']?></td>
 						<td>
-							<input type='number' class="form-control" style="width: 100px" name='tahun[]' id='tahun<?=$cek_ka['id_karyawan']?>' value='<?=$cash['target_tahun']?>'></input>
+							<input type='number' onkeyup="bulan_minggu('<?=$cek_ka['id_karyawan']?>')" class="form-control" style="width: 100px" name='tahun[]' id='tahun<?=$cek_ka['id_karyawan']?>' value='<?=$cash['target_tahun']?>'></input>
 							<input type='hidden' name='idk[]' class="form-control" value='<?=$cek_ka['id_karyawan']?>'></input>
 
 						</td>
@@ -161,12 +161,12 @@
 						<td><?=$no++?></td>
 						<td><?=$cek_ka['nama_karyawan']?></td>
 						<td>
-							<input type='number' onkeydown="bulan_minggu('<?=$cek_ka['id_karyawan']?>')" class="form-control" style="width: 100px" name='masuk[]' id='masuk<?=$cek_ka['id_karyawan']?>' value='<?=$cash['cashflow_masuk']?>'></input>
+							<input type='number'  class="form-control" style="width: 100px" name='masuk[]' id='masuk<?=$cek_ka['id_karyawan']?>' onchange="ganti_net('<?=$cek_ka['id_karyawan']?>')" value='<?=$cash['cashflow_masuk']?>'></input>
 							<input type='hidden' name='idk[]' class="form-control" value='<?=$cek_ka['id_karyawan']?>'></input>
 
 						</td>
 						<td>
-							<input  type='number' class="form-control" style="width: 100px" name='keluar[]' id='keluar<?=$cek_ka['id_karyawan']?>' onkeyup="ganti_net('<?=$cek_ka['id_karyawan']?>')" value='<?=$cash['cashflow_keluar']?>'></input>
+							<input  type='number' class="form-control" style="width: 100px" name='keluar[]' id='keluar<?=$cek_ka['id_karyawan']?>' onchange="ganti_net('<?=$cek_ka['id_karyawan']?>')" value='<?=$cash['cashflow_keluar']?>'></input>
 
 						</td>
 						<td>
@@ -212,7 +212,9 @@
 
 <script>
 	function bulan_minggu(id){
-		// var idk = $("#tahun"+id).val();
-		alert('idk')
+		let tahun = $("#tahun"+id).val();
+		let bulan = tahun/12;
+		$("#bulanan"+id).val(bulan);
+		$("#mingguan"+id).val(Math.ceil(bulan/4));
 	}
 </script>
