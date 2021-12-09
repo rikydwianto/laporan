@@ -47,8 +47,8 @@
 					<th>NO</th>
 					<th>STAFF</th>
 					<th>TAHUN</th>
-					<th>BULAN</th>
-					<th>MINGGU</th>
+					<th>BULAN <br/> TAHUN/12</th>
+					<th>MINGGU  <br/> BULAN/4</th>
 
 				</tr>
 				<?php 
@@ -62,16 +62,16 @@
 						<td><?=$no++?></td>
 						<td><?=$cek_ka['nama_karyawan']?></td>
 						<td>
-							<input type='number' onkeyup="bulan_minggu('<?=$cek_ka['id_karyawan']?>')" class="form-control" style="width: 100px" name='tahun[]' id='tahun<?=$cek_ka['id_karyawan']?>' value='<?=$cash['target_tahun']?>'></input>
+							<input type='number' onkeyup="bulan_minggu('<?=$cek_ka['id_karyawan']?>')" class="form-control" style="" name='tahun[]' id='tahun<?=$cek_ka['id_karyawan']?>' value='<?=$cash['target_tahun']?>'></input>
 							<input type='hidden' name='idk[]' class="form-control" value='<?=$cek_ka['id_karyawan']?>'></input>
 
 						</td>
 						<td>
-							<input  type='number' class="form-control" style="width: 100px" name='bulanan[]' id='bulanan<?=$cek_ka['id_karyawan']?>' value='<?=$cash['target_bulan']?>'></input>
+							<input  type='number' class="form-control" style="" name='bulanan[]' id='bulanan<?=$cek_ka['id_karyawan']?>' value='<?=$cash['target_bulan']?>'></input>
 
 						</td>
 						<td>
-							<input  type='number' class="form-control"  style="width: 100px" name='mingguan[]' id='mingguan<?=$cek_ka['id_karyawan']?>' value='<?=$cash['target_minggu']?>'></input>
+							<input  type='number' class="form-control"  style="" name='mingguan[]' id='mingguan<?=$cek_ka['id_karyawan']?>' value='<?=$cash['target_minggu']?>'></input>
 
 						</td>
 					
@@ -214,7 +214,10 @@
 	function bulan_minggu(id){
 		let tahun = $("#tahun"+id).val();
 		let bulan = tahun/12;
-		$("#bulanan"+id).val(bulan);
+		
+		// $("#tahun"+id).val(dollarUS.format(tahun));
+		$("#bulanan"+id).val(Math.ceil(bulan));
+		
 		$("#mingguan"+id).val(Math.ceil(bulan/4));
 	}
 </script>
