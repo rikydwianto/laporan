@@ -1,12 +1,7 @@
 <?php
-// Database configuration
-$host = "localhost"; //host database
-$username = "root"; //user database
-$password = ""; //password database
-$database_name = "komida"; //nama database
- 
-// Get connection object and set the charset
-$conn = mysqli_connect($host, $username, $password, $database_name);
+include("../config/koneksi.php");
+include("../config/seting.php");
+$conn = $con;
 $conn->set_charset("utf8");
  
  
