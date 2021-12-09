@@ -105,7 +105,7 @@ $tahun = ($_POST['tahun']=="" ? date("Y") : $_POST['tahun'] );
 	  
 	  
 </div>
-<div class="col-md-6" style="">
+<div class="col-md-6" >
       <div class="panel panel-default ">
 
 <?php 
@@ -223,7 +223,7 @@ else
 <div class="col-md-12 col-lg-12 "   >
       <div class="panel panel-default ">
 
-    <div class="panel-body post-body  " style="" >
+    <div class="panel-body post-body  "  >
         <h2>Rekap pembayaran anggota</h2><hr/>
 		<div class='table-responsive'>
 		<table class='table table-bordered' >
