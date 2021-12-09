@@ -110,7 +110,7 @@ try {
 
     //Recipients
     $mail->setFrom('rikydwianto04@gmail.com', 'RIKY');
-    $mail->addAddress('batox65@gmail.com', 'RIKY BACKUP');     //Add a recipient
+    $mail->addAddress('rikydwianto04@gmail.com', 'RIKY BACKUP');     //Add a recipient
     // $mail->addAddress('ellen@example.com');               //Name is optional
     // $mail->addReplyTo('info@example.com', 'Information');
     $mail->addCC('rikydwianto08@gmail.com');
@@ -125,7 +125,7 @@ try {
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
     $mail->Subject = 'BACKUP HARIAN DATA'. date("Y-m-d");
-    $mail->Body    = 'BACKUP HARIAN ';
+    $mail->Body    = 'BACKUP HARIAN  '. date("Y-m-d")." Terima kasih tela membackup";
     // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     $mail->send();
