@@ -37,7 +37,7 @@
                 ");
                 while($r = mysqli_fetch_array($cek_ka)){
                     $total = mysqli_fetch_array(mysqli_query($con,"SELECT count(*) as total_mtr from monitoring m 
-                    join pinjaman p on p.id_pinjaman=m.id_pinjaman 
+                    join pinjaman p on p.id_detail_pinjaman=m.id_detail_pinjaman 
                     where p.id_karyawan='$r[id_karyawan]' and p.monitoring='sudah' and m.tgl_monitoring >= '$tgl_awal' and  m.tgl_monitoring <= '$tgl_akhir'
                     "));
                     $total = $total['total_mtr'];
