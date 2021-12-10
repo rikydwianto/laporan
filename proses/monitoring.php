@@ -206,19 +206,30 @@
                     if (isset($_POST['ganti'])) {
                         $karyawan = $_POST['karyawan'];
                         $mdis = $_POST['nama_mdis'];
-                        $mon = mysqli_query($con, "select tgl_pencairan,id_pinjaman from pinjaman where id_karyawan is null and id_cabang='$id_cabang' ");
+                        $mon = mysqli_query($con, "select * from pinjaman where id_karyawan is null and id_cabang='$id_cabang' ");
                         while ($moni = mysqli_fetch_array($mon)) {
                             $tgl = $moni['tgl_pencairan'];
                             $tgl = explode("-", $tgl);
                             $new_tgl = $tgl[2] . "-" . $tgl[1] . "-" . $tgl[0];
+                            
                             mysqli_query($con, "UPDATE `pinjaman` SET `tgl_cair` = '$new_tgl'  WHERE `id_pinjaman` = '$moni[id_pinjaman]';");
                         }
                         for ($i = 0; $i < count($mdis); $i++) {
                             if (!empty($karyawan[$i])) {
                                 $text = " UPDATE `pinjaman` SET `staff` = null , id_karyawan='$karyawan[$i]' WHERE `staff` = '$mdis[$i]' and id_cabang='$id_cabang'; ";
                                 $q = mysqli_query($con, "$text");
+                                
                             }
                         }
+                        $update=mysqli_query($con,"select * from pinjaman where input_disburse='belum' and id_cabang='$id_cabang'"); 
+                        while($upd =mysqli_fetch_array($update)){
+                            mysqli_query($con,"INSERT INTO `disburse` (`disburse`, `tgl_disburse`, `id_karyawan`, `id_cabang`) 
+                            VALUES ('$upd[jumlah_pinjaman]', '$upd[tgl_cair]', '$upd[id_karyawan]', '$id_cabang'); 
+                            ");
+                             $text = " UPDATE `pinjaman` SET `input_disburse` = 'sudah'  WHERE id_pinjaman='$upd[id_pinjaman]'and id_cabang='$id_cabang'; ";
+                             $q = mysqli_query($con, "$text");
+                        }
+
                     }
 
 

@@ -122,6 +122,7 @@
                         }
                         else {
                             $no_input++;
+                            
                             mysqli_query($con,"INSERT INTO `pinjaman` 
                                     (`id_detail_nasabah`, `id_detail_pinjaman`, `nama_nasabah`, `no_hp`, `center`, `kelompok`, `produk`, `jumlah_pinjaman`, `outstanding`, `jk_waktu`, `margin`, `angsuran`, `tujuan_pinjaman`, `pinjaman_ke`, `staff`, `tgl_pengajuan`, `tgl_pencairan`, `tgl_angsuran`,  `id_cabang`)
                             VALUES ('$id_nasabah', '$loan', '$nasabah', '$hp', '$no_center', '$kelompok', '$produk', '$pinjaman', '$outstanding', '$jk', '$margin', '$angsuran', '$tujuan', '$pinj_ke', '$staff', '$tgl_pengajuan', '$tgl_pencairan', '$tgl_angsuran',  '$id_cabang'); ");

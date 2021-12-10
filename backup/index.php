@@ -25,10 +25,19 @@ $tables = array();
 $sql = "SHOW TABLES";
 $result = mysqli_query($conn, $sql);
 // echo  mysqli_error($conn);
-
+$larang =['daftar_wilayah','daftar_nasabah','deliquency','bayar','rekap_bayar','rekap_center'];
 while ($row = mysqli_fetch_row($result)) {
-    $tables[] = $row[0];
+    if(in_array($row[0],$larang)){
+        // echo"ada";
+    }
+    else{
+        // echo"tidak ada";
+        $tables[] = $row[0];
+    }
+    
+    // exit;
 }
+// exit;
 ?>
 <?php
 $sqlScript = "";
@@ -94,7 +103,7 @@ if(!empty($sqlScript))
     // exec('rm ' . $backup_file_name); 
     
     
-//Create an instance; passing `true` enables exceptions
+//Create an instance; passing 'true` enables exceptions
 $mail = new PHPMailer(true);
 
 try {
@@ -124,8 +133,8 @@ try {
 
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
-    $mail->Subject = 'BACKUP HARIAN DATA'. date("Y-m-d");
-    $mail->Body    = 'BACKUP HARIAN  '. date("Y-m-d")." Terima kasih tela membackup";
+    $mail->Subject = 'BACKUP HARIAN '. date("Y-m-d");
+    $mail->Body    = 'BACKUP HARIAN  '. date("Y-m-d")." <br/><br/><br/><br/><br/><br/><br/><br/> Terima kasih tela membackup";
     // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     $mail->send();
