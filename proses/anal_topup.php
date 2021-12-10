@@ -3,6 +3,26 @@
     
     ?>
     <h3> ANGGOTA PAR <?=$tgl_banding?></h3>
+    <form action="" method="post">
+        <select name="id" id="karyawan"  class='form-control'>
+            <option value="">PILIH SEMUA STAFF</option>
+            <?php 
+            $id = aman($con,$_GET['id']);
+            $data_karyawan  = (karyawan($con, $id_cabang)['data']);
+            
+            for ($i = 0; $i < count($data_karyawan); $i++) {
+                $nama_karyawan = $data_karyawan[$i]['nama_karyawan'];
+                $idk = $data_karyawan[$i]['id_karyawan'];
+                if ($idk == $id) {
+                    echo "<option selected value='" . $data_karyawan[$i]['id_karyawan'] . "'>" . $nama_karyawan . "</option>";
+                } else {
+                    echo "<option value='" . $data_karyawan[$i]['id_karyawan'] . "'>" . $nama_karyawan . "</option>";
+                }
+            }
+            ?>
+        </select>
+        
+    </form>
     <table class='table'>
         <tr>
             <td>NO</td>
@@ -21,10 +41,21 @@
     <?php
     $no=1;
     $total_bermasalah=0;
+
+    if(isset($_GET['id'])){
+        if($_GET['id']!=null){
+            $id = aman($con,$_GET['id']);
+            $q_tambah = "and k.id_karyawan='$id'";
+        }
+        else $q_tambah="";
+    }
+    else $q_tambah="";
     $query = mysqli_query($con,"
     SELECT d.*,k.nama_karyawan FROM deliquency d 
 	JOIN center c ON c.`no_center`=d.`no_center` 
-	JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` where d.tgl_input in (select max(tgl_input) from deliquency where id_cabang='$id_cabang') and c.id_cabang='$id_cabang' order by d.sisa_saldo asc");
+	JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` where d.tgl_input in (select max(tgl_input) from deliquency where id_cabang='$id_cabang') and c.id_cabang='$id_cabang' $q_tambah order by d.sisa_saldo asc");
+    
+    echo mysqli_error($con);
     while($data = mysqli_fetch_array($query)){
         $total_bermasalah+=$data['sisa_saldo'];
         $par = mysqli_num_rows(mysqli_query($con,"select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]'"));
@@ -60,3 +91,18 @@
         <th><?=angka($total_bermasalah)?></th>
     </tr>
     </table>
+<script>
+    $("#karyawan").on("change",function(){
+        var url = "<?=$url.$menu?>par&anal_topup=ANALISA+TOPUP";
+        let id=$(this).val();
+        // alert(id);
+        if(id==null){
+            window.location.replace(url);
+
+        }
+        else{
+            window.location.replace(url+"&id="+id);
+
+        }
+    });
+</script>

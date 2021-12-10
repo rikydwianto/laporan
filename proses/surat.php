@@ -69,7 +69,7 @@ $romawi = ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII',''];
                         <tr>
                             <td>KATEGORI</td>
                             <td>
-                                <select name='kategori' onchange="surat()" id='kategori' required class='form-control' style='float:left;width:400px'>
+                                <select name='kategori' onchange="surat()" id='kategori'  class='form-control' style='float:left;width:400px'>
                                     <option value="">Pilih kategori</option>
                                     <?php 
                                     $qkat = mysqli_query($con,"select * from kategori_surat where id_cabang='$id_cabang'");

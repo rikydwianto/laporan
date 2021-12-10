@@ -43,7 +43,8 @@
                     <ul class="nav" id="side-menu">
                         <li class="sidebar-search">
                             <div class="text">
-    						  <img src="<?= $url ?>/assets/logo.png" style="width:50px" class="img-thumbnail rounded" alt="...">	
+                                MENU
+    						  <!-- <img src="<?= $url ?>/assets/logo.png" style="width:20px" class="img-thumbnail rounded" alt="...">	 -->
 
     						</div>
                         </li>

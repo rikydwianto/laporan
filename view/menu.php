@@ -156,6 +156,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 				<li>
 					<a href="<?php echo $url . $menu ?>rekap_all"><i class="fa fa-file-excel-o"></i> REKAP SEMUA</a>
 				</li>
+				<li>
+					<a href="<?php echo $url . $menu ?>rekap_cf"><i class="fa fa-file-excel-o"></i> REKAP CASHFLOW</a>
+				</li>
 			</ul>
 
 		</li>
@@ -298,6 +301,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 				<li>
 					<a href="<?php echo $url . $menu ?>rekap_all"><i class="fa fa-file-excel-o"></i> REKAP SEMUA</a>
 				</li>
+				<li>
+					<a href="<?php echo $url . $menu ?>rekap_cf"><i class="fa fa-file-excel-o"></i> REKAP CASHFLOW</a>
+				</li>
 			</ul>
 
 		</li>
@@ -395,8 +401,11 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 				<a href="<?php echo $url . $menu ?>list-center-blacklist"><i class="fa fa-building"></i> Center Ditutup</a>
 			</li>
 			<li>
-					<a href="<?php echo $url . $menu ?>rekap_all"><i class="fa fa-file-excel-o"></i> REKAP SEMUA</a>
-				</li>
+				<a href="<?php echo $url . $menu ?>rekap_all"><i class="fa fa-file-excel-o"></i> REKAP SEMUA</a>
+			</li>
+			<li>
+				<a href="<?php echo $url . $menu ?>rekap_cf"><i class="fa fa-file-excel-o"></i> REKAP CASHFLOW</a>
+			</li>
 		</ul>
 		</li>
 		<li>
