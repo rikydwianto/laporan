@@ -32,8 +32,8 @@
             <td>ANGGOTA</td>
             <td>DISBURSE</td>
             <td>BALANCE</td>
-            <td>TOPUP</td>
-            <td>ANGSURAN<br/>50mg</td>
+            <td>TOPUP <br/> BAL + 5%</td>
+            <td>ANGSURAN<br/>50mg + margin</td>
             <td></td>
             <td>STAFF</td>
         </tr>
@@ -70,6 +70,10 @@
             $baris['ket']='';
 
         } 
+        $bagi=1000000;
+        $saldo=$data['sisa_saldo']/$bagi;
+       $saldo  = round(round($saldo,2,PHP_ROUND_HALF_UP)*$bagi,2) ;
+       $saldo = $saldo +  ($saldo*0.05);
         ?>
         <tr style="background-color:<?=$baris['baris']?>;color:<?=$baris['text']?>">
             <td><?=$no++?></td>
@@ -79,8 +83,8 @@
             <td><?=$data['nasabah']?></td>
             <td><?=angka($data['amount'])?></td>
             <td><?=angka(round($data['sisa_saldo']))?></td>
-            <td><?=angka(round($data['sisa_saldo']),1,PHP_ROUND_HALF_UP)?></td>
-            <td><?=angka($data['sisa_saldo']/50)?></td>
+            <td><?=angka($saldo)?></td>
+            <td><?=angka(round((($saldo*0.24)+$saldo)/50)/1000,2)*1000?></td>
             <td></td>
             <td><?=$data['nama_karyawan']?></td>
         </tr>

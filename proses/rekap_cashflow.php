@@ -1,6 +1,12 @@
 
 <style>
     #rekap_semua table  tr th{vertical-align: middle; text-align: center;
+        @media print {
+            table{
+                border-collapse: collapse;
+                border: 1px solid black
+            }
+        }
 }
 </style>
 <?php
