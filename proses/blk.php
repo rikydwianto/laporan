@@ -6,6 +6,7 @@ if(isset($_GET['download'])){
     $back_dir    ="/export/excel/par/";
     $file =$back_dir.$download;
     pindah($url.$file);
+    pindah($url.$menu."blk_input");
     exit;
 }
 $file = $_FILES['file']['tmp_name'];
