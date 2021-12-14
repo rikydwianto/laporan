@@ -169,7 +169,7 @@ else{
 		</tr>
 		<?php
 		$no1=1;
-		$cek_ket = mysqli_query($con,"SELECT * from laporan l join karyawan k on k.id_karyawan=l.id_karyawan where k.id_cabang='$id_cabang' and tgl_laporan >= '$tglawal' and tgl_laporan <= '$tglakhir' and keterangan_lain is not null");
+		$cek_ket = mysqli_query($con,"SELECT * from laporan l join karyawan k on k.id_karyawan=l.id_karyawan where k.id_cabang='$id_cabang' and tgl_laporan >= '$tglawal' and tgl_laporan <= '$tglakhir' and keterangan_lain is not null order by k.nama_karyawan asc");
 		echo mysqli_error($con);
 		while($r = mysqli_fetch_array($cek_ket)){
 			?>
