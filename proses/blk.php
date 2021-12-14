@@ -1,11 +1,71 @@
 <a href="<?=$url.$menu?>blk_input" class="btn btn-success"> Kembali</a>
 <?php
+
+if(isset($_GET['download'])){
+    $download = $_GET['download'];
+    $back_dir    ="/export/excel/par/";
+    $file =$back_dir.$download;
+    pindah($url.$file);
+    exit;
+}
 $file = $_FILES['file']['tmp_name'];
 $path = $file;
 $reader = PHPExcel_IOFactory::createReaderForFile($path);
 $objek = $reader->load($path);
 $ws = $objek->getActiveSheet();
 $last_row = $ws->getHighestDataRow();
+require './vendor/autoload.php';
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+
+$baris = 3;
+$no1=1;
+
+$spreadsheet = new Spreadsheet();
+
+$sheet = $spreadsheet->getActiveSheet();
+$sheet->getColumnDimension('B')->setAutoSize(true);
+$sheet->getColumnDimension('C')->setAutoSize(true);
+$sheet->getColumnDimension('D')->setAutoSize(true);
+$sheet->getColumnDimension('E')->setAutoSize(true);
+$sheet->getColumnDimension('F')->setAutoSize(true);
+$sheet->getColumnDimension('G')->setAutoSize(true);
+$sheet->getColumnDimension('H')->setAutoSize(true);
+$sheet->getColumnDimension('I')->setAutoSize(true);
+$sheet->getColumnDimension('J')->setAutoSize(true);
+$sheet->getColumnDimension('K')->setAutoSize(true);
+$sheet->getColumnDimension('L')->setAutoSize(true);
+$sheet->getColumnDimension('M')->setAutoSize(true);
+$sheet->getColumnDimension('N')->setAutoSize(true);
+$sheet->getColumnDimension('O')->setAutoSize(true);
+$sheet->getColumnDimension('P')->setAutoSize(true);
+$sheet->getColumnDimension('Q')->setAutoSize(true);
+$sheet->setTitle('DATA STAFF');
+
+
+$sheet->setCellValue('A1', 'DATA PAR ');
+$sheet->setCellValue('A2', 'NO');
+$sheet->setCellValue('b2', 'ID/CENTER');
+$sheet->setCellValue('c2', 'NASABAH');
+$sheet->setCellValue('d2', 'PEMB');
+$sheet->setCellValue('e2', 'KE');
+$sheet->setCellValue('f2', 'RILL');
+$sheet->setCellValue('g2', 'AMOUNT');
+$sheet->setCellValue('h2', 'O.S');
+$sheet->setCellValue('i2', 'CICILAN');
+$sheet->setCellValue('j2', 'WAJIB');
+$sheet->setCellValue('k2', 'SUKARELA');
+$sheet->setCellValue('l2', 'PENSIUN');
+$sheet->setCellValue('m2', 'PAR');
+$sheet->setCellValue('n2', '1 Angsuran');
+$sheet->setCellValue('o2', 'Tanpa Margin');
+$sheet->setCellValue('p2', 'STAFF');
+$spreadsheet->createSheet();
+// Add some data
+$shee = $spreadsheet->setActiveSheetIndex(1);
+$sheet->setCellValue('A1', 'DATA PAR');
 ?>
 <h2>BLK </h2>
 <table id='data_blk' class='table-bordered'>
@@ -159,7 +219,7 @@ for($row = 7;$row<=$last_row;$row++){
         
             <tr style="background-color: <?=$warna_baris?>">
                 <td><?=$nama['no_center']?></td>
-                <!-- <td><?=$no++?></td> -->
+                <!-- <td><></td> -->
                 <td><?=$id_nasabah?></td>
                 <td><?=$nasabah?></td>
                 <td><?=$kode_pemb?></td>
@@ -185,8 +245,46 @@ for($row = 7;$row<=$last_row;$row++){
                     <?=$nama['nama_karyawan']?>
                 </td>
             </tr>
-        
-         <?php   
+            
+            <?php   
+
+            if($ket){
+                                
+                // $sheet->setCellValue('A1'.$baris 'DATA PAR ');
+                /**
+                 * <td><?=$id_nasabah?></td>
+                <td><?=$nasabah?></td>
+                <td><?=$kode_pemb?></td>
+                <td><?=$ke?></td>
+                <td><?=$rill?></td>
+                <td><?=angka($amount)?></td>
+                <td><?=angka($os)?></td>
+                <td><?=angka($cicilan)?></td>
+                <td><?=angka($wajib)?></td>
+                <td><?=angka($sukarela)?></td>
+                <td><?=angka($pensiun)?></td>
+                 * 
+                 */
+                $sheet->setCellValue('A'.$baris, $baris);
+                $sheet->setCellValue('b'.$baris, $id_nasabah.' / '. $nama['no_center']);
+                $sheet->setCellValue('c'.$baris, $nasabah);
+                $sheet->setCellValue('d'.$baris, $kode_pemb);
+                $sheet->setCellValue('e'.$baris, $ke);
+                $sheet->setCellValue('f'.$baris, $rill);
+                $sheet->setCellValue('g'.$baris, $amount);
+                $sheet->setCellValue('h'.$baris, $os);
+                $sheet->setCellValue('i'.$baris, $cicilan);
+                $sheet->setCellValue('j'.$baris, $wajib);
+                $sheet->setCellValue('k'.$baris, $sukarela);
+                $sheet->setCellValue('l'.$baris, $pensiun);
+                $sheet->setCellValue('m'.$baris, ($selisih - 1));
+                $sheet->setCellValue('n'.$baris, ($satu_angsuran==0?"":($satu_angsuran)));
+                $sheet->setCellValue('o'.$baris, ($tanpa_margin==0?"":($tanpa_margin)));
+                $sheet->setCellValue('p'.$baris, $nama['nama_karyawan']);
+                $baris++;
+            }
+            
+
         }
     }
 }
@@ -216,3 +314,14 @@ for($row = 7;$row<=$last_row;$row++){
         </tr>
     </tfoot> -->
 </table>
+<?php 
+// $spreadsheet->getActiveSheet()->setTitle('Data Par');
+// Set active sheet index to the first sheet, so Excel opens this as the first sheet
+$spreadsheet->setActiveSheetIndex(0);
+
+
+
+$writer = new Xlsx($spreadsheet);
+$filename='PAR - '.date("Y-m-d").' - '. time() ;
+$writer->save('export/excel/par/'.$filename.'.xlsx');
+pindah($url."blk.php?download=".$filename.".xlsx");
