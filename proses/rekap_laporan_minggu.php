@@ -78,7 +78,7 @@ else{
 					<td>
 						<?php
 						
-								echo "<pre>".$tampil['keterangan_laporan']."</pre><br/>";
+								echo "<pre>".$tampil_lapor['keterangan_laporan']."</pre><br/>";
 					
 						?>
 					</td>					
