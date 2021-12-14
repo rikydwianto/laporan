@@ -40,7 +40,7 @@ else{
 			<td >Bayar</td>
 			<td >Tdk Bayar</td>
 			<td >Persen</td>
-			<td >Par Turun</td>
+			<td >KETERANGAN</td>
 		</tr>
 		<?php 
 		
@@ -77,10 +77,12 @@ else{
 					<td><?php echo round(($tampil_lapor['bayar']/$tampil_lapor['anggota'] *100  ))?>%</td>					
 					<td>
 						<?php
-						
-								echo "<pre>".$tampil_lapor['keterangan_laporan']."</pre><br/>";
-					
-						?>
+						while($ket = mysqli_fetch_array($cek_l1)){
+
+							echo "<pre>".$ket['keterangan_laporan']."</pre><br/>";
+							
+						}
+							?>
 					</td>					
 				</tr>
 					<?php
@@ -162,6 +164,7 @@ else{
 		<tr>
 			<th>NO</th>
 			<th>NAMA</th>
+			<th>TGL</th>
 			<th>KETERANGAN</th>
 		</tr>
 		<?php
@@ -173,6 +176,7 @@ else{
 		<tr>
 			<td><?=$no1++?></td>
 			<td><?=$r['nama_karyawan']?></td>
+			<td><?=$r['tgl_laporan']?></td>
 			<td><pre><?=$r['keterangan_lain']?></pre></td>
 		</tr>
 		<?php
