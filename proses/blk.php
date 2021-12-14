@@ -46,7 +46,7 @@ $sheet->getColumnDimension('Q')->setAutoSize(true);
 $sheet->setTitle('DATA STAFF');
 
 
-$sheet->setCellValue('A1', 'DATA PAR ');
+$sheet->setCellValue('B1', 'DATA PAR ');
 $sheet->setCellValue('A2', 'NO');
 $sheet->setCellValue('b2', 'ID/CENTER');
 $sheet->setCellValue('c2', 'NASABAH');

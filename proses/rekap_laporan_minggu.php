@@ -44,7 +44,7 @@ else{
 		</tr>
 		<?php 
 		
-		$cek_ka=mysqli_query($con,"SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_cabang='$cabang' and jabatan.singkatan_jabatan='SL' order by karyawan.nama_karyawan asc");
+		$cek_ka=mysqli_query($con,"SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_cabang='$cabang' and jabatan.singkatan_jabatan='SL' and karyawan.status_karyawan='aktif' order by karyawan.nama_karyawan asc");
 		$hitung_agt = 0; 
 		$hitung_member = 0; 
 		$hitung_dtd = 0; 
@@ -77,11 +77,9 @@ else{
 					<td><?php echo round(($tampil_lapor['bayar']/$tampil_lapor['anggota'] *100  ))?>%</td>					
 					<td>
 						<?php
-						while($ket= mysqli_fetch_array($cek_l1)){
-							if($ket['keterangan_lain']!=null){
-								echo $ket['keterangan_lain']."<br/>";
-							}
-						}
+						
+								echo "<pre>".$tampil['keterangan_laporan']."</pre><br/>";
+					
 						?>
 					</td>					
 				</tr>
@@ -151,12 +149,37 @@ else{
 			<th colspan=9><?php echo $persen  = round(($hitung_bayar/$hitung_agt)*100,2) ?>%</th>
 		</tr>
 	</table>
+	
 	<a href="<?=$url.$menu?>rekap_laporan_minggu&grafik&bayar=<?=$hitung_bayar?>&member=<?=$hitung_member?>&client=<?=$hitung_agt?>&persen=<?=$persen?>&tgl=<?=$tglawal?>&tgl1=<?=$tglakhir?>&dtd=<?=$hitung_dtd?>"
 	 class="btn btn-danger"
 	 onclick="return window.confirm('Apakah Sudah benar???')"
 	 >Simpan Ke Grafik</a>
 		<br>** PASTIKAN LAPORAN TELAH APPROVE SEMUA DAN TELAH selesaikan <br>
 		*** TIDAK DAPAT DIEDIT
+
+		<h2>PENURUNAN  PAR</h2>
+	<table class="table">
+		<tr>
+			<th>NO</th>
+			<th>NAMA</th>
+			<th>KETERANGAN</th>
+		</tr>
+		<?php
+		$no1=1;
+		$cek_ket = mysqli_query($con,"SELECT * from laporan l join karyawan k on k.id_karyawan=l.id_karyawan where k.id_cabang='$id_cabang' and tgl_laporan >= '$tglawal' and tgl_laporan <= '$tglakhir' and keterangan_lain is not null");
+		echo mysqli_error($con);
+		while($r = mysqli_fetch_array($cek_ket)){
+			?>
+		<tr>
+			<td><?=$no1++?></td>
+			<td><?=$r['nama_karyawan']?></td>
+			<td><pre><?=$r['keterangan_lain']?></pre></td>
+		</tr>
+		<?php
+		}
+		?>
+
+	</table>
 	</div>
 </div>
 			
