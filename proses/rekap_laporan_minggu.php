@@ -79,7 +79,7 @@ else{
 						<?php
 						while($ket = mysqli_fetch_array($cek_l1)){
 
-							echo "<pre>".$ket['keterangan_laporan']."</pre><br/>";
+							echo "<small><pre>".$ket['keterangan_laporan']."</pre></small>";
 							
 						}
 							?>
