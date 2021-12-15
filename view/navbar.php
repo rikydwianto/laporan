@@ -1,6 +1,6 @@
 <nav class="navbar navbar-inverse navbar-fixed-top " role="navigation">
         <div class="navbar-header">
-            <a class="navbar-brand" href="<?=$url ?>">KOMIDA</a>
+            <a class="navbar-brand" href="<?=$url ?>"><?= strtoupper($d['nama_cabang']) ?></a>
         </div>
 
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -12,7 +12,7 @@
 
         <!-- Top Navigation: Left Menu -->
         <ul class="nav navbar-nav navbar-left navbar-top-links">
-            <li><a href="<?=$url ?>"><i class="fa fa-home fa-fw"></i> PAGADEN</a></li>
+            <!-- <li><a href="<?=$url ?>"><i class="fa fa-home fa-fw"></i> PAGADEN</a></li> -->
         </ul>
 
         <!-- Top Navigation: Right Menu -->

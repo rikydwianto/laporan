@@ -48,7 +48,7 @@
                 <td>PASSWORD</td>
             </tr>
             <?php 
-            $q1 = mysqli_query($con,"select distinct staff from daftar_nasabah where id_cabang='$id_cabang' and id_karyawan is not null");
+            $q1 = mysqli_query($con,"select distinct staff from daftar_nasabah where id_cabang='$id_cabang' and id_karyawan is  null");
             while($staff = mysqli_fetch_array($q1)){
                 ?>
                 <tr>

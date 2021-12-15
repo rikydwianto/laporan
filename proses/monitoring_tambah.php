@@ -62,7 +62,7 @@
                     else{
                         $agt = (substr(ganti_karakter($id_nasabah),0,3));
 
-                        if( $agt=="AGT"){
+                        if( $agt=="AGT" || $agt=="NSB"){
                             $nasabah =  ganti_karakter($ws->getCell("D".$row)->getValue());
                         $loan = ganti_karakter($ws->getCell("C".$row)->getValue());
                         $no_center = ganti_karakter($ws->getCell("F".$row)->getValue());

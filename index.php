@@ -28,7 +28,7 @@ $singkatan_cabang = $d['singkatan_cabang'];
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>KOMIDA PAGADEN | LAPORAN HARIAN!</title>
+    <title>MITRA DHUAFA | <?= strtoupper($d['nama_cabang']) ?></title>
     <link rel="icon" type="image/png" sizes="16x16" href="<?= $url ?>assets/logo.png">
     <!-- Bootstrap Core CSS -->
     <link href="<?= $url ?>assets/css/bootstrap.min.css" rel="stylesheet">

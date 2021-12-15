@@ -41,12 +41,12 @@
             else{
                 $agt = (substr(ganti_karakter($id_nasabah),0,3));
         
-                if( $agt=="AGT"){
+                if( $agt=="AGT" || $agt=="NSB"){
                     $id_nasabah = ganti_karakter1($ws->getCell("F".$row)->getValue());
                     $no_id  = explode("-",$id_nasabah)[1];
                     $no_id = sprintf("%0d",$no_id);
-                    $nasabah =  htmlspecialchars( ganti_karakter($ws->getCell("G".$row)->getValue()),ENT_QUOTES);
-                    $suami =  htmlspecialchars(ganti_karakter($ws->getCell("I".$row)->getValue()),ENT_QUOTES);
+                    $nasabah =  aman($con,htmlspecialchars( ganti_karakter($ws->getCell("G".$row)->getValue()),ENT_QUOTES));
+                    $suami =  aman($con,htmlspecialchars(ganti_karakter($ws->getCell("I".$row)->getValue()),ENT_QUOTES));
                    $no_center = ganti_karakter($ws->getCell("D".$row)->getValue());
                    $kelompok = ganti_karakter1($ws->getCell("E".$row)->getValue());
                    $hp = ganti_karakter1($ws->getCell("S".$row)->getValue());

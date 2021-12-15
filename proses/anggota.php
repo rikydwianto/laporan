@@ -131,7 +131,7 @@
 							else{
 								$agt = (substr($no_id,0,3));
 								// echo $agt;
-								if($agt=='AGT'){
+								if($agt=='AGT' || $agt=='NSB'){
 									$id_nasabah =  $ws->getCell("D" . $row)->getValue();
 									$ID = explode("-",$id_nasabah)[1];
 									
