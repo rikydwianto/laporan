@@ -18,6 +18,7 @@
     <a href="<?= $url . $menu ?>monitoring&ganti" class='btn btn-success'> <i class="fa fa-wrench"></i> Synchron Data</a>
     <a href="<?= $url . $menu ?>monitoring&staff" class='btn btn-danger'> <i class="fa fa-users"></i> Total Monitoring</a>
     <a href="<?= $url . $menu ?>monitoring&pu" class='btn btn-danger'> <i class="fa fa-users"></i> Detail Pinjaman umum</a>
+    <a href="<?= $url . $menu ?>monitoring&daftar_pinjaman" class='btn btn-success'> <i class="fa fa-list"></i> Daftar Pinjaman</a>
     <a href="<?= $url . $menu ?>monitoring" onclick="buka()" class='btn btn-info'> <i class="fa fa-file-excel-o"></i> Export</a>
     <?php
     if (isset($_SESSION['nama_file'])) {
@@ -290,6 +291,10 @@
     else if (isset($_GET['duplikat'])) {
         //RIWAYAT MONITORING
         include("proses/monitoring_duplikat.php");
+    }  
+    else if (isset($_GET['daftar_pinjaman'])) {
+        //RIWAYAT MONITORING
+        include("proses/daftar_pinjaman.php");
     }  
     else {
 

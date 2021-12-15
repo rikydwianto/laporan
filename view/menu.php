@@ -163,10 +163,10 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 
 		</li>
 		<li>
-			<a href="<?php echo $url . $menu ?>file_folder" class="w3-bar-item w3-button"><i class="fas fa-folder"></i> #</a>
+			<a href="<?php echo $url . $menu ?>file_folder" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> #</a>
 		</li>
 		<li>
-			<a href="<?php echo $url . $menu ?>quotes" class="w3-bar-item w3-button"><i class="fas fa-folder"></i> Quotes</a>
+			<a href="<?php echo $url . $menu ?>quotes" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> Quotes</a>
 		</li>
 		<li>
 			<a href="<?php echo $url . $menu ?>surat" class="w3-bar-item w3-button"><i class="fa fa-inbox"></i> SURAT</a>
@@ -194,7 +194,7 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 		<li><a href="<?php echo $url . $menu ?>spl" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> SPL</a></li>
 		<li><a href="<?php echo $url . $menu ?>cek_nik" class="w3-bar-item w3-button"><i class="fa fa-search"></i> CEK NIK</a></li>
 		<li>
-			<a href="<?php echo $url . $menu ?>monitoring" class="w3-bar-item w3-button"><i class="fas fa-folder"></i> MONITORING</a>
+			<a href="<?php echo $url . $menu ?>monitoring" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> MONITORING</a>
 		</li>
 		<li>
 			<a href="<?php echo $url . $menu ?>detail_center" class="w3-bar-item w3-button"><i class="fa fa-font-awesome"></i> Data Wilayah</a>
@@ -263,7 +263,7 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 
 		<li><a href="<?php echo $url . $menu ?>pemb_lain" class="w3-bar-item w3-button"><i class="fa fa-dollar"></i> Pembiayaan Lain</a></li>
 		<li>
-			<a href="<?php echo $url . $menu ?>quotes" class="w3-bar-item w3-button"><i class="fas fa-folder"></i> Quotes</a>
+			<a href="<?php echo $url . $menu ?>quotes" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> Quotes</a>
 		</li>
 		<li>
 			<a href="#"><i class="fa fa-file-excel-o"></i> Laporan<span class="fa arrow"></span></a>
@@ -366,7 +366,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 
 		<li><a href="<?php echo $url . $menu ?>file" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> FILE</a></li>
 		<li><a href="<?php echo $url . $menu ?>spl" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> SPL</a></li>
-		
+		<li>
+			<a href="<?php echo $url . $menu ?>monitoring" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> MONITORING</a>
+		</li>
 		
 		<li>
 			<a href="<?php echo $url . $menu ?>detail_center" class="w3-bar-item w3-button"><i class="fa fa-font-awesome"></i> Data Wilayah</a>
@@ -376,7 +378,7 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 		</li>
 		<li><a href="<?php echo $url . $menu ?>anggota" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Anggota</a></li>
 		<li>
-			<a href="<?php echo $url . $menu ?>quotes" class="w3-bar-item w3-button"><i class="fas fa-folder"></i> Quotes</a>
+			<a href="<?php echo $url . $menu ?>quotes" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> Quotes</a>
 		</li>
 		<li><a href="<?php echo $url . $menu ?>pemb_lain" class="w3-bar-item w3-button"><i class="fa fa-dollar"></i> Pembiayaan Lain</a></li>
 		<li>
@@ -393,6 +395,15 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 
 			<li>
 				<a href="<?php echo $url . $menu ?>rekap_anggota"><i class="fa fa-users"></i> Rekap Anggota</a>
+			</li>
+			<li>
+				<a href="<?php echo $url . $menu ?>rekap_laporan_minggu"><i class="fa fa-calendar"></i> Laporan Mingguan</a>
+			</li>
+			<li>
+				<a href="<?php echo $url . $menu ?>laporan_bulanan"><i class="fa fa-calendar"></i> Laporan Bulanan</a>
+			</li>
+			<li>
+				<a href="<?php echo $url . $menu ?>rekap_bayar"><i class="fa fa-file-excel-o"></i> Rekap Pembayaran</a>
 			</li>
 			<li>
 				<a href="<?php echo $url . $menu ?>list_penarikan"><i class="fa fa-file-o"></i> Penarikan Simpanan</a>
@@ -440,7 +451,7 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 } else if (($_SESSION['id']) && $jabatan == 'ADM') {
 	?>
 		<li>
-			<a href="<?php echo $url . $menu ?>monitoring" class="w3-bar-item w3-button"><i class="fas fa-folder"></i> MONITORING</a>
+			<a href="<?php echo $url . $menu ?>monitoring" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> MONITORING</a>
 		</li>
 		<li>
 			<a href="<?php echo $url . $menu ?>upk" class="w3-bar-item w3-button"><i class="fa fa-user-plus"></i> UPK NR</a>
@@ -471,7 +482,7 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 		</li>
 		<li><a href="<?php echo $url . $menu ?>cek_nik" class="w3-bar-item w3-button"><i class="fa fa-search"></i> CEK NIK</a></li>
 		<li>
-			<a href="<?php echo $url . $menu ?>quotes" class="w3-bar-item w3-button"><i class="fas fa-folder"></i> Quotes</a>
+			<a href="<?php echo $url . $menu ?>quotes" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> Quotes</a>
 		</li>
 		<li><a href="<?php echo $url . $menu ?>setting" class="w3-bar-item w3-button"><i class="fa fa-gears"></i> Setting</a></li>
 		</li>

@@ -7,7 +7,7 @@ if(isset($_GET['download'])){
     $file =$back_dir.$download;
     pindah($url.$file);
     pindah($url.$menu."blk_input");
-    exit;
+    
 }
 $file = $_FILES['file']['tmp_name'];
 $path = $file;
