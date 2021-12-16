@@ -223,7 +223,7 @@
                         }
                         for ($i = 0; $i < count($mdis); $i++) {
                             if (!empty($karyawan[$i])) {
-                                $text = " UPDATE `pinjaman` SET `staff` = null ,`input_mtr` = 'sudah' , id_karyawan='$karyawan[$i]' WHERE `staff` = '$mdis[$i]' and id_cabang='$id_cabang'; ";
+                                $text = " UPDATE `pinjaman` SET `staff` = null  , id_karyawan='$karyawan[$i]' WHERE `staff` = '$mdis[$i]' and id_cabang='$id_cabang'; ";
                                 $q = mysqli_query($con, "$text");
                                 
                             }
