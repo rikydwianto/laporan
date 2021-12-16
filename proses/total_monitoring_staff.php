@@ -73,7 +73,7 @@ if (empty($batas)) {
                 COUNT(*) AS total
                 
             FROM pinjaman where id_karyawan=$karyawan[id_karyawan] and monitoring='belum'
-                and tgl_cair <='$tgl'
+                and tgl_cair <='$tgl' and input_mtr='sudah'
             GROUP BY id_karyawan ");
                 $pemb = mysqli_fetch_array($q);
                 $total = $pemb['total'];
