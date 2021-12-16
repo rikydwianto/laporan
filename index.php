@@ -132,7 +132,7 @@ $singkatan_cabang = $d['singkatan_cabang'];
                                             $info =  mysqli_fetch_array($qmax);
                                             $sq = mysqli_query($con,"SELECT karyawan.nama_karyawan,COUNT(id_detail_nasabah) AS total_monitoring 
                                             FROM pinjaman JOIN karyawan ON karyawan.`id_karyawan`=pinjaman.`id_karyawan`
-                                            WHERE pinjaman.id_cabang='$id_cabang' and pinjaman.monitoring='belum'
+                                            WHERE pinjaman.id_cabang='$id_cabang' and pinjaman.monitoring='belum' and pinjaman.input_mtr='sudah'
                                              GROUP BY pinjaman.id_karyawan
                                             ORDER BY COUNT(id_detail_nasabah) DESC LIMIT 0,5");
                                             
