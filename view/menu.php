@@ -187,6 +187,10 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 					<a href="<?php echo $url . $menu ?>par&anal_topup=ANALISA+TOPUP" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> Top up Khusus</a>
 
 				</li>
+				<li>
+					<a href="<?php echo $url . $menu ?>anal_bayar" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> Analisi Agt Tidak Bayar</a>
+
+				</li>
 				
 			</ul>
 
@@ -322,6 +326,10 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 					<a href="<?php echo $url . $menu ?>par&anal_topup=ANALISA+TOPUP" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> Top up Khusus</a>
 
 				</li>
+				<li>
+					<a href="<?php echo $url . $menu ?>anal_bayar" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> Analisi Agt Tidak Bayar</a>
+
+				</li>
 				
 			</ul>
 
@@ -421,6 +429,10 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 				</li>
 				<li>
 					<a href="<?php echo $url . $menu ?>par&anal_topup=ANALISA+TOPUP" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> Top up Khusus</a>
+
+				</li>
+				<li>
+					<a href="<?php echo $url . $menu ?>anal_bayar" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> Analisi Agt Tidak Bayar</a>
 
 				</li>
 			</ul>

@@ -238,6 +238,7 @@ if(!$_SESSION['jabatan']){
 								<td>0</td>
 								<td>0</td>
 								<td>0</td>
+								<td>0</td>
 								<td>0%</td>
 
 								<td><?php echo $tampil_lapor1['keterangan_laporan'] ?></td>
