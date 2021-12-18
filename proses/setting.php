@@ -9,14 +9,15 @@
 	</div>
 	<?php 
 	if(isset($_POST['simpan'])){
-		$passlama = md5($_POST['passlama']);
+		// $passlama = md5($_POST['passlama']);
 		$passbaru = md5($_POST['passbaru']);
-		if($passlama==$d['password'])
+		if($passbaru)
 		{
 			$query=mysqli_query($con,"UPDATE karyawan SET password= '$passbaru' WHERE id_karyawan = '$id_karyawan'; ");
 			if($query)
 			{
 				pesan("PASSWORD Berhasil Dirubah",'success');
+				pindah("$url");
 			}
 			else{
 				pesan("PASSWORD Gagal diubah",'danger');
@@ -36,10 +37,10 @@
 				<td>NAMA</td>
 				<td><?php echo strtoupper($d['nama_karyawan'])?></td>
 			</tr>
-			<tr>
+			<!-- <tr>
 				<td>PASSWORD LAMA</td>
 				<td><input type='password' required name='passlama' class='form-control'></td>
-			</tr>
+			</tr> -->
 			<tr>
 				<td>PASSWORD BARU</td>
 				<td><input type='password' required name='passbaru' class='form-control'></td>

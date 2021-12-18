@@ -83,7 +83,9 @@ $singkatan_cabang = $d['singkatan_cabang'];
                     <?php
 
                     if (!isset($_SESSION['id'])) {
-                        pindah("auth.php?url");
+                        $refer = urlencode($_SERVER['HTTP_REFERER']);
+                        pindah("auth.php?url=$refer");
+
                     } else {
                         $hitung_banding = mysqli_query($con, "select count(id_detail_pinjaman) as banding from  banding_monitoring where id_cabang='$id_cabang' and status='belum'  ");
                         $hitung_banding = mysqli_fetch_array($hitung_banding);
