@@ -63,16 +63,18 @@ require_once("model/model.php");
                                             $_SESSION['su'] = $cek['super_user'];
                                             $_SESSION['informasi'] = 1;
                                             pesan("BERHASIL LOGIN", 'success');
-                                            $url_asal = $_GET['url']; 
-                                            if($url.$menu."logout" == $url_asal){
-                                                // echo "sama";
-                                                pindah("$url");
+                                            $menu_asal = $_GET['url']; 
+                                            $menu_asal1 = explode("=",$menu_asal)[1];
+                                            echo $menu_asal;
+                                            if($menu_asal1 == "logout"){
+                                                echo "kasih index";
+                                                 pindah("$url");
                                             }
                                             else{
                                                 
-                                                pindah("$url_asal");
+                                                 pindah("$menu_asal");
                                             }
-                                            // echo $url_asal;
+                                            
                                             
                                         } else
                                             pesan("NIK DITEMUKAN, Password SALAH!!", 'danger');
