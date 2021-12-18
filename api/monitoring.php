@@ -14,7 +14,7 @@ if (isset($_GET['mtr']) && isset($_GET['mtr'])) {
     $edit  = mysqli_query($con, "update pinjaman set monitoring='$mtr' where id_pinjaman='$id'");
     $keluan  = mysqli_query($con, "update banding_monitoring set status='selesai' where id_detail_pinjaman='$detail'");
     if($mtr=='sudah'){
-        $input = mysqli_query($con,"INSERT INTO `monitoring` (`id_pinjaman`,`id_detail_pinjaman`, `tgl_monitoring`) VALUES ('$id','$detail', curdate()); ");   
+        $input = mysqli_query($con,"INSERT INTO `monitoring` (`id_pinjaman`,`id_detail_pinjaman`, `tgl_monitoring`,waktu) VALUES ('$id','$detail', curdate(),current_time()); ");   
         
     }
     else{

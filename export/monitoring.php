@@ -18,13 +18,14 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
 
 
-$filename = "monitoring-".date("Y-m-d").'-'.rand(0,100);
+$filename = "monitoring-".date("Y-m-d").'-'.time();
 $_SESSION['nama_file']=$filename;
 $spreadsheet = new Spreadsheet();
 
 $sheet = $spreadsheet->getActiveSheet();
 $sheet->getColumnDimension('B')->setAutoSize(true);
 $sheet->getColumnDimension('C')->setAutoSize(true);
+$sheet->getColumnDimension('K')->setAutoSize(true);
 $sheet->setTitle('DATA STAFF');
 
 $sheet->setCellValue('A1', 'DATA MONITORING PER STAFF');
@@ -38,6 +39,8 @@ $sheet->setCellValue('g2', 'ARTA');
 $sheet->setCellValue('h2', 'PRR');
 $sheet->setCellValue('i2', 'LAINNYA');
 $sheet->setCellValue('j2', 'TOTAL');
+$sheet->setCellValue('k2', 'NAMA STAFF');
+$sheet->setCellValue('l2', 'AGT');
 
 $baris = 3;
 $no1=1;
@@ -46,6 +49,13 @@ while($karyawan = mysqli_fetch_array($cek_ka)){
     $sheet->setCellValue('A'.$baris, $no1);
     $sheet->setCellValue('B'.$baris, $karyawan['nik_karyawan']);
     $sheet->setCellValue('C'.$baris, $karyawan['nama_karyawan']);
+
+    $hitung_agt = mysqli_query($con, "select total_nasabah as member from total_nasabah where id_cabang='$id_cabang' and id_karyawan='$karyawan[id_karyawan]'");
+    $hitung_agt = mysqli_fetch_array($hitung_agt);
+    $hitung_agt = $hitung_agt['member'];
+    
+
+    
     
     $q = mysqli_query($con,"
     SELECT  id_karyawan,
@@ -85,6 +95,7 @@ FROM pinjaman where id_karyawan=$karyawan[id_karyawan] and monitoring='belum' GR
 
         $total_monitoring =$total + $total_monitoring;
 
+        $persen = ($hitung_agt == null ? 0 : round(($total_monitoring /$hitung_agt),2));
 
         $sheet->setCellValue('d'.$baris,$pu);
         $sheet->setCellValue('e'.$baris, $psa);
@@ -93,6 +104,9 @@ FROM pinjaman where id_karyawan=$karyawan[id_karyawan] and monitoring='belum' GR
         $sheet->setCellValue('h'.$baris, $prr);
         $sheet->setCellValue('i'.$baris, $lain);
         $sheet->setCellValue('j'.$baris, $total);
+        $sheet->setCellValue('K'.$baris, $karyawan['nama_karyawan']);
+        $sheet->setCellValue('l'.$baris, $hitung_agt);
+        // $sheet->setCellValue('m'.$baris, $persen."%");
     $baris++;$no1++;
 }
 $baris_akhir = $baris +1;
