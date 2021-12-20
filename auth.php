@@ -66,14 +66,7 @@ require_once("model/model.php");
                                             $menu_asal = $_GET['url']; 
                                             $menu_asal1 = explode("=",$menu_asal)[1];
                                             // echo $menu_asal;
-                                            if($menu_asal1 == "logout"){
-                                                echo "kasih index";
-                                                 pindah("$url");
-                                            }
-                                            else{
-                                                
-                                                 pindah("$menu_asal");
-                                            }
+                                            pindah("$url");
                                             
                                             
                                         } else
