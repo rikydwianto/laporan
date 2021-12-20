@@ -65,7 +65,7 @@ require_once("model/model.php");
                                             pesan("BERHASIL LOGIN", 'success');
                                             $menu_asal = $_GET['url']; 
                                             $menu_asal1 = explode("=",$menu_asal)[1];
-                                            echo $menu_asal;
+                                            // echo $menu_asal;
                                             if($menu_asal1 == "logout"){
                                                 echo "kasih index";
                                                  pindah("$url");
