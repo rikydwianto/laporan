@@ -55,8 +55,10 @@
         <a onclick="printPageArea('tidak_bayar')">Print</a>
         <div id='tidak_bayar'>
             <table class='table' >
-                <tr>
-                    <th>NO</th>
+                <thead>
+
+                    <tr>
+                        <th>NO</th>
                     <th>CENTER</th>
                     <th>ID</th>
                     <th>NASABAH</th>
@@ -68,6 +70,7 @@
                     <th>PAR?</th>
                     <th>STAFF</th>
                 </tr>
+                </thead>
                 <?php 
                 $cek_q1 = mysqli_query($con,"select * from blk b join karyawan k on k.id_karyawan=b.id_karyawan where b.id_cabang='$id_cabang' and tanggal_blk='$tgl_awal' order by k.nama_karyawan,b.center asc");
                 while($row1 = mysqli_fetch_array($cek_q1)){
@@ -138,6 +141,16 @@
 }
 </script>
 <style>
+     @media print {
+       #tidak_bayar table tr td {
+            
+        border: 1px solid black;
+        
+
+       }
+ }
+
+
     table { page-break-inside:auto }
     tr    { page-break-inside:avoid; page-break-after:auto }
     thead { display:table-header-group }
