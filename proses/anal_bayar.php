@@ -87,7 +87,7 @@
 
                     $simpanan1 = $sukarela1 + $pensiun1 + $wajib1;
                     $simpanan2 = $sukarela2 + $pensiun2 + $wajib2;
-                    $selisih = $simpanan2 - $impanan1;
+                    $selisih = $simpanan2 - $simpanan1;
                     if($os1==$os2 && ($simpanan1 == $simpanan2 || $selisih>-5000 && $selisih<10000)){
                         mysqli_query($con,"UPDATE blk set sinkron_sl='sudah' where id='$row1[id]' and id_cabang='$id_cabang'");
                         echo mysqli_error($con);
