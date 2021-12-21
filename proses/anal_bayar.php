@@ -91,7 +91,7 @@
 
 
 
-                if($os1==$os2 ){
+                if($os1==$os2 ($simpanan1 == $simpanan2 || $selisih>-5000 && $selisih<10000) ){
                     // && ($sukarela1 == $sukarela2 || $selisih>5000 && $selisih<10000)
                     ?>
                     <tr>
