@@ -19,23 +19,20 @@
 	<a href="<?= $url . $menu ?>spl" class='btn btn-success'> <i class="fa fa-eye"></i> Lihat</a>
 	<a href="#" class='btn btn-danger' data-toggle="modal" data-target="#modalku"> <i class="fa fa-plus"></i> Tambah</a>
 
-	<?php
-	if (isset($_SESSION['nama_file'])) {
-	?>
-		<a href="<?= $url ?>export/excel/<?= $_SESSION['nama_file'] ?>.xlsx" class='btn btn-info'> <i class="fa fa-download"></i> UNDUH</a>
-	<?php
-	}
-	?>
+
 	<hr />
 
 	<?php
 	if (isset($_GET['tambah'])) {
 		$id = aman($con,$_GET['id']);
+		$tgl = $_GET['tanggal'];
 	?>
-		<form action="" method="post">
+		<!-- <form action="" method="post">
 			<textarea name="query" class='form-control' id="" cols="50" rows="20"></textarea>
 			<input type="submit" value="Execute" name='ekse' />
+		</form> -->
 			<?php
+			//CODE FOR EKSE QUERY
 			if (isset($_POST['ekse'])) {
 				$text = ($_POST['query']);
 				$text = str_replace("**", ",id_statistik,id_cabang) ", $text);
@@ -51,7 +48,83 @@
 				}
 			}
 			?>
+			<form method="post" enctype="multipart/form-data">
+			<div class="col-md-6">
+				<label for="formFile" class="form-label">SILAHKAN PILIH FILE : SPL/ STATISTIK PETUGAS LAPANG TGL <?=$tgl?></label>
+				<input class="form-control" type="file" name='file' accept=".xls,.xlsx,.csv" id="formFile">
+				<input type="submit" value="Proses" class='btn btn-danger' name='preview'>
+			</div>
 		</form>
+		<br />
+		<table class='table'>
+			<tr>
+				<th>NO</th>
+				<th>STAFF</th>
+				<th>TANGGAL</th>
+			</tr>
+
+			<?php
+			
+			if (isset($_POST['preview'])) {
+				$nama_file = $_FILES['file']['tmp_name'];
+				$_SESSION['nama_file'] = $nama_file;
+				$path = $_SESSION['nama_file'];
+				$id=$_GET['id'];
+				$reader = PHPExcel_IOFactory::createReaderForFile($path);
+				$objek = $reader->load($path);
+				$ws = $objek->getActiveSheet();
+				$last_row = $ws->getHighestDataRow();
+				for ($row = 2; $row <= $last_row; $row++) {
+					$params =  $ws->getCell("D" . $row)->getValue();
+					if ($params == null) {
+					} else {
+						$subtot = ganti_karakter(substr($params, 0, 4));
+						if ($subtot == 'Sub.') {
+							$staff =  ganti_karakter($ws->getCell("W" . $row)->getValue());
+							$nama =  substr($ws->getCell("D" . $row)->getValue(),9);
+							$jumlah_center = ganti_karakter($ws->getCell("E".$row)->getValue());
+							$member = ganti_karakter($ws->getCell("G".$row)->getValue());
+							$client = ganti_karakter($ws->getCell("H".$row)->getValue());
+							$disburse = ganti_karakter($ws->getCell("K".$row)->getValue());
+							$os = ganti_karakter($ws->getCell("L".$row)->getValue());
+							$masalah = ganti_karakter($ws->getCell("M".$row)->getValue());
+							$par = ganti_karakter($ws->getCell("N".$row)->getValue());
+							$new_member = ganti_karakter($ws->getCell("U".$row)->getValue());
+							// $cek_anggota = mysqli_num_rows(mysqli_query($con,"SELECT * FROM spl JOIN statistik ON spl.`id_statistik`=statistik.`id_statistik`
+							//  WHERE spl.id_statistik='$id' AND spl.`id_cabang`='$id_cabang' AND statistik.tgl_statistik='$tgl' "));
+							//  if($cek_anggota){
+
+							//  }
+							//  else{
+								 $text = " INSERT INTO `spl` 
+								 (`id_spl`, `id_statistik`, `staff`, `jumlah_center`, `member`, `client`, `disburse`, `outstanding`, `masalah`, `par`, `new_member`, `id_karyawan`, `id_cabang`) 
+								 VALUES (NULL, '$id', '$nama', '$jumlah_center', '$member', '$client', '$disburse', '$os', '$masalah', '$par', '$new_member', null, '$id_cabang');";
+								 // echo $text;
+								 mysqli_query($con,$text);
+
+							//  }
+							pindah($url.$menu."spl");
+						}
+					}
+				}
+				?>
+				<tr>
+					<td></td>
+					<td></td>
+
+					<td>
+						<form method="post">
+
+							<input type="submit" name='simpan' class='btn btn-info' value='SIMPAN' onclick="return confirm('Apakah Yakin?')" />
+						</form>
+					</td>
+				</tr>
+			<?php
+			// pindah($url.$menu."anggota&sinkron");
+			}
+
+			?>
+		</table>
 	<?php
 	} 
 	else if(isset($_GET['hapus'])){
@@ -180,7 +253,14 @@
 						for ($i = 0; $i < count($mdis); $i++) {
 							if (!empty($karyawan[$i])) {
 								$text = " UPDATE `spl` SET `staff` = null , id_karyawan='$karyawan[$i]' WHERE `staff` = '$mdis[$i]'; ";
+
 								$q = mysqli_query($con, "$text");
+								// $cek_total_anggota = mysqli_num_rows(mysqli_query($con,"select * from total_nasabah where id_cabang='$id_cabang' and id_karyawan='$karyawan[$i]'"));
+								// if($cek_total_anggota>0){
+								// 	mysqli_query($con,"UPDATE `total_nasabah` SET `total_nasabah` = '$total_nasabah[$i]' WHERE `id_karyawan` = '$karyawan[$i]';");
+								// } else{
+								// 	mysqli_query($con,"insert into total_nasabah(id_karyawan,total_nasabah,id_cabang) values('$karyawan[$i]','$total_nasabah[$i]','$id_cabang')");
+								// }
 							}
 						}
 						pindah($url.$menu."spl");
