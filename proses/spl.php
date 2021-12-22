@@ -90,19 +90,19 @@
 							$masalah = ganti_karakter($ws->getCell("M".$row)->getValue());
 							$par = ganti_karakter($ws->getCell("N".$row)->getValue());
 							$new_member = ganti_karakter($ws->getCell("U".$row)->getValue());
-							// $cek_anggota = mysqli_num_rows(mysqli_query($con,"SELECT * FROM spl JOIN statistik ON spl.`id_statistik`=statistik.`id_statistik`
-							//  WHERE spl.id_statistik='$id' AND spl.`id_cabang`='$id_cabang' AND statistik.tgl_statistik='$tgl' "));
-							//  if($cek_anggota){
+							$cek_anggota = mysqli_num_rows(mysqli_query($con,"SELECT * FROM spl JOIN statistik ON spl.`id_statistik`=statistik.`id_statistik`
+							 WHERE spl.id_statistik='$id' AND spl.`id_cabang`='$id_cabang' AND statistik.tgl_statistik='$tgl' and statistik.staff='$nama' "));
+							 if($cek_anggota){
 
-							//  }
-							//  else{
+							 }
+							 else{
 								 $text = " INSERT INTO `spl` 
 								 (`id_spl`, `id_statistik`, `staff`, `jumlah_center`, `member`, `client`, `disburse`, `outstanding`, `masalah`, `par`, `new_member`, `id_karyawan`, `id_cabang`) 
 								 VALUES (NULL, '$id', '$nama', '$jumlah_center', '$member', '$client', '$disburse', '$os', '$masalah', '$par', '$new_member', null, '$id_cabang');";
 								 // echo $text;
 								 mysqli_query($con,$text);
 
-							//  }
+							 }
 							pindah($url.$menu."spl");
 						}
 					}
@@ -145,24 +145,25 @@
 		while ($data = mysqli_fetch_assoc($query)) $array[] = $data;
 
 	?>
-		<div class="col-2">
+		<div class="col-md-2">
 
 		</div>
-		<div class="col-8">
-			<table border="1">
+		<div class="col-md-6">
+			<table class='table' >
 				<tr>
-					<th colspan="9" style="text-align:center;font-size:20px"><?= format_hari_tanggal($tgl) ?></th>
+					<th colspan="10" style="text-align:center;font-size:20px"><?= format_hari_tanggal($tgl) ?></th>
 				</tr>
 				<tr>
 					<th>No.</th>
 					<th>Nama Staff</th>
 					<th> Center</th>
 					<th>Member</th>
-					<th>CLIENT</th>
-					<th>disburse</th>
-					<th>outstanding</th>
-					<th>outstanding<br>masalah </th>
-					<th>par</th>
+					<th>Client</th>
+					<th>Disburse</th>
+					<th>Outstanding</th>
+					<th>Outstanding<br>Masalah </th>
+					<th>Par</th>
+					<th>New Member</th>
 				</tr>
 				<?php
 				$total_disburse = 0;
@@ -205,10 +206,11 @@
 						<td class='kotak'><?= angka($outstanding) ?> </td>
 						<td class='kotak'><?= angka($masalah) ?> </td>
 						<td class='kotak'><?= round($val['par'],2) ?></td>
+						<td class='kotak'><?= ($new_member) ?></td>
 					</tr>
 
 				<?php
-
+				$new_member += ($val['new_member']);
 				}
 				?>
 				<tr class='tengah'>
@@ -221,12 +223,14 @@
 					<td><?= angka($total_outstanding) ?></td>
 					<td><?= angka($total_masalah) ?></td>
 					<td class='kotak'><?= round(($total_masalah / $total_outstanding) * 100, 2) ?></td>
+					<td class='kotak'><?= $total_new_member ?></td>
 				</tr>
 
 
 			</table>
 
 		</div>
+		<div class='col-md-2'></div>
 	<?php
 
 	} else if (isset($_GET['ganti'])) {
@@ -248,6 +252,7 @@
 					<?php
 					if (isset($_POST['ganti'])) {
 						$karyawan = $_POST['karyawan'];
+						$agt = $_POST['agt'];
 						$mdis = $_POST['nama_mdis'];
 
 						for ($i = 0; $i < count($mdis); $i++) {
@@ -255,25 +260,26 @@
 								$text = " UPDATE `spl` SET `staff` = null , id_karyawan='$karyawan[$i]' WHERE `staff` = '$mdis[$i]'; ";
 
 								$q = mysqli_query($con, "$text");
-								// $cek_total_anggota = mysqli_num_rows(mysqli_query($con,"select * from total_nasabah where id_cabang='$id_cabang' and id_karyawan='$karyawan[$i]'"));
-								// if($cek_total_anggota>0){
-								// 	mysqli_query($con,"UPDATE `total_nasabah` SET `total_nasabah` = '$total_nasabah[$i]' WHERE `id_karyawan` = '$karyawan[$i]';");
-								// } else{
-								// 	mysqli_query($con,"insert into total_nasabah(id_karyawan,total_nasabah,id_cabang) values('$karyawan[$i]','$total_nasabah[$i]','$id_cabang')");
-								// }
+								$cek_total_anggota = mysqli_num_rows(mysqli_query($con,"select * from total_nasabah where id_cabang='$id_cabang' and id_karyawan='$karyawan[$i]'"));
+								if($cek_total_anggota>0){
+									mysqli_query($con,"UPDATE `total_nasabah` SET `total_nasabah` = '$agt[$i]' WHERE `id_karyawan` = '$karyawan[$i]';");
+								} else{
+									mysqli_query($con,"INSERT into total_nasabah(id_karyawan,total_nasabah,id_cabang) values('$karyawan[$i]','$agt[$i]','$id_cabang')");
+								}
 							}
 						}
-						pindah($url.$menu."spl");
+						// pindah($url.$menu."spl");
 					}
 
 
-					$q = mysqli_query($con, "select staff from spl where id_karyawan is  null group by staff order by staff asc ");
+					$q = mysqli_query($con, "select staff,member from spl where id_karyawan is  null group by staff order by staff asc ");
 					while ($pinj = mysqli_fetch_array($q)) {
 					?>
 						<tr>
 							<td><?= $no++ ?></td>
 							<td><?= $pinj['staff'] ?>
 								<input type="hidden" name="nama_mdis[]" value="<?= $pinj['staff'] ?>">
+								<input type="hidden" name="agt[]" value="<?= $pinj['member'] ?>">
 							</td>
 							<td>
 

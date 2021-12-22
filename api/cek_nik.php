@@ -35,6 +35,7 @@ else $table='daftar_nasabah_mantan';
             
             ?>
             <th>HARI</th>
+            <th>ALAMAT</th>
             <th>STAFF</th>
         </tr>
     </thead>
@@ -80,6 +81,7 @@ else $table='daftar_nasabah_mantan';
                         
                         ?>
                         <td><?=$dup['hari']?></td>
+                        <td><?=$dup['alamat_nasabah']?></td>
                         <td><?=($dup['nama_karyawan']==null?$dup['staff']:$dup['nama_karyawan'])?></td>
                     </tr>
                 <?php
