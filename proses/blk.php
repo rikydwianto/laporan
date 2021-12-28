@@ -177,7 +177,9 @@ for($row = 7;$row<=$last_row;$row++){
                 // echo 'double 1';
             }
             elseif($selisih>1){
-                if($selisih>1 && $selisih <4){
+                //PAR DARI 1 sampe 100
+                // && $selisih <100
+                if($selisih>1){
                     
                     $ket =  $selisih - 1 ." tunggakan";
                     if($nama['status_center']=='hijau' ){
