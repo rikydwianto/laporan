@@ -40,30 +40,37 @@
 				$objek = $reader->load($path);
 				$ws = $objek->getActiveSheet();
 				$last_row = $ws->getHighestDataRow();
-				for ($row = 2; $row <= $last_row; $row++) {
-					$no_id =  $ws->getCell("B" . $row)->getValue();
-					if ($no_id == null) {
-					} else {
-						$agt = ganti_karakter(substr($no_id, 0, 5));
-						if ($agt == 'AGT') {
-							$staff =  ganti_karakter($ws->getCell("W" . $row)->getValue());
-							$id_detail =  ganti_karakter1($ws->getCell("B" . $row)->getValue());
-							$tgl = ($ws->getCell("L" . $row)->getValue());
-							$tgl = $tgl;
-							$tgl = explode("/", $tgl);
-							$cek_ang = mysqli_num_rows(mysqli_query($con,"select id_detail_nasabah from temp_anggota where id_detail_nasabah='$id_detail'"));
-							if($cek_ang){
-
-							}
-							else{
-								$new_tgl = ganti_karakter($tgl[2]) . "-" . ganti_karakter($tgl[1]) . "-" . ganti_karakter($tgl[0]);
-								mysqli_query($con, "INSERT INTO `temp_anggota` (`staff`,`id_detail_nasabah`, `tgl_bergabung`, `status_input`, `id_cabang`) VALUES ('$staff','$id_detail', '$new_tgl', 'belum', '$id_cabang'); ");
-
-							}
-
 				
+				$ket_excel =  $ws->getCell("A4")->getValue();
+				if($ket_excel=="DATABASE NASABAH "){
+					for ($row = 2; $row <= $last_row; $row++) {
+						$no_id =  $ws->getCell("B" . $row)->getValue();
+						if ($no_id == null) {
+						} else {
+							$agt = ganti_karakter(substr($no_id, 0, 5));
+							if ($agt == 'AGT') {
+								$staff =  ganti_karakter($ws->getCell("W" . $row)->getValue());
+								$id_detail =  ganti_karakter1($ws->getCell("B" . $row)->getValue());
+								$tgl = ($ws->getCell("L" . $row)->getValue());
+								$tgl = $tgl;
+								$tgl = explode("/", $tgl);
+								$cek_ang = mysqli_num_rows(mysqli_query($con,"select id_detail_nasabah from temp_anggota where id_detail_nasabah='$id_detail'"));
+								if($cek_ang){
+	
+								}
+								else{
+									$new_tgl = ganti_karakter($tgl[2]) . "-" . ganti_karakter($tgl[1]) . "-" . ganti_karakter($tgl[0]);
+									mysqli_query($con, "INSERT INTO `temp_anggota` (`staff`,`id_detail_nasabah`, `tgl_bergabung`, `status_input`, `id_cabang`) VALUES ('$staff','$id_detail', '$new_tgl', 'belum', '$id_cabang'); ");
+	
+								}
+	
+					
+							}
 						}
 					}
+				}
+				else{
+					alert('DITOLAK BUKAN FILE DATABASE NASABAH');
 				}
 				?>
 				<tr>
@@ -122,48 +129,54 @@
 						$objek = $reader->load($path);
 						$ws = $objek->getActiveSheet();
 						$last_row = $ws->getHighestDataRow();
-
-						for($row = 2;$row<=$last_row;$row++){
-							$no_id =  $ws->getCell("D" . $row)->getValue();
-							if($no_id==null){
-								
-							}
-							else{
-								$agt = (substr($no_id,0,3));
-								// echo $agt;
-								if($agt=='AGT' || $agt=='NSB'){
-									$id_nasabah =  $ws->getCell("D" . $row)->getValue();
-									$ID = explode("-",$id_nasabah)[1];
+						$ket_excel =  $ws->getCell("I3")->getValue();
+						echo $ket_excel;
+						if($ket_excel=="TGL. KELUAR"){
+							for($row = 2;$row<=$last_row;$row++){
+								$no_id =  $ws->getCell("D" . $row)->getValue();
+								if($no_id==null){
 									
-									$nasabah =  ($ws->getCell("E".$row)->getValue());
-									$alasan = ($ws->getCell("J".$row)->getValue());
-									$staff = ($ws->getCell("A".$row)->getValue());
-									$tgl =$ws->getCell("I".$row)->getValue();
-									$tgl =  date("Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($tgl));
-									$ID = sprintf("%0d",$ID);
-									$center = $ws->getCell("C".$row)->getValue();
-									$center = str_replace(" ","",explode("/",$center)[0]);
-									$cari_keluar  = mysqli_query($con,"select * from temp_anggota_keluar where id_nasabah='$ID' ");
-									if(mysqli_num_rows($cari_keluar)){
-
-									}
-									else{
-										$cari_staff  = mysqli_query($con,"select * from center join karyawan on karyawan.id_karyawan=center.id_karyawan where no_center='$center'");
-										$cari_staff  = mysqli_fetch_array($cari_staff);
+								}
+								else{
+									$agt = (substr($no_id,0,3));
+									// echo $agt;
+									if($agt=='AGT' || $agt=='NSB'){
+										$id_nasabah =  $ws->getCell("D" . $row)->getValue();
+										$ID = explode("-",$id_nasabah)[1];
 										
-										mysqli_query($con,"INSERT INTO `temp_anggota_keluar` (`id_nasabah`, `tgl_keluar`, `id_karyawan`, `id_cabang`, `status`,`alasan`) 
-										VALUES ('$ID', '$tgl', '$cari_staff[id_karyawan]', '$id_cabang', 'belum','$alasan'); ");
-										?>
-										
-										<?php
+										$nasabah =  ($ws->getCell("E".$row)->getValue());
+										$alasan = ($ws->getCell("J".$row)->getValue());
+										$staff = ($ws->getCell("A".$row)->getValue());
+										$tgl =$ws->getCell("I".$row)->getValue();
+										$tgl =  date("Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($tgl));
+										$ID = sprintf("%0d",$ID);
+										$center = $ws->getCell("C".$row)->getValue();
+										$center = str_replace(" ","",explode("/",$center)[0]);
+										$cari_keluar  = mysqli_query($con,"select * from temp_anggota_keluar where id_nasabah='$ID' ");
+										if(mysqli_num_rows($cari_keluar)){
+	
+										}
+										else{
+											$cari_staff  = mysqli_query($con,"select * from center join karyawan on karyawan.id_karyawan=center.id_karyawan where no_center='$center'");
+											$cari_staff  = mysqli_fetch_array($cari_staff);
+											
+											mysqli_query($con,"INSERT INTO `temp_anggota_keluar` (`id_nasabah`, `tgl_keluar`, `id_karyawan`, `id_cabang`, `status`,`alasan`) 
+											VALUES ('$ID', '$tgl', '$cari_staff[id_karyawan]', '$id_cabang', 'belum','$alasan'); ");
+											?>
+											
+											<?php
+										}
 									}
 								}
 							}
 						}
+						else{
+							alert("DITOLAK BUKAN FILE ANGGOTA KELUAR");
+						}
 
 
 						
-					// pindah($url.$menu."anggota&sinkron");
+					pindah($url.$menu."anggota&sinkron");
 					}
 		?>
 		<form method="post">
