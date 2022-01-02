@@ -93,6 +93,7 @@ if(isset($_POST['tmb_lap']))
 		else
 		{
 			echo "Gagal Disimpan";
+			echo mysqli_error($con);
 		}
 	}
 	else{
