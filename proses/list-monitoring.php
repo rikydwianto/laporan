@@ -115,12 +115,15 @@
                 $q = mysqli_query($con, "select *,pinjaman.id_detail_pinjaman as detail,DATEDIFF(CURDATE(), tgl_cair) as total_hari,
                 pinjaman.id_pinjaman as id_pinjaman 
                 from pinjaman left join karyawan on karyawan.id_karyawan=pinjaman.id_karyawan
-                left join banding_monitoring on banding_monitoring.id_detail_pinjaman=pinjaman.id_detail_pinjaman
+                
                     where pinjaman.id_cabang='$id_cabang' $q_tambah $q_id and tgl_cair <='$tgl' and input_mtr='sudah' order by pinjaman.nama_nasabah,pinjaman.id_detail_pinjaman asc");
                 while ($pinj = mysqli_fetch_array($q)) {
                     if ($pinj['total_hari'] > 14) {
                         $tr = "#ffd4d4";
                     } else $tr = "#fffff";
+
+                    $qbanding = mysqli_query($con,"select * from banding_monitoring where id_detail_pinjaman='$pinj[id_detail_pinjaman]'");
+                    
 
                 ?>
 
@@ -145,7 +148,15 @@
                              echo $kode;
                             ?>    
                         </td>
-                        <td><?=$pinj['pesan']?></td>
+                        <td>
+                        <?php
+                        if(mysqli_num_rows($qbanding)){
+                            $banding = mysqli_fetch_array($qbanding);
+                            echo $banding['pesan']." - ";
+                            echo ($banding['status']==="belum"?"onproses":"selesai");
+                        } 
+                        ?>    
+                        </td>
                         <td><?= $pinj['pinjaman_ke'] ?></td>
 
                         <td>
