@@ -81,7 +81,7 @@ if(!$_SESSION['jabatan']){
 			</div>
 			<?php
 			$qpin = mysqli_query($con,"SELECT id_karyawan,
-			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >0 AND (DATEDIFF(CURDATE(), tgl_cair)) <=3 THEN 1 ELSE 0 END) AS tiga_hari,
+			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >=0 AND (DATEDIFF(CURDATE(), tgl_cair)) <=3 THEN 1 ELSE 0 END) AS tiga_hari,
 			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >3 AND (DATEDIFF(CURDATE(), tgl_cair)) <=14 THEN 1 ELSE 0 END) AS normal,
 			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >14  THEN 1 ELSE 0 END) AS kurang_normal,
 			COUNT(*) as total
