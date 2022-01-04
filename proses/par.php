@@ -94,10 +94,22 @@ if(isset($_POST['preview'])){
             $loan = ganti_karakter($ws->getCell("B".$row)->getValue());
             $no_center = ganti_karakter($ws->getCell("C".$row)->getValue());
             $id_nasabah = ganti_karakter1($ws->getCell("D".$row)->getValue());
-            $amount = (int)ganti_karakter(str_replace(",","",$ws->getCell("F".$row)->getValue()));
-            $balance = (int)ganti_karakter(str_replace(",","",$ws->getCell("K".$row)->getValue()));
-            $tunggakan = (int)ganti_karakter(str_replace(",","",$ws->getCell("L".$row)->getValue()));
-            $minggu = (int)ganti_karakter(str_replace(",","",$ws->getCell("M".$row)->getValue()));
+            $bm = ($ws->getCell("C4")->getValue());
+            // echo "sssss".$bm;
+            if($bm=="Ctr ID"){
+                $amount = (int)ganti_karakter(str_replace(",","",$ws->getCell("H".$row)->getValue()));
+                $balance = (int)ganti_karakter(str_replace(",","",$ws->getCell("M".$row)->getValue()));
+                $tunggakan = (int)ganti_karakter(str_replace(",","",$ws->getCell("N".$row)->getValue()));
+                $minggu = (int)ganti_karakter(str_replace(",","",$ws->getCell("O".$row)->getValue()));
+
+            }
+            else{
+                $amount = (int)ganti_karakter(str_replace(",","",$ws->getCell("F".$row)->getValue()));
+                $balance = (int)ganti_karakter(str_replace(",","",$ws->getCell("K".$row)->getValue()));
+                $tunggakan = (int)ganti_karakter(str_replace(",","",$ws->getCell("L".$row)->getValue()));
+                $minggu = (int)ganti_karakter(str_replace(",","",$ws->getCell("M".$row)->getValue()));
+
+            }
             ?>
             <tr>
                 <td><?=$no++?></td>
@@ -111,7 +123,7 @@ if(isset($_POST['preview'])){
                 <td><?=$minggu?></td>
             </tr>
             <?php
-            //    INSERT INTO `deliquency` (`id`, `loan`, `no_center`, `id_detail_nasabah`, `nasabah`, `amount`, `sisa_saldo`, `tunggakan`, `minggu`, `tgl_input`, `id_cabang`) VALUES (NULL, 'PU-072-21-01-000216', '003', 'AGT/072/01/003-000034', 'RUMNASIH', '6', '2', '1', '8', NULL, NULL); 
+               //INSERT INTO `deliquency` (`id`, `loan`, `no_center`, `id_detail_nasabah`, `nasabah`, `amount`, `sisa_saldo`, `tunggakan`, `minggu`, `tgl_input`, `id_cabang`) VALUES (NULL, 'PU-072-21-01-000216', '003', 'AGT/072/01/003-000034', 'RUMNASIH', '6', '2', '1', '8', NULL, NULL); 
             mysqli_query($con,"INSERT INTO `deliquency` 
             ( id,`loan`, `no_center`, `id_detail_nasabah`, `nasabah`, `amount`, `sisa_saldo`, `tunggakan`, `minggu`, `tgl_input`, `id_cabang`) VALUES 
             (NULL, '$loan', '$no_center', '$id_nasabah', '$nasabah', '$amount', '$balance', '$tunggakan', '$minggu', '$tgl', '$id_cabang'); 

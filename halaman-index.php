@@ -39,7 +39,8 @@ if(!$_SESSION['jabatan']){
 		<?php
 		if($jabatan=='SL'){
 			$qpin = mysqli_query($con,"SELECT id_karyawan,
-			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >0 AND (DATEDIFF(CURDATE(), tgl_cair)) <=14 THEN 1 ELSE 0 END) AS normal,
+			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >=0 AND (DATEDIFF(CURDATE(), tgl_cair)) <=3 THEN 1 ELSE 0 END) AS tiga,
+			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >3 AND (DATEDIFF(CURDATE(), tgl_cair)) <=14 THEN 1 ELSE 0 END) AS normal,
 			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >14  THEN 1 ELSE 0 END) AS kurang_normal,
 			COUNT(*) as total
 				 FROM pinjaman WHERE monitoring='belum' and id_karyawan='$id_karyawan' and input_mtr='sudah' GROUP BY id_karyawan ");
@@ -48,7 +49,8 @@ if(!$_SESSION['jabatan']){
 			?>
 				<h3 class='page-header'>MONITORING ! <hr/></h3>
 				<div class="card">
-					<h4> Monitoring 0 - 14 hari : <?=$mon['normal']?> </h4>
+					<h4> Monitoring 0 - 3 hari : <?=$mon['tiga']?> </h4>
+					<h4> Monitoring 4 - 14 hari : <?=$mon['normal']?> </h4>
 					<h4>  lebih 14 hari : <?=$mon['kurang_normal']?> </h4>
 					<h3><a href='<?=$url.$menu?>list-monitoring'>Total Monitoring  : <?=$mon1?></a> </h3>
 				</div>

@@ -120,7 +120,11 @@
                 while ($pinj = mysqli_fetch_array($q)) {
                     if ($pinj['total_hari'] > 14) {
                         $tr = "#ffd4d4";
-                    } else $tr = "#fffff";
+                    }
+                    else if ($pinj['total_hari'] >= 0 && $pinj['total_hari']<=3) {
+                        $tr = "#42f554";
+                    }
+                     else $tr = "#fffff";
 
                     $qbanding = mysqli_query($con,"select * from banding_monitoring where id_detail_pinjaman='$pinj[id_detail_pinjaman]'");
                     
