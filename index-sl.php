@@ -103,7 +103,7 @@ $cek_upk = mysqli_query($con,"select * from upk join center on center.no_center=
         <?php
     }
     ?>
-    Keterangan : <?= $cek_laporan['keterangan_laporan'] ?>
+    <!-- <a href="<?=$url.$menu."ket_laporan&id_laporan=$cek_laporan[id_laporan]&id=$cek_laporan[id_karyawan]"?>" class="btn">LINK PENURUNAN PAR</a> -->
     <table class='table'>
         <tr>
             <th>No. CTR</th>
@@ -192,4 +192,6 @@ $cek_upk = mysqli_query($con,"select * from upk join center on center.no_center=
             </th>
         </tr>
     </table>
+    Keterangan : <?= $cek_laporan['keterangan_laporan'] ?><br/>
+    Penurunan PAR : <pre><?= $cek_laporan['keterangan_lain'] ?></pre>
 </div>
