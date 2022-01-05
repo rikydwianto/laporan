@@ -25,7 +25,7 @@
             }
             else{
                 $q_q['group']="";
-                $q_q['tgl']="tgl_input IN(SELECT MAX(tgl_input) FROM deliquency) AND";
+                $q_q['tgl']="tgl_input IN(SELECT MAX(tgl_input) FROM deliquency where id_cabang='$id_cabang') AND";
             }
             $q = mysqli_query($con,"SELECT *,c.`id_karyawan` FROM deliquency d JOIN center c ON c.`no_center`=d.`no_center`
             JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`

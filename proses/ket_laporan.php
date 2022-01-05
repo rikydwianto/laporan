@@ -19,7 +19,7 @@
                 
             }
             else if($ket1=='bayar_satu'){
-                $os_selesai=$_POST['bayar'][$a];
+                $os_selesai=(int)ganti_karakter(str_replace(".","",str_replace(",","",$_POST['bayar'][$a])));
                 $keterangan = "Bayar 1 atau lebih";
             }
             else{ $os_selesai=$_POST['tunggakan'][$a];
@@ -143,14 +143,9 @@ keterangan: $keterangan";
             <?php
             $total_sisa_saldo = 0;
             $no=1;
-            if(isset($_GET['semua'])){
-                $q_q['group']="group by d.loan";
-                $q_q['tgl']="";
-            }
-            else{
-                $q_q['group']="";
-                $q_q['tgl']="tgl_input IN(SELECT MAX(tgl_input) FROM deliquency) AND";
-            }
+            
+            $q_q['group']="group by d.loan";
+            $q_q['tgl']="tgl_input IN(SELECT MAX(tgl_input) FROM deliquency where id_cabang='$id_cabang') AND";
             $q = mysqli_query($con,"SELECT *,c.`id_karyawan` FROM deliquency d JOIN center c ON c.`no_center`=d.`no_center`
             JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
             WHERE $q_q[tgl] k.`id_cabang`='$id_cabang' AND k.`id_karyawan`='$id_karyawan' $q_q[group] order by d.no_center,d.nasabah asc");
@@ -212,7 +207,7 @@ keterangan: $keterangan";
             // bayar.hide();
         //    alert(ket)
             if(ket=='bayar_satu'){
-                bayar.attr('type','text')
+                bayar.attr('type','number')
                 bayar.attr('required','required')
             }
             else{
