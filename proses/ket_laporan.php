@@ -1,6 +1,7 @@
 <div class='content table-responsive'>
 	<h2 class='page-header'>KETERANGAN TURUN PAR </h2>
 	<i>Anggota Turun PAR</i><hr/>
+    <a href="<?=$url?>" class="btn btn-danger">TIDAK ADA</a>
 	<div class="col-md-12">
     <div class="row">
 
@@ -171,7 +172,7 @@ keterangan: $keterangan";
                 ?>
                 <tr style="background-color:<?=$baris['baris']?>;color:<?=$baris['text']?>">   
                     <td><?=$no++?>. 
-                    <input type="checkbox" name="cek_no[]" value="<?=$row['loan']?>">
+                    <input type="checkbox" class='btn lg form-control' name="cek_no[]" value="<?=$row['loan']?>">
                     <input type="hidden" name="nasabah[]" value="<?=$row['id_detail_nasabah']?>">
                     <input type="hidden" name="loan[]" value="<?=$row['loan']?>">
 
