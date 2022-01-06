@@ -3,6 +3,7 @@
     
     ?>
     <h3> ANGGOTA PAR <?=$tgl_banding?></h3>
+    <div class='content table-responsive'>
     <form action="" method="post">
         <select name="id" id="karyawan"  class='form-control'>
             <option value="">PILIH SEMUA STAFF</option>
@@ -95,6 +96,7 @@
         <th><?=angka($total_bermasalah)?></th>
     </tr>
     </table>
+    </div>
 <script>
     $("#karyawan").on("change",function(){
         var url = "<?=$url.$menu?>par&anal_topup=ANALISA+TOPUP";

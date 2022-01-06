@@ -381,12 +381,12 @@
                 <thead>
                     <tr>
                         <!-- <th>no</th> -->
-                        <th>Staff</th>
+                        <th>STAFF</th>
                         <th>NO Pinjaman</th>
-                        <th>Nama</th>
+                        <th>NASABAH</th>
                         <th>CTR</th>
-                        <th>Jumlah Pinjaman</th>
-                        <th>Produk</th>
+                        <th>PINJAMAN</th>
+                        <th>PRODUK</th>
                         <th>Cair</th>
                         <th>KE</th>
                         <?php

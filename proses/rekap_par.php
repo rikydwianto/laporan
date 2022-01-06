@@ -3,6 +3,7 @@
     <a href="#rekap" onclick="printPageArea('rekap_tambah_par')" class="btn btn-success"> PRINT PENAMBAHAN <i class="fa fa-print"></i></a>
     <a href="#rekap" onclick="printPageArea('rekap_penurunan_par')" class="btn btn-success"> PRINT PENURUNAN <i class="fa fa-print"></i></a>
     <h2>REKAP DELIQUENCY</h2><hr/>
+<div class='content table-responsive'>
 <div class='col-lg-6' id='rekap_penurunan_par'>
     <table class="table table-bordered">
         <tr>
@@ -348,3 +349,4 @@
 </div>
 
 
+</div>

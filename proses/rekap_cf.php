@@ -10,13 +10,15 @@
                     <input type="submit" value="REKAP CASHFLOW" name='rekap_cashflow' class='btn btn-danger btn-md btn-success'>
 
                 </div>
-            </form>
-        </div>
+    </form>
+</div>
+<div class='content table-responsive'>
 <?php 
 if(isset($_GET['rekap_cashflow'])){
     include("./proses/rekap_cashflow.php");
 }
 ?>
+</div>
 <script>
     function printPageArea(areaID){
     var printContent = document.getElementById(areaID);
