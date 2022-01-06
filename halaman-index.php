@@ -39,8 +39,8 @@ if(!$_SESSION['jabatan']){
 		<?php
 		if($jabatan=='SL'){
 			$qpin = mysqli_query($con,"SELECT id_karyawan,
-			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >=0 AND (DATEDIFF(CURDATE(), tgl_cair)) <=3 THEN 1 ELSE 0 END) AS tiga,
-			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >3 AND (DATEDIFF(CURDATE(), tgl_cair)) <=14 THEN 1 ELSE 0 END) AS normal,
+			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >=0 AND (DATEDIFF(CURDATE(), tgl_cair)) <=2 THEN 1 ELSE 0 END) AS tiga,
+			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >2 AND (DATEDIFF(CURDATE(), tgl_cair)) <=14 THEN 1 ELSE 0 END) AS normal,
 			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >14  THEN 1 ELSE 0 END) AS kurang_normal,
 			COUNT(*) as total
 				 FROM pinjaman WHERE monitoring='belum' and id_karyawan='$id_karyawan' and input_mtr='sudah' GROUP BY id_karyawan ");
@@ -83,8 +83,8 @@ if(!$_SESSION['jabatan']){
 			</div>
 			<?php
 			$qpin = mysqli_query($con,"SELECT id_karyawan,
-			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >=0 AND (DATEDIFF(CURDATE(), tgl_cair)) <=3 THEN 1 ELSE 0 END) AS tiga_hari,
-			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >3 AND (DATEDIFF(CURDATE(), tgl_cair)) <=14 THEN 1 ELSE 0 END) AS normal,
+			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >=0 AND (DATEDIFF(CURDATE(), tgl_cair)) <=2 THEN 1 ELSE 0 END) AS tiga_hari,
+			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >2 AND (DATEDIFF(CURDATE(), tgl_cair)) <=14 THEN 1 ELSE 0 END) AS normal,
 			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >14  THEN 1 ELSE 0 END) AS kurang_normal,
 			COUNT(*) as total
 				 FROM pinjaman WHERE monitoring='belum' and id_cabang='$id_cabang' and input_mtr='sudah' GROUP BY id_cabang ");

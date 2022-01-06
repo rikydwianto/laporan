@@ -439,7 +439,7 @@
                         if ($pinj['total_hari'] > 14) {
                             $tr = "#ffd4d4";
                         }
-                        else if ($pinj['total_hari'] >= 0 && $pinj['total_hari']<=3) {
+                        else if ($pinj['total_hari'] >= 0 && $pinj['total_hari']<=2) {
                             $tr = "#42f554";
                         } 
                         else $tr = "#fffff";
