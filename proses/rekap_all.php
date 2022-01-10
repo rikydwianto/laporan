@@ -18,7 +18,7 @@
                 </div>
             </form>
         </div>
-<div class='content table-responsive'>
+<!-- <div class='content table-responsive'> -->
 <?php 
 if(isset($_GET['rekap_semua'])){
     include("./proses/rekap_semua.php");
@@ -27,7 +27,7 @@ elseif(isset($_GET['rekap_cashflow'])){
     include("./proses/rekap_cashflow.php");
 }
 ?>
-</div>
+<!-- </div> -->
 <script>
     function printPageArea(areaID){
     var printContent = document.getElementById(areaID);

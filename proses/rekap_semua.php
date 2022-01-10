@@ -4,7 +4,7 @@
 }
 </style>
 
-<div class='content table-responsive'>
+<!-- <div class='content table-responsive'> -->
 <div class='col-lg-12' id='rekap_semua'>
     <a href="#rekap" onclick="printPageArea('rekap_semua')" class="btn btn-success">print <i class="fa fa-print"></i></a>
     <table class="table table-bordered" style="border: 1px;">
@@ -244,4 +244,4 @@
 
 
 
-</div>
+<!-- </div> -->
