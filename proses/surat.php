@@ -42,6 +42,7 @@ $romawi = ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII',''];
        include"proses/lihat_surat.php";
    }
    else{
+       $kode_cabang="KMD";
        ?>
         <div class='col-md-12'>
             <form action="" method="post">
