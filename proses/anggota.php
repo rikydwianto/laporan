@@ -109,6 +109,7 @@
 						$ck = mysqli_query($con,"select *, count(id_nasabah) as total from temp_anggota_keluar b join karyawan a on a.id_karyawan=b.id_karyawan where b.status='belum' and b.id_cabang='$id_cabang'  group by b.id_karyawan,b.tgl_keluar order by b.tgl_keluar");
 						while($keluarkan = mysqli_fetch_array($ck)){
 							mysqli_query($con,"INSERT INTO `anggota` (`id_karyawan`, `tgl_anggota`, `anggota_masuk`, `anggota_keluar`, `net_anggota`,id_cabang) VALUES ('$keluarkan[id_karyawan]', '$keluarkan[tgl_keluar]', '0', '$keluarkan[total]', '-$keluarkan[total]','$id_cabang'); ");
+							mysqli_query($con,"UPDATE total_nasabah set total_nasabah = total_nasabah - $keluarkan[total] where id_karyawan='$keluarkan[id_karyawan]' ");
 						}
 						$upd = mysqli_query($con,"select * from temp_anggota_keluar where status='belum' and id_cabang='$id_cabang'");
 						while($update = mysqli_fetch_array($upd)){
@@ -235,6 +236,8 @@
 					$total_semua = $total_semua + $cariStaff['total_anggota'];
 					// echo $cariStaff['id_karyawan'];
 					mysqli_query($con, "INSERT INTO `anggota` (`id_karyawan`, `tgl_anggota`, `anggota_masuk`, `anggota_keluar`, `net_anggota`,`id_cabang`) VALUES ('$cariStaff[id_karyawan]', '$tgl', '$cariStaff[total_anggota]', '0', '$cariStaff[total_anggota]','$id_cabang'); ");
+					//UPDATE TOTAL NASABAH
+					mysqli_query($con,"UPDATE total_nasabah set total_nasabah = total_nasabah + $cariStaff[total_anggota] where id_karyawan='$cariStaff[id_karyawan]' ");
 				}
 				mysqli_query($con,"UPDATE temp_anggota set status_input='sudah' where id_cabang='$id_cabang' and tgl_bergabung='$tgl'");
 			}
