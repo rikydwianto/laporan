@@ -69,9 +69,9 @@ else{
 		 	<tr>
 		 		<th>NO</th>
 		 		<th >Nama</th>
-		 		<th id='tengah'>Masuk</th>
-		 		<th id='tengah'>Keluar</th>
-		 		<th id='tengah'>Nett</th>
+		 		<th id='tengah'>AM</th>
+		 		<th id='tengah'>AK</th>
+		 		<th id='tengah'>NETT</th>
 		 		<th id='tengah'>PMB</th>
 		 		<th id='tengah'>PSA</th>
 		 		<th id='tengah'>PPD</th>
