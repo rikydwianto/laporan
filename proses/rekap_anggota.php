@@ -59,23 +59,24 @@ else{
 			$data = new Hitung();
 			 $data_ = $data->cari_anggota($con,$id_cabang,$tglawal,$tglakhir);
 			 ?>
-		 <table class="table">
+		 <div class='col-md-6'>
+		 <table class="table table-bordered">
 		 	<tr>
-		 		<th colspan=9 class='text-center'>
+		 		<th colspan=10 class='text-center'>
 		 			<?php echo $tglawal.' s/d '. $tglakhir?>
 		 		</th>
 		 	</tr>
 		 	<tr>
-		 		<th>NO.c</th>
-		 		<th>Nama</th>
-		 		<th>Masuk</th>
-		 		<th>Keluar</th>
-		 		<th>Nett</th>
-		 		<th>PMB</th>
-		 		<th>PSA</th>
-		 		<th>PPD</th>
-		 		<th>PRR</th>
-		 		<th>ARTA</th>
+		 		<th>NO</th>
+		 		<th >Nama</th>
+		 		<th id='tengah'>Masuk</th>
+		 		<th id='tengah'>Keluar</th>
+		 		<th id='tengah'>Nett</th>
+		 		<th id='tengah'>PMB</th>
+		 		<th id='tengah'>PSA</th>
+		 		<th id='tengah'>PPD</th>
+		 		<th id='tengah'>PRR</th>
+		 		<th id='tengah'>ARTA</th>
 		 	</tr>
 		 	<?php 
 		 	$masuk=0;
@@ -112,14 +113,14 @@ else{
 		 	<tr>
 		 		<td><?=$no++ ?></td>
 		 		<td><?=$val['nama_karyawan'] ?></td>
-		 		<td><?=$masuk1 = $val['masuk'] ?></td>
-		 		<td style='background-color:<?=$bg_keluar?> '><?=$keluar1 =$val['keluar'] ?></td>
-		 		<td style="background-color: <?=$bg_color?>;"><?=$nett1= $val['nett'] ?></td>
-		 		<td><?=$pmb1= $val['pmb'] ?></td>
-		 		<td><?=$psa1= $val['psa'] ?></td>
-		 		<td><?=$ppd1= $val['ppd'] ?></td>
-		 		<td><?=$prr1= $val['prr'] ?></td>
-		 		<td><?=$arta1= $val['arta'] ?></td>
+		 		<td id='tengah'><?=$masuk1 = $val['masuk'] ?></td>
+		 		<td id='tengah' style='background-color:<?=$bg_keluar?> '><?=$keluar1 =$val['keluar'] ?></td>
+		 		<td id='tengah' style="background-color: <?=$bg_color?>;"><?=$nett1= $val['nett'] ?></td>
+		 		<td id='tengah'><?=$pmb1= $val['pmb'] ?></td>
+		 		<td id='tengah'><?=$psa1= $val['psa'] ?></td>
+		 		<td id='tengah'><?=$ppd1= $val['ppd'] ?></td>
+		 		<td id='tengah'><?=$prr1= $val['prr'] ?></td>
+		 		<td id='tengah'><?=$arta1= $val['arta'] ?></td>
 		 	</tr>
 		 		<?php
 		 		$masuk=$masuk1+$masuk;
@@ -135,19 +136,28 @@ else{
 
 		 	?>
 		 	<tr>
-		 		<th colspan=2>Total</th>
-		 		<th><?=$masuk?></th>
-		 		<th><?=$keluar?></th>
-		 		<th><?=$nett?></th>
-		 		<th><?=$pmb?></th>
-		 		<th><?=$psa?></th>
-		 		<th><?=$ppd?></th>
-		 		<th><?=$prr?></th>
-		 		<th><?=$arta?></th>
+		 		<th ></th>
+		 		<th >Total</th>
+		 		<th id='tengah'><?=$masuk?></th>
+		 		<th id='tengah'><?=$keluar?></th>
+		 		<th id='tengah'><?=$nett?></th>
+		 		<th id='tengah'><?=$pmb?></th>
+		 		<th id='tengah'><?=$psa?></th>
+		 		<th id='tengah'><?=$ppd?></th>
+		 		<th id='tengah'><?=$prr?></th>
+		 		<th id='tengah'><?=$arta?></th>
 		 	</tr>
 		 </table>
+		 </div>
 			 <?php
 			 
 		}
 		?>
 </div>
+
+<style>
+	#tengah{
+		text-align: center;
+		width: 50px;
+	}
+</style>
