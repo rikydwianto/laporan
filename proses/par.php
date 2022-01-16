@@ -1,4 +1,3 @@
-<div class='content table-responsive'>
 
 <div class="row">
 	<h3 class="page-header">INPUT ANGGOTA PAR</h3>
@@ -483,7 +482,7 @@ else{
     }
 }
 ?>
-</div>
+
 </div>
 
 <style>
