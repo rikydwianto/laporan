@@ -12,7 +12,10 @@
 			<i class="fa fa-file-excel-o"></i> Export To Excel
 		</a>
   <a href="<?=$url?>/export/center_papan.php" class='btn btn-success'>
-			<i class="fa fa-file-excel-o"></i> Export Papan To Excel
+			<i class="fa fa-file-excel-o"></i>  JADWAL PAPAN
+		</a>
+  <a href="<?=$url?>/export/center_papan1.php" class='btn btn-success'>
+			<i class="fa fa-file-excel-o"></i>  JADWAL PAPAN JAM
 		</a>
 		<a href="<?=$url.$menu?>center&konfirmasi" class='btn btn-info'>
 				  <i class="fa fa-file-excel-o"></i> KONFIRMASI
