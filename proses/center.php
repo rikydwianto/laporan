@@ -11,6 +11,9 @@
   <a href="<?=$url?>/export/center.php" class='btn btn-success'>
 			<i class="fa fa-file-excel-o"></i> Export To Excel
 		</a>
+  <a href="<?=$url?>/export/center_papan.php" class='btn btn-success'>
+			<i class="fa fa-file-excel-o"></i> Export Papan To Excel
+		</a>
 		<a href="<?=$url.$menu?>center&konfirmasi" class='btn btn-info'>
 				  <i class="fa fa-file-excel-o"></i> KONFIRMASI
 			  </a>
