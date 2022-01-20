@@ -19,7 +19,7 @@
 
     if(isset($_POST['preview'])){
         set_time_limit(5000);
-        alert("tunggu ya proses ini akan memakan waktu agak lama, karena banyak nya data, jangan diclose sampe proses selesai!!");
+        // alert("tunggu ya proses ini akan memakan waktu agak lama, karena banyak nya data, jangan diclose sampe proses selesai!!");
         ?>
         <table border=1>
             
@@ -168,7 +168,7 @@
                 $hitung_center = mysqli_fetch_array(mysqli_query($con,"select * from center where no_center='$cek_center[no_center]' and id_cabang='$id_cabang'"));
                 if($hitung_center){
                     $hari = strtolower($cek_center['hari']);
-                    mysqli_query($con,"UPDATE `center` SET `member_center` = '$cek_center[total_anggota]',hari='$hari' WHERE `no_center` = '$cek_center[no_center]' and id_cabang='$id_cabang'; ");
+                    mysqli_query($con,"UPDATE `center` SET `member_center` = '$cek_center[total_anggota]',hari='$hari', id_karyawan='$cek_center[id_karyawan]' WHERE `no_center` = '$cek_center[no_center]' and id_cabang='$id_cabang'; ");
                     // echo $cek_center['no_center'].' - '.$cek_center['id_karyawan']."|".$cek_center['total_anggota']."<br/>";
                 }
                 else{

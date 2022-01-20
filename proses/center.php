@@ -2,9 +2,9 @@
 	<h2 class='page-header'>CENTER</h2>
 	<i>Center otomatis dibuat ketika Staff membuat laporan</i><hr/>
 	  <!-- Button to Open the Modal -->
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalku">
-    <i class="fa fa-plus"></i> Center
-  </button>  
+  <a href='<?=$url.$menu."center"?>' class="btn btn-primary">
+    <i class="fa fa-eye"></i> Center
+</a>  
   <a href='<?=$url.$menu?>center&ganti_staff' class="btn btn-success" >
     <i class="fa fa-plus"></i> Ganti Staff
   </a>
@@ -18,7 +18,55 @@
 			<i class="fa fa-file-excel-o"></i> UN - KONFIRMASI
 		</a>
 <br>
+<br>
+
+<form method="post"  enctype="multipart/form-data">
+	<div class="col-md-4">
+		<label for="formFile" class="form-label">SILAHKAN PILIH FILE : JADWAL CENTER MEETING</label>
+		<input class="form-control" type="file" name='file' accept=".xls,.xlsx,.csv" id="formFile">
+		<input type="submit" value="Proses"  class='btn btn-danger' name='preview'>
+	</div>
+</form>
   <?php 
+  if(isset($_POST['preview'])){
+	set_time_limit(5000);
+	// alert("tunggu ya proses ini akan memakan waktu agak lama, karena banyak nya data, jangan diclose sampe proses selesai!!");
+	?>
+	<table border=1>
+		
+
+	<?php 
+	$file = $_FILES['file']['tmp_name'];
+	$path = $file;
+	$reader = PHPExcel_IOFactory::createReaderForFile($path);
+	$objek = $reader->load($path);
+	$ws = $objek->getActiveSheet();
+	$last_row = $ws->getHighestDataRow();
+	$no_input=0;
+	for($row = 5;$row<=$last_row;$row++){
+		$jam =  $ws->getCell("E" . $row)->getValue();
+		if($jam==null){
+			
+		}
+		else{
+			$no_center = $ws->getCell("D" . $row)->getValue();
+			$desa = $ws->getCell("I" . $row)->getValue();
+			$kab = $ws->getCell("K" . $row)->getValue();
+			$member = (int) $ws->getCell("G" . $row)->getValue();
+			$client = (int) $ws->getCell("H" . $row)->getValue();
+			   mysqli_query($con,"UPDATE center set member_center='$member' , anggota_center='$client', jam_center = '$jam',konfirmasi='y' where id_cabang='$id_cabang' and no_center='$no_center'");
+		
+		}
+			
+			   
+				
+			
+		}
+		alert("Berhasil di update");
+		pindah($url.$menu."center");
+		exit;
+	}
+
   if(isset($_GET['del']))
   {
   	$iddet= $_GET['iddet'];

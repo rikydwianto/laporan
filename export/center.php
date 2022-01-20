@@ -3,6 +3,7 @@ require_once "../config/seting.php";
 require_once "../config/koneksi.php";
 require_once("../proses/fungsi.php");
 require_once("../model/model.php");
+
 $id_karyawan = $_SESSION['id'];
 $nama_karyawan = $_SESSION['nama_karyawan'];
 $jabatan= $_SESSION['jabatan'];
