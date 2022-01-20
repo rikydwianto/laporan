@@ -28,6 +28,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
 	
 </head>
 <body>
+
 	<table border="1">
 		<tr>
 			<td>NO</td>

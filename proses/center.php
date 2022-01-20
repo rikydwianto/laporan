@@ -11,6 +11,9 @@
   <a href="<?=$url?>/export/center.php" class='btn btn-success'>
 			<i class="fa fa-file-excel-o"></i> Export To Excel
 		</a>
+		<a href="<?=$url.$menu?>center&konfirmasi" class='btn btn-info'>
+				  <i class="fa fa-file-excel-o"></i> KONFIRMASI
+			  </a>
   <a href="<?=$url.$menu?>center&unkonfirmasi" class='btn btn-info'>
 			<i class="fa fa-file-excel-o"></i> UN - KONFIRMASI
 		</a>
@@ -30,6 +33,13 @@
   	$del = mysqli_query($con,"UPDATE `center` SET `konfirmasi` = 't' WHERE `id_cabang` = '$id_cabang'; ");
   	if($del){
   		pesan("Center Berhasil di UN-Confirm",'success');
+  	}
+  }
+  if(isset($_GET['konfirmasi']))
+  {
+  	$del = mysqli_query($con,"UPDATE `center` SET `konfirmasi` = 'y' WHERE `id_cabang` = '$id_cabang'; ");
+  	if($del){
+  		pesan("Center Berhasil di Confirm",'success');
   	}
   }
 
@@ -54,18 +64,34 @@
   {
   	$idlama = $_POST['staf_lama'];
   	$idbaru = $_POST['staf_baru'];
-  	$query8 = mysqli_query($con,"UPDATE `perbaikan` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
-  	$query = mysqli_query($con,"UPDATE `anggota` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
-  	$query1 = mysqli_query($con,"UPDATE `laporan` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
-  	$query2 = mysqli_query($con,"UPDATE `center` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
-  	$query3 = mysqli_query($con,"UPDATE `group_user` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
-  	$query4 = mysqli_query($con,"UPDATE `cashflow` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
-  	$query5 = mysqli_query($con,"UPDATE `image` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
-  	$query6 = mysqli_query($con,"UPDATE `pinjaman` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
-  	$query7 = mysqli_query($con,"UPDATE `total_nasabah` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
-  	$query8 = mysqli_query($con,"UPDATE `disburse` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
-  	$query9 = mysqli_query($con,"UPDATE `target_disburse` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
+	  $sql = "SHOW TABLES";
+  $result = mysqli_query($con, $sql);
+  // echo  mysqli_error($con);
+  $larang =['karyawan','daftar_wilayah','jabatan','kategori_surat','rekap_bayar','rekap_center','spl','statistik','surat'];
+  while ($row = mysqli_fetch_row($result)) {
+	  if(in_array($row[0],$larang)){
+		  
+	  }
+	  else{
+		  // echo"tidak ada";
+	//  $query8 = mysqli_query($con,"UPDATE `perbaikan` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
+  	$query = mysqli_query($con,"UPDATE $row[0] SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
+	//   echo "UPDATE $row[0] SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  <br/>";
+  	// $query1 = mysqli_query($con,"UPDATE `laporan` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
+  	// $query2 = mysqli_query($con,"UPDATE `center` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
+  	// $query3 = mysqli_query($con,"UPDATE `group_user` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
+  	// $query4 = mysqli_query($con,"UPDATE `cashflow` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
+  	// $query5 = mysqli_query($con,"UPDATE `image` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
+  	// $query6 = mysqli_query($con,"UPDATE `pinjaman` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
+  	// $query7 = mysqli_query($con,"UPDATE `total_nasabah` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
+  	// $query8 = mysqli_query($con,"UPDATE `disburse` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
+  	// $query9 = mysqli_query($con,"UPDATE `target_disburse` SET `id_karyawan` = '$idbaru' WHERE `id_karyawan` = '$idlama';  ");
 
+	  }
+	  
+	  // exit;
+  }
+  	
   }
 
   
