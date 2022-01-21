@@ -29,11 +29,89 @@
 <form method="post"  enctype="multipart/form-data">
 	<div class="col-md-4">
 		<label for="formFile" class="form-label">SILAHKAN PILIH FILE : JADWAL CENTER MEETING</label>
-		<input class="form-control" type="file" name='file' accept=".xls,.xlsx,.csv" id="formFile">
-		<input type="submit" value="Proses"  class='btn btn-danger' name='preview'>
+		<input class="form-control" type="file" name='file' accept=".xml" id="formFile">
+		<!-- <input type="submit" value="Proses"  class='btn btn-danger' name='preview'> -->
+		<input type="submit" value="Proses"  class='btn btn-info' name='xml-preview'>
 	</div>
 </form>
   <?php 
+  //   XML  //
+
+  if(isset($_POST['xml-preview'])){
+	  $file = $_FILES['file']['tmp_name'];
+	  $path = $file;
+	  $xml=simplexml_load_file($path) or die("Error: Cannot create object");
+	  
+	  $validate = $xml['Name'];
+	  if($validate=="CenterMeeting"){
+		//   echo ($xml[0]->Tablix2['HARI_Collection']);
+		  $xml = new SimpleXMLElement($path,0,true);
+		  $xml = ($xml->Tablix2->HARI_Collection);
+		  $hari = $xml->HARI;
+	
+		// echo $hari;
+		$total_center = 0;
+		$hitung_hari= count($hari);
+		  foreach($hari  as $day){
+			  $days = strtolower($day["HARI1"]);
+			//   echo $day['HARI1']."<br/>";
+			  foreach($day->OfficerName_Collection as $hari_staff){
+				//   echo $day;
+				  foreach($hari_staff->OfficerName as $staff){
+					  $nama_staff = explode("Total ", $staff['OfficerName1'])[0];
+					//   echo $nama_staff."<br/>";
+					  foreach($staff->CenterID_Collection->CenterID as $ctr_staf){
+						  $no_center =  $ctr_staf['CenterID'];
+						  $qcek = mysqli_query($con,"SELECT no_center from center where id_cabang='$id_cabang' and no_center='$no_center'");
+						  $center[]=$no_center; 
+						  $detail_center = $ctr_staf->Details_Collection->Details;
+						  $jam = $detail_center['MeetingTime'];
+						  $agt = $detail_center['Textbox128'];
+						  $client = $detail_center['JumlahClient'];
+						  $desa = $detail_center['DusunName'];
+						  $kecamatan = $detail_center['KecamatanName'];
+						  $kab = $detail_center['KabupatenName'];
+						//   echo $no++." ";
+						  $hitung = mysqli_num_rows($qcek);
+						  if($hitung>0){
+							$txt = "UPDATE `center` SET 
+							`member_center` = '$agt',
+							`anggota_center` = '$client',
+							`center_bayar` = '$client',
+							jam_center='$jam',
+							hari='$days',
+							konfirmasi='t',
+							staff='$nama_staff'
+							 WHERE `no_center` = '$no_center' and id_cabang='$id_cabang'; 
+							";
+							mysqli_query($con,$txt);
+						}
+						else{
+							// echo $no_center."Tidak<br/>";
+							$qtxt = "INSERT INTO 
+							`center` (`id_center`, `no_center`, `doa_center`, `hari`, `status_center`, `member_center`, `anggota_center`, `center_bayar`, `id_cabang`, `id_karyawan`, `id_laporan`, `jam_center`, `latitude`, `longitude`, `doortodoor`, `blacklist`, `konfirmasi`, `staff`) 
+							VALUES (NULL, '$no_center', 'y', '$days', 'hijau', '$agt', '$client', '$client', '$id_cabang', '0', '0', '$jam', 'null', 'null', 't', 't', 't', '$nama_staff'); 
+							";
+							mysqli_query($con,$qtxt);
+						}
+						  $total_center++;
+
+					  }
+				  }
+				  
+			  }
+		  }
+		   $gabung_center = implode("','",$center);
+		   mysqli_query($con, "DELETE from center WHERE no_center NOT IN ('$gabung_center') AND id_cabang='$id_cabang'");
+		  echo "$total_center ========================";
+		  pindah($url.$menu."center&sinkron");
+
+	  }
+	//   echo var_dump($xml);
+	  exit;
+  }
+
+
   if(isset($_POST['preview'])){
 	set_time_limit(5000);
 	// alert("tunggu ya proses ini akan memakan waktu agak lama, karena banyak nya data, jangan diclose sampe proses selesai!!");
@@ -297,7 +375,66 @@
   <br>
   <br>
   <br>
-	<table id='data_karyawan'>
+	<?php 
+	if(isset($_GET['sinkron'])){
+		?>
+		<form action="" method="post">
+		<div class="col-md-12">
+            <table class='table'>
+                <tr>
+                    <th>NO</th>
+                    <th>NAMA MDIS</th>
+                    <th>TOTAL AGT </th>
+                    <th>GANTI </th>
+                </tr>
+                <?php 
+                $total_n = 0;
+                $q_nama =mysqli_query($con,"select sum(member_center) as total, staff from center where id_cabang='$id_cabang'  and konfirmasi='t' group by staff");
+                while($nama = mysqli_fetch_array($q_nama)){
+                    $total_n +=$nama['total'];
+                    ?>
+                    <tr>
+                        <td><?=$no++?></td>
+                        <td><?=$nama['staff']?></td>
+                        <td><?=$nama['total']?></td>
+                        <td>
+                        <input type="hidden" name="nama_mdis[]" value="<?= $nama['staff'] ?>">
+                        <input type="hidden" name="total_nasabah[]" value="<?= $nama['total'] ?>">
+                             <select name="karyawan[]" id="" required class='form-control'>
+                                    <option value="">Pilih Staff</option>
+                                    <?php $data_karyawan  = (karyawan($con, $id_cabang)['data']);
+                                    for ($i = 0; $i < count($data_karyawan); $i++) {
+                                        $nama_karyawan = $data_karyawan[$i]['nama_karyawan'];
+                                        if (strtolower($nama_karyawan) == trim(strtolower($nama['staff']))) {
+                                            echo "<option selected value='" . $data_karyawan[$i]['id_karyawan'] . "'>" . $nama_karyawan . "</option>";
+                                        } else {
+                                            echo "<option value='" . $data_karyawan[$i]['id_karyawan'] . "'>" . $nama_karyawan . "</option>";
+                                        }
+                                    }
+                                    ?>
+                                </select>    
+                        </td>
+                    </tr>
+                    <?php
+                }
+                ?>
+                <tr>
+                        <td colspan="2"></td>
+                        <td colspan="1"><?=$total_n?></td>
+                        <td>
+                            <input type="submit" class='btn btn-success' value='KONFIRMASI' name='ganti' />
+                        </td>
+                    </tr>
+                
+            </table>
+        </div>
+		</form>
+		<?php 
+
+	}
+	else{
+		?>
+		<table id='data_karyawan'>
 		<thead>
 			<tr>
 				<!-- <th>NO</th> -->
@@ -348,33 +485,21 @@
 		?>
 		</tbody>
 	</table>
+		<?php
+	}
+	?>
 </div>
-<!-- Button trigger modal -->
+<?php 
+if (isset($_POST['ganti'])) {
+	$karyawan = $_POST['karyawan'];
+	$mdis = $_POST['nama_mdis'];
+	$total_nasabah = $_POST['total_nasabah'];
+	for ($i = 0; $i < count($mdis); $i++) {
+		mysqli_query($con,"UPDATE center set id_karyawan ='$karyawan[$i]', konfirmasi='y' where id_cabang='$id_cabang' and staff='$mdis[$i]'");
+	}
+	
+	alert("DAFTAR CENTER BERHASIL DIUPDATE");
+	pindah($url.$menu."center");
 
-
-  <!-- The Modal TAMBAH -->
-  <div class="modal fade" id="modalku">
-    <div class="modal-dialog">
-      <div class="modal-content">
-      
-        <!-- Ini adalah Bagian Header Modal -->
-        <div class="modal-header">
-          <h4 class="modal-title">TAMBAH CENTER</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        
-        <!-- Ini adalah Bagian Body Modal -->
-        <div class="modal-body">
-          <i>Center otomatis dibuat ketika Staff membuat laporan</i><hr/>
-
-
-        </div>
-        
-        <!-- Ini adalah Bagian Footer Modal -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-        
-      </div>
-    </div>
-  </div>
+}
+?>

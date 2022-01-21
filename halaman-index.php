@@ -136,6 +136,7 @@ if(!$_SESSION['jabatan']){
 		<a href="<?=$url?>/export/laporan_harian.php?tgl=<?=date("Y-m-d")?>" class='btn btn-success'>
 			<i class="fa fa-file-excel-o"></i> Export To Excel
 		</a>
+		<a href="<?=$url.$menu?>laporan_manual" class="btn btn-danger">MEMBUAT SEMUA LAPORAN</a>
 		<div class='table-responsive'>
 		<br>
 		<table class='table'>
