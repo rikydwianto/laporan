@@ -42,7 +42,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
             </th>
         </tr>
         <?php 
-        $qhari = mysqli_query($con,"SELECT distinct hari from center where id_cabang='$id_cabang' ");
+        $qhari = mysqli_query($con,"SELECT distinct hari from center where id_cabang='$id_cabang' order by FIELD(hari,'senin','selasa','rabu','kamis','jumat') asc");
         while($hari = mysqli_fetch_array($qhari)){
             ?>
             <tr >
