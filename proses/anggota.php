@@ -106,7 +106,7 @@
 					<?php
 					if (isset($_POST['konfirmasi_keluar'])) {
 						$tgl_file=date("Y-m-d");
-						$ck = mysqli_query($con,"select *, count(id_nasabah) as total from temp_anggota_keluar b join karyawan a on a.id_karyawan=b.id_karyawan where b.status='belum' and a.id_cabang='$id_cabang'  group by b.id_karyawan,b.tgl_keluar order by b.tgl_keluar");
+						$ck = mysqli_query($con,"select *, count(id_nasabah) as total from temp_anggota_keluar b join karyawan a on a.id_karyawan=b.id_karyawan where b.status='belum' and b.id_cabang='$id_cabang'  group by b.id_karyawan,b.tgl_keluar order by b.tgl_keluar");
 						while($keluarkan = mysqli_fetch_array($ck)){
 							mysqli_query($con,"INSERT INTO `anggota` (`id_karyawan`, `tgl_anggota`, `anggota_masuk`, `anggota_keluar`, `net_anggota`,id_cabang) VALUES ('$keluarkan[id_karyawan]', '$keluarkan[tgl_keluar]', '0', '$keluarkan[total]', '-$keluarkan[total]','$id_cabang'); ");
 							mysqli_query($con,"UPDATE total_nasabah set total_nasabah = total_nasabah - $keluarkan[total] where id_karyawan='$keluarkan[id_karyawan]' ");
@@ -153,12 +153,12 @@
 										$ID = sprintf("%0d",$ID);
 										$center = $ws->getCell("C".$row)->getValue();
 										$center = str_replace(" ","",explode("/",$center)[0]);
-										$cari_keluar  = mysqli_query($con,"select * from temp_anggota_keluar where id_nasabah='$ID' ");
+										$cari_keluar  = mysqli_query($con,"select * from temp_anggota_keluar where id_nasabah='$ID' and id_cabang='$id_cabang' ");
 										if(mysqli_num_rows($cari_keluar)){
 	
 										}
 										else{
-											$cari_staff  = mysqli_query($con,"select * from center join karyawan on karyawan.id_karyawan=center.id_karyawan where no_center='$center'");
+											$cari_staff  = mysqli_query($con,"select * from center join karyawan on karyawan.id_karyawan=center.id_karyawan where no_center='$center' and karyawan.id_cabang='$id_cabang'");
 											$cari_staff  = mysqli_fetch_array($cari_staff);
 											
 											mysqli_query($con,"INSERT INTO `temp_anggota_keluar` (`id_nasabah`, `tgl_keluar`, `id_karyawan`, `id_cabang`, `status`,`alasan`) 
@@ -190,7 +190,7 @@
 				</tr>
 			<?php
 			$total_ak = 0;
-			$cek_keluar = mysqli_query($con,"select *, count(id_nasabah) as total from temp_anggota_keluar b join karyawan a on a.id_karyawan=b.id_karyawan where b.status='belum' and a.id_cabang='$id_cabang' group by b.id_karyawan,b.tgl_keluar order by b.tgl_keluar");
+			$cek_keluar = mysqli_query($con,"select *, count(id_nasabah) as total from temp_anggota_keluar b join karyawan a on a.id_karyawan=b.id_karyawan where b.status='belum' and b.id_cabang='$id_cabang' group by b.id_karyawan,b.tgl_keluar order by b.tgl_keluar");
 			while($keluar = mysqli_fetch_array($cek_keluar)){
 				?>
 				<tr>
