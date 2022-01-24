@@ -106,7 +106,7 @@
 					<?php
 					if (isset($_POST['konfirmasi_keluar'])) {
 						$tgl_file=date("Y-m-d");
-						$ck = mysqli_query($con,"select *, count(id_nasabah) as total from temp_anggota_keluar b join karyawan a on a.id_karyawan=b.id_karyawan where b.status='belum' and b.id_cabang='$id_cabang'  group by b.id_karyawan,b.tgl_keluar order by b.tgl_keluar");
+						$ck = mysqli_query($con,"select *, count(id_nasabah) as total from temp_anggota_keluar b join karyawan a on a.id_karyawan=b.id_karyawan where b.status='belum' and a.id_cabang='$id_cabang'  group by b.id_karyawan,b.tgl_keluar order by b.tgl_keluar");
 						while($keluarkan = mysqli_fetch_array($ck)){
 							mysqli_query($con,"INSERT INTO `anggota` (`id_karyawan`, `tgl_anggota`, `anggota_masuk`, `anggota_keluar`, `net_anggota`,id_cabang) VALUES ('$keluarkan[id_karyawan]', '$keluarkan[tgl_keluar]', '0', '$keluarkan[total]', '-$keluarkan[total]','$id_cabang'); ");
 							mysqli_query($con,"UPDATE total_nasabah set total_nasabah = total_nasabah - $keluarkan[total] where id_karyawan='$keluarkan[id_karyawan]' ");
@@ -177,7 +177,7 @@
 
 
 						
-					pindah($url.$menu."anggota&sinkron");
+					pindah($url.$menu."anggota&anggota_keluar");
 					}
 		?>
 		<form method="post">
@@ -190,7 +190,7 @@
 				</tr>
 			<?php
 			$total_ak = 0;
-			$cek_keluar = mysqli_query($con,"select *, count(id_nasabah) as total from temp_anggota_keluar b join karyawan a on a.id_karyawan=b.id_karyawan where b.status='belum' and b.id_cabang='$id_cabang' group by b.id_karyawan,b.tgl_keluar order by b.tgl_keluar");
+			$cek_keluar = mysqli_query($con,"select *, count(id_nasabah) as total from temp_anggota_keluar b join karyawan a on a.id_karyawan=b.id_karyawan where b.status='belum' and a.id_cabang='$id_cabang' group by b.id_karyawan,b.tgl_keluar order by b.tgl_keluar");
 			while($keluar = mysqli_fetch_array($cek_keluar)){
 				?>
 				<tr>
