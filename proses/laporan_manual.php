@@ -69,6 +69,9 @@ while($kar = mysqli_fetch_array($qkar)){
                         </td>
                         <td>
                              <input type="text" class='form-control' style="width: 50px;" name="agt[<?=$kar['id_karyawan']?>][]" value="<?=$center['member_center']?>" id="">
+                             <input type="hidden" class='form-control' style="width: 50px;" name="doa[<?=$kar['id_karyawan']?>][]" value="<?=$center['doa_center']?>" id="">
+                             <input type="hidden" class='form-control' style="width: 50px;" name="jam[<?=$kar['id_karyawan']?>][]" value="<?=$center['jam_center']?>" id="">
+                             <input type="hidden" class='form-control' style="width: 50px;" name="dtd[<?=$kar['id_karyawan']?>][]" value="<?=$center['doortodoor']?>" id="">
                             </td>
                         <td>
                             <input type="text" class='form-control' style="width: 50px;" name="client[<?=$kar['id_karyawan']?>][]" value="<?=$center['anggota_center']?>" id="">
@@ -124,6 +127,9 @@ if(isset($_POST['laporan'])){
          $agt =  ($_POST["agt"][$idk]);
          $client =  ($_POST["client"][$idk]);
          $bayar =  ($_POST["bayar"][$idk]);
+         $doa =  ($_POST["doa"][$idk]);
+         $dtd =  ($_POST["dtd"][$idk]);
+         $jam =  ($_POST["jam"][$idk]);
          $tmb_laporan = mysqli_query($con,"
          INSERT INTO `laporan` (`id_laporan`, `id_karyawan`, `tgl_laporan`, `keterangan_laporan`, `status_laporan`, `keterangan_lain`) VALUES 
          (NULL, '$idk', '$tgl', '$ket', 'pending', NULL); 
@@ -138,7 +144,18 @@ if(isset($_POST['laporan'])){
             VALUES (NULL, '$id_laporan', '$center[$a]', 'hijau', 'y', '$agt[$a]', '$client[$a]', '$bayar[$a]', '$tidak_bayar[$a]', 'sukses', 't'); 
 
             ");
-            
+            $persen = round(($bayar[$a]/$client[$a])*100);
+            if ($persen >= 90) $status = "hijau";
+			else if ($persen > 30 && $persen < 90) $status = "kuning";
+			else if ($persen >= 1 && $persen < 30) $status = "merah";
+			else $status = 'hitam';
+            $doa='y';
+           
+            // center($con, $center[$a], $doa[$a], $status, $agt[$a], $client[$a], $bayar[$a], $id_cabang, $idk, $hari, $id_laporan, $jam[$a], $dtd[$a]);
+            $d = mysqli_query($con, "UPDATE center SET doortodoor='$dtd[$a]', hari='$hari',doa_center='$doa[$a]',status_center = '$status',
+             member_center = '$agt[$a]' , anggota_center = '$client[$a]' , center_bayar = '$bayar[$a]' , 
+             id_karyawan = '$idk', id_laporan='$id_laporan' , jam_center='$jam[$a]'  WHERE no_center = '$center[$a]' and id_cabang=$id_cabang; ");
+
         }
         mysqli_query($con,"update laporan set status_laporan='sukses' where id_laporan='$id_laporan'");
         alert("BERHASIL MEMBUAT SEMUA LAPORAN");
