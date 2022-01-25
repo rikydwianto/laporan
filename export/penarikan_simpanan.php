@@ -78,7 +78,7 @@ header("Content-Disposition: attachment; filename=penarikansimpanan.xls");
         <?php
         $tgl = date("Y-m-d");
         $total_penarikan = 0;
-        $penarikan = mysqli_query($con, "SELECT * FROM penarikan_simpanan left JOIN (select * from daftar_nasabah union select * from daftar_nasabah_mantan) as daftar_nasabah ON daftar_nasabah.`id_nasabah`=penarikan_simpanan.`id_anggota` join karyawan on karyawan.id_karyawan=penarikan_simpanan.id_karyawan where penarikan_simpanan.tgl_penarikan='$qtgl' and penarikan_simpanan.id_cabang='$id_cabang' order by karyawan.nama_karyawan asc");
+        $penarikan = mysqli_query($con, "SELECT * FROM penarikan_simpanan left JOIN (select * from daftar_nasabah union select * from daftar_nasabah_mantan) as daftar_nasabah ON daftar_nasabah.`id_nasabah`=penarikan_simpanan.`id_anggota` join karyawan on karyawan.id_karyawan=penarikan_simpanan.id_karyawan where penarikan_simpanan.tgl_penarikan='$qtgl' and daftar_nasabah.id_cabang='$id_cabang' order by karyawan.nama_karyawan asc");
         while ($simp = mysqli_fetch_array($penarikan)) {
             $total_penarikan = $total_penarikan + $simp['nominal_penarikan'];
             $kel = $simp['id_detail_nasabah'];
