@@ -103,7 +103,7 @@
 		  }
 		   $gabung_center = implode("','",$center);
 		   mysqli_query($con, "DELETE from center WHERE no_center NOT IN ('$gabung_center') AND id_cabang='$id_cabang'");
-		  echo "$total_center ========================";
+		//   echo "$total_center ========================";
 		  pindah($url.$menu."center&sinkron");
 
 	  }
@@ -493,9 +493,10 @@
 if (isset($_POST['ganti'])) {
 	$karyawan = $_POST['karyawan'];
 	$mdis = $_POST['nama_mdis'];
-	$total_nasabah = $_POST['total_nasabah'];
+	$total = $_POST['total_nasabah'];
 	for ($i = 0; $i < count($mdis); $i++) {
 		mysqli_query($con,"UPDATE center set id_karyawan ='$karyawan[$i]', konfirmasi='y' where id_cabang='$id_cabang' and staff='$mdis[$i]'");
+		$total_nasabah = mysqli_query($con,"UPDATE total_nasabah set total_nasabah='$total[$i]'  where id_cabang='$id_cabang' and id_karyawan='$karyawan[$i]' ");
 	}
 	
 	alert("DAFTAR CENTER BERHASIL DIUPDATE");
