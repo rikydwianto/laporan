@@ -139,17 +139,17 @@ if(isset($_POST['laporan'])){
         $hitung_center  = count($center);
         for($a=0;$a<$hitung_center;$a++){
             $tidak_bayar = $client[$a] - $bayar[$a];
-            mysqli_query($con,"
-            INSERT INTO `detail_laporan` (`id_detail_laporan`, `id_laporan`, `no_center`, `status`, `doa`, `member`, `total_agt`, `total_bayar`, `total_tidak_bayar`, `status_detail_laporan`, `doortodoor`) 
-            VALUES (NULL, '$id_laporan', '$center[$a]', 'hijau', 'y', '$agt[$a]', '$client[$a]', '$bayar[$a]', '$tidak_bayar[$a]', 'sukses', 't'); 
-
-            ");
             $persen = round(($bayar[$a]/$client[$a])*100);
             if ($persen >= 90) $status = "hijau";
 			else if ($persen > 30 && $persen < 90) $status = "kuning";
 			else if ($persen >= 1 && $persen < 30) $status = "merah";
 			else $status = 'hitam';
             $doa='y';
+            mysqli_query($con,"
+            INSERT INTO `detail_laporan` (`id_detail_laporan`, `id_laporan`, `no_center`, `status`, `doa`, `member`, `total_agt`, `total_bayar`, `total_tidak_bayar`, `status_detail_laporan`, `doortodoor`) 
+            VALUES (NULL, '$id_laporan', '$center[$a]', '$status', '$doa[$a]', '$agt[$a]', '$client[$a]', '$bayar[$a]', '$tidak_bayar[$a]', 'sukses', 't'); 
+
+            ");
            
             // center($con, $center[$a], $doa[$a], $status, $agt[$a], $client[$a], $bayar[$a], $id_cabang, $idk, $hari, $id_laporan, $jam[$a], $dtd[$a]);
             $d = mysqli_query($con, "UPDATE center SET doortodoor='$dtd[$a]', hari='$hari',doa_center='$doa[$a]',status_center = '$status',

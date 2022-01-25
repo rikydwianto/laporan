@@ -68,9 +68,9 @@ $nama_jabatan=$d['singkatan_jabatan'];
                         <td><?=$jam['jam_center']?></td>
                         <?php $qkar = mysqli_query($con,"SELECT distinct k.nama_karyawan,k.id_karyawan from center c join karyawan k on k.id_karyawan=c.id_karyawan where c.id_cabang='$id_cabang' order by k.nama_karyawan asc ");
                 while($kar=mysqli_fetch_array($qkar)){
-                    $qcenter = mysqli_query($con,"SELECT no_center,status_center from center where id_cabang='$id_cabang' and hari='$hari[hari]' and jam_center='$jam[jam_center]' and id_karyawan='$kar[id_karyawan]' order by jam_center asc");
+                    $qcenter = mysqli_query($con,"SELECT no_center,status_center,member_center from center where id_cabang='$id_cabang' and hari='$hari[hari]' and jam_center='$jam[jam_center]' and id_karyawan='$kar[id_karyawan]' order by jam_center asc");
                     ?>
-                    <td style="vertical-align: middle;text-align:center">
+                    <td style="vertical-align: top;text-align:center">
                        <?php 
                        while($center = mysqli_fetch_array($qcenter)){
 
@@ -82,7 +82,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
                                else if($status=='merah') $warna='#eb4034';
                                else if($status=='hitam') $warna='black';
                                else $warna='black';
-                               echo "<b style='color:$warna'>".sprintf("%03d", $center['no_center'])."</b>"."<br/>";
+                               echo "<b style='color:$warna'>".sprintf("%03d", $center['no_center'])."</b> | <b style='float:right; '>$center[member_center]</b>"."<br/>";
                             }
                         }
                             ?>
