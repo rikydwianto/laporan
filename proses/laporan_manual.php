@@ -58,10 +58,16 @@ while($kar = mysqli_fetch_array($qkar)){
                         <th>AGT</th>
                         <th>Client</th>
                         <th>Bayar</th>
+                        <th>Doa</th>
+                        
                     </tr>
                     <?php
                     $tc = 0;
                 while($center = mysqli_fetch_array($qcenter)){
+                    if($center['center_bayar']>$center['anggota_center']){
+                        $bayar_value = $center['anggota_center'];
+                    }
+                    else $bayar_value = $center['center_bayar'];
                     ?>
                     <tr>
                         <td>
@@ -69,7 +75,7 @@ while($kar = mysqli_fetch_array($qkar)){
                         </td>
                         <td>
                              <input type="text" class='form-control' style="width: 50px;" name="agt[<?=$kar['id_karyawan']?>][]" value="<?=$center['member_center']?>" id="">
-                             <input type="hidden" class='form-control' style="width: 50px;" name="doa[<?=$kar['id_karyawan']?>][]" value="<?=$center['doa_center']?>" id="">
+                             <!-- <input type="hidden" class='form-control' style="width: 50px;" name="doa[<?=$kar['id_karyawan']?>][]" value="<?=$center['doa_center']?>" id=""> -->
                              <input type="hidden" class='form-control' style="width: 50px;" name="jam[<?=$kar['id_karyawan']?>][]" value="<?=$center['jam_center']?>" id="">
                              <input type="hidden" class='form-control' style="width: 50px;" name="dtd[<?=$kar['id_karyawan']?>][]" value="<?=$center['doortodoor']?>" id="">
                             </td>
@@ -78,8 +84,23 @@ while($kar = mysqli_fetch_array($qkar)){
                                 
                         </td>
                         <td>
-                        <input type="text" class='form-control' style="width: 50px;" name="bayar[<?=$kar['id_karyawan']?>][]" value="<?=$center['center_bayar']?>" id="">
+                        <input type="text" class='form-control' style="width: 50px;" name="bayar[<?=$kar['id_karyawan']?>][]" value="<?=$bayar_value?>" id="">
                             
+                        </td>
+                        <td>
+                            <select name="doa[<?=$kar['id_karyawan']?>][]" id="" class='btn form-control' style='width:100px' >
+                                <?php 
+                                if($center['doa_center']=='y'){
+                                    echo "<option value='y' selected>DOA</option>";
+                                    echo "<option value='t' >TIDAK</option>";
+                                }
+                                else{
+                                    echo "<option value='y' >DOA</option>";
+                                    echo "<option value='t' selected>TIDAK</option>";
+
+                                }
+                                ?>
+                            </select>
                         </td>
                     </tr>
                     <?php }
@@ -130,6 +151,7 @@ if(isset($_POST['laporan'])){
          $doa =  ($_POST["doa"][$idk]);
          $dtd =  ($_POST["dtd"][$idk]);
          $jam =  ($_POST["jam"][$idk]);
+         $doa =  ($_POST["doa"][$idk]);
          $tmb_laporan = mysqli_query($con,"
          INSERT INTO `laporan` (`id_laporan`, `id_karyawan`, `tgl_laporan`, `keterangan_laporan`, `status_laporan`, `keterangan_lain`) VALUES 
          (NULL, '$idk', '$tgl', '$ket', 'pending', NULL); 
@@ -144,7 +166,7 @@ if(isset($_POST['laporan'])){
 			else if ($persen > 30 && $persen < 90) $status = "kuning";
 			else if ($persen >= 1 && $persen < 30) $status = "merah";
 			else $status = 'hitam';
-            $doa='y';
+            // $doa='y';
             mysqli_query($con,"
             INSERT INTO `detail_laporan` (`id_detail_laporan`, `id_laporan`, `no_center`, `status`, `doa`, `member`, `total_agt`, `total_bayar`, `total_tidak_bayar`, `status_detail_laporan`, `doortodoor`) 
             VALUES (NULL, '$id_laporan', '$center[$a]', '$status', '$doa[$a]', '$agt[$a]', '$client[$a]', '$bayar[$a]', '$tidak_bayar[$a]', 'sukses', 't'); 
