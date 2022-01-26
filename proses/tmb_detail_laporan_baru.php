@@ -135,11 +135,10 @@ $hari = strtolower($hari[0]);
 				<th>No</th>
 				<th>No. CTR</th>
 				<th>DTD</th>
-				<th>JAM</th>
-				<th>Doa</th>
-				<th>Anggota</th>
+				<th>DOA</th>
+				<th>MEMBER</th>
 				<th>CLIENT</th>
-				<th>Bayar</th>
+				<th>BAYAR</th>
 				<th>Tidak Bayar</th>
 
 			</tr>
@@ -188,7 +187,7 @@ $hari = strtolower($hari[0]);
 
 						<td>
 							<!-- sss -->
-							<select name='dtd[]' class='form-select ' id='dtd-<?php echo $y ?>' required id="inputGroupSelect01">
+							<select name='dtd[]' class='form-control ' style='width:100px' id='dtd-<?php echo $y ?>' required id="inputGroupSelect01">
 								<option value="" >Pilih</option>
 								<option value='t' <?= $tidak ?>>TIDAK</option>
 								<option value='y' <?= $iya ?>>DTD</option>
@@ -197,21 +196,23 @@ $hari = strtolower($hari[0]);
 							</select>
 						</td>
 
-						<td><input type="time" class='form-control' name='jam[]' id='jam-<?php echo $y ?>' placeholder="12:00" value='<?= $cek_detail_center['jam_center'] ?>'  /></td>
 
 
 						<td>
-							<div class="input-group input-group-lg" >
-								<select name='doa[]' class='form-select ' id="inputGroupSelect01">
-									<option value='y' <?= $doa_ ?>>doa</option>
-									<option value='t' <?= $doa_t ?>>Tdk </option>
+							<div class="input-group input-group-lg"  >
+								<select name='doa[]' class='form-control  ' style='width:100px'>
+									<option >PILIH</option>
+									<option value='y' <?= $doa_ ?>>DOA</option>
+									<option value='t' <?= $doa_t ?>>TIDAK DOA </option>
 								</select>
 							</div>
 						</td>
-						<td><input type=number name='member[]' id='member-<?php echo $y ?>' min="1" value='<?= $cek_detail_center['member_center'] ?>' class='form-control' style="width:60px" /></td>
-						<td><input type=number name='total_agt[]' value='<?= $cek_detail_center['anggota_center'] ?>' id='agt-<?php echo $y ?>' onkeyup="ganti_bayar('<?= $y ?>')" class='form-control' style="width:60px" /></td>
-						<td><input type=number name='bayar[]' value='<?= $cek_detail_center['center_bayar'] ?>' id='bayar-<?php echo $y ?>' onkeyup="ganti_bayar('<?= $y ?>')" class='form-control' style="width:60px"></td>
-						<td><input type=number name='tidak_bayar[]' id='tdk-<?php echo $y ?>' value='<?= $cek_detail_center['anggota_center'] - $cek_detail_center['center_bayar'] ?>' class='form-control' style="width:60px"></td>
+						<td>
+						<input type="hidden" class='form-control' name='jam[]' id='jam-<?php echo $y ?>' placeholder="12:00" value='<?= $cek_detail_center['jam_center'] ?>'  />
+							<input type=number readonly name='member[]' id='member-<?php echo $y ?>' min="1" value='<?= $cek_detail_center['member_center'] ?>' class='form-control' style="width:60px" /></td>
+						<td><input type=number readonly name='total_agt[]' value='<?= $cek_detail_center['anggota_center'] ?>' id='agt-<?php echo $y ?>' onchange="ganti_bayar('<?= $y ?>')" class='form-control' style="width:60px" /></td>
+						<td><input type=number name='bayar[]' min="0" max="<?= $cek_detail_center['anggota_center'] ?>" value='<?= $cek_detail_center['center_bayar'] ?>' id='bayar-<?php echo $y ?>' onchange="ganti_bayar('<?= $y ?>')" class='form-control' style="width:60px"></td>
+						<td><input type=number readonly name='tidak_bayar[]' max="<?= $cek_detail_center['anggota_center'] ?>" id='tdk-<?php echo $y ?>' value='<?= $cek_detail_center['anggota_center'] - $cek_detail_center['center_bayar'] ?>' class='form-control' style="width:60px"></td>
 					</tr>
 			<?php
 					$y++;
@@ -221,52 +222,7 @@ $hari = strtolower($hari[0]);
 
 			?>
 
-			<?php
-			$no = 1;
-			if ($hitung_center > 1)
-				$loop = 24;
-			else $loop = 27;
-			for ($x = 20; $x <= $loop; $x++) {
-			?>
-
-
-				<tr>
-					<td><?php echo $no++ ?></td>
-					<td><input type=text class='form-control' name='no_center[]' style="width:60px" /></td>
-
-					<td>
-
-
-
-						<select name='dtd[]' class='form-select ' id="inputGroupSelect01">
-							<option >pilih</option>
-							<option value='t' <?= $merah ?>>TIDAK</option>
-							<option value='y' <?= $hijau ?>>DTD</option>
-							<!-- <option value='r' <?= $kuning ?> >1/2 DTD</option> -->
-
-						</select>
-
-					</td>
-
-					<td><input type="time" class='form-control' name='jam[]' id='jam-<?php echo $y ?>' placeholder="12:00" value=''  /></td>
-
-
-					<td>
-						<div class="input-group input-group-lg">
-							<select name='doa[]' class='form-select ' id="inputGroupSelect01">
-								<option value='y'>doa</option>
-								<option value='t'>Tdk </option>
-							</select>
-						</div>
-					</td>
-					<td><input type='number' name='member[]' min="1" class='form-control' style="width:60px" /></td>
-					<td><input type='number' name='total_agt[]' id='agt-<?php echo $x ?>' onkeyup="ganti_bayar('<?= $x ?>')" class='form-control' style="width:60px" /></td>
-					<td><input type='number' name='bayar[]' id='bayar-<?php echo $x ?>' onkeyup="ganti_bayar('<?= $x ?>')" class='form-control' style="width:60px"></td>
-					<td><input type='number' name='tidak_bayar[]' id='tdk-<?php echo $x ?>' onkeyup="" class='form-control' style="width:60px"></td>
-				</tr>
-			<?php
-			}
-			?>
+			
 
 		</table>
 		<table style="float:right">
