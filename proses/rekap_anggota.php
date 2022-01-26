@@ -56,6 +56,10 @@ else{
 		{
 			$tglawal = $_GET['tglawal'];
 			$tglakhir = $_GET['tglakhir'];
+			if(isset($_GET['cabang']) || $_GET['cabang']!=null){
+				$id_cabang = $_GET['cabang'];
+
+			}
 			$data = new Hitung();
 			 $data_ = $data->cari_anggota($con,$id_cabang,$tglawal,$tglakhir);
 			 ?>
