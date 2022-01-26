@@ -14,7 +14,7 @@ require_once("model/model.php");
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Komida Pagaden</title>
+    <title>KOPERASI MITRA DHUAFA</title>
 	<link rel="icon" type="image/png" sizes="16x16" href="<?= $url ?>assets/logo.png">
     <!-- Bootstrap Core CSS -->
     <link href="<?= $url ?>assets/css/bootstrap.min.css" rel="stylesheet">
