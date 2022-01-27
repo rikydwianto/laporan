@@ -20,7 +20,7 @@
                 <div class="col-md-8">
                     <h3>SAMPAI</h3>
                     <input type="date" required value="<?=($tgl_akhir==""?date("Y-m-d"):$tgl_akhir)?>" name="tgl_akhir" class='form-control' id="">
-                    <input type="submit" value="PRINT" name='daftar_pinjaman' class='btn btn-danger btn-md btn-info'>
+                    <input type="submit" value="PRINT AK" name='daftar_pinjaman' class='btn btn-danger btn-md btn-info'>
 
                 </div>
             </form>
