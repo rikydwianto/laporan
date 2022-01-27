@@ -116,7 +116,7 @@
             </thead>
             <tbody>
                 <?php
-                $query = mysqli_query($con, "SELECT * from daftar_nasabah where no_ktp in (SELECT daftar_nasabah.no_ktp FROM `daftar_nasabah`
+                $query = mysqli_query($con, "SELECT * from daftar_nasabah where no_ktp in (SELECT daftar_nasabah.no_ktp FROM `daftar_nasabah` where id_cabang='$id_cabang'
                  GROUP BY  no_ktp HAVING count(*) > 1) and id_cabang='$id_cabang' order by no_ktp,nama_nasabah asc
                 ");
                 while ($dup = mysqli_fetch_array($query)) {
