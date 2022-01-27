@@ -50,6 +50,8 @@
 							$agt = ganti_karakter(substr($no_id, 0, 5));
 							if ($agt == 'AGT') {
 								$staff =  ganti_karakter($ws->getCell("W" . $row)->getValue());
+								$nama_nasabah =  ganti_karakter($ws->getCell("C" . $row)->getValue());
+								$nama_suami =  ganti_karakter($ws->getCell("F" . $row)->getValue());
 								$id_detail =  ganti_karakter1($ws->getCell("B" . $row)->getValue());
 								$tgl = ($ws->getCell("L" . $row)->getValue());
 								$tgl = $tgl;
@@ -60,7 +62,7 @@
 								}
 								else{
 									$new_tgl = ganti_karakter($tgl[2]) . "-" . ganti_karakter($tgl[1]) . "-" . ganti_karakter($tgl[0]);
-									mysqli_query($con, "INSERT INTO `temp_anggota` (`staff`,`id_detail_nasabah`, `tgl_bergabung`, `status_input`, `id_cabang`) VALUES ('$staff','$id_detail', '$new_tgl', 'belum', '$id_cabang'); ");
+									mysqli_query($con, "INSERT INTO `temp_anggota` (`staff`,`id_detail_nasabah`, `tgl_bergabung`, `status_input`, `id_cabang`,`nama_nasabah`,`nama_suami`) VALUES ('$staff','$id_detail', '$new_tgl', 'belum', '$id_cabang','$nama_nasabah','$nama_suami'); ");
 	
 								}
 	
