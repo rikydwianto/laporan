@@ -218,35 +218,7 @@ for($row = 7;$row<=$last_row;$row++){
             }
             ?>
         
-            <tr style="background-color: <?=$warna_baris?>">
-                <td><?=$nama['no_center']?></td>
-                <!-- <td><></td> -->
-                <td><?=$id_nasabah?></td>
-                <td><?=$nasabah?></td>
-                <td><?=$kode_pemb?></td>
-                <td><?=$ke?></td>
-                <td><?=$rill?></td>
-                <td><?=angka($amount)?></td>
-                <td><?=angka($os)?></td>
-                <td><?=angka($cicilan)?></td>
-                <td><?=angka($wajib)?></td>
-                <td><?=angka($sukarela)?></td>
-                <td><?=angka($pensiun)?></td>
-                <td>
-                    <?=$ket?>
-                </td>
-                <td>
-                    <?=($satu_angsuran==0?"":angka($satu_angsuran))?>
-                </td>
-                <td>
-                    <?=($tanpa_margin==0?"":angka($tanpa_margin))?>
-                </td>
-                <td><?=$warna?></td>
-                <td>
-                    <?=$nama['nama_karyawan']?>
-                </td>
-            </tr>
-            
+           
             <?php   
 
             if($ket){
@@ -292,4 +264,4 @@ $spreadsheet->setActiveSheetIndex(0);
 $writer = new Xlsx($spreadsheet);
 $filename='PAR - '.date("Y-m-d").' - '. time() ;
 $writer->save('export/excel/par/'.$filename.'.xlsx');
-// pindah($url."blk.php?download=".$filename.".xlsx");
+pindah($url."export/excel/par/$filename.xlsx");
