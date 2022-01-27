@@ -10,7 +10,7 @@
 
         <!-- <form method="post"  enctype="multipart/form-data"> -->
         <form action="" method="get" id='form_ak'>
-            <input type="hidden" name="menu" value="monitoring">
+            <input type="hidden" name="menu" value="list_ak">
                 <div class="col-md-8">
                     <h3>DARI</h3>
                     <input type="date" value="<?=($tgl_awal==""?date("Y-m-d"):$tgl_awal)?>" required name="tgl_awal" class='form-control' id="">
