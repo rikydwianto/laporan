@@ -32,7 +32,7 @@
 				
 			}
 			if (isset($_POST['preview'])) {
-				echo $id_cabang;
+				// echo $id_cabang;
 				$nama_file = $_FILES['file']['tmp_name'];
 				$_SESSION['nama_file'] = $nama_file;
 				$path = $_SESSION['nama_file'];
@@ -52,18 +52,31 @@
 								$staff =  ganti_karakter($ws->getCell("W" . $row)->getValue());
 								$nama_nasabah =  ganti_karakter($ws->getCell("C" . $row)->getValue());
 								$nama_suami =  ganti_karakter($ws->getCell("F" . $row)->getValue());
+								$jml_anak =  ganti_karakter($ws->getCell("J" . $row)->getValue());
+								$umur =  ganti_karakter($ws->getCell("I" . $row)->getValue());
+								$tempat_lahir =  ganti_karakter($ws->getCell("G" . $row)->getValue());
+								$alamat_nasabah =  ganti_karakter($ws->getCell("K" . $row)->getValue());
+								$tgl_lahir =  ganti_karakter1($ws->getCell("H" . $row)->getValue());
 								$id_detail =  ganti_karakter1($ws->getCell("B" . $row)->getValue());
-								$tgl = ($ws->getCell("L" . $row)->getValue());
-								$tgl = $tgl;
-								$tgl = explode("/", $tgl);
+								$tgl =  ganti_karakter1($ws->getCell("L" . $row)->getValue());
+								$tgl = explode("/",$tgl);
+								// $tgl_lahir;
+								$tgl1 = explode("/", $tgl_lahir);
+								$baru_tgl = "$tgl1[2]-$tgl1[1]-$tgl1[0]";
+								
 								$cek_ang = mysqli_num_rows(mysqli_query($con,"select id_detail_nasabah from temp_anggota where id_detail_nasabah='$id_detail'"));
 								if($cek_ang){
-									mysqli_query($con,"UPDATE `temp_anggota` SET `nama_nasabah` = '$nama_nasabah' , nama_suami='$nama_suami'  WHERE `id_detail_nasabah` = '$id_detail'; 
+									mysqli_query($con,"UPDATE `temp_anggota` SET `nama_nasabah` = '$nama_nasabah' , nama_suami='$nama_suami',
+									`tempat_lahir` = '$tempat_lahir' , `tgl_lahir` = '$baru_tgl' , `umur` = '$umur' , `jml_anak` = '$jml_anak' , `alamat_nasabah` = '$alamat_nasabah'
+									  WHERE `id_detail_nasabah` = '$id_detail'; 
 									");
 								}
 								else{
-									$new_tgl = ganti_karakter($tgl[2]) . "-" . ganti_karakter($tgl[1]) . "-" . ganti_karakter($tgl[0]);
-									mysqli_query($con, "INSERT INTO `temp_anggota` (`staff`,`id_detail_nasabah`, `tgl_bergabung`, `status_input`, `id_cabang`,`nama_nasabah`,`nama_suami`) VALUES ('$staff','$id_detail', '$new_tgl', 'belum', '$id_cabang','$nama_nasabah','$nama_suami'); ");
+									$new_tgl = ganti_karakter1($tgl[2]) . "-" . ganti_karakter1($tgl[1]) . "-" . ganti_karakter1($tgl[0]);
+									echo $new_tgl.'<br/>';
+									mysqli_query($con, "INSERT INTO `temp_anggota` 
+									(`staff`,`id_detail_nasabah`, `tgl_bergabung`, `status_input`, `id_cabang`,`nama_nasabah`,`nama_suami`,`tempat_lahir`,`tgl_lahir`,umur,jml_anak,alamat_nasabah) VALUES
+									 ('$staff','$id_detail', '$new_tgl', 'belum', '$id_cabang','$nama_nasabah','$nama_suami','$tempat_lahir','$baru_tgl','$umur','$jml_anak','$alamat_nasabah'); ");
 	
 								}
 	

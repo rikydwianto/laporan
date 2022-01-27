@@ -84,6 +84,13 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
                 <th>KLP</th>
                <th>ANGGOTA</th>
                <th>SUAMI</th>
+               <th>TEMPAT LAHIR</th>
+               <th>TANGGAL LAHIR</th>
+               <th> UMUR </th>
+               <th>JML.ANAK</th>
+               <th>ALAMAT</th>
+				
+
                <th>TGL BERGABUNG</th>
                
                <th>STAFF</th>
@@ -93,7 +100,7 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
                $q= mysqli_query($con,"
                SELECT * from temp_anggota a  
                join karyawan k on a.id_karyawan=k.id_karyawan
-               where a.id_cabang='$id_cabang' and  a.tgl_bergabung between '$tgl_awal' and '$tgl_akhir' 
+               where a.id_cabang='$id_cabang' and  a.tgl_bergabung between '$tgl_awal' and '$tgl_akhir' and a.status_input='sudah'
                group by a.id_detail_nasabah order by a.tgl_bergabung,k.nama_karyawan asc");
                echo mysqli_error($con);
                while($r =mysqli_fetch_array($q)){
@@ -106,6 +113,11 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
                     <td  style='text-align: center;'><?=sprintf("%03d",explode("/",$r['id_detail_nasabah'])[2])?></td>
                     <td><span style='padding-left:10px;padding-right:10px;padding-top:10px'><?=$r['nama_nasabah']?></span></td>
                     <td><span style='padding-left:10px;padding-right:10px;padding-top:10px'><?=$r['nama_suami']?></span></td>
+                    <td><span style='padding-left:10px;padding-right:10px;padding-top:10px'><?=$r['tempat_lahir']?></span></td>
+                    <td><span style='padding-left:10px;padding-right:10px;padding-top:10px'><?=$r['tgl_lahir']?></span></td>
+                    <td  style='text-align: center;'><?=$r['umur']?></td>
+                    <td  style='text-align: center;'><?=$r['jml_anak']?></td>
+                    <td><span style='padding-left:10px;padding-right:10px;padding-top:10px'><?=$r['alamat_nasabah']?></span></td>
                     <td style='text-align: center;'><?=$r['tgl_bergabung']?></td>
                     <td><span style='padding-left:10px;padding-right:10px;padding-top:10px'><?=$r['nama_karyawan']?></span></td>
                     
