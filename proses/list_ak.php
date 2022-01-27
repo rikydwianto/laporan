@@ -9,7 +9,8 @@
     <div class="col-lg-4">
 
         <!-- <form method="post"  enctype="multipart/form-data"> -->
-        <form action="" method="get" id='form_ak'>
+        <form action="" method="get" id='form_am'>
+            <h2>ANGGOTA MASUK</h2>
             <input type="hidden" name="menu" value="list_ak">
                 <div class="col-md-8">
                     <h3>DARI</h3>
@@ -20,11 +21,42 @@
                 <div class="col-md-8">
                     <h3>SAMPAI</h3>
                     <input type="date" required value="<?=($tgl_akhir==""?date("Y-m-d"):$tgl_akhir)?>" name="tgl_akhir" class='form-control' id="">
-                    <button type="submit" value="PRINT AK" name='daftar_pinjaman' class='btn btn-danger btn-md btn-info'>PRINT AK</button>
+                    <button type="submit" value="AM" name='ak' class='btn btn-danger btn-md btn-info'>PRINT AM</button>
+                    <!-- <button type="submit" value="PRINT AM" name='am' class='btn btn-success btn-md btn-info'>PRINT AM</button> -->
 
                 </div>
             </form>
-    <script>
+    
+
+
+    
+</div>
+    <div class="col-lg-4">
+
+        <!-- <form method="post"  enctype="multipart/form-data"> -->
+        <form action="" method="get" id='form_ak'>
+            <h2>ANGGOTA KELUAR</h2>
+            <input type="hidden" name="menu" value="list_ak">
+                <div class="col-md-8">
+                    <h3>DARI</h3>
+                    <input type="date" value="<?=($tgl_awal==""?date("Y-m-d"):$tgl_awal)?>" required name="tgl_awal" class='form-control' id="">
+                    
+                    
+                </div>
+                <div class="col-md-8">
+                    <h3>SAMPAI</h3>
+                    <input type="date" required value="<?=($tgl_akhir==""?date("Y-m-d"):$tgl_akhir)?>" name="tgl_akhir" class='form-control' id="">
+                    <button type="submit" value="PRINT AK" name='ak' class='btn btn-danger btn-md btn-info'>PRINT AK</button>
+                    <!-- <button type="submit" value="PRINT AM" name='am' class='btn btn-success btn-md btn-info'>PRINT AM</button> -->
+
+                </div>
+            </form>
+    
+
+
+    
+</div>
+<script>
         var myForm = document.getElementById('form_ak');
         myForm.onsubmit = function() {
             var isi = $('#form_ak').serialize();
@@ -32,11 +64,14 @@
             var w = window.open('<?=$url."print_ak.php?"?>'+isi,'DAFTAR ANGGOTA KELUAR','toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=1200,height=720,left = 0,top = 0');
             this.target = 'Popup_Window';
         };
+        var myForm1 = document.getElementById('form_am');
+        myForm1.onsubmit = function() {
+            var isi = $('#form_am').serialize();
+            // alert(isi);
+            var w = window.open('<?=$url."print_am.php?"?>'+isi,'DAFTAR ANGGOTA MASUK','toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=1200,height=720,left = 0,top = 0');
+            this.target = 'Popup_Window';
+        };
     </script>
-
-
-    
-</div>
 <script>
     var url = "<?= $url ?>";
     var cabang = "<?= $id_cabang ?>";

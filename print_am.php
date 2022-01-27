@@ -61,12 +61,12 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Print Daftar Anggota Keluar</title>
+    <title>Print Daftar Anggota Masuk</title>
 </head>
 <body>
     <div class='kertas'>
         <div class='tengah'>
-            <h1>DAFTAR ANGGOTA KELUAR</h1>
+            <h1>DAFTAR ANGGOTA MASUK</h1>
             <h3>CABANG <?=strtoupper($d['nama_cabang'])?></h3>
             <h3>Periode : <?=format_hari_tanggal($tgl_awal)?> s/d <?=format_hari_tanggal($tgl_akhir)?></h3>
 
@@ -74,34 +74,35 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
         <table>
             <thead>
                <th>NO</th>
-               <th>ID</th>
+               <!-- <th>ID</th> -->
                <th>ID DETAIL</th>
                <th>CTR</th>
                 <th>KLP</th>
                <th>ANGGOTA</th>
-               <th>TGL KELUAR</th>
-               <th>ALASAN</th>
+               <th>SUAMI</th>
+               <th>TGL BERGABUNG</th>
+               
                <th>STAFF</th>
             </thead>
            <tbody>
                <?php 
                $q= mysqli_query($con,"
-               SELECT * from temp_anggota_keluar a right join daftar_nasabah_mantan  mantan on a.id_nasabah=mantan.id_nasabah 
+               SELECT * from temp_anggota a  
                join karyawan k on a.id_karyawan=k.id_karyawan
-               where a.id_cabang='$id_cabang' and a.tgl_keluar between '$tgl_awal' and '$tgl_akhir' 
-               group by a.id_nasabah order by a.tgl_keluar,k.nama_karyawan asc");
+               where a.id_cabang='$id_cabang' and  a.tgl_bergabung between '$tgl_awal' and '$tgl_akhir' 
+               group by a.id_detail_nasabah order by a.tgl_bergabung,k.nama_karyawan asc");
                echo mysqli_error($con);
                while($r =mysqli_fetch_array($q)){
                    ?>
                 <tr>
                     <td><?=$no++?></td>
-                    <td style='text-align: center;'><?=$r['id_nasabah']?></td>
+                    <!-- <td style='text-align: center;'><?=$r['id_nasabah']?></td> -->
                     <td ><?=$r['id_detail_nasabah']?></td>
-                    <td style='text-align: center;'><?=$r['no_center']?></td>
+                    <td style='text-align: center;'><?=sprintf("%03d",explode("/",$r['id_detail_nasabah'])[3])?></td>
                     <td  style='text-align: center;'><?=sprintf("%03d",explode("/",$r['id_detail_nasabah'])[2])?></td>
                     <td><?=$r['nama_nasabah']?></td>
-                    <td style='text-align: center;'><?=$r['tgl_keluar']?></td>
-                    <td><?=$r['alasan']?></td>
+                    <td><?=$r['nama_suami']?></td>
+                    <td style='text-align: center;'><?=$r['tgl_bergabung']?></td>
                     <td><?=$r['nama_karyawan']?></td>
                     
                 </tr>
@@ -111,7 +112,7 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
            </tbody>
            <tfoot>
                <tr>
-                   <th colspan="6">TOTAL ANGGOTA MASUK</th>
+                   <th colspan="6">TOTAL ANGGOTA KELUAR</th>
                    <th colspan="1"><?=$no-1?></th>
                </tr>
            </tfoot>
