@@ -48,6 +48,9 @@ else{
 			<a href="<?=$url?>/export/rekap_agt_lainnya.php?&tglawal=<?=$tglawal?>&tglakhir=<?=$tglakhir?>&cari=FILTER" class='btn btn-success'>
 			<i class="fa fa-file-excel-o"></i> Export To Excel
 		</a>
+			<a href="<?=$url.$menu?>list_ak&tglawal=<?=$tglawal?>&tglakhir=<?=$tglakhir?>&cari=FILTER" class='btn btn-info'>
+			<i class="fa fa-list"></i> LIST A.K
+		</a>
 		<a href="<?=$url.$menu?>rekap_anggota&tglawal=<?=date("Y-m-d",(strtotime ( '-1 day' , strtotime ( date("Y-m-d"))  )))?>&tglakhir=<?=date("Y-m-d",(strtotime ( '-1 day' , strtotime ( date("Y-m-d"))  )))?>&cari=FILTER" class="btn btn-danger">KEMARIN</a>
 		<a href="<?=$url.$menu?>rekap_anggota&tglawal=<?=date("Y-m-d")?>&tglakhir=<?=date("Y-m-d")?>&cari=FILTER" class="btn btn-danger">HARI INI</a>
 		</form>
