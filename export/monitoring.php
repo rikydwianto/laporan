@@ -40,7 +40,8 @@ $sheet->setCellValue('h2', 'PRR');
 $sheet->setCellValue('i2', 'LAINNYA');
 $sheet->setCellValue('j2', 'TOTAL');
 $sheet->setCellValue('k2', 'NAMA STAFF');
-$sheet->setCellValue('l2', 'AGT');
+$sheet->setCellValue('l2', 'JABATAN');
+$sheet->setCellValue('m2', 'AGT');
 
 $baris = 3;
 $no1=1;
@@ -105,7 +106,8 @@ FROM pinjaman where id_karyawan=$karyawan[id_karyawan] and monitoring='belum' GR
         $sheet->setCellValue('i'.$baris, $lain);
         $sheet->setCellValue('j'.$baris, $total);
         $sheet->setCellValue('K'.$baris, $karyawan['nama_karyawan']);
-        $sheet->setCellValue('l'.$baris, $hitung_agt);
+        $sheet->setCellValue('m'.$baris, $hitung_agt);
+        $sheet->setCellValue('l'.$baris, 'FO');
         // $sheet->setCellValue('m'.$baris, $persen."%");
     $baris++;$no1++;
 }

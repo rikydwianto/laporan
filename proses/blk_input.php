@@ -10,6 +10,17 @@
     </form>
 </div>
 <div class="row">
+	<h3 class="page-header">ANALISA PAR YANG BISA DITUTUP OLEH SIMP SUKARELA</h3>
+	<hr />
+    <form method="post"  enctype="multipart/form-data">
+        <div class="col-md-4">
+            <label for="formFile" class="form-label">SILAHKAN PILIH FILE</label>
+            <input class="form-control" type="file" name='file' accept=".xls,.xlsx,.csv" id="formFile">
+            <input type="submit" value="Proses" class='btn btn-danger' name='preview_sukarela'>
+        </div>
+    </form>
+</div>
+<div class="row">
 	<h3 class="page-header">ANALISA ANGGOTA TIDAK BAYAR</h3>
 	<hr />
     <form method="post" action="<?=$url.$menu?>blk_tidak_bayar" enctype="multipart/form-data">
@@ -20,3 +31,10 @@
         </div>
     </form>
 </div>
+
+
+<?php
+if(isset($_POST['preview_sukarela'])){
+    include("./proses/blk_sukarela.php");
+}
+?>
