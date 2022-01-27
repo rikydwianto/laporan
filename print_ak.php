@@ -96,13 +96,13 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
                 <tr>
                     <td><?=$no++?></td>
                     <td style='text-align: center;'><?=$r['id_nasabah']?></td>
-                    <td ><?=$r['id_detail_nasabah']?></td>
+                    <td ><span style='padding-left:10px;padding-right:10px;padding-top:10px'><?=$r['id_detail_nasabah']?></span></td>
                     <td style='text-align: center;'><?=$r['no_center']?></td>
                     <td  style='text-align: center;'><?=sprintf("%03d",explode("/",$r['id_detail_nasabah'])[2])?></td>
-                    <td><?=$r['nama_nasabah']?></td>
+                    <td><span style='padding-left:10px;padding-right:10px;padding-top:10px'><?=$r['nama_nasabah']?></span></td>
                     <td style='text-align: center;'><?=$r['tgl_keluar']?></td>
-                    <td><?=$r['alasan']?></td>
-                    <td><?=$r['nama_karyawan']?></td>
+                    <td ><span style='padding-left:10px;padding-right:10px;padding-top:10px'><?=$r['alasan']?></span></td>
+                    <td><span style='padding-left:10px;padding-right:10px;padding-top:10px'><?=$r['nama_karyawan']?></span></td>
                     
                 </tr>
                    <?php

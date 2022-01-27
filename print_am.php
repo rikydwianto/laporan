@@ -26,7 +26,7 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
 
         }
         table tr th{
-            height: 0.7cm;
+            height: 1cm;
             padding:3px;
             font-weight: bold;
             font-size: 11px;
@@ -50,6 +50,10 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
         table tr td{
             vertical-align: middle;
 
+        }
+        table tbody tr td{
+            vertical-align: middle;
+            height: 1cm;
         }
         .isi_tengah{
             text-align: center;
@@ -97,13 +101,13 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
                 <tr>
                     <td><?=$no++?></td>
                     <!-- <td style='text-align: center;'><?=$r['id_nasabah']?></td> -->
-                    <td ><?=$r['id_detail_nasabah']?></td>
+                    <td ><span style='padding-left:10px;padding-right:10px;padding-top:10px'><?=$r['id_detail_nasabah']?></span></td>
                     <td style='text-align: center;'><?=sprintf("%03d",explode("/",$r['id_detail_nasabah'])[3])?></td>
                     <td  style='text-align: center;'><?=sprintf("%03d",explode("/",$r['id_detail_nasabah'])[2])?></td>
-                    <td><?=$r['nama_nasabah']?></td>
-                    <td><?=$r['nama_suami']?></td>
+                    <td><span style='padding-left:10px;padding-right:10px;padding-top:10px'><?=$r['nama_nasabah']?></span></td>
+                    <td><span style='padding-left:10px;padding-right:10px;padding-top:10px'><?=$r['nama_suami']?></span></td>
                     <td style='text-align: center;'><?=$r['tgl_bergabung']?></td>
-                    <td><?=$r['nama_karyawan']?></td>
+                    <td><span style='padding-left:10px;padding-right:10px;padding-top:10px'><?=$r['nama_karyawan']?></span></td>
                     
                 </tr>
                    <?php
@@ -112,7 +116,7 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
            </tbody>
            <tfoot>
                <tr>
-                   <th colspan="6">TOTAL ANGGOTA KELUAR</th>
+                   <th colspan="7">TOTAL ANGGOTA MASUK</th>
                    <th colspan="1"><?=$no-1?></th>
                </tr>
            </tfoot>

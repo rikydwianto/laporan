@@ -58,7 +58,8 @@
 								$tgl = explode("/", $tgl);
 								$cek_ang = mysqli_num_rows(mysqli_query($con,"select id_detail_nasabah from temp_anggota where id_detail_nasabah='$id_detail'"));
 								if($cek_ang){
-	
+									mysqli_query($con,"UPDATE `temp_anggota` SET `nama_nasabah` = '$nama_nasabah' , nama_suami='$nama_suami'  WHERE `id_detail_nasabah` = '$id_detail'; 
+									");
 								}
 								else{
 									$new_tgl = ganti_karakter($tgl[2]) . "-" . ganti_karakter($tgl[1]) . "-" . ganti_karakter($tgl[0]);
