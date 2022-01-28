@@ -1,5 +1,6 @@
 <?php
-error_reporting(0);
+// error_reporting(0);
+// error_reporting()
 require_once "config/seting.php";
 require_once "config/koneksi.php";
 require_once("proses/fungsi.php");

@@ -90,30 +90,34 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
         <table>
             <thead>
                 <tr>
-                    <th rowspan="2">NO</th>
-                    <th colspan="3" >NASABAH</th>
-                    <th rowspan="2" >PHONE</th>
-                    <th rowspan="2" >CENTER</th>
-                    <th rowspan="2" >GROUP</th>
-                    <th rowspan="2" >PRODUK</th>
-                    <th rowspan="2" >JUMLAH.<br/>PINJAMAN</th>
-                    <th rowspan="2" >OUTSTANDING</th>
-                    <th rowspan="2" >J.<br/>Waktu</th>
-                    <th rowspan="2" >RATE (%)</th>
-                    <th rowspan="2" >angsuran</th>
-                    <th rowspan="2" >TUJUAN <br/>PINJAMAN</th>
-                    <th rowspan="2" >KE</th>
-                    <th rowspan="2">NAMA F.O.</th>
-                    <th colspan="3">KETERANGAN</th>
+                    <th rowspan="2" style='font-size: 8px;'>NO</th>
+                    <th colspan="3" style='font-size: 8px;' >NASABAH</th>
+                    <th rowspan="2" style='font-size: 8px;' >PHONE</th>
+                    <th rowspan="2" style='font-size: 8px;' >CENTER</th>
+                    <th rowspan="2" style='font-size: 8px;' >GROUP</th>
+                    <th rowspan="2" style='font-size: 8px;' >PRODUK</th>
+                    <th rowspan="2" style='font-size: 8px;'>JUMLAH.<br/>PINJAMAN</th>
+                    <th rowspan="2" style='font-size: 8px;' >OUTSTANDING</th>
+                    <th rowspan="2" style='font-size: 8px;'>J.<br/>Waktu</th>
+                    <th rowspan="2" style='font-size: 8px;'>RATE (%)</th>
+                    <th rowspan="2" style='font-size: 8px;' >Angsuran</th>
+                    <th rowspan="2" style='font-size: 6px;'>TUJUAN <br/>PINJAMAN</th>
+                    <th rowspan="2" style='font-size: 8px;' >KE</th>
+                    <th rowspan="2" style='font-size: 10px;width:12cm'>NAMA F.O.</th>
+                    <th colspan="7" style='font-size: 8px;'>KETERANGAN</th>
                 </tr>
                 <tr>
                     <th >ID</th>
                     <th >ID.PINJAMAN</th>
                     <th >NAMA LENGKAP</th>
                     
-                    <th style='width:5px'>PENCAIRAN </th>
-                    <th style="width:8cm">KETERANGAN</th>
-                    <th style="width:0">PARAF</th>
+                    <th style='font-size: 10px;' >PENCAIRAN </th>
+                    <th style='font-size: 8px;'>TPR </th>
+                    <th style='font-size: 8px;'>TPK </th>
+                    <th style='font-size: 7px;'>BY<br/>PHONE </th>
+                    <th style='font-size: 7px;'>KUNJ.<br/>CENTER </th>
+                    <th style="width:12cm">KETERANGAN</th>
+                    <th style="font-size:8px">PARAF</th>
                 </tr>
             </thead>
             <?php 
@@ -144,7 +148,15 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
                     <td class='isi_tengah'><?=$r['pinjaman_ke']?></td>
                     <td class='kecil'><?=$r['nama_karyawan']?></td>
                     <td class='isi_tengah'><?=$r['tgl_cair']?></td>
-                    <td ></td>
+                    <td>
+                    
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td >
+                   
+                    </td>
                     <td ></td>
                  </tr>
                  <?php

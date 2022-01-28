@@ -4,19 +4,86 @@
     <hr />
     <a href="<?= $url . $menu ?>daftar_nasabah&duplikat" class="btn btn-danger"> Nasabah Duplikat</a>
     <a href="<?= $url . $menu ?>daftar_nasabah&sinkron" class="btn btn-success"> Synchron</a>
-    <a href="<?= $url . $menu ?>daftar_nasabah&cek_nik" class="btn btn-info"> CEK NIK KTP</a>
+    <a href="<?= $url . $menu ?>cek_nik" class="btn btn-info"> CEK NIK KTP</a>
     <br/>
     <br/>
     <br/>
     <form method="post"  enctype="multipart/form-data">
             <div class="col-md-4">
                 <label for="formFile" class="form-label">SILAHKAN PILIH FILE : DETAIL NASABAH SRSS</label>
-                <input class="form-control" type="file" name='file' accept=".xls,.xlsx,.csv" id="formFile">
+                <input class="form-control" type="file" name='file' accept=".xls,.xlsx,.csv,.xml" id="formFile">
                 <input type="submit" value="Proses" onclick="return confirm('Apakah Sudah yakin? ')" class='btn btn-danger' name='preview'>
+                <input type="submit" value="Proses XML" onclick="return confirm('Apakah Sudah yakin? ')" class='btn btn-info' name='xml_preview'>
             </div>
 
     <?php
+    $id_kumpul = array();
+    //XML
+    if(isset($_POST['xml_preview'])){
+        ?>
+        <table border=1>
+        <?php
+        set_time_limit(5000);
+        $file = $_FILES['file']['tmp_name'];
+        $xml = simplexml_load_file($file);
+        $xml = $xml->Tablix1->Details_Collection;
+        $last_row = 23;
+    //    mysqli_query($con,"delete from daftar_nasabah where id_cabang='$id_cabang'");
+        $no_input=0;
+        foreach($xml->Details as $r){
+            
+            $id_nasabah = $r['ClientID'];
+            $no_id  = explode("-",$id_nasabah)[1];
+            $no_id = sprintf("%0d",$no_id);
+            $nasabah =  aman($con,htmlspecialchars( ganti_karakter($r['ClientName']),ENT_QUOTES));
+            $suami =  aman($con,htmlspecialchars(ganti_karakter($r['NamaPasangan']),ENT_QUOTES));
+           $no_center = ganti_karakter($r['CenterID']);
+           $kelompok = ganti_karakter1($r['GroupID']);
+           $hp = ganti_karakter1($r['Textbox52']);
+           $ktp = ganti_karakter1($r['JoinDate2']);
+           $rt = ganti_karakter1($r['Textbox44']);
+           $rw = ganti_karakter1($r['Textbox48']);
+           $id_kumpul[]=$no_id;
+           $alamat = "RT $rt / RW. $rw ". ganti_karakter1($r['address']);
+           $staff = ganti_karakter1($r['OfficerName']);
+           $hari = ganti_karakter1($r['HariMinggon']);
+           $tgl_bergabung = explode("T",ganti_karakter1($r['JoinDate']))[0];
+          
+           $q = mysqli_query($con,"select id_detail_nasabah from daftar_nasabah where id_detail_nasabah='$id_nasabah' and id_cabang='$id_cabang'");
+           if(mysqli_num_rows($q)){
+            // $ket="ada di db";   
+            //tidak usah di insert
+            mysqli_query($con,"update daftar_nasabah set  hp_nasabah='$hp',no_center='$no_center', nama_nasabah='$nasabah',staff='$staff',id_karyawan=null, hari='$hari',no_ktp='$ktp' where id_detail_nasabah='$id_nasabah' and id_cabang='$id_cabang'");
+           }
+           else{
+               
+                    // $ket = "harus di insert nih";
+                    $no_input++;
+                    mysqli_query($con,"
+                    INSERT INTO `daftar_nasabah` 
+                    ( `id_nasabah`, `no_center`, `id_detail_nasabah`, `nama_nasabah`, `suami_nasabah`, `no_ktp`, `alamat_nasabah`, `tgl_bergabung`, `hp_nasabah`, `staff`, `hari`, `id_cabang`) VALUES 
+                    ( '$no_id', '$no_center', '$id_nasabah', '$nasabah', '$suami', '$ktp', '$alamat', '$tgl_bergabung', '$hp', '$staff', '$hari', '$id_cabang'); 
 
+                    ");
+
+                
+                
+           }
+          
+
+           
+        }
+        
+         alert("Sebanyak ". ($no_input) . " telah diinput, silahkan sinkron");
+         pindah($url.$menu."daftar_nasabah&sinkron");
+        ?>
+        </table> 
+        <?php
+        $id_gabung = implode("','",$id_kumpul);
+        mysqli_query($con,"DELETE FROM daftar_nasabah where id_cabang=$id_cabang and id_nasabah not in('$id_gabung')");
+    }
+
+    //EXCEL
     if(isset($_POST['preview'])){
         set_time_limit(5000);
         // alert("tunggu ya proses ini akan memakan waktu agak lama, karena banyak nya data, jangan diclose sampe proses selesai!!");
@@ -96,6 +163,10 @@
         </table> 
         <?php
     }
+
+
+    
+   
 
     if (isset($_GET['duplikat'])) {
     ?>
