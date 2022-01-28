@@ -21,7 +21,8 @@ else{
 				if($su!='y'){
 					$tamb="where id_cabang='$id_cabang' ";
 				}
-				?>
+				else{
+					?>
 					<select name='cabang'  class="btn" aria-label="Default select example "id='jabatan'>
 						<option value=''> -- Silahkan CABANG --</option>
 						<?php 
@@ -39,6 +40,10 @@ else{
 						}
 						?>
 					  </select>
+					<?php
+				}
+				?>
+					
 					
 				<input type="hidden" name='menu' value='rekap_anggota'/>
 				<input type="date" name='tglawal' value="<?=(isset($_GET['tglawal']) ?  $_GET['tglawal'] : date("Y-m-d",(strtotime ( '-4 day' , strtotime ( date("Y-m-d")) ) )) )?>" class=""/>
@@ -59,10 +64,10 @@ else{
 		{
 			$tglawal = $_GET['tglawal'];
 			$tglakhir = $_GET['tglakhir'];
-			if(isset($_GET['cabang']) || $_GET['cabang']!=null){
-				$id_cabang = $_GET['cabang'];
+			// if(isset($_GET['cabang']) || $_GET['cabang']!=null){
+			// 	$id_cabang = $_GET['cabang'];
 
-			}
+			// }
 			$data = new Hitung();
 			 $data_ = $data->cari_anggota($con,$id_cabang,$tglawal,$tglakhir);
 			 ?>

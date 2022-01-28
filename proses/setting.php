@@ -51,5 +51,33 @@
 			</tr>
 		</table>
 	</form>
+	<?php
+	if($su=='y'){
+		?>
+		<form action="" method="post">
+			<select name="nama_cabang" id="">
+
+				<?php 
+			$q = mysqli_query($con,"SELECT * FROM cabang order by nama_cabang asc");
+			while($r=mysqli_fetch_array($q)){
+				if($id_cabang == $r['id_cabang'])
+				$sel = 'selected';
+				else $sel ='';
+				?>
+				<option value="<?=$r['id_cabang']?>" <?=$sel?>><?=strtoupper($r['nama_cabang'])?></option>
+				<?php
+			}
+			?>
+			</select>
+			<input type="submit" name='submit_cabang' value='GANTI CABANG' />
+		</form>
+		<?php
+		if(isset($_POST['submit_cabang']) && $_POST['submit_cabang']=='GANTI CABANG'){
+			$_SESSION['cabang']=$_POST['nama_cabang'];
+			$_SESSION['id_cabang']=$_POST['nama_cabang'];
+			pindah($url);
+		}
+	}
+	?>
 
 </div>
