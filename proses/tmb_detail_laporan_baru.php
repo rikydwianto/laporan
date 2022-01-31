@@ -183,7 +183,7 @@ $hari = strtolower($hari[0]);
 							</a>
 
 						</td>
-						<td><input type=text class='form-control' name='no_center[]' value='<?= $cek_detail_center['no_center'] ?>' id='hapuscenter<?= $y ?>' data-dd="<?= $y ?>" style="width:60px" /></td>
+						<td><input type=text readonly class='form-control' name='no_center[]' value='<?= $cek_detail_center['no_center'] ?>' id='hapuscenter<?= $y ?>' data-dd="<?= $y ?>" style="width:60px" /></td>
 
 						<td>
 							<!-- sss -->

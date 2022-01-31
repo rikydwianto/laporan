@@ -160,7 +160,7 @@ for($row = 7;$row<=$last_row;$row++){
             FROM center a 
             JOIN karyawan b ON b.id_karyawan=a.id_karyawan
             JOIN daftar_nasabah c ON c.no_center=a.`no_center` 
-            WHERE c.`id_nasabah`='$ID' AND a.`id_cabang`='$id_cabang'");
+            WHERE c.`id_nasabah`='$ID' AND a.`id_cabang`='$id_cabang' and b.`id_cabang`='$id_cabang'");
             $nama = mysqli_fetch_array($q);
             $warna="";
             $cicilan = $pokok + $margin + $wajib_minggu;

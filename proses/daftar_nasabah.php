@@ -80,7 +80,7 @@
         </table> 
         <?php
         $id_gabung = implode("','",$id_kumpul);
-        mysqli_query($con,"DELETE FROM daftar_nasabah where id_cabang=$id_cabang and id_nasabah not in('$id_gabung')");
+        mysqli_query($con,"DELETE FROM daftar_nasabah where id_cabang='$id_cabang' and id_nasabah not in('$id_gabung')");
     }
 
     //EXCEL
