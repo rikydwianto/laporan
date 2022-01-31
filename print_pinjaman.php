@@ -71,7 +71,7 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
             text-align: center;
         }
         .kecil{
-            font-size: 7px;
+            font-size: 10px;
         }
     </style>
     <meta charset="UTF-8">
