@@ -100,7 +100,7 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
                $q= mysqli_query($con,"
                SELECT * from temp_anggota a  
                join karyawan k on a.id_karyawan=k.id_karyawan
-               where a.id_cabang='$id_cabang' and  a.tgl_bergabung between '$tgl_awal' and '$tgl_akhir' and a.status_input='sudah'
+               where a.id_cabang='$id_cabang' and k.id_karyawan='$id_cabang' and a.tgl_bergabung between '$tgl_awal' and '$tgl_akhir' and a.status_input='sudah'
                group by a.id_detail_nasabah order by a.tgl_bergabung,k.nama_karyawan asc");
                echo mysqli_error($con);
                while($r =mysqli_fetch_array($q)){
