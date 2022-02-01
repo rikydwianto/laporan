@@ -137,6 +137,7 @@ if(!$_SESSION['jabatan']){
 			<i class="fa fa-file-excel-o"></i> Export To Excel
 		</a>
 		<a href="<?=$url.$menu?>laporan_manual" class="btn btn-danger">MEMBUAT SEMUA LAPORAN</a>
+		<a href="<?=$url.$menu?>rekap_setoran&tgl=<?=date("Y-m-d")?>" class="btn btn-info">REKAP SETORAN</a>
 		<div class='table-responsive'>
 		<br>
 		<table class='table'>
@@ -371,7 +372,7 @@ if(!$_SESSION['jabatan']){
   
 </div>
 
-<div class="col-md-12 " >
+<!-- <div class="col-md-12 " >
 <h1>Grafik Minggu</h1>
 <h3>Baca Grafik dari kiri ke kanan</h3>
 <hr> <small>hanya 12 minggu terbaru </small>
@@ -380,4 +381,4 @@ if(!$_SESSION['jabatan']){
 
 
   </div>
-</div>
+</div> -->

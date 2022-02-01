@@ -1,0 +1,157 @@
+<div class="row table-responsive">
+	<h3 class="page-header">REKAP SETORAN FO</h3>
+	<hr />
+    <form method="post"  enctype="multipart/form-data">
+        <div class="col-md-4">
+            <label for="formFile" class="form-label">SILAHKAN PILIH FILE REKAP SETORAN FO SETELAH BALANCE(XML)</label>
+            <input class="form-control" type="file" name='file' accept=".xml" id="formFile">
+            <input class="form-control" type="date" name='tgl' value="<?=date("Y-m-d")?>"  >
+            <input type="submit" value="Proses" class='btn btn-danger' name='xml_preview'>
+        </div>
+    </form>
+    <?php
+
+if(isset($_POST['xml_preview'])){
+    set_time_limit(5000);
+    $tanggal = $_POST['tgl'];
+    $file = $_FILES['file']['tmp_name'];
+    $xml = simplexml_load_file($file);
+    $xml = $xml->Tablix1->BranchName_Collection;
+    foreach($xml->BranchName->OfficerName_Collection->OfficerName as $row){
+        $cek_ = mysqli_query($con,"select * from pengembalian where  tgl_pengembalian='$tanggal' and nama_karyawan='$row[OfficerName]' and id_cabang='$id_cabang' ");
+        if(mysqli_num_rows($cek_)){
+
+        }
+        else{
+
+            $row1 = $row->Textbox104;
+            $pokok = int_xml($row1['Textbox106']);
+            $nisbah = int_xml( $row1['Textbox107']);
+            echo $row['OfficerName'].'<br/>';
+            $json_detail =  json_encode($row->Textbox104);
+            $json_detail = str_replace("@attributes","attribute",$json_detail);
+            $q = mysqli_query($con,"INSERT INTO `pengembalian`
+            (`tgl_pengembalian`, `pokok`, `nisbah`, `id_cabang`, `nama_karyawan`, `json_pengembalian`) 
+            VALUES ('$tanggal', '$pokok', '$nisbah', '$id_cabang', '$row[OfficerName]', '$json_detail'); 
+            ");
+            $id_last = mysqli_insert_id($con);
+            foreach($row->CenterID_Collection->CenterID as $det){
+              $det_pokok = $det['Pokok'];
+              $det_nisbah = $det['NISBAH'];
+              $json = json_encode($det);
+              $json =  str_replace("@attributes","attribute",$json);
+                mysqli_query($con,"INSERT INTO `detail_pengambilan`
+                 (`id_pengambilan`, `no_center`, `pokok`, `nisbah`, `id_cabang`, `json_detail_pengambilan`) 
+                 VALUES ('$id_last', '$det[CenterID1]', '$det_pokok', '$det_nisbah', '$id_cabang', '$json'); 
+                ");
+            }
+        }
+    }
+    pindah($url.$menu."tambah_setoran&sinkron&tgl=$tanggal");
+
+}
+
+if(isset($_GET['sinkron'])){
+    $date = $_GET['tgl'];
+
+    if (isset($_POST['ganti'])) {
+        $karyawan = $_POST['karyawan'];
+        $mdis = $_POST['nama_mdis'];
+        $topup = $_POST['sisa_topup'];
+        $uang  = $_POST['pendapatan'];
+        $json_ganti = $_POST['json'];
+        $total_nasabah = $_POST['total_nasabah'];
+        for ($i = 0; $i < count($mdis); $i++) {
+            if (!empty($karyawan[$i])) {
+                $ganti = str_replace('"Textbox117":"'.$uang[$i],'"Textbox117":"'.($uang[$i] - $topup[$i]),$json_ganti[$i]);
+                $pengembalian = $uang[$i] - $topup[$i];
+                mysqli_query($con,"UPDATE pengembalian set id_karyawan='$karyawan[$i]',pokok=pokok+$topup[$i] , json_pengembalian='$ganti', total_pengembalian = '$pengembalian' where id_cabang='$id_cabang' and nama_karyawan='$mdis[$i]'");
+            }
+        }
+        
+        alert("DAFTAR PENGEMBALIAN NISBA DAN POKOK TELAH DI UPDATE");
+        pindah($url.$menu."rekap_setoran&tgl=$date");
+
+    }
+
+    ?>
+    <form action="" method="post">
+        <br>
+        <small>ISI OS TOPUP DENGAN 0 jika TIDAK ADA TOPUP <br> JIKA ADA ISI TOTAL OS POKOK TOPUP (PERMINTAAN DISBURSE)</small>
+    <table class='table'>
+        <tr>
+            <th>NO</th>
+            <th>NAMA MDIS</th>
+            <th>OS TOPUP </th>
+            <th>GANTI </th>
+        </tr>
+        <?php 
+        $total_n = 0;
+        $q_nama =mysqli_query($con,"select * from pengembalian where id_cabang='$id_cabang' and tgl_pengembalian='$date' and id_karyawan is null ");
+        echo mysqli_error($con);
+        while($nama = mysqli_fetch_array($q_nama)){
+            $json = json_decode($nama['json_pengembalian']);
+            $uang = int_xml($json->attribute->Textbox117);
+            $cair = int_xml($json->attribute->Textbox105);
+            
+            ?>
+            <tr>
+                <td><?=$no++?></td>
+                <td><?=$nama['nama_karyawan']?></td>
+                <td>
+                    <?php  
+                    if($cair>0){
+                        ?>
+                    <input type="number" style='width:300px' name="sisa_topup[]" required value="0" class="form-control">
+                    <?php
+                    }
+                    else{
+                        ?>
+                        <input type="number" readonly style='width:300px' name="sisa_topup[]" required value="0" class="form-control">
+                        <?php
+                    }
+                    
+                    ?>
+                    <input type="hidden" style='width:300px' name="pendapatan[]" required value="<?= $uang ?>" class="form-control">
+                    
+                </td>
+                <td>
+                <input type="hidden" name="nama_mdis[]" value="<?= $nama['nama_karyawan'] ?>">
+                <input type="hidden" name="total_nasabah[]" value="<?= $nama['total'] ?>">
+                        <select name="karyawan[]" id="" required class='form-control'>
+                            <option value="">Pilih Staff</option>
+                            <?php $data_karyawan  = (karyawan($con, $id_cabang)['data']);
+                            for ($i = 0; $i < count($data_karyawan); $i++) {
+                                $nama_karyawan = $data_karyawan[$i]['nama_karyawan'];
+                                if (strtolower($nama_karyawan) == strtolower($nama['nama_karyawan'])) {
+                                    echo "<option selected value='" . $data_karyawan[$i]['id_karyawan'] . "'>" . $nama_karyawan . "</option>";
+                                } else {
+                                    echo "<option value='" . $data_karyawan[$i]['id_karyawan'] . "'>" . $nama_karyawan . "</option>";
+                                }
+                            }
+                            ?>
+                        </select>    
+                        <textarea  style='width:0px;height:0px' readonly name="json[]" required value="<?= $nama['json_pengembalian'] ?>" class="form-control"><?= $nama['json_pengembalian'] ?></textarea>
+                </td>
+            </tr>
+            <?php
+        }
+        ?>
+        <tr>
+                <td colspan="2"></td>
+                <!-- <td colspan="1"><?=$total_n?></td> -->
+                <td>
+                    <input type="submit" class='btn btn-success' value='KONFIRMASI' name='ganti' />
+                </td>
+            </tr>
+        
+    </table>
+    </form>
+    <?php
+}
+
+?>
+    
+</div>
+
+

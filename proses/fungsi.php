@@ -173,6 +173,10 @@ function pesan($pesan, $warna = 'primary')
   </div>
 <?php
 }
+function int_xml($angka){
+  $pecah = explode('.',$angka)[0];
+  return (int) $pecah;
+  }
 
 
 function aman($con, $string)

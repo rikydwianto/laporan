@@ -436,7 +436,10 @@
                         
                         where pinjaman.id_cabang='$id_cabang' $q_tambah $q_id $q_hari $q_banding and input_mtr='sudah' order by karyawan.nama_karyawan asc");
                     while ($pinj = mysqli_fetch_array($q)) {
-                        if ($pinj['total_hari'] > 14) {
+                         if ($pinj['total_hari'] > 30) {
+                            $tr = "#adacaa";
+                         }
+                        else if ($pinj['total_hari'] > 14) {
                             $tr = "#ffd4d4";
                         }
                         else if ($pinj['total_hari'] >= 0 && $pinj['total_hari']<=2) {
