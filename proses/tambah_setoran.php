@@ -65,7 +65,7 @@ if(isset($_GET['sinkron'])){
             if (!empty($karyawan[$i])) {
                 $ganti = str_replace('"Textbox117":"'.$uang[$i],'"Textbox117":"'.($uang[$i] - $topup[$i]),$json_ganti[$i]);
                 $pengembalian = $uang[$i] - $topup[$i];
-                mysqli_query($con,"UPDATE pengembalian set id_karyawan='$karyawan[$i]',pokok=pokok+$topup[$i] , json_pengembalian='$ganti', total_pengembalian = '$pengembalian' where id_cabang='$id_cabang' and nama_karyawan='$mdis[$i]'");
+                mysqli_query($con,"UPDATE pengembalian set id_karyawan='$karyawan[$i]',pokok=pokok+$topup[$i] , json_pengembalian='$ganti', total_pengembalian = '$pengembalian' where tgl_pengembalian='$date' and id_cabang='$id_cabang' and nama_karyawan='$mdis[$i]'");
             }
         }
         
