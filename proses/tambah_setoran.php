@@ -142,19 +142,7 @@ if(isset($_GET['sinkron'])){
                 <td><?=$no++?></td>
                 <td><?=$nama['nama_karyawan']?></td>
                 <td>
-                    <?php  
-                    if($cair>0){
-                        ?>
-                    <input type="number" style='width:300px' name="sisa_topup[]" required value="<?=($cari_dis===0?"0":$cari_dis)?>" class="form-control">
-                    <?php
-                    }
-                    else{
-                        ?>
-                        <input type="number" readonly style='width:300px' name="sisa_topup[]" required value="0" class="form-control">
-                        <?php
-                    }
-                    
-                    ?>
+                    <input type="number" style='width:300px' name="sisa_topup[]" required value="<?=($cari_dis===null?"0":$cari_dis)?>" class="form-control">
                     <input type="hidden" style='width:300px' name="pendapatan[]" required value="<?= $uang ?>" class="form-control">
                     
                 </td>
