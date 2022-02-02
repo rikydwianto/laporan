@@ -93,11 +93,13 @@ else{
           <tr>
             <th colspan="2"></th>
             <?php 
+            $total_pokok_semua = 0;
            $qtgl  = mysqli_query($con,"SELECT DISTINCT tgl_pengembalian FROM pengembalian WHERE id_cabang='$id_cabang' AND tgl_pengembalian BETWEEN '$tglawal' AND '$tglakhir' order by tgl_pengembalian asc");
             while($tgl = mysqli_fetch_array($qtgl)){
               $peng = mysqli_query($con,"SELECT SUM(pokok) as total_pokok FROM pengembalian where id_cabang='$id_cabang' and tgl_pengembalian='$tgl[tgl_pengembalian]' ");
               $peng = mysqli_fetch_array($peng);
               $total_pokok = $peng['total_pokok'];
+              $total_pokok_semua +=$total_pokok;
               $hari = explode(",",format_hari_tanggal($tgl['tgl_pengembalian']))[0];
               // $tgl = explode(",",format_hari_tanggal($tgl['tgl_pengembalian']))[0];
               ?>
@@ -107,7 +109,7 @@ else{
               <?php
             }
             ?>
-            <th>TOTAL</th>
+            <th> <?=angka($total_pokok_semua)?></th>
           </tr>
         </tfoot>
 
