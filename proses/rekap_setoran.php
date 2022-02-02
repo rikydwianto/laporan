@@ -51,7 +51,7 @@ $tgl1 = $tglawal = date("Y-m-d",strtotime ( '-7 day' , strtotime ( date($tgl))))
                 $kemarin = mysqli_fetch_array($qkemarin);
                 $kemarin_pokok = $kemarin['pokok'];
                 $kemarin_uang = $kemarin['total_pengembalian'];
-                $kemarin_pokok_margin = $kemarin_pokok + $kemarin['nisbah'];
+                $kemarin_pokok_margin = $kemarin_pokok ;
 
                 $total_kemarin_pokok += $kemarin_pokok;
                 $total_kemarin_uang += $kemarin_uang;
