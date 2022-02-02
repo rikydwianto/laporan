@@ -18,18 +18,28 @@ if(isset($_POST['xml_preview'])){
     $xml = simplexml_load_file($file);
     $xml = $xml->Tablix1->BranchName_Collection;
     foreach($xml->BranchName->OfficerName_Collection->OfficerName as $row){
-        $cek_ = mysqli_query($con,"select * from pengembalian where  tgl_pengembalian='$tanggal' and nama_karyawan='$row[OfficerName]' and id_cabang='$id_cabang' ");
-        if(mysqli_num_rows($cek_)){
 
-        }
-        else{
-
-            $row1 = $row->Textbox104;
+        $row1 = $row->Textbox104;
             $pokok = int_xml($row1['Textbox106']);
             $nisbah = int_xml( $row1['Textbox107']);
             echo $row['OfficerName'].'<br/>';
             $json_detail =  json_encode($row->Textbox104);
             $json_detail = str_replace("@attributes","attribute",$json_detail);
+           
+
+        $cek_ = mysqli_query($con,"select * from pengembalian where  tgl_pengembalian='$tanggal' and nama_karyawan='$row[OfficerName]' and id_cabang='$id_cabang' ");
+        if(mysqli_num_rows($cek_)){
+            $ada  = mysqli_fetch_array($cek_);
+            mysqli_query($con,"UPDATE pengembalian set pokok='$pokok',nisbah='$nisbah', json_pengembalian='$json_detail' , id_karyawan=null where id='$ada[id]'");
+        }
+        else{
+            $pokok = int_xml($row1['Textbox106']);
+            $nisbah = int_xml( $row1['Textbox107']);
+            echo $row['OfficerName'].'<br/>';
+            $json_detail =  json_encode($row->Textbox104);
+            $json_detail = str_replace("@attributes","attribute",$json_detail);
+            
+            
             $q = mysqli_query($con,"INSERT INTO `pengembalian`
             (`tgl_pengembalian`, `pokok`, `nisbah`, `id_cabang`, `nama_karyawan`, `json_pengembalian`) 
             VALUES ('$tanggal', '$pokok', '$nisbah', '$id_cabang', '$row[OfficerName]', '$json_detail'); 
@@ -65,7 +75,7 @@ if(isset($_GET['sinkron'])){
             if (!empty($karyawan[$i])) {
                 $ganti = str_replace('"Textbox117":"'.$uang[$i],'"Textbox117":"'.($uang[$i] - $topup[$i]),$json_ganti[$i]);
                 $pengembalian = $uang[$i] - $topup[$i];
-                mysqli_query($con,"UPDATE pengembalian set id_karyawan='$karyawan[$i]',pokok=pokok+$topup[$i] , json_pengembalian='$ganti', total_pengembalian = '$pengembalian' where tgl_pengembalian='$date' and id_cabang='$id_cabang' and nama_karyawan='$mdis[$i]'");
+                mysqli_query($con,"UPDATE pengembalian set id_karyawan='$karyawan[$i]',total_topup=pokok+$topup[$i] ,  json_pengembalian='$ganti', total_pengembalian = '$pengembalian' where tgl_pengembalian='$date' and id_cabang='$id_cabang' and nama_karyawan='$mdis[$i]'");
             }
         }
         
