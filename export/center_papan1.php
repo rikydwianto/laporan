@@ -115,22 +115,33 @@ $nama_jabatan=$d['singkatan_jabatan'];
          <?php   
          }
          $hitung_semua=0;
+         $total_member=0;
          ?>
          <tr >
-                 <th colspan="2">TOTAL SEMUA STAFF</th>
-                 <?php $qkar = mysqli_query($con,"SELECT distinct k.nama_karyawan,k.id_karyawan from center c join karyawan k on k.id_karyawan=c.id_karyawan where c.id_cabang='$id_cabang' order by k.nama_karyawan asc ");
+                 <th colspan="2">TOTAL SEMUA STAFF<hr>MEMBER</th>
+                 <?php 
+                 $qkar = mysqli_query($con,"SELECT distinct k.nama_karyawan,k.id_karyawan from center c join karyawan k on k.id_karyawan=c.id_karyawan where c.id_cabang='$id_cabang' order by k.nama_karyawan asc ");
                  while($kar=mysqli_fetch_array($qkar)){
-                     $qcenter = mysqli_query($con,"SELECT count(no_center) as hitung_center from center where id_cabang='$id_cabang'  and id_karyawan='$kar[id_karyawan]' order by jam_center asc");
+                     $qcenter = mysqli_query($con,"SELECT count(no_center) as hitung_center,sum(member_center) as member from center where id_cabang='$id_cabang'  and id_karyawan='$kar[id_karyawan]' order by jam_center asc");
+                     $semua = mysqli_fetch_array($qcenter);
                      ?>
                      <th style="vertical-align: middle;text-align:center;font-weight: bold;background-color: #e86143;">
-                         <?=$total = mysqli_fetch_array($qcenter)['hitung_center']?>
+                         <?=$total = $semua['hitung_center']?><hr/>
+                         <?=$total_member = $semua['member']?><br/>
                          <?php $hitung_semua +=$total ?>
                      </th>
                      <?php
+
+                     $total_member += $total_member;
                  }
                  ?>
                  <td rowspan="0" style="padding: 10px;font-weight: bold;">
-                 <?=$hitung_semua?>
+                 <?=$hitung_semua?><hr>
+                 <?php
+                 $total_member = mysqli_query($con,"SELECT sum(member_center) as member from center where id_cabang='$id_cabang' group by id_cabang  ");
+                 $total_member = mysqli_fetch_array($total_member);
+                 echo $total_member['member'];
+                 ?>
                  </td>
              </tr>
     

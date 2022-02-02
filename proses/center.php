@@ -80,7 +80,7 @@
 							jam_center='$jam',
 							hari='$days',
 							konfirmasi='t',
-							staff='$nama_staff'
+							staff='$nama_staff', desa='$desa', kecamatan='$kecamatan', kabupaten='$kab'
 							 WHERE `no_center` = '$no_center' and id_cabang='$id_cabang'; 
 							";
 							mysqli_query($con,$txt);
@@ -88,8 +88,8 @@
 						else{
 							// echo $no_center."Tidak<br/>";
 							$qtxt = "INSERT INTO 
-							`center` (`id_center`, `no_center`, `doa_center`, `hari`, `status_center`, `member_center`, `anggota_center`, `center_bayar`, `id_cabang`, `id_karyawan`, `id_laporan`, `jam_center`, `latitude`, `longitude`, `doortodoor`, `blacklist`, `konfirmasi`, `staff`) 
-							VALUES (NULL, '$no_center', 'y', '$days', 'hijau', '$agt', '$client', '$client', '$id_cabang', '0', '0', '$jam', 'null', 'null', 't', 't', 't', '$nama_staff'); 
+							`center` (`id_center`, `no_center`, `doa_center`, `hari`, `status_center`, `member_center`, `anggota_center`, `center_bayar`, `id_cabang`, `id_karyawan`, `id_laporan`, `jam_center`, `latitude`, `longitude`, `doortodoor`, `blacklist`, `konfirmasi`, `staff`,desa,kecamatan,kabupaten) 
+							VALUES (NULL, '$no_center', 'y', '$days', 'hijau', '$agt', '$client', '$client', '$id_cabang', '0', '0', '$jam', 'null', 'null', 't', 't', 't', '$nama_staff','$desa','$kecamatan','$kab'); 
 							";
 							mysqli_query($con,$qtxt);
 						}
