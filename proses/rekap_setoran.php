@@ -22,15 +22,17 @@ $tgl1 = $tglawal = date("Y-m-d",strtotime ( '-7 day' , strtotime ( date($tgl))))
       <div class='col-md-8'>
         <h2>Berdasarkan tanggal</h2>
         <form action="">
-        <input type="hidden" name='menu' value='rekap_setoran_semua'/>
+        <input type="hidden" name='menu' value='rekap_setoran_banding'/>
 				<input type="date" name='tglawal' value="<?=(isset($_GET['tglawal']) ?  $_GET['tglawal'] : date("Y-m-d",(strtotime ( '-4 day' , strtotime ( date("Y-m-d")) ) )) )?>" class=""/>
 				<input type="date" name='tglakhir' value="<?=(isset($_GET['tglakhir']) ?  $_GET['tglakhir'] : date("Y-m-d"))?>" class=""/>
 				<input type='submit' class="btn btn-info" name='cari' value='FILTER'/>
         </form>
       </div>
      </div>
+</div>
      <br>
      <br>
+     <hr>
         <h3>Rekap pengembalian pokok  <?=format_hari_tanggal($tgl)?></h3>
       <div class="col-lg-10">
       <table class='table table-bordered' >

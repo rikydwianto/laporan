@@ -85,9 +85,40 @@ if(isset($_GET['sinkron'])){
     }
 
     ?>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <small>ISI OS TOPUP DENGAN 0 jika TIDAK ADA TOPUP <br> JIKA ADA ISI TOTAL OS POKOK TOPUP (PERMINTAAN DISBURSE)</small>
+        <form method="post"  enctype="multipart/form-data">
+        <div class="col-md-4">
+            <label for="formFile" class="form-label">FILE PERMINTAAN DISBURSE SUM XML</label>
+            <input class="form-control" type="file" name='file' accept=".xml" id="formFile">
+            <input class="form-control" type="date" name='tgl' value="<?=$date?>"  >
+            <input type="submit" value="UPLOAD TOPUP" class='btn btn-danger' name='topup'>
+        </div>
+    </form>
+
+    <?php 
+    if(isset($_POST['topup'])){
+        $file = $_FILES['file']['tmp_name'];
+        $xml = simplexml_load_file($file);
+        $xml = $xml->Tablix1->Details_Collection;
+        mysqli_query($con,"DELETE FROM topup where id_cabang='$id_cabang' and tgl_topup='$date'");
+        
+        foreach($xml->Details  as $sum){
+            
+                        mysqli_query($con,"INSERT INTO 
+                `topup` (`os_topup`, `sisa_topup`, `tgl_topup`, `nama_karyawan`, `id_cabang`) 
+                VALUES ('$sum[OsPokokTopUP]', '$sum[NetDisburse]', '$date', '$sum[OfficerName]', '$id_cabang'); 
+                ");
+        }
+        
+    }
+    ?>
     <form action="" method="post">
         <br>
-        <small>ISI OS TOPUP DENGAN 0 jika TIDAK ADA TOPUP <br> JIKA ADA ISI TOTAL OS POKOK TOPUP (PERMINTAAN DISBURSE)</small>
     <table class='table'>
         <tr>
             <th>NO</th>
@@ -103,7 +134,9 @@ if(isset($_GET['sinkron'])){
             $json = json_decode($nama['json_pengembalian']);
             $uang = int_xml($json->attribute->Textbox117);
             $cair = int_xml($json->attribute->Textbox105);
-            
+            $cari_dis = mysqli_query($con,"select sum(os_topup) as topup, topup.* from topup where id_cabang='$id_cabang' and tgl_topup='$date' and nama_karyawan='$nama[nama_karyawan]' group by nama_karyawan");
+            $cari_dis = mysqli_fetch_array($cari_dis);
+            $cari_dis = $cari_dis['topup'];
             ?>
             <tr>
                 <td><?=$no++?></td>
@@ -112,7 +145,7 @@ if(isset($_GET['sinkron'])){
                     <?php  
                     if($cair>0){
                         ?>
-                    <input type="number" style='width:300px' name="sisa_topup[]" required value="0" class="form-control">
+                    <input type="number" style='width:300px' name="sisa_topup[]" required value="<?=($cari_dis===0?"0":$cari_dis)?>" class="form-control">
                     <?php
                     }
                     else{
