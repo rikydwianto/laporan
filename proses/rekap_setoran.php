@@ -29,7 +29,7 @@ $tgl1 = $tglawal = date("Y-m-d",strtotime ( '-7 day' , strtotime ( date($tgl))))
         </form>
       </div>
      </div>
-</div>
+<!-- </div> -->
      <br>
      <br>
      <hr>
@@ -41,6 +41,7 @@ $tgl1 = $tglawal = date("Y-m-d",strtotime ( '-7 day' , strtotime ( date($tgl))))
               <tr>
                   <th>NO</th>
                   <th>STAFF</th>
+                  <th>POKOK <br> Tanpa Topup</th>
                   <th>POKOK <br> <?=$tgl1?></th>
                   <th>PENDAPATAN<br> <?=$tgl1?></th>
                   <th>POKOK</th>
@@ -60,6 +61,7 @@ $tgl1 = $tglawal = date("Y-m-d",strtotime ( '-7 day' , strtotime ( date($tgl))))
               $total_kemarin_uang =0 ;
               $total_tanpa_topup=0;
               $total_tanpa_pokok =0 ;
+              $total_kemarin_tanpa_topup =0;
 
               $q = mysqli_query($con,"SELECT * from pengembalian p join karyawan k on p.id_karyawan=k.id_karyawan   where p.tgl_pengembalian='$tgl' and p.id_cabang='$id_cabang' and k.id_cabang='$id_cabang' order by k.nama_karyawan");
               // echo "SELECT * from pengembalian p join karyawan k on p.id_karyawan=k.id_karyawan   where p.tgl_pengembalian='$tgl' and p.id_cabang='$id_cabang' and k.id_cabang='$id_cabang' order by k.nama_karyawan";
@@ -73,11 +75,14 @@ $tgl1 = $tglawal = date("Y-m-d",strtotime ( '-7 day' , strtotime ( date($tgl))))
                 $kemarin_uang = $kemarin['total_pengembalian'];
                 $kemarin_pokok_margin = $kemarin_pokok ;
 
+                $kemarin_tanpa_topup=$kemarin['pokok'];
+                $total_kemarin_tanpa_topup += $kemarin_tanpa_topup;
+
                 $total_kemarin_pokok += $kemarin_pokok;
                 $total_kemarin_uang += $kemarin_uang;
 
                 $json = json_decode($kemarin['json_pengembalian']);
-            $tanpa_pokok = $kemarin['pokok'];
+            $tanpa_pokok = $kemarin['total_topup'];
             $total_tanpa_pokok += $tanpa_pokok;
 
                   $pokok = $row['total_topup'];
@@ -111,6 +116,7 @@ $tgl1 = $tglawal = date("Y-m-d",strtotime ( '-7 day' , strtotime ( date($tgl))))
                 <tr>
                     <td><?=$no++?></td>
                     <td><?=$row['nama_karyawan']?></td>
+                    <td style='background:#69d676'><?=angka($kemarin_tanpa_topup)?></td>
                     <td style='background:#69d676'><?=angka($tanpa_pokok)?></td>
                     <td style='background:#69d676'><?=angka($kemarin_uang)?></td>
                     <td style='background:<?=$tr?>'><?=angka($pokok)?></td>
@@ -127,6 +133,7 @@ $tgl1 = $tglawal = date("Y-m-d",strtotime ( '-7 day' , strtotime ( date($tgl))))
                 <tr>
                     <th colspan="2">TOTAL PENDAPATAN</th>
 
+                    <th><?=angka( $total_kemarin_tanpa_topup)?></th>
                     <th><?=angka($total_kemarin_pokok)?></th>
                     <th><?=angka($total_kemarin_uang)?></th>
                     <th><?=angka($total_pokok)?></th>
