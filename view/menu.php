@@ -145,6 +145,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 					<a href="<?php echo $url . $menu ?>rekap_bayar"><i class="fa fa-file-excel-o"></i> Rekap Pembayaran</a>
 				</li>
 				<li>
+					<a href="<?php echo $url . $menu ?>rekap_setoran&tgl=<?=date("Y-m-d")?>"><i class="fa fa-file-excel-o"></i> Rekap Setoran</a>
+				</li>
+				<li>
 					<a href="<?php echo $url . $menu ?>rekap_anggota"><i class="fa fa-users"></i> Rekap Anggota</a>
 				</li>
 				<li>
@@ -294,6 +297,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 					<a href="<?php echo $url . $menu ?>rekap_bayar"><i class="fa fa-file-excel-o"></i> Rekap Pembayaran</a>
 				</li>
 				<li>
+					<a href="<?php echo $url . $menu ?>rekap_setoran&tgl=<?=date("Y-m-d")?>"><i class="fa fa-file-excel-o"></i> Rekap Setoran</a>
+				</li>
+				<li>
 					<a href="<?php echo $url . $menu ?>rekap_anggota"><i class="fa fa-users"></i> Rekap Anggota</a>
 				</li>
 				<li>
@@ -400,6 +406,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 			</li>
 			<li>
 				<a href="<?php echo $url . $menu ?>rekap_bayar"><i class="fa fa-file-excel-o"></i> Rekap Pembayaran</a>
+			</li>
+			<li>
+				<a href="<?php echo $url . $menu ?>rekap_setoran&tgl=<?=date("Y-m-d")?>"><i class="fa fa-file-excel-o"></i> Rekap Setoran</a>
 			</li>
 			<li>
 				<a href="<?php echo $url . $menu ?>list_penarikan"><i class="fa fa-file-o"></i> Penarikan Simpanan</a>

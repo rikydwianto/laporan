@@ -15,7 +15,7 @@ $tgl1 = $tglawal = date("Y-m-d",strtotime ( '-7 day' , strtotime ( date($tgl))))
       <a href='<?=$url.$menu."tambah_setoran"?>' class="btn btn-primary">
     <i class="fa fa-plus"></i> TAMBAH</a>  
         <h3>Rekap pengembalian pokok  <?=format_hari_tanggal($tgl)?></h3>
-      <div class="col-lg-8">
+      <div class="col-lg-10">
       <table class='table table-bordered' >
           <thead>
               
@@ -23,6 +23,7 @@ $tgl1 = $tglawal = date("Y-m-d",strtotime ( '-7 day' , strtotime ( date($tgl))))
                   <th>NO</th>
                   <th>STAFF</th>
                   <th>POKOK <br> <?=$tgl1?></th>
+                  <th>POKOK <br> Tanpa TOPUP</th>
                   <th>PENDAPATAN<br> <?=$tgl1?></th>
                   <th>POKOK</th>
                   <th>MARGIN</th>
@@ -38,6 +39,7 @@ $tgl1 = $tglawal = date("Y-m-d",strtotime ( '-7 day' , strtotime ( date($tgl))))
               $total_semua = 0;
               $total_kemarin_pokok = 0;
               $total_kemarin_uang =0 ;
+              $total_tanpa_pokok =0 ;
 
               $q = mysqli_query($con,"SELECT * from pengembalian p join karyawan k on p.id_karyawan=k.id_karyawan   where p.tgl_pengembalian='$tgl' and p.id_cabang='$id_cabang' and k.id_cabang='$id_cabang' order by k.nama_karyawan");
               // echo "SELECT * from pengembalian p join karyawan k on p.id_karyawan=k.id_karyawan   where p.tgl_pengembalian='$tgl' and p.id_cabang='$id_cabang' and k.id_cabang='$id_cabang' order by k.nama_karyawan";
@@ -49,9 +51,14 @@ $tgl1 = $tglawal = date("Y-m-d",strtotime ( '-7 day' , strtotime ( date($tgl))))
                 $kemarin = mysqli_fetch_array($qkemarin);
                 $kemarin_pokok = $kemarin['pokok'];
                 $kemarin_uang = $kemarin['total_pengembalian'];
+                $kemarin_pokok_margin = $kemarin_pokok + $kemarin['nisbah'];
 
                 $total_kemarin_pokok += $kemarin_pokok;
                 $total_kemarin_uang += $kemarin_uang;
+
+                $json = json_decode($kemarin['json_pengembalian']);
+            $tanpa_pokok = int_xml($json->attribute->Textbox106);
+            $total_tanpa_pokok += $tanpa_pokok;
 
                   $pokok = $row['pokok'];
                   $nisbah = $row['nisbah'];
@@ -63,17 +70,31 @@ $tgl1 = $tglawal = date("Y-m-d",strtotime ( '-7 day' , strtotime ( date($tgl))))
                   $total_uang += $uang;
                   $total_semua += $total;
 
-                  
+                  if($pokok>$kemarin_pokok){
+                    $tr = "#70ff81";
+                  }
+                  else $tr="#ff7570";
+                  if($uang>$kemarin_uang)
+                  {
+                    $tr1 = "#70ff81";
+                  }
+                  else $tr1="#ff7570";
+                  if($total>$kemarin_pokok_margin)
+                  {
+                    $tr2 = "#70ff81";
+                  }
+                  else $tr2="#ff7570";
                   ?>
                 <tr>
                     <td><?=$no++?></td>
                     <td><?=$row['nama_karyawan']?></td>
-                    <td style='background:#81ff70'><?=angka($kemarin_pokok)?></td>
-                    <td style='background:#81ff70'><?=angka($kemarin_uang)?></td>
-                    <td style=''><?=angka($pokok)?></td>
-                    <td><?=angka($nisbah)?></td>
-                    <td><?=angka($total)?></td>
-                    <td><?=angka($uang)?></td>
+                    <td style='background:#69d676'><?=angka($tanpa_pokok)?></td>
+                    <td style='background:#69d676'><?=angka($kemarin_pokok)?></td>
+                    <td style='background:#69d676'><?=angka($kemarin_uang)?></td>
+                    <td style='background:<?=$tr?>'><?=angka($pokok)?></td>
+                    <td ><?=angka($nisbah)?></td>
+                    <td style='background:<?=$tr2?>'><?=angka($total)?></td>
+                    <td style='background:<?=$tr1?>'><?=angka($uang)?></td>
                 </tr>
                   <?php
               }
@@ -84,6 +105,7 @@ $tgl1 = $tglawal = date("Y-m-d",strtotime ( '-7 day' , strtotime ( date($tgl))))
                     <th colspan="2">TOTAL PENDAPATAN</th>
 
                     <th><?=angka($total_kemarin_pokok)?></th>
+                    <th><?=angka($total_tanpa_pokok)?></th>
                     <th><?=angka($total_kemarin_uang)?></th>
                     <th><?=angka($total_pokok)?></th>
                     <th><?=angka($total_nisbah)?></th>
