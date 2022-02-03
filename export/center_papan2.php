@@ -82,7 +82,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
                         else if($status=='merah') $warna='#eb4034';
                         else if($status=='hitam') $warna='black';
                         else $warna='black';
-                            echo "<b style='color:$warna; padding-top:0px;'>$jam | "." $center[member_center] ".'<br/>'.sprintf("%03d", $center['no_center']).' | '.strtoupper($center['desa'])." </b>"."<hr/>";
+                            echo "<b style='color:$warna; padding-top:0px;'>$jam | ".sprintf("%03d", $center['no_center'])."  ".'<br/>'.'  '.strtoupper($center['desa'])."<br/> client : | $center[member_center] </b>"."<hr/>";
                    
                        } 
                        ?>
