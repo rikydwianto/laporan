@@ -47,7 +47,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
             $qjam = (mysqli_query($con,"SELECT jam_center from center where id_cabang='$id_cabang' and hari='$hari[hari]' group by jam_center order by jam_center"));
             ?>
             <tr class='hari'>
-                <td rowspan="2" style=";font-weight:bold;font-size:10px"><?=strtoupper($hari['hari'])?></td>
+                <td rowspan="2" style=";font-weight:bold;font-size:10px"><!-- <?=strtoupper($hari['hari'])?>--></td>
                 <!-- <th>JAM</th> -->
                 <?php $qkar = mysqli_query($con,"SELECT distinct k.nama_karyawan from center c join karyawan k on k.id_karyawan=c.id_karyawan where c.id_cabang='$id_cabang' order by k.nama_karyawan asc ");
                 while($kar=mysqli_fetch_array($qkar)){
@@ -82,7 +82,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
                         else if($status=='merah') $warna='#eb4034';
                         else if($status=='hitam') $warna='black';
                         else $warna='black';
-                            echo "<b style='color:$warna; padding-top:0px;'>$jam | ".sprintf("%03d", $center['no_center'])."  ".'<br/>'.'  '.strtoupper($center['desa'])."<br/> client : | $center[member_center] </b>"."<hr/>";
+                            echo "<b style='color:$warna; padding-top:0px;'>$jam | ".sprintf("%03d", $center['no_center'])."  ".'<br/>'.'  '.strtoupper(str_replace(" ","",$center['desa']))."<br/> client : $center[member_center] </b>"."<hr/>";
                    
                        } 
                        ?>

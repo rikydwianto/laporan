@@ -45,7 +45,7 @@ else{
             <th>NO</th>
             <th>STAFF</th>
             <?php 
-           $qtgl  = mysqli_query($con,"SELECT DISTINCT tgl_pengembalian FROM pengembalian WHERE id_cabang='$id_cabang' AND tgl_pengembalian BETWEEN '$tglawal' AND '$tglakhir' order by tgl_pengembalian asc");
+           $qtgl  = mysqli_query($con,"SELECT DISTINCT tgl_pengembalian FROM pengembalian WHERE id_cabang='$id_cabang' AND tgl_pengembalian BETWEEN '$tglawal' AND '$tglakhir' order by FIELD(hari_pengembalian,'senin','selasa','rabu','kamis','jumat') asc");
             while($tgl = mysqli_fetch_array($qtgl)){
               $hari = explode(",",format_hari_tanggal($tgl['tgl_pengembalian']))[0];
               // $tgl = explode(",",format_hari_tanggal($tgl['tgl_pengembalian']))[0];
@@ -68,7 +68,7 @@ else{
               <td><?=$staff['nama_karyawan']?></td>
               <?php 
               echo mysqli_error($con);
-              $qtgl  = mysqli_query($con,"SELECT DISTINCT tgl_pengembalian FROM pengembalian WHERE id_cabang='$id_cabang' AND tgl_pengembalian BETWEEN '$tglawal' AND '$tglakhir' order by tgl_pengembalian asc");
+              $qtgl  = mysqli_query($con,"SELECT DISTINCT tgl_pengembalian FROM pengembalian WHERE id_cabang='$id_cabang' AND tgl_pengembalian BETWEEN '$tglawal' AND '$tglakhir' order by FIELD(hari_pengembalian,'senin','selasa','rabu','kamis','jumat') asc");
             while($tgl = mysqli_fetch_array($qtgl)){
               $hari = explode(",",format_hari_tanggal($tgl['tgl_pengembalian']))[0];
               $peng = mysqli_query($con,"SELECT * FROM pengembalian where id_cabang='$id_cabang' and id_karyawan='$staff[id_karyawan]' and tgl_pengembalian='$tgl[tgl_pengembalian]'");
@@ -94,7 +94,7 @@ else{
             <th colspan="2"></th>
             <?php 
             $total_pokok_semua = 0;
-           $qtgl  = mysqli_query($con,"SELECT DISTINCT tgl_pengembalian FROM pengembalian WHERE id_cabang='$id_cabang' AND tgl_pengembalian BETWEEN '$tglawal' AND '$tglakhir' order by tgl_pengembalian asc");
+           $qtgl  = mysqli_query($con,"SELECT DISTINCT tgl_pengembalian FROM pengembalian WHERE id_cabang='$id_cabang' AND tgl_pengembalian BETWEEN '$tglawal' AND '$tglakhir' order by FIELD(hari_pengembalian,'senin','selasa','rabu','kamis','jumat') asc");
             while($tgl = mysqli_fetch_array($qtgl)){
               $peng = mysqli_query($con,"SELECT SUM(pokok) as total_pokok FROM pengembalian where id_cabang='$id_cabang' and tgl_pengembalian='$tgl[tgl_pengembalian]' ");
               $peng = mysqli_fetch_array($peng);

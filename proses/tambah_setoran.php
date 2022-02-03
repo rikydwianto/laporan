@@ -14,6 +14,11 @@
 if(isset($_POST['xml_preview'])){
     set_time_limit(5000);
     $tanggal = $_POST['tgl'];
+
+    $hari = format_hari_tanggal($tanggal);
+    $hari = explode(",",$hari)[0];
+    $hari = strtolower($hari);
+    // exit;
     $file = $_FILES['file']['tmp_name'];
     $xml = simplexml_load_file($file);
     $xml = $xml->Tablix1->BranchName_Collection;
@@ -30,7 +35,7 @@ if(isset($_POST['xml_preview'])){
         $cek_ = mysqli_query($con,"select * from pengembalian where  tgl_pengembalian='$tanggal' and nama_karyawan='$row[OfficerName]' and id_cabang='$id_cabang' ");
         if(mysqli_num_rows($cek_)){
             $ada  = mysqli_fetch_array($cek_);
-            mysqli_query($con,"UPDATE pengembalian set pokok='$pokok',nisbah='$nisbah', json_pengembalian='$json_detail' , id_karyawan=null where id='$ada[id]'");
+            mysqli_query($con,"UPDATE pengembalian set pokok='$pokok',nisbah='$nisbah', json_pengembalian='$json_detail' , id_karyawan=null, hari_pengembalian='$hari' where id='$ada[id]'");
         }
         else{
             $pokok = int_xml($row1['Textbox106']);
@@ -41,8 +46,8 @@ if(isset($_POST['xml_preview'])){
             
             
             $q = mysqli_query($con,"INSERT INTO `pengembalian`
-            (`tgl_pengembalian`, `pokok`, `nisbah`, `id_cabang`, `nama_karyawan`, `json_pengembalian`) 
-            VALUES ('$tanggal', '$pokok', '$nisbah', '$id_cabang', '$row[OfficerName]', '$json_detail'); 
+            (`tgl_pengembalian`, `pokok`, `nisbah`, `id_cabang`, `nama_karyawan`, `json_pengembalian`,`hari_pengembalian`) 
+            VALUES ('$tanggal', '$pokok', '$nisbah', '$id_cabang', '$row[OfficerName]', '$json_detail','$hari'); 
             ");
             $id_last = mysqli_insert_id($con);
             foreach($row->CenterID_Collection->CenterID as $det){
@@ -63,7 +68,7 @@ if(isset($_POST['xml_preview'])){
 
 if(isset($_GET['sinkron'])){
     $date = $_GET['tgl'];
-
+    
     if (isset($_POST['ganti'])) {
         $karyawan = $_POST['karyawan'];
         $mdis = $_POST['nama_mdis'];
@@ -79,7 +84,7 @@ if(isset($_GET['sinkron'])){
             }
         }
         
-        alert("DAFTAR PENGEMBALIAN NISBA DAN POKOK TELAH DI UPDATE");
+        alert("DAFTAR PENGEMBALIAN MARGIN DAN POKOK TELAH DI UPDATE");
         pindah($url.$menu."rekap_setoran&tgl=$date");
 
     }
