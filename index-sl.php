@@ -103,7 +103,7 @@ $cek_upk = mysqli_query($con,"select * from upk join center on center.no_center=
         <?php
     }
     ?>
-    
+    <a href="<?=$url.$menu?>laporan_kegiatan&tgl=<?=date("Y-m-d")?>" class="btn btn-primary">LAPORAN KEGIATAN</a>
     <table class='table'>
         <tr>
             <th>No. CTR</th>

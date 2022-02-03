@@ -65,6 +65,11 @@ if(isset($_POST['xml_preview'])){
     pindah($url.$menu."tambah_setoran&sinkron&tgl=$tanggal");
 
 }
+if(isset($_GET['hapus'])){
+    $date = $_GET['tgl'];
+    mysqli_query($con,"DELETE FROM pengambilan where tgl_pengambilan='$date' and id_cabang='$id_cabang'");
+    pindah($url.$menu."tambah_setoran");
+}
 
 if(isset($_GET['sinkron'])){
     $date = $_GET['tgl'];
@@ -178,6 +183,7 @@ if(isset($_GET['sinkron'])){
                 <!-- <td colspan="1"><?=$total_n?></td> -->
                 <td>
                     <input type="submit" class='btn btn-success' value='KONFIRMASI' name='ganti' />
+                    <a href="<?=$url.$menu?>tambah_setoran&hapus&tgl=<?=$date?>" class="btn btn-danger">HAPUS</a>
                 </td>
             </tr>
         

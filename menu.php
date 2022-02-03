@@ -74,6 +74,9 @@ if (isset($_GET['menu'])) {
 			case "deliquency_sl":
 				include("./proses/deliquency_sl.php");
 				break;
+			case "laporan_kegiatan":
+				include("./proses/laporan_kegiatan.php");
+				break;
 			case "cek_nik":
 				include("proses/cek_nik.php");
 				break;
