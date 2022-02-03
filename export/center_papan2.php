@@ -30,74 +30,73 @@ $nama_jabatan=$d['singkatan_jabatan'];
 <style>table {
   border-collapse: collapse;
 }
+
 </style>
 	
 </head>
 <body>
 
 	<table border="1">
-        <tr>
-            <th colspan="25"> <br/>
-                JADWAL CENTER MEETING <br/> CABANG <?= strtoupper($d['nama_cabang']) ?> <br/> DENGAN JAM<br/><br/>
-            </th>
-        </tr>
+        
+        
+
+    <thead>
         <?php 
         $qhari = mysqli_query($con,"SELECT distinct hari from center where id_cabang='$id_cabang' order by FIELD(hari,'senin','selasa','rabu','kamis','jumat') asc ");
         while($hari = mysqli_fetch_array($qhari)){
             $qjam = (mysqli_query($con,"SELECT jam_center from center where id_cabang='$id_cabang' and hari='$hari[hari]' group by jam_center order by jam_center"));
             ?>
-            <tr>
-                <td rowspan="<?=mysqli_num_rows($qjam) + 2?>" style="padding: 15px;font-weight:bold"><?=strtoupper($hari['hari'])?></td>
-                <th>JAM</th>
+            <tr class='hari'>
+                <td rowspan="2" style=";font-weight:bold;font-size:10px"><?=strtoupper($hari['hari'])?></td>
+                <!-- <th>JAM</th> -->
                 <?php $qkar = mysqli_query($con,"SELECT distinct k.nama_karyawan from center c join karyawan k on k.id_karyawan=c.id_karyawan where c.id_cabang='$id_cabang' order by k.nama_karyawan asc ");
                 while($kar=mysqli_fetch_array($qkar)){
                     ?>
-                    <th  style="font-size: 12px;"> &nbsp;&nbsp;<?=explode(" ",strtoupper( $kar['nama_karyawan']))[0]?>&nbsp;&nbsp;</th>
+                    <th  style="font-size: 10px;"> <b style=""><?=explode(" ",strtoupper( $kar['nama_karyawan']))[0]?></b> </th>
                     <?php
 
                     $center_hari = mysqli_query($con,"SELECT count(hari) as hitung_hari from center where id_cabang='$id_cabang' and hari='$hari[hari]'");
                 }
                 ?>
-                <td rowspan="<?=mysqli_num_rows($qjam) + 1?>" style="padding: 15px;vertical-align: top;"></style>KETERANGAN</td>
+                <td rowspan="1" style="padding: 15px;vertical-align: top;"></style>KETERANGAN</td>
             </tr>
             
-                <?php 
-                while($jam = mysqli_fetch_array($qjam)){
-                    ?>
-                    <tr>
-                        <td><?=$jam['jam_center']?></td>
-                        <?php $qkar = mysqli_query($con,"SELECT distinct k.nama_karyawan,k.id_karyawan from center c join karyawan k on k.id_karyawan=c.id_karyawan where c.id_cabang='$id_cabang' order by k.nama_karyawan asc ");
-                while($kar=mysqli_fetch_array($qkar)){
-                    $qcenter = mysqli_query($con,"SELECT no_center,status_center,member_center, desa, kecamatan from center where id_cabang='$id_cabang' and hari='$hari[hari]' and jam_center='$jam[jam_center]' and id_karyawan='$kar[id_karyawan]' order by jam_center asc");
-                    ?>
-                    <td style="vertical-align: top;text-align:center; font-size:10px">
-                       <?php 
-                       while($center = mysqli_fetch_array($qcenter)){
+    </thead>
+    <tbody>
 
-                           $status = $center['status_center'];
-                           if($center['no_center']!=null){
-                               
-                               if($status=='hijau') $warna='#025e1e';
-                               else if($status=='kuning') $warna='#b59d02';
-                               else if($status=='merah') $warna='#eb4034';
-                               else if($status=='hitam') $warna='black';
-                               else $warna='black';
-                               echo "<b style='color:$warna;float:left;'>".sprintf("%03d", $center['no_center'])." $center[desa] | $center[member_center]</b>"."<br/>";
-                            }
-                        }
-                            ?>
-                       </td>
-                       
+            <tr id='staff'>
+               <td></td>
+           <?php $qkar = mysqli_query($con,"SELECT distinct k.nama_karyawan,k.id_karyawan from center c join karyawan k on k.id_karyawan=c.id_karyawan where c.id_cabang='$id_cabang' order by k.nama_karyawan asc ");
+                while($kar=mysqli_fetch_array($qkar)){
+                    $qcenter = mysqli_query($con,"SELECT no_center,status_center,member_center,jam_center,desa,kecamatan from center where id_cabang='$id_cabang' and hari='$hari[hari]' and id_karyawan='$kar[id_karyawan]' order by jam_center asc");
+                    ?>
+                    <td style="vertical-align: top; font-size:10px; ">
+                       <?php
+                       while($center=mysqli_fetch_array($qcenter)){
+                           $jam = explode(":",$center['jam_center']);
+                           $jam = $jam[0].":".$jam[1];
+
+                        $status = $center['status_center'];
+                        if($status=='hijau') $warna='#025e1e';
+                        else if($status=='kuning') $warna='#b59d02';
+                        else if($status=='merah') $warna='#eb4034';
+                        else if($status=='hitam') $warna='black';
+                        else $warna='black';
+                            echo "<b style='color:$warna; padding-top:0px;'>$jam | "." $center[member_center] ".'<br/>'.sprintf("%03d", $center['no_center']).' | '.strtoupper($center['desa'])." </b>"."<hr/>";
+                   
+                       } 
+                       ?>
+                    </td>
+                    
                     <?php
                 }
                 ?>
-                
-                    </tr>
+                </tr>
+           
+        
+               
                     
                     
-                    <?php
-                }
-                ?>
             <tr >
                 <th>TOTAL</th>
                 <?php $qkar = mysqli_query($con,"SELECT distinct k.nama_karyawan,k.id_karyawan from center c join karyawan k on k.id_karyawan=c.id_karyawan where c.id_cabang='$id_cabang' order by k.nama_karyawan asc ");
@@ -112,13 +111,15 @@ $nama_jabatan=$d['singkatan_jabatan'];
                 ?>
                 <th><?=mysqli_fetch_array($center_hari)['hitung_hari']?></th>
             </tr>
+    </tbody>
+
          <?php   
          }
          $hitung_semua=0;
          $total_member=0;
          ?>
          <tr >
-                 <th colspan="2">TOTAL SEMUA STAFF<hr>MEMBER</th>
+                 <th colspan="1">TOTAL SEMUA STAFF<hr>MEMBER</th>
                  <?php 
                  $qkar = mysqli_query($con,"SELECT distinct k.nama_karyawan,k.id_karyawan from center c join karyawan k on k.id_karyawan=c.id_karyawan where c.id_cabang='$id_cabang' order by k.nama_karyawan asc ");
                  while($kar=mysqli_fetch_array($qkar)){
@@ -148,6 +149,12 @@ $nama_jabatan=$d['singkatan_jabatan'];
     </table>
 	
 </body>
+<style>
+    table { page-break-inside:auto }
+    tr    { page-break-inside:avoid; page-break-after:auto }
+    thead { display:table-header-group }
+    /* tfoot { display:table-footer-group } */
+</style>
 </html>
 	
 

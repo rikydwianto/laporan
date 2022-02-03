@@ -17,6 +17,9 @@
   <a href="<?=$url?>/export/center_papan1.php" class='btn btn-success'>
 			<i class="fa fa-file-excel-o"></i>  JADWAL PAPAN JAM
 		</a>
+  <a href="<?=$url?>/export/center_papan2.php" class='btn btn-primary'>
+			<i class="fa fa-file-excel-o"></i>  JADWAL PAPAN JAM + DESA
+		</a>
 		<a href="<?=$url.$menu?>center&konfirmasi" class='btn btn-info'>
 				  <i class="fa fa-file-excel-o"></i> KONFIRMASI
 			  </a>
