@@ -34,8 +34,8 @@ $nama_jabatan=$d['singkatan_jabatan'];
 </style>
 	
 </head>
-<body>
-
+<body> 
+<h1 style='text-align:center'>JADWAL CENTER MEETING <br/> CABANG <?= strtoupper($d['nama_cabang']) ?> <br/> DENGAN JAM DAN DESA<br/></h1>
 	<table border="1">
         
         
@@ -65,7 +65,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
     <tbody>
 
             <tr id='staff'>
-               <td></td>
+               <td><?=strtoupper($hari['hari'])?></td>
            <?php $qkar = mysqli_query($con,"SELECT distinct k.nama_karyawan,k.id_karyawan from center c join karyawan k on k.id_karyawan=c.id_karyawan where c.id_cabang='$id_cabang' order by k.nama_karyawan asc ");
                 while($kar=mysqli_fetch_array($qkar)){
                     $qcenter = mysqli_query($con,"SELECT no_center,status_center,member_center,jam_center,desa,kecamatan from center where id_cabang='$id_cabang' and hari='$hari[hari]' and id_karyawan='$kar[id_karyawan]' order by jam_center asc");
