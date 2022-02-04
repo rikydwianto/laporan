@@ -136,6 +136,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 					<a href="<?php echo $url . $menu ?>rekap_laporan"><i class="fa fa-calendar"></i> Laporan Harian</a>
 				</li>
 				<li>
+					<a href="<?php echo $url . $menu ?>rekap_kegiatan"><i class="fa fa-calendar"></i> Laporan Kegiatan</a>
+				</li>
+				<li>
 					<a href="<?php echo $url . $menu ?>rekap_laporan_minggu"><i class="fa fa-calendar"></i> Laporan Mingguan</a>
 				</li>
 				<li>
@@ -291,6 +294,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 					<a href="<?php echo $url . $menu ?>rekap_laporan_minggu"><i class="fa fa-calendar"></i> Laporan Mingguan</a>
 				</li>
 				<li>
+					<a href="<?php echo $url . $menu ?>rekap_kegiatan"><i class="fa fa-calendar"></i> Laporan Kegiatan</a>
+				</li>
+				<li>
 					<a href="<?php echo $url . $menu ?>laporan_bulanan"><i class="fa fa-calendar"></i> Laporan Bulanan</a>
 				</li>
 				<li>
@@ -394,7 +400,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 				<a href="<?php echo $url . $menu ?>edit_laporan" class="w3-bar-item w3-button"><i class="fa fa-edit"></i> Edit Laporan</a>
 
 			</li>
-
+			<li>
+				<a href="<?php echo $url . $menu ?>rekap_kegiatan"><i class="fa fa-calendar"></i> Laporan Kegiatan</a>
+			</li>
 			<li>
 				<a href="<?php echo $url . $menu ?>rekap_anggota"><i class="fa fa-users"></i> Rekap Anggota</a>
 			</li>
