@@ -32,7 +32,7 @@
       $q = mysqli_query($con,"UPDATE laporan_harian set kunjungan_dtd='$kunjungan_dtd',kunjungan_biasa='$kunjungan_biasa',
       capres='$capres',uji_kelayakan='$uk', monitoring='$mtr', kartu_kuning='$kk', status='sukses' where id_cabang='$id_cabang' and id = '$id_kegiatan' ");
       if($q){
-          pesan("BERHASIL DISIMPAN");
+          pesan("BERHASIL DISIMPAN",'success');
       }
       else{
           echo mysqli_error($con);
