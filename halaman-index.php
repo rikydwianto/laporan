@@ -1,4 +1,9 @@
 <?php 
+	$tgl1 = date("Y-m-d");// pendefinisian tanggal awal
+	$tgl2 = date('Y-m-d', strtotime('-7 days', strtotime($tgl1))); //operasi penjumlahan tanggal sebanyak 6 hari
+	$hari = format_hari_tanggal($tgl1);
+	$hari = explode(',', $hari);
+	$hari = strtolower($hari[0]);
 $query= mysqli_query($con,"SELECT * FROM karyawan,jabatan,cabang,wilayah where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang
 	and cabang.id_wilayah=wilayah.id_wilayah
  and karyawan.id_karyawan='$id_karyawan' ");
@@ -10,7 +15,7 @@ if(!$_SESSION['jabatan']){
 	pindah($url);
 
 }
-	$cek_laporan1 = mysqli_query($con,"select * from laporan where tgl_laporan=curdate() and id_karyawan='$id_karyawan' ");
+	$cek_laporan1 = mysqli_query($con,"select * from laporan where tgl_laporan='$tgl1' and id_karyawan='$id_karyawan' ");
 
 	$cek_laporan = mysqli_fetch_array($cek_laporan1);
 
@@ -39,9 +44,9 @@ if(!$_SESSION['jabatan']){
 		<?php
 		if($jabatan=='SL'){
 			$qpin = mysqli_query($con,"SELECT id_karyawan,
-			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >=0 AND (DATEDIFF(CURDATE(), tgl_cair)) <=2 THEN 1 ELSE 0 END) AS tiga,
-			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >2 AND (DATEDIFF(CURDATE(), tgl_cair)) <=14 THEN 1 ELSE 0 END) AS normal,
-			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >14  THEN 1 ELSE 0 END) AS kurang_normal,
+			SUM(CASE WHEN (DATEDIFF('$tgl1', tgl_cair)) >=0 AND (DATEDIFF('$tgl1', tgl_cair)) <=2 THEN 1 ELSE 0 END) AS tiga,
+			SUM(CASE WHEN (DATEDIFF('$tgl1', tgl_cair)) >2 AND (DATEDIFF('$tgl1', tgl_cair)) <=14 THEN 1 ELSE 0 END) AS normal,
+			SUM(CASE WHEN (DATEDIFF('$tgl1', tgl_cair)) >14  THEN 1 ELSE 0 END) AS kurang_normal,
 			COUNT(*) as total
 				 FROM pinjaman WHERE monitoring='belum' and id_karyawan='$id_karyawan' and input_mtr='sudah' GROUP BY id_karyawan ");
 			$mon = mysqli_fetch_array($qpin);
@@ -83,9 +88,9 @@ if(!$_SESSION['jabatan']){
 			</div>
 			<?php
 			$qpin = mysqli_query($con,"SELECT id_karyawan,
-			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >=0 AND (DATEDIFF(CURDATE(), tgl_cair)) <=2 THEN 1 ELSE 0 END) AS tiga_hari,
-			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >2 AND (DATEDIFF(CURDATE(), tgl_cair)) <=14 THEN 1 ELSE 0 END) AS normal,
-			SUM(CASE WHEN (DATEDIFF(CURDATE(), tgl_cair)) >14  THEN 1 ELSE 0 END) AS kurang_normal,
+			SUM(CASE WHEN (DATEDIFF('$tgl1', tgl_cair)) >=0 AND (DATEDIFF('$tgl1', tgl_cair)) <=2 THEN 1 ELSE 0 END) AS tiga_hari,
+			SUM(CASE WHEN (DATEDIFF('$tgl1', tgl_cair)) >2 AND (DATEDIFF('$tgl1', tgl_cair)) <=14 THEN 1 ELSE 0 END) AS normal,
+			SUM(CASE WHEN (DATEDIFF('$tgl1', tgl_cair)) >14  THEN 1 ELSE 0 END) AS kurang_normal,
 			COUNT(*) as total
 				 FROM pinjaman WHERE monitoring='belum' and id_cabang='$id_cabang' and input_mtr='sudah' GROUP BY id_cabang ");
 			$mon = mysqli_fetch_array($qpin);
@@ -159,10 +164,8 @@ if(!$_SESSION['jabatan']){
 				<td >#</td>
 			</tr>
 			<?php 
-			$tgl1 = date("Y-m-d");// pendefinisian tanggal awal
-			$tgl2 = date('Y-m-d', strtotime('-7 days', strtotime($tgl1))); //operasi penjumlahan tanggal sebanyak 6 hari
-
-			$cek_ka=mysqli_query($con,"SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_cabang='$cabang' and jabatan.singkatan_jabatan='SL' and karyawan.status_karyawan='aktif' order by karyawan.nama_karyawan asc");
+		
+			$cek_ka=mysqli_query($con,"SELECT distinct k.nama_karyawan, k.id_karyawan from center c join karyawan k on k.id_karyawan=c.id_karyawan where c.id_cabang='$id_cabang' and c.hari='$hari' order by k.nama_karyawan asc");
 			$hitung_member = 0; 
 			$hitung_agt = 0; 
 			$hitung_bayar = 0; 
@@ -170,11 +173,11 @@ if(!$_SESSION['jabatan']){
 			$hitung_center= 0; 
 			$hitung_chg = 0;
 			while($tampil=mysqli_fetch_array($cek_ka)){
-				$cek_l1 = mysqli_query($con,"select * from laporan where id_karyawan='$tampil[id_karyawan]' and tgl_laporan=curdate()");
+				$cek_l1 = mysqli_query($con,"select * from laporan where id_karyawan='$tampil[id_karyawan]' and tgl_laporan='$tgl1'");
 
-				$cek_l=mysqli_query($con,"SELECT sum(detail_laporan.total_agt)as anggota, sum(detail_laporan.member)as member, sum(detail_laporan.total_bayar)as bayar,sum(detail_laporan.total_tidak_bayar)as tidak_bayar,count(no_center) as hitung_center, laporan.* FROM laporan,detail_laporan where laporan.id_laporan=detail_laporan.id_laporan and laporan.tgl_laporan=curdate() and laporan.id_karyawan='$tampil[id_karyawan]'");
+				$cek_l=mysqli_query($con,"SELECT sum(detail_laporan.total_agt)as anggota, sum(detail_laporan.member)as member, sum(detail_laporan.total_bayar)as bayar,sum(detail_laporan.total_tidak_bayar)as tidak_bayar,count(no_center) as hitung_center, laporan.* FROM laporan,detail_laporan where laporan.id_laporan=detail_laporan.id_laporan and laporan.tgl_laporan='$tgl1' and laporan.id_karyawan='$tampil[id_karyawan]'");
 
-				// echo "SELECT sum(detail_laporan.total_agt)as anggota, sum(detail_laporan.total_bayar)as bayar,sum(detail_laporan.total_tidak_bayar)as tidak_bayar,count(no_center) as hitung_center, laporan.* FROM laporan,detail_laporan where laporan.id_laporan=detail_laporan.id_laporan and laporan.tgl_laporan=curdate() and laporan.id_karyawan='$tampil[id_karyawan]'";
+				// echo "SELECT sum(detail_laporan.total_agt)as anggota, sum(detail_laporan.total_bayar)as bayar,sum(detail_laporan.total_tidak_bayar)as tidak_bayar,count(no_center) as hitung_center, laporan.* FROM laporan,detail_laporan where laporan.id_laporan=detail_laporan.id_laporan and laporan.tgl_laporan='$tgl1' and laporan.id_karyawan='$tampil[id_karyawan]'";
 				if(mysqli_num_rows($cek_l) ){
 					$tampil_lapor=mysqli_fetch_array($cek_l);
 					if($tampil_lapor['anggota']!=NULL){
