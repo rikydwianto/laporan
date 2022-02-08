@@ -45,7 +45,7 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
             height: 0.7cm;
             padding:3px;
             font-weight: bold;
-            font-size: 11px;
+            font-size: 12px;
         }
 
         .kertas table{
@@ -65,10 +65,15 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
         }
         table tr td{
             vertical-align: middle;
+            /* height: 30px; */
 
         }
+        td {
+  height: 50px;
+}
         .isi_tengah{
             text-align: center;
+            font-size: 11px;
         }
         .kecil{
             font-size: 12px;
@@ -103,7 +108,7 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
                     <th rowspan="2" style='font-size: 12px;' >Angsuran</th>
                     <th rowspan="2" style='font-size: 12px;'>TUJUAN <br/>PINJAMAN</th>
                     <th rowspan="2" style='font-size: 12px;' >KE</th>
-                    <th rowspan="2" style='font-size: 12px;width:12cm'>NAMA F.O.</th>
+                    <th rowspan="2" style='font-size: 12px;'>NAMA F.O.</th>
                     <th colspan="7" style='font-size: 12px;'>KETERANGAN</th>
                 </tr>
                 <tr>
@@ -130,17 +135,17 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
                     <td style="height: 2.5px;" colspan="" ><?=$no++?>.</td>
                     <td class="kecil"><?=$r['id_detail_nasabah']?></td>
                     <td class="kecil"><?=$r['id_detail_pinjaman']?></td>
-                    <td ><?=$r['nama_nasabah']?></td>
-                    <td ><?=$r['no_hp']?></td>
+                    <td class="kecil"><?=$r['nama_nasabah']?></td>
+                    <td class="kecil"><?=$r['no_hp']?></td>
                     <td class='kecil'><?=$r['center']?></td>
                     <td class='isi_tengah'><?=$group?></td>
                     <td class='kecil'><?=$r['produk']?></td>
-                    <td ><?=angka($r['jumlah_pinjaman'])?></td>
-                    <td ><?=angka($r['outstanding'])?></td>
+                    <td class="kecil"><?=angka($r['jumlah_pinjaman'])?></td>
+                    <td class="kecil"><?=angka($r['outstanding'])?></td>
                     <td class='isi_tengah'><?=$r['jk_waktu']?></td>
                     <td class='isi_tengah'  ><?=$r['margin']?></td>
-                    <td ><?=angka($r['angsuran'])?></td>
-                    <td ><?=$r['tujuan_pinjaman']?></td>
+                    <td class="kecil"><?=angka($r['angsuran'])?></td>
+                    <td class="kecil"><?=$r['tujuan_pinjaman']?></td>
                     <td class='isi_tengah'><?=$r['pinjaman_ke']?></td>
                     <td class='kecil'><?=$r['nama_karyawan']?></td>
                     <td class='isi_tengah'><?=$r['tgl_cair']?></td>
