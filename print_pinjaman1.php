@@ -69,7 +69,7 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
 
         }
         td {
-  height: 50px;
+  height: 30px;
 }
         .isi_tengah{
             text-align: center;
