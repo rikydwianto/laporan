@@ -349,5 +349,5 @@ $spreadsheet->setActiveSheetIndex(0);
 
 $writer = new Xlsx($spreadsheet);
 $filename='PAR - '.date("Y-m-d").' - '. time() ;
-// $writer->save('export/excel/par/'.$filename.'.xlsx');
-// pindah($url."blk.php?download=".$filename.".xlsx");
+$writer->save('export/excel/par/'.$filename.'.xlsx');
+pindah($url."blk.php?download=".$filename.".xlsx");
