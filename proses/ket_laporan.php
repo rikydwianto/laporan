@@ -148,11 +148,11 @@ keterangan: $keterangan";
             $q_q['tgl']="tgl_input IN(SELECT MAX(tgl_input) FROM deliquency where id_cabang='$id_cabang') AND";
             $q = mysqli_query($con,"SELECT *,c.`id_karyawan` FROM deliquency d JOIN center c ON c.`no_center`=d.`no_center`
             JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
-            WHERE $q_q[tgl] k.`id_cabang`='$id_cabang' AND k.`id_karyawan`='$id_karyawan' $q_q[group] order by d.no_center,d.nasabah asc");
+            WHERE $q_q[tgl] k.`id_cabang`='$id_cabang' AND k.`id_karyawan`='$id_karyawan' and d.id_cabang='$id_cabang' $q_q[group] order by d.no_center,d.nasabah asc");
             while($row = mysqli_fetch_array($q)){
                 $produk = $row['loan'];
                 $produk = explode("-",$produk)[0];
-                $par = mysqli_num_rows(mysqli_query($con,"select * from anggota_par where id_detail_nasabah='$row[id_detail_nasabah]'"));
+                $par = mysqli_num_rows(mysqli_query($con,"select * from anggota_par where id_detail_nasabah='$row[id_detail_nasabah]' and id_cabang='$id_cabang'"));
                 $sisa_saldo = $row['sisa_saldo'];
                 $total_sisa_saldo += $sisa_saldo;
                 if($par){
