@@ -22,7 +22,7 @@
         $query = mysqli_query($con," SELECT count(d.id) as total, sum(d.sisa_saldo) as balance,k.nama_karyawan FROM deliquency d 
         JOIN center c ON c.`no_center`=d.`no_center` 
         JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
-        where d.loan not in (select loan from deliquency where tgl_input='$tgl_banding') and d.tgl_input='$tgl_awal' and c.id_cabang='$id_cabang' group by k.id_karyawan order by k.nama_karyawan asc");
+        where d.loan not in (select loan from deliquency where tgl_input='$tgl_banding') and d.tgl_input='$tgl_awal' and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' group by k.id_karyawan order by k.nama_karyawan asc");
         while($minus = mysqli_fetch_array($query)){
             $total_minus +=$minus['balance'];
             $total_minus_agt +=$minus['total'];
@@ -63,7 +63,7 @@
         $query = mysqli_query($con," SELECT count(d.id) as total, sum(d.sisa_saldo) as balance,k.nama_karyawan FROM deliquency d 
         JOIN center c ON c.`no_center`=d.`no_center` 
         JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
-        where d.loan not in (select loan from deliquency where tgl_input='$tgl_awal') and  d.tgl_input='$tgl_banding' and c.id_cabang='$id_cabang' group by k.id_karyawan order by k.nama_karyawan asc");
+        where d.loan not in (select loan from deliquency where tgl_input='$tgl_awal' and id_cabang='$id_cabang') and  d.tgl_input='$tgl_banding' and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' group by k.id_karyawan order by k.nama_karyawan asc");
         while($minus = mysqli_fetch_array($query)){
             $total_minus +=$minus['balance'];
             $total_minus_agt +=$minus['total'];
@@ -113,14 +113,14 @@
     SELECT sum(sisa_saldo) as total_turun,count(d.id) as hitung,k.id_karyawan,k.nama_karyawan FROM deliquency d 
 	JOIN center c ON c.`no_center`=d.`no_center` 
 	JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` 
-    where d.loan  in (select loan from deliquency where tgl_input='$tgl_banding') and d.tgl_input='$tgl_awal' and c.id_cabang='$id_cabang' group by k.id_karyawan order by k.nama_karyawan asc");
+    where d.loan  in (select loan from deliquency where tgl_input='$tgl_banding' and id_cabang='$id_cabang') and d.tgl_input='$tgl_awal' and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' group by k.id_karyawan order by k.nama_karyawan asc");
         
         while($minus = mysqli_fetch_array($query)){
             $query2 = mysqli_query($con,"
     SELECT sum(sisa_saldo) as total_turun,count(d.id) as total FROM deliquency d 
 	JOIN center c ON c.`no_center`=d.`no_center` 
 	JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` 
-    where d.loan  in (select loan from deliquency where tgl_input='$tgl_awal') and d.tgl_input='$tgl_banding' and c.id_cabang='$id_cabang' and k.id_karyawan='$minus[id_karyawan]' group by k.id_karyawan order by k.nama_karyawan asc");
+    where d.loan  in (select loan from deliquency where tgl_input='$tgl_awal' and id_cabang='$id_cabang') and d.tgl_input='$tgl_banding' and c.id_cabang='$id_cabang' and k.id_karyawan='$minus[id_karyawan]' and d.id_cabang='$id_cabang' group by k.id_karyawan order by k.nama_karyawan asc");
 
     // $query3 = mysqli_query($con,"
     // SELECT d.sisa_saldo total FROM deliquency d 
@@ -178,7 +178,7 @@
         $query = mysqli_query($con," SELECT count(d.id) as total, sum(d.sisa_saldo) as balance,k.nama_karyawan FROM deliquency d 
         JOIN center c ON c.`no_center`=d.`no_center` 
         JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
-        where   d.tgl_input='$tgl_banding' and c.id_cabang='$id_cabang' group by k.id_karyawan order by k.nama_karyawan asc");
+        where   d.tgl_input='$tgl_banding' and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' group by k.id_karyawan order by k.nama_karyawan asc");
         while($minus = mysqli_fetch_array($query)){
             $total_minus +=$minus['balance'];
             $total_minus_agt +=$minus['total'];
@@ -235,18 +235,18 @@
          $query = mysqli_query($con," SELECT count(d.id) as total, sum(d.sisa_saldo) as balance,k.nama_karyawan,k.id_karyawan FROM deliquency d 
          JOIN center c ON c.`no_center`=d.`no_center` 
          JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
-         where   d.tgl_input='$tgl_banding' and c.id_cabang='$id_cabang' group by k.id_karyawan order by k.nama_karyawan asc");
+         where   d.tgl_input='$tgl_banding' and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' group by k.id_karyawan order by k.nama_karyawan asc");
          while($staff = mysqli_fetch_array($query)){
             $query1 = mysqli_query($con," SELECT  sum(d.sisa_saldo) as balance FROM deliquency d 
             JOIN center c ON c.`no_center`=d.`no_center` 
             JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
-            where d.loan not in (select loan from deliquency where tgl_input='$tgl_banding') and d.tgl_input='$tgl_awal' and c.id_karyawan='$staff[id_karyawan]' group by k.id_karyawan ");
+            where d.loan not in (select loan from deliquency where tgl_input='$tgl_banding' and id_cabang='$id_cabang') and d.tgl_input='$tgl_awal' and c.id_karyawan='$staff[id_karyawan]' and d.id_cabang='$id_cabang' group by k.id_karyawan ");
             $turun = mysqli_fetch_array($query1);
             //PENAMBAHAN 
             $query2 = mysqli_query($con," SELECT count(d.id) as total, sum(d.sisa_saldo) as balance FROM deliquency d 
             JOIN center c ON c.`no_center`=d.`no_center` 
             JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
-            where d.loan not in (select loan from deliquency where tgl_input='$tgl_awal') and  d.tgl_input='$tgl_banding' and c.id_karyawan='$staff[id_karyawan]' group by k.id_karyawan ");
+            where d.loan not in (select loan from deliquency where tgl_input='$tgl_awal' and id_cabang='$id_cabang' ) and  d.tgl_input='$tgl_banding' and c.id_karyawan='$staff[id_karyawan]' and id_cabang='$id_cabang' group by k.id_karyawan ");
             $tambah = mysqli_fetch_array($query2);
             $tambah = $tambah['balance'];
 
@@ -255,19 +255,19 @@
             SELECT sum(sisa_saldo) as total_turun,count(d.id) as hitung,k.id_karyawan,k.nama_karyawan FROM deliquency d 
             JOIN center c ON c.`no_center`=d.`no_center` 
             JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` 
-            where d.loan  in (select loan from deliquency where tgl_input='$tgl_banding') and d.tgl_input='$tgl_awal' and k.id_karyawan='$staff[id_karyawan]' group by k.id_karyawan order by k.nama_karyawan asc");
+            where d.loan  in (select loan from deliquency where tgl_input='$tgl_banding' and id_cabang='$id_cabang') and d.tgl_input='$tgl_awal' and k.id_karyawan='$staff[id_karyawan]' and d.id_cabang='$id_cabang' group by k.id_karyawan order by k.nama_karyawan asc");
         
 
             $query4 = mysqli_query($con,"
             SELECT sum(sisa_saldo) as total_turun FROM deliquency d 
             JOIN center c ON c.`no_center`=d.`no_center` 
             JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` 
-            where d.loan  in (select loan from deliquency where tgl_input='$tgl_awal') and d.tgl_input='$tgl_banding'  and k.id_karyawan='$staff[id_karyawan]' group by k.id_karyawan order by k.nama_karyawan asc");
+            where d.loan  in (select loan from deliquency where tgl_input='$tgl_awal' and id_cabang='$id_cabang') and d.tgl_input='$tgl_banding'  and k.id_karyawan='$staff[id_karyawan]' and d.id_cabang='$id_cabang' group by k.id_karyawan order by k.nama_karyawan asc");
             
             $query5 = mysqli_query($con," SELECT count(d.id) as total, sum(d.sisa_saldo) as balance,k.nama_karyawan,k.id_karyawan FROM deliquency d 
          JOIN center c ON c.`no_center`=d.`no_center` 
          JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
-         where   d.tgl_input='$tgl_awal' and k.id_karyawan='$staff[id_karyawan]' group by k.id_karyawan order by k.nama_karyawan asc");
+         where   d.tgl_input='$tgl_awal' and k.id_karyawan='$staff[id_karyawan]' and d.id_cabang='$id_cabang' group by k.id_karyawan order by k.nama_karyawan asc");
          $minggu_kemarin  = mysqli_fetch_array($query5);
          $minggu_kemarin = $minggu_kemarin['balance'];
 
