@@ -112,6 +112,7 @@ for($row = 7;$row<=$last_row;$row++){
             $pensiun =  (int)ganti_karakter(str_replace(",","",$ws->getCell("S".$row)->getValue()));
             $sukarela = (int)ganti_karakter(str_replace(",","",$ws->getCell("P".$row)->getValue()));
             $wajib = (int)ganti_karakter(str_replace(",","",$ws->getCell("M".$row)->getValue()));
+            $hari_raya = (int)ganti_karakter(str_replace(",","",$ws->getCell("Y".$row)->getValue()));
             
            }
            else {
@@ -218,6 +219,28 @@ for($row = 7;$row<=$last_row;$row++){
             elseif($selisih<0){
                 // $ket = "double ".$selisih;
             }
+            $json['wajib']=$wajib;
+            $json['sukarela']=$sukarela;
+            $json['pensiun']=$pensiun;
+            $json['hari_raya']=$hari_raya;
+            $json['rill']=$rill;
+            $json['ke']=$ke;
+            $json['pinjaman']=$amount;
+            $json['sisa_saldo']=$os;
+            $json['margin']=$margin;
+            $json['pokok']=$pokok;
+            $json['kode']=$kode_pemb;
+            $json_simpanan = json_encode($json);
+
+            $cek_simpanan =mysqli_query($con,"SELECT * FROM detail_simpanan where id_cabang='$id_cabang' and id_nasabah='$ID' ");
+            if(mysqli_num_rows($cek_simpanan)){
+                $upda = mysqli_query($con,"UPDATE detail_simpanan set update_simpanan=curdate(), detail_simpanan='$json_simpanan' where  id_cabang='$id_cabang' and id_nasabah='$ID'");
+            }
+            else{
+                mysqli_query($con,"INSERT INTO `detail_simpanan` (`id_nasabah`, `id_cabang`, `update_simpanan`,`detail_simpanan`)
+                 VALUES ('$ID', '$id_cabang', curdate(),'$json_simpanan'); ");
+            }
+
             ?>
         
             <tr style="background-color: <?=$warna_baris?>">
@@ -326,5 +349,5 @@ $spreadsheet->setActiveSheetIndex(0);
 
 $writer = new Xlsx($spreadsheet);
 $filename='PAR - '.date("Y-m-d").' - '. time() ;
-$writer->save('export/excel/par/'.$filename.'.xlsx');
-pindah($url."blk.php?download=".$filename.".xlsx");
+// $writer->save('export/excel/par/'.$filename.'.xlsx');
+// pindah($url."blk.php?download=".$filename.".xlsx");

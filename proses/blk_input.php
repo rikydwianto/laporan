@@ -9,6 +9,7 @@
         </div>
     </form>
 </div>
+
 <div class="row">
 	<h3 class="page-header">ANALISA PAR YANG BISA DITUTUP OLEH SIMP SUKARELA</h3>
 	<hr />
