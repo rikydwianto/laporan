@@ -168,10 +168,10 @@ if(isset($_GET['bandingkan'])){
         $query = mysqli_query($con," SELECT d.*,k.nama_karyawan FROM deliquency d 
         JOIN center c ON c.`no_center`=d.`no_center` 
         JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
-        where d.loan not in (select loan from deliquency where tgl_input='$tgl_banding') and d.tgl_input='$tgl_awal' and c.id_cabang='$id_cabang' order by k.nama_karyawan asc");
+        where d.loan not in (select loan from deliquency where tgl_input='$tgl_banding' and id_cabang='$id_cabang') and d.tgl_input='$tgl_awal' and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' order by k.nama_karyawan asc");
         while($data = mysqli_fetch_array($query)){
             $total_os+=$data['sisa_saldo'];
-            $par = mysqli_num_rows(mysqli_query($con,"select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]'"));
+            $par = mysqli_num_rows(mysqli_query($con,"select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]' and id_cabang='$id_cabang'"));
             if($par){
                 $baris['baris']= "#c9c7c1";
                 $baris['text']= "red";
@@ -235,9 +235,9 @@ if(isset($_GET['bandingkan'])){
         SELECT d.*,k.nama_karyawan FROM deliquency d 
         JOIN center c ON c.`no_center`=d.`no_center` 
         JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
-        where d.loan not in (select loan from deliquency where tgl_input='$tgl_awal') and d.tgl_input='$tgl_banding' and c.id_cabang='$id_cabang' and d.minggu=1 order by k.nama_karyawan asc");
+        where d.loan not in (select loan from deliquency where tgl_input='$tgl_awal' and id_cabang='$id_cabang') and d.tgl_input='$tgl_banding' and c.id_cabang='$id_cabang' and d.minggu=1 and d.id_cabang='$id_cabang' order by k.nama_karyawan asc");
         while($data = mysqli_fetch_array($query1)){
-            $par = mysqli_num_rows(mysqli_query($con,"select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]'"));
+            $par = mysqli_num_rows(mysqli_query($con,"select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]' and id_cabang='$id_cabang'"));
             if($par){
                 $baris['baris']= "#c9c7c1";
                 $baris['text']= "red";
@@ -304,11 +304,11 @@ if(isset($_GET['bandingkan'])){
         SELECT d.*,k.nama_karyawan FROM deliquency d 
         JOIN center c ON c.`no_center`=d.`no_center` 
         JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` 
-        where d.loan  in (select loan from deliquency where tgl_input='$tgl_banding') and d.tgl_input='$tgl_awal' and c.id_cabang='$id_cabang' order by k.nama_karyawan asc");
+        where d.loan  in (select loan from deliquency where tgl_input='$tgl_banding' and id_cabang='$id_cabang') and d.tgl_input='$tgl_awal' and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' order by k.nama_karyawan asc");
         while($data = mysqli_fetch_array($query)){
             
             $loan = $data['loan'];
-            $banding = mysqli_query($con,"select sisa_saldo from deliquency where loan='$loan' and tgl_input='$tgl_banding'");
+            $banding = mysqli_query($con,"select sisa_saldo from deliquency where loan='$loan' and tgl_input='$tgl_banding' and id_cabang='$id_cabang'");
             $banding = mysqli_fetch_array($banding);
             $saldo_awal=$data['sisa_saldo'];
             $saldo_akhir = $banding['sisa_saldo'];
@@ -317,7 +317,7 @@ if(isset($_GET['bandingkan'])){
             if($total>0){
                 $total_minus +=  $total;
             
-                $par = mysqli_num_rows(mysqli_query($con,"select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]'"));
+                $par = mysqli_num_rows(mysqli_query($con,"select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]' and id_cabang='$id_cabang'"));
             if($par){
                 $baris['baris']= "#c9c7c1";
                 $baris['text']= "red";
@@ -388,10 +388,10 @@ if(isset($_GET['bandingkan'])){
     $query = mysqli_query($con,"
     SELECT d.*,k.nama_karyawan FROM deliquency d 
 	JOIN center c ON c.`no_center`=d.`no_center` 
-	JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` where d.tgl_input='$tgl_banding' and c.id_cabang='$id_cabang' order by k.nama_karyawan asc");
+	JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` where d.tgl_input='$tgl_banding' and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' order by k.nama_karyawan asc");
     while($data = mysqli_fetch_array($query)){
         $total_bermasalah+=$data['sisa_saldo'];
-        $par = mysqli_num_rows(mysqli_query($con,"select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]'"));
+        $par = mysqli_num_rows(mysqli_query($con,"select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]' and id_cabang='$id_cabang'"));
         if($par){
             $baris['baris']= "#c9c7c1";
             $baris['text']= "red";
