@@ -401,6 +401,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 
 			</li>
 			<li>
+					<a href="<?php echo $url . $menu ?>rekap_laporan"><i class="fa fa-calendar"></i> Laporan Harian</a>
+				</li>
+			<li>
 				<a href="<?php echo $url . $menu ?>rekap_kegiatan"><i class="fa fa-calendar"></i> Laporan Kegiatan</a>
 			</li>
 			<li>

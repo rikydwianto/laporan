@@ -246,7 +246,7 @@
             $query2 = mysqli_query($con," SELECT count(d.id) as total, sum(d.sisa_saldo) as balance FROM deliquency d 
             JOIN center c ON c.`no_center`=d.`no_center` 
             JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
-            where d.loan not in (select loan from deliquency where tgl_input='$tgl_awal' and id_cabang='$id_cabang' ) and  d.tgl_input='$tgl_banding' and c.id_karyawan='$staff[id_karyawan]' and id_cabang='$id_cabang' group by k.id_karyawan ");
+            where d.loan not in (select loan from deliquency where tgl_input='$tgl_awal' and id_cabang='$id_cabang' ) and  d.tgl_input='$tgl_banding' and c.id_karyawan='$staff[id_karyawan]' and d.id_cabang='$id_cabang' group by k.id_karyawan ");
             $tambah = mysqli_fetch_array($query2);
             $tambah = $tambah['balance'];
 

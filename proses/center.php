@@ -80,6 +80,7 @@
 							$txt = "UPDATE `center` SET 
 							`member_center` = '$agt',
 							`anggota_center` = '$client',
+							center_bayar='$client',
 							jam_center='$jam',
 							hari='$days',
 							konfirmasi='t',
