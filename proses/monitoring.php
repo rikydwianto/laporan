@@ -230,11 +230,11 @@
                         }
                         $update=mysqli_query($con,"select * from pinjaman where input_disburse='belum' and id_cabang='$id_cabang'"); 
                         while($upd =mysqli_fetch_array($update)){
-                            // mysqli_query($con,"INSERT INTO `disburse` (`disburse`, `tgl_disburse`, `id_karyawan`, `id_cabang`) 
-                            // VALUES ('$upd[jumlah_pinjaman]', '$upd[tgl_cair]', '$upd[id_karyawan]', '$id_cabang'); 
-                            // ");
-                            //  $text = " UPDATE `pinjaman` SET `input_disburse` = 'sudah'  WHERE id_pinjaman='$upd[id_pinjaman]'and id_cabang='$id_cabang'; ";
-                            //  $q = mysqli_query($con, "$text");
+                            mysqli_query($con,"INSERT INTO `disburse` (`disburse`, `tgl_disburse`, `id_karyawan`, `id_cabang`) 
+                            VALUES ('$upd[jumlah_pinjaman]', '$upd[tgl_cair]', '$upd[id_karyawan]', '$id_cabang'); 
+                            ");
+                             $text = " UPDATE `pinjaman` SET `input_disburse` = 'sudah'  WHERE id_pinjaman='$upd[id_pinjaman]'and id_cabang='$id_cabang'; ";
+                             $q = mysqli_query($con, "$text");
                         }
 
                         $qagt = mysqli_query($con,"SELECT * FROM pinjaman where id_cabang='$id_cabang' and input_agt='belum' and produk!='Pinjaman Umum'");
@@ -250,12 +250,12 @@
                                 $qcari_agt = mysqli_query($con,"SELECT * from anggota where id_cabang='$id_cabang' and id_karyawan='$pemb_lain[id_karyawan]' and tgl_anggota='$pemb_lain[tgl_cair]' ");
                                 $cari_agt = mysqli_fetch_array($qcari_agt);
                                 if(mysqli_num_rows($qcari_agt)){
-                                    // mysqli_query($con,"UPDATE anggota set $field = $field + 1 where id_anggota='$cari_agt[id_anggota]' and id_cabang='$id_cabang'");
+                                    mysqli_query($con,"UPDATE anggota set $field = $field + 1 where id_anggota='$cari_agt[id_anggota]' and id_cabang='$id_cabang'");
                                 }
                                 else{
-                                    // mysqli_query($con,"
-                                    // INSERT INTO `anggota` ($field,id_karyawan,id_cabang,tgl_anggota) 
-                                    // VALUES (1,'$pemb_lain[id_karyawan]','$id_cabang','$pemb_lain[tgl_cair]'); ");
+                                    mysqli_query($con,"
+                                    INSERT INTO `anggota` ($field,id_karyawan,id_cabang,tgl_anggota) 
+                                    VALUES (1,'$pemb_lain[id_karyawan]','$id_cabang','$pemb_lain[tgl_cair]'); ");
                                 }
 
                                 mysqli_query($con,"UPDATE pinjaman set input_agt='sudah' where id_pinjaman='$pemb_lain[id_pinjaman]'");
