@@ -105,7 +105,7 @@ and laporan.id_karyawan=karyawan.id_karyawan
 $tam
 
 and laporan.tgl_laporan >= '$tglawal' and laporan.tgl_laporan <='$tglakhir'
-and laporan.status_laporan='sukses'
+and laporan.status_laporan='sukses' AND laporan.id_cabang='$cabang' and karyawan.id_cabang='$cabang'
  group by karyawan.id_cabang
 
 			");

@@ -54,7 +54,7 @@
 			sum(anggota.arta) as arta,
 			sum(anggota.pmb) as pmb FROM `anggota`
 			where
-			 anggota.tgl_anggota >= '$tglawal' and anggota.tgl_anggota <= '$tglakhir'
+			 anggota.tgl_anggota >= '$tglawal' and anggota.tgl_anggota <= '$tglakhir' and anggota.id_cabang='$id_cabang'
 			";
 			$upk = mysqli_query($con,$qc);
 			$upk = mysqli_fetch_array($upk);
