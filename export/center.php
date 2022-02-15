@@ -36,6 +36,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
 			<td>STAFF</td>
 			<td>HARI</td>
 			<td>id_karyawan</td>
+			<td>id_karyawan</td>
 		</tr>
 		<?php 
 		$q=mysqli_query($con,"SELECT * FROM center RIGHT JOIN karyawan ON center.id_karyawan=karyawan.id_karyawan WHERE center.id_cabang='$id_cabang' order by center.no_center asc");
@@ -46,6 +47,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
 			<td><?=$ctr['nama_karyawan']?></td>
 			<td><?=strtoupper($ctr['hari'])?></td>
 			<td><?=($ctr['id_karyawan'])?></td>
+			<td><?=($ctr['jam_center'])?></td>
 		</tr>
 			<?php
 		}
