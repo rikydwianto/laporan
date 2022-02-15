@@ -49,7 +49,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
 			<td><?=strtoupper($ctr['hari'])?></td>
 			<td><?=($ctr['id_karyawan'])?></td>
 			<td><?=($ctr['jam_center'])?></td>
-			<td><?=str_replace(" ","",$ctr['desa'])?></td>
+			<td><?=strtoupper(str_replace(" ",'',$ctr['desa']))?></td>
 		</tr>
 			<?php
 		}
