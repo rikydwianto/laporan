@@ -12,7 +12,7 @@ require_once("../model/model.php");
   FROM center 
   join karyawan on karyawan.id_karyawan=center.id_karyawan 
   join cabang on cabang.id_cabang = karyawan.id_cabang
-  where center.latitude !='' and center.longitude !='' ";
+  where center.latitude !='' and center.longitude !='' and center.latitude !='null' and center.longitude !='null'";
  // echo $sql;
  $query=mysqli_query($con,$sql);
 
