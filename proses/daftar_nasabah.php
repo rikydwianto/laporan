@@ -53,7 +53,7 @@
            if(mysqli_num_rows($q)){
             // $ket="ada di db";   
             //tidak usah di insert
-            mysqli_query($con,"update daftar_nasabah set  hp_nasabah='$hp',no_center='$no_center', nama_nasabah='$nasabah',staff='$staff',id_karyawan=null, hari='$hari',no_ktp='$ktp' where id_detail_nasabah='$id_nasabah' and id_cabang='$id_cabang'");
+            mysqli_query($con,"update daftar_nasabah set  hp_nasabah='$hp',no_center='$no_center',suami_nasabah='$suami', nama_nasabah='$nasabah',staff='$staff',id_karyawan=null, hari='$hari',no_ktp='$ktp' where id_detail_nasabah='$id_nasabah' and id_cabang='$id_cabang'");
            }
            else{
                
