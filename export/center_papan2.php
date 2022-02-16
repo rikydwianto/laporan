@@ -126,7 +126,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
                      $qcenter = mysqli_query($con,"SELECT count(no_center) as hitung_center,sum(member_center) as member from center where id_cabang='$id_cabang'  and id_karyawan='$kar[id_karyawan]' order by jam_center asc");
                      $semua = mysqli_fetch_array($qcenter);
                      ?>
-                     <th style="vertical-align: middle;text-align:center;font-weight: bold;background-color: #e86143;">
+                     <th style="vertical-align: middle;text-align:center;font-weight: bold;;">
                          <?=$total = $semua['hitung_center']?><hr/>
                          <?=$total_member = $semua['member']?><br/>
                          <?php $hitung_semua +=$total ?>
