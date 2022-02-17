@@ -43,10 +43,10 @@ $sheet->getColumnDimension('N')->setAutoSize(true);
 $sheet->getColumnDimension('O')->setAutoSize(true);
 $sheet->getColumnDimension('P')->setAutoSize(true);
 $sheet->getColumnDimension('Q')->setAutoSize(true);
-$sheet->setTitle('DATA STAFF');
+$sheet->setTitle('DATA PAR');
 
 
-$sheet->setCellValue('B1', 'DATA PAR ');
+// $sheet->setCellValue('B1', 'DATA PAR ');
 $sheet->setCellValue('A2', 'NO');
 $sheet->setCellValue('b2', 'ID/CENTER');
 $sheet->setCellValue('c2', 'NASABAH');
@@ -64,9 +64,56 @@ $sheet->setCellValue('n2', '1 Angsuran');
 $sheet->setCellValue('o2', 'Tanpa Margin');
 $sheet->setCellValue('p2', 'STAFF');
 $spreadsheet->createSheet();
+
+
+
+$spreadsheet->createSheet();
+// Add some data
+$sheet2 = $spreadsheet->setActiveSheetIndex(1);
+$sheet2->setTitle('PAR KETUTUP');
+$sheet2->setCellValue('A1', 'DATA PAR KETUTUP DARI SUKARELA DAN PENSIUN');
+$sheet2->getColumnDimension('B')->setAutoSize(true);
+$sheet2->getColumnDimension('C')->setAutoSize(true);
+$sheet2->getColumnDimension('D')->setAutoSize(true);
+$sheet2->getColumnDimension('E')->setAutoSize(true);
+$sheet2->getColumnDimension('F')->setAutoSize(true);
+$sheet2->getColumnDimension('G')->setAutoSize(true);
+$sheet2->getColumnDimension('H')->setAutoSize(true);
+$sheet2->getColumnDimension('I')->setAutoSize(true);
+$sheet2->getColumnDimension('J')->setAutoSize(true);
+$sheet2->getColumnDimension('K')->setAutoSize(true);
+$sheet2->getColumnDimension('L')->setAutoSize(true);
+$sheet2->getColumnDimension('M')->setAutoSize(true);
+$sheet2->getColumnDimension('N')->setAutoSize(true);
+$sheet2->getColumnDimension('O')->setAutoSize(true);
+$sheet2->getColumnDimension('P')->setAutoSize(true);
+$sheet2->getColumnDimension('Q')->setAutoSize(true);
+// $sheet2->setTitle('DATA STAFF');
+
+
+// $sheet2->setCellValue('B1', 'DATA PAR ');
+$sheet2->setCellValue('A2', 'NO');
+$sheet2->setCellValue('b2', 'ID/CENTER');
+$sheet2->setCellValue('c2', 'NASABAH');
+$sheet2->setCellValue('d2', 'PEMB');
+$sheet2->setCellValue('e2', 'KE');
+$sheet2->setCellValue('f2', 'RILL');
+$sheet2->setCellValue('g2', 'AMOUNT');
+$sheet2->setCellValue('h2', 'O.S');
+$sheet2->setCellValue('i2', 'CICILAN');
+$sheet2->setCellValue('j2', 'WAJIB');
+$sheet2->setCellValue('k2', 'SUKARELA');
+$sheet2->setCellValue('l2', 'PENSIUN');
+$sheet2->setCellValue('m2', 'PAR');
+$sheet2->setCellValue('n2', 'PAR x CICILAN');
+$sheet2->setCellValue('o2', 'SISA SETELAH TUTUP PAR');
+$sheet2->setCellValue('p2', 'STAFF');
 // Add some data
 $shee = $spreadsheet->setActiveSheetIndex(1);
 $sheet->setCellValue('A1', 'DATA PAR');
+
+$baris_ws2=3;
+$no_baris_ws2=1;
 ?>
 <h2>BLK </h2>
 <table id='data_blk' class='table-bordered'>
@@ -201,10 +248,13 @@ for($row = 7;$row<=$last_row;$row++){
                         else{
                             $pensiun_tiga  = ($amount * 1/100) * 1000;
                         }
-                        
+                        $sukarela_pensiun = (($sukarela - 2000) + ($pensiun - $pensiun_tiga) );
                         $satu_angsuran = (($sukarela - 2000) + ($pensiun - $pensiun_tiga) ) -$cicilan;
+                        
                     }
                     else{
+                        $pensiun=0;
+                        $sukarela_pensiun = ($sukarela - 2000) ;
                         $satu_angsuran = ($sukarela - 2000) -$cicilan;
                     }
                     $tanpa_margin = $os - (($wajib-2000) + ($pensiun-2000) + ($sukarela-2000));
@@ -241,56 +291,11 @@ for($row = 7;$row<=$last_row;$row++){
                  VALUES ('$ID', '$id_cabang', curdate(),'$json_simpanan'); ");
             }
 
-            ?>
         
-            <tr style="background-color: <?=$warna_baris?>">
-                <td><?=$nama['no_center']?></td>
-                <!-- <td><></td> -->
-                <td><?=$id_nasabah?></td>
-                <td><?=$nasabah?></td>
-                <td><?=$kode_pemb?></td>
-                <td><?=$ke?></td>
-                <td><?=$rill?></td>
-                <td><?=angka($amount)?></td>
-                <td><?=angka($os)?></td>
-                <td><?=angka($cicilan)?></td>
-                <td><?=angka($wajib)?></td>
-                <td><?=angka($sukarela)?></td>
-                <td><?=angka($pensiun)?></td>
-                <td>
-                    <?=$ket?>
-                </td>
-                <td>
-                    <?=($satu_angsuran==0?"":angka($satu_angsuran))?>
-                </td>
-                <td>
-                    <?=($tanpa_margin==0?"":angka($tanpa_margin))?>
-                </td>
-                <TD><?=$warna?></TD>
-                <td>
-                    <?=$nama['nama_karyawan']?>
-                </td>
-            </tr>
-            
-            <?php   
 
             if($ket){
                                 
-                // $sheet->setCellValue('A1'.$baris 'DATA PAR ');
-                /**
-                 * <td><?=$id_nasabah?></td>
-                <td><?=$nasabah?></td>
-                <td><?=$kode_pemb?></td>
-                <td><?=$ke?></td>
-                <td><?=$rill?></td>
-                <td><?=angka($amount)?></td>
-                <td><?=angka($os)?></td>
-                <td><?=angka($cicilan)?></td>
-                <td><?=angka($wajib)?></td>
-                <td><?=angka($sukarela)?></td>
-                <td><?=angka($pensiun)?></td>
-                 * 
-                 */
+           
                 $sheet->setCellValue('A'.$baris, $baris);
                 $sheet->setCellValue('b'.$baris, $id_nasabah.' / '. $nama['no_center']);
                 $sheet->setCellValue('c'.$baris, $nasabah);
@@ -307,6 +312,32 @@ for($row = 7;$row<=$last_row;$row++){
                 $sheet->setCellValue('n'.$baris, ($satu_angsuran==0?"":($satu_angsuran)));
                 $sheet->setCellValue('o'.$baris, ($tanpa_margin==0?"":($tanpa_margin)));
                 $sheet->setCellValue('p'.$baris, $nama['nama_karyawan']);
+
+                //SHEET 2
+
+                $angsuran_tunggakan = $selisih * $cicilan;
+                if($sukarela_pensiun >= $angsuran_tunggakan){
+                    $sheet2->setCellValue('A'.$baris_ws2, $no_baris_ws2++);
+                    $sheet2->setCellValue('b'.$baris_ws2, $id_nasabah.' / '. $nama['no_center']);
+                    $sheet2->setCellValue('c'.$baris_ws2, $nasabah);
+                    $sheet2->setCellValue('d'.$baris_ws2, $kode_pemb);
+                    $sheet2->setCellValue('e'.$baris_ws2, $ke);
+                    $sheet2->setCellValue('f'.$baris_ws2, $rill);
+                    $sheet2->setCellValue('g'.$baris_ws2, $amount);
+                    $sheet2->setCellValue('h'.$baris_ws2, $os);
+                    $sheet2->setCellValue('i'.$baris_ws2, $cicilan);
+                    $sheet2->setCellValue('j'.$baris_ws2, $wajib);
+                    $sheet2->setCellValue('k'.$baris_ws2, $sukarela);
+                    $sheet2->setCellValue('l'.$baris_ws2, $pensiun);
+                    $sheet2->setCellValue('m'.$baris_ws2, ($selisih - 1));
+                    $sheet2->setCellValue('n'.$baris_ws2, $angsuran_tunggakan);
+                    $sheet2->setCellValue('o'.$baris_ws2, $sukarela_pensiun - $angsuran_tunggakan);
+                    $sheet2->setCellValue('p'.$baris_ws2, $nama['nama_karyawan']);
+                    $baris_ws2++;
+
+                }
+
+
                 $baris++;
             }
             
@@ -316,29 +347,7 @@ for($row = 7;$row<=$last_row;$row++){
 }
 ?>
 </tbody>
-<!-- <tfoot>
-        <tr>
-            <th>NO</th>
-            <th>ID</th>
-            <th>CTR</th>
-            <th>NAMA</th>
-            <th> </th>
-            <th>KE</th>
-            <th>RILL</th>
-            <th>AMOUNT</th>
-            <th>O.S</th>
-            <th>CICILAN</th>
-            <th>WAJIB</th>
-            <th>SUKARELA</th>
-            <th>PENSIUN</th>
-            <th>PAR</th>
-            <th>1 angsuran</th>
-            <th>tanpa Margin</th>
-            <th>Warna</th>
 
-            <th>#</th>
-        </tr>
-    </tfoot> -->
 </table>
 <?php 
 // $spreadsheet->getActiveSheet()->setTitle('Data Par');
@@ -348,6 +357,6 @@ $spreadsheet->setActiveSheetIndex(0);
 
 
 $writer = new Xlsx($spreadsheet);
-$filename='PAR - '.date("Y-m-d").' - '. time() ;
+$filename=$_SESSION['kode_cabang'].'-PAR - '.date("Y-m-d").' - '. time() ;
 $writer->save('export/excel/par/'.$filename.'.xlsx');
 pindah($url."blk.php?download=".$filename.".xlsx");
