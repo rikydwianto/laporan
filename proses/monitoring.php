@@ -14,7 +14,8 @@
     <a href="<?= $url . $menu ?>monitoring" class='btn btn-success'> <i class="fa fa-eye"></i> Lihat</a>
     <a href="<?= $url . $menu ?>monitoring&tambah" class='btn btn-info'> <i class="fa fa-plus"></i> Tambah</a>
     <a href="<?= $url . $menu ?>monitoring&nasabah_staff" class='btn btn-info'> <i class="fa fa-users"></i> Nasabah Staff</a>
-    <a href="<?= $url . $menu ?>monitoring&kosong" class='btn btn-danger' onclick="return window.confirm('Apakah anda yakin untuk hapus semuadata monitoring??')"> <i class="fa fa-trash"></i> Kosongkan</a>
+    <a href="<?= $url . $menu ?>monitoring&rekap_monitoring_bulan" class='btn btn-success'> <i class="fa fa-list"></i> Rekap Bulan</a>
+    <!-- <a href="<?= $url . $menu ?>monitoring&kosong" class='btn btn-danger' onclick="return window.confirm('Apakah anda yakin untuk hapus semuadata monitoring??')"> <i class="fa fa-trash"></i> Kosongkan</a> -->
     <a href="<?= $url . $menu ?>monitoring&ganti" class='btn btn-success'> <i class="fa fa-wrench"></i> Synchron Data</a>
     <a href="<?= $url . $menu ?>monitoring&staff" class='btn btn-danger'> <i class="fa fa-users"></i> Total Monitoring</a>
     <a href="<?= $url . $menu ?>monitoring&pu" class='btn btn-danger'> <i class="fa fa-users"></i> Detail Pinjaman umum</a>
@@ -332,6 +333,9 @@
             </table>
         </form>
     <?php
+    } else if (isset($_GET['rekap_monitoring_bulan'])) {
+        //RIWAYAT MONITORING
+        include("proses/rekap_monitoring_bulan.php");
     } else if (isset($_GET['riwayat'])) {
         //RIWAYAT MONITORING
         include("proses/riwayat_monitoring.php");
