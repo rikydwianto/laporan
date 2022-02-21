@@ -38,10 +38,3 @@ while($bulan = mysqli_fetch_array($qbulan)){
         </tr>
     </tfoot>
 </table>
-<?php 
-if(isset($_GET['delid'])){
-    $id=aman($con,$_GET['delid']);
-    mysqli_query($con,"DELETE from surat where id_cabang='$id_cabang' and id_surat='$id'");
-    pindah($url.$menu."surat&lihat");
-}
-?>

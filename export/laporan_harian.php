@@ -11,6 +11,7 @@ $id_cabang= $_SESSION['cabang'];
 $su= $_SESSION['su'];
 $d = detail_karyawan($con,$id_karyawan);
 $nama_jabatan=$d['singkatan_jabatan'];
+
  if(isset($_GET['tgl']))
 	{
 		$qtgl=$_GET['tgl'];
@@ -53,10 +54,16 @@ $nama_jabatan=$d['singkatan_jabatan'];
 				<td >#</td>
 			</tr>
 			<?php 
-			$tgl1 = date("Y-m-d");// pendefinisian tanggal awal
+			$tgl1 = date($qtgl);// pendefinisian tanggal awal
 			$tgl2 = date('Y-m-d', strtotime('-7 days', strtotime($tgl1))); //operasi penjumlahan tanggal sebanyak 6 hari
+			// $tgl1 = date("Y-m-d");// pendefinisian tanggal awal
 
+			$hari = format_hari_tanggal($tgl1);
+			$hari = explode(',', $hari);
+			$hari = strtolower($hari[0]);
 			$cek_ka=mysqli_query($con,"SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_cabang='$cabang' and jabatan.singkatan_jabatan='SL' and karyawan.status_karyawan='aktif' order by karyawan.nama_karyawan asc");
+			$cek_ka=mysqli_query($con,"SELECT distinct k.nama_karyawan, k.id_karyawan from center c join karyawan k on k.id_karyawan=c.id_karyawan where c.id_cabang='$id_cabang' and c.hari='$hari' order by k.nama_karyawan asc");
+			echo mysqli_error($con);
 			$hitung_member = 0; 
 			$hitung_agt = 0; 
 			$hitung_bayar = 0; 
