@@ -10,9 +10,10 @@ require_once("../model/model.php");
  $sql="SELECT no_center,hari,jam_center,status_center,anggota_center,member_center,karyawan.nama_karyawan,
  center.latitude,center.longitude,cabang.nama_cabang
   FROM center 
-  join karyawan on karyawan.id_karyawan=center.id_karyawan 
-  join cabang on cabang.id_cabang = karyawan.id_cabang
-  where center.latitude !='' and center.longitude !='' and center.latitude !='null' and center.longitude !='null'";
+  JOIN karyawan ON karyawan.id_karyawan=center.id_karyawan 
+  JOIN cabang ON cabang.id_cabang = karyawan.id_cabang
+  WHERE cabang.`id_cabang`=center.`id_cabang` 
+  AND center.latitude !='' AND center.longitude !='' AND center.latitude !='null' AND center.longitude !='null'";
  // echo $sql;
  $query=mysqli_query($con,$sql);
 
