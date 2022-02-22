@@ -11,9 +11,9 @@ require_once("../model/model.php");
  center.latitude,center.longitude,cabang.nama_cabang
   FROM center 
   JOIN karyawan ON karyawan.id_karyawan=center.id_karyawan 
-  JOIN cabang ON cabang.id_cabang = karyawan.id_cabang
-  WHERE cabang.`id_cabang`=center.`id_cabang` 
-  AND center.latitude !='' AND center.longitude !='' AND center.latitude !='null' AND center.longitude !='null'";
+  JOIN cabang ON cabang.id_cabang = center.id_cabang
+  WHERE
+  center.latitude !='' AND center.longitude !='' AND center.latitude !='null' AND center.longitude !='null'";
  // echo $sql;
  $query=mysqli_query($con,$sql);
 
