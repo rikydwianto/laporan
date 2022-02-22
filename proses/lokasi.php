@@ -24,7 +24,7 @@ if(isset($_POST['simpan_lokasi'])){
 	}
 	else{
 		mysqli_query($con,"
-	INSERT INTO `lokasi` (`id_lokasi`, `nama_lokasi`, `kategori`, `center`, `keterangan`, `alamat`, `latitude`, `longitude`, `link_google`, `id_karyawan`) VALUES (NULL, '$nama', '$kategori', '$center', '$keterangan', '$alamat', '$lat', '$lng', '".link_maps($lat,$lng)."',$id_karyawan);
+	INSERT INTO `lokasi` (`id_lokasi`, `nama_lokasi`, `kategori`, `center`, `keterangan`, `alamat`, `latitude`, `longitude`, `link_google`, `id_karyawan`,`id_cabang`) VALUES (NULL, '$nama', '$kategori', '$center', '$keterangan', '$alamat', '$lat', '$lng', '".link_maps($lat,$lng)."',$id_karyawan,'$id_cabang');
 			");
 	}
 	pindah("$url/lokasi.php");
