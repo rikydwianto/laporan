@@ -161,7 +161,7 @@ ini_set('max_execution_time', 300);
 			$zip->close();
 
 			
-			// $dir = $folder_baru;
+			// $dir = "file/$singkatan_cabang/";
 			// $it = new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS);
 			// $files = new RecursiveIteratorIterator($it,
 			// 			RecursiveIteratorIterator::CHILD_FIRST);
