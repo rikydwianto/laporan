@@ -379,6 +379,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 					<a href="<?php echo $url . $menu ?>daftar_nasabah" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Daftar Nasabah</a>
 				</li>
 				<li>
+					<a href="<?php echo $url . $menu ?>rapih_file" class="w3-bar-item w3-button"><i class="fa fa-handphone"></i> Arsip MdisMo</a>
+				</li>
+				<li>
 					<a href="<?php echo $url . $menu ?>setting_cabang" class="w3-bar-item w3-button"><i class="fa fa-users"></i> SETTING CABANG</a>
 				</li>
 			</ul>
