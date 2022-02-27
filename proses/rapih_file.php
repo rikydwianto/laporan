@@ -10,10 +10,6 @@
     </form>
 	<?php
 	if(isset($_POST['preview'])){
-		ini_set('upload_max_filesize', '64M');
-		ini_set('post_max_size', '64M');
-		ini_set('max_input_time', 300);
-ini_set('max_execution_time', 300);
 
 
 

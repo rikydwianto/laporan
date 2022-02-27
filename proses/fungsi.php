@@ -240,9 +240,35 @@ function angka_mentah($angka){
   return $angka1;
 }
 
-function angka($angka){
-  $hasil =  number_format($angka,0,',','.');
+function angka($angka,$separator=null){
+  if($separator == 'titik'){
+    $sepat = '.';
+  } 
+  else if($separator == 'tanpa_titik')
+  {
+    $sepat = '';
+  }
+  else if($separator == 'koma'){
+    $sepat = ',';
+  }
+  else if($separator == 'strip') {
+    $sepat = '-';
+  }
+  else {
+    $sepat = '.';
+  }
+  $hasil =  number_format($angka,0,',',"$sepat");
   return $hasil;
+}
+function separator($tipe='titik'){
+  ?>
+  <select name="tipe" id="" class='form-control'>
+        <option <?=($tipe==="titik"?"selected":"");?> value="titik">Titik</option>
+        <option <?=($tipe==="tanpa_titik"?"selected":"");?>  value="tanpa_titik">Tanpa Titik</option>
+        <option <?=($tipe==="koma"?"selected":"");?>  value="koma">Koma</option>
+        <option <?=($tipe==="strip"?"selected":"");?>  value="strip">Strip</option>
+    </select>
+  <?php
 }
 
 function wilayah($con, $kode)

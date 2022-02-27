@@ -28,6 +28,7 @@
                         ?>
 
                     </select>
+                    <?=separator($_GET['tipe'])?>
                     
                 </div>
                 <div class="col-md-4">
@@ -45,6 +46,7 @@
                         ?>
 
                     </select>
+                   
                     <input type="submit" value="BANDINGKAN" name='bandingkan' class='btn btn-md btn-danger'>
                     <input type="submit" value="REKAP" name='rekap' class='btn btn-md btn-info'>
                     <input type="submit" value="REKAP SEMUA" name='rekap_semua' class='btn btn-danger btn-md btn-info'>
@@ -141,7 +143,9 @@ if(isset($_POST['preview'])){
     </table>
     <?php
 }
+$sepat = $_GET['tipe'];
 if(isset($_GET['bandingkan'])){
+    
     $tgl_awal  = $_GET['sebelum'];
     $tgl_banding = $_GET['minggu_ini'];
     ?>
@@ -190,9 +194,9 @@ if(isset($_GET['bandingkan'])){
                 <td><?=$data['no_center']?></td>
                 <td><?=$data['id_detail_nasabah']?></td>
                 <td><?=$data['nasabah']?></td>
-                <td><?=angka($data['amount'])?></td>
-                <td><?=angka($data['sisa_saldo'])?></td>
-                <td><?=angka($data['tunggakan'])?></td>
+                <td><?=angka($data['amount'],$sepat)?></td>
+                <td><?=angka($data['sisa_saldo'],$sepat)?></td>
+                <td><?=angka($data['tunggakan'],$sepat)?></td>
                 <td><?=$data['minggu']?></td>
                 <td><?=$baris['ket']?></td>
                 <td><?=$data['nama_karyawan']?></td>
@@ -201,7 +205,7 @@ if(isset($_GET['bandingkan'])){
         }?>
         <tr>
             <th colspan="7">TOTAL OUTSTANDING BERKURANG</th>
-            <th>-<?=angka($total_os)?></th>
+            <th>-<?=angka($total_os,$sepat)?></th>
         </tr>
         </table>
     </div>
@@ -257,9 +261,9 @@ if(isset($_GET['bandingkan'])){
                 <td><?=$data['no_center']?></td>
                 <td><?=$data['id_detail_nasabah']?></td>
                 <td><?=$data['nasabah']?></td>
-                <td><?=angka($data['amount'])?></td>
-                <td><?=angka($data['sisa_saldo'])?></td>
-                <td><?=angka($data['tunggakan'])?></td>
+                <td><?=angka($data['amount'],$sepat)?></td>
+                <td><?=angka($data['sisa_saldo'],$sepat)?></td>
+                <td><?=angka($data['tunggakan'],$sepat)?></td>
                 <td><?=$data['minggu']?></td>
                 <td><?=$baris['ket']?></td>
                 <td><?=$data['nama_karyawan']?></td>
@@ -268,7 +272,7 @@ if(isset($_GET['bandingkan'])){
         }?>
         <tr>
             <th colspan="7">TOTAL OUTSTANDING BERTAMBAH</th>
-            <th>+<?=angka($total_tambah)?></th>
+            <th>+<?=angka($total_tambah,$sepat)?></th>
         </tr>
         </table>
     </div>
@@ -336,10 +340,10 @@ if(isset($_GET['bandingkan'])){
                     <td><?=$data['no_center']?></td>
                     <td><?=$data['id_detail_nasabah']?></td>
                     <td><?=$data['nasabah']?></td>
-                    <td><?=$data['amount']?></td>
-                    <td><?=angka($saldo_awal)?></td>
-                    <td><?=angka($saldo_akhir)?></td>
-                    <td>-<?=angka($total)?></td>
+                    <td><?=angka($data['amount'],$sepat)?></td>
+                    <td><?=angka($saldo_awal,$sepat)?></td>
+                    <td><?=angka($saldo_akhir,$sepat)?></td>
+                    <td>-<?=angka($total,$sepat)?></td>
                     <td><?=$data['minggu']?></td>
                     <td><?=$baris['ket']?></td>
                     <td><?=$data['nama_karyawan']?></td>
@@ -349,7 +353,7 @@ if(isset($_GET['bandingkan'])){
         }?>
         <tr>
             <th colspan="8">TOTAL OUTSTANDING BERKURANG</th>
-            <th>-<?=angka($total_minus)?></th>
+            <th>-<?=angka($total_minus,$sepat)?></th>
         </tr>
         </table>
    </div>
@@ -410,9 +414,9 @@ if(isset($_GET['bandingkan'])){
             <td><?=$data['no_center']?></td>
             <td><?=$data['id_detail_nasabah']?></td>
             <td><?=$data['nasabah']?></td>
-            <td><?=angka($data['amount'])?></td>
-            <td><?=angka($data['sisa_saldo'])?></td>
-            <td><?=angka($data['tunggakan'])?></td>
+            <td><?=angka($data['amount'],$sepat)?></td>
+            <td><?=angka($data['sisa_saldo'],$sepat)?></td>
+            <td><?=angka($data['tunggakan'],$sepat)?></td>
             <td><?=$data['minggu']?></td>
             <td><?=$baris['ket']?></td>
             <td><?=$data['nama_karyawan']?></td>
@@ -421,7 +425,7 @@ if(isset($_GET['bandingkan'])){
     }?>
     <tr>
         <th colspan="7">TOTAL OUTSTANDING BERMASALAH</th>
-        <th><?=angka($total_bermasalah)?></th>
+        <th><?=angka($total_bermasalah,$sepat)?></th>
     </tr>
     </table>
 <?php

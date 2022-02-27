@@ -31,7 +31,7 @@
                 <th><?=$no++?></th>
                 <th><?=$minus['nama_karyawan']?></th>
                 <th><?=$minus['total']?> </th>
-                <th><?=angka($minus['balance'])?> </th>
+                <th><?=angka($minus['balance'],$sepat)?> </th>
                 <!-- <th>OUTSTANDING </th> -->
             </tr>
             <?php
@@ -40,7 +40,7 @@
         <tr>
             <th colspan="2"></th>
             <th><?=$total_minus_agt?> </th>
-            <th><?=angka($total_minus)?></th>
+            <th><?=angka($total_minus,$sepat)?></th>
         </tr>
     </table>
 
@@ -72,7 +72,7 @@
                 <th><?=$no++?></th>
                 <th><?=$minus['nama_karyawan']?></th>
                 <th><?=$minus['total']?> </th>
-                <th><?=angka($minus['balance'])?> </th>
+                <th><?=angka($minus['balance'],$sepat)?> </th>
                 <!-- <th>OUTSTANDING </th> -->
             </tr>
             <?php
@@ -81,7 +81,7 @@
         <tr>
             <th colspan="2"></th>
             <th><?=$total_minus_agt?> </th>
-            <th><?=angka($total_minus)?></th>
+            <th><?=angka($total_minus,$sepat)?></th>
         </tr>
     </table>
 
@@ -139,18 +139,18 @@
             <tr>
                 <th><?=$no++?></th>
                 <th><?=$minus['nama_karyawan']?></th>
-                <th><?=angka($minus['total_turun'])?> </th>
-                <th><?=angka($mingguini)?> </th>
-                <th><?=angka($pengurangan)?> </th>
+                <th><?=angka($minus['total_turun'],$sepat)?> </th>
+                <th><?=angka($mingguini,$sepat)?> </th>
+                <th><?=angka($pengurangan,$sepat)?> </th>
             </tr>
             <?php
         }
         ?>
         <tr>
             <th colspan="2"></th>
-            <th><?=angka($total_minus_os)?></th>
+            <th><?=angka($total_minus_os,$sepat)?></th>
             <th> </th>
-            <th><?=angka($total_pengurangan)?></th>
+            <th><?=angka($total_pengurangan,$sepat)?></th>
         </tr>
     </table>
 
@@ -187,7 +187,7 @@
                 <th><?=$no++?></th>
                 <th><?=$minus['nama_karyawan']?></th>
                 <th><?=$minus['total']?> </th>
-                <th><?=angka($minus['balance'])?> </th>
+                <th><?=angka($minus['balance'],$sepat)?> </th>
                 <!-- <th>OUTSTANDING </th> -->
             </tr>
             <?php
@@ -196,7 +196,7 @@
         <tr>
             <th colspan="2"></th>
             <th><?=$total_minus_agt?> </th>
-            <th><?=angka($total_minus)?></th>
+            <th><?=angka($total_minus,$sepat)?></th>
         </tr>
     </table>
 
