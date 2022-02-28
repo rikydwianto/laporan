@@ -70,7 +70,7 @@
 									//transaksi_072_03760_10_21_2021-12-27_2.pdf
 									$pecah_lagi = explode('_',$file);
 									// $pecah_lagi = $pecah_lagi[count($pecah_lagi)];
-									$nik = $pecah[2].'/'.$pecah[3].'/'.$pecah[4];
+									$nik = sprintf("%0d",$pecah[2]).'/'.$pecah[3].'/'.$pecah[4];
 									$tgl = str_replace(".pdf","", $pecah[5]);
 									$kode_file = $pecah[0];
 									$kode = $pecah[1];
@@ -84,7 +84,7 @@
 								}
 								$tgl = explode("(",$tgl);
 								$tgl = rtrim(trim($tgl[0]));
-								// echo $file.'----'.$tgl.'<br/>';
+								
 								$cek = mysqli_query($con,"select * from file_mdis where nama_file='$file' and tanggal='$tgl' and id_cabang='$id_cabang'");
 								if(mysqli_num_rows($cek)){
 									// echo "ada";
@@ -97,8 +97,15 @@
 									echo mysqli_error($con);
 								}
 				
-							}
 						}
+						elseif($pecah[0]=='detil'){
+
+
+
+							// exit;
+						}
+						//END DETIL
+					}
 				}
 				closedir($dh);
 			}
@@ -204,7 +211,7 @@
 				rmdir($dir.$hapus['tanggal'].'/');
 				rmdir($dir);
 			}
-			mysqli_query($con,"DELETE from file_mdis where id_cabang='$id_cabang'");
+			// mysqli_query($con,"DELETE from file_mdis where id_cabang='$id_cabang'");
 		// header("location:".p");
 		pindah("$url$name_file");
 	}

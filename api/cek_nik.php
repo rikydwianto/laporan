@@ -18,6 +18,7 @@ else $table='daftar_nasabah_mantan';
     <thead>
         <tr>
             <th>NO</th>
+            <th>CTR</th>
             <th>ID</th>
             <th>ID Detail</th>
             <th>NAMA</th>
@@ -62,6 +63,7 @@ else $table='daftar_nasabah_mantan';
                     <tr>
                         <td><?=$no++?></td>
                         <td><?=$dup['id_nasabah']?></td>
+                        <td><?=$dup['no_center']?></td>
                         <td><?=$dup['id_detail_nasabah']?></td>
                         <td><?=$dup['nama_nasabah']?></td>
                         <td><?=$dup['suami_nasabah']?></td>
