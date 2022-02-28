@@ -122,7 +122,7 @@
 			$cek =  mysqli_query($con,"select distinct nik from file_mdis where id_cabang='$id_cabang' and tanggal='$tgl_row[tanggal]' and status='pending' order by nik asc ");
 			while($cek_nik = mysqli_fetch_array($cek)){
 				$nik =  str_replace("/",'_', $cek_nik['nik']);
-				$cek_nik1 = mysqli_query($con,"select * from karyawan k join cabang c on k.id_cabang=c.id_cabang where nik_karyawan='$cek_nik[nik]' ");
+				$cek_nik1 = mysqli_query($con,"select * from karyawan k join cabang c on k.id_cabang=c.id_cabang where nik_karyawan like '%$cek_nik[nik]' ");
 				$cek_nik1 = mysqli_fetch_array($cek_nik1);
 				$nama_kar =  $cek_nik1['nama_karyawan'];
 				if($nama_kar==null){
