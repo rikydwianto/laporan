@@ -83,7 +83,7 @@
 									}
 								}
 								$tgl = explode("(",$tgl);
-								$tgl = $tgl[0];
+								$tgl = rtrim(trim($tgl[0]));
 								// echo $file.'----'.$tgl.'<br/>';
 								$cek = mysqli_query($con,"select * from file_mdis where nama_file='$file' and tanggal='$tgl' and id_cabang='$id_cabang'");
 								if(mysqli_num_rows($cek)){
