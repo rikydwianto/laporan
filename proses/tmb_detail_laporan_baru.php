@@ -213,7 +213,7 @@ $hari = strtolower($hari[0]);
 							<input type=number readonly name='member[]' id='member-<?php echo $y ?>' min="1" value='<?= $cek_detail_center['member_center'] ?>' class='form-control' style="width:60px" /></td>
 						<td><input type=number readonly name='total_agt[]' value='<?= $cek_detail_center['anggota_center'] ?>' id='agt-<?php echo $y ?>' onchange="ganti_bayar('<?= $y ?>')" class='form-control' style="width:60px" /></td>
 						<td><input type=number name='bayar[]' min="0" max="<?= $cek_detail_center['anggota_center'] ?>" value='<?= $cek_detail_center['center_bayar'] ?>' id='bayar-<?php echo $y ?>' onchange="ganti_bayar('<?= $y ?>')" class='form-control' style="width:60px"></td>
-						<td><input type=number name='hadir[]' min="0" max="<?= $cek_detail_center['member_center'] ?>" value='<?= $cek_detail_center['anggota_hadir'] ?>' id='bayar-<?php echo $y ?>' class='form-control' style="width:60px"></td>
+						<td><input type=number required name='hadir[]' min="0" max="<?= $cek_detail_center['member_center'] ?>"  id='bayar-<?php echo $y ?>' class='form-control' style="width:60px"></td>
 						<td><input type=number readonly name='tidak_bayar[]' max="<?= $cek_detail_center['anggota_center'] ?>" id='tdk-<?php echo $y ?>' value='<?= $cek_detail_center['anggota_center'] - $cek_detail_center['center_bayar'] ?>' class='form-control' style="width:60px"></td>
 					</tr>
 			<?php
