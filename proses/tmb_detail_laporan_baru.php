@@ -139,6 +139,7 @@ $hari = strtolower($hari[0]);
 				<th>MEMBER</th>
 				<th>CLIENT</th>
 				<th>BAYAR</th>
+				<th>AGT HADIR</th>
 				<th>Tidak Bayar</th>
 
 			</tr>
@@ -212,6 +213,7 @@ $hari = strtolower($hari[0]);
 							<input type=number readonly name='member[]' id='member-<?php echo $y ?>' min="1" value='<?= $cek_detail_center['member_center'] ?>' class='form-control' style="width:60px" /></td>
 						<td><input type=number readonly name='total_agt[]' value='<?= $cek_detail_center['anggota_center'] ?>' id='agt-<?php echo $y ?>' onchange="ganti_bayar('<?= $y ?>')" class='form-control' style="width:60px" /></td>
 						<td><input type=number name='bayar[]' min="0" max="<?= $cek_detail_center['anggota_center'] ?>" value='<?= $cek_detail_center['center_bayar'] ?>' id='bayar-<?php echo $y ?>' onchange="ganti_bayar('<?= $y ?>')" class='form-control' style="width:60px"></td>
+						<td><input type=number name='hadir[]' min="0" max="<?= $cek_detail_center['member_center'] ?>" value='<?= $cek_detail_center['anggota_hadir'] ?>' id='bayar-<?php echo $y ?>' class='form-control' style="width:60px"></td>
 						<td><input type=number readonly name='tidak_bayar[]' max="<?= $cek_detail_center['anggota_center'] ?>" id='tdk-<?php echo $y ?>' value='<?= $cek_detail_center['anggota_center'] - $cek_detail_center['center_bayar'] ?>' class='form-control' style="width:60px"></td>
 					</tr>
 			<?php
@@ -307,6 +309,8 @@ if (isset($_GET['approve'])) {
 }
 
 
+
+
 if (isset($_POST['simpan_detail'])) {
 	$no_center = $_POST['no_center'];
 
@@ -318,27 +322,51 @@ if (isset($_POST['simpan_detail'])) {
 	$total_bayar = $_POST['bayar'];
 	$keterangan = $_POST['keterangan'];
 	$jam = $_POST['jam'];
+	$hadir = $_POST['hadir'];
 	$total_tidak_bayar = $_POST['tidak_bayar'];
 	$update1 = mysqli_query($con, "UPDATE laporan SET keterangan_laporan='$keterangan' WHERE id_laporan = '$id_laporan'  ");
 	for ($x = 0; $x <= count($no_center); $x++) {
 		if ($no_center[$x] != "") {
+			$kehadiran = round(($hadir[$x]/$member[$x])*100);
 			$persen = round(($total_bayar[$x] / $total_agt[$x]) * 100);
-			if ($persen >= 90) $status = "hijau";
-			else if ($persen > 30 && $persen < 90) $status = "kuning";
-			else if ($persen >= 1 && $persen < 30) $status = "merah";
-			else $status = 'hitam';
+			// echo $kehadiran.'<br/>';
+			if ($persen >= 90 && $persen <= 100){
+				if($kehadiran>=80 && $kehadiran <= 100)
+					$status = "hijau";
+				else
+					$status = warna_center($kehadiran);
+
+			} 
+			else if ($persen > 50 && $persen < 90){
+				if($kehadiran>=50 && $kehadiran < 90)
+					$status = "kuning";
+				else
+					$status = warna_center($kehadiran);
+
+			}
+			else if ($persen >= 0 && $persen < 50){
+				if($kehadiran>=0 && $persen < 50)
+					$status = "merah";
+				else
+					$status = warna_center($kehadiran);
+
+			} 
+			// else $status = 'hitam';
+
+
+			// echo $status.'<br/>';
 			$cek_center = mysqli_query($con, "select * from detail_laporan where id_laporan='$id_laporan' and no_center='" . sprintf("%03d", $no_center[$x]) . "' ");
 			if (mysqli_num_rows($cek_center)) {
 				$cek_center1 = mysqli_fetch_array($cek_center);
-				mysqli_query($con, "UPDATE `detail_laporan` SET `status` = '$status', `doa` = '$doa[$x]', `total_agt` = '$total_agt[$x]', `member` = '$member[$x]', `total_bayar` = '$total_bayar[$x]', `total_tidak_bayar` = '$total_tidak_bayar[$x]' WHERE `detail_laporan`.`id_detail_laporan` = '$cek_center1[id_detail_laporan]';");
+				mysqli_query($con, "UPDATE `detail_laporan` SET anggota_hadir='$hadir[$x]',`status` = '$status', `doa` = '$doa[$x]', `total_agt` = '$total_agt[$x]', `member` = '$member[$x]', `total_bayar` = '$total_bayar[$x]', `total_tidak_bayar` = '$total_tidak_bayar[$x]' WHERE `detail_laporan`.`id_detail_laporan` = '$cek_center1[id_detail_laporan]';");
 			} else {
-				$q = mysqli_query($con, "INSERT INTO detail_laporan ( id_laporan, no_center, status, doa,member, total_agt, total_bayar, total_tidak_bayar, status_detail_laporan,doortodoor) VALUES ( '$id_laporan', '" . sprintf("%03d", $no_center[$x]) . "', '" . $status . "', '$doa[$x]', '" . $member[$x] . "','" . $total_agt[$x] . "', '" . $total_bayar[$x] . "', '" . $total_tidak_bayar[$x] . "', 'draft','" . $dtd[$x] . "')");
+				$q = mysqli_query($con, "INSERT INTO detail_laporan ( id_laporan, no_center, status, doa,member, total_agt, total_bayar, total_tidak_bayar, status_detail_laporan,doortodoor,anggota_hadir) VALUES ( '$id_laporan', '" . sprintf("%03d", $no_center[$x]) . "', '" . $status . "', '$doa[$x]', '" . $member[$x] . "','" . $total_agt[$x] . "', '" . $total_bayar[$x] . "', '" . $total_tidak_bayar[$x] . "', 'draft','" . $dtd[$x] . "','$hadir[$x]')");
 			}
-			center($con, $no_center[$x], $doa[$x], $status, $member[$x], $total_agt[$x], $total_bayar[$x], $id_cabang, $cek_laporan['id_karyawan'], $hari, $id_laporan, $jam[$x], $dtd[$x]);
+			center($con, $no_center[$x], $doa[$x], $status, $member[$x], $total_agt[$x], $total_bayar[$x], $id_cabang, $cek_laporan['id_karyawan'], $hari, $id_laporan, $jam[$x], $dtd[$x],$hadir[$x]);
 		}
 	}
 	echo alert("Berhasil Disimpan");
-	pindah("$url$menu" . "tmb_laporan&id_laporan=" . $id_laporan);
+	// pindah("$url$menu" . "tmb_laporan&id_laporan=" . $id_laporan);
 }
 
 if (isset($_POST['konfirmasi_laporan'])) {
@@ -350,18 +378,38 @@ if (isset($_POST['konfirmasi_laporan'])) {
 	$dtd = $_POST['dtd'];
 	$total_bayar = $_POST['bayar'];
 	$total_tidak_bayar = $_POST['tidak_bayar'];
+	$hadir = $_POST['hadir'];
 	$jam = $_POST['jam'];
-	var_dump($jam);
+	// var_dump($jam);
 	$update1 = mysqli_query($con, "UPDATE laporan SET status_laporan = 'sukses', keterangan_laporan='$keterangan' WHERE id_laporan = '$id_laporan'  ");
 	$update = mysqli_query($con, "UPDATE detail_laporan SET status_detail_laporan = 'sukses' WHERE id_laporan ='$id_laporan'; ");
 	for ($x = 0; $x <= count($no_center); $x++) {
 		if ($no_center[$x] != "") {
 
 			$persen = round(($total_bayar[$x] / $total_agt[$x]) * 100);
-			if ($persen >= 90) $status = "hijau";
-			else if ($persen > 30 && $persen < 90) $status = "kuning";
-			else if ($persen >= 1 && $persen < 30) $status = "merah";
-			else $status = 'hitam';
+			$kehadiran = round(($hadir[$x]/$member[$x])*100);
+			
+			if ($persen >= 90 && $persen <= 100){
+				if($kehadiran>=80 && $kehadiran <= 100)
+					$status = "hijau";
+				else
+					$status = warna_center($kehadiran);
+
+			} 
+			else if ($persen > 50 && $persen < 90){
+				if($kehadiran>=50 && $kehadiran < 90)
+					$status = "kuning";
+				else
+					$status = warna_center($kehadiran);
+
+			}
+			else if ($persen >= 0 && $persen < 50){
+				if($kehadiran>=0 && $persen < 50)
+					$status = "merah";
+				else
+					$status = warna_center($kehadiran);
+
+			} 
 
 			$cek_center = mysqli_query($con, "select * from detail_laporan where id_laporan='$id_laporan' and no_center='" . sprintf("%03d", $no_center[$x]) . "' ");
 			if (mysqli_num_rows($cek_center)) {
@@ -370,7 +418,7 @@ if (isset($_POST['konfirmasi_laporan'])) {
 			} else {
 				$q = mysqli_query($con, "INSERT INTO detail_laporan ( id_laporan, no_center, status, doa,member, total_agt, total_bayar, total_tidak_bayar, status_detail_laporan,doortodoor) VALUES ( '$id_laporan', '" . sprintf("%03d", $no_center[$x]) . "', '" . $status . "', '$doa[$x]', '" . $member[$x] . "','" . $total_agt[$x] . "', '" . $total_bayar[$x] . "', '" . $total_tidak_bayar[$x] . "', 'sukses','" . $dtd[$x] . "')");
 			}
-			center($con, $no_center[$x], $doa[$x], $status, $member[$x], $total_agt[$x], $total_bayar[$x], $id_cabang, $cek_laporan['id_karyawan'], $hari, $id_laporan, $jam[$x], $dtd[$x]);
+			center($con, $no_center[$x], $doa[$x], $status, $member[$x], $total_agt[$x], $total_bayar[$x], $id_cabang, $cek_laporan['id_karyawan'], $hari, $id_laporan, $jam[$x], $dtd[$x],$hadir[$x]);
 		}
 	}
 	echo alert("LAPORAN BERHASIL KONFIRMASI, TERIMA KASIH :)");

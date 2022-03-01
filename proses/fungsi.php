@@ -143,12 +143,12 @@ function bulan_indo($bulan_angka)
 
   return $bulan[$bulan_angka];
 }
-function center($con, $no_center, $doa, $status, $member, $anggota_center, $bayar, $id_cabang, $id_karyawan, $hari, $idlaporan, $jam, $dtd)
+function center($con, $no_center, $doa, $status, $member, $anggota_center, $bayar, $id_cabang, $id_karyawan, $hari, $idlaporan, $jam, $dtd,$hadir)
 {
   $no_center = sprintf("%03d", $no_center);
   $cari = mysqli_query($con, "select * from center where no_center='$no_center' and id_cabang='$id_cabang'");
   if (mysqli_num_rows($cari)) {
-    $d = mysqli_query($con, "UPDATE center SET doortodoor='$dtd', hari='$hari',doa_center='$doa',status_center = '$status', member_center = '$member' , anggota_center = '$anggota_center' , center_bayar = '$bayar' , id_karyawan = '$id_karyawan', id_laporan='$idlaporan' , jam_center='$jam'  WHERE no_center = '$no_center' and id_cabang=$id_cabang; ");
+    $d = mysqli_query($con, "UPDATE center SET anggota_hadir='$hadir',doortodoor='$dtd', hari='$hari',doa_center='$doa',status_center = '$status', member_center = '$member' , anggota_center = '$anggota_center' , center_bayar = '$bayar' , id_karyawan = '$id_karyawan', id_laporan='$idlaporan' , jam_center='$jam'  WHERE no_center = '$no_center' and id_cabang=$id_cabang; ");
     // echo "jalankan perintah edit";  
   } else {
     // echo "jalankan perintah tambah";  
@@ -367,4 +367,22 @@ function hapus_nama_belakang($nama){
   }
   // echo $
   return $output;
+}
+
+function warna_center($persen){
+  if($persen>=90 )
+    {
+      $status="hijau";
+    }
+    elseif($persen>=50 && $persen<90)
+    {
+      $status="kuning";
+    }
+    elseif($persen>=0 && $persen<50){
+      $status='merah';
+    }
+    else{
+      $status='hitam';
+    }
+    return $status;
 }

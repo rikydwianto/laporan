@@ -99,7 +99,7 @@
 				
 						}
 						elseif($pecah[0]=='detil'){
-
+							
 
 
 							// exit;
