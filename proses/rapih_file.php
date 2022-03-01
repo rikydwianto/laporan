@@ -99,7 +99,37 @@
 				
 						}
 						elseif($pecah[0]=='detil'){
+							//detil_051_009243_2021_449_2022-03-01.pdf
+							//detil_051_009243_12_21_449_2022-03-01.pdf
+							$pecah_detil = explode("_",$file);
+							$hitung_detil = count($pecah_detil);
+							if($hitung_detil==6)
+							{
+								$nik =  $pecah_detil[2].'/'. $pecah_detil[3];
+								$no_center = $pecah_detil[4];
+								$tgl_detil = str_replace(".pdf","", $pecah_detil[5]);
+							}
+							else{
+								$nik =  $pecah_detil[2].'/'. $pecah_detil[3];
+								$no_center = $pecah_detil[2].'/'. $pecah_detil[3].$pecah_detil[4];
+								$tgl_detil = str_replace(".pdf","", $pecah_detil[6]);
+
+							}
+							$kode_detil = $pecah_detil[1];
+
+							$cek_detil = mysqli_query($con,"select * from file_mdis where nama_file='$file' and tanggal='$tgl_detil' and id_cabang='$id_cabang'");
+								if(mysqli_num_rows($cek_detil)){
+									// echo "ada";
+								}
+								else{
+									mysqli_query($con,"INSERT INTO file_mdis 
+									(id_cabang,nama_file,status,nik,tanggal,kode_cabang,kode_file,no_center) VALUES
+									($id_cabang,'$file','pending','$nik','$tgl_detil','$kode_detil','detil','$no_center')
+									");
+									echo mysqli_error($con);
+								}
 							
+							echo $nik.' - '. $no_center. ' - '.$tgl_detil.'<br/>';
 
 
 							// exit;
@@ -140,32 +170,45 @@
 				}
 				
 
-				$cek_file = mysqli_query($con,"SELECT * from file_mdis where id_cabang='$id_cabang' and tanggal='$tgl_row[tanggal]' and nik='$cek_nik[nik]' and (kode_file='penarikan' or kode_file='transaksi')");
+				$cek_file = mysqli_query($con,"SELECT * from file_mdis where id_cabang='$id_cabang' and tanggal='$tgl_row[tanggal]' and nik='$cek_nik[nik]' and (kode_file='penarikan' or kode_file='transaksi' or kode_file='detil')");
 				// echo "SELECT * from file_mdis where id_cabang='$id_cabang' and tanggal='$tgl_row[tanggal]' and nik='$cek_nik[nik]'";
 				$folder_nama = $folder_baru.'/'.$nama_kar;
+				$folder_detil  = $folder_baru.'/'.$nama_kar.'/detil';
+				if(!file_exists($folder_detil))
+					mkdir($folder_detil);
 				if(!file_exists($folder_nama))
 				mkdir($folder_nama);
 				$no=1;
 				while($files = mysqli_fetch_array($cek_file)){
-					$file  = "file/$singkatan_cabang/". $files['nama_file'];
-					$nama_file =  $files['nama_file'];
-					$new_file = $folder_nama.'/'.$nama_file;
-					$tipe_file = $files['kode_file'];
-					copy($file,$new_file);
-					$tmp_nama = $no++.'-'.$tipe_file . ' - ' . $nama_kar.'.pdf';
-					rename($new_file,$folder_nama.'/'.$tmp_nama);
-					mysqli_query($con,"UPDATE file_mdis set nama_file='$tmp_nama', nik='$nama_kar' where id='$files[id]'");
-					unlink($file);
-					$path_file = $pathdir.$nama_kar.'/'.$tipe_file.' - '. $nama_kar.'.pdf';
-					// $zip -> addFile($new_file, $tipe_file.'- '.$nama_kar.'.pdf');
-					// $zip->addFromString($path_file, 'Contoh file txt zip2'.$nik);
+					if($files['kode_file']=='penarikan' || $files['kode_file']=='transaksi'){
+						$file  = "file/$singkatan_cabang/". $files['nama_file'];
+						$nama_file =  $files['nama_file'];
+						$new_file = $folder_nama.'/'.$nama_file;
+						$tipe_file = $files['kode_file'];
+						copy($file,$new_file);
+						$tmp_nama = $no++.'-'.$tipe_file . ' - ' . $nama_kar.'.pdf';
+						rename($new_file,$folder_nama.'/'.$tmp_nama);
+						mysqli_query($con,"UPDATE file_mdis set nama_file='$tmp_nama', nik='$nama_kar' where id='$files[id]'");
+						unlink($file);
+						$path_file = $pathdir.$nama_kar.'/'.$tipe_file.' - '. $nama_kar.'.pdf';
+					}
+					elseif($files['kode_file']=='detil'){
+						mysqli_query($con,"UPDATE file_mdis set  nik='$nama_kar' where id='$files[id]'");
+						$file_detil  = "file/$singkatan_cabang/". $files['nama_file'];
+						$new_file_detil = $folder_detil.'/'.$files['nama_file'];
+						copy($file_detil,$new_file_detil);
+						// unlink($file_detil);
+						rename($new_file_detil,$folder_detil.'/'.$files['no_center'].'.pdf');
+					}
+					
 
 				}
 
 			}
 			
-
+			// exit;
 		}
+
 		$folder_baru = "file/$singkatan_cabang/";
 			$rootPath = realpath($folder_baru);
 
@@ -202,16 +245,20 @@
 			
 			$dir = "file/$singkatan_cabang/";
 			
-
+			// exit;
 			$qhapus= mysqli_query($con,"select * from file_mdis where id_cabang='$id_cabang'");
 			while($hapus = mysqli_fetch_array($qhapus)){
+				$file_lagi_detil = $dir.$hapus['tanggal'].'/'.str_replace('/','_',$hapus['nik']).'/detil/'.$hapus['nama_file'];
 				$file_lagi = $dir.$hapus['tanggal'].'/'.str_replace('/','_',$hapus['nik']).'/'.$hapus['nama_file'];
-				unlink($file_lagi);
-				rmdir($dir.$hapus['tanggal'].'/'.str_replace('/','_',$hapus['nik']));
-				rmdir($dir.$hapus['tanggal'].'/');
-				rmdir($dir);
+				// // unlink($file_lagi);	
+				// unlink($dir.$hapus['nama_file']);
+				// // unlink($file_lagi_detil);
+				// rmdir($dir.$hapus['tanggal'].'/'.str_replace('/','_',$hapus['nik']).'/detil');
+				// rmdir($dir.$hapus['tanggal'].'/'.str_replace('/','_',$hapus['nik']));
+				// rmdir($dir.$hapus['tanggal'].'/');
 			}
-			// mysqli_query($con,"DELETE from file_mdis where id_cabang='$id_cabang'");
+			// rmdir($dir);
+			mysqli_query($con,"DELETE from file_mdis where id_cabang='$id_cabang'");
 		// header("location:".p");
 		pindah("$url$name_file");
 	}
