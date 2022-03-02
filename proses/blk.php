@@ -142,6 +142,16 @@ $no_baris_ws2=1;
     </thead>
     <tbody>
 <?php
+for($row1 = 1;$row1<=10;$row1++){
+    $TANGGAL = $ws->getCell("E".$row1)->getValue();
+    // echo $TANGGAL;
+    if($TANGGAL == "Tanggal"){
+        $tanggal = $ws->getCell("G".$row1)->getValue();
+    }
+}
+$tanggal =  date("Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($tanggal));;
+$hari = strtolower( explode(",",format_hari_tanggal($tanggal))[0]);
+
 for($row = 7;$row<=$last_row;$row++){
     $kode_pemb =  $ws->getCell("C" . $row)->getValue();
     if($kode_pemb==null){
@@ -288,7 +298,7 @@ for($row = 7;$row<=$last_row;$row++){
             }
             else{
                 mysqli_query($con,"INSERT INTO `detail_simpanan` (`id_nasabah`, `id_cabang`, `update_simpanan`,`detail_simpanan`)
-                 VALUES ('$ID', '$id_cabang', curdate(),'$json_simpanan'); ");
+                 VALUES ('$ID', '$id_cabang', '$tanggal','$json_simpanan'); ");
             }
 
         
