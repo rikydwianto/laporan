@@ -197,7 +197,7 @@
 						$file_detil  = "file/$singkatan_cabang/". $files['nama_file'];
 						$new_file_detil = $folder_detil.'/'.$files['nama_file'];
 						copy($file_detil,$new_file_detil);
-						unlink($file_detil);
+						// unlink($file_detil);
 						rename($new_file_detil,$folder_detil.'/'.$files['no_center'].'.pdf');
 					}
 					
@@ -206,10 +206,7 @@
 
 			}
 			
-			// exit;
-		}
-
-		$folder_baru = "file/$singkatan_cabang/";
+			$folder_baru = "file/$singkatan_cabang/";
 			$rootPath = realpath($folder_baru);
 
 			// Initialize archive object
@@ -241,26 +238,34 @@
 
 			// Zip archive will be created only after closing object
 			$zip->close();
+		}
+
+		
 
 			
-			$dir = "file/$singkatan_cabang/";
-			
-			// exit;
-			$qhapus= mysqli_query($con,"select * from file_mdis where id_cabang='$id_cabang'");
-			while($hapus = mysqli_fetch_array($qhapus)){
-				$file_lagi_detil = $dir.$hapus['tanggal'].'/'.str_replace('/','_',$hapus['nik']).'/detil/'.$hapus['nama_file'];
-				$file_lagi = $dir.$hapus['tanggal'].'/'.str_replace('/','_',$hapus['nik']).'/'.$hapus['nama_file'];
-				unlink($file_lagi);	
-				unlink($dir.$hapus['nama_file']);
-				unlink($file_lagi_detil);
-				rmdir($dir.$hapus['tanggal'].'/'.str_replace('/','_',$hapus['nik']).'/detil');
-				rmdir($dir.$hapus['tanggal'].'/'.str_replace('/','_',$hapus['nik']));
-				rmdir($dir.$hapus['tanggal'].'/');
-			}
-			rmdir($dir);
-			mysqli_query($con,"DELETE from file_mdis where id_cabang='$id_cabang'");
 		// header("location:".p");
 		pindah("$url$name_file");
+		pindah($url.$menu."rapih_file&proses&hapus");
+
+	}
+	if(isset($_GET['hapus'])){
+		
+		$dir = "file/$singkatan_cabang/";
+			
+		// exit;
+		$qhapus= mysqli_query($con,"select * from file_mdis where id_cabang='$id_cabang'");
+		while($hapus = mysqli_fetch_array($qhapus)){
+			$file_lagi_detil = $dir.$hapus['tanggal'].'/'.str_replace('/','_',$hapus['nik']).'/detil/'.$hapus['no_center'].'.pdf';
+			$file_lagi = $dir.$hapus['tanggal'].'/'.str_replace('/','_',$hapus['nik']).'/'.$hapus['nama_file'];
+			unlink($file_lagi);	
+			unlink($dir.$hapus['nama_file']);
+			unlink($file_lagi_detil);
+			rmdir($dir.$hapus['tanggal'].'/'.str_replace('/','_',$hapus['nik']).'/detil');
+			rmdir($dir.$hapus['tanggal'].'/'.str_replace('/','_',$hapus['nik']));
+			rmdir($dir.$hapus['tanggal'].'/');
+		}
+		rmdir($dir);
+		mysqli_query($con,"DELETE from file_mdis where id_cabang='$id_cabang'");
 	}
 	 ?>
 </div>
