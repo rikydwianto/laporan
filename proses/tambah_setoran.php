@@ -14,7 +14,8 @@
 if(isset($_POST['xml_preview'])){
     set_time_limit(5000);
     $tanggal = $_POST['tgl'];
-
+    mysqli_query($con,"DELETE FROM pengembalian where tgl_pengembalian='$tanggal' and id_cabang='$id_cabang'");
+    mysqli_query($con,"DELETE FROM detail_pengembalian join pengembalian on pengembalian.id=detail_pengembalian.id_pengembalian where pengembalian.tgl_pengembalian='$tanggal' and id_cabang='$id_cabang'");
     $hari = format_hari_tanggal($tanggal);
     $hari = explode(",",$hari)[0];
     $hari = strtolower($hari);
@@ -55,8 +56,8 @@ if(isset($_POST['xml_preview'])){
               $det_nisbah = $det['NISBAH'];
               $json = json_encode($det);
               $json =  str_replace("@attributes","attribute",$json);
-                mysqli_query($con,"INSERT INTO `detail_pengambilan`
-                 (`id_pengambilan`, `no_center`, `pokok`, `nisbah`, `id_cabang`, `json_detail_pengambilan`) 
+                mysqli_query($con,"INSERT INTO `detail_pengembalian`
+                 (`id_pengembalian`, `no_center`, `pokok`, `nisbah`, `id_cabang`, `json_detail_pengembalian`) 
                  VALUES ('$id_last', '$det[CenterID1]', '$det_pokok', '$det_nisbah', '$id_cabang', '$json'); 
                 ");
             }
@@ -67,7 +68,9 @@ if(isset($_POST['xml_preview'])){
 }
 if(isset($_GET['hapus'])){
     $date = $_GET['tgl'];
-    mysqli_query($con,"DELETE FROM pengambilan where tgl_pengambilan='$date' and id_cabang='$id_cabang'");
+    mysqli_query($con,"DELETE FROM pengembalian where tgl_pengembalian='$date' and id_cabang='$id_cabang'");
+    mysqli_query($con,"DELETE FROM pengembalian where tgl_pengembalian='$date' and id_cabang='$id_cabang'");
+    mysqli_query($con,"DELETE FROM detail_pengembalian where detail_tgl_pengembalian='$date' and id_cabang='$id_cabang'");
     pindah($url.$menu."tambah_setoran");
 }
 

@@ -115,7 +115,9 @@ $tgl1 = $tglawal = date("Y-m-d",strtotime ( '-7 day' , strtotime ( date($tgl))))
                   ?>
                 <tr>
                     <td><?=$no++?></td>
-                    <td><?=$row['nama_karyawan']?></td>
+                    <td>
+                     <a href="<?=$url.$menu?>detail_setoran&tgl=<?=$tgl?>&id=<?=$row['id_karyawan']?>" class=""> <?=$row['nama_karyawan']?></a>
+                    </td>
                     <td style='background:#69d676'><?=angka($kemarin_tanpa_topup)?></td>
                     <td style='background:#69d676'><?=angka($tanpa_pokok)?></td>
                     <td style='background:#69d676'><?=angka($kemarin_uang)?></td>
