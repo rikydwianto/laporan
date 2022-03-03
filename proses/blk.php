@@ -1,6 +1,6 @@
 <a href="<?=$url.$menu?>blk_input" class="btn btn-success"> Kembali</a>
 <?php
-
+ini_set('max_execution_time',0);
 if(isset($_GET['download'])){
     $download = $_GET['download'];
     $back_dir    ="/export/excel/par/";
