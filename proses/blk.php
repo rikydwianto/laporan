@@ -189,7 +189,7 @@ for($row = 7;$row<=$last_row;$row++){
                 
            }
          
-           $ID = (int)sprintf("%0d",$id_nasabah);
+           $ID = abs((int)sprintf("%0d",$id_nasabah));
             
             $pokok =    (int)ganti_karakter(str_replace(",","",$ws->getCell("I".$row)->getValue()));
             $margin =   (int)ganti_karakter(str_replace(",","",$ws->getCell("J".$row)->getValue()));
