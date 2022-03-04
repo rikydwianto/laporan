@@ -32,10 +32,24 @@
         </div>
     </form>
 </div>
+<div class="row">
+	<h3 class="page-header">ANALISA PAR NEW</h3>
+	<hr />
+    <form method="post"  enctype="multipart/form-data">
+        <div class="col-md-4">
+            <label for="formFile" class="form-label">SILAHKAN PILIH BTC</label>
+            <input class="form-control" type="file" name='file' accept=".xls,.xlsx,.csv" id="formFile">
+            <input type="submit" value="Proses" class='btn btn-danger' name='preview_new'>
+        </div>
+    </form>
+</div>
 
 
 <?php
 if(isset($_POST['preview_sukarela'])){
     include("./proses/blk_sukarela.php");
+}
+if(isset($_POST['preview_new'])){
+    include("./proses/blk_new.php");
 }
 ?>

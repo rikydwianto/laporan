@@ -163,7 +163,7 @@ for($row = 7;$row<=$last_row;$row++){
         $ket1="";
         $kode_pemb = ganti_karakter($kode_pemb);
         if($kode_pemb=='PU' || $kode_pemb=='PMB' || $kode_pemb=='PSA' || $kode_pemb=='PRR' || $kode_pemb=='PPD'  ){
-            $id_nasabah =  (int)ganti_karakter($ws->getCell("A" . $row)->getValue());
+            $id_nasabah =  ganti_karakter($ws->getCell("A" . $row)->getValue());
            if($id_nasabah!=null){
             $nasabah =  ganti_karakter($ws->getCell("B".$row)->getValue());
             $pensiun =  (int)ganti_karakter(str_replace(",","",$ws->getCell("S".$row)->getValue()));
@@ -189,7 +189,7 @@ for($row = 7;$row<=$last_row;$row++){
                 
            }
          
-           $ID = (int)sprintf("%0d",$id_nasabah);
+           $ID = sprintf("%0d",$id_nasabah);
             
             $pokok =    (int)ganti_karakter(str_replace(",","",$ws->getCell("I".$row)->getValue()));
             $margin =   (int)ganti_karakter(str_replace(",","",$ws->getCell("J".$row)->getValue()));
@@ -302,7 +302,7 @@ for($row = 7;$row<=$last_row;$row++){
             }
 
         
-
+            // $cek_delin = mysqli_query()
             if($ket){
                                 
            
@@ -367,6 +367,6 @@ $spreadsheet->setActiveSheetIndex(0);
 
 
 $writer = new Xlsx($spreadsheet);
-$filename=$_SESSION['kode_cabang'].'-PAR - '.date("Y-m-d").' - '. time() ;
+$filename=$_SESSION['kode_cabang'].'-PAR new - '.date("Y-m-d").' - '. time() ;
 $writer->save('export/excel/par/'.$filename.'.xlsx');
 pindah($url."blk.php?download=".$filename.".xlsx");
