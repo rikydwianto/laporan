@@ -219,7 +219,7 @@ for($row = 7;$row<=$last_row;$row++){
             , YEAR(CURDATE()) - YEAR(c.`tgl_bergabung`) - (DATE_FORMAT(CURDATE(), '%m%d') < DATE_FORMAT(c.`tgl_bergabung`, '%m%d')) AS lama
             FROM center a 
             JOIN karyawan b ON b.id_karyawan=a.id_karyawan
-            JOIN daftar_nasabah c ON c.no_center=a.`no_center` 
+            JOIN daftar_nasabah c ON c.no_cente     r=a.`no_center` 
             WHERE c.`id_nasabah`='$ID' AND a.`id_cabang`='$id_cabang' and b.`id_cabang`='$id_cabang' and c.`id_cabang`='$id_cabang'");
             $nama = mysqli_fetch_array($q);
             $warna="";

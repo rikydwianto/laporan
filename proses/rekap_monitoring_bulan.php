@@ -11,7 +11,7 @@
         
         <?php 
         $hitung_total=0;
-$qbulan = mysqli_query($con,"SELECT YEAR(tgl_cair) AS tahun,MONTH(tgl_cair) AS bulan FROM pinjaman p  WHERE p.id_cabang='$id_cabang' GROUP BY MONTH(tgl_cair),YEAR(tgl_cair) ORDER BY p.tgl_cair DESC");
+$qbulan = mysqli_query($con,"SELECT YEAR(tgl_cair) AS tahun,MONTH(tgl_cair) AS bulan FROM pinjaman p  WHERE p.id_cabang='$id_cabang' and monitoring='belum' GROUP BY MONTH(tgl_cair),YEAR(tgl_cair) ORDER BY p.tgl_cair DESC");
 while($bulan = mysqli_fetch_array($qbulan)){
     $mon = $bulan['bulan'];
     $tahun=$bulan['tahun'];

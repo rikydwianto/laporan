@@ -265,8 +265,100 @@
 
 	?>
 		<form action="" method="post">
+			<?php 
+			$qcekbaru = "SELECT max(no_center) as center_max from center where id_cabang='$id_cabang'";
 
-			<table class='table'>
+			$cek_max = mysqli_query($con,$qcekbaru);
+			$cek_max = mysqli_fetch_array($cek_max)['center_max'];
+			$cek_baru = mysqli_query($con,"SELECT MAX(SUBSTRING_INDEX( SUBSTRING_INDEX(id_detail_nasabah,'/',-1),'-',1)) AS center  FROM temp_anggota where id_cabang='$id_cabang' and status_input='belum' "); 
+			$cek_baru = mysqli_fetch_array($cek_baru)['center'];
+			if($cek_baru>$cek_max){
+				if(!isset($_GET['lanjutkan'])){
+				?>
+				<h2>ADA CENTER BARU MAU DIPINDAH KESIAPA?</h2>
+				<table class='table'>
+					<tr>
+						<th>NO</th>
+						<th>STAFF MDIS</th>
+						<th>CENTER</th>
+						<th>ANGGOTA MASUK</th>
+						<th>STAFF</th>
+					</tr>
+					<?php
+					$no = 1;
+					$total_am=0;
+					$kary = mysqli_query($con, "SELECT *,count(tgl_bergabung) as am, SUBSTRING_INDEX( SUBSTRING_INDEX(id_detail_nasabah,'/',-1),'-',1) as center FROM temp_anggota where id_cabang='$id_cabang' and status_input='belum' and SUBSTRING_INDEX( SUBSTRING_INDEX(id_detail_nasabah,'/',-1),'-',1)>$cek_max and  staff is not null GROUP BY SUBSTRING_INDEX( SUBSTRING_INDEX(id_detail_nasabah,'/',-1),'-',1) order by staff asc ");
+					while ($nama = mysqli_fetch_array($kary)) {
+						$total_am = $total_am + $nama['am'];
+					?>
+						<tr>
+							<td><?= $no++ ?></td>
+							<td>
+								<?= $nama['staff'] ?>
+								<input type="hidden" name="nama_mdis[]" value="<?= $nama['staff'] ?>">
+								<input type="hidden" name="center[]" value="<?= $nama['center'] ?>">
+							</td>
+							<td>
+								<?=$nama['center']?>
+
+							</td>
+							<td>
+								<?=$nama['am']?>
+						</td>
+							<td>
+								<select name="karyawan[]" id="" required class='form-control'>
+									<option value="">Pilih Staff</option>
+									<?php $data_karyawan  = (karyawan($con, $id_cabang)['data']);
+									for ($i = 0; $i < count($data_karyawan); $i++) {
+										$nama_karyawan = $data_karyawan[$i]['nama_karyawan'];
+										if (strtolower($nama_karyawan) == strtolower($nama['staff'])) {
+											echo "<option selected value='" . $data_karyawan[$i]['nama_karyawan'] . "'>" . $nama_karyawan . "</option>";
+										} else {
+											echo "<option value='" . $data_karyawan[$i]['nama_karyawan'] . "'>" . $nama_karyawan . "</option>";
+										}
+									}
+									?>
+								</select>
+							</td>
+						</tr>
+					<?php
+					}
+					?>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td><?=$total_am?></td>
+						<td>
+							<input type="submit" value="SIMPAN" name="ganti_dulu" class='btn btn-info'>
+						</td>
+					</tr>
+				</table>
+				</form>
+				<?php
+
+				}
+				if(isset($_POST['ganti_dulu'])){
+
+					$staf = $_POST['nama_mdis'];
+					$id_k = $_POST['karyawan'];
+					$center = $_POST['center'];
+					for ($i = 0; $i < count($staf); $i++) {
+						if (!empty($id_k[$i])) {
+							$text = " UPDATE `temp_anggota` SET `staff` = '$id_k[$i]' WHERE  (SUBSTRING_INDEX( SUBSTRING_INDEX(id_detail_nasabah,'/',-1),'-',1))='$center[$i]' and id_cabang='$id_cabang'; ";
+							mysqli_query($con, $text);
+							// echo $text;
+						}
+					}
+					pindah($url.$menu."anggota&sinkron&lanjutkan");
+				}
+			}
+			if(isset($_GET['lanjutkan'])){
+
+				if(isset($_GET['lanjutkan'])){
+					?>
+					<form action="" method="post">	
+					<table class='table'>
 				<tr>
 					<th>NO</th>
 					<th>STAFF MDIS</th>
@@ -276,8 +368,8 @@
 				<?php
 				$no = 1;
 				$total_am=0;
-				$kary = mysqli_query($con, "SELECT *,count(tgl_bergabung) as am FROM temp_anggota where id_cabang='$id_cabang' and status_input='belum' and staff is not null GROUP BY staff order by staff asc ");
-				while ($nama = mysqli_fetch_array($kary)) {
+				$kary1 = mysqli_query($con, "SELECT *,count(tgl_bergabung) as am FROM temp_anggota where id_cabang='$id_cabang' and status_input='belum' and staff is not null GROUP BY staff order by staff asc ");
+				while ($nama = mysqli_fetch_array($kary1)) {
 					$total_am = $total_am + $nama['am'];
 				?>
 					<tr>
@@ -315,6 +407,13 @@
 					</td>
 				</tr>
 			</table>
+					<?php
+				}
+				
+			}
+
+			?>
+			
 		</form>
 
 	<?php
