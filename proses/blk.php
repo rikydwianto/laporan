@@ -167,6 +167,7 @@ for($row = 7;$row<=$last_row;$row++){
            if($id_nasabah!=null){
             $nasabah =  ganti_karakter($ws->getCell("B".$row)->getValue());
             $pensiun =  (int)ganti_karakter(str_replace(",","",$ws->getCell("S".$row)->getValue()));
+            $pensiun_asli = $pensiun;
             $sukarela = (int)ganti_karakter(str_replace(",","",$ws->getCell("P".$row)->getValue()));
             $wajib = (int)ganti_karakter(str_replace(",","",$ws->getCell("M".$row)->getValue()));
             $hari_raya = (int)ganti_karakter(str_replace(",","",$ws->getCell("Y".$row)->getValue()));
@@ -282,7 +283,7 @@ for($row = 7;$row<=$last_row;$row++){
             }
             $json['wajib']=$wajib;
             $json['sukarela']=$sukarela;
-            $json['pensiun']=$pensiun;
+            $json['pensiun']=$pensiun_asli;
             $json['hari_raya']=$hari_raya;
             $json['rill']=$rill;
             $json['ke']=$ke;

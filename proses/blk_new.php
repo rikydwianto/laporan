@@ -59,11 +59,12 @@ $sheet->setCellValue('i2', 'CICILAN');
 $sheet->setCellValue('j2', 'WAJIB');
 $sheet->setCellValue('k2', 'SUKARELA');
 $sheet->setCellValue('l2', 'PENSIUN');
-$sheet->setCellValue('m2', 'PAR');
-$sheet->setCellValue('n2', '1 Angsuran');
-$sheet->setCellValue('o2', 'Tanpa Margin');
-$sheet->setCellValue('p2', 'STAFF');
-$sheet->setCellValue('q2', 'HARI');
+$sheet->setCellValue('m2', 'HARI RAYA');
+$sheet->setCellValue('n2', 'PAR');
+$sheet->setCellValue('o2', '1 Angsuran');
+$sheet->setCellValue('p2', 'Tanpa Margin');
+$sheet->setCellValue('q2', 'STAFF');
+$sheet->setCellValue('r2', 'HARI');
 $spreadsheet->createSheet();
 
 
@@ -155,14 +156,16 @@ $cek_delin = mysqli_num_rows($cek_delin1);
 // error_reporting(0);
   $nor=1;
 while($r = mysqli_fetch_array($cek_delin1)){
-    $simp = mysqli_query($con,"select * from detail_simpanan where id_nasabah='$r[idn]' and id_cabang='$id_cabang'");
+    $kode = $r['loan'];
+    $kode = explode("-",$kode)[0];
+    $simp = mysqli_query($con,"select * from detail_simpanan where id_nasabah='$r[idn]' and id_cabang='$id_cabang' and pembiayaan='$kode'");
     $simp = mysqli_fetch_array($simp);
     $json  = $simp['detail_simpanan'];
     
             $json = json_decode($json);
             //    if($id_nasabah!=null){
             $id_nasabah =  $r['idn'];
-            $nasabah =  $id_nasabah;
+            $nasabah =  $r['nasabah'];
             $pensiun =  $json->pensiun;
             $sukarela = $json->sukarela;
             $wajib = $json->wajib;
@@ -171,11 +174,12 @@ while($r = mysqli_fetch_array($cek_delin1)){
 
          //{"wajib":96000,"sukarela":20000,"pensiun":40180,"hari_raya":82139,"rill":15,"ke":16,"pinjaman":4000,"sisa_saldo":2976800,"margin":26100,"pokok":73100,"kode":"PU"}
            $ID = sprintf("%06d",$id_nasabah);
+           $IDs = sprintf("%0d",$id_nasabah);
             
             $pokok =    $json->pokok;
             $margin =   $json->margin;
-            $amount =   $r['amount'];
-            $os =       $r['sisa_saldo'];
+            $amount =   $json->pinjaman;
+            $os =       $json->sisa_saldo;
             $ke =       $json->ke;
             $rill =     $json->rill;
             $kode_pemb = $json->kode;
@@ -202,7 +206,7 @@ while($r = mysqli_fetch_array($cek_delin1)){
             FROM center a 
             JOIN karyawan b ON b.id_karyawan=a.id_karyawan
             JOIN daftar_nasabah c ON c.no_center=a.`no_center` 
-            WHERE c.`id_nasabah`='$ID' AND a.`id_cabang`='$id_cabang' and b.`id_cabang`='$id_cabang' and c.`id_cabang`='$id_cabang'");
+            WHERE c.`id_nasabah`='$IDs' AND a.`id_cabang`='$id_cabang' and b.`id_cabang`='$id_cabang' and c.`id_cabang`='$id_cabang'");
             $nama = mysqli_fetch_array($q);
             $warna="";
             $cicilan = $pokok + $margin + $wajib_minggu;
@@ -262,13 +266,13 @@ while($r = mysqli_fetch_array($cek_delin1)){
                 // $ket = "double ".$selisih;
             }
            
-            ?>
-             <tr>
+           
+          /*   <!-- <tr>
                     <th><?=$nor++?></th>
                     <th><?=$r['nasabah']?></th>
                     <th><?=$id_nasabah?></th>
                     <th>NAMA</th>
-                    <th> </th>
+                    <th><?=$simp['pembiayaan']?> </th>
                     <th><?=$ke?></th>
                     <th><?=$rill?></th>
                     <th><?=$amount?></th>
@@ -283,16 +287,15 @@ while($r = mysqli_fetch_array($cek_delin1)){
                     <th>Warna</th>
 
                     <th>#</th>
-                </tr>
-            <?php 
-            
-
-            if($ket=="ada"){
-                $r_delin = mysqli_fetch_array($cek_delin1);
+                </tr> -->
+         
+            */
+            $ket  = "ada";
+         
               
                
            
-                $sheet->setCellValue('A'.$baris, $baris);
+                $sheet->setCellValue('A'.$baris, $nor++);
                 $sheet->setCellValue('b'.$baris, $id_nasabah.' / '. $nama['no_center']);
                 $sheet->setCellValue('c'.$baris, $nasabah);
                 $sheet->setCellValue('d'.$baris, $kode_pemb);
@@ -304,11 +307,12 @@ while($r = mysqli_fetch_array($cek_delin1)){
                 $sheet->setCellValue('j'.$baris, $wajib);
                 $sheet->setCellValue('k'.$baris, $sukarela);
                 $sheet->setCellValue('l'.$baris, $pensiun);
-                $sheet->setCellValue('m'.$baris, ($selisih - 1));
-                $sheet->setCellValue('n'.$baris, ($satu_angsuran==0?"":($satu_angsuran)));
-                $sheet->setCellValue('o'.$baris, ($tanpa_margin==0?"":($tanpa_margin)));
-                $sheet->setCellValue('p'.$baris, $nama['nama_karyawan']);
-                $sheet->setCellValue('q'.$baris, $nama['hari']);
+                $sheet->setCellValue('m'.$baris, $hari_raya);
+                $sheet->setCellValue('n'.$baris, ($selisih - 1));
+                $sheet->setCellValue('o'.$baris, ($satu_angsuran==0?"":($satu_angsuran)));
+                $sheet->setCellValue('p'.$baris, ($tanpa_margin==0?"":($tanpa_margin)));
+                $sheet->setCellValue('q'.$baris, $nama['nama_karyawan']);
+                $sheet->setCellValue('r'.$baris, $nama['hari']);
 
                 //SHEET 2
 
@@ -337,7 +341,7 @@ while($r = mysqli_fetch_array($cek_delin1)){
 
 
                 $baris++;
-            }
+            
             
 
         }
@@ -356,5 +360,5 @@ $spreadsheet->setActiveSheetIndex(0);
 
 $writer = new Xlsx($spreadsheet);
 $filename=$_SESSION['kode_cabang'].'-PAR new - '.date("Y-m-d").' - '. time() ;
-// $writer->save('export/excel/par/'.$filename.'.xlsx');
-// pindah($url."blk.php?download=".$filename.".xlsx");
+$writer->save('export/excel/par/'.$filename.'.xlsx');
+pindah($url."blk.php?download=".$filename.".xlsx");

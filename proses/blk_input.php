@@ -35,13 +35,7 @@
 <div class="row">
 	<h3 class="page-header">ANALISA PAR NEW</h3>
 	<hr />
-    <form method="post"  enctype="multipart/form-data">
-        <div class="col-md-4">
-            <label for="formFile" class="form-label">SILAHKAN PILIH BTC</label>
-            <input class="form-control" type="file" name='file' accept=".xls,.xlsx,.csv" id="formFile">
-            <input type="submit" value="Proses" class='btn btn-danger' name='preview_new'>
-        </div>
-    </form>
+    <a href="<?=$url.$menu?>blk_new" class="btn btn-success">DOWNLOAD ANALISA PAR</a>
 </div>
 
 
