@@ -184,6 +184,7 @@ for($row = 7;$row<=$last_row;$row++){
                 if($nasabah==null || $nasabah==" "){
                     $baris_baru = $row - 1;
                     $id_nasabah =  ganti_karakter($ws->getCell("A" . $baris_baru)->getValue());
+                    $pemb_lain = "lain";
                 }
                     
                 
@@ -292,13 +293,13 @@ for($row = 7;$row<=$last_row;$row++){
             $json['kode']=$kode_pemb;
             $json_simpanan = json_encode($json);
 
-            $cek_simpanan =mysqli_query($con,"SELECT * FROM detail_simpanan where id_cabang='$id_cabang' and id_nasabah='$ID' ");
+            $cek_simpanan =mysqli_query($con,"SELECT * FROM detail_simpanan where id_cabang='$id_cabang' and pembiayaan='$kode_pemb' and id_nasabah='$ID' ");
             if(mysqli_num_rows($cek_simpanan)){
-                $upda = mysqli_query($con,"UPDATE detail_simpanan set update_simpanan=curdate(), detail_simpanan='$json_simpanan' where  id_cabang='$id_cabang' and id_nasabah='$ID'");
+                $upda = mysqli_query($con,"UPDATE detail_simpanan set update_simpanan='$tanggal',pembiayaan='$kode_pemb', detail_simpanan='$json_simpanan' where  id_cabang='$id_cabang' and id_nasabah='$ID'");
             }
             else{
-                mysqli_query($con,"INSERT INTO `detail_simpanan` (`id_nasabah`, `id_cabang`, `update_simpanan`,`detail_simpanan`)
-                 VALUES ('$ID', '$id_cabang', '$tanggal','$json_simpanan'); ");
+                mysqli_query($con,"INSERT INTO `detail_simpanan` (`id_nasabah`, `id_cabang`, `update_simpanan`,`detail_simpanan`,pembiayaan)
+                 VALUES ('$ID', '$id_cabang', '$tanggal','$json_simpanan','$kode_pemb'); ");
             }
 
         

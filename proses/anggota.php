@@ -101,7 +101,7 @@
 					</td>
 				</tr>
 			<?php
-			pindah($url.$menu."anggota&sinkron");
+			pindah($url.$menu."anggota&sebelum_sinkron");
 			}
 
 			?>
@@ -230,40 +230,9 @@
 		</table>
 		<?php			
 	} 
-	else if (isset($_GET['sinkron'])) {
-		if (isset($_POST['konfirmasi'])) {
-			$staf = $_POST['nama_mdis'];
-			$id_k = $_POST['karyawan'];
-			for ($i = 0; $i < count($staf); $i++) {
-				if (!empty($id_k[$i])) {
-					$text = " UPDATE `temp_anggota` SET `staff` = null , id_karyawan='$id_k[$i]' WHERE `staff` = '$staf[$i]' and id_cabang='$id_cabang'; ";
-					mysqli_query($con, $text);
-				}
-			}
-			
-			$total_semua = 0;
-			$cari_tgl = mysqli_query($con, "SELECT tgl_bergabung FROM temp_anggota where id_cabang='$id_cabang' and status_input='belum' GROUP BY tgl_bergabung");
-			while ($tgll = mysqli_fetch_array($cari_tgl)) {
-				$tgl = $tgll['tgl_bergabung'];
-				echo $tgl." Proses <br/>";
-				$total_semua = $total_semua;
-				$qcariStaff = mysqli_query($con, "select *,count(id) as total_anggota from temp_anggota where tgl_bergabung='$tgl' and id_cabang='$id_cabang' and status_input='belum' group by id_karyawan");
-				while ($cariStaff = mysqli_fetch_array($qcariStaff)) {
-					$total_semua = $total_semua + $cariStaff['total_anggota'];
-					// echo $cariStaff['id_karyawan'];
-					mysqli_query($con, "INSERT INTO `anggota` (`id_karyawan`, `tgl_anggota`, `anggota_masuk`, `anggota_keluar`, `net_anggota`,`id_cabang`) VALUES ('$cariStaff[id_karyawan]', '$tgl', '$cariStaff[total_anggota]', '0', '$cariStaff[total_anggota]','$id_cabang'); ");
-					//UPDATE TOTAL NASABAH
-					mysqli_query($con,"UPDATE total_nasabah set total_nasabah = total_nasabah + $cariStaff[total_anggota] where id_karyawan='$cariStaff[id_karyawan]' ");
-				}
-				mysqli_query($con,"UPDATE temp_anggota set status_input='sudah' where id_cabang='$id_cabang' and tgl_bergabung='$tgl'");
-			}
-			
-			// mysqli_query($con,"delete from temp_anggota where id_cabang='$id_cabang' ");
-			echo "Proses selesai tunggu prosess slanjutnya!";
-			pindah($url.$menu."anggota&tambah");
-		}
-
-	?>
+	elseif(isset($_GET['sebelum_sinkron']))
+	{
+		?>
 		<form action="" method="post">
 			<?php 
 			$qcekbaru = "SELECT max(no_center) as center_max from center where id_cabang='$id_cabang'";
@@ -353,6 +322,45 @@
 					pindah($url.$menu."anggota&sinkron&lanjutkan");
 				}
 			}
+			else{
+				pindah($url.$menu."anggota&sinkron&lanjutkan");
+
+			}
+	}
+	else if (isset($_GET['sinkron'])) {
+		if (isset($_POST['konfirmasi'])) {
+			$staf = $_POST['nama_mdis'];
+			$id_k = $_POST['karyawan'];
+			for ($i = 0; $i < count($staf); $i++) {
+				if (!empty($id_k[$i])) {
+					$text = " UPDATE `temp_anggota` SET `staff` = null , id_karyawan='$id_k[$i]' WHERE `staff` = '$staf[$i]' and id_cabang='$id_cabang'; ";
+					mysqli_query($con, $text);
+				}
+			}
+			
+			$total_semua = 0;
+			$cari_tgl = mysqli_query($con, "SELECT tgl_bergabung FROM temp_anggota where id_cabang='$id_cabang' and status_input='belum' GROUP BY tgl_bergabung");
+			while ($tgll = mysqli_fetch_array($cari_tgl)) {
+				$tgl = $tgll['tgl_bergabung'];
+				echo $tgl." Proses <br/>";
+				$total_semua = $total_semua;
+				$qcariStaff = mysqli_query($con, "select *,count(id) as total_anggota from temp_anggota where tgl_bergabung='$tgl' and id_cabang='$id_cabang' and status_input='belum' group by id_karyawan");
+				while ($cariStaff = mysqli_fetch_array($qcariStaff)) {
+					$total_semua = $total_semua + $cariStaff['total_anggota'];
+					// echo $cariStaff['id_karyawan'];
+					mysqli_query($con, "INSERT INTO `anggota` (`id_karyawan`, `tgl_anggota`, `anggota_masuk`, `anggota_keluar`, `net_anggota`,`id_cabang`) VALUES ('$cariStaff[id_karyawan]', '$tgl', '$cariStaff[total_anggota]', '0', '$cariStaff[total_anggota]','$id_cabang'); ");
+					//UPDATE TOTAL NASABAH
+					mysqli_query($con,"UPDATE total_nasabah set total_nasabah = total_nasabah + $cariStaff[total_anggota] where id_karyawan='$cariStaff[id_karyawan]' ");
+				}
+				mysqli_query($con,"UPDATE temp_anggota set status_input='sudah' where id_cabang='$id_cabang' and tgl_bergabung='$tgl'");
+			}
+			
+			// mysqli_query($con,"delete from temp_anggota where id_cabang='$id_cabang' ");
+			echo "Proses selesai tunggu prosess slanjutnya!";
+			pindah($url.$menu."anggota&tambah");
+		}
+
+	
 			if(isset($_GET['lanjutkan'])){
 
 				if(isset($_GET['lanjutkan'])){

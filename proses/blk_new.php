@@ -9,12 +9,12 @@ if(isset($_GET['download'])){
     pindah($url.$menu."blk_input");
     
 }
-$file = $_FILES['file']['tmp_name'];
-$path = $file;
-$reader = PHPExcel_IOFactory::createReaderForFile($path);
-$objek = $reader->load($path);
-$ws = $objek->getActiveSheet();
-$last_row = $ws->getHighestDataRow();
+// // // // $file = $_FILES['file']['tmp_name'];
+// // // // $path = $file;
+// // // $reader = PHPExcel_IOFactory::createReaderForFile($path);
+// // $objek = $reader->load($path);
+// $ws = $objek->getActiveSheet();
+// $last_row = $ws->getHighestDataRow();
 require './vendor/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -63,6 +63,7 @@ $sheet->setCellValue('m2', 'PAR');
 $sheet->setCellValue('n2', '1 Angsuran');
 $sheet->setCellValue('o2', 'Tanpa Margin');
 $sheet->setCellValue('p2', 'STAFF');
+$sheet->setCellValue('q2', 'HARI');
 $spreadsheet->createSheet();
 
 
@@ -108,6 +109,7 @@ $sheet2->setCellValue('m2', 'PAR');
 $sheet2->setCellValue('n2', 'PAR x CICILAN');
 $sheet2->setCellValue('o2', 'SISA SETELAH TUTUP PAR');
 $sheet2->setCellValue('p2', 'STAFF');
+$sheet2->setCellValue('q2', 'HARI');
 // Add some data
 $shee = $spreadsheet->setActiveSheetIndex(1);
 $sheet->setCellValue('A1', 'DATA PAR');
@@ -119,7 +121,7 @@ $no_baris_ws2=1;
 <table id='data_blk' class='table-bordered'>
     <thead>
         <tr>
-            <!-- <th>NO</th> -->
+            <th>NO</th>
             <th>CTR</th>
             <th>ID</th>
             <th>NAMA</th>
@@ -142,61 +144,41 @@ $no_baris_ws2=1;
     </thead>
     <tbody>
 <?php
-for($row1 = 1;$row1<=10;$row1++){
-    $TANGGAL = $ws->getCell("E".$row1)->getValue();
-    // echo $TANGGAL;
-    if($TANGGAL == "Tanggal"){
-        $tanggal = $ws->getCell("G".$row1)->getValue();
-    }
-}
-$tanggal =  date("Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($tanggal));;
-$hari = strtolower( explode(",",format_hari_tanggal($tanggal))[0]);
 
-for($row = 7;$row<=$last_row;$row++){
-    $kode_pemb =  $ws->getCell("C" . $row)->getValue();
-    if($kode_pemb==null){
-        
-    }
-    else{
-        $agt = (substr($kode_pemb,0,3));
-        // echo $agt;
-        $ket1="";
-        $kode_pemb = ganti_karakter($kode_pemb);
-        if($kode_pemb=='PU' || $kode_pemb=='PMB' || $kode_pemb=='PSA' || $kode_pemb=='PRR' || $kode_pemb=='PPD'  ){
-            $id_nasabah =  ganti_karakter($ws->getCell("A" . $row)->getValue());
-           if($id_nasabah!=null){
-            $nasabah =  ganti_karakter($ws->getCell("B".$row)->getValue());
-            $pensiun =  (int)ganti_karakter(str_replace(",","",$ws->getCell("S".$row)->getValue()));
-            $sukarela = (int)ganti_karakter(str_replace(",","",$ws->getCell("P".$row)->getValue()));
-            $wajib = (int)ganti_karakter(str_replace(",","",$ws->getCell("M".$row)->getValue()));
-            $hari_raya = (int)ganti_karakter(str_replace(",","",$ws->getCell("Y".$row)->getValue()));
+$cek_tgl = mysqli_query($con,"SELECT max(tgl_input) AS tgl FROM deliquency WHERE id_cabang='$id_cabang' ORDER BY tgl_input DESC");
+$tgl_delin = mysqli_fetch_array($cek_tgl);
+$tgl_delin = $tgl_delin['tgl'];
+$no1 = 1;
+$cek_delin1 = mysqli_query($con,"SELECT  SUBSTRING_INDEX(id_detail_nasabah,'-',-1) as idn,deliquency.* FROM deliquency  WHERE tgl_input='$tgl_delin' 
+            AND id_cabang='$id_cabang'  ");
+$cek_delin = mysqli_num_rows($cek_delin1);
+// error_reporting(0);
+  $nor=1;
+while($r = mysqli_fetch_array($cek_delin1)){
+    $simp = mysqli_query($con,"select * from detail_simpanan where id_nasabah='$r[idn]' and id_cabang='$id_cabang'");
+    $simp = mysqli_fetch_array($simp);
+    $json  = $simp['detail_simpanan'];
+    
+            $json = json_decode($json);
+            //    if($id_nasabah!=null){
+            $id_nasabah =  $r['idn'];
+            $nasabah =  $id_nasabah;
+            $pensiun =  $json->pensiun;
+            $sukarela = $json->sukarela;
+            $wajib = $json->wajib;
+            $hari_raya = $json->hari_raya;
             
-           }
-           else {
-              
-                
-                    $baris_baru = $row-1;
-                    $nasabah =  ganti_karakter($ws->getCell("B".$baris_baru)->getValue());
-                    // $pensiun =  (int)ganti_karakter(str_replace(",","",$ws->getCell("S".$baris_baru)->getValue()));
-                    $id_nasabah =  ganti_karakter($ws->getCell("A" . $baris_baru)->getValue());
-                    // $sukarela = (int)ganti_karakter(str_replace(",","",$ws->getCell("P".$baris_baru)->getValue()));
-                    // $wajib = (int)ganti_karakter(str_replace(",","",$ws->getCell("M".$baris_baru)->getValue()));
-                if($nasabah==null || $nasabah==" "){
-                    $baris_baru = $row - 1;
-                    $id_nasabah =  ganti_karakter($ws->getCell("A" . $baris_baru)->getValue());
-                }
-                    
-                
-           }
-         
-           $ID = sprintf("%0d",$id_nasabah);
+
+         //{"wajib":96000,"sukarela":20000,"pensiun":40180,"hari_raya":82139,"rill":15,"ke":16,"pinjaman":4000,"sisa_saldo":2976800,"margin":26100,"pokok":73100,"kode":"PU"}
+           $ID = sprintf("%06d",$id_nasabah);
             
-            $pokok =    (int)ganti_karakter(str_replace(",","",$ws->getCell("I".$row)->getValue()));
-            $margin =   (int)ganti_karakter(str_replace(",","",$ws->getCell("J".$row)->getValue()));
-            $amount =   (int)ganti_karakter(str_replace(",","",$ws->getCell("F".$row)->getValue()));
-            $os =       (int)ganti_karakter(str_replace(",","",$ws->getCell("G".$row)->getValue()));
-            $ke =       (int)ganti_karakter(str_replace(",","",$ws->getCell("D".$row)->getValue()));
-            $rill =     (int)ganti_karakter(str_replace(",","",$ws->getCell("E".$row)->getValue()));
+            $pokok =    $json->pokok;
+            $margin =   $json->margin;
+            $amount =   $r['amount'];
+            $os =       $r['sisa_saldo'];
+            $ke =       $json->ke;
+            $rill =     $json->rill;
+            $kode_pemb = $json->kode;
 
             $wajib_minggu=0;
             if($kode_pemb=='PU' || $kode_pemb=='PMB'){
@@ -215,7 +197,7 @@ for($row = 7;$row<=$last_row;$row++){
 
             // $tgl = $ws->getCell("I".$row)->getValue();
             // $tgl =  date("Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($tgl));
-            $q = mysqli_query($con,"SELECT a.`status_center`,b.`nama_karyawan`,a.`no_center`
+            $q = mysqli_query($con,"SELECT a.`status_center`,b.`nama_karyawan`,a.`no_center`,a.hari
             , YEAR(CURDATE()) - YEAR(c.`tgl_bergabung`) - (DATE_FORMAT(CURDATE(), '%m%d') < DATE_FORMAT(c.`tgl_bergabung`, '%m%d')) AS lama
             FROM center a 
             JOIN karyawan b ON b.id_karyawan=a.id_karyawan
@@ -263,7 +245,7 @@ for($row = 7;$row<=$last_row;$row++){
                         
                     }
                     else{
-                        $pensiun=0;
+                       // $pensiun=0;
                         $sukarela_pensiun = ($sukarela - 2000) ;
                         $satu_angsuran = ($sukarela - 2000) -$cicilan;
                     }
@@ -279,32 +261,36 @@ for($row = 7;$row<=$last_row;$row++){
             elseif($selisih<0){
                 // $ket = "double ".$selisih;
             }
-            $json['wajib']=$wajib;
-            $json['sukarela']=$sukarela;
-            $json['pensiun']=$pensiun;
-            $json['hari_raya']=$hari_raya;
-            $json['rill']=$rill;
-            $json['ke']=$ke;
-            $json['pinjaman']=$amount;
-            $json['sisa_saldo']=$os;
-            $json['margin']=$margin;
-            $json['pokok']=$pokok;
-            $json['kode']=$kode_pemb;
-            $json_simpanan = json_encode($json);
+           
+            ?>
+             <tr>
+                    <th><?=$nor++?></th>
+                    <th><?=$r['nasabah']?></th>
+                    <th><?=$id_nasabah?></th>
+                    <th>NAMA</th>
+                    <th> </th>
+                    <th><?=$ke?></th>
+                    <th><?=$rill?></th>
+                    <th><?=$amount?></th>
+                    <th><?=$os?></th>
+                    <th><?=$cicilan?></th>
+                    <th><?=$wajib?></th>
+                    <th><?=$sukarela?></th>
+                    <th><?=$pensiun?></th>
+                    <th>PAR</th>
+                    <th>1 angsuran</th>
+                    <th>tanpa Margin</th>
+                    <th>Warna</th>
 
-            $cek_simpanan =mysqli_query($con,"SELECT * FROM detail_simpanan where id_cabang='$id_cabang' and id_nasabah='$ID' ");
-            if(mysqli_num_rows($cek_simpanan)){
-                $upda = mysqli_query($con,"UPDATE detail_simpanan set update_simpanan=curdate(), detail_simpanan='$json_simpanan' where  id_cabang='$id_cabang' and id_nasabah='$ID'");
-            }
-            else{
-                mysqli_query($con,"INSERT INTO `detail_simpanan` (`id_nasabah`, `id_cabang`, `update_simpanan`,`detail_simpanan`)
-                 VALUES ('$ID', '$id_cabang', '$tanggal','$json_simpanan'); ");
-            }
+                    <th>#</th>
+                </tr>
+            <?php 
+            
 
-        
-            // $cek_delin = mysqli_query()
-            if($ket){
-                                
+            if($ket=="ada"){
+                $r_delin = mysqli_fetch_array($cek_delin1);
+              
+               
            
                 $sheet->setCellValue('A'.$baris, $baris);
                 $sheet->setCellValue('b'.$baris, $id_nasabah.' / '. $nama['no_center']);
@@ -322,6 +308,7 @@ for($row = 7;$row<=$last_row;$row++){
                 $sheet->setCellValue('n'.$baris, ($satu_angsuran==0?"":($satu_angsuran)));
                 $sheet->setCellValue('o'.$baris, ($tanpa_margin==0?"":($tanpa_margin)));
                 $sheet->setCellValue('p'.$baris, $nama['nama_karyawan']);
+                $sheet->setCellValue('q'.$baris, $nama['hari']);
 
                 //SHEET 2
 
@@ -343,6 +330,7 @@ for($row = 7;$row<=$last_row;$row++){
                     $sheet2->setCellValue('n'.$baris_ws2, $angsuran_tunggakan);
                     $sheet2->setCellValue('o'.$baris_ws2, $sukarela_pensiun - $angsuran_tunggakan);
                     $sheet2->setCellValue('p'.$baris_ws2, $nama['nama_karyawan']);
+                    $sheet2->setCellValue('q'.$baris_ws2, $nama['hari']);
                     $baris_ws2++;
 
                 }
@@ -353,8 +341,8 @@ for($row = 7;$row<=$last_row;$row++){
             
 
         }
-    }
-}
+    
+
 ?>
 </tbody>
 
@@ -368,5 +356,5 @@ $spreadsheet->setActiveSheetIndex(0);
 
 $writer = new Xlsx($spreadsheet);
 $filename=$_SESSION['kode_cabang'].'-PAR new - '.date("Y-m-d").' - '. time() ;
-$writer->save('export/excel/par/'.$filename.'.xlsx');
-pindah($url."blk.php?download=".$filename.".xlsx");
+// $writer->save('export/excel/par/'.$filename.'.xlsx');
+// pindah($url."blk.php?download=".$filename.".xlsx");
