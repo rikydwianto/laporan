@@ -23,7 +23,7 @@
         ?>
         <table border=1>
         <?php
-        set_time_limit(5000);
+        //set_time_limit(5000);
         $file = $_FILES['file']['tmp_name'];
         $xml = simplexml_load_file($file);
         $xml = $xml->Tablix1->Details_Collection;
