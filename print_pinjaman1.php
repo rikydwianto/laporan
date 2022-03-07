@@ -132,7 +132,7 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
                  $group = explode("/",$r['id_detail_nasabah'])[2];
                  ?>
                  <tr >
-                    <td style="height: 8px;" colspan="" ><?=$no++?>.</td>
+                    <td class='kecil' colspan="" ><?=$no++?>.</td>
                     <td class="kecil"><?=$r['id_detail_nasabah']?></td>
                     <td class="kecil"><?=$r['id_detail_pinjaman']?></td>
                     <td class="kecil"><?=$r['nama_nasabah']?></td>
