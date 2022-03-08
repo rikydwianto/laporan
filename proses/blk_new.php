@@ -48,23 +48,27 @@ $sheet->setTitle('DATA PAR');
 
 // $sheet->setCellValue('B1', 'DATA PAR ');
 $sheet->setCellValue('A2', 'NO');
-$sheet->setCellValue('b2', 'ID/CENTER');
-$sheet->setCellValue('c2', 'NASABAH');
-$sheet->setCellValue('d2', 'PEMB');
-$sheet->setCellValue('e2', 'KE');
-$sheet->setCellValue('f2', 'RILL');
-$sheet->setCellValue('g2', 'AMOUNT');
-$sheet->setCellValue('h2', 'O.S');
-$sheet->setCellValue('i2', 'CICILAN');
-$sheet->setCellValue('j2', 'WAJIB');
-$sheet->setCellValue('k2', 'SUKARELA');
-$sheet->setCellValue('l2', 'PENSIUN');
-$sheet->setCellValue('m2', 'HARI RAYA');
-$sheet->setCellValue('n2', 'PAR');
-$sheet->setCellValue('o2', '1 Angsuran');
-$sheet->setCellValue('p2', 'Tanpa Margin');
-$sheet->setCellValue('q2', 'STAFF');
-$sheet->setCellValue('r2', 'HARI');
+$sheet->setCellValue('B2', 'NASABAH');
+$sheet->setCellValue('C2', 'ID');
+$sheet->setCellValue('D2', 'CENTER');
+$sheet->setCellValue('E2', 'LOAN');
+$sheet->setCellValue('F2', 'PEMB');
+$sheet->setCellValue('G2', 'DISBURSE DATE');
+$sheet->setCellValue('H2', 'KE');
+$sheet->setCellValue('I2', 'RILL');
+$sheet->setCellValue('J2', 'AMOUNT');
+$sheet->setCellValue('K2', 'O.S');
+$sheet->setCellValue('L2', 'CICILAN');
+$sheet->setCellValue('M2', 'WAJIB');
+$sheet->setCellValue('N2', 'SUKARELA');
+$sheet->setCellValue('O2', 'PENSIUN');
+$sheet->setCellValue('P2', 'HARI RAYA');
+$sheet->setCellValue('Q2', 'TOTAL SIMPANAN');
+$sheet->setCellValue('R2', 'PAR');
+$sheet->setCellValue('S2', '1 Angsuran');
+$sheet->setCellValue('T2', 'Tanpa Margin');
+$sheet->setCellValue('U2', 'STAFF');
+$sheet->setCellValue('V2', 'HARI');
 $spreadsheet->createSheet();
 
 
@@ -166,7 +170,10 @@ while($r = mysqli_fetch_array($cek_delin1)){
             //    if($id_nasabah!=null){
             $id_nasabah =  $r['idn'];
             $nasabah =  $r['nasabah'];
+            $loan =  $r['loan'];
+            $tgl_dis    =  $r['tgl_disburse'];
             $pensiun =  $json->pensiun;
+            $pensiun_asli = $pensiun;
             $sukarela = $json->sukarela;
             $wajib = $json->wajib;
             $hari_raya = $json->hari_raya;
@@ -220,7 +227,7 @@ while($r = mysqli_fetch_array($cek_delin1)){
             {
                 // echo 'double 1';
             }
-            elseif($selisih>1){
+            elseif($selisih>=1){
                 //PAR DARI 1 sampe 100
                 // && $selisih <100
                 if($selisih>1){
@@ -258,7 +265,7 @@ while($r = mysqli_fetch_array($cek_delin1)){
                 }
                 else{
                     $ket = 'par '.($selisih - 1);
-                    $tanpa_margin = $os - (($wajib-2000) + ($pensiun-2000) + ($sukarela-2000));
+                    $tanpa_margin = $os - (($wajib-2000) + ($pensiun-2000) + ($sukarela-2000) + ($hari_raya-2000));
 
                 }
             }
@@ -294,25 +301,30 @@ while($r = mysqli_fetch_array($cek_delin1)){
          
               $selisih = $r['minggu'];
                
-           
+
+                $total_simpanan   = $sukarela + $wajib + $pensiun_asli + $hari_raya;           
                 $sheet->setCellValue('A'.$baris, $nor++);
-                $sheet->setCellValue('b'.$baris, $id_nasabah.' / '. $nama['no_center']);
-                $sheet->setCellValue('c'.$baris, $nasabah);
-                $sheet->setCellValue('d'.$baris, $kode_pemb);
-                $sheet->setCellValue('e'.$baris, $ke);
-                $sheet->setCellValue('f'.$baris, $rill);
-                $sheet->setCellValue('g'.$baris, $amount);
-                $sheet->setCellValue('h'.$baris, $os);
-                $sheet->setCellValue('i'.$baris, $cicilan);
-                $sheet->setCellValue('j'.$baris, $wajib);
-                $sheet->setCellValue('k'.$baris, $sukarela);
-                $sheet->setCellValue('l'.$baris, $pensiun);
-                $sheet->setCellValue('m'.$baris, $hari_raya);
-                $sheet->setCellValue('n'.$baris, ($selisih));
-                $sheet->setCellValue('o'.$baris, ($satu_angsuran==0?"":($satu_angsuran)));
-                $sheet->setCellValue('p'.$baris, ($tanpa_margin==0?"":($tanpa_margin)));
-                $sheet->setCellValue('q'.$baris, $nama['nama_karyawan']);
-                $sheet->setCellValue('r'.$baris, $nama['hari']);
+                $sheet->setCellValue('b'.$baris, $nasabah);
+                $sheet->setCellValue('c'.$baris, $id_nasabah);
+                $sheet->setCellValue('D'.$baris, $nama['no_center']);
+                $sheet->setCellValue('e'.$baris, $loan);
+                $sheet->setCellValue('f'.$baris, $kode_pemb);
+                $sheet->setCellValue('g'.$baris, $tgl_dis);
+                $sheet->setCellValue('h'.$baris, $ke);
+                $sheet->setCellValue('i'.$baris, $rill);
+                $sheet->setCellValue('j'.$baris, $amount);
+                $sheet->setCellValue('k'.$baris, $os);
+                $sheet->setCellValue('l'.$baris, $cicilan);
+                $sheet->setCellValue('m'.$baris, $wajib);
+                $sheet->setCellValue('n'.$baris, $sukarela);
+                $sheet->setCellValue('o'.$baris, $pensiun_asli);
+                $sheet->setCellValue('p'.$baris, $hari_raya);
+                $sheet->setCellValue('q'.$baris, $total_simpanan);
+                $sheet->setCellValue('r'.$baris, ($selisih));
+                $sheet->setCellValue('s'.$baris, ($satu_angsuran==0?"":($satu_angsuran)));
+                $sheet->setCellValue('t'.$baris, ($tanpa_margin==0?"":($tanpa_margin)));
+                $sheet->setCellValue('u'.$baris, $nama['nama_karyawan']);
+                $sheet->setCellValue('v'.$baris, $nama['hari']);
 
                 //SHEET 2
 

@@ -73,6 +73,7 @@ if(isset($_POST['preview'])){
             <td>balance</td>
             <td>tunggakan</td>
             <td>minggu</td>
+            <td>tgl dis</td>
         </tr>
     <?php
     $file = $_FILES['file']['tmp_name'];
@@ -96,6 +97,9 @@ if(isset($_POST['preview'])){
             $loan = ganti_karakter($ws->getCell("B".$row)->getValue());
             $no_center = ganti_karakter($ws->getCell("C".$row)->getValue());
             $id_nasabah = ganti_karakter1($ws->getCell("D".$row)->getValue());
+            $tgl_dis = ganti_karakter1($ws->getCell("H".$row)->getValue());
+            $tgl_dis = explode('/',$tgl_dis);
+            $tgl_dis = $tgl_dis[2].'-'.$tgl_dis[1].'-'.$tgl_dis[0];
             $bm = ($ws->getCell("C4")->getValue());
             // echo "sssss".$bm;
             if($bm=="Ctr ID"){
@@ -123,12 +127,13 @@ if(isset($_POST['preview'])){
                 <td><?=$balance?></td>
                 <td><?=$tunggakan?></td>
                 <td><?=$minggu?></td>
+                <td><?=$tgl_dis?></td>
             </tr>
             <?php
                //INSERT INTO `deliquency` (`id`, `loan`, `no_center`, `id_detail_nasabah`, `nasabah`, `amount`, `sisa_saldo`, `tunggakan`, `minggu`, `tgl_input`, `id_cabang`) VALUES (NULL, 'PU-072-21-01-000216', '003', 'AGT/072/01/003-000034', 'RUMNASIH', '6', '2', '1', '8', NULL, NULL); 
             mysqli_query($con,"INSERT INTO `deliquency` 
-            ( id,`loan`, `no_center`, `id_detail_nasabah`, `nasabah`, `amount`, `sisa_saldo`, `tunggakan`, `minggu`, `tgl_input`, `id_cabang`) VALUES 
-            (NULL, '$loan', '$no_center', '$id_nasabah', '$nasabah', '$amount', '$balance', '$tunggakan', '$minggu', '$tgl', '$id_cabang'); 
+            ( id,`loan`, `no_center`, `id_detail_nasabah`, `nasabah`, `amount`, `sisa_saldo`, `tunggakan`, `minggu`, `tgl_input`, `id_cabang`,tgl_disburse) VALUES 
+            (NULL, '$loan', '$no_center', '$id_nasabah', '$nasabah', '$amount', '$balance', '$tunggakan', '$minggu', '$tgl', '$id_cabang','$tgl_dis'); 
             ");
             }
             
