@@ -85,7 +85,7 @@
 
     //EXCEL
     if(isset($_POST['preview'])){
-        set_time_limit(5000);
+        //set_time_limit(5000);
         // alert("tunggu ya proses ini akan memakan waktu agak lama, karena banyak nya data, jangan diclose sampe proses selesai!!");
         ?>
         <table border=1>

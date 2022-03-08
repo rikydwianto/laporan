@@ -444,16 +444,17 @@ else{
     <div class="col-md-12">
             <div class="col-md-8">
 
-            <h3>Harap hapus data ke 4 dan seterusnya, jika sudah tidak diperlukan</h3>
+            <h3>DATA PAR</h3>
             <table class='table'>
                 <tr>
                     <th>NO</th>
                     <th>Tanggal</th>
                     <th>Hari</th>
+                    <th>TOTAL AGT PAR</th>
                     <th>#</th>
                 </tr>
                 <?php 
-                $q_tgl1 = mysqli_query($con,"SELECT DISTINCT tgl_input FROM deliquency where id_cabang='$id_cabang' order by tgl_input desc");
+                $q_tgl1 = mysqli_query($con,"SELECT  tgl_input,count(*) as hitung FROM deliquency where id_cabang='$id_cabang' group by tgl_input order by tgl_input desc");
                 while($cari = mysqli_fetch_array($q_tgl1)){
                     
                     ?>
@@ -461,6 +462,7 @@ else{
                         <td><?=$no++?></td>
                         <td><?=$cari['tgl_input']?></td>
                         <td><?=format_hari_tanggal($cari['tgl_input'])?></td>
+                        <td><?=($cari['hitung'])?></td>
                         <td>
                             <a href="<?=$url.$menu?>par&delete&tgl=<?=$cari['tgl_input']?>" onclick="return window.confirm('apakah yakin menghapus semua data <?=format_hari_tanggal($cari['tgl_input'])?>')" class="btn btn-danger"> <i class="fa fa-times"></i> </a>
                         </td>
