@@ -292,7 +292,7 @@ while($r = mysqli_fetch_array($cek_delin1)){
             */
             $ket  = "ada";
          
-              
+              $selisih = $r['minggu'];
                
            
                 $sheet->setCellValue('A'.$baris, $nor++);
@@ -308,7 +308,7 @@ while($r = mysqli_fetch_array($cek_delin1)){
                 $sheet->setCellValue('k'.$baris, $sukarela);
                 $sheet->setCellValue('l'.$baris, $pensiun);
                 $sheet->setCellValue('m'.$baris, $hari_raya);
-                $sheet->setCellValue('n'.$baris, ($selisih - 1));
+                $sheet->setCellValue('n'.$baris, ($selisih));
                 $sheet->setCellValue('o'.$baris, ($satu_angsuran==0?"":($satu_angsuran)));
                 $sheet->setCellValue('p'.$baris, ($tanpa_margin==0?"":($tanpa_margin)));
                 $sheet->setCellValue('q'.$baris, $nama['nama_karyawan']);
@@ -330,7 +330,7 @@ while($r = mysqli_fetch_array($cek_delin1)){
                     $sheet2->setCellValue('j'.$baris_ws2, $wajib);
                     $sheet2->setCellValue('k'.$baris_ws2, $sukarela);
                     $sheet2->setCellValue('l'.$baris_ws2, $pensiun);
-                    $sheet2->setCellValue('m'.$baris_ws2, ($selisih - 1));
+                    $sheet2->setCellValue('m'.$baris_ws2, ($selisih));
                     $sheet2->setCellValue('n'.$baris_ws2, $angsuran_tunggakan);
                     $sheet2->setCellValue('o'.$baris_ws2, $sukarela_pensiun - $angsuran_tunggakan);
                     $sheet2->setCellValue('p'.$baris_ws2, $nama['nama_karyawan']);
