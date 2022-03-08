@@ -230,7 +230,7 @@ while($r = mysqli_fetch_array($cek_delin1)){
             elseif($selisih>=1){
                 //PAR DARI 1 sampe 100
                 // && $selisih <100
-                if($selisih>1){
+                if($selisih>=1){
                     
                     $ket =  $selisih - 1 ." tunggakan";
                     if($nama['status_center']=='hijau' ){
