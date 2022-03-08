@@ -92,7 +92,7 @@ if(isset($_POST['preview'])){
             $agt = (substr(ganti_karakter($id_nasabah),0,3));
 
             if( $agt=="AGT" || $agt=="NSB"){
-                $nasabah =  aman($con,htmlspecialchars( $con,ganti_karakter($ws->getCell("E".$row)->getValue())));
+                $nasabah =  aman($con, ganti_karakter($ws->getCell("E".$row)->getValue()));
             $loan = ganti_karakter($ws->getCell("B".$row)->getValue());
             $no_center = ganti_karakter($ws->getCell("C".$row)->getValue());
             $id_nasabah = ganti_karakter1($ws->getCell("D".$row)->getValue());
