@@ -164,6 +164,7 @@ if(isset($_GET['bandingkan'])){
                 <th>CENTER</th>
                 <th>ID AGT</th>
                 <th>ANGGOTA</th>
+                <th>TANGGAL</th>
                 <th>DISBURSE</th>
                 <th>BALANCE</th>
                 <th>ARREAS</th>
@@ -199,6 +200,7 @@ if(isset($_GET['bandingkan'])){
                 <td><?=$data['no_center']?></td>
                 <td><?=$data['id_detail_nasabah']?></td>
                 <td><?=$data['nasabah']?></td>
+                <td><?=$data['tgl_disburse']?></td>
                 <td><?=angka($data['amount'],$sepat)?></td>
                 <td><?=angka($data['sisa_saldo'],$sepat)?></td>
                 <td><?=angka($data['tunggakan'],$sepat)?></td>
@@ -229,6 +231,7 @@ if(isset($_GET['bandingkan'])){
                 <th>CENTER</th>
                 <th>ID AGT</th>
                 <th>ANGGOTA</th>
+                <th>TANGGAL</th>
                 <th>DISBURSE</th>
                 <th>BALANCE</th>
                 <th>ARREAS</th>
@@ -266,6 +269,7 @@ if(isset($_GET['bandingkan'])){
                 <td><?=$data['no_center']?></td>
                 <td><?=$data['id_detail_nasabah']?></td>
                 <td><?=$data['nasabah']?></td>
+                <td><?=$data['tgl_disburse']?></td>
                 <td><?=angka($data['amount'],$sepat)?></td>
                 <td><?=angka($data['sisa_saldo'],$sepat)?></td>
                 <td><?=angka($data['tunggakan'],$sepat)?></td>

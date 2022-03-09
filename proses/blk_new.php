@@ -328,7 +328,7 @@ while($r = mysqli_fetch_array($cek_delin1)){
 
                 //SHEET 2
 
-                $angsuran_tunggakan = $selisih * $cicilan;
+                $angsuran_tunggakan = ($selisih + 1) * $cicilan;
                 if($sukarela_pensiun >= $angsuran_tunggakan){
                     $sheet2->setCellValue('A'.$baris_ws2, $no_baris_ws2++);
                     $sheet2->setCellValue('b'.$baris_ws2, $id_nasabah.' / '. $nama['no_center']);
