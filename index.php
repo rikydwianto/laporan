@@ -119,6 +119,7 @@ $singkatan_cabang = $d['singkatan_cabang'];
                                 <div class="modal-body">
                                     <div class="col-md-12">
                                         <div class="col-md-6">
+                                            <h2 style="text-align: center;">DATA PAR</h2>
                                                 <canvas id="donat" ></canvas>
                                         </div>
                                         <div class="col-md-6">
