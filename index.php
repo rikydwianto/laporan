@@ -102,9 +102,11 @@ $singkatan_cabang = $d['singkatan_cabang'];
                     <?php
                     //  if(isset($_SESSION['informasi'])){
                     ?>
+                   
+
                     <!-- The Modal TAMBAH -->
                     <div class="modal fade" id="modalku">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog modal-lg">
                             <div class="modal-content">
 
                                 <!-- Ini adalah Bagian Header Modal -->
@@ -115,56 +117,71 @@ $singkatan_cabang = $d['singkatan_cabang'];
 
                                 <!-- Ini adalah Bagian Body Modal -->
                                 <div class="modal-body">
-
-                                    <p>
-                                    <h2 style="text-align: center;">Sistem Informasi Cabang <?= strtoupper($d['nama_cabang']) ?></h2><br>
-                                    <ul>
-                                        <?php 
-                                        $number = cal_days_in_month(CAL_GREGORIAN,date("m"), date("Y"));
-;                                        
-                                        $tgl_akhir = date("Y-m-$number");
-                                        $tgl_depan = date("Y-m-".($number-6));
-
-                                        ?>
-                                        <!-- <li> Selasa, 10 Agutus 2021 Tidak Libur tidak dipindah hari/NORMAL </li> -->
-                                        <li> <b> PENARIKAN SIMPANAN OLEH MANAJER </b> Berlaku pada <?=format_hari_tanggal($tgl_depan)?> s/d <?=format_hari_tanggal($tgl_akhir)?> </li>
-                                        <li> Untuk rekap bisa dilihat di menu "PENARIKAN SIMPANAN" hanya memasukan id anggota dan nominal penarikan </li>
-                                        <li>
-                                            <?php 
-                                            $qmax = mysqli_query($con,"SELECT MAX(tgl_cair) AS cair FROM pinjaman WHERE id_cabang='$id_cabang' LIMIT 0,1");
-                                            $info =  mysqli_fetch_array($qmax);
-                                            $sq = mysqli_query($con,"SELECT karyawan.nama_karyawan,COUNT(id_detail_nasabah) AS total_monitoring 
-                                            FROM pinjaman JOIN karyawan ON karyawan.`id_karyawan`=pinjaman.`id_karyawan`
-                                            WHERE pinjaman.id_cabang='$id_cabang' and pinjaman.monitoring='belum' and pinjaman.input_mtr='sudah'
-                                             GROUP BY pinjaman.id_karyawan
-                                            ORDER BY COUNT(id_detail_nasabah) DESC LIMIT 0,5");
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                                <canvas id="donat" ></canvas>
+                                        </div>
+                                        <div class="col-md-6">
+                                        <p>
                                             
-                                            ?>    
-                                            Monitoring diupdate sampai dengan <b><?=format_hari_tanggal($info['cair'])?></b>
-                                            
-                                        </li>
-                                        <li>
-                                            Monitoring Teratas
+                                            <h2 style="text-align: center;">Sistem Informasi Cabang <?= strtoupper($d['nama_cabang']) ?></h2><br>
                                             <ul>
                                                 <?php 
-                                                while($max = mysqli_fetch_array($sq)){
-                                                    echo "<li>".$max['nama_karyawan'].' - '.$max['total_monitoring']."</li>";
-                                                }
+                                                $number = cal_days_in_month(CAL_GREGORIAN,date("m"), date("Y"));
+                                                $tgl_akhir = date("Y-m-$number");
+                                                $tgl_depan = date("Y-m-".($number-6));
+
                                                 ?>
+                                                
+                                                <!-- <li> Selasa, 10 Agutus 2021 Tidak Libur tidak dipindah hari/NORMAL </li> -->
+                                                <li> <b> PENARIKAN SIMPANAN OLEH MANAJER </b> Berlaku pada <?=format_hari_tanggal($tgl_depan)?> s/d <?=format_hari_tanggal($tgl_akhir)?> </li>
+                                                <li> Untuk rekap bisa dilihat di menu "PENARIKAN SIMPANAN" hanya memasukan id anggota dan nominal penarikan </li>
+                                                <li>
+                                                    <?php 
+                                                    $qmax = mysqli_query($con,"SELECT MAX(tgl_cair) AS cair FROM pinjaman WHERE id_cabang='$id_cabang' LIMIT 0,1");
+                                                    $info =  mysqli_fetch_array($qmax);
+                                                    $sq = mysqli_query($con,"SELECT karyawan.nama_karyawan,COUNT(id_detail_nasabah) AS total_monitoring 
+                                                    FROM pinjaman JOIN karyawan ON karyawan.`id_karyawan`=pinjaman.`id_karyawan`
+                                                    WHERE pinjaman.id_cabang='$id_cabang' and pinjaman.monitoring='belum' and pinjaman.input_mtr='sudah'
+                                                    GROUP BY pinjaman.id_karyawan
+                                                    ORDER BY COUNT(id_detail_nasabah) DESC LIMIT 0,5");
+                                                    
+                                                    ?>    
+                                                    Monitoring diupdate sampai dengan <b><?=format_hari_tanggal($info['cair'])?></b>
+                                                    
+                                                </li>
+                                                <li>
+                                                    Monitoring Teratas
+                                                    <ul>
+                                                        <?php 
+                                                        while($max = mysqli_fetch_array($sq)){
+                                                            echo "<li>".$max['nama_karyawan'].' - '.$max['total_monitoring']."</li>";
+                                                        }
+                                                        ?>
+                                                    </ul>
+                                                </li>
+                                                
                                             </ul>
-                                        </li>
-                                    </ul>
 
-                                    </p>
-                                    <br><br>
+                                            </p>
+                
+                                        </div>
+                                                
+                                    </div>
+                                        
+                                
+                            
+                                        
+                                        
+                                        
 
+                                    <!-- Ini adalah Bagian Footer Modal -->
+                                    
                                 </div>
-
-                                <!-- Ini adalah Bagian Footer Modal -->
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger" id='tutup_pesan' data-dismiss="modal">close</button>
                                 </div>
-
+                                
                             </div>
                         </div>
                     </div>
@@ -285,6 +302,34 @@ $singkatan_cabang = $d['singkatan_cabang'];
             document.execCommand("copy");
             document.body.removeChild(sampleTextarea);
         }
+        var oilCanvas = document.getElementById("oilChart");
+
+var oilData = {
+    labels: [
+        "Saudi Arabia",
+        "Russia",
+        "Iraq",
+        "United Arab Emirates",
+        "Canada"
+    ],
+    datasets: [
+        {
+            data: [133.3, 86.2, 52.2, 51.2, 50.2],
+            backgroundColor: [
+                "#FF6384",
+                "#63FF84",
+                "#84FF63",
+                "#8463FF",
+                "#6384FF"
+            ]
+        }]
+};
+
+var pieChart = new Chart(oilCanvas, {
+  type: 'pie',
+  data: oilData
+});
+
 </script>
 <script src="<?= $url ?>assets/js/script_wilayah.js"></script>
 <script src="<?= $url ?>assets/js/grafik.js"></script>

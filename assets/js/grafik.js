@@ -71,3 +71,52 @@ $.getJSON( url_link + "api/grafik.php?cab="+idcab, function( data ) {
     }
     });
   });
+
+
+
+  
+  var kode = [];
+  var total = [];
+
+  $.getJSON( url_link + "api/grafik_donat.php?cab="+idcab, function( data ) {
+    var items = [];
+    
+    $.each( data, function( i, field ) {
+       kode.push(data[i]['kode']);
+       total.push(data[i]['total']);
+      // alert(data[i]['kode'])
+      });
+
+
+      var oilCanvas = document.getElementById("donat");
+
+        Chart.defaults.global.defaultFontFamily = "Lato";
+        Chart.defaults.global.defaultFontSize = 18;
+        
+        var oilData = {
+            labels:kode,
+            datasets: [
+                {
+                    data: total,
+                    backgroundColor: [
+                        // 'rgb(255, 99, 132)',
+                        'rgb(75, 192, 192)',
+                        'rgb(255, 205, 86)',
+                        'rgb(201, 203, 207)',
+                        'rgb(54, 162, 235)',
+                        'rgb(154, 62, 235)',
+                        'rgb(14, 62, 25)'
+                      ],
+                    
+                }]
+        };
+        
+        var pieChart = new Chart(oilCanvas, {
+            type: 'doughnut',
+            data: oilData
+        });
+
+       // alert(kode);
+  });
+
+  

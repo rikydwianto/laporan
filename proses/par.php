@@ -536,6 +536,7 @@ else{
                                         <th>#</th>
                                     </tr>
                                     <?php
+                                    $no=1;
                                     $qt = mysqli_query($con,"select tgl_disburse,sum(sisa_saldo) as total_os, count(*) as total,year(tgl_disburse) as tahun,month(tgl_disburse) as bulan from deliquency where id_cabang='$id_cabang' and tgl_input='$cari[tgl_input]' group by year(tgl_disburse),month(tgl_disburse) order by tgl_disburse desc"); 
                                     while($rtgl_dis = mysqli_fetch_array($qt)){
                                      ?>
