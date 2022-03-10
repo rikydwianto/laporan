@@ -39,8 +39,14 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
     <?php $q_tambah="";
     if(isset($_GET['minggu'])){
         $minggu = $_GET['minggu'];
-      echo "MINGGU : " . $minggu ;
+      echo "MINGGU : " . $minggu .'<br/>';
         $q_tambah = "and d.minggu='$minggu'";
+    }
+    
+    if(isset($_GET['bulan'])){
+        $bulan = $_GET['bulan'];
+      echo "PRIODE : " . $bulan ;
+        $q_tambah1 = "and d.tgl_disburse like '$bulan-%'";
     }
     
     ?>
@@ -68,7 +74,7 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
     $query = mysqli_query($con,"
     SELECT d.*,k.nama_karyawan FROM deliquency d 
 	JOIN center c ON c.`no_center`=d.`no_center` 
-	JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` where d.tgl_input='$tgl' and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' $q_tambah order by k.nama_karyawan asc");
+	JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` where d.tgl_input='$tgl' and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' $q_tambah  $q_tambah1 order by k.nama_karyawan asc");
     while($data = mysqli_fetch_array($query)){
         $total_bermasalah+=$data['sisa_saldo'];
         $par = mysqli_num_rows(mysqli_query($con,"select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]' and id_cabang='$id_cabang'"));

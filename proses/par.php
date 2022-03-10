@@ -516,7 +516,7 @@ else{
                                         <td>JML</td>
                                         <?php 
                                         while($rminggu = mysqli_fetch_array($qminggu1)){
-                                            $total_minggu = mysqli_query($con,"select count(id) as total from deliquency where id_cabang='$id_cabang' and tgl_input='$cari[tgl_input]' and minggu='$rminggu[minggu1]' ");
+                                            $total_minggu = mysqli_query($con,"select count(id) as total from deliquency where id_cabang='$id_cabang' and tgl_input='$cari[tgl_input]' and minggu='$rminggu[minggu1]'  ");
                                             $total_minggu = mysqli_fetch_array($total_minggu)['total'];
                                             ?>
                                             <td><?=$total_minggu?></td>
@@ -525,6 +525,36 @@ else{
                                         ?>
                                     </tr>
                                 </table>
+
+                                <table class='table table-bordered'>
+                                    <tr>
+                                        <th>NO</th>
+                                        <th>TAHUN</th>
+                                        <th>BULAN</th>
+                                        <th>TOTAL</th>
+                                        <th>TOTAL OS</th>
+                                        <th>#</th>
+                                    </tr>
+                                    <?php
+                                    $qt = mysqli_query($con,"select tgl_disburse,sum(sisa_saldo) as total_os, count(*) as total,year(tgl_disburse) as tahun,month(tgl_disburse) as bulan from deliquency where id_cabang='$id_cabang' and tgl_input='$cari[tgl_input]' group by year(tgl_disburse),month(tgl_disburse) order by tgl_disburse desc"); 
+                                    while($rtgl_dis = mysqli_fetch_array($qt)){
+                                     ?>
+                                     <tr>
+                                        <td><?=$no++?></td>
+                                        <td><?=$rtgl_dis['tahun']?></td>
+                                        <td><?=bulan_indo($rtgl_dis['bulan'])?></td>
+                                        <td><?=$rtgl_dis['total']?></td>
+                                        <td><?=rupiah($rtgl_dis['total_os'])?></td>
+                                        <td>
+                                            <a href="#" onclick="buka('popup/par.php?tgl=<?=$cari['tgl_input']?>&bulan=<?=$rtgl_dis['tahun'].'-'.sprintf('%02d',$rtgl_dis['bulan'])?>')" class="btn btn-success"> Detail </a>
+                                        </td>
+                                    </tr>
+                                     <?php   
+                                    }
+                                    ?>
+                                </table>
+
+                                <br>
                                 </td>
                     </tr>
                                 <?php
