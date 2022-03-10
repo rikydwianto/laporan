@@ -388,6 +388,7 @@ if(isset($_GET['bandingkan'])){
             <td>ID AGT</td>
             <td>ANGGOTA</td>
             <td>DISBURSE</td>
+            <td>TGL DISBURSE</td>
             <td>BALANCE</td>
             <td>ARREAS</td>
             <td>WEEK PAS</td>
@@ -424,7 +425,7 @@ if(isset($_GET['bandingkan'])){
             <td><?=$data['id_detail_nasabah']?></td>
             <td><?=$data['nasabah']?></td>
             <td><?=angka($data['amount'],$sepat)?></td>
-            <td><?=angka($data['sisa_saldo'],$sepat)?></td>
+            <td><?=($data['tgl_disburse'])?></td>
             <td><?=angka($data['tunggakan'],$sepat)?></td>
             <td><?=$data['minggu']?></td>
             <td><?=$baris['ket']?></td>
@@ -478,42 +479,60 @@ else{
                         <td><?=($total_center['total_center'])?></td>
                         <td><?=rupiah($cari['total_par'])?></td>
                         <td>
+                            <a href="<?=$url.$menu?>par&munculkan&tgl=<?=$cari['tgl_input']?>"  class="btn btn-success"> <i class="fa fa-eye"></i> Tampilkan Detail</a>
+                            <a href="#" onclick="buka('popup/par.php?tgl=<?=$cari['tgl_input']?>')"  class="btn btn-primary"> <i class="fa fa-list"></i> Tampilkan Semua</a>
                             <a href="<?=$url.$menu?>par&delete&tgl=<?=$cari['tgl_input']?>" onclick="return window.confirm('apakah yakin menghapus semua data <?=format_hari_tanggal($cari['tgl_input'])?>')" class="btn btn-danger"> <i class="fa fa-times"></i> </a>
                         </td>
                     </tr>
-                    <tr>
-                        <td colspan="7">
+                    
                             <?php 
                             $qminggu = mysqli_query($con,"SELECT DISTINCT minggu as minggu1 from deliquency where tgl_input='$cari[tgl_input]' and id_cabang='$id_cabang' order by minggu asc");
                             $qminggu1 = mysqli_query($con,"SELECT DISTINCT minggu as minggu1 from deliquency where tgl_input='$cari[tgl_input]' and id_cabang='$id_cabang' order by minggu asc");
-                            ?>
-                            <table class='table table-bordered'>
-                                <tr>
-                                    <th>MINGGU</th>
-                                    <?php 
-                                    while($rminggu = mysqli_fetch_array($qminggu)){
+                            
+                            if(isset($_GET['munculkan'])){
+                                $tgl = $_GET['tgl'];
+                                if($tgl == $cari['tgl_input']){
+
+                                
+                                ?>
+                    <tr>
+                        <td colspan="7">
+                                <table class='table table-bordered'>
+                                    <tr>
+                                        <th>MINGGU</th>
+                                        <?php 
+                                        while($rminggu = mysqli_fetch_array($qminggu)){
+                                            ?>
+                                            <th>
+                                            <a href="#" onclick="buka('popup/par.php?tgl=<?=$cari['tgl_input']?>&minggu=<?=$rminggu['minggu1']?>')" target="_blank">
+                                                <?=$rminggu['minggu1']?></th>
+                                            </a>    
+                                            <?php
+                                        }
                                         ?>
-                                        <th><?=$rminggu['minggu1']?></th>
-                                        <?php
-                                    }
-                                    ?>
-                                    
-                                </tr>
-                                <tr>
-                                    <td>JML</td>
-                                    <?php 
-                                    while($rminggu = mysqli_fetch_array($qminggu1)){
-                                        $total_minggu = mysqli_query($con,"select count(id) as total from deliquency where id_cabang='$id_cabang' and tgl_input='$cari[tgl_input]' and minggu='$rminggu[minggu1]' ");
-                                        $total_minggu = mysqli_fetch_array($total_minggu)['total'];
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td>JML</td>
+                                        <?php 
+                                        while($rminggu = mysqli_fetch_array($qminggu1)){
+                                            $total_minggu = mysqli_query($con,"select count(id) as total from deliquency where id_cabang='$id_cabang' and tgl_input='$cari[tgl_input]' and minggu='$rminggu[minggu1]' ");
+                                            $total_minggu = mysqli_fetch_array($total_minggu)['total'];
+                                            ?>
+                                            <td><?=$total_minggu?></td>
+                                            <?php
+                                        }
                                         ?>
-                                        <td><?=$total_minggu?></td>
-                                        <?php
-                                    }
-                                    ?>
-                                </tr>
-                            </table>
-                        </td>
+                                    </tr>
+                                </table>
+                                </td>
                     </tr>
+                                <?php
+                            }
+                        }
+                            ?>
+                            
+                   
                     <?php
                 }
                 ?>
@@ -556,5 +575,10 @@ else{
     WinPrint.focus();
     WinPrint.print();
     WinPrint.close();
+}
+function buka(url) {
+    let l = "<?=$url?>";
+  var myWindow = window.open(url, "DATA PAR", "width=1000,height=1000");
+//   myWindow.document.write("<p>This is 'MsgWindow'. I am 200px wide and 100px tall!</p>");
 }
 </script>

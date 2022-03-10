@@ -416,7 +416,7 @@ if (isset($_POST['konfirmasi_laporan'])) {
 				$cek_center1 = mysqli_fetch_array($cek_center);
 				mysqli_query($con, "UPDATE `detail_laporan` SET anggota_hadir='$hadir[$x]',`status` = '$status', `doa` = '$doa[$x]', `total_agt` = '$total_agt[$x]', `member` = '$member[$x]', `total_bayar` = '$total_bayar[$x]', `total_tidak_bayar` = '$total_tidak_bayar[$x]' WHERE `detail_laporan`.`id_detail_laporan` = '$cek_center1[id_detail_laporan]';");
 			} else {
-				$q = mysqli_query($con, "INSERT INTO detail_laporan ( id_laporan, no_center, status, doa,member, total_agt, total_bayar, total_tidak_bayar, status_detail_laporan,doortodoor,anggota_hadir) VALUES ( '$id_laporan', '" . sprintf("%03d", $no_center[$x]) . "', '" . $status . "', '$doa[$x]', '" . $member[$x] . "','" . $total_agt[$x] . "', '" . $total_bayar[$x] . "', '" . $total_tidak_bayar[$x] . "', 'draft','" . $dtd[$x] . "','$hadir[$x]')");
+				$q = mysqli_query($con, "INSERT INTO detail_laporan ( id_laporan, no_center, status, doa,member, total_agt, total_bayar, total_tidak_bayar, status_detail_laporan,doortodoor,anggota_hadir) VALUES ( '$id_laporan', '" . sprintf("%03d", $no_center[$x]) . "', '" . $status . "', '$doa[$x]', '" . $member[$x] . "','" . $total_agt[$x] . "', '" . $total_bayar[$x] . "', '" . $total_tidak_bayar[$x] . "', 'sukses','" . $dtd[$x] . "','$hadir[$x]')");
 			}
 			center($con, $no_center[$x], $doa[$x], $status, $member[$x], $total_agt[$x], $total_bayar[$x], $id_cabang, $cek_laporan['id_karyawan'], $hari, $id_laporan, $jam[$x], $dtd[$x],$hadir[$x]);
 		}
