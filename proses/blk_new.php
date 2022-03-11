@@ -260,7 +260,7 @@ while($r = mysqli_fetch_array($cek_delin1)){
                         $sukarela_pensiun = ($sukarela - 2000) ;
                         $satu_angsuran = ($sukarela - 2000) -$cicilan;
                     }
-                    $tanpa_margin = $os - (($wajib-2000) + ($pensiun-2000) + ($sukarela-2000));
+                    $tanpa_margin = $os - (($wajib-2000) + ($pensiun-2000) + ($sukarela-2000) + ($hari_raya-2000));
                     // $satu_angsuran = ($sukarela - 2000) -$cicilan;
                 }
                 else{
