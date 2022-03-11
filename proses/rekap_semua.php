@@ -107,7 +107,7 @@
             $query10 = mysqli_query($con," SELECT count(d.id) as total, sum(d.sisa_saldo) as balance,k.nama_karyawan FROM deliquency d 
         JOIN center c ON c.`no_center`=d.`no_center` 
         JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
-        where   d.tgl_input='$tgl_banding' and c.id_cabang='$id_cabang' and k.id_karyawan='$staff[id_karyawan]'  group by k.id_karyawan order by k.nama_karyawan asc");
+        where   d.tgl_input='$tgl_banding' and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' and k.id_cabang='$id_cabang' and k.id_karyawan='$staff[id_karyawan]'  group by k.id_karyawan order by k.nama_karyawan asc");
             $bal = mysqli_fetch_array($query10);
             $balance = $bal['balance'];
 
