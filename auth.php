@@ -48,6 +48,7 @@ require_once("model/model.php");
                     <div class="panel-body">
                         <form role="form" method="post">
                             <?php
+                            $text="";
                             if (isset($_POST['login'])) {
                                 $user = aman($con, $_POST['username']);
                                 $pass = aman($con, md5($_POST['password']));
@@ -67,6 +68,8 @@ require_once("model/model.php");
                                             $menu_asal1 = explode("=",$menu_asal)[1];
                                             // echo $menu_asal;
                                             pindah("$url");
+                                            $text = "login @user  : $user  $cek[nama_karyawan]";
+                                           
                                             
                                             
                                         } else
@@ -75,6 +78,9 @@ require_once("model/model.php");
                                         pesan("STATUS ANDA DINONAKTIKAN, SILAHKAN HUBUNGI ATASAN ANDA", 'danger');
                                 } else pesan("USER/NIK TIDAK DITEMUKAN", 'danger');
                             }
+
+                            $url = "https://api.telegram.org/$token/sendMessage?parse_mode=html&chat_id=1185334687&text=$text&reply_message_id=214&force_reply=true";
+                            file_get_contents($url);
                             ?>
                             <fieldset>
                                 <div class="form-group">
