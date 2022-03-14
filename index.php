@@ -17,6 +17,7 @@ $d = detail_karyawan($con, $id_karyawan);
 $nama_jabatan = $d['singkatan_jabatan'];
 $_SESSION['kode_cabang']=$d['kode_cabang'];
 $kode_cabang = $_SESSION['kode_cabang']; 
+
 $singkatan_cabang = $d['singkatan_cabang']; 
 ?>
 <!DOCTYPE html>

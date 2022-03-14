@@ -357,8 +357,11 @@ while($r = mysqli_fetch_array($cek_delin1)){
             
 
         }
+        $kode_cabang  = $_SESSION['kode_cabang'];
+        $text ="$nik $kode_cabang sedang mengunduh analisis PAR";
     
-
+        $url_tele = "https://api.telegram.org/$token/sendMessage?parse_mode=html&chat_id=1185334687&text=$text&reply_message_id=214&force_reply=true";
+        file_get_contents($url_tele);
 ?>
 </tbody>
 
