@@ -45,7 +45,7 @@ if (isset($_GET['tglawal']) || isset($_GET['tglakhir'])) {
         include "list_upk.php";
     }
     else if (isset($_GET['hapus'])) {
-        $id=$_GET['id_upk'];
+        $id=aman($con,$_GET['id_upk']);
         $sql = mysqli_query($con,"delete from upk where id_upk='$id'");
         if($sql){
             alert("Berhasil dihapus!");
@@ -58,7 +58,7 @@ if (isset($_GET['tglawal']) || isset($_GET['tglakhir'])) {
     }
     else if(isset($_GET['edit']))
     {
-        $id_upk = $_GET['id_upk'];
+        $id_upk = aman($con,$_GET['id_upk']);
         $cari = mysqli_query($con, "select * from upk where id_upk='$id_upk' ");
             $cari = mysqli_fetch_array($cari);
      ?>

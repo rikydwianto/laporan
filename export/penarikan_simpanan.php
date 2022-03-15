@@ -12,15 +12,15 @@ $su = $_SESSION['su'];
 $d = detail_karyawan($con, $id_karyawan);
 $nama_jabatan = $d['singkatan_jabatan'];
 if (isset($_GET['tglawal']) || isset($_GET['tglakhir'])) {
-    $tglawal = $_GET['tglawal'];
-    $tglakhir = $_GET['tglakhir'];
+    $tglawal = aman($con,$_GET['tglawal']);
+    $tglakhir = aman($con,$_GET['tglakhir']);
 } else {
     $tglawal = date("Y-m-d");
     $tglakhir = date("Y-m-d", strtotime('+4 day', strtotime(date("Y-m-d"))));
 }
 
 if (isset($_GET['tgl'])) {
-    $qtgl = $_GET['tgl'];
+    $qtgl =aman($con, $_GET['tgl']);
 } else {
     $qtgl = date("Y-m-d");
 }

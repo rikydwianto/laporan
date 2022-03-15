@@ -4,8 +4,8 @@ require_once "../config/seting.php";
 require_once "../config/koneksi.php";
 require_once("../proses/fungsi.php");
 require_once("../model/model.php");
-$center = sprintf("%03d",$_GET['center']);
-$id_cabang = $_GET['cab'];
+$center = sprintf("%03d",aman($con,$_GET['center']));
+$id_cabang = aman($con,$_GET['cab']);
  //query tabel produk
  $sql="SELECT no_center,hari,jam_center,status_center,anggota_center,member_center,karyawan.nama_karyawan,
  center.latitude,center.longitude,cabang.nama_cabang

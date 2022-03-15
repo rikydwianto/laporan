@@ -29,6 +29,8 @@ $singkatan_cabang = $d['singkatan_cabang'];
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta http-equiv="Referrer-Policy" content="no-referrer, strict-origin-when-cross-origin">
+
 
     <title>MITRA DHUAFA | <?= strtoupper($d['nama_cabang']) ?></title>
     <link rel="icon" type="image/png" sizes="16x16" href="<?= $url ?>assets/logo.png">

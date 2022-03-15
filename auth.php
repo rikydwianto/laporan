@@ -12,6 +12,8 @@ require_once("model/model.php");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
+    <meta http-equiv="Referrer-Policy" content="no-referrer, strict-origin-when-cross-origin">
+
     <meta name="author" content="">
 
     <title>KOPERASI MITRA DHUAFA</title>

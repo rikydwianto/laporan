@@ -54,9 +54,9 @@ $cek_upk = mysqli_query($con,"select * from upk join center on center.no_center=
         </table>
         <?php
         if(isset($_GET['kirim'])){
-            $id_upk = $_GET['id_upk'];
-            $status = $_GET['status'];
-            $anggota = $_GET['anggota'];
+            $id_upk = aman($con,$_GET['id_upk']);
+            $status = aman($con,$_GET['status']);
+            $anggota = aman($con,$_GET['anggota']);
             $tgl = $_GET['tgl'];
             if($status == 'jadi'){
                $q_status =  mysqli_query($con,"UPDATE `upk` SET `status` = 'jadi' WHERE `id_upk` = '$id_upk'");

@@ -14,7 +14,7 @@ $d = detail_karyawan($con,$id_karyawan);
 $nama_jabatan=$d['singkatan_jabatan'];
  if(isset($_GET['tgl']))
 	{
-		$qtgl=$_GET['tgl'];
+		$qtgl=aman($con,$_GET['tgl']);
 	}
 	else{
 		$qtgl=date("Y-m-d");

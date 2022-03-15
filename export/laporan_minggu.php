@@ -13,8 +13,8 @@ $d = detail_karyawan($con,$id_karyawan);
 $nama_jabatan=$d['singkatan_jabatan'];
  if(isset($_GET['tglawal']) || isset($_GET['tglakhir']))
 {
-	$tglawal = $_GET['tglawal'];
-	$tglakhir = $_GET['tglakhir'];
+	$tglawal = aman($con,$_GET['tglawal']);
+	$tglakhir = aman($con,$_GET['tglakhir']);
 }
 else{
 	$tglawal = date("Y-m-d",strtotime ( '-4 day' , strtotime ( date("Y-m-d")))) ;

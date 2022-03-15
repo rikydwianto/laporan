@@ -1,6 +1,6 @@
 <h3 class='page-header'>Detail Center</h3>
 <?php
-$id_laporan = $_GET['id_laporan'];
+$id_laporan = aman($con,$_GET['id_laporan']);
 $cek_laporan = mysqli_query($con, "select * from laporan where id_laporan='$id_laporan' ");
 
 $cek_laporan = mysqli_fetch_array($cek_laporan);
@@ -280,11 +280,11 @@ if (isset($_GET['hapusdetail'])) {
 
 //UN-approve laporan
 if (isset($_GET['non_app'])) {
-	$id_detail = $_GET['id_detail_laporan'];
-	$center = $_GET['center_no'];
-	$idk = $_GET['idk'];
-	$urlbaru = $_GET['url'];
-	$tglbaru = $_GET['tgl'];
+	$id_detail = aman($con,$_GET['id_detail_laporan']);
+	$center = aman($con,$_GET['center_no']);
+	$idk = aman($con,$_GET['idk']);
+	$urlbaru = aman($con,$_GET['url']);
+	$tglbaru = aman($con,$_GET['tgl']);
 	$q1 = mysqli_query($con, "UPDATE detail_laporan SET status_detail_laporan='draft' WHERE id_laporan = '$id_laporan' ");
 	$q = mysqli_query($con, "UPDATE laporan SET status_laporan='pending' WHERE id_laporan = '$id_laporan' ");
 	if ($q) {
@@ -295,11 +295,11 @@ if (isset($_GET['non_app'])) {
 
 //approve laporan
 if (isset($_GET['approve'])) {
-	$id_detail = $_GET['id_detail_laporan'];
-	$center = $_GET['center_no'];
-	$idk = $_GET['idk'];
-	$urlbaru = $_GET['url'];
-	$tglbaru = $_GET['tgl'];
+	$id_detail = aman($con,$_GET['id_detail_laporan']);
+	$center = aman($con,$_GET['center_no']);
+	$idk = aman($con,$_GET['idk']);
+	$urlbaru =aman($con, $_GET['url']);
+	$tglbaru = aman($con,$_GET['tgl']);
 	$q1 = mysqli_query($con, "UPDATE detail_laporan SET status_detail_laporan='sukses' WHERE id_laporan = '$id_laporan' ");
 	$q = mysqli_query($con, "UPDATE laporan SET status_laporan='sukses' WHERE id_laporan = '$id_laporan' ");
 	if ($q) {

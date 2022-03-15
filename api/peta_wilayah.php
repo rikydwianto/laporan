@@ -4,17 +4,17 @@ require_once "../config/koneksi.php";
 require_once("../proses/fungsi.php");
 require_once("../model/model.php");
 
-@$prov = $_GET['prov'];
-@$kab = $_GET['kab'];
-@$kec = $_GET['kec'];
-@$desa = $_GET['desa'];
+@$prov = aman($con,$_GET['prov']);
+@$kab = aman($con,$_GET['kab']);
+@$kec = aman($con,$_GET['kec']);
+@$desa = aman($con,$_GET['desa']);
 if (!empty($prov)) {
 ?>
 	<select name="kab" id="kab" class='form-control' onchange="pilih_kec()">
 		<option value="">Silahkan pilih Kabupaten</option>
 
 		<?php
-		$idkab = $_GET['kab'];
+		$idkab = aman($con,$_GET['kab']);
 		$qkab  = mysqli_query($con, "SELECT * FROM daftar_wilayah WHERE LEFT(kode,2)=$prov AND CHAR_LENGTH(kode)=5 ORDER BY nama");
 
 		while ($Kab = mysqli_fetch_array($qkab)) {
@@ -33,7 +33,7 @@ else if (!empty($kab)) {
 		<option value="">Silahkan pilih Kecamatan</option>
 
 		<?php
-		$idkec = $_GET['kec'];
+		$idkec = aman($con,$_GET['kec']);
 		$qkec  = mysqli_query($con, "SELECT * FROM daftar_wilayah WHERE LEFT(kode,5)='$kab' AND CHAR_LENGTH(kode)=8 ORDER BY nama");
 
 		while ($kec = mysqli_fetch_array($qkec)) {
@@ -52,7 +52,7 @@ else if (!empty($kec)) {
 		<option value="">Silahkan pilih DESA</option>
 
 		<?php
-		$iddesa = $_GET['desa'];
+		$iddesa = aman($con,$_GET['desa']);
 		$qdesa  = mysqli_query($con, "SELECT * FROM daftar_wilayah WHERE LEFT(kode,8)='$kec' AND CHAR_LENGTH(kode)=13 ORDER BY nama");
 
 		while ($desa = mysqli_fetch_array($qdesa)) {
@@ -76,7 +76,7 @@ else {
 		<option value="">Silahkan pilih Provinsi</option>
 
 		<?php
-		$idprov = $_GET['prov'];
+		$idprov = aman($con,['prov']);
 		$qprov  = mysqli_query($con, "SELECT kode,nama FROM daftar_wilayah WHERE CHAR_LENGTH(kode)=2 ORDER BY nama");
 		while ($prov = mysqli_fetch_array($qprov)) {
 			if ($prov['kode'] == $idprov)

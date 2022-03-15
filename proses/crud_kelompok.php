@@ -53,7 +53,7 @@
 <?php
 if (isset($_POST['simpan_kelompok']) && isset($_GET['edit'])) {
     $nama_group = $_POST['nama_group'];
-    $id_group = $_GET['idgroup'];
+    $id_group = aman($con,$_GET['idgroup']);
     $cash = $_POST['cashflow'];
     mysqli_query($con, "UPDATE `group` SET nama_group='$nama_group',nett_cashflow='$cash' WHERE `id_group` = '$id_group'");
     pindah("$url$menu" . "crud_kelompok");
@@ -64,7 +64,7 @@ if (isset($_POST['simpan_kelompok']) && isset($_GET['edit'])) {
     pindah("$url$menu" . "crud_kelompok");
 }
 if (isset($_GET['hapus'])) {
-    $id_group = $_GET['idgroup'];
+    $id_group =aman($con, $_GET['idgroup']);
     mysqli_query($con, "DELETE FROM `group` WHERE `id_group` ='$id_group'");
     $q = mysqli_query($con, "DELETE FROM `group_user` WHERE `id_group` ='$id_group'");
     pindah("$url$menu" . "crud_kelompok");

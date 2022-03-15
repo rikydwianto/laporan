@@ -7,7 +7,7 @@ require_once("../proses/fungsi.php");
 require_once("../model/model.php");
 require("../vendor/PHPExcel/Classes/PHPExcel.php");
 $id_karyawan = $_SESSION['id'];
-$tgl = $_GET['tgl'];
+$tgl = aman($con,$_GET['tgl']);
 $sepat = 'titik';
 
 $nama_karyawan = $_SESSION['nama_karyawan'];

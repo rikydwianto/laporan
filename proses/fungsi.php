@@ -181,7 +181,7 @@ function int_xml($angka){
 
 function aman($con, $string)
 {
-  return mysqli_escape_string($con, $string);
+  return htmlspecialchars(mysqli_escape_string($con, $string));
 }
 
 

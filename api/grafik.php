@@ -7,7 +7,7 @@ require_once("../proses/fungsi.php");
 require_once("../model/model.php");
 
  //query tabel produk
- $cab = $_GET['cab'];
+ $cab = aman($con,$_GET['cab']);
  $sql="SELECT * from grafik where id_cabang='$cab' order by id_grafik desc limit 0,12 ";
  $query=mysqli_query($con,$sql);
 

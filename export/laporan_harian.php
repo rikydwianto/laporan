@@ -14,7 +14,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
 
  if(isset($_GET['tgl']))
 	{
-		$qtgl=$_GET['tgl'];
+		$qtgl=aman($con,$_GET['tgl']);
 	}
 	else{
 		$qtgl=date("Y-m-d");
@@ -214,7 +214,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
 		</table>
 
 		<?php
-$tgl = $_GET['tgl']; 
+$tgl = aman($con,$_GET['tgl']); 
 $tgl1 = $tglawal = date("Y-m-d",strtotime ( '-7 day' , strtotime ( date($tgl)))) ;
 
 ?>

@@ -7,7 +7,7 @@ require_once("../proses/fungsi.php");
 require_once("../model/model.php");
 
  //query tabel produk
- $cab = $_GET['cab'];
+ $cab = aman($con,$_GET['cab']);
  $id_cabang=$cab;
  $tgl_max= mysqli_query($con,"select tgl_input from deliquency where id_cabang='$id_cabang' order by tgl_input desc ");
  $tgl_max = mysqli_fetch_array($tgl_max)['tgl_input'];

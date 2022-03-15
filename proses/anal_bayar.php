@@ -1,5 +1,5 @@
-<?php @$tgl_awal  = $_GET['tgl_awal'];
-        @$tgl_akhir = $_GET['tgl_akhir']; ?>
+<?php @$tgl_awal  = aman($con,$_GET['tgl_awal']);
+        @$tgl_akhir =aman($con, $_GET['tgl_akhir']); ?>
 
     <div class='content table-responsive'>
 	<h2 class='page-header'>ANALISIS ANGGOTA TIDAK BAYAR</h2>

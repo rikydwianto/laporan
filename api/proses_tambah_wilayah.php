@@ -9,7 +9,7 @@ $id_cabang = $_SESSION['cabang'];
 $su = $_SESSION['su'];
 
 if (isset($_GET['kecamatan_desa'])) {
-    $idkec = $_GET['kec'];
+    $idkec = aman($con,$_GET['kec']);
     $total_desa =  count($_SESSION['nama_desa'][$idkec]);
     $keca = $_SESSION['nama_kec'][$idkec];
     for ($i = 0; $i <= $total_desa; $i++) {

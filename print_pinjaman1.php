@@ -7,8 +7,8 @@ require_once("proses/fungsi.php");
 require_once("model/model.php");
 require("vendor/PHPExcel/Classes/PHPExcel.php");
 $id_karyawan = $_SESSION['id'];
-$tgl_awal = $_GET['tgl_awal'];
-$tgl_akhir = $_GET['tgl_akhir'];
+$tgl_awal = aman($con,$_GET['tgl_awal']);
+$tgl_akhir = aman($con,$_GET['tgl_akhir']);
 // require 'vendor/autoload.php';
 
 // use Dompdf\Dompdf;
