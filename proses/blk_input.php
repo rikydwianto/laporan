@@ -36,6 +36,7 @@
 	<h3 class="page-header">ANALISA PAR NEW</h3>
 	<hr />
     <a href="<?=$url.$menu?>blk_new" class="btn btn-success">DOWNLOAD ANALISA PAR</a>
+    <a href="<?=$url.$menu?>blk_simpanan" class="btn btn-primary">REKAP SIMPANAN</a>
 </div>
 
 
