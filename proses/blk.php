@@ -162,7 +162,7 @@ for($row = 7;$row<=$last_row;$row++){
         // echo $agt;
         $ket1="";
         $kode_pemb = ganti_karakter($kode_pemb);
-        // if($kode_pemb=='PU' || $kode_pemb=='PMB' || $kode_pemb=='PSA' || $kode_pemb=='PRR' || $kode_pemb=='PPD'  ){
+        if($kode_pemb=='PU' || $kode_pemb=='PMB' || $kode_pemb=='PSA' || $kode_pemb=='PRR' || $kode_pemb=='PPD' || $kode_pemb==''  ){
             $id_nasabah =  (int)ganti_karakter($ws->getCell("A" . $row)->getValue());
            if($id_nasabah!=null){
             $nasabah =  ganti_karakter($ws->getCell("B".$row)->getValue());
@@ -354,7 +354,7 @@ for($row = 7;$row<=$last_row;$row++){
             }
             
 
-        // }
+        }
     }
 }
 ?>
