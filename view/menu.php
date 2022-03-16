@@ -381,17 +381,11 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 				<li>
 					<a href="<?php echo $url . $menu ?>rapih_file" class="w3-bar-item w3-button"><i class="fa fa-handphone"></i> Arsip MdisMo</a>
 				</li>
+				<li><a href="<?php echo $url . $menu ?>file" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> FILE</a></li>
 				<li>
 					<a href="<?php echo $url . $menu ?>setting_cabang" class="w3-bar-item w3-button"><i class="fa fa-users"></i> SETTING CABANG</a>
 				</li>
 			</ul>
-		</li>
-
-		<li><a href="<?php echo $url ?>lokasi.php" class="w3-bar-item w3-button"><i class="fa fa-globes"></i> LOKASI</a></li>
-		<li><a href="<?php echo $url . $menu ?>file" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> FILE</a></li>
-		<li><a href="<?php echo $url . $menu ?>spl" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> SPL</a></li>
-		<li>
-			<a href="<?php echo $url . $menu ?>monitoring" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> MONITORING</a>
 		</li>
 		<li>
 			 <a href="#"><i class="fa fa-file-excel-o"></i> Laporan<span class="fa arrow"></span></a>
@@ -439,6 +433,12 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 			</li>
 		</ul>
 		</li>
+		<li><a href="<?php echo $url ?>lokasi.php" class="w3-bar-item w3-button"><i class="fa fa-globes"></i> LOKASI</a></li>
+		
+		
+		<li><a href="<?php echo $url . $menu ?>spl" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> SPL</a></li>
+		
+		
 		<li>
 			<a href="#"><i class="fa fa-file-excel-o"></i> ANALISA PAR<span class="fa arrow"></span></a>
 			<ul class="nav nav-second-level">
@@ -463,6 +463,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 
 		</li>
 		<li>
+			<a href="<?php echo $url . $menu ?>monitoring" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> MONITORING</a>
+		</li>
+		<li>
 			<a href="<?php echo $url . $menu ?>surat" class="w3-bar-item w3-button"><i class="fa fa-inbox"></i> SURAT</a>
 		</li>
 		<li>
@@ -475,13 +478,13 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 		<li>
 			<a href="<?php echo $url . $menu ?>quotes" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> Quotes</a>
 		</li>
-		<li><a href="<?php echo $url . $menu ?>pemb_lain" class="w3-bar-item w3-button"><i class="fa fa-dollar"></i> Pembiayaan Lain</a></li>
+		<!-- <li><a href="<?php echo $url . $menu ?>pemb_lain" class="w3-bar-item w3-button"><i class="fa fa-dollar"></i> Pembiayaan Lain</a></li> -->
 		
 		
 		<li><a href="<?php echo $url . $menu ?>cek_nik" class="w3-bar-item w3-button"><i class="fa fa-search"></i> CEK NIK</a></li>
 		
-		<li><a href="<?php echo $url . $menu ?>setting" class="w3-bar-item w3-button"><i class="fa fa-gears"></i> Setting</a></li>
-		</li>
+		<!-- <li><a href="<?php echo $url . $menu ?>setting" class="w3-bar-item w3-button"><i class="fa fa-gears"></i> Setting</a></li>
+		</li> -->
 		<li>
 			<a href="<?php echo $url . $menu ?>logout" class=""><i class="fa fa-sign-out"></i> Logout</a>
 		</li>

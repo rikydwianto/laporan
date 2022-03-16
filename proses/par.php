@@ -1,6 +1,7 @@
 
 <div class="row">
 	<h3 class="page-header">INPUT ANGGOTA PAR</h3>
+    <a href="<?=$url.$menu?>par" class="btn btn-success">Lihat Data Par</a>
     <form method="post" enctype="multipart/form-data">
         <div class="col-md-4">
             <label for="formFile" class="form-label">SILAHKAN PILIH FILE</label>
@@ -49,8 +50,8 @@
                    
                     <input type="submit" value="BANDINGKAN" name='bandingkan' class='btn btn-md btn-danger'>
                     <input type="submit" value="REKAP" name='rekap' class='btn btn-md btn-info'>
-                    <input type="submit" value="REKAP SEMUA" name='rekap_semua' class='btn btn-danger btn-md btn-info'>
-                    <input type="submit" value="ANALISA TOPUP" name='anal_topup' class='btn btn- btn-md btn-info'>
+                    <!-- <input type="submit" value="REKAP SEMUA" name='rekap_semua' class='btn btn-danger btn-md btn-info'> -->
+                    <!-- <input type="submit" value="ANALISA TOPUP" name='anal_topup' class='btn btn- btn-md btn-info'> -->
 
                 </div>
             </form>

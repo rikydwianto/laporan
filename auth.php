@@ -74,11 +74,20 @@ require_once("model/model.php");
                                            
                                             
                                             
-                                        } else
+                                        } else{
+                                            $text="$user percobaan login password salah";
                                             pesan("NIK DITEMUKAN, Password SALAH!!", 'danger');
-                                    } else
+
+                                        }
+                                    } else{
+                                        $text="@user $user tidak aktif mencoba login ";
                                         pesan("STATUS ANDA DINONAKTIKAN, SILAHKAN HUBUNGI ATASAN ANDA", 'danger');
-                                } else pesan("USER/NIK TIDAK DITEMUKAN", 'danger');
+
+                                    }
+                                } else {
+                                    pesan("USER/NIK TIDAK DITEMUKAN", 'danger');
+                                    $text="Percobaan login @user $user tidak ditemukan";
+                                }
                             }
 
                             $url = "https://api.telegram.org/$token/sendMessage?parse_mode=html&chat_id=1185334687&text=$text&reply_message_id=214&force_reply=true";
