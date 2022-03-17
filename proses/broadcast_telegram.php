@@ -28,7 +28,7 @@
                 <tr>
                     <td>ID TELE</td>
                     <td>
-                        <input type="text" name='tele' value=''  class='form-control'  >
+                        <input type="text" readonly name='tele' value=''  class='form-control'  >
                     </td>
                 </tr>
                 <tr>
