@@ -41,6 +41,13 @@
             </table>
         </form>
         <?php
+        if(isset($_GET['hapus'])){
+            $id = aman($con,$_GET['id']);
+            mysqli_query($con,"delete from tasklist where id='$id'");
+            alert("Berhasil dihapus");
+
+            pindah("$url$menu"."broadcast_telegram");
+        }
         if(isset($_POST['tambah'])){
             $ulang  = $_POST['ulang'];
             for($i=1;$i<=$ulang;$i++){
@@ -73,6 +80,7 @@
             <th>DESKRIPSI</th>
             <th>TANGGAL JAM</th>
             <th>STATUS</th>
+            <th></th>
         </tr>
         <?php
         $qlihat = mysqli_query($con,"select * from tasklist where id_karyawan='$id_karyawan'");
@@ -85,6 +93,11 @@
                 <td><?=$lihat['deskripsi_tasklist']?></td>
                 <td><?=$lihat['tgl_tasklist']?> <?=$lihat['waktu']?></td>
                 <td><?=$lihat['status']?></td>
+                <td>
+                <a href="<?=$url.$menu?>broadcast_telegram&hapus&id=<?=$lihat['id']?>" class="btn">
+                    <i class="fa fa-times"></i>
+                </a>    
+                </td>
             </tr>
             <?php
         } 
