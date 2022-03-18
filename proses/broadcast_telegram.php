@@ -54,7 +54,7 @@
             $tele = $_POST['tele'];
             $deskripsi = $_POST['deskripsi'];
             $pesan = urlencode("$deskripsi");
-             $url_pesan = "https://api.telegram.org/$token/sendMessage?parse_mode=html&chat_id=$tele&text=$pesan";
+             $url_pesan = "https://api.telegram.org/$token1/sendMessage?parse_mode=html&chat_id=$tele&text=$pesan";
             file_get_contents($url_pesan);
             pindah("$url$menu"."broadcast_telegram");
             exit;
