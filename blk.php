@@ -23,8 +23,10 @@ $nama_jabatan = $d['singkatan_jabatan'];
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>KOMIDA PAGADEN | BLK</title>
+    <meta name="robots" content="noindex">
+    <meta name="robots" content="nofollow">
+    <meta name="googlebot" content="noindex">
+    <title>LAPORAN | BLK</title>
     <link rel="icon" type="image/png" sizes="16x16" href="<?= $url ?>assets/logo.png">
     <!-- Bootstrap Core CSS -->
     <link href="<?= $url ?>assets/css/bootstrap.min.css" rel="stylesheet">

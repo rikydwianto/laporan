@@ -28,11 +28,16 @@ $singkatan_cabang = $d['singkatan_cabang'];
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="robots" content="noindex">
+    <meta name="robots" content="nofollow">
+    <meta name="googlebot" content="noindex">
+
+
+    <meta name="author" content="RIKY DWIANTO">
     <meta http-equiv="Referrer-Policy" content="no-referrer, strict-origin-when-cross-origin">
 
 
-    <title>MITRA DHUAFA | <?= strtoupper($d['nama_cabang']) ?></title>
+    <title>LAPORAN | <?= strtoupper($d['nama_cabang']) ?></title>
     <link rel="icon" type="image/png" sizes="16x16" href="<?= $url ?>assets/logo.png">
     <!-- Bootstrap Core CSS -->
     <link href="<?= $url ?>assets/css/bootstrap.min.css" rel="stylesheet">
