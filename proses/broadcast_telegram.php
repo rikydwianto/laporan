@@ -48,6 +48,18 @@
 
             pindah("$url$menu"."broadcast_telegram");
         }
+        
+        if(isset($_POST['kirim'])){
+          //  $judul = $_POST['judul'];
+            $tele = $_POST['tele'];
+            $deskripsi = $_POST['deskripsi'];
+            $pesan = urlencode("$deskripsi");
+             $url_pesan = "https://api.telegram.org/$token/sendMessage?parse_mode=html&chat_id=$tele&text=$pesan";
+            file_get_contents($url_pesan);
+            pindah("$url$menu"."broadcast_telegram");
+            exit;
+        
+        }
         if(isset($_POST['tambah'])){
             $ulang  = $_POST['ulang'];
             for($i=1;$i<=$ulang;$i++){
@@ -71,7 +83,51 @@
                 pindah("$url$menu"."broadcast_telegram");
             }
         } 
+        
         ?>
+    </div>
+    <div class='col-md-6'>
+        <h2>KIIRIM PESAN LANGSUNG KIRIM</h2>
+    <form action="" method="post">
+            <table class='table'>
+               
+                
+                <tr>
+                    <td>DESKRIPSI</td>
+                    <td>
+                        <textarea name="deskripsi" id="" cols="30" rows="10" class='form-control'></textarea>
+                    </td>
+                </tr>
+                
+              
+                <tr>
+                    <td>ID TELE</td>
+                    <td>
+                       <select name="tele" id="" class='form-control'>
+                           <option value="">PILIH</option>
+                           <?php 
+                           $a = mysqli_query($con,"select * from karyawan join cabang on karyawan.id_cabang=cabang.id_cabang where status_karyawan='aktif'  order by nama_karyawan asc");
+                           while($rtele = mysqli_fetch_array($a)){
+                               if($rtele['id_telegram']>0){
+
+                                   ?>
+                               <option value="<?=$rtele['id_telegram'];?>"><?=$rtele['nama_karyawan'];?> - <?=$rtele['nama_cabang'];?></option>
+                               <?php
+                            }
+                           }
+                           ?>
+                       </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td> </td>
+                    <td>
+                        <input type="submit" value='KIRIM' class='btn btn-danger' name='kirim'  >
+                    </td>
+                </tr>
+                
+            </table>
+        </form>
     </div>
     <table class='table'>
         <tr>
@@ -101,6 +157,7 @@
             </tr>
             <?php
         } 
+    
         ?>
     </table>
 </div>
