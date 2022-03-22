@@ -156,6 +156,7 @@ if(isset($_GET['bandingkan'])){
     $tgl_banding = $_GET['minggu_ini'];
     ?>
     <a href="#" onclick="buka('popup/par.php?tgl=<?=$tgl_awal?>')"  class="btn btn-primary"> <i class="fa fa-list"></i> Tampilkan Semua AGT PAR TGL <?=$tgl_awal?></a>
+    <a href="#" onclick="buka('popup/par.php?tgl=<?=$tgl_banding?>')"  class="btn btn-danger"> <i class="fa fa-list"></i> Tampilkan Semua AGT PAR TGL <?=$tgl_banding?></a>
     <a href="#rekap" onclick="printPageArea('turun_par')" class="btn btn-success">print <i class="fa fa-print"></i></a>
     <div id='turun_par'>
         <h3>PENURUNAN ANGGOTA PAR</h3>
