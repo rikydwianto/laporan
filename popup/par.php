@@ -36,7 +36,9 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
     <div class='kertas'>
     <h1> ANGGOTA PAR <?=$tgl?><br>
     Cabang <?=$d['nama_cabang']?> <br>
-    <?php $q_tambah="";
+    <?php
+     $q_tambah="";
+     $q_tambah1="";
     if(isset($_GET['minggu'])){
         $minggu = $_GET['minggu'];
       echo "MINGGU : " . $minggu .'<br/>';
