@@ -17,6 +17,7 @@
 
 if(isset($_POST['preview'])){
     ?>
+    <a href="#" onclick="buka('<?=$url?>popup/sihara.php')" class="btn btn-success">COBA</a>
     <table id="table_export" class="display nowrap" style="width:100%">
         <thead>
             <tr>
@@ -34,26 +35,29 @@ if(isset($_POST['preview'])){
             </tr>
         </thead>
         <tbody> 
+            
     <?php
     $file = $_FILES['file']['tmp_name'];
     $path = $file;
     $xml=simplexml_load_file($path) or die("Error: Cannot create object");
     // $xml = new SimpleXMLElement($path,0,true);
     $title = $xml->Tablix2['Textbox48'];
-    echo $title.'<br/>';
    $xml = ($xml->Tablix2->Details1_Collection);
    $pecah = explode(" : ",$title);
-   $pecah1 = explode(" : ",$pecah[0]);
-   $tgl_awal = explode(" ",$pecah1[1])[0];
+   
+   $tgl_awal = trim(explode(" ",$pecah[1])[0]);
    $tgl_to = trim($pecah[2]);
-//    echo $tgl_to;
-   foreach($xml->Details1 as $siraya){
-       $tgl_open = explode("T",$siraya['ApplyDate1'])[0];
-
+    //    echo $tgl_to;
+    
+    $_SESSION['tgl_awal']=$tgl_awal;
+    $_SESSION['tgl_to']=$tgl_to;
+foreach($xml->Details1 as $siraya){
+    $tgl_open = explode("T",$siraya['ApplyDate1'])[0];
+    
    
    ?>
    
-            <tr>
+   <tr>
                 <td><?=$no++?></td>
                 <td><?=sprintf("%03d",$siraya['CenterID'])?></td>
                 <td><?=sprintf("%03d",$siraya['GroupID'])?></td>
@@ -67,7 +71,10 @@ if(isset($_POST['preview'])){
                 <td>PENUTUPAN</td>
             </tr>
            <?php
-         } ?>
+         } 
+         $_SESSION['nama_file_sihara']= "$id_aryawan".$_FILES['file']['name'];
+         move_uploaded_file($file,"file/exx/".$_SESSION['nama_file_sihara']);
+         ?>
         </tbody>
         
     </table>
@@ -86,4 +93,19 @@ if(isset($_POST['preview'])){
         ]
     } );
 } );
+
+    function printPageArea(areaID){
+    var printContent = document.getElementById(areaID);
+    var WinPrint = window.open('', '', 'width=900,height=650');
+    WinPrint.document.write(printContent.innerHTML);
+    WinPrint.document.close();
+    WinPrint.focus();
+    WinPrint.print();
+    WinPrint.close();
+}
+function buka(url) {
+    let l = "<?=$url?>";
+  var myWindow = window.open(url, "DATA PAR", "width=1000,height=1000");
+//   myWindow.document.write("<p>This is 'MsgWindow'. I am 200px wide and 100px tall!</p>");
+}
 </script>
