@@ -45,9 +45,9 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
 <div class='kertas'>
     <div id='header'>
 
-        <table border="0">
+        <table border="1">
             <tr>
-            <td>
+            <td width="100">
                 <div style="">
                     <img src="<?=$url?>assets/md.png" style="width:80px" alt="">
                     <h3 style="margin-top:0px;font-family:'Times New Roman', Times, serif">KOMIDA</h3>
@@ -62,7 +62,7 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
         
                 </h1>
             </td>
-            <td width="100px">
+            <td width="100">
                 &nbsp;
             </td>
         </tr>

@@ -38,6 +38,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
 			<td>id_karyawan</td>
 			<td>JAM</td>
 			<td>DESA</td>
+			<td>KECAMATAN</td>
 			<td>MEMBER</td>
 		</tr>
 		<?php 
@@ -51,6 +52,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
 			<td><?=($ctr['id_karyawan'])?></td>
 			<td><?=($ctr['jam_center'])?></td>
 			<td><?=strtoupper(str_replace(" ",'',$ctr['desa']))?></td>
+			<td><?=strtoupper(str_replace(" ",'',$ctr['kecamatan']))?></td>
 			<td><?=strtoupper(str_replace(" ",'',$ctr['member_center']))?></td>
 		</tr>
 			<?php
