@@ -22,7 +22,8 @@ if (isset($_GET['del'])) {
     if(isset($_POST['edit'])){
         $id_anggota = $_POST['id_nasabah'];
         $nominal = $_POST['nominal'];
-        $qEdit = mysqli_query($con," UPDATE `penarikan_simpanan` SET `nominal_penarikan` = '$nominal',id_anggota='$id_anggota' WHERE `id_penarikan` = '$id'; 
+        $tgl = $_POST['tanggal'];
+        $qEdit = mysqli_query($con," UPDATE `penarikan_simpanan` SET `nominal_penarikan` = '$nominal',`tgl_penarikan` = '$tgl',id_anggota='$id_anggota' WHERE `id_penarikan` = '$id'; 
         ");
         if($qEdit){
             alert("Berhasil");
@@ -55,6 +56,15 @@ if (isset($_GET['del'])) {
                 <label class="col-md-4 control-label" for="textinput">NOMINAL</label>
                 <div class="col-md-4">
                     <input id="textinput" name="nominal" value="<?=$pen['nominal_penarikan']?>"  type="text" placeholder="placeholder" class="form-control input-md">
+
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="textinput">TANGGAL </label>
+                <div class="col-md-4">
+                    <input id="textinput" name="tanggal" value="<?=$pen['tgl_penarikan']?>"  type="date" placeholder="placeholder" class="form-control input-md">
 
                 </div>
             </div>
