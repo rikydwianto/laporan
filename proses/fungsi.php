@@ -322,6 +322,8 @@ function karyawan($con,$id_cabang){
   while ($data = mysqli_fetch_array($cek_ka)) {
     $h['id_karyawan'] = $data['id_karyawan'];
     $h['nama_karyawan'] = $data['nama_karyawan'];
+    $h['nik_karyawan'] = $data['nik_karyawan'];
+    $h['kode'] = $data['kode_cabang'];
     array_push($arra["data"], $h);}
     return $arra;
 }
