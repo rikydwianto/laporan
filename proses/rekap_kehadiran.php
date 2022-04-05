@@ -2,7 +2,7 @@
 $bulan_kemarin = sprintf("%02d",$_GET['bln_kemarin']);
 $tahun_kemarin = sprintf("%02d",$_GET['tahun_kemarin']);
 $tahun_ini = $_GET['tahun'];
-$bulan_kemarin = sprintf("%02d",$_GET['bln']-1);
+$bulan_ini = $_GET['bln'];
 
 ?>
 
@@ -133,7 +133,13 @@ count(if(status_center='hitam',1,NULL) ) as hitam from center where id_karyawan=
                        <td><?=$hasil['hijau']?></td>
                        <td><?=$hasil['kuning']?></td>
                        <td><?=$hasil['merah']?></td>
-                       <td><?=($kehadiran['hadir']===0?"tifak afa":"ada").round(($kehadiran['hadir']/$kehadiran['anggota']) * 100,2)?> % </td>
+                       <td><?php
+                       if($kehadiran['hadir']>0 && $kehadiran['anggota']>0){
+                           echo round(($kehadiran['hadir']/$kehadiran['anggota']) * 100,2)."%"; 
+                           
+                        } 
+                        ?>
+                         </td>
                    </tr>
                    <?php
                }
