@@ -1,5 +1,17 @@
+<?php
+        if(isset($_GET['lebih'])){
+            $lebih = $_GET['lebih'];
+        }
+        else $lebih=7; ?>
 <div class='content table-responsive'>
-    <h1>CEK KELOMPOK LEBIH DARI 7</h1>
+    <h1>CEK KELOMPOK LEBIH DARI <?=$lebih?></h1>
+    <?php 
+    for($i=7;$i<=15;$i++){
+        ?>
+        <a href="<?=$url.$menu?>cek_kelompok&lebih=<?=$i?>" class="btn"><?=$i?></a>
+        <?php
+    }
+    ?>
     <table class='table'>
         <tr>
             <th>NO</th>
@@ -15,7 +27,7 @@
             $qhitung = mysqli_query($con,"select count(kelompok) as total_anggota FROM daftar_nasabah where no_center='$r[no_center]' and kelompok='$r[kelompok]' and id_cabang='$id_cabang'
             ");
             $hitung = mysqli_fetch_array($qhitung)['total_anggota'];
-            if($hitung>6){
+            if($hitung>=$lebih){
 
                 ?>
             <tr>
