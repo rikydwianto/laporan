@@ -53,7 +53,7 @@
            if(mysqli_num_rows($q)){
             // $ket="ada di db";   
             //tidak usah di insert
-            mysqli_query($con,"update daftar_nasabah set alamat_nasabah='$alamat', hp_nasabah='$hp',no_center='$no_center',suami_nasabah='$suami', nama_nasabah='$nasabah',staff='$staff',id_karyawan=null, hari='$hari',no_ktp='$ktp' where id_detail_nasabah='$id_nasabah' and id_cabang='$id_cabang'");
+            mysqli_query($con,"update daftar_nasabah set alamat_nasabah='$alamat',kelompok='$kelompok', hp_nasabah='$hp',no_center='$no_center',suami_nasabah='$suami', nama_nasabah='$nasabah',staff='$staff',id_karyawan=null, hari='$hari',no_ktp='$ktp' where id_detail_nasabah='$id_nasabah' and id_cabang='$id_cabang'");
            }
            else{
                
@@ -61,8 +61,8 @@
                     $no_input++;
                     mysqli_query($con,"
                     INSERT INTO `daftar_nasabah` 
-                    ( `id_nasabah`, `no_center`, `id_detail_nasabah`, `nama_nasabah`, `suami_nasabah`, `no_ktp`, `alamat_nasabah`, `tgl_bergabung`, `hp_nasabah`, `staff`, `hari`, `id_cabang`) VALUES 
-                    ( '$no_id', '$no_center', '$id_nasabah', '$nasabah', '$suami', '$ktp', '$alamat', '$tgl_bergabung', '$hp', '$staff', '$hari', '$id_cabang'); 
+                    ( `id_nasabah`, `no_center`,kelompok, `id_detail_nasabah`, `nama_nasabah`, `suami_nasabah`, `no_ktp`, `alamat_nasabah`, `tgl_bergabung`, `hp_nasabah`, `staff`, `hari`, `id_cabang`) VALUES 
+                    ( '$no_id', '$no_center','$kelompok', '$id_nasabah', '$nasabah', '$suami', '$ktp', '$alamat', '$tgl_bergabung', '$hp', '$staff', '$hari', '$id_cabang'); 
 
                     ");
 

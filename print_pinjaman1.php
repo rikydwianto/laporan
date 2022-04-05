@@ -133,9 +133,9 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
                  ?>
                  <tr >
                     <td class='kecil' colspan="" ><?=$no++?>.</td>
-                    <td class="kecil"><?=$r['id_detail_nasabah']?></td>
-                    <td class="kecil"><?=$r['id_detail_pinjaman']?></td>
-                    <td class="kecil"><?=$r['nama_nasabah']?></td>
+                    <td class="kecil" style="white-space: nowrap"><?=$r['id_detail_nasabah']?></td>
+                    <td class="kecil"style="white-space: nowrap"><?=$r['id_detail_pinjaman']?></td>
+                    <td class="kecil"style="white-space: nowrap"><?=$r['nama_nasabah']?></td>
                     <td class="kecil"><?=$r['no_hp']?></td>
                     <td class='kecil'><?=$r['center']?></td>
                     <td class='isi_tengah'><?=$group?></td>
@@ -147,7 +147,7 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
                     <td class="kecil"><?=angka($r['angsuran'])?></td>
                     <td class="kecil"><?=$r['tujuan_pinjaman']?></td>
                     <td class='isi_tengah'><?=$r['pinjaman_ke']?></td>
-                    <td class='kecil'><?=$r['nama_karyawan']?></td>
+                    <td class='kecil' style="white-space: nowrap"><?=$r['nama_karyawan']?></td>
                     <td class='isi_tengah'><?=$r['tgl_cair']?></td>
                     <td >
                    
