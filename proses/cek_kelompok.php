@@ -12,15 +12,20 @@
         <?php
     }
     ?>
-    <table class='table'>
-        <tr>
-            <th>NO</th>
-            <th>CENTER</th>
-            <th>KELOMPOK</th>
-            <th>ANGGOTA</th>
-            <th>STAFF</th>
-        </tr>
-        <?php
+    <table id='' class='table'>
+        <thead>
+            <tr>
+                <th>NO</th>
+                <th>CENTER</th>
+                <th>KELOMPOK</th>
+                <th>ANGGOTA</th>
+                <th>STAFF</th>
+            </tr>
+
+        </thead>
+        <tbody>
+
+            <?php
         $q= mysqli_query($con,"select no_center, kelompok, count(kelompok) as total,k.nama_karyawan from daftar_nasabah d join karyawan k on k.id_karyawan=d.id_karyawan where d.id_cabang='$id_cabang' group by no_center,kelompok order by nama_karyawan,no_center,kelompok       ");
         echo mysqli_error($con);
         while($r=mysqli_fetch_array($q)){
@@ -41,5 +46,45 @@
              }
         }
         ?>
+        </tbody>
+        <tbody>
+            <tr>
+                <th>NO</th>
+                <th>CENTER</th>
+                <th>KELOMPOK</th>
+                <th>ANGGOTA</th>
+                <th>STAFF</th>
+            </tr>
+
+        </tbody>
     </table>
 </div>
+
+
+
+<script>
+    $(document).ready(function() {
+    $('#kelompok').DataTable( {
+        initComplete: function () {
+            this.api().columns().every( function () {
+                var column = this;
+                var select = $('<select><option value=""></option></select>')
+                    .appendTo( $(column.footer()).empty() )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+ 
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+ 
+                column.data().unique().sort().each( function ( d, j ) {
+                    select.append( '<option value="'+d+'">'+d+'</option>' )
+                } );
+            } );
+        }
+    } );
+} );
+</script>

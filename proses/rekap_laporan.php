@@ -7,8 +7,10 @@
 	else{
 		$qtgl=date("Y-m-d");
 	}
+	$hari = strtolower( format_hari_tanggal($qtgl));
+	$hari = explode(',',$hari)[0];
 ?>
-<div class="col-md-12" style=";">
+<div class="col-md-12" >
 	<div class="panel-body post-body table-responsive " >
 		<h3 class="page-header">
 			REKAP LAPORAN HARIAN
@@ -21,22 +23,28 @@
 	<a href="<?=$url?>/export/laporan_harian.php?tgl=<?=$qtgl?>" class='btn btn-success'>
 			<i class="fa fa-file-excel-o"></i> Export To Excel
 		</a>
-	<table class='table'>
+	<table class='table table-bordered'>
 		<tr>					
-			<th rowspan=2>NO</th>
-			<th rowspan=2>NAMA</th>
-			<th colspan=7 style="text-align:center">LAPORAN <?php echo format_hari_tanggal($qtgl);?></th>
+			<th rowspan=3>NO</th>
+			<th rowspan=3>NAMA</th>
+			<th colspan=11 style="text-align:center">LAPORAN <?php echo format_hari_tanggal($qtgl);?></th>
 		</tr>
 		<tr>					
 
-			<td >CTR</td>
-			<td >AGT</td>
-			<td >CLIENT</td>
-			<td >Bayar</td>
-			<td >Tdk Bayar</td>
-			<td >%</td>
-			<td >Keterangan</td>
-			<td >#</td>
+			<td rowspan="2"  >CTR</td>
+			<td rowspan="2" >AGT</td>
+			<td rowspan="2" >CLIENT</td>
+			<td rowspan="2" >Bayar</td>
+			<td rowspan="2" >Tdk Bayar</td>
+			<td rowspan="2" >%</td>
+			<td rowspan="2" >Keterangan</td>
+			<td rowspan="2" >Keterangan</td>
+			<td colspan="3" style='text-align:center'>RILL </td>
+		</tr>
+		<tr>
+			<td>CTR</td>
+			<td>AGT</td>
+			<td>MEMBER</td>
 		</tr>
 		<?php 
 		
@@ -57,6 +65,9 @@
 					$hitung_bayar = $hitung_bayar + $tampil_lapor['bayar']; 
 					$hitung_tdk_bayar= $hitung_tdk_bayar+ $tampil_lapor['tidak_bayar']; 
 					$hitung_center= $hitung_center + $tampil_lapor['hitung_center']; 
+					$qril =mysqli_query($con,"select count(*) as total_center, sum(anggota_center) as total_member, sum(member_center) as total_anggota from center where id_cabang='$id_cabang' and id_karyawan='$tampil[id_karyawan]' and hari='$hari'");
+							$rill =mysqli_fetch_array($qril);
+							echo mysqli_error($con);
 			?>
 				<tr>
 					<td><?php echo $no++ ?>.</td>
@@ -73,6 +84,9 @@
 					<td>
 						<small><?php echo $tampil_lapor['status_laporan'] ?></small>
 					</td>
+					<td><?=$rill['total_center']?>|<?=($rill['total_center']===$tampil_lapor['hitung_center']?"ok":"x")?></td>
+					<td><?=$rill['total_anggota']?>|<?=($rill['total_anggota']===$tampil_lapor['member']?"ok":"x")?></td>
+					<td><?=$rill['total_member']?>|<?=($rill['total_member']===$tampil_lapor['anggota']?"ok":"x")?></td>
 					
 				</tr>
 					<?php
@@ -81,6 +95,7 @@
 					if(mysqli_num_rows($cek_l1))
 						{
 							$tampil_lapor1 = mysqli_fetch_array($cek_l1);
+							
 							?>
 							<tr>
 								
@@ -92,10 +107,13 @@
 								<td>0</td>
 								<td>0</td>
 								<td>0</td>
-								<td>0%</td>
+								<td>0</td>
+								<td>0</td>
+								<td>0</td>
 
 								<td><?php echo $tampil_lapor1['keterangan_laporan'] ?></td>
 								<td><small><i><?php echo $tampil_lapor1['status_laporan'] ?></i></small></td>
+
 							</tr>
 							<?php
 						}
@@ -107,7 +125,7 @@
 							<td><?php echo $no++ ?>.</td>
 
 							<td><?php echo $tampil['nama_karyawan'] ?></td>
-							<td colspan=9><i>belum membuat laporan</td>
+							<td colspan=11><i>belum membuat laporan</td>
 							
 						</tr>
 						<?php

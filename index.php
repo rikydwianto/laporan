@@ -54,7 +54,7 @@ $singkatan_cabang = $d['singkatan_cabang'];
     <!-- Morris Charts CSS -->
     <link href="<?= $url ?>assets/css/morris.css" rel="stylesheet">
     <link href="<?= $url ?>assets/style.css" rel="stylesheet">
-
+    
     <!-- Custom Fonts -->
     <link href="<?= $url ?>assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.css" />
@@ -64,9 +64,12 @@ $singkatan_cabang = $d['singkatan_cabang'];
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
     <script src="<?php echo $url ?>assets/js/jquery.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 </head>
 
 <body>

@@ -92,7 +92,7 @@ $bulan_ini = $_GET['bln'];
     </table>
     <div class='col-md-6'>
         <h2>REKAP CENTER</h2>
-        <table class='table table-bordered'>
+        <table  class='table table-bordered'>
            <thead>
             <tr>
                     <th rowspan="2">NO</th>
@@ -149,3 +149,4 @@ count(if(status_center='hitam',1,NULL) ) as hitam from center where id_karyawan=
         </table>
     </div>
 </div>
+
