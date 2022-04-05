@@ -441,6 +441,7 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 		
 		<li><a href="<?php echo $url . $menu ?>spl" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> SPL</a></li>
 		<li><a href="<?php echo $url . $menu ?>broadcast_telegram" class="w3-bar-item w3-button"><i class="fa fa-phone"></i> REMINDER</a></li>
+		<li><a href="<?php echo $url . $menu ?>cek_kelompok" class="w3-bar-item w3-button"><i class="fa fa-build"></i> CEK KELOMPOK</a></li>
 		
 		
 		<li>
