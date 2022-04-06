@@ -20,13 +20,14 @@
                 <th>KELOMPOK</th>
                 <th>ANGGOTA</th>
                 <th>STAFF</th>
+                <th>HARI</th>
             </tr>
 
         </thead>
         <tbody>
 
             <?php
-        $q= mysqli_query($con,"select no_center, kelompok, count(kelompok) as total,k.nama_karyawan from daftar_nasabah d join karyawan k on k.id_karyawan=d.id_karyawan where d.id_cabang='$id_cabang' group by no_center,kelompok order by nama_karyawan,no_center,kelompok       ");
+        $q= mysqli_query($con,"select no_center, kelompok, count(kelompok) as total,hari,k.nama_karyawan from daftar_nasabah d join karyawan k on k.id_karyawan=d.id_karyawan where d.id_cabang='$id_cabang' group by no_center,kelompok order by nama_karyawan,no_center,kelompok       ");
         echo mysqli_error($con);
         while($r=mysqli_fetch_array($q)){
             $qhitung = mysqli_query($con,"select count(kelompok) as total_anggota FROM daftar_nasabah where no_center='$r[no_center]' and kelompok='$r[kelompok]' and id_cabang='$id_cabang'
@@ -41,6 +42,7 @@
                 <td><?=$r['kelompok']?></td>
                 <td><?=$hitung?></td>
                 <td><?=$r['nama_karyawan']?></td>
+                <td><?=$r['hari']?></td>
             </tr>
             <?php
              }
@@ -54,6 +56,7 @@
                 <th>KELOMPOK</th>
                 <th>ANGGOTA</th>
                 <th>STAFF</th>
+                <th>HARI</th>
             </tr>
 
         </tbody>

@@ -364,10 +364,10 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 					<a href="<?php echo $url . $menu ?>center" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Center</a>
 
 				</li>
-				<li>
+				<!-- <li>
 					<a href="<?php echo $url . $menu ?>perbaikan" class="w3-bar-item w3-button"><i class="fa fa-gear"></i> Perbaikan data</a>
 
-				</li>
+				</li> -->
 				<li>
 					<a href="<?php echo $url . $menu ?>cashflow" class="w3-bar-item w3-button"><i class="fa fa-file-excel-o"></i> Cashflow</a>
 
@@ -380,6 +380,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 				</li>
 				<li>
 					<a href="<?php echo $url . $menu ?>sihara" class="w3-bar-item w3-button"><i class="fa fa-list"></i> SIHARA</a>
+				</li>
+				<li>
+					<a href="<?php echo $url . $menu ?>detail_center" class="w3-bar-item w3-button"><i class="fa fa-font-awesome"></i> Data Wilayah</a>
 				</li>
 				<li>
 					<a href="<?php echo $url . $menu ?>rapih_file" class="w3-bar-item w3-button"><i class="fa fa-handphone"></i> Arsip MdisMo</a>
@@ -436,9 +439,12 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 			</li>
 		</ul>
 		</li>
+		<li><a href="<?php echo $url . $menu ?>anggota" class="w3-bar-item w3-button"><i class="fa fa-users"></i> ANGGOTA</a></li>
 		<li><a href="<?php echo $url ?>lokasi.php" class="w3-bar-item w3-button"><i class="fa fa-globes"></i> LOKASI</a></li>
 		
-		
+		<li>
+			<a href="<?php echo $url . $menu ?>monitoring" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> MONITORING</a>
+		</li>
 		<li><a href="<?php echo $url . $menu ?>spl" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> SPL</a></li>
 		<li><a href="<?php echo $url . $menu ?>broadcast_telegram" class="w3-bar-item w3-button"><i class="fa fa-phone"></i> REMINDER</a></li>
 		<li><a href="<?php echo $url . $menu ?>cek_kelompok" class="w3-bar-item w3-button"><i class="fa fa-build"></i> CEK KELOMPOK</a></li>
@@ -467,19 +473,15 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 			</ul>
 
 		</li>
-		<li>
-			<a href="<?php echo $url . $menu ?>monitoring" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> MONITORING</a>
-		</li>
+		
 		<li>
 			<a href="<?php echo $url . $menu ?>surat" class="w3-bar-item w3-button"><i class="fa fa-inbox"></i> SURAT</a>
 		</li>
-		<li>
-			<a href="<?php echo $url . $menu ?>detail_center" class="w3-bar-item w3-button"><i class="fa fa-font-awesome"></i> Data Wilayah</a>
-		</li>
+		
 		<li>
 			<a href="<?php echo $url . $menu ?>upk" class="w3-bar-item w3-button"><i class="fa fa-user-plus"></i> UPK NR</a>
 		</li>
-		<li><a href="<?php echo $url . $menu ?>anggota" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Anggota</a></li>
+		
 		<li>
 			<a href="<?php echo $url . $menu ?>quotes" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> Quotes</a>
 		</li>

@@ -24,30 +24,31 @@
 			<i class="fa fa-file-excel-o"></i> Export To Excel
 		</a>
 	<table class='table table-bordered'>
-		<tr>					
-			<th rowspan=3>NO</th>
-			<th rowspan=3>NAMA</th>
-			<th colspan=11 style="text-align:center">LAPORAN <?php echo format_hari_tanggal($qtgl);?></th>
+		<tr >					
+			<th style="vertical-align: middle;" rowspan=3>NO</th>
+			<th style="vertical-align: middle;" rowspan=3>NAMA</th>
+			<th style="vertical-align: middle;" colspan=11 style="text-align:center">LAPORAN <?php echo format_hari_tanggal($qtgl);?></th>
 		</tr>
 		<tr>					
 
-			<td rowspan="2"  >CTR</td>
-			<td rowspan="2" >AGT</td>
-			<td rowspan="2" >CLIENT</td>
-			<td rowspan="2" >Bayar</td>
-			<td rowspan="2" >Tdk Bayar</td>
-			<td rowspan="2" >%</td>
-			<td rowspan="2" >Keterangan</td>
-			<td rowspan="2" >Keterangan</td>
-			<td colspan="3" style='text-align:center'>RILL </td>
+			<th style="vertical-align: middle;" rowspan="2"  >CTR</th>
+			<th style="vertical-align: middle;" rowspan="2" >AGT</th>
+			<th style="vertical-align: middle;" rowspan="2" >CLIENT</th>
+			<th style="vertical-align: middle;" rowspan="2" >Bayar</th>
+			<th style="vertical-align: middle;" rowspan="2" >Tdk Bayar</th>
+			<th style="vertical-align: middle;" rowspan="2" >%</th>
+			<th style="vertical-align: middle;" rowspan="2" >Keterangan</th>
+			<th style="vertical-align: middle;" rowspan="2" ></th>
+			<th style="vertical-align: middle;text-align:center" colspan="3" style='text-align:center'>RILL </th>
 		</tr>
 		<tr>
-			<td>CTR</td>
-			<td>AGT</td>
-			<td>MEMBER</td>
+			<th style="vertical-align: middle;">CTR</th>
+			<th style="vertical-align: middle;">AGT</th>
+			<th style="vertical-align: middle;">MEMBER</th>
 		</tr>
 		<?php 
-		
+		$x = "<i style='color:red;font-weight:bold'>X</i>";
+		$ok = "<b style='color:green;font-weight:bold'>OK</b>";
 		$cek_ka=mysqli_query($con,"SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_cabang='$cabang' and jabatan.singkatan_jabatan='SL' order by karyawan.nama_karyawan asc");
 		$hitung_member = 0; 
 		$hitung_agt = 0; 
@@ -84,9 +85,9 @@
 					<td>
 						<small><?php echo $tampil_lapor['status_laporan'] ?></small>
 					</td>
-					<td><?=$rill['total_center']?>|<?=($rill['total_center']===$tampil_lapor['hitung_center']?"ok":"x")?></td>
-					<td><?=$rill['total_anggota']?>|<?=($rill['total_anggota']===$tampil_lapor['member']?"ok":"x")?></td>
-					<td><?=$rill['total_member']?>|<?=($rill['total_member']===$tampil_lapor['anggota']?"ok":"x")?></td>
+					<td><?=$rill['total_center']?>|<?=($rill['total_center']===$tampil_lapor['hitung_center']?"$ok":"$x")?></td>
+					<td><?=$rill['total_anggota']?>|<?=($rill['total_anggota']===$tampil_lapor['member']?"$ok":"$x")?></td>
+					<td><?=$rill['total_member']?>|<?=($rill['total_member']===$tampil_lapor['anggota']?"$ok":"$x")?></td>
 					
 				</tr>
 					<?php

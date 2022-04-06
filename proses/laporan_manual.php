@@ -168,15 +168,15 @@ if(isset($_POST['laporan'])){
 			else $status = 'hitam';
             // $doa='y';
             mysqli_query($con,"
-            INSERT INTO `detail_laporan` (`id_detail_laporan`, `id_laporan`, `no_center`, `status`, `doa`, `member`, `total_agt`, `total_bayar`, `total_tidak_bayar`, `status_detail_laporan`, `doortodoor`) 
-            VALUES (NULL, '$id_laporan', '$center[$a]', '$status', '$doa[$a]', '$agt[$a]', '$client[$a]', '$bayar[$a]', '$tidak_bayar[$a]', 'sukses', 't'); 
+            INSERT INTO `detail_laporan` (`id_detail_laporan`, `id_laporan`, `no_center`, `status`, `doa`, `member`, `total_agt`, `total_bayar`, `total_tidak_bayar`, `status_detail_laporan`, `doortodoor`,`anggota_hadir`) 
+            VALUES (NULL, '$id_laporan', '$center[$a]', '$status', '$doa[$a]', '$agt[$a]', '$client[$a]', '$bayar[$a]', '$tidak_bayar[$a]', 'sukses', 't','$bayar[$a]'); 
 
             ");
            
             // center($con, $center[$a], $doa[$a], $status, $agt[$a], $client[$a], $bayar[$a], $id_cabang, $idk, $hari, $id_laporan, $jam[$a], $dtd[$a]);
             $d = mysqli_query($con, "UPDATE center SET doortodoor='$dtd[$a]', hari='$hari',doa_center='$doa[$a]',status_center = '$status',
              member_center = '$agt[$a]' , anggota_center = '$client[$a]' , center_bayar = '$bayar[$a]' , 
-             id_karyawan = '$idk', id_laporan='$id_laporan' , jam_center='$jam[$a]'  WHERE no_center = '$center[$a]' and id_cabang=$id_cabang; ");
+             id_karyawan = '$idk', id_laporan='$id_laporan' , jam_center='$jam[$a]' , anggota_hadir='$bayar[$a]' WHERE no_center = '$center[$a]' and id_cabang=$id_cabang; ");
 
         }
         mysqli_query($con,"update laporan set status_laporan='sukses' where id_laporan='$id_laporan'");
