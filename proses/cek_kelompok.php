@@ -12,6 +12,15 @@
         <?php
     }
     ?>
+    <br/>
+    <?php 
+    foreach(hari() as $hari ){
+        $hari = strtolower($hari);
+    ?>
+    <a href="<?=$url.$menu?>cek_kelompok&lebih=<?=$lebih?>&hari=<?=$hari?>" class="btn"><?=$hari?></a>
+    <?php
+    }
+    ?>
     <table id='' class='table'>
         <thead>
             <tr>
@@ -28,7 +37,11 @@
         <tbody>
 
             <?php
-        $q= mysqli_query($con,"select no_center, kelompok, count(kelompok) as total,hari,k.nama_karyawan from daftar_nasabah d join karyawan k on k.id_karyawan=d.id_karyawan where d.id_cabang='$id_cabang' group by no_center,kelompok order by nama_karyawan,no_center,kelompok,hari       ");
+            if(isset($_GET['hari'])){
+                $qtam = "and hari='$_GET[hari]'";
+            }
+            else $qtam="";
+        $q= mysqli_query($con,"select no_center, kelompok, count(kelompok) as total,hari,k.nama_karyawan from daftar_nasabah d join karyawan k on k.id_karyawan=d.id_karyawan where d.id_cabang='$id_cabang'  $qtam group by no_center,kelompok order by nama_karyawan,no_center,kelompok,hari       ");
         echo mysqli_error($con);
         while($r=mysqli_fetch_array($q)){
             $qhitung = mysqli_query($con,"select count(kelompok) as total_anggota FROM daftar_nasabah where no_center='$r[no_center]' and kelompok='$r[kelompok]' and id_cabang='$id_cabang'
@@ -75,6 +88,7 @@
                 <th>CENTER</th>
                 <th>KELOMPOK</th>
                 <th>ANGGOTA</th>
+                <th>MERGER</th>
                 <th>STAFF</th>
                 <th>HARI</th>
             </tr>
