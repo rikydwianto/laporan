@@ -19,6 +19,7 @@
                 <th>CENTER</th>
                 <th>KELOMPOK</th>
                 <th>ANGGOTA</th>
+                <th>MERGER<br/>HARUS DIPINDAH</th>
                 <th>STAFF</th>
                 <th>HARI</th>
             </tr>
@@ -27,7 +28,7 @@
         <tbody>
 
             <?php
-        $q= mysqli_query($con,"select no_center, kelompok, count(kelompok) as total,hari,k.nama_karyawan from daftar_nasabah d join karyawan k on k.id_karyawan=d.id_karyawan where d.id_cabang='$id_cabang' group by no_center,kelompok order by nama_karyawan,no_center,kelompok       ");
+        $q= mysqli_query($con,"select no_center, kelompok, count(kelompok) as total,hari,k.nama_karyawan from daftar_nasabah d join karyawan k on k.id_karyawan=d.id_karyawan where d.id_cabang='$id_cabang' group by no_center,kelompok order by nama_karyawan,no_center,kelompok,hari       ");
         echo mysqli_error($con);
         while($r=mysqli_fetch_array($q)){
             $qhitung = mysqli_query($con,"select count(kelompok) as total_anggota FROM daftar_nasabah where no_center='$r[no_center]' and kelompok='$r[kelompok]' and id_cabang='$id_cabang'
@@ -41,6 +42,25 @@
                 <td><?=$r['no_center']?></td>
                 <td><?=$r['kelompok']?></td>
                 <td><?=$hitung?></td>
+                <td>
+                    <?php
+                    $limit = $hitung - 6;
+                    $qn = mysqli_query($con,"select * from daftar_nasabah where id_cabang='$id_cabang' and no_center='$r[no_center]' and kelompok='$r[kelompok]' order by id_nasabah desc limit 0,$limit");
+                    while($merger = mysqli_fetch_array($qn)){
+                        ?> 
+                        <?=$merger['nama_nasabah'] ?> - <a onclick="salin('<?=$merger['id_detail_nasabah']?>')"><?=$merger['id_detail_nasabah']?></a><br/>
+                        <?php
+                    }
+
+                    $qkel = mysqli_query($con,"select count(kelompok) as total_anggota,kelompok FROM daftar_nasabah where no_center='$r[no_center]' and id_cabang='$id_cabang' group by kelompok");
+                    while($kel = mysqli_fetch_array($qkel)){
+                        ?>
+                        kel : <?=$kel['kelompok'] ?>
+                        agt : <?=$kel['total_anggota'] ?><br/>
+                        <?php
+                    }
+                    ?>
+            </td>
                 <td><?=$r['nama_karyawan']?></td>
                 <td><?=$r['hari']?></td>
             </tr>
