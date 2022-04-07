@@ -12,7 +12,7 @@
             <div class="col-md-4">
                 <label for="formFile" class="form-label">SILAHKAN PILIH FILE : DETAIL NASABAH SRSS</label>
                 <input class="form-control" type="file" name='file' accept=".xls,.xlsx,.csv,.xml" id="formFile">
-                <input type="submit" value="Proses" onclick="return confirm('Apakah Sudah yakin? ')" class='btn btn-danger' name='preview'>
+                <!-- <input type="submit" value="Proses" onclick="return confirm('Apakah Sudah yakin? ')" class='btn btn-danger' name='preview'> -->
                 <input type="submit" value="Proses XML" onclick="return confirm('Apakah Sudah yakin? ')" class='btn btn-info' name='xml_preview'>
             </div>
 
@@ -84,85 +84,85 @@
     }
 
     //EXCEL
-    if(isset($_POST['preview'])){
-        //set_time_limit(5000);
-        // alert("tunggu ya proses ini akan memakan waktu agak lama, karena banyak nya data, jangan diclose sampe proses selesai!!");
-        ?>
-        <table border=1>
+    // if(isset($_POST['preview'])){
+    //     //set_time_limit(5000);
+    //     // alert("tunggu ya proses ini akan memakan waktu agak lama, karena banyak nya data, jangan diclose sampe proses selesai!!");
+    //     ?>
+    //     <table border=1>
             
 
-        <?php 
-        $file = $_FILES['file']['tmp_name'];
-        $path = $file;
-        $reader = PHPExcel_IOFactory::createReaderForFile($path);
-        $objek = $reader->load($path);
-        $ws = $objek->getActiveSheet();
-        $last_row = $ws->getHighestDataRow();
-    //    mysqli_query($con,"delete from daftar_nasabah where id_cabang='$id_cabang'");
-        $no_input=0;
-        for($row = 2;$row<=$last_row;$row++){
-            $id_nasabah =  $ws->getCell("F" . $row)->getValue();
-            if($id_nasabah==null){
+    //     <?php 
+    //     $file = $_FILES['file']['tmp_name'];
+    //     $path = $file;
+    //     $reader = PHPExcel_IOFactory::createReaderForFile($path);
+    //     $objek = $reader->load($path);
+    //     $ws = $objek->getActiveSheet();
+    //     $last_row = $ws->getHighestDataRow();
+    // //    mysqli_query($con,"delete from daftar_nasabah where id_cabang='$id_cabang'");
+    //     $no_input=0;
+    //     for($row = 2;$row<=$last_row;$row++){
+    //         $id_nasabah =  $ws->getCell("F" . $row)->getValue();
+    //         if($id_nasabah==null){
                 
-            }
-            else{
-                $agt = (substr(ganti_karakter($id_nasabah),0,3));
+    //         }
+    //         else{
+    //             $agt = (substr(ganti_karakter($id_nasabah),0,3));
         
-                if( $agt=="AGT" || $agt=="NSB"){
-                    $id_nasabah = ganti_karakter1($ws->getCell("F".$row)->getValue());
-                    $no_id  = explode("-",$id_nasabah)[1];
-                    $no_id = sprintf("%0d",$no_id);
-                    $nasabah =  aman($con,htmlspecialchars( ganti_karakter($ws->getCell("G".$row)->getValue()),ENT_QUOTES));
-                    $suami =  aman($con,htmlspecialchars(ganti_karakter($ws->getCell("I".$row)->getValue()),ENT_QUOTES));
-                   $no_center = ganti_karakter($ws->getCell("D".$row)->getValue());
-                   $kelompok = ganti_karakter1($ws->getCell("E".$row)->getValue());
-                   $hp = ganti_karakter1($ws->getCell("S".$row)->getValue());
-                   $ktp = ganti_karakter1($ws->getCell("L".$row)->getValue());
-                   $rt = ganti_karakter1($ws->getCell("Q".$row)->getValue());
-                   $rw = ganti_karakter1($ws->getCell("R".$row)->getValue());
+    //             if( $agt=="AGT" || $agt=="NSB"){
+    //                 $id_nasabah = ganti_karakter1($ws->getCell("F".$row)->getValue());
+    //                 $no_id  = explode("-",$id_nasabah)[1];
+    //                 $no_id = sprintf("%0d",$no_id);
+    //                 $nasabah =  aman($con,htmlspecialchars( ganti_karakter($ws->getCell("G".$row)->getValue()),ENT_QUOTES));
+    //                 $suami =  aman($con,htmlspecialchars(ganti_karakter($ws->getCell("I".$row)->getValue()),ENT_QUOTES));
+    //                $no_center = ganti_karakter($ws->getCell("D".$row)->getValue());
+    //                $kelompok = ganti_karakter1($ws->getCell("E".$row)->getValue());
+    //                $hp = ganti_karakter1($ws->getCell("S".$row)->getValue());
+    //                $ktp = ganti_karakter1($ws->getCell("L".$row)->getValue());
+    //                $rt = ganti_karakter1($ws->getCell("Q".$row)->getValue());
+    //                $rw = ganti_karakter1($ws->getCell("R".$row)->getValue());
                    
-                   $alamat = "RT $rt / RW. $rw ". ganti_karakter1($ws->getCell("J".$row)->getValue());
-                   $staff = ganti_karakter1($ws->getCell("U".$row)->getValue());
-                   $hari = ganti_karakter1($ws->getCell("T".$row)->getValue());
-                   $tgl_bergabung = str_replace("/","-",ganti_karakter1($ws->getCell("K".$row)->getValue()));
-                   $tgl_bergabung =  date("Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($tgl_bergabung));
-                   $q = mysqli_query($con,"select id_detail_nasabah from daftar_nasabah where id_detail_nasabah='$id_nasabah' and id_cabang='$id_cabang'");
-                   if(mysqli_num_rows($q)){
-                    // $ket="ada di db";   
-                    //tidak usah di insert
-                    mysqli_query($con,"update daftar_nasabah set  hp_nasabah='$hp', staff='$staff',id_karyawan=null, hari='$hari',no_ktp='$ktp' where id_detail_nasabah='$id_nasabah'");
-                   }
-                   else{
+    //                $alamat = "RT $rt / RW. $rw ". ganti_karakter1($ws->getCell("J".$row)->getValue());
+    //                $staff = ganti_karakter1($ws->getCell("U".$row)->getValue());
+    //                $hari = ganti_karakter1($ws->getCell("T".$row)->getValue());
+    //                $tgl_bergabung = str_replace("/","-",ganti_karakter1($ws->getCell("K".$row)->getValue()));
+    //                $tgl_bergabung =  date("Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($tgl_bergabung));
+    //                $q = mysqli_query($con,"select id_detail_nasabah from daftar_nasabah where id_detail_nasabah='$id_nasabah' and id_cabang='$id_cabang'");
+    //                if(mysqli_num_rows($q)){
+    //                 // $ket="ada di db";   
+    //                 //tidak usah di insert
+    //                 mysqli_query($con,"update daftar_nasabah set  hp_nasabah='$hp', staff='$staff',id_karyawan=null, hari='$hari',no_ktp='$ktp' where id_detail_nasabah='$id_nasabah'");
+    //                }
+    //                else{
                        
-                            // $ket = "harus di insert nih";
-                            $no_input++;
-                            mysqli_query($con,"
-                            INSERT INTO `daftar_nasabah` 
-                            ( `id_nasabah`, `no_center`, `id_detail_nasabah`, `nama_nasabah`, `suami_nasabah`, `no_ktp`, `alamat_nasabah`, `tgl_bergabung`, `hp_nasabah`, `staff`, `hari`, `id_cabang`) VALUES 
-                            ( '$no_id', '$no_center', '$id_nasabah', '$nasabah', '$suami', '$ktp', '$alamat', '$tgl_bergabung', '$hp', '$staff', '$hari', '$id_cabang'); 
+    //                         // $ket = "harus di insert nih";
+    //                         $no_input++;
+    //                         mysqli_query($con,"
+    //                         INSERT INTO `daftar_nasabah` 
+    //                         ( `id_nasabah`, `no_center`, `id_detail_nasabah`, `nama_nasabah`, `suami_nasabah`, `no_ktp`, `alamat_nasabah`, `tgl_bergabung`, `hp_nasabah`, `staff`, `hari`, `id_cabang`) VALUES 
+    //                         ( '$no_id', '$no_center', '$id_nasabah', '$nasabah', '$suami', '$ktp', '$alamat', '$tgl_bergabung', '$hp', '$staff', '$hari', '$id_cabang'); 
         
-                            ");
+    //                         ");
         
                         
                         
-                   }
+    //                }
                   
         
                    
             
-                }
+    //             }
                 
                    
                     
                 
-            }
-        }
-         alert("Sebanyak ". ($no_input) . " telah diinput, silahkan sinkron");
-         pindah($url.$menu."daftar_nasabah&sinkron");
-        ?>
-        </table> 
-        <?php
-    }
+    //         }
+    //     }
+    //      alert("Sebanyak ". ($no_input) . " telah diinput, silahkan sinkron");
+    //      pindah($url.$menu."daftar_nasabah&sinkron");
+    //     ?>
+    //     </table> 
+    //     <?php
+    // }
 
 
     
