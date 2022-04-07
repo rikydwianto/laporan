@@ -18,6 +18,7 @@
 
     <?php
     $id_kumpul = array();
+    ini_set('max_execution_time', '0');
     //XML
     if(isset($_POST['xml_preview'])){
         ?>
