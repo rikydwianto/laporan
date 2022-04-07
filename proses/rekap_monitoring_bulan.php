@@ -24,7 +24,7 @@ while($bulan = mysqli_fetch_array($qbulan)){
     ?>
     <tr>
         <td><?=$no++?></td>
-        <td><?=bulan_indo($bulan['bulan'])?> - <?=$tahun?></td>
+        <td><a href="<?=$url.$menu?>monitoring&filter_bulan=<?=$tahun.'-'.sprintf("%02d",$bulan['bulan'])?>"><?=bulan_indo($bulan['bulan'])?> - <?=$tahun?></a></td>
         <td><?=$hitung_monitoring?></td>
     </tr>
     <?php

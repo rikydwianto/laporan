@@ -414,6 +414,11 @@
                     } else {
                         $q_tambah = "and pinjaman.monitoring ='belum'";
                     }
+                    if (isset($_GET['filter_bulan'])) {
+                        $q_bulan = "and pinjaman.tgl_cair like '$_GET[filter_bulan]-%%'";
+                    } else {
+                        $q_bulan = "";
+                    }
 
                     if (isset($_GET['id'])) {
                         $id = aman($con, $_GET['id']);
@@ -438,7 +443,7 @@
                     $q = mysqli_query($con, "select *,DATEDIFF(CURDATE(), tgl_cair) as total_hari from pinjaman left 
                         join karyawan on karyawan.id_karyawan=pinjaman.id_karyawan 
                         
-                        where pinjaman.id_cabang='$id_cabang' $q_tambah $q_id $q_hari $q_banding and input_mtr='sudah' order by karyawan.nama_karyawan asc");
+                        where pinjaman.id_cabang='$id_cabang' $q_tambah $q_id $q_hari $q_banding $q_bulan and input_mtr='sudah' order by karyawan.nama_karyawan asc");
                     while ($pinj = mysqli_fetch_array($q)) {
                          if ($pinj['total_hari'] > 30) {
                             $tr = "#adacaa";
