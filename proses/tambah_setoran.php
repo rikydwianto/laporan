@@ -91,9 +91,26 @@ if(isset($_GET['sinkron'])){
                 mysqli_query($con,"UPDATE pengembalian set id_karyawan='$karyawan[$i]',total_topup=pokok+$topup[$i] ,  json_pengembalian='$ganti', total_pengembalian = '$pengembalian' where tgl_pengembalian='$date' and id_cabang='$id_cabang' and nama_karyawan='$mdis[$i]'");
             }
         }
-        
-        alert("DAFTAR PENGEMBALIAN MARGIN DAN POKOK TELAH DI UPDATE");
-        pindah($url.$menu."rekap_setoran&tgl=$date");
+        $hari = format_hari_tanggal($date);
+        $hari = explode(",",$hari)[0];
+        $hari = strtolower($hari);
+        $qcen =mysqli_query($con,"select * from center where id_cabang='$id_cabang' and hari='$hari'");
+        while($center = mysqli_fetch_array($qcen)){
+           $dcen = mysqli_query($con,"SELECT * FROM pengembalian,detail_pengembalian WHERE pengembalian.id=detail_pengembalian.`id_pengembalian` AND tgl_pengembalian='$date'  AND pengembalian.`id_cabang`='$id_cabang' AND detail_pengembalian.`no_center`='$center[no_center]'");
+           $data_center = mysqli_num_rows($dcen);
+           if($data_center==0){
+               $cek_kosong = mysqli_query($con,"select * from center_kosong where id_cabang='$id_cabang' and no_center='$center[no_center]'");
+               if(mysqli_num_rows($cek_kosong)==0){
+                   mysqli_query($con,"insert into center_kosong(no_center,id_cabang,id_karyawan,tgl_transaksi) 
+                   values('$center[no_center]','$id_cabang','$center[id_karyawan]','$date')");
+                  }
+
+           }
+        }
+
+
+        // alert("DAFTAR PENGEMBALIAN MARGIN DAN POKOK TELAH DI UPDATE");
+        // pindah($url.$menu."rekap_setoran&tgl=$date");
 
     }
 

@@ -36,6 +36,7 @@
 		<?php 
 		if(isset($_GET['cari']))
 		{
+			error_reporting(0);
 			$id_filter = $_GET['cabang'];
 			$tglawal = $_GET['tglawal'];
 			$tglakhir = $_GET['tglakhir'];
@@ -61,8 +62,23 @@
 			$am = $upk['masuk'];
 			$ak = $upk['keluar'];
 			$nett = $am - $ak;
+			$center_kosong = mysqli_query($con,"select count(*) as total_kosong from center_kosong where id_cabang='$id_cabang' and tgl_transaksi>='$tglawal' and tgl_transaksi<='$tglakhir'");
+			$center_kosong = mysqli_fetch_array($center_kosong)['total_kosong'];
+
+
+			$qpin = mysqli_query($con,"SELECT id_karyawan,
+			SUM(CASE WHEN (DATEDIFF('$tgl1', tgl_cair)) >=0 AND (DATEDIFF('$tgl1', tgl_cair)) <=2 THEN 1 ELSE 0 END) AS tiga_hari,
+			SUM(CASE WHEN (DATEDIFF('$tgl1', tgl_cair)) >2 AND (DATEDIFF('$tgl1', tgl_cair)) <=14 THEN 1 ELSE 0 END) AS normal,
+			SUM(CASE WHEN (DATEDIFF('$tgl1', tgl_cair)) >14  THEN 1 ELSE 0 END) AS kurang_normal,
+			COUNT(*) as total
+				 FROM pinjaman WHERE monitoring='belum' and id_cabang='$id_cabang' and input_mtr='sudah' GROUP BY id_cabang ");
+			$mon = mysqli_fetch_array($qpin);
+			$total_monitoring = $mon['total'];
+			$par = mysqli_query($con,"SELECT  tgl_input,count(*) as hitung, sum(sisa_saldo) as total_par FROM deliquency where id_cabang='$id_cabang' and tgl_input='$tglakhir' group by tgl_input order by tgl_input desc");
+			$par = mysqli_fetch_array($par);
+
 			foreach ($rekapp as $key => $value) {
-				if($value['anggota']==0){
+				if($value['anggota']!=0){
 					pesan("Data tidak ditemukan","danger");
 				}
 				else
@@ -149,6 +165,12 @@
 							</tr>
 
 							<tr>
+								<td><b>CENTER KOSONG</b></td>
+								<td><b><?=$center_kosong?></b></td>
+								<td></td>
+							</tr>
+
+							<tr>
 								<td><b>TOTAL CENTER</b></td>
 								<td><b><?=$value['hitung_center']?></b></td>
 								<td></td>
@@ -161,6 +183,17 @@
 							<tr>
 								<td><b>TOTAL CLIENT</b></td>
 								<td><b><?=$value['anggota']?></b></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><b>TOTAL MONITORING</b></td>
+								<td><b><?=$total_monitoring?></b></td>
+								<td></td>
+							</tr>
+							
+							<tr>
+								<td><b>TOTAL PAR <?=$tglakhir?></b></td>
+								<td><b><?=$par['hitung']?></b></td>
 								<td></td>
 							</tr>
 							
