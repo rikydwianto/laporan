@@ -78,11 +78,7 @@
 			$par = mysqli_fetch_array($par);
 
 			foreach ($rekapp as $key => $value) {
-				if($value['anggota']!=0){
-					pesan("Data tidak ditemukan","danger");
-				}
-				else
-				{
+				
 					$cab = $data->cek_cabang($con,$value['id_cabang']);
 				?>
 					<div class="col-md-6">
@@ -202,7 +198,7 @@
 				<?php
 
 				}
-			}
+			
 			
 		}
 		?>
