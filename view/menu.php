@@ -46,7 +46,7 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 		</li>
 
 		<li>
-			<a href="<?php echo $url . $menu ?>perbaikan_sl" class="w3-bar-item w3-button"><i class="fas fa-gears"></i> PERBAIKAN DATA</a>
+			<a href="<?php echo $url . $menu ?>daftar_backup_sl" class="w3-bar-item w3-button"><i class="fas fa-times"></i> ANGGOTA BACKUP</a>
 		</li>
 
 		<li>
@@ -439,17 +439,6 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 			</li>
 		</ul>
 		</li>
-		<li><a href="<?php echo $url . $menu ?>anggota" class="w3-bar-item w3-button"><i class="fa fa-users"></i> ANGGOTA</a></li>
-		<li><a href="<?php echo $url ?>lokasi.php" class="w3-bar-item w3-button"><i class="fa fa-globes"></i> LOKASI</a></li>
-		
-		<li>
-			<a href="<?php echo $url . $menu ?>monitoring" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> MONITORING</a>
-		</li>
-		<li><a href="<?php echo $url . $menu ?>spl" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> SPL</a></li>
-		<li><a href="<?php echo $url . $menu ?>broadcast_telegram" class="w3-bar-item w3-button"><i class="fa fa-phone"></i> REMINDER</a></li>
-		<li><a href="<?php echo $url . $menu ?>cek_kelompok" class="w3-bar-item w3-button"><i class="fa fa-build"></i> CEK KELOMPOK</a></li>
-		
-		
 		<li>
 			<a href="#"><i class="fa fa-file-excel-o"></i> ANALISA PAR<span class="fa arrow"></span></a>
 			<ul class="nav nav-second-level">
@@ -473,6 +462,19 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 			</ul>
 
 		</li>
+		<li><a href="<?php echo $url . $menu ?>anggota" class="w3-bar-item w3-button"><i class="fa fa-users"></i> ANGGOTA</a></li>
+		<li><a href="<?php echo $url . $menu ?>daftar_backup" class="w3-bar-item w3-button"><i class="fa fa-users"></i> DAFTAR ANGGOTA BACKUP</a></li>
+		<li><a href="<?php echo $url ?>lokasi.php" class="w3-bar-item w3-button"><i class="fa fa-globes"></i> LOKASI</a></li>
+		
+		<li>
+			<a href="<?php echo $url . $menu ?>monitoring" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> MONITORING</a>
+		</li>
+		<li><a href="<?php echo $url . $menu ?>spl" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> SPL</a></li>
+		<li><a href="<?php echo $url . $menu ?>broadcast_telegram" class="w3-bar-item w3-button"><i class="fa fa-phone"></i> REMINDER</a></li>
+		<li><a href="<?php echo $url . $menu ?>cek_kelompok" class="w3-bar-item w3-button"><i class="fa fa-build"></i> CEK KELOMPOK</a></li>
+		
+		
+		
 		
 		<li>
 			<a href="<?php echo $url . $menu ?>surat" class="w3-bar-item w3-button"><i class="fa fa-inbox"></i> SURAT</a>
