@@ -184,7 +184,7 @@ if(!$_SESSION['jabatan']){
 						$hitung_member = $hitung_member + $tampil_lapor['member']; 
 						$hitung_agt = $hitung_agt + $tampil_lapor['anggota']; 
 						$hitung_bayar = $hitung_bayar + $tampil_lapor['bayar']; 
-						$hitung_tdk_bayar= $hitung_tdk_bayar + $tampil_lapor['tidak_bayar']; 
+						$hitung_tdk_bayar= $hitung_tdk_bayar + ($hitung_member - $hitung_bayar); 
 						$hitung_center= $hitung_center + $tampil_lapor['hitung_center']; 
 
 
@@ -219,7 +219,7 @@ if(!$_SESSION['jabatan']){
 						<td><?php echo $tampil_lapor['member'] ?></td>
 						<td><?php echo $tampil_lapor['anggota'] ?></td>
 						<td><?php echo $tampil_lapor['bayar'] ?></td>
-						<td><?php echo $tampil_lapor['tidak_bayar'] ?></td>
+						<td><?php echo ($tampil_lapor['member'] - $tampil_lapor['bayar']  ) ?></td>
 						<td><?php echo $persen ?>%</td>
 						<td style="color:<?=$warna_chg?>">
 							<?php echo ($rubah==null?"0":round($rubah,2)."%") ?>
