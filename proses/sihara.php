@@ -1,6 +1,6 @@
 <div  class='content table-responsive'>
 <div class="row">
-	<h3 class="page-header">ANALISA PAR DAN ANGGOTA</h3>
+	<h3 class="page-header">SIHARA</h3>
 	<hr />
     <form method="post"  enctype="multipart/form-data">
         <div class="col-md-4">

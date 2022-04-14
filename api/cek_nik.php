@@ -14,12 +14,14 @@ else $table='daftar_nasabah_mantan';
 
 // echo $berdasarkan.$cari;
 ?>
+TEXT MERAH ARTINYA ANGGOTA DI BACKUP <br>
+TEXT HITAM ANGGOTA NORMAL
 <table class='table'>
     <thead>
         <tr>
             <th>NO</th>
-            <th>CTR</th>
             <th>ID</th>
+            <th>CTR</th>
             <th>ID Detail</th>
             <th>NAMA</th>
             <th>SUAMI</th>
@@ -59,8 +61,11 @@ else $table='daftar_nasabah_mantan';
         else{
             echo "Hasil pencarian ditemukan ". mysqli_num_rows($query);
             while ($dup = mysqli_fetch_array($query)) {
+                if($dup['backup']=='ya')
+                $warna='red';
+                else $warna='black';
                 ?>
-                    <tr>
+                    <tr style="color:<?=$warna?>">
                         <td><?=$no++?></td>
                         <td><?=$dup['id_nasabah']?></td>
                         <td><?=$dup['no_center']?></td>
