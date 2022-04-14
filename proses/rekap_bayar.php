@@ -151,7 +151,7 @@
 							</tr>
 							<tr>
 								<td>TIDAK BAYAR</td>
-								<td><?=$agt = $value['member']-$value['anggota_bayar']?></td>
+								<td><?=$agt = $value['anggota']-$value['anggota_bayar']?></td>
 								<td><?=round(($agt/$value['anggota'])*100)?>%</td>
 							</tr>
 							<tr>

@@ -117,7 +117,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
 						<td><?php echo $tampil_lapor['member'] ?></td>
 						<td><?php echo $tampil_lapor['anggota'] ?></td>
 						<td><?php echo $tampil_lapor['bayar'] ?></td>
-						<td><?php echo $tampil_lapor['tidak_bayar'] ?></td>
+						<td><?php echo $tidak_bayar = $tampil_lapor['anggota'] - $tampil_lapor['bayar'] ?></td>
 						<td><?php echo $persen ?>%</td>
 						<td style="color:<?=$warna_chg?>">
 							<?php echo ($rubah==null?"0":$rubah."%") ?>
@@ -129,6 +129,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
 						
 					</tr>
 						<?php
+						$hitung_tdk_bayar= $hitung_tdk_bayar + $tidak_bayar; 
 					}
 					else{
 						if(mysqli_num_rows($cek_l1))

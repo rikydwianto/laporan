@@ -219,7 +219,7 @@ if(!$_SESSION['jabatan']){
 						<td><?php echo $tampil_lapor['member'] ?></td>
 						<td><?php echo $tampil_lapor['anggota'] ?></td>
 						<td><?php echo $tampil_lapor['bayar'] ?></td>
-						<td><?php echo $tidak_bayar = ($tampil_lapor['member'] - $tampil_lapor['bayar']  ) ?></td>
+						<td><?php echo $tidak_bayar = ($tampil_lapor['anggota'] - $tampil_lapor['bayar']  ) ?></td>
 						<td><?php echo $persen ?>%</td>
 						<td style="color:<?=$warna_chg?>">
 							<?php echo ($rubah==null?"0":round($rubah,2)."%") ?>

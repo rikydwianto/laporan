@@ -78,7 +78,7 @@
 					<td><?php echo $tampil_lapor['member'] ?></td>
 					<td><?php echo $tampil_lapor['anggota'] ?></td>
 					<td><?php echo $tampil_lapor['bayar'] ?></td>
-					<td><?php echo $tampil_lapor['tidak_bayar'] ?></td>
+					<td><?php echo $tidak_bayar = $tampil_lapor['anggota'] - $tampil_lapor['bayar']?></td>
 					<td><?php echo round(($tampil_lapor['bayar']/$tampil_lapor['anggota'] *100  ))?>%</td>
 
 					<td><?php echo $tampil_lapor['keterangan_laporan'] ?></td>
@@ -91,6 +91,7 @@
 					
 				</tr>
 					<?php
+					$hitung_tdk_bayar= $hitung_tdk_bayar+ $tidak_bayar; 
 				}
 				else{
 					if(mysqli_num_rows($cek_l1))
