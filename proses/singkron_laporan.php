@@ -174,7 +174,7 @@ if(isset($_POST['laporan'])){
             $persen = round(($bayar[$a]/$client[$a])*100);
             if ($persen >= 90) $status = "hijau";
 			else if ($persen > 30 && $persen < 90) $status = "kuning";
-			else if ($persen >= 1 && $persen < 30) $status = "merah";
+			else if ($persen >= 0 && $persen < 30) $status = "merah";
 			else $status = 'hitam';
             // $doa='y';
             mysqli_query($con,"

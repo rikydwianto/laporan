@@ -3,6 +3,8 @@ require_once "../../config/seting.php";
 require_once "../../config/koneksi.php";
 require_once("../../proses/fungsi.php");
 require_once("../../model/model.php");
+ header('Access-Control-Allow-Origin: *'); 
+echo var_dump($_GET);
 $tgl = $_GET['tgl'];
 $nik = $_GET['nik'];
 $center = $_GET['no_center'];
