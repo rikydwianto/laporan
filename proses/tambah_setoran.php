@@ -91,6 +91,8 @@ if(isset($_GET['sinkron'])){
                 mysqli_query($con,"UPDATE pengembalian set id_karyawan='$karyawan[$i]',total_topup=pokok+$topup[$i] ,  json_pengembalian='$ganti', total_pengembalian = '$pengembalian' where tgl_pengembalian='$date' and id_cabang='$id_cabang' and nama_karyawan='$mdis[$i]'");
             }
         }
+
+
         $hari = format_hari_tanggal($date);
         $hari = explode(",",$hari)[0];
         $hari = strtolower($hari);
@@ -99,6 +101,7 @@ if(isset($_GET['sinkron'])){
 
         while($center = mysqli_fetch_array($qcen)){
            $dcen = mysqli_query($con,"SELECT * FROM pengembalian,detail_pengembalian WHERE pengembalian.id=detail_pengembalian.`id_pengembalian` AND tgl_pengembalian='$date'  AND pengembalian.`id_cabang`='$id_cabang' AND detail_pengembalian.`no_center`='$center[no_center]'");
+           
            $data_center = mysqli_num_rows($dcen);
            if($data_center==0){
                $cek_kosong = mysqli_query($con,"select * from center_kosong where id_cabang='$id_cabang' and no_center='$center[no_center]'");
@@ -110,11 +113,14 @@ if(isset($_GET['sinkron'])){
            }
         }
 
-
-        alert("DAFTAR PENGEMBALIAN MARGIN DAN POKOK TELAH DI UPDATE");
-        pindah($url.$menu."rekap_setoran&tgl=$date");
+        
+        
+        // alert("DAFTAR PENGEMBALIAN MARGIN DAN POKOK TELAH DI UPDATE");
+        pindah($url.$menu."tambah_setoran&cek_lagi&tgl=$date");
+        // pindah($url.$menu."rekap_setoran&tgl=$date");
 
     }
+    
 
     ?>
     <br>
@@ -212,6 +218,30 @@ if(isset($_GET['sinkron'])){
     </table>
     </form>
     <?php
+}
+
+if(isset($_GET['cek_lagi'])){
+    $date = $_GET['tgl'];
+    $dcen = mysqli_query($con,"SELECT * FROM pengembalian,detail_pengembalian WHERE pengembalian.id=detail_pengembalian.`id_pengembalian` AND tgl_pengembalian='$date'  AND pengembalian.`id_cabang`='$id_cabang' ");
+    while($center = mysqli_fetch_array($dcen)){
+        
+        $data  = (json_decode($center['json_detail_pengembalian'],true));
+        $pokok =  $data['attribute']['Pokok'];
+        $nisbah =  $data['attribute']['NISBAH'];
+        $wajib =  $data['attribute']['WajibDebet'];
+        $sukarela =  $data['attribute']['SukarelaDebet'];
+        $pensiun =  $data['attribute']['PensiunDebet'];
+        $hariraya =  $data['attribute']['SiharaDebet'];
+        if($pokok==0 && $nisbah==0 && $wajib==0 && $sukarela==0 && $pensiun==0 && $hariraya==0){
+            mysqli_query($con,"insert into center_kosong(no_center,id_cabang,id_karyawan,tgl_transaksi) 
+            values('$center[no_center]','$id_cabang','$center[id_karyawan]','$date')");
+        }
+        
+        alert("DAFTAR PENGEMBALIAN MARGIN DAN POKOK TELAH DI UPDATE");
+        pindah($url.$menu."rekap_setoran&tgl=$date");
+
+     }
+
 }
 
 ?>
