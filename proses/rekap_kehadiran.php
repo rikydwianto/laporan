@@ -135,7 +135,7 @@ $bulan_ini = $_GET['bln'];
                             <td><?=$hasil['total_center']?></td>
                             <td><?=$hasil['hijau']?></td>
                             <td><?=$hasil['kuning']?></td>
-                            <td><?=$hasil['merah']?></td>
+                            <td><?=$hasil['merah'] + $hasil['hitam']?></td>
                             <td><?php
                             if($kehadiran['hadir']>0 && $kehadiran['anggota']>0){
                                 echo round(($kehadiran['hadir']/$kehadiran['anggota']) * 100,2)."%"; 
