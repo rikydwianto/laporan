@@ -95,6 +95,8 @@ if(isset($_GET['sinkron'])){
         $hari = explode(",",$hari)[0];
         $hari = strtolower($hari);
         $qcen =mysqli_query($con,"select * from center where id_cabang='$id_cabang' and hari='$hari'");
+        $hapus = mysqli_query($con,"delete from center_kosong where id_cabang='$id_cabang' and tgl_transaksi='$date'");
+
         while($center = mysqli_fetch_array($qcen)){
            $dcen = mysqli_query($con,"SELECT * FROM pengembalian,detail_pengembalian WHERE pengembalian.id=detail_pengembalian.`id_pengembalian` AND tgl_pengembalian='$date'  AND pengembalian.`id_cabang`='$id_cabang' AND detail_pengembalian.`no_center`='$center[no_center]'");
            $data_center = mysqli_num_rows($dcen);
@@ -109,8 +111,8 @@ if(isset($_GET['sinkron'])){
         }
 
 
-        // alert("DAFTAR PENGEMBALIAN MARGIN DAN POKOK TELAH DI UPDATE");
-        // pindah($url.$menu."rekap_setoran&tgl=$date");
+        alert("DAFTAR PENGEMBALIAN MARGIN DAN POKOK TELAH DI UPDATE");
+        pindah($url.$menu."rekap_setoran&tgl=$date");
 
     }
 

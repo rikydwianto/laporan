@@ -143,6 +143,7 @@ if(!$_SESSION['jabatan']){
 		</a>
 		<a href="<?=$url.$menu?>laporan_manual" class="btn btn-danger">MEMBUAT SEMUA LAPORAN</a>
 		<a href="<?=$url.$menu?>rekap_setoran&tgl=<?=date("Y-m-d")?>" class="btn btn-info">REKAP SETORAN</a>
+		<a href="<?=$url.$menu?>center_kosong&tgl=<?=date("Y-m-d")?>" class="btn btn-primary">CEK CENTER KOSONG</a>
 		<div class='table-responsive'>
 		<br>
 		<table class='table'>

@@ -16,7 +16,7 @@ $objek = $reader->load($path);
 $ws = $objek->getActiveSheet();
 $last_row = $ws->getHighestDataRow();
 require './vendor/autoload.php';
-
+$tgl_input = $_GET['tgl'];
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
@@ -293,7 +293,7 @@ for($row = 7;$row<=$last_row;$row++){
             $json['pokok']=$pokok;
             $json['kode']=$kode_pemb;
             $json_simpanan = json_encode($json);
-
+            $tanggal = $tgl_input;
             $cek_simpanan =mysqli_query($con,"SELECT * FROM detail_simpanan where id_cabang='$id_cabang' and pembiayaan='$kode_pemb' and id_nasabah='$ID' ");
             if(mysqli_num_rows($cek_simpanan)){
                 $upda = mysqli_query($con,"UPDATE detail_simpanan set update_simpanan='$tanggal',pembiayaan='$kode_pemb', detail_simpanan='$json_simpanan' where  id_cabang='$id_cabang' and id_nasabah='$ID'");

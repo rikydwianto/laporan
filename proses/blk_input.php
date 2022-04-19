@@ -4,7 +4,8 @@
     <form method="post" action="<?=$url?>blk.php" enctype="multipart/form-data">
         <div class="col-md-4">
             <label for="formFile" class="form-label">SILAHKAN PILIH FILE</label>
-            <input class="form-control" type="file" name='file' accept=".xls,.xlsx,.csv" id="formFile">
+            <input class="form-control" type="file" name='file' required accept=".xls,.xlsx,.csv" id="formFile">
+            <input class="form-control" type="date" name='tgl' required >
             <input type="submit" value="Proses" class='btn btn-danger' name='preview'>
         </div>
     </form>
