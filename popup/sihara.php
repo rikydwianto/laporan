@@ -45,7 +45,7 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
 <div class='kertas'>
     <div id='header'>
 
-        <table border="1">
+        <table border="0">
             <tr>
             <td width="100">
                 <div style="">
