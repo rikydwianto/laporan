@@ -166,7 +166,7 @@ if(isset($_POST['laporan'])){
             if ($persen >= 90) $status = "hijau";
 			else if ($persen > 30 && $persen < 90) $status = "kuning";
 			else if ($persen >= 0 && $persen < 30) $status = "merah";
-			else $status = 'hitam';
+			else $status = 'merah';
             // $doa='y';
             mysqli_query($con,"
             INSERT INTO `detail_laporan` (`id_detail_laporan`, `id_laporan`, `no_center`, `status`, `doa`, `member`, `total_agt`, `total_bayar`, `total_tidak_bayar`, `status_detail_laporan`, `doortodoor`,`anggota_hadir`) 
