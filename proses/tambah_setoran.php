@@ -232,10 +232,10 @@ if(isset($_GET['cek_lagi'])){
         $sukarela =  $data['attribute']['SukarelaDebet'];
         $pensiun =  $data['attribute']['PensiunDebet'];
         $hariraya =  $data['attribute']['SiharaDebet'];
-        if($pokok==0 && $nisbah==0 && $wajib==0 && $sukarela==0 && $pensiun==0 && $hariraya==0){
+        // if($pokok==0 && $nisbah==0 && $wajib==0 && $sukarela==0 && $pensiun==0 && $hariraya==0){
             mysqli_query($con,"insert into center_kosong(no_center,id_cabang,id_karyawan,tgl_transaksi) 
             values('$center[no_center]','$id_cabang','$center[id_karyawan]','$date')");
-        }
+        // }
         
         alert("DAFTAR PENGEMBALIAN MARGIN DAN POKOK TELAH DI UPDATE");
         pindah($url.$menu."rekap_setoran&tgl=$date");
