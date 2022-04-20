@@ -48,7 +48,7 @@ else{
                  join center c on ck.no_center=c.no_center
                  join karyawan k on k.id_karyawan=ck.id_karyawan
                  where ck.id_cabang='$id_cabang' and k.id_cabang='$id_cabang' and c.id_cabang='$id_cabang'
-                 and (ck.tgl_transaksi between '$tglawal' and '$tglakhir') order by k.nama_karyawan asc, c.hari, tgl_transaksi desc
+                 and (ck.tgl_transaksi between '$tglawal' and '$tglakhir')  group by ck.no_center order by k.nama_karyawan asc, c.hari, tgl_transaksi desc
                  ");
                  while($r = mysqli_fetch_array($q)){
                      ?>
