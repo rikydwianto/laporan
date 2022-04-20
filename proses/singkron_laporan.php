@@ -29,7 +29,7 @@ $hari = format_hari_tanggal($tgl);
 $hari = explode(',', $hari);
 $hari = strtolower($hari[0]);
 // $hari = "senin";
-$qkar = mysqli_query($con,"SELECT distinct c.nik,k.nama_karyawan,k.id_karyawan from temp_bayar c join karyawan k on k.nik_karyawan=c.nik  where c.tgl_bayar='$tgl' and singkron='belum' and c.id_cabang='$id_cabang'");
+$qkar = mysqli_query($con,"SELECT distinct c.nik,k.nama_karyawan,k.id_karyawan from temp_bayar c join karyawan k on k.nik_karyawan=c.nik  where c.tgl_bayar='$tgl' and bayar>0 and singkron='belum' and c.id_cabang='$id_cabang'");
 echo mysqli_error($con);
 while($kar = mysqli_fetch_array($qkar)){
     $qcenter = mysqli_query($con,"SELECT * from center where id_cabang='$id_cabang' and hari='$hari' and id_karyawan='$kar[id_karyawan]'");
