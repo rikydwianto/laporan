@@ -48,7 +48,7 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
         <table border="0">
             <tr>
             <td width="100">
-                <div style="">
+                <div >
                     <img src="<?=$url?>assets/md.png" style="width:80px" alt="">
                     <h3 style="margin-top:0px;font-family:'Times New Roman', Times, serif">KOMIDA</h3>
                 </div>

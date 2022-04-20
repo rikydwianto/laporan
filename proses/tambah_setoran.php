@@ -99,19 +99,19 @@ if(isset($_GET['sinkron'])){
         $qcen =mysqli_query($con,"select * from center where id_cabang='$id_cabang' and hari='$hari'");
         $hapus = mysqli_query($con,"delete from center_kosong where id_cabang='$id_cabang' and tgl_transaksi='$date'");
 
-        while($center = mysqli_fetch_array($qcen)){
-           $dcen = mysqli_query($con,"SELECT * FROM pengembalian,detail_pengembalian WHERE pengembalian.id=detail_pengembalian.`id_pengembalian` AND tgl_pengembalian='$date'  AND pengembalian.`id_cabang`='$id_cabang' AND detail_pengembalian.`no_center`='$center[no_center]'");
+        // while($center = mysqli_fetch_array($qcen)){
+        //    $dcen = mysqli_query($con,"SELECT * FROM pengembalian,detail_pengembalian WHERE pengembalian.id=detail_pengembalian.`id_pengembalian` AND tgl_pengembalian='$date'  AND pengembalian.`id_cabang`='$id_cabang' AND detail_pengembalian.`no_center`='$center[no_center]'");
            
-           $data_center = mysqli_num_rows($dcen);
-           if($data_center==0){
-               $cek_kosong = mysqli_query($con,"select * from center_kosong where id_cabang='$id_cabang' and no_center='$center[no_center]'");
-               if(mysqli_num_rows($cek_kosong)==0){
-                   mysqli_query($con,"insert into center_kosong(no_center,id_cabang,id_karyawan,tgl_transaksi) 
-                   values('$center[no_center]','$id_cabang','$center[id_karyawan]','$date')");
-                  }
+        //    $data_center = mysqli_num_rows($dcen);
+        //    if($data_center==0){
+        //        $cek_kosong = mysqli_query($con,"select * from center_kosong where id_cabang='$id_cabang' and no_center='$center[no_center]'");
+        //        if(mysqli_num_rows($cek_kosong)==0){
+        //            mysqli_query($con,"insert into center_kosong(no_center,id_cabang,id_karyawan,tgl_transaksi) 
+        //            values('$center[no_center]','$id_cabang','$center[id_karyawan]','$date')");
+        //           }
 
-           }
-        }
+        //    }
+        // }
 
         
         
@@ -221,27 +221,41 @@ if(isset($_GET['sinkron'])){
 }
 
 if(isset($_GET['cek_lagi'])){
-    $date = $_GET['tgl'];
-    $dcen = mysqli_query($con,"SELECT * FROM pengembalian,detail_pengembalian WHERE pengembalian.id=detail_pengembalian.`id_pengembalian` AND tgl_pengembalian='$date'  AND pengembalian.`id_cabang`='$id_cabang' ");
-    while($center = mysqli_fetch_array($dcen)){
-        
-        $data  = (json_decode($center['json_detail_pengembalian'],true));
-        $pokok =  $data['attribute']['Pokok'];
-        $nisbah =  $data['attribute']['NISBAH'];
-        $wajib =  $data['attribute']['WajibDebet'];
-        $sukarela =  $data['attribute']['SukarelaDebet'];
-        $pensiun =  $data['attribute']['PensiunDebet'];
-        $hariraya =  $data['attribute']['SiharaDebet'];
-        // if($pokok==0 && $nisbah==0 && $wajib==0 && $sukarela==0 && $pensiun==0 && $hariraya==0){
-            // mysqli_query($con,"insert into center_kosong(no_center,id_cabang,id_karyawan,tgl_transaksi) 
-            // values('$center[no_center]','$id_cabang','$center[id_karyawan]','$date')");
-        // }
-        
-        alert("DAFTAR PENGEMBALIAN MARGIN DAN POKOK TELAH DI UPDATE");
-        pindah($url.$menu."rekap_setoran&tgl=$date");
-
-     }
-
+    ?>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h3 class="page-header">INPUT BTC INPUT</h3>
+	<hr />
+    <form method="post"  enctype="multipart/form-data">
+        <div class="col-md-4">
+            <label for="formFile" class="form-label">CEK BTC INPUT (XML)</label>
+            <input class="form-control" type="file" name='file_center' accept=".xml" id="formFile">
+            <input type="submit" value="Proses" class='btn btn-danger' name='cek_input'>
+        </div>
+    </form>
+    <?php
+    if(isset($_POST['cek_input'])){
+        $file = $_FILES['file_center']['tmp_name'];
+        $xml = simplexml_load_file($file);
+        $xml = $xml->Tablix1;
+        $date = $_GET['tgl'];
+        // echo var_dump($xml);
+        mysqli_query($con,"delete from center_kosong where id_cabang='$id_cabang' and tgl_transaksi='$date'");
+        foreach($xml->Details_Collection->Details as $row){
+           if($row['CenterJadwal']>0){
+               if(!isset($row['TransNo'])){
+                   $cek_center = mysqli_query($con,"select id_karyawan from center where no_center='$row[CenterJadwal]' and id_cabang='$id_cabang'");
+                   $cek_center = mysqli_fetch_array($cek_center);
+                   $id  = $cek_center['id_karyawan'];
+                mysqli_query($con,"insert into center_kosong(no_center,id_cabang,id_karyawan,tgl_transaksi) 
+                           values('$row[CenterJadwal]','$id_cabang','$id','$date')");
+               }
+           }
+    }
+     pindah($url.$menu."rekap_setoran&tgl=$date");
+    }
 }
 
 ?>
