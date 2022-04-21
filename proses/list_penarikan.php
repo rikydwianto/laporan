@@ -121,7 +121,7 @@ if (isset($_GET['del'])) {
             $total_penarikan = $total_penarikan + $simp['nominal_penarikan'];
             $kel = $simp['id_detail_nasabah'];
             $kel = explode("/", $kel);
-            $kel = $kel[2];
+            $kel = $simp['kelompok'];
         ?>
             <tr>
                 <td><?= $no++ ?>.</td>
