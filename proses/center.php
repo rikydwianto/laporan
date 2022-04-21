@@ -498,13 +498,22 @@ if (isset($_POST['ganti'])) {
 	$karyawan = $_POST['karyawan'];
 	$mdis = $_POST['nama_mdis'];
 	$total = $_POST['total_nasabah'];
+	$gabung_kar =array();
 	for ($i = 0; $i < count($mdis); $i++) {
 		mysqli_query($con,"UPDATE center set id_karyawan ='$karyawan[$i]', konfirmasi='y' where id_cabang='$id_cabang' and staff='$mdis[$i]'");
-		$total_nasabah = mysqli_query($con,"UPDATE total_nasabah set total_nasabah='$total[$i]'  where id_cabang='$id_cabang' and id_karyawan='$karyawan[$i]' ");
+		$cek_total = mysqli_query($con,"select * from total_nasabah where id_cabang='$id_cabang' and id_karyawan='$karyawan[$i]'");
+		if(mysqli_num_rows($cek_total)){
+			$total_nasabah = mysqli_query($con,"UPDATE total_nasabah set total_nasabah='$total[$i]'  where id_cabang='$id_cabang' and id_karyawan='$karyawan[$i]' ");
+			$gabung_kar[]=$karyawan[$i];
+		}
+		else{
+			echo "tidak ada";
+		}
 	}
-	
+	$gabungan = implode(",",$gabung_kar);
+	$sql = mysqli_query($con,"delete from total_nasabah where id_cabang='$id_cabang' and id_karyawan not in($gabungan)");
 	alert("DAFTAR CENTER BERHASIL DIUPDATE");
-	pindah($url.$menu."center");
+	 pindah($url.$menu."center");
 
 }
 ?>

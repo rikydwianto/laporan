@@ -18,7 +18,7 @@
                     for ($i = 0; $i < count($data_karyawan); $i++) {
                         $nama_karyawan = $data_karyawan[$i]['nama_karyawan'];
                         $idk = $data_karyawan[$i]['id_karyawan'];
-                        $cek_nas =  mysqli_query($con,"select * from total_nasabah where id_cabang='$id_cabang' and id_karyawan='$idk'");
+                        $cek_nas =  mysqli_query($con,"select *,sum(total_nasabah) as total from total_nasabah where id_cabang='$id_cabang' and id_karyawan='$idk'");
                         $cek_nasabah = mysqli_fetch_array($cek_nas);
 
                     ?>
@@ -29,7 +29,7 @@
                         </td>
                             <td>
                             
-                            <input type="number" name="anggota[]" min="0" id="" value='<?=($cek_nasabah['total_nasabah'] === null ? "0" : $cek_nasabah['total_nasabah'] )?>' class='form-control' style="width:100px">
+                            <input type="number" name="anggota[]" min="0" id="" value='<?=($cek_nasabah['total'] === null ? "0" : $cek_nasabah['total'] )?>' class='form-control' style="width:100px">
                             </td>
                         </tr>
 

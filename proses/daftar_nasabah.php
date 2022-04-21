@@ -222,33 +222,35 @@
             $karyawan = $_POST['karyawan'];
             $mdis = $_POST['nama_mdis'];
             $total_nasabah = $_POST['total_nasabah'];
-            for ($i = 0; $i < count($mdis); $i++) {
-                if (!empty($karyawan[$i])) {
-                    $cek_total_anggota = mysqli_num_rows(mysqli_query($con,"select * from total_nasabah where id_cabang='$id_cabang' and id_karyawan='$karyawan[$i]'"));
-                    if($cek_total_anggota>0){
-                        mysqli_query($con,"UPDATE `total_nasabah` SET `total_nasabah` = '$total_nasabah[$i]' WHERE `id_karyawan` = '$karyawan[$i]';");
-                    } else{
-                        mysqli_query($con,"insert into total_nasabah(id_karyawan,total_nasabah,id_cabang) values('$karyawan[$i]','$total_nasabah[$i]','$id_cabang')");
-                    }
-                    $text = " UPDATE `daftar_nasabah` SET  id_karyawan='$karyawan[$i]' WHERE `staff` = '$mdis[$i]' and id_cabang='$id_cabang'; ";
-                    $q = mysqli_query($con, "$text");
-                }
-            }
-            mysqli_query($con,"DELETE from center WHERE no_center NOT IN (SELECT DISTINCT no_center FROM daftar_nasabah WHERE id_cabang='$id_cabang') AND id_cabang='$id_cabang'");
-            $qcek_center = mysqli_query($con,"select *,count(*) as total_anggota from daftar_nasabah where id_cabang='$id_cabang'  group by no_center");
-            while($cek_center =mysqli_fetch_array($qcek_center)){
-                $hitung_center = mysqli_fetch_array(mysqli_query($con,"select * from center where no_center='$cek_center[no_center]' and id_cabang='$id_cabang'"));
-                if($hitung_center){
-                    $hari = strtolower($cek_center['hari']);
-                    mysqli_query($con,"UPDATE `center` SET `member_center` = '$cek_center[total_anggota]',hari='$hari', id_karyawan='$cek_center[id_karyawan]' WHERE `no_center` = '$cek_center[no_center]' and id_cabang='$id_cabang'; ");
-                    // echo $cek_center['no_center'].' - '.$cek_center['id_karyawan']."|".$cek_center['total_anggota']."<br/>";
-                }
-                else{
-                    // echo "center tida k ditemukan di table center<br/>";
-                    center($con, $cek_center['no_center'], 'y', 'hijau', $cek_center['total_anggota'], $cek_center['total_anggota'], $cek_center['total_anggota'], $id_cabang, $cek_center['id_karyawan'], strtolower($cek_center['hari']), '0', '00:00:00', 't',0);
+            // for ($i = 0; $i < count($mdis); $i++) {
+            //     if (!empty($karyawan[$i])) {
+            //         $cek_total_anggota = mysqli_num_rows(mysqli_query($con,"select * from total_nasabah where id_cabang='$id_cabang' and id_karyawan='$karyawan[$i]'"));
+            //         if($cek_total_anggota>0){
+            //             mysqli_query($con,"UPDATE `total_nasabah` SET `total_nasabah` = '$total_nasabah[$i]' WHERE `id_karyawan` = '$karyawan[$i]';");
+            //         } else{
+            //             mysqli_query($con,"insert into total_nasabah(id_karyawan,total_nasabah,id_cabang) values('$karyawan[$i]','$total_nasabah[$i]','$id_cabang')");
+            //         }
+            //         $text = " UPDATE `daftar_nasabah` SET  id_karyawan='$karyawan[$i]' WHERE `staff` = '$mdis[$i]' and id_cabang='$id_cabang'; ";
+            //         $q = mysqli_query($con, "$text");
+            //     }
+            // }
+            // mysqli_query($con,"DELETE from center WHERE no_center NOT IN (SELECT DISTINCT no_center FROM daftar_nasabah WHERE id_cabang='$id_cabang') AND id_cabang='$id_cabang'");
+            // $qcek_center = mysqli_query($con,"select *,count(*) as total_anggota from daftar_nasabah where id_cabang='$id_cabang'  group by no_center");
+            // while($cek_center =mysqli_fetch_array($qcek_center)){
+            //     $hitung_center = mysqli_fetch_array(mysqli_query($con,"select * from center where no_center='$cek_center[no_center]' and id_cabang='$id_cabang'"));
+            //     if($hitung_center){
+            //         $hari = strtolower($cek_center['hari']);
+            //         mysqli_query($con,"UPDATE `center` SET `member_center` = '$cek_center[total_anggota]',hari='$hari', id_karyawan='$cek_center[id_karyawan]' WHERE `no_center` = '$cek_center[no_center]' and id_cabang='$id_cabang'; ");
+            //         // echo $cek_center['no_center'].' - '.$cek_center['id_karyawan']."|".$cek_center['total_anggota']."<br/>";
+            //     }
+            //     else{
+            //         // echo "center tida k ditemukan di table center<br/>";
+            //         center($con, $cek_center['no_center'], 'y', 'hijau', $cek_center['total_anggota'], $cek_center['total_anggota'], $cek_center['total_anggota'], $id_cabang, $cek_center['id_karyawan'], strtolower($cek_center['hari']), '0', '00:00:00', 't',0);
 
-                }
-            }
+            //     }
+            // }
+            $gabung_kar = implode(",",$karyawan);
+            $sql = mysqli_query($con,"delete from total_nasabah where id_cabang='$id_cabang' and id_karyawan not in($gabung_kar)");
             alert("DAFTAR NASABAH DAN TOTAL ANGGOTA BERHASIL DIUPDATE");
             pindah($url.$menu."daftar_nasabah&sinkron&update_nasabah");
 
