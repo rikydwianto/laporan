@@ -14,7 +14,7 @@ $cek_laporan = mysqli_query($con,"select * from laporan where id_karyawan='$id_k
 	<?php
 	}
 	else{
-		echo "<h3 class='page-header'>Tambah Laporan</h3>";
+		echo "<h3 class='page-header'>Tambah Laporan Teman bila ada rolling/tidak masuk</h3>";
 	}
 ?>
 
@@ -32,7 +32,7 @@ $cek_laporan = mysqli_query($con,"select * from laporan where id_karyawan='$id_k
 			</td>
 		  </tr>
 		  <?php 
-		  if($jabatan!='SL')
+		  if($jabatan=='SL')
 		  {
 			  ?>
 		  <tr>
@@ -59,10 +59,7 @@ $cek_laporan = mysqli_query($con,"select * from laporan where id_karyawan='$id_k
 		  ?>
 		  <tr>
 			<td></td>
-			<td>
-				<input type="submit" name="tmb_lap" class='btn btn-primary' value="SIMPAN">
-				<a href="<?=$url.$menu?>laporan-teman" class="btn btn-danger">laporan Teman</a>
-			</td>
+			<td><input type="submit" name="tmb_lap" class='btn btn-primary' value="SIMPAN"></td>
 		  </tr>
 		</table> 
 		
@@ -75,9 +72,7 @@ if(isset($_POST['tmb_lap']))
 {
 	$tgl_lap = $_POST['tanggal'];
 	$ket_lap = $_POST['keterangan'];
-	if($jabatan!='SL')
 		$id_karyawan = $_POST['id_karyawan'];
-	else $id_karyawan=$id_karyawan;
 	
 	$cek_laporan = mysqli_query($con,"select * from laporan where id_karyawan='$id_karyawan'  and tgl_laporan='$tgl_lap'");
 

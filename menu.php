@@ -97,6 +97,9 @@ if (isset($_GET['menu'])) {
 			case "lokasi":
 				include("proses/lokasi.php");
 				break;
+			case "laporan-teman":
+				include("proses/laporan-teman.php");
+				break;
 			case "tmb_laporan":
 				include("proses/tmb_laporan.php");
 				break;
