@@ -270,7 +270,16 @@ function separator($tipe='titik'){
     </select>
   <?php
 }
-
+function kategori($kat='naik'){
+  ?>
+  <select name="kat" id="" class='form-control'>
+        <option <?=($kat==="naik"?"selected":"");?> value="naik">KENAIKAN DAN PENURUNAN AGT PAR</option>
+        <!-- <option <?=($kat==="turun"?"selected":"");?>  value="turun">TURUN PAR</option> -->
+        <option <?=($kat==="berkurang"?"selected":"");?>  value="berkurang">TURUN OUTSTANDING PAR</option>
+        <!-- <option <?=($kat==="strip"?"selected":"");?>  value="strip">Strip</option> -->
+    </select>
+  <?php
+}
 function wilayah($con, $kode)
 {
   $wilaya  = mysqli_query($con, "SELECT nama FROM daftar_wilayah WHERE kode='$kode' limit 0,1");
