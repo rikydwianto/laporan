@@ -120,3 +120,13 @@ $.getJSON( url_link + "api/grafik.php?cab="+idcab, function( data ) {
   });
 
   
+
+
+  
+  const total_par = [];
+  const total_os = [];
+  const label = [];
+
+function grafi_par(){
+    
+}

@@ -169,7 +169,7 @@
 							<tr>
 								<td><b>TOTAL CENTER</b></td>
 								<td><b><?=$value['hitung_center']?></b></td>
-								<td></td>
+								<td>Entry : <?=$value['hitung_center'] - $center_kosong?></td>
 							</tr>
 							<tr>
 								<td><b>TOTAL ANGGOTA</b></td>

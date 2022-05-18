@@ -1,5 +1,6 @@
 
 <div class="row">
+
 	<h3 class="page-header">INPUT ANGGOTA PAR</h3>
     <a href="<?=$url.$menu?>par" class="btn btn-success">Lihat Data Par</a>
     <form method="post" enctype="multipart/form-data">
@@ -99,9 +100,8 @@ if(isset($_POST['preview'])){
             $loan = ganti_karakter($ws->getCell("B".$row)->getValue());
             $no_center = ganti_karakter($ws->getCell("C".$row)->getValue());
             $id_nasabah = ganti_karakter1($ws->getCell("D".$row)->getValue());
-            $tgl_dis = ganti_karakter1($ws->getCell("H".$row)->getValue());
-            $tgl_dis = explode('/',$tgl_dis);
-            $tgl_dis = $tgl_dis[2].'-'.$tgl_dis[1].'-'.$tgl_dis[0];
+           // $tgl_dis = ganti_karakter1($ws->getCell("H".$row)->getValue());
+            
             $bm = ($ws->getCell("C4")->getValue());
             // echo "sssss".$bm;
             if($bm=="Ctr ID"){
@@ -109,14 +109,17 @@ if(isset($_POST['preview'])){
                 $balance = (int)ganti_karakter(str_replace(",","",$ws->getCell("M".$row)->getValue()));
                 $tunggakan = (int)ganti_karakter(str_replace(",","",$ws->getCell("N".$row)->getValue()));
                 $minggu = (int)ganti_karakter(str_replace(",","",$ws->getCell("O".$row)->getValue()));
-
+                $tgl_dis = ganti_karakter1($ws->getCell("J".$row)->getValue());
+                $tgl_dis = date("Y-m-d",PHPExcel_Shared_Date::ExcelToPHP($tgl_dis));
             }
             else{
                 $amount = (int)ganti_karakter(str_replace(",","",$ws->getCell("F".$row)->getValue()));
                 $balance = (int)ganti_karakter(str_replace(",","",$ws->getCell("K".$row)->getValue()));
                 $tunggakan = (int)ganti_karakter(str_replace(",","",$ws->getCell("L".$row)->getValue()));
                 $minggu = (int)ganti_karakter(str_replace(",","",$ws->getCell("M".$row)->getValue()));
-
+                $tgl_dis = ganti_karakter1($ws->getCell("H".$row)->getValue());
+                $tgl_dis = explode('/',$tgl_dis);
+                $tgl_dis = $tgl_dis[2].'-'.$tgl_dis[1].'-'.$tgl_dis[0];
             }
             ?>
             <tr>
@@ -133,10 +136,10 @@ if(isset($_POST['preview'])){
             </tr>
             <?php
                //INSERT INTO `deliquency` (`id`, `loan`, `no_center`, `id_detail_nasabah`, `nasabah`, `amount`, `sisa_saldo`, `tunggakan`, `minggu`, `tgl_input`, `id_cabang`) VALUES (NULL, 'PU-072-21-01-000216', '003', 'AGT/072/01/003-000034', 'RUMNASIH', '6', '2', '1', '8', NULL, NULL); 
-            mysqli_query($con,"INSERT INTO `deliquency` 
-            ( id,`loan`, `no_center`, `id_detail_nasabah`, `nasabah`, `amount`, `sisa_saldo`, `tunggakan`, `minggu`, `tgl_input`, `id_cabang`,tgl_disburse) VALUES 
-            (NULL, '$loan', '$no_center', '$id_nasabah', '$nasabah', '$amount', '$balance', '$tunggakan', '$minggu', '$tgl', '$id_cabang','$tgl_dis'); 
-            ");
+            // mysqli_query($con,"INSERT INTO `deliquency` 
+            // ( id,`loan`, `no_center`, `id_detail_nasabah`, `nasabah`, `amount`, `sisa_saldo`, `tunggakan`, `minggu`, `tgl_input`, `id_cabang`,tgl_disburse) VALUES 
+            // (NULL, '$loan', '$no_center', '$id_nasabah', '$nasabah', '$amount', '$balance', '$tunggakan', '$minggu', '$tgl', '$id_cabang','$tgl_dis'); 
+            // ");
             }
             
             
@@ -145,7 +148,7 @@ if(isset($_POST['preview'])){
         }
     }
     alert("Berhasil ditambahkan!");
-    pindah($url.$menu."par");
+    // pindah($url.$menu."par");
     ?>
     </table>
     <?php
