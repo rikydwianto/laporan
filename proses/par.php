@@ -166,7 +166,7 @@ if(isset($_POST['preview'])){
         }
     }
     alert("Berhasil ditambahkan!");
-    // pindah($url.$menu."par");
+    pindah($url.$menu."par");
     ?>
     </table>
     <?php
