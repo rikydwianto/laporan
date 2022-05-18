@@ -38,6 +38,7 @@
 	<hr />
     <a href="<?=$url.$menu?>blk_new" class="btn btn-success">DOWNLOAD ANALISA PAR</a>
     <a href="<?=$url.$menu?>blk_simpanan" class="btn btn-primary">REKAP SIMPANAN</a>
+    <a href="<?=$url.$menu?>delinsaving" class="btn btn-info">ANALISA PAR BARU</a>
 </div>
 
 

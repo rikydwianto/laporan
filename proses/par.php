@@ -87,7 +87,7 @@ if(isset($_POST['preview'])){
     $ws = $objek->getActiveSheet();
     $last_row = $ws->getHighestDataRow();
 
-    for($row = 7;$row<=$last_row;$row++){
+    for($row = 2;$row<=$last_row;$row++){
         $id_nasabah =  $ws->getCell("D" . $row)->getValue();
         if($id_nasabah==null){
             
@@ -111,6 +111,17 @@ if(isset($_POST['preview'])){
                 $minggu = (int)ganti_karakter(str_replace(",","",$ws->getCell("O".$row)->getValue()));
                 $tgl_dis = ganti_karakter1($ws->getCell("J".$row)->getValue());
                 $tgl_dis = date("Y-m-d",PHPExcel_Shared_Date::ExcelToPHP($tgl_dis));
+
+
+                $wajib = (int)ganti_karakter(str_replace(",","",$ws->getCell("U".$row)->getValue()));
+                $sukarela = (int)ganti_karakter(str_replace(",","",$ws->getCell("V".$row)->getValue()));
+                $pensiun = (int)ganti_karakter(str_replace(",","",$ws->getCell("W".$row)->getValue()));
+                $hariraya = (int)ganti_karakter(str_replace(",","",$ws->getCell("X".$row)->getValue()));
+                $cicilan = (int)ganti_karakter(str_replace(",","",$ws->getCell("AB".$row)->getValue()));
+                $hari = ganti_karakter(str_replace(",","",$ws->getCell("AF".$row)->getValue()));
+                $nama_staff = ganti_karakter(str_replace(",","",$ws->getCell("AG".$row)->getValue()));
+                $minggu_ke = ganti_karakter(str_replace(",","",$ws->getCell("AC".$row)->getValue()));
+                $minggu_rill = ganti_karakter(str_replace(",","",$ws->getCell("AD".$row)->getValue()));
             }
             else{
                 $amount = (int)ganti_karakter(str_replace(",","",$ws->getCell("F".$row)->getValue()));
@@ -122,7 +133,7 @@ if(isset($_POST['preview'])){
                 $tgl_dis = $tgl_dis[2].'-'.$tgl_dis[1].'-'.$tgl_dis[0];
             }
             ?>
-            <tr>
+            <!-- <tr>
                 <td><?=$no++?></td>
                 <td><?=$loan?></td>
                 <td><?=$no_center?></td>
@@ -133,12 +144,19 @@ if(isset($_POST['preview'])){
                 <td><?=$tunggakan?></td>
                 <td><?=$minggu?></td>
                 <td><?=$tgl_dis?></td>
-            </tr>
+                <td><?=$wajib?></td>
+                <td><?=$sukarela?></td>
+                <td><?=$pensiun?></td>
+                <td><?=$hariraya?></td>
+                <td><?=$cicilan?></td>
+                <td><?=$hari?></td>
+                <td><?=$nama_staff?></td>
+            </tr> -->
             <?php
             //   INSERT INTO `deliquency` (`id`, `loan`, `no_center`, `id_detail_nasabah`, `nasabah`, `amount`, `sisa_saldo`, `tunggakan`, `minggu`, `tgl_input`, `id_cabang`) VALUES (NULL, 'PU-072-21-01-000216', '003', 'AGT/072/01/003-000034', 'RUMNASIH', '6', '2', '1', '8', NULL, NULL); 
             mysqli_query($con,"INSERT INTO `deliquency` 
-            ( id,`loan`, `no_center`, `id_detail_nasabah`, `nasabah`, `amount`, `sisa_saldo`, `tunggakan`, `minggu`, `tgl_input`, `id_cabang`,tgl_disburse) VALUES 
-            (NULL, '$loan', '$no_center', '$id_nasabah', '$nasabah', '$amount', '$balance', '$tunggakan', '$minggu', '$tgl', '$id_cabang','$tgl_dis'); 
+            ( id,`loan`, `no_center`, `id_detail_nasabah`, `nasabah`, `amount`, `sisa_saldo`, `tunggakan`, `minggu`, `tgl_input`, `id_cabang`,tgl_disburse,wajib,sukarela,pensiun,hariraya,cicilan,hari,staff,minggu_ke,minggu_rill) VALUES 
+            (NULL, '$loan', '$no_center', '$id_nasabah', '$nasabah', '$amount', '$balance', '$tunggakan', '$minggu', '$tgl', '$id_cabang','$tgl_dis','$wajib','$sukarela','$pensiun','$hariraya','$cicilan','$hari','$nama_staff','$minggu_ke','$minggu_rill'); 
             ");
             }
             
@@ -148,7 +166,7 @@ if(isset($_POST['preview'])){
         }
     }
     alert("Berhasil ditambahkan!");
-    pindah($url.$menu."par");
+    // pindah($url.$menu."par");
     ?>
     </table>
     <?php
