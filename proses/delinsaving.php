@@ -121,6 +121,8 @@ $sheet->setCellValue('A1', 'DATA PAR');
 
 $baris_ws2=3;
 $no_baris_ws2=1;
+
+ini_set('max_execution_time', '0'); // for infinite time of execution 
 ?>
 <h2>BLK </h2>
 <table id='data_blk' class='table-bordered'>
@@ -323,7 +325,7 @@ while($r = mysqli_fetch_array($cek_delin1)){
                 $sheet->setCellValue('r'.$baris, ($selisih));
                 $sheet->setCellValue('s'.$baris, ($satu_angsuran==0?"":($satu_angsuran)));
                 $sheet->setCellValue('t'.$baris, ($tanpa_margin==0?"":($tanpa_margin)));
-                $sheet->setCellValue('u'.$baris, $nama['nama_karyawan']);
+                $sheet->setCellValue('u'.$baris, $r['staff']);
                 $sheet->setCellValue('v'.$baris, $r['hari']);
 
                 //SHEET 2

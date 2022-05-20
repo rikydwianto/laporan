@@ -498,7 +498,8 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 			<a href="<?php echo $url . $menu ?>logout" class=""><i class="fa fa-sign-out"></i> Logout</a>
 		</li>
 	<?php
-} else if (($_SESSION['id']) && $jabatan == 'ADM') {
+} 
+else if (($_SESSION['id']) && $jabatan == 'ADM') {
 	?>
 		<li>
 			<a href="<?php echo $url . $menu ?>monitoring" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> MONITORING</a>
@@ -531,6 +532,37 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 			<a href="<?php echo $url . $menu ?>surat" class="w3-bar-item w3-button"><i class="fa fa-inbox"></i> SURAT</a>
 		</li>
 		<li><a href="<?php echo $url . $menu ?>cek_nik" class="w3-bar-item w3-button"><i class="fa fa-search"></i> CEK NIK</a></li>
+		<li>
+			<a href="<?php echo $url . $menu ?>quotes" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> Quotes</a>
+		</li>
+		<li><a href="<?php echo $url . $menu ?>setting" class="w3-bar-item w3-button"><i class="fa fa-gears"></i> Setting</a></li>
+		</li>
+		<li>
+			<a href="<?php echo $url . $menu ?>logout" class=""><i class="fa fa-sign-out"></i> Logout</a>
+		</li>
+
+	<?php
+}
+else if (($_SESSION['id']) && $jabatan == 'BC') {
+	?>
+		<li><a href="<?php echo $url . $menu ?>pemb_lain" class="w3-bar-item w3-button"><i class="fa fa-dollar"></i> Pembiayaan Lain</a></li>
+		<li>
+			<a href="#"><i class="fa fa-file-excel-o"></i> ANALISA PAR<span class="fa arrow"></span></a>
+			<ul class="nav nav-second-level">
+				<li>
+					<a href="<?php echo $url . $menu ?>blk_input" class="w3-bar-item w3-button"><i class="fa fa-plus"></i> BLK</a>
+
+				</li>
+
+				<li>
+					<a href="<?php echo $url . $menu ?>par_regional" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> Deliquency</a>
+
+				</li>
+				
+				
+			</ul>
+
+		</li>
 		<li>
 			<a href="<?php echo $url . $menu ?>quotes" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> Quotes</a>
 		</li>
