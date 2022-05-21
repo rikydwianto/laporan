@@ -21,7 +21,7 @@
                 <tr>
                     <td><?=$no++?></td>
                     <td><input type="text" name="no_center[]" value="<?=$staff['no_center']?>" id=""></td>
-                    <td><input type="text" name="id_karyawan[]" value="<?=$kary['id_karyawan']?>" id=""><input type="text"  value="<?=$staff['staff']?>" id=""></td>
+                    <td><input type="text" name="id_karyawan[]" value="<?=$kary['id_karyawan']?>" id=""><input type="text"   id=""></td>
                     <td><input type="text" name="anggota[]" value="<?=$staff['anggota']?>" id=""></td>
                 </tr>
                 <?php
@@ -50,11 +50,12 @@
             <?php 
             $q1 = mysqli_query($con,"select distinct staff from daftar_nasabah where id_cabang='$id_cabang' and id_karyawan is  null");
             while($staff = mysqli_fetch_array($q1)){
+                $value_nik = str_replace(" ","",strtolower($staff['staff'])). sprintf("%02d",rand(0,100));
                 ?>
                 <tr>
                     <td><?=$no++?></td>
                     <td><input type="text" class='form-control' name="nama_karyawan[]" value="<?=$staff['staff']?>" id=""></td>
-                    <td><input type="text" class='form-control' name="nik[]" required value="" id=""></td>
+                    <td><input type="text" class='form-control' name="nik[]" value="<?=$value_nik?>" required value="" id=""></td>
                     <td><input type="text" class='form-control' name="password[]" value="123456" id=""></td>
                 </tr>
                 <?php
