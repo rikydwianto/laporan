@@ -301,6 +301,8 @@ for($row = 7;$row<=$last_row;$row++){
             else{
                 mysqli_query($con,"INSERT INTO `detail_simpanan` (`id_nasabah`, `id_cabang`, `update_simpanan`,`detail_simpanan`,pembiayaan)
                  VALUES ('$ID', '$id_cabang', '$tanggal','$json_simpanan','$kode_pemb'); ");
+
+                 echo "harus insert<br/>";
             }
 
         
