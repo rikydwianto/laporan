@@ -303,6 +303,7 @@ for($row = 7;$row<=$last_row;$row++){
                  VALUES ('$ID', '$id_cabang', '$tanggal','$json_simpanan','$kode_pemb'); ");
 
                  echo "harus insert<br/>";
+                 echo mysqli_error($con);
             }
 
         
