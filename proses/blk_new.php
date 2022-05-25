@@ -325,7 +325,7 @@ while($r = mysqli_fetch_array($cek_delin1)){
                 $sheet->setCellValue('t'.$baris, ($tanpa_margin==0?"":($tanpa_margin)));
                 $sheet->setCellValue('u'.$baris, $nama['nama_karyawan']);
                 $sheet->setCellValue('v'.$baris, $nama['hari']);
-                $sheet->setCellValue('w'.$baris, $nama['hari']);
+                $sheet->setCellValue('w'.$baris, $r['id_detail_nasabah']);
 
                 //SHEET 2
 
@@ -347,6 +347,7 @@ while($r = mysqli_fetch_array($cek_delin1)){
                     $sheet2->setCellValue('n'.$baris_ws2, $angsuran_tunggakan);
                     $sheet2->setCellValue('o'.$baris_ws2, $sukarela_pensiun - $angsuran_tunggakan);
                     $sheet2->setCellValue('p'.$baris_ws2, $nama['nama_karyawan']);
+                    $sheet2->setCellValue('q'.$baris_ws2, $nama['hari']);
                     $sheet2->setCellValue('q'.$baris_ws2, $r['id_detail_nasabah']);
                     $baris_ws2++;
 
