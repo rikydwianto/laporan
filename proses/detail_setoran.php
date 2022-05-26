@@ -48,6 +48,9 @@ echo mysqli_error($con);
                         <th>POKOK</th>
                         <th>MARGIN</th>
                         <th>POKOK + MARGIN</th>
+                        <th>SUKARELA DEBIT</th>
+                        <th>SUKARELA KREDIT</th>
+                        <th>TOTAL</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,10 +58,14 @@ echo mysqli_error($con);
                  $total_margin=0;
                  $total_pokok =0;
                  $total_total =0;
+                 $total_sd =0;
+                 $total_kd =0;
                 while($r=mysqli_fetch_array($qcek)){
                     $detil = json_decode($r['json_detail_pengembalian']);
                 $detil = $detil->attribute;
                 $pokok = int_xml($detil->Pokok);
+                $sukareladebet = int_xml($detil->SukarelaDebet);
+                $sukarelakredit = int_xml($detil->SukarelaKredit);
                 $center = $r['no_center'];
                 $margin = int_xml($detil->NISBAH);
                 $total = $pokok + $margin;
@@ -66,6 +73,9 @@ echo mysqli_error($con);
                 $total_margin += $margin;
                 $total_pokok += $pokok;
                 $total_total += $total;
+                $total_sd += $sukareladebet;
+                $total_kd += $sukarelakredit;
+                //{"attribute":{"CenterID1":"133","Disbursed":"0.0000","DanaResiko":"0.0000","Pokok":"1426100.0000","NISBAH":"396700.0000","WajibDebet":"74000.0000","WajibKredit":"0.0000","SukarelaDebet":"26600.0000","SukarelaKredit":"128400.0000","PokokDebet":"0.0000","PokokKredit":"0.0000","PensiunDebet":"0.0000","PensiunKredit":"0.0000","SiharaDebet":"395000.0000","SiharaKredit":"0.0000","RupaPendapatan":"0.0000","RupaPendapatan2":"0.0000","QurbanDebet":"0.0000","QurbanKredit":"0.0000","RupaPendapatan3":"0.0000","TOTAL":"2190000.0000"}}
                 ?>
                 <tr>
                         <td><?=$no++?></td>
@@ -74,6 +84,9 @@ echo mysqli_error($con);
                         <td align='right'><?=angka($pokok)?></td>
                         <td align='right'><?=angka($margin)?></td>
                         <td align='right'><?=angka($total)?></td>
+                        <td align='right'><?=angka($sukareladebet)?></td>
+                        <td align='right'><?=angka($sukarelakredit)?></td>
+                        <td align='right'><?=angka($sukareladebet-$sukarelakredit)?></td>
                     </tr>
                 <?php 
                 }
@@ -86,6 +99,9 @@ echo mysqli_error($con);
                         <th style="text-align:right"><?=angka($total_pokok)?></th>
                         <th style="text-align:right"><?=angka($total_margin)?></th>
                         <th style="text-align:right"><?=angka($total_total)?></th>
+                        <th style="text-align:right"><?=angka($total_sd)?></th>
+                        <th style="text-align:right"><?=angka($total_kd)?></th>
+                        <th style="text-align:right"><?=angka($total_sd - $total_kd)?></th>
                     </tr>
 
                 </tfoot>
