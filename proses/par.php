@@ -210,6 +210,8 @@ if(isset($_GET['bandingkan'])){
             where d.loan not in (select loan from deliquency where tgl_input='$tgl_banding' and id_cabang='$id_cabang') and d.tgl_input='$tgl_awal' and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' order by k.nama_karyawan asc");
             while($data = mysqli_fetch_array($query)){
                 $total_os+=$data['sisa_saldo'];
+                $ID = (int)explode("-",$data['id_nasabah'])[2];
+                $qak = mysqli_num_rows(mysqli_query($con,"select * from temp_anggota_keluar where id_nasabah='$ID'  and id_cabang='$id_cabang'"));
                 $par = mysqli_num_rows(mysqli_query($con,"select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]' and id_cabang='$id_cabang'"));
                 if($par){
                     $baris['baris']= "#c9c7c1";
@@ -222,6 +224,14 @@ if(isset($_GET['bandingkan'])){
                     $baris['ket']='';
 
                 } 
+                if(($qak)){
+                    $baris['ket'].="Agt Keluar";
+                    
+                }
+                else{
+                    $baris['ket'].="";
+
+                }
                 ?>
                 <tr style="background-color:<?=$baris['baris']?>;color:<?=$baris['text']?>">
                     <td><?=$no++?></td>
