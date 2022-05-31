@@ -131,7 +131,7 @@
 						while($update = mysqli_fetch_array($upd)){
 							mysqli_query($con,"UPDATE `temp_anggota_keluar` SET `status` = 'sudah' WHERE `id` = '$update[id]'; ");
 							mysqli_query($con,"INSERT INTO `daftar_nasabah_mantan` 
-							SELECT * FROM daftar_nasabah where id_nasabah='$update[id_nasabah]'
+							SELECT * FROM daftar_nasabah where id_nasabah='$update[id_nasabah]' and id_cabang='$id_cabang'
 						");
 						mysqli_query($con,"delete from daftar_nasabah where id_nasabah='$update[id_nasabah]'");
 						}
