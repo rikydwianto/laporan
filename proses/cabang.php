@@ -13,7 +13,13 @@
   if(isset($_GET['del']))
   {
   	$iddet= $_GET['idcab'];
-  	$del = mysqli_query($con,"delete from cabang where id_cabang='$iddet'");
+	  $cek_table = mysqli_query($con,"SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA LIKE '$db_name';");
+	  $del = mysqli_query($con,"delete from cabang where id_cabang='$iddet'");
+	  while($r = mysqli_fetch_array($cek_table)){
+		  if($r['TABLE_TYPE']!='VIEW'){
+			  mysqli_query($con,"delete from ".$r['TABLE_NAME']." where id_cabang='$iddet'");
+		  }
+	  }
   	if($del){
   		pesan("Cabang Berhasil dihapus",'success');
   	}
