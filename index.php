@@ -105,7 +105,47 @@ $singkatan_cabang = $d['singkatan_cabang'];
                         if ($d['password'] == md5(123456)) {
                             include("proses/setting.php");
                         } else {
+	if($su=='y' || $jabatan=='BC'){
+        $qu = "";
+        if($jabatan=='BC')
+        {
+            $qu="where id_wilayah='$d[id_wilayah]'";
+        }
+
+		?>
+		<form action="" method="post">
+			<select name="nama_cabang" id="">
+
+				<?php 
+			$q = mysqli_query($con,"SELECT * FROM cabang $qu order by nama_cabang asc");
+			while($r=mysqli_fetch_array($q)){
+				if($id_cabang == $r['id_cabang'])
+				$sel = 'selected';
+				else $sel ='';
+				?>
+				<option value="<?=$r['id_cabang']?>" <?=$sel?>><?=strtoupper($r['nama_cabang'])?></option>
+				<?php
+			}
+			?>
+			</select>
+			<input type="submit" name='submit_cabang' value='GANTI CABANG' />
+		</form>
+        
+		<?php
+		if(isset($_POST['submit_cabang']) && $_POST['submit_cabang']=='GANTI CABANG'){
+			$id_cabang = $_POST['nama_cabang'];
+            $cab = mysqli_fetch_array(mysqli_query($con,"select * from cabang where id_cabang='$id_cabang'"));
+            $_SESSION['cabang']=$_POST['nama_cabang'];
+			$_SESSION['id_cabang']=$_POST['nama_cabang'];
+            $_SESSION['kode_cabang']=$cab['kode_cabang'];
+           // echo print_r($cab);
+			// pindah($url);
+		}
+	}
+	// echo  $_SESSION['kode_cabang']; ;
                             include "menu.php";
+
+
                         }
                     }
                     ?>
