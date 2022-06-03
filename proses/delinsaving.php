@@ -25,8 +25,19 @@ $baris = 3;
 $no1=1;
 
 $spreadsheet = new Spreadsheet();
-
 $sheet = $spreadsheet->getActiveSheet();
+$style = array(
+    'font'  => array(
+        'size'  => 8,
+        'name'  => 'Arial'
+    ),
+
+    
+);
+
+
+
+    $sheet->getStyle('A2:AA2000')->applyFromArray($style);
 $sheet->getColumnDimension('B')->setAutoSize(true);
 $sheet->getColumnDimension('C')->setAutoSize(true);
 $sheet->getColumnDimension('D')->setAutoSize(true);
@@ -43,6 +54,13 @@ $sheet->getColumnDimension('N')->setAutoSize(true);
 $sheet->getColumnDimension('O')->setAutoSize(true);
 $sheet->getColumnDimension('P')->setAutoSize(true);
 $sheet->getColumnDimension('Q')->setAutoSize(true);
+$sheet->getColumnDimension('R')->setAutoSize(true);
+$sheet->getColumnDimension('S')->setAutoSize(true);
+$sheet->getColumnDimension('T')->setAutoSize(true);
+$sheet->getColumnDimension('U')->setAutoSize(true);
+$sheet->getColumnDimension('V')->setAutoSize(true);
+$sheet->getColumnDimension('W')->setAutoSize(true);
+$sheet->getColumnDimension('X')->setAutoSize(true);
 $sheet->setTitle('DATA PAR');
 
 
@@ -69,6 +87,8 @@ $sheet->setCellValue('S2', '1 Angsuran');
 $sheet->setCellValue('T2', 'Tanpa Margin');
 $sheet->setCellValue('U2', 'STAFF');
 $sheet->setCellValue('V2', 'HARI');
+// $sheet->setCellValue('W2', 'ID ANGGOTA');
+$sheet->setCellValue('W2', 'PRIODE');
 $spreadsheet->createSheet();
 
 
@@ -94,6 +114,9 @@ $sheet2->getColumnDimension('N')->setAutoSize(true);
 $sheet2->getColumnDimension('O')->setAutoSize(true);
 $sheet2->getColumnDimension('P')->setAutoSize(true);
 $sheet2->getColumnDimension('Q')->setAutoSize(true);
+$sheet2->getColumnDimension('R')->setAutoSize(true);
+$sheet2->getColumnDimension('S')->setAutoSize(true);
+$sheet2->getColumnDimension('T')->setAutoSize(true);
 // $sheet2->setTitle('DATA STAFF');
 
 
@@ -164,13 +187,15 @@ $cek_delin = mysqli_num_rows($cek_delin1);
 while($r = mysqli_fetch_array($cek_delin1)){
     $kode = $r['loan'];
     $kode = explode("-",$kode)[0];
-    $simp = mysqli_query($con,"select * from detail_simpanan where id_nasabah='$r[idn]' and id_cabang='$id_cabang' and pembiayaan='$kode'");
-    $simp = mysqli_fetch_array($simp);
-    $json  = $simp['detail_simpanan'];
+    // $simp = mysqli_query($con,"select * from detail_simpanan where id_nasabah='$r[idn]' and id_cabang='$id_cabang' and pembiayaan='$kode'");
+    // $simp = mysqli_fetch_array($simp);
+    // $json  = $simp['detail_simpanan'];
     
-            $json = json_decode($json);
+    //         $json = json_decode($json);
             //    if($id_nasabah!=null){
+                $idn =  $r['id_detail_nasabah'];
             $id_nasabah =  $r['idn'];
+            $id_nasabah =  $idn;
             $nasabah =  $r['nasabah'];
             $loan =  $r['loan'];
             $tgl_dis    =  $r['tgl_disburse'];
@@ -179,19 +204,20 @@ while($r = mysqli_fetch_array($cek_delin1)){
             $sukarela = $r['sukarela'];
             $wajib = $r['wajib'];
             $hari_raya = $r['hariraya'];
+            $priode = $r['priode'];
             
 
          //{"wajib":96000,"sukarela":20000,"pensiun":40180,"hari_raya":82139,"rill":15,"ke":16,"pinjaman":4000,"sisa_saldo":2976800,"margin":26100,"pokok":73100,"kode":"PU"}
            $ID = sprintf("%06d",$id_nasabah);
            $IDs = sprintf("%0d",$id_nasabah);
             
-           $pokok =    $json->pokok;
-           $margin =   $json->margin;
+           $pokok =    $r['cicilan'];
+           $margin =   0;//$json->margin;
             $amount =   $r['amount'];
             $os =       $r['sisa_saldo'];
             $ke =       $r['minggu_ke'];
             $rill =     $r['minggu_rill'];
-            $kode_pemb = $json->kode;
+            $kode_pemb = explode("-",$loan)[0];
 
             $wajib_minggu=0;
             if($kode_pemb=='PU' || $kode_pemb=='PMB'){
@@ -308,7 +334,7 @@ while($r = mysqli_fetch_array($cek_delin1)){
                 $sheet->setCellValue('A'.$baris, $nor++);
                 $sheet->setCellValue('b'.$baris, $nasabah);
                 $sheet->setCellValue('c'.$baris, $id_nasabah);
-                $sheet->setCellValue('D'.$baris, $nama['no_center']);
+                $sheet->setCellValue('D'.$baris, $r['no_center']);
                 $sheet->setCellValue('e'.$baris, $loan);
                 $sheet->setCellValue('f'.$baris, $kode_pemb);
                 $sheet->setCellValue('g'.$baris, $tgl_dis);
@@ -325,8 +351,10 @@ while($r = mysqli_fetch_array($cek_delin1)){
                 $sheet->setCellValue('r'.$baris, ($selisih));
                 $sheet->setCellValue('s'.$baris, ($satu_angsuran==0?"":($satu_angsuran)));
                 $sheet->setCellValue('t'.$baris, ($tanpa_margin==0?"":($tanpa_margin)));
-                $sheet->setCellValue('u'.$baris, $r['staff']);
+                $sheet->setCellValue('u'.$baris, explode(" - ",$r['staff'])[1]);
                 $sheet->setCellValue('v'.$baris, $r['hari']);
+                // $sheet->setCellValue('w'.$baris, $idn);
+                $sheet->setCellValue('W'.$baris, $priode);
 
                 //SHEET 2
 

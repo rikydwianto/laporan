@@ -122,6 +122,8 @@ if(isset($_POST['preview'])){
                 $nama_staff = ganti_karakter(str_replace(",","",$ws->getCell("AG".$row)->getValue()));
                 $minggu_ke = ganti_karakter(str_replace(",","",$ws->getCell("AC".$row)->getValue()));
                 $minggu_rill = ganti_karakter(str_replace(",","",$ws->getCell("AD".$row)->getValue()));
+                $priode = ganti_karakter(str_replace(",","",$ws->getCell("I".$row)->getValue()));
+                $kode = ganti_karakter(str_replace(",","",$ws->getCell("G".$row)->getValue()));
             }
             else{
                 $amount = (int)ganti_karakter(str_replace(",","",$ws->getCell("F".$row)->getValue()));
@@ -155,8 +157,8 @@ if(isset($_POST['preview'])){
             <?php
             //   INSERT INTO `deliquency` (`id`, `loan`, `no_center`, `id_detail_nasabah`, `nasabah`, `amount`, `sisa_saldo`, `tunggakan`, `minggu`, `tgl_input`, `id_cabang`) VALUES (NULL, 'PU-072-21-01-000216', '003', 'AGT/072/01/003-000034', 'RUMNASIH', '6', '2', '1', '8', NULL, NULL); 
             mysqli_query($con,"INSERT INTO `deliquency` 
-            ( id,`loan`, `no_center`, `id_detail_nasabah`, `nasabah`, `amount`, `sisa_saldo`, `tunggakan`, `minggu`, `tgl_input`, `id_cabang`,tgl_disburse,wajib,sukarela,pensiun,hariraya,cicilan,hari,staff,minggu_ke,minggu_rill) VALUES 
-            (NULL, '$loan', '$no_center', '$id_nasabah', '$nasabah', '$amount', '$balance', '$tunggakan', '$minggu', '$tgl', '$id_cabang','$tgl_dis','$wajib','$sukarela','$pensiun','$hariraya','$cicilan','$hari','$nama_staff','$minggu_ke','$minggu_rill'); 
+            ( id,`loan`, `no_center`, `id_detail_nasabah`, `nasabah`, `amount`, `sisa_saldo`, `tunggakan`, `minggu`, `tgl_input`, `id_cabang`,tgl_disburse,wajib,sukarela,pensiun,hariraya,cicilan,hari,staff,minggu_ke,minggu_rill,priode,kode_pemb) VALUES 
+            (NULL, '$loan', '$no_center', '$id_nasabah', '$nasabah', '$amount', '$balance', '$tunggakan', '$minggu', '$tgl', '$id_cabang','$tgl_dis','$wajib','$sukarela','$pensiun','$hariraya','$cicilan','$hari','$nama_staff','$minggu_ke','$minggu_rill','$priode','$kode'); 
             ");
             }
             
