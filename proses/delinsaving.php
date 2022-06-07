@@ -61,6 +61,7 @@ $sheet->getColumnDimension('U')->setAutoSize(true);
 $sheet->getColumnDimension('V')->setAutoSize(true);
 $sheet->getColumnDimension('W')->setAutoSize(true);
 $sheet->getColumnDimension('X')->setAutoSize(true);
+$sheet->getColumnDimension('Y')->setAutoSize(true);
 $sheet->setTitle('DATA PAR');
 
 
@@ -89,6 +90,7 @@ $sheet->setCellValue('U2', 'STAFF');
 $sheet->setCellValue('V2', 'HARI');
 // $sheet->setCellValue('W2', 'ID ANGGOTA');
 $sheet->setCellValue('W2', 'PRIODE');
+$sheet->setCellValue('X2', 'ALASAN PAR');
 $spreadsheet->createSheet();
 
 
@@ -260,17 +262,17 @@ while($r = mysqli_fetch_array($cek_delin1)){
                 // && $selisih <100
                 if($selisih>=1){
                     
-                    $ket =  $selisih - 1 ." tunggakan";
-                    if($nama['status_center']=='hijau' ){
-                        $warna_baris="#79ff54";
-                        $warna = "hijau";
-                    }
-                    elseif( $nama['status_center']=='kuning')
-                    {
-                        $warna_baris="yellow";
-                        $warna = "kuning";
+                    // $ket =  $selisih - 1 ." tunggakan";
+                    // if($nama['status_center']=='hijau' ){
+                    //     $warna_baris="#79ff54";
+                    //     $warna = "hijau";
+                    // }
+                    // elseif( $nama['status_center']=='kuning')
+                    // {
+                    //     $warna_baris="yellow";
+                    //     $warna = "kuning";
                         
-                    }
+                    // }
                     
                     if($pensiun){
                         if($pensiun < $pensiun_tiga + 10000){
@@ -328,7 +330,16 @@ while($r = mysqli_fetch_array($cek_delin1)){
             $ket  = "ada";
          
               $selisih = $r['minggu'];
-               
+               $cek_alasan = mysqli_query($con,"SELECT * from alasan_par where id_cabang='$id_cabang' and id_detail_nasabah='$id_nasabah' and id_loan='$loan'");
+               if(mysqli_num_rows($cek_alasan)){
+                    $reason = mysqli_fetch_array($cek_alasan);
+                    $ket= $reason['alasan'];
+                    $a=$ket;
+                }
+                else{
+                    $ket="belum diisi alasan!";
+                    $a="";
+                }
 
                 $total_simpanan   = $sukarela + $wajib + $pensiun_asli + $hari_raya;           
                 $sheet->setCellValue('A'.$baris, $nor++);
@@ -355,6 +366,7 @@ while($r = mysqli_fetch_array($cek_delin1)){
                 $sheet->setCellValue('v'.$baris, $r['hari']);
                 // $sheet->setCellValue('w'.$baris, $idn);
                 $sheet->setCellValue('W'.$baris, $priode);
+                $sheet->setCellValue('X'.$baris, $ket);
 
                 //SHEET 2
 

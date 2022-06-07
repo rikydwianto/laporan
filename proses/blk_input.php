@@ -39,9 +39,20 @@
     <a href="<?=$url.$menu?>blk_new" class="btn btn-success">DOWNLOAD ANALISA PAR</a>
     <a href="<?=$url.$menu?>blk_simpanan" class="btn btn-primary">REKAP SIMPANAN</a>
     <a href="<?=$url.$menu?>delinsaving" class="btn btn-info">ANALISA PAR BARU</a>
+    <a href="<?=$url.$menu?>export_simpanan_wajib" class="btn btn-info">DOWNLOAD ALASAN PAR</a>
 </div>
 
-
+<div class="row">
+	<h3 class="page-header">RINCIAN PENARIKAN SIMPANAN</h3>
+	<hr />
+    <form method="post" action="<?=$url.$menu?>export_simpanan_wajib" enctype="multipart/form-data">
+        <div class="col-md-4">
+            <label for="formFile" class="form-label">SILAHKAN PILIH BTC</label>
+            <input class="form-control" type="file" name='file' accept=".xls,.xlsx,.csv" id="formFile">
+            <input type="submit" value="Proses" class='btn btn-danger' name='simpanan'>
+        </div>
+    </form>
+</div>
 <?php
 if(isset($_POST['preview_sukarela'])){
     include("./proses/blk_sukarela.php");

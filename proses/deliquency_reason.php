@@ -42,12 +42,12 @@ if(isset($_POST['kirim'])){
                 <option value="">PILIH CTR</option>
                 <?php
                 $ctr = $_GET['ctr'];
-                $q = mysqli_query($con,"SELECT  d.no_center, count(*) as total from deliquency d join center c on d.no_center=c.no_center  where d.id_cabang='$id_cabang' and c.id_karyawan='$id_karyawan' group by d.no_center order by no_center "); 
+                $q = mysqli_query($con,"SELECT  d.no_center, count(*) as total,c.hari from deliquency d join center c on d.no_center=c.no_center  where d.id_cabang='$id_cabang' and c.id_karyawan='$id_karyawan' group by d.no_center order by no_center asc "); 
                 while($ce = mysqli_fetch_array($q)){
                     if($ce['no_center']==$ctr) $ak='selected';
                     else $ak='';
                     ?>
-                    <option <?=$ak?> value="<?=$ce['no_center']?>">CENTER <?=$ce['no_center']?> || <?=$ce['total']?> client</option>
+                    <option <?=$ak?> value="<?=$ce['no_center']?>">CENTER <?=$ce['no_center']?> -  <?=$ce['hari']?> || <?=$ce['total']?> client</option>
                     <?php
                 }
                 ?>
@@ -82,7 +82,7 @@ if(isset($_POST['kirim'])){
     $q_q['tgl']="tgl_input IN(SELECT MAX(tgl_input) FROM deliquency where id_cabang='$id_cabang') AND";
     $q = mysqli_query($con,"SELECT *,c.`id_karyawan` FROM deliquency d JOIN center c ON c.`no_center`=d.`no_center`
     JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
-    WHERE $q_q[tgl] k.`id_cabang`='$id_cabang' AND k.`id_karyawan`='$id_karyawan' and d.no_center='$ctr' order by d.no_center,d.nasabah asc");
+    WHERE $q_q[tgl] k.`id_cabang`='$id_cabang' and d.id_cabang='$id_cabang' AND k.`id_karyawan`='$id_karyawan' and d.no_center='$ctr' order by d.no_center,d.nasabah asc");
     while($row = mysqli_fetch_array($q)){
         $produk = $row['loan'];
         $produk = explode("-",$produk)[0];
@@ -114,7 +114,7 @@ if(isset($_POST['kirim'])){
             <td><?=angka($sisa_saldo)?></td>
             <td><?=$row['minggu']?></td>
             <td><?=$ket?></td>
-            <td><input type="text" class='form-control' name="alasan[]" value="<?=$a?>" id=""></td>
+            <td><input type="text" class='form-control' name="alasan[]" required value="<?=$a?>" id=""></td>
         </tr>
         <?php
     }
