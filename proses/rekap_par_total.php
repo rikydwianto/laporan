@@ -32,7 +32,7 @@
         <tr>
             <th>NO</th>
             <th>NAMA</th>
-            <th>OUTSTANDING</th>
+            <th>OS PAR</th>
             <th>TOTAL AGT PAR</th>
             <th>TOTAL ALASAN</th>
         </tr>
