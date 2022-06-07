@@ -337,7 +337,7 @@ while($r = mysqli_fetch_array($cek_delin1)){
                     $a=$ket;
                 }
                 else{
-                    $ket="belum diisi alasan!";
+                    $ket="";
                     $a="";
                 }
 
