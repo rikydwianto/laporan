@@ -170,7 +170,8 @@
                 <tr>
                     <th>NO</th>
                     <th>ID</th>
-                    <th>ID Detail</th>
+                    <th>KEL</th>
+                    <th>CENTER</th>
                     <th>NAMA</th>
                     <th>SUAMI</th>
                     <th>KTP</th>
@@ -190,7 +191,8 @@
                     <tr>
                         <td><?=$no++?></td>
                         <td><?=$dup['id_nasabah']?></td>
-                        <td><?=$dup['id_detail_nasabah']?></td>
+                        <td><?=$dup['kelompok']?></td>
+                        <td><?=$dup['no_center']?></td>
                         <td><?=$dup['nama_nasabah']?></td>
                         <td><?=$dup['suami_nasabah']?></td>
                         <td><?=$dup['no_ktp']?></tdd>
