@@ -201,6 +201,7 @@ if(isset($_GET['bandingkan'])){
                     <th>ARREAS</th>
                     <th>WEEK PAS</th>
                     <th>STATUS</th>
+                    <th>ALASAN</th>
                     <th>STAFF</th>
                 </tr>
             
@@ -212,7 +213,8 @@ if(isset($_GET['bandingkan'])){
             where d.loan not in (select loan from deliquency where tgl_input='$tgl_banding' and id_cabang='$id_cabang') and d.tgl_input='$tgl_awal' and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' order by k.nama_karyawan asc");
             while($data = mysqli_fetch_array($query)){
                 $total_os+=$data['sisa_saldo'];
-                $ID = (int)explode("-",$data['id_nasabah'])[2];
+                $ID = (int)explode("-",$data['id_detail_nasabah'])[2];
+                $qreason = (mysqli_query($con,"select * from alasan_par where id_loan='$data[loan]'  and id_cabang='$id_cabang'"));
                 $qak = mysqli_num_rows(mysqli_query($con,"select * from temp_anggota_keluar where id_nasabah='$ID'  and id_cabang='$id_cabang'"));
                 $par = mysqli_num_rows(mysqli_query($con,"select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]' and id_cabang='$id_cabang'"));
                 if($par){
@@ -234,6 +236,15 @@ if(isset($_GET['bandingkan'])){
                     $baris['ket'].="";
 
                 }
+                if((mysqli_num_rows($qreason))){
+                    $reason  = mysqli_fetch_array($qreason);
+                    $baris['alasan']=$reason['alasan'];
+                    
+                }
+                else{
+                    $baris['alasan']="";
+
+                }
                 ?>
                 <tr style="background-color:<?=$baris['baris']?>;color:<?=$baris['text']?>">
                     <td><?=$no++?></td>
@@ -247,6 +258,7 @@ if(isset($_GET['bandingkan'])){
                     <td><?=angka($data['tunggakan'],$sepat)?></td>
                     <td><?=$data['minggu']?></td>
                     <td><?=$baris['ket']?></td>
+                    <td><?=$baris['alasan']?></td>
                     <td><?=$data['nama_karyawan']?></td>
                 </tr>
                 <?php
@@ -266,7 +278,7 @@ if(isset($_GET['bandingkan'])){
     
     <div id='tambah_par'>
         <h3>PENAMBAHAN ANGGOTA PAR</h3>
-        <table class='table' >
+        <table class='table table-bordered' >
             <tr>
                 <th>NO</th>
                 <th>LOAN</th>
@@ -279,6 +291,7 @@ if(isset($_GET['bandingkan'])){
                 <th>ARREAS</th>
                 <th>WEEK PAS</th>
                 <th>STATUS</th>
+                <th>ALASAN</th>
                 <th>STAFF</th>
             </tr>
         
@@ -291,6 +304,9 @@ if(isset($_GET['bandingkan'])){
         JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
         where d.loan not in (select loan from deliquency where tgl_input='$tgl_awal' and id_cabang='$id_cabang') and d.tgl_input='$tgl_banding' and c.id_cabang='$id_cabang' and d.minggu=1 and d.id_cabang='$id_cabang' order by k.nama_karyawan asc");
         while($data = mysqli_fetch_array($query1)){
+
+            $qreason = (mysqli_query($con,"select * from alasan_par where id_loan='$data[loan]'  and id_cabang='$id_cabang'"));
+
             $par = mysqli_num_rows(mysqli_query($con,"select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]' and id_cabang='$id_cabang'"));
             if($par){
                 $baris['baris']= "#c9c7c1";
@@ -303,6 +319,15 @@ if(isset($_GET['bandingkan'])){
                 $baris['ket']='';
 
             } 
+            if((mysqli_num_rows($qreason))){
+                $reason  = mysqli_fetch_array($qreason);
+                $baris['alasan']=$reason['alasan'];
+                
+            }
+            else{
+                $baris['alasan']="";
+
+            }
             $total_tambah+=$data['sisa_saldo'];
             ?>
             <tr style="background-color:<?=$baris['baris']?>;color:<?=$baris['text']?>">
@@ -317,6 +342,7 @@ if(isset($_GET['bandingkan'])){
                 <td><?=angka($data['tunggakan'],$sepat)?></td>
                 <td><?=$data['minggu']?></td>
                 <td><?=$baris['ket']?></td>
+                <td><?=$baris['alasan']?></td>
                 <td><?=$data['nama_karyawan']?></td>
             </tr>
             <?php
