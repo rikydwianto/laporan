@@ -335,6 +335,10 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 					<a href="<?php echo $url . $menu ?>par" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> Deliquency</a>
 				</li>
 				<li>
+					<a href="<?php echo $url . $menu ?>rekap_par_total" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> REKAP PAR</a>
+
+				</li>
+				<li>
 					<a href="<?php echo $url . $menu ?>par&anal_topup=ANALISA+TOPUP" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> Top up Khusus</a>
 
 				</li>

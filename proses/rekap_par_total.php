@@ -34,6 +34,7 @@
             <th>NAMA</th>
             <th>OS PAR</th>
             <th>TOTAL AGT PAR</th>
+            <th>TOTAL AGT</th>
             <th>TOTAL ALASAN</th>
         </tr>
         <?php 
@@ -41,6 +42,7 @@
         $total_alasan=0;
         $total_os=0;
         $tgl = $_GET['tgl'];
+        $total_semua = 0;
         $q_delin = mysqli_query($con,"select c.id_karyawan,k.nama_karyawan,count(d.id) as total, sum(sisa_saldo) as balance from deliquency d join center c on c.no_center=d.no_center join karyawan k on k.id_karyawan=c.id_karyawan 
         where d.tgl_input='$tgl' and d.id_cabang='$id_cabang' and c.id_cabang='$id_cabang' and k.id_cabang='$id_cabang'
         group by c.id_karyawan order by k.nama_karyawan");
@@ -50,12 +52,17 @@
             $total_par += $delin['total'];
             $total_alasan += $hit['total_alasan'];
             $total_os += $delin['balance'];
+
+            $total_nasabah = mysqli_query($con,"select * from total_nasabah where id_cabang='$id_cabang' and id_karyawan='$delin[id_karyawan]'");
+            $total_nasabah = mysqli_fetch_array($total_nasabah)['total_nasabah'];
+            $total_semua += $total_nasabah;
             ?>
             <tr>
                 <td><?=$no++?></td>
                 <td><?=$delin['nama_karyawan']?></td>
                 <td><?=rupiah($delin['balance'])?></td>
                 <td><?=$delin['total']?></td>
+                <td><?=$total_nasabah?></td>
                 <td><?=$hit['total_alasan']?> - (<?=round(($hit['total_alasan']/$delin['total'])*100)?> %)</td>
             </tr>
             <?php
@@ -66,6 +73,7 @@
             <!-- <th>NAMA</th> -->
             <th><?=rupiah($total_os)?></th>
             <th><?=$total_par?></th>
+            <th><?=$total_semua?></th>
             <th><?=$total_alasan?></th>
         </tr>
     </table>
