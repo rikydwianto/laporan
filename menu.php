@@ -136,6 +136,10 @@ if (isset($_GET['menu'])) {
 				include("proses/daftar_backup_sl.php");
 				break;
 			
+			case "deliquency_reason":
+				include("proses/deliquency_reason.php");
+				break;
+			
 			default:
 				include "halaman-403.php";
 				break;

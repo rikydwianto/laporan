@@ -3,6 +3,7 @@
     <h3>DETAIL NASABAH PAR</h3>
     <a href="<?=$url.$menu?>deliquency_sl" class="btn btn-success"> Data Terbaru</a>
     <a href="<?=$url.$menu?>deliquency_sl&semua" class="btn btn-danger">Lihat Semua Data</a>
+    <a href="<?=$url.$menu?>deliquency_reason" class="btn btn-danger">Alasan Anggota PAR</a>
 	<hr />
     <form action="" method="post">
 
