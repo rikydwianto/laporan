@@ -213,7 +213,7 @@ if(isset($_GET['bandingkan'])){
             where d.loan not in (select loan from deliquency where tgl_input='$tgl_banding' and id_cabang='$id_cabang') and d.tgl_input='$tgl_awal' and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' order by k.nama_karyawan asc");
             while($data = mysqli_fetch_array($query)){
                 $total_os+=$data['sisa_saldo'];
-                $ID = (int)explode("-",$data['id_detail_nasabah'])[2];
+                $ID = (int)explode("-",$data['id_detail_nasabah'])[1];
                 $qreason = (mysqli_query($con,"select * from alasan_par where id_loan='$data[loan]'  and id_cabang='$id_cabang'"));
                 $qak = mysqli_num_rows(mysqli_query($con,"select * from temp_anggota_keluar where id_nasabah='$ID'  and id_cabang='$id_cabang'"));
                 $par = mysqli_num_rows(mysqli_query($con,"select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]' and id_cabang='$id_cabang'"));
