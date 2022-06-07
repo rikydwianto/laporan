@@ -10,8 +10,8 @@ else{
 	$tglakhir = date("Y-m-d");
 }
 
-$tglbanding_awal = $tglawal = date("Y-m-d",strtotime ( '-7 day' , strtotime ( date($tglawal)))) ;
-$tglbanding_akhir = $tglawal = date("Y-m-d",strtotime ( '-7 day' , strtotime ( date($tglakhir)))) ;
+$tglbanding_awal = date("Y-m-d",strtotime ( '-7 day' , strtotime ( date($tglawal)))) ;
+$tglbanding_akhir = date("Y-m-d",strtotime ( '-7 day' , strtotime ( date($tglakhir)))) ;
 // echo $tglbanding_awal.'----'.$tglbanding_akhir;
 ?>
 <div class='content table-responsive'>
@@ -70,7 +70,7 @@ $tglbanding_akhir = $tglawal = date("Y-m-d",strtotime ( '-7 day' , strtotime ( d
              </tbody>
          </table>
 
-         <h2 style='text-align:center'>CENTER PENDAPATAN NOLL BERTAMBAH<br> <?=format_hari_tanggal($tglawal)?> s/d <?=format_hari_tanggal($tglakhir)?></h2>
+         <!-- <h2 style='text-align:center'>CENTER PENDAPATAN NOLL BERTAMBAH<br> <?=format_hari_tanggal($tglawal)?> s/d <?=format_hari_tanggal($tglakhir)?></h2>
          <br>
          <table class='table table-bordered'>
              <thead>
@@ -111,7 +111,7 @@ $tglbanding_akhir = $tglawal = date("Y-m-d",strtotime ( '-7 day' , strtotime ( d
                  }
                  ?>
              </tbody>
-         </table>
+         </table> -->
       
       </div>
 
