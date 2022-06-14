@@ -24,25 +24,40 @@
         </select>
         
     </form>
-    <table class='table'>
+    <?php
+     $jk = array(
+        "25"=>0.12,
+        "50"=>0.24,
+        "75"=>0.36,
+        "100"=>0.48,
+    ); 
+    ?>
+    <table class='table table-bordered'>
         <tr>
             <td>NO</td>
             <td>LOAN</td>
             <td>CENTER</td>
             <td>ID AGT</td>
             <td>ANGGOTA</td>
+            <td>RIll</td>
             <td>DISBURSE</td>
             <td>BALANCE</td>
-            <td>TOPUP <br/> BAL + 5%</td>
-            <td>ANGSURAN<br/>50mg + margin</td>
-            <td></td>
+            <td>TOPUP <br/> BAL + 1%</td>
+            <?php 
+            foreach($jk as $j => $v){
+                ?>
+                <td>ANGSURAN<br/><?=$j?> + margin</td>
+                <?php
+            }
+            ?>
+            <td>HARI</td>
             <td>STAFF</td>
         </tr>
     
     <?php
     $no=1;
     $total_bermasalah=0;
-
+   
     if(isset($_GET['id'])){
         if($_GET['id']!=null){
             $id = aman($con,$_GET['id']);
@@ -54,7 +69,7 @@
     $query = mysqli_query($con,"
     SELECT d.*,k.nama_karyawan FROM deliquency d 
 	JOIN center c ON c.`no_center`=d.`no_center` 
-	JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` where d.tgl_input in (select max(tgl_input) from deliquency where id_cabang='$id_cabang') and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' and k.id_cabang='$id_cabang' $q_tambah order by d.sisa_saldo asc");
+	JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` where d.tgl_input in (select max(tgl_input) from deliquency where id_cabang='$id_cabang') and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' and k.id_cabang='$id_cabang' $q_tambah order by k.nama_karyawan,d.sisa_saldo asc");
     
     echo mysqli_error($con);
     while($data = mysqli_fetch_array($query)){
@@ -74,7 +89,8 @@
         $bagi=1000000;
         $saldo=$data['sisa_saldo']/$bagi;
        $saldo  = round(round($saldo,2,PHP_ROUND_HALF_UP)*$bagi,2) ;
-       $saldo = $saldo +  ($saldo*0.05);
+       $saldo = $saldo +  ($saldo*0.01);
+       $saldo = ceil($saldo/100000)*100000;
         ?>
         <tr style="background-color:<?=$baris['baris']?>;color:<?=$baris['text']?>">
             <td><?=$no++?></td>
@@ -82,11 +98,19 @@
             <td><?=$data['no_center']?></td>
             <td><?=$data['id_detail_nasabah']?></td>
             <td><?=$data['nasabah']?></td>
+            <td><?=($data['minggu_rill'])?></td>
             <td><?=angka($data['amount'])?></td>
             <td><?=angka(round($data['sisa_saldo']))?></td>
             <td><?=angka($saldo)?></td>
-            <td><?=angka(round((($saldo*0.24)+$saldo)/50)/1000,2)*1000?></td>
-            <td></td>
+            <?php 
+            foreach($jk as $j => $v){
+                ?>
+                <!-- <td>ANGSURAN<br/><?=$j?> + margin</td> -->
+                <td><?=angka(($saldo+($saldo*$v))/$j)?></td>
+                <?php
+            }
+            ?>
+            <td><?=$data['hari']?></td>
             <td><?=$data['nama_karyawan']?></td>
         </tr>
         <?php
