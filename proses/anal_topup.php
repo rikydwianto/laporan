@@ -86,11 +86,11 @@
             $baris['ket']='';
 
         } 
-        if($data['hari']==null || $data['hari']==""){
+        if($data['hari']==NULL || $data['hari']==""){
             $hari = $data['hari_center'];
         }
         else{
-            $hari = $data['hari'];
+            $hari = $data['hari_center'];
         }
         $bagi=1000000;
         $saldo=$data['sisa_saldo']/$bagi;
@@ -116,7 +116,7 @@
                 <?php
             }
             ?>
-            <td><?=$hari?></td>
+            <td><?=strtoupper($hari)?></td>
             <td><?=$data['nama_karyawan']?></td>
         </tr>
         <?php
