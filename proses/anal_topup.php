@@ -67,7 +67,7 @@
     }
     else $q_tambah="";
     $query = mysqli_query($con,"
-    SELECT d.*,k.nama_karyawan FROM deliquency d 
+    SELECT d.*,k.nama_karyawan, c.hari as hari_center FROM deliquency d 
 	JOIN center c ON c.`no_center`=d.`no_center` 
 	JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` where d.tgl_input in (select max(tgl_input) from deliquency where id_cabang='$id_cabang') and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' and k.id_cabang='$id_cabang' $q_tambah order by k.nama_karyawan,d.sisa_saldo asc");
     
@@ -86,6 +86,12 @@
             $baris['ket']='';
 
         } 
+        if($data['hari']==null){
+            $hari = $data['hari_center'];
+        }
+        else{
+            $hari = $data['hari'];
+        }
         $bagi=1000000;
         $saldo=$data['sisa_saldo']/$bagi;
        $saldo  = round(round($saldo,2,PHP_ROUND_HALF_UP)*$bagi,2) ;
@@ -110,7 +116,7 @@
                 <?php
             }
             ?>
-            <td><?=$data['hari']?></td>
+            <td><?=$hari?></td>
             <td><?=$data['nama_karyawan']?></td>
         </tr>
         <?php
