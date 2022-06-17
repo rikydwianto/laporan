@@ -86,7 +86,7 @@
             $baris['ket']='';
 
         } 
-        if($data['hari']==null){
+        if($data['hari']==null || $data['hari']==""){
             $hari = $data['hari_center'];
         }
         else{
