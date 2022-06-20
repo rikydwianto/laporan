@@ -38,8 +38,8 @@
 	<hr />
     <a href="<?=$url.$menu?>blk_new" class="btn btn-success">DOWNLOAD ANALISA PAR</a>
     <a href="<?=$url.$menu?>blk_simpanan" class="btn btn-primary">REKAP SIMPANAN</a>
-    <a href="<?=$url.$menu?>delinsaving" class="btn btn-info">ANALISA PAR BARU</a>
-    <a href="<?=$url.$menu?>export_simpanan_wajib" class="btn btn-info">DOWNLOAD ALASAN PAR</a>
+    <a href="<?=$url.$menu?>delinsaving" class="btn btn-info">DELIN SAVING & SUKARELA UNTUK ANGSURAN </a>
+    <!-- <a href="<?=$url.$menu?>export_simpanan_wajib" class="btn btn-info">DOWNLOAD ALASAN PAR</a> -->
 </div>
 
 <div class="row">

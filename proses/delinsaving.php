@@ -98,8 +98,8 @@ $spreadsheet->createSheet();
 $spreadsheet->createSheet();
 // Add some data
 $sheet2 = $spreadsheet->setActiveSheetIndex(1);
-$sheet2->setTitle('PAR KETUTUP');
-$sheet2->setCellValue('A1', 'DATA PAR KETUTUP DARI SUKARELA DAN PENSIUN');
+$sheet2->setTitle('ANGSURAN DARI SUKARELA');
+$sheet2->setCellValue('A1', 'DATA PAR UNTUK ANGSURAN DARI SUKARELA');
 $sheet2->getColumnDimension('B')->setAutoSize(true);
 $sheet2->getColumnDimension('C')->setAutoSize(true);
 $sheet2->getColumnDimension('D')->setAutoSize(true);
@@ -124,22 +124,26 @@ $sheet2->getColumnDimension('T')->setAutoSize(true);
 
 // $sheet2->setCellValue('B1', 'DATA PAR ');
 $sheet2->setCellValue('A2', 'NO');
-$sheet2->setCellValue('b2', 'ID/CENTER');
-$sheet2->setCellValue('c2', 'NASABAH');
-$sheet2->setCellValue('d2', 'PEMB');
-$sheet2->setCellValue('e2', 'KE');
-$sheet2->setCellValue('f2', 'RILL');
-$sheet2->setCellValue('g2', 'AMOUNT');
-$sheet2->setCellValue('h2', 'O.S');
-$sheet2->setCellValue('i2', 'CICILAN');
-$sheet2->setCellValue('j2', 'WAJIB');
-$sheet2->setCellValue('k2', 'SUKARELA');
-$sheet2->setCellValue('l2', 'PENSIUN');
-$sheet2->setCellValue('m2', 'PAR');
-$sheet2->setCellValue('n2', 'PAR x CICILAN');
-$sheet2->setCellValue('o2', 'SISA SETELAH TUTUP PAR');
-$sheet2->setCellValue('p2', 'STAFF');
-$sheet2->setCellValue('q2', 'HARI');
+$sheet2->setCellValue('B2', 'CENTER');
+$sheet2->setCellValue('C2', 'ID');
+$sheet2->setCellValue('D2', 'NASABAH');
+$sheet2->setCellValue('E2', 'PEMB');
+$sheet2->setCellValue('F2', 'KE');
+$sheet2->setCellValue('G2', 'RILL');
+$sheet2->setCellValue('H2', 'AMOUNT');
+$sheet2->setCellValue('I2', 'O.S');
+$sheet2->setCellValue('J2', 'CICILAN');
+$sheet2->setCellValue('K2', 'WAJIB');
+$sheet2->setCellValue('L2', 'SUKARELA');
+$sheet2->setCellValue('M2', 'DUE PASS');
+$sheet2->setCellValue('N2', "MASUK \nANGSURAN ");
+$sheet2->setCellValue('O2', "MASUK ANGSURAN X \n CICILAN");
+$sheet2->setCellValue('P2', 'SISA SUKARELA ');
+$sheet2->setCellValue('Q2', 'KETERANGAN');
+$sheet2->setCellValue('R2', 'STAFF');
+$sheet2->setCellValue('S2', 'HARI');
+$sheet2->getStyle('N2')->getAlignment()->setWrapText(true);
+$sheet2->getStyle('O2')->getAlignment()->setWrapText(true);
 // Add some data
 $shee = $spreadsheet->setActiveSheetIndex(1);
 $sheet->setCellValue('A1', 'DATA PAR');
@@ -223,7 +227,7 @@ while($r = mysqli_fetch_array($cek_delin1)){
 
             $wajib_minggu=0;
             if($kode_pemb=='PU' || $kode_pemb=='PMB'){
-                $wajib_minggu = $amount /1000;
+                $wajib_minggu = angka($amount) ;
                 if(is_float($wajib_minggu )){
                     $pecah=explode(".",$wajib_minggu);
                     $awal = $pecah[0];
@@ -246,7 +250,7 @@ while($r = mysqli_fetch_array($cek_delin1)){
             WHERE c.`id_nasabah`='$IDs' AND a.`id_cabang`='$id_cabang' and b.`id_cabang`='$id_cabang' and c.`id_cabang`='$id_cabang'");
             $nama = mysqli_fetch_array($q);
             $warna="";
-            $cicilan = $pokok + $margin ;//+ $wajib_minggu;
+            $cicilan = $pokok + $margin + $wajib_minggu;
             $selisih = $r['minggu'];
             $ket='';
             $satu_angsuran=0;
@@ -274,22 +278,23 @@ while($r = mysqli_fetch_array($cek_delin1)){
                         
                     // }
                     
-                    if($pensiun){
-                        if($pensiun < $pensiun_tiga + 10000){
-                            $pensiun_tiga  = 0;
-                        }
-                        else{
-                            $pensiun_tiga  = ($amount * 1/100) * 1000;
-                        }
-                        $sukarela_pensiun = (($sukarela - 2000) + ($pensiun - $pensiun_tiga) );
-                        $satu_angsuran = $cicilan;
+                    // if($pensiun){
+                    //     if($pensiun < $pensiun_tiga + 10000){
+                    //         $pensiun_tiga  = 0;
+                    //     }
+                    //     else{
+                    //         $pensiun_tiga  = ($amount * 1/100) * 1000;
+                    //     }
+                    //     $sukarela_pensiun = (($sukarela - 2000) + ($pensiun - $pensiun_tiga) );
+                    //     $satu_angsuran = $cicilan;
                         
-                    }
-                    else{
-                       // $pensiun=0;
-                        $sukarela_pensiun = ($sukarela - 2000) ;
-                        $satu_angsuran = $cicilan;
-                    }
+                    // }
+                    // else{
+                    //    // $pensiun=0;
+                    //     $sukarela_pensiun = ($sukarela - 2000) ;
+                    // }
+                    $pensiun_tiga  = ($amount * 1/100) * 1000;
+                    $satu_angsuran = $cicilan - (($sukarela - 2000) + ($pensiun - 2000) );
                     $tanpa_margin = $os - (($wajib-2000) + ($pensiun-2000) + ($sukarela-2000) + ($hari_raya-2000));
                     // $satu_angsuran = ($sukarela - 2000) -$cicilan;
                 }
@@ -370,25 +375,33 @@ while($r = mysqli_fetch_array($cek_delin1)){
 
                 //SHEET 2
 
+                // CEK ANGSURAN DARI SUKARELA
+                // floor();
+                $cek_angsuran =  floor(($sukarela - 2000)/($cicilan)) ;
                 $angsuran_tunggakan = ($selisih + 1) * $cicilan;
-                if($sukarela_pensiun >= $angsuran_tunggakan){
+                if($cek_angsuran>0){
+                    if($selisih>$cek_angsuran)
+                    $keter = "";
+                    else $keter="bisa tutup par";
                     $sheet2->setCellValue('A'.$baris_ws2, $no_baris_ws2++);
-                    $sheet2->setCellValue('b'.$baris_ws2, $id_nasabah.' / '. $nama['no_center']);
-                    $sheet2->setCellValue('c'.$baris_ws2, $nasabah);
-                    $sheet2->setCellValue('d'.$baris_ws2, $kode_pemb);
-                    $sheet2->setCellValue('e'.$baris_ws2, $ke);
-                    $sheet2->setCellValue('f'.$baris_ws2, $rill);
-                    $sheet2->setCellValue('g'.$baris_ws2, $amount);
-                    $sheet2->setCellValue('h'.$baris_ws2, $os);
-                    $sheet2->setCellValue('i'.$baris_ws2, $cicilan);
-                    $sheet2->setCellValue('j'.$baris_ws2, $wajib);
-                    $sheet2->setCellValue('k'.$baris_ws2, $sukarela);
-                    $sheet2->setCellValue('l'.$baris_ws2, $pensiun);
-                    $sheet2->setCellValue('m'.$baris_ws2, ($selisih));
-                    $sheet2->setCellValue('n'.$baris_ws2, $angsuran_tunggakan);
-                    $sheet2->setCellValue('o'.$baris_ws2, $sukarela_pensiun - $angsuran_tunggakan);
-                    $sheet2->setCellValue('p'.$baris_ws2, $nama['nama_karyawan']);
-                    $sheet2->setCellValue('q'.$baris_ws2, $r['hari']);
+                    $sheet2->setCellValue('b'.$baris_ws2, $r['no_center']);
+                    $sheet2->setCellValue('c'.$baris_ws2, $id_nasabah);
+                    $sheet2->setCellValue('d'.$baris_ws2, $nasabah);
+                    $sheet2->setCellValue('e'.$baris_ws2, $kode_pemb);
+                    $sheet2->setCellValue('f'.$baris_ws2, $ke);
+                    $sheet2->setCellValue('g'.$baris_ws2, $rill);
+                    $sheet2->setCellValue('h'.$baris_ws2, $amount);
+                    $sheet2->setCellValue('i'.$baris_ws2, $os);
+                    $sheet2->setCellValue('j'.$baris_ws2, $cicilan);
+                    $sheet2->setCellValue('k'.$baris_ws2, $wajib);
+                    $sheet2->setCellValue('l'.$baris_ws2, $sukarela);
+                    $sheet2->setCellValue('m'.$baris_ws2, $selisih);
+                    $sheet2->setCellValue('n'.$baris_ws2, ( $cek_angsuran));
+                    $sheet2->setCellValue('o'.$baris_ws2, $cek_angsuran * $cicilan);
+                    $sheet2->setCellValue('p'.$baris_ws2, ($sukarela) - ($cek_angsuran * $cicilan));
+                    $sheet2->setCellValue('q'.$baris_ws2, $keter);
+                    $sheet2->setCellValue('r'.$baris_ws2, explode(" - ",$r['staff'])[1]);
+                    $sheet2->setCellValue('s'.$baris_ws2, $r['hari']);
                     $baris_ws2++;
 
                 }
@@ -416,6 +429,6 @@ $spreadsheet->setActiveSheetIndex(0);
 
 
 $writer = new Xlsx($spreadsheet);
-$filename=$_SESSION['kode_cabang'].'-PAR new - '.date("Y-m-d").' - '. time() ;
+$filename=$_SESSION['kode_cabang'].'- DELIN SAVING ANALISIS new - '.date("Y-m-d").' - '. time() ;
 $writer->save('export/excel/par/'.$filename.'.xlsx');
 pindah($url."blk.php?download=".$filename.".xlsx");
