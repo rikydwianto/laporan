@@ -7,7 +7,7 @@ $id_cabang=$_GET['cab'];
 $id_anggota = $_GET['id'];
 $urut = $_GET['urut'];
 $cek = mysqli_query($con,"select * from daftar_nasabah where id_cabang='$id_cabang' and id_nasabah='$id_anggota'");
-$cek_par = mysqli_query($con,"select * from deliquency where id_cabang='$id_cabang' and substring_index(id_detail_nasabah,'-',-1)='".sprintf("%06d",$id_anggota)."'");
+$cek_par = mysqli_query($con,"select * from deliquency where id_cabang='$id_cabang' and substring_index(id_detail_nasabah,'-',-1)='".sprintf("%06d",$id_anggota)."' order by id desc");
 if(mysqli_num_rows($cek)){
 $ang = mysqli_fetch_array($cek);
     $q = mysqli_query($con,"select * from alasan_par where id_cabang='$id_cabang' and substring_index(id_detail_nasabah,'-',-1)='".sprintf("%06d",$id_anggota)."'");
