@@ -98,7 +98,7 @@
                     <tr>
                         <td><?= $i ?></td>
                         <td>
-                        <input type="number" style="width: 120px;" class='form-control' id='id-<?=$i?>' onchange="alasan(<?=$i?>)" name='id[]' />
+                        <input type="number" style="width: 120px;" class='form-control' id='id-<?=$i?>' oninput="alasan(<?=$i?>)" name='id[]' />
                     </td>
                         <td ><p id='alasan-<?=$i?>'></p></td>
                         <td>

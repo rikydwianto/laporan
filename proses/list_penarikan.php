@@ -91,6 +91,9 @@ if (isset($_GET['del'])) {
     <a href="<?= $url . "export/penarikan_simpanan.php?" ?>upk&tgl=<?= $qtgl ?>" class='btn btn-danger'>
         <i class="fa fa-file-excel-o"></i> EXPORT
     </a>
+    <a href="<?= $url . "export/penarikan_detail.php?" ?>tgl=<?= $qtgl ?>" class='btn btn-success'>
+        <i class="fa fa-file-excel-o"></i> EXPORT
+    </a>
     <br>
     <form method='get' action='<?php echo $url . $menu ?>list_penarikan'>
         <input type=hidden name='menu' value='list_penarikan' />
@@ -106,7 +109,11 @@ if (isset($_GET['del'])) {
             <th>Group</th>
             <th>Center</th>
             <th>Nasabah</th>
-            <th>Nominal</th>
+            <th>WAJIB</th>
+            <th>SUKARELA</th>
+            <th>PENSIUN</th>
+            <th>HARI RAYA</th>
+            <th>TOTAL</th>
             <th>#</th>
         </tr>
 
@@ -117,11 +124,19 @@ if (isset($_GET['del'])) {
          JOIN (select * from daftar_nasabah union select * from daftar_nasabah_mantan where id_cabang='$id_cabang') as daftar_nasabah ON daftar_nasabah.`id_nasabah`=penarikan_simpanan.`id_anggota` join karyawan on karyawan.id_karyawan=penarikan_simpanan.id_karyawan where penarikan_simpanan.tgl_penarikan='$qtgl' and daftar_nasabah.id_cabang='$id_cabang' and penarikan_simpanan.id_cabang='$id_cabang'
          group by penarikan_simpanan.id_anggota order by karyawan.nama_karyawan asc");
          echo mysqli_error($con);
-        while ($simp = mysqli_fetch_array($penarikan)) {
+        $total_wajib = 0;
+        $total_sukarela = 0;
+        $total_pensiun = 0;
+        $total_hariraya = 0;
+         while ($simp = mysqli_fetch_array($penarikan)) {
             $total_penarikan = $total_penarikan + $simp['nominal_penarikan'];
             $kel = $simp['id_detail_nasabah'];
             $kel = explode("/", $kel);
             $kel = $simp['kelompok'];
+            $total_wajib += $simp['wajib'];
+            $total_sukarela += $simp['sukarela'];
+            $total_pensiun += $simp['pensiun'];
+            $total_hariraya += $simp['hariraya'];
         ?>
             <tr>
                 <td><?= $no++ ?>.</td>
@@ -129,10 +144,14 @@ if (isset($_GET['del'])) {
                 <td><?= $simp['id_detail_nasabah'] ?></td>
                 <td><?= $simp['id_anggota'] ?></td>
 
-                <td> <?= $kel ?></td>
-                <td><?= $simp['no_center'] ?></td>
+                <td> <?= sprintf("%03d",$kel) ?></td>
+                <td><?= sprintf("%03d",$simp['no_center']) ?></td>
 
                 <td><?= $simp['nama_nasabah'] ?></td>
+                <td><?= rupiah($simp['wajib']) ?></td>
+                <td><?= rupiah($simp['sukarela']) ?></td>
+                <td><?= rupiah($simp['pensiun']) ?></td>
+                <td><?= rupiah($simp['hariraya']) ?></td>
                 <td><?= rupiah($simp['nominal_penarikan']) ?></td>
                 <td>
                     <a href="<?= $url . $menu ?>list_penarikan&del&id=<?= $simp['id_penarikan'] ?>" class="btn btn-danger"><i class='fa fa-times'></i></a>
@@ -144,6 +163,10 @@ if (isset($_GET['del'])) {
         ?>
         <tr>
             <th colspan="7">Total Penarikan</th>
+            <td><?= rupiah($total_wajib) ?></td>
+            <td><?= rupiah($total_sukarela) ?></td>
+            <td><?= rupiah($total_pensiun) ?></td>
+            <td><?= rupiah($total_hariraya) ?></td>
             <th><?= rupiah($total_penarikan) ?></th>
         </tr>
     </table>
