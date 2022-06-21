@@ -106,7 +106,7 @@ header("Content-Disposition: attachment; filename=penarikansimpanan.xls");
             $total_sukarela += $simp['sukarela'];
             $total_pensiun += $simp['pensiun'];
             $total_hariraya += $simp['hariraya'];
-            $cek_delin = mysqli_query($con,"select * from deliquency where id_cabang='$id_cabang' and id_detail_nasabah='$simp[id_detail_nasabah]'");
+            $cek_delin = mysqli_query($con,"select * from deliquency where id_cabang='$id_cabang' and id_detail_nasabah='$simp[id_detail_nasabah]' order by tgl_input desc");
             $delin = mysqli_fetch_array($cek_delin);
         ?>
             <tr>
