@@ -23,6 +23,7 @@ $ang = mysqli_fetch_array($cek);
         $par='agt par';
     }
     else $par='';
+    $delin =mysqli_fetch_array($cek_par);
     ?>
     <tr>
         <td><?=$ang['nama_nasabah'] ?>/<?=$ang['no_center'] ?>/<?=$ang['kelompok'] ?>(<?=$par?>)</td>
@@ -50,6 +51,14 @@ $ang = mysqli_fetch_array($cek);
     <small><p id='total-<?=$i?>'>total : </p></small>
     </td>
     </tr>
+    <tr>
+        <th>ANGSURAN PER MINGGU</th>
+        <td>
+        <input type="number" class='form-control' value='<?=$delin['cicilan']?>' min="0"  name='angsuran[]' id='angsuran-<?=$i?>' style="width: 100px;" pattern="\d+"/>
+
+   
+    </tr>
+    
     <tr>
         <th>ANGSURAN MASUK</th>
         <td>

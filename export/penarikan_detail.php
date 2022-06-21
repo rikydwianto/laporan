@@ -26,8 +26,8 @@ if (isset($_GET['tgl'])) {
 }
 
 $hari = hari_biasa($qtgl);
-header("Content-type: application/vnd-ms-excel");
-header("Content-Disposition: attachment; filename=penarikansimpanan.xls");
+// header("Content-type: application/vnd-ms-excel");
+// header("Content-Disposition: attachment; filename=penarikansimpanan.xls");
 ?>
 <!DOCTYPE html>
 <html>
@@ -121,12 +121,12 @@ header("Content-Disposition: attachment; filename=penarikansimpanan.xls");
                 <td><?=angka($delin['sisa_saldo'])?></td>
                 <td><?=angka($delin['tunggakan'])?></td>
                 <td><?=$delin['minggu']?></td>
-                <td>CIcilan Perminggu</td>
+                <td><?=angka($simp['cicilan'])?></td>
                 <td><?=$simp['angsuran_masuk']?></td>
                 <td><?= angka($simp['wajib']) ?></td>
                 <td><?=angka($delin['wajib'])?></td>
                 <td><?=angka($delin['wajib'] - $simp['wajib'])?></td>
-                <td>Sisa OS Par</td>
+                <td style="background-color: red;">Sisa OS Par</td>
                 <td><?=$simp['alasan']?></td>
                 <td><?=format_hari_tanggal($simp['tgl_penarikan'])?></td>
                 <td><?= $simp['nama_karyawan'] ?></td>

@@ -8,6 +8,7 @@
         $wajib = clean_angka($_POST['wajib']);
         $alasan = ($_POST['alasan']);
         $masuk = ($_POST['masuk']);
+        $angsuran = ($_POST['angsuran']);
         $sukarela = clean_angka($_POST['sukarela']);
         $pensiun = clean_angka($_POST['pensiun']);
         $hariraya = clean_angka($_POST['hariraya']);
@@ -19,7 +20,7 @@
                 }
                 else $id_karyawan = $id_karyawan;
                 $id_zero = sprintf("%00d",$id[$a]);
-                $query = mysqli_query($con, "INSERT INTO `penarikan_simpanan` (`id_anggota`, `tgl_penarikan`, `nominal_penarikan`,`wajib`,`sukarela`,`pensiun`,`hariraya`,`alasan`,`angsuran_masuk`, `id_karyawan`,`id_cabang`) VALUES ('$id_zero', '$tgl[$a]', '$nominal[$a]','$wajib[$a]','$sukarela[$a]','$pensiun[$a]','$hariraya[$a]','$alasan[$a]','$masuk[$a]', '$id_karyawan','$id_cabang'); ");
+                $query = mysqli_query($con, "INSERT INTO `penarikan_simpanan` (`id_anggota`, `tgl_penarikan`, `nominal_penarikan`,`wajib`,`sukarela`,`pensiun`,`hariraya`,`alasan`,`angsuran_masuk`, `cicilan`,`id_karyawan`,`id_cabang`) VALUES ('$id_zero', '$tgl[$a]', '$nominal[$a]','$wajib[$a]','$sukarela[$a]','$pensiun[$a]','$hariraya[$a]','$alasan[$a]','$masuk[$a]','$angsuran[$a]', '$id_karyawan','$id_cabang'); ");
                 if ($query) {
                     alert("Berhasil disimpan");
                     pindah($url . $menu . "penarikan_simpanan");
@@ -80,7 +81,7 @@
     }
     ?>
 
-<form action="" method="post">
+<form method="post">
         <!-- jangan gunakan titik(.)  masukan angka saja contoh Rp. 100.000 input (100000) <br> -->
         <div class="col-md-12">
             <table class="table">
@@ -98,7 +99,7 @@
                     <tr>
                         <td><?= $i ?></td>
                         <td>
-                        <input type="number" style="width: 120px;" class='form-control' id='id-<?=$i?>' oninput="alasan(<?=$i?>)" name='id[]' />
+                        <input type="number" style="width: 120px;" class='form-control' id='id-<?=$i?>' onchange="alasan(<?=$i?>)" name='id[]' />
                     </td>
                         <td ><p id='alasan-<?=$i?>'></p></td>
                         <td>
@@ -108,8 +109,8 @@
                         if($jabatan !='SL'){
                             ?>
                             <td>
-                                <select name="staff[]" class='form-control' id="">
-                                    <option>Pilih Staff</option>
+                                <select name="staff[]"  class='form-control' id="karyawan-<?=$i?>">
+                                    <option value="">Pilih Staff</option>
                                     <?php 
                                     $k = mysqli_query($con,"select * from karyawan where id_cabang='$id_cabang' and status_karyawan ='aktif' order by nama_karyawan asc");
                                     while($staff = mysqli_fetch_array($k)){
@@ -128,7 +129,7 @@
                 <tr>
                     <td></td>
                     <td>
-                        <input type="submit" name="simpan" value="SIMPAN" class="btn btn-success" />
+                        <input type="submit"  name="simpan" value="SIMPAN" class="btn btn-success" />
                     </td>
                 </tr>
             </table>
@@ -150,6 +151,14 @@
     let cab="<?=$id_cabang?>";
     function alasan(nomor){
         let id= $("#id-"+nomor).val()
+       if(id>0){
+           $("#karyawan-"+nomor).attr("required","required");
+
+       }
+       else{
+        $("#karyawan-"+nomor).removeAttr("required","required");
+       }
+        
         // alert(id)
         $.get(url+'?cab='+cab+"&urut="+nomor+"&id="+id,function(data){
             $("#alasan-"+nomor).html(data)
