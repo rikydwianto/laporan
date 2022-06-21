@@ -4,7 +4,13 @@
     <?php
     if (isset($_POST['simpan'])) {
         $id = $_POST['id'];
-        $nominal = $_POST['nominal'];
+        $nominal = clean_angka($_POST['nominal']);
+        $wajib = clean_angka($_POST['wajib']);
+        $alasan = ($_POST['alasan']);
+        $masuk = ($_POST['masuk']);
+        $sukarela = clean_angka($_POST['sukarela']);
+        $pensiun = clean_angka($_POST['pensiun']);
+        $hariraya = clean_angka($_POST['hariraya']);
         $tgl = $_POST['tgl'];
         for ($a = 0; $a < count($id); $a++) {
             if (($id[$a] != "") && ($nominal[$a] != null)) {
@@ -13,7 +19,7 @@
                 }
                 else $id_karyawan = $id_karyawan;
                 $id_zero = sprintf("%00d",$id[$a]);
-                $query = mysqli_query($con, "INSERT INTO `penarikan_simpanan` (`id_anggota`, `tgl_penarikan`, `nominal_penarikan`, `id_karyawan`,`id_cabang`) VALUES ('$id_zero', '$tgl[$a]', '$nominal[$a]', '$id_karyawan','$id_cabang'); ");
+                $query = mysqli_query($con, "INSERT INTO `penarikan_simpanan` (`id_anggota`, `tgl_penarikan`, `nominal_penarikan`,`wajib`,`sukarela`,`pensiun`,`hariraya`,`alasan`,`angsuran_masuk`, `id_karyawan`,`id_cabang`) VALUES ('$id_zero', '$tgl[$a]', '$nominal[$a]','$wajib[$a]','$sukarela[$a]','$pensiun[$a]','$hariraya[$a]','$alasan[$a]','$masuk[$a]', '$id_karyawan','$id_cabang'); ");
                 if ($query) {
                     alert("Berhasil disimpan");
                     pindah($url . $menu . "penarikan_simpanan");
@@ -75,29 +81,28 @@
     ?>
 
 <form action="" method="post">
-        jangan gunakan titik(.)  masukan angka saja contoh Rp. 100.000 input (100000) <br>
-        <div class="col-md-8">
+        <!-- jangan gunakan titik(.)  masukan angka saja contoh Rp. 100.000 input (100000) <br> -->
+        <div class="col-md-12">
             <table class="table">
                 <tr>
                     <th>No.</th>
                     <th>ID angggota</th>
-                    <th>Nominal</th>
+                    <th>SIMPANAN</th>
+                   
                     <th>Tanggal</th>
                 </tr>
                 <?php
                 
-                for ($i = 1; $i <= 15; $i++) {
+                for ($i = 1; $i <= 20; $i++) {
                 ?>
                     <tr>
                         <td><?= $i ?></td>
                         <td>
-                            <input type="number" class='form-control' name='id[]' />
-                        </td>
+                        <input type="number" style="width: 120px;" class='form-control' id='id-<?=$i?>' onchange="alasan(<?=$i?>)" name='id[]' />
+                    </td>
+                        <td ><p id='alasan-<?=$i?>'></p></td>
                         <td>
-                            <input type="number" class='form-control' name='nominal[]' id='nominal' style="min-width: 200px;" pattern="\d+"/>
-                        </td>
-                        <td>
-                            <input type="date" class='form-control' name='tgl[]' value="<?= date("Y-m-d") ?>" id='tgl' />
+                            <input type="date" class='form-control' onchange="ganti_total(<?=$i?>)" name='tgl[]' value="<?= date("Y-m-d") ?>" id='tgl' />
                         </td>
                         <?php 
                         if($jabatan !='SL'){
@@ -130,3 +135,24 @@
         </div>
     </form>
 </div>
+
+<script>
+    function ganti_total(nomor){
+        let wajib = parseInt($("#wajib-"+nomor).val())
+        let sukarela =parseInt($("#sukarela-"+nomor).val())
+        let pensiun =parseInt($("#pensiun-"+nomor).val())
+        let hariraya =parseInt($("#hariraya-"+nomor).val())
+        let total = wajib + sukarela + pensiun + hariraya
+        $("#nominal-"+nomor).val(total);
+        $("#total-"+nomor).html("Total:"+total);
+    }
+    let url="<?=$url?>/api/alasan_input.php";
+    let cab="<?=$id_cabang?>";
+    function alasan(nomor){
+        let id= $("#id-"+nomor).val()
+        // alert(id)
+        $.get(url+'?cab='+cab+"&urut="+nomor+"&id="+id,function(data){
+            $("#alasan-"+nomor).html(data)
+        });
+    }
+</script>

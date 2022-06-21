@@ -37,7 +37,8 @@ $style = array(
 
 
 
-    $sheet->getStyle('A2:AA2000')->applyFromArray($style);
+    $sheet->getStyle('A2:AA2500')->applyFromArray($style);
+    
 $sheet->getColumnDimension('B')->setAutoSize(true);
 $sheet->getColumnDimension('C')->setAutoSize(true);
 $sheet->getColumnDimension('D')->setAutoSize(true);
@@ -142,11 +143,59 @@ $sheet2->setCellValue('P2', 'SISA SUKARELA ');
 $sheet2->setCellValue('Q2', 'KETERANGAN');
 $sheet2->setCellValue('R2', 'STAFF');
 $sheet2->setCellValue('S2', 'HARI');
-$sheet2->getStyle('N2')->getAlignment()->setWrapText(true);
-$sheet2->getStyle('O2')->getAlignment()->setWrapText(true);
+$sheet2->getStyle('A2:Z2')->getAlignment()->setWrapText(true);
 // Add some data
 $shee = $spreadsheet->setActiveSheetIndex(1);
 $sheet->setCellValue('A1', 'DATA PAR');
+
+$sheet3 = $spreadsheet->setActiveSheetIndex(2);
+$sheet3->setTitle('ANGSURAN DARI WAJIB');
+$sheet3->setCellValue('A1', 'DATA PAR UNTUK ANGSURAN DARI WAJIB');
+$sheet3->getColumnDimension('B')->setAutoSize(true);
+$sheet3->getColumnDimension('C')->setAutoSize(true);
+$sheet3->getColumnDimension('D')->setAutoSize(true);
+$sheet3->getColumnDimension('E')->setAutoSize(true);
+$sheet3->getColumnDimension('F')->setAutoSize(true);
+$sheet3->getColumnDimension('G')->setAutoSize(true);
+$sheet3->getColumnDimension('H')->setAutoSize(true);
+$sheet3->getColumnDimension('I')->setAutoSize(true);
+$sheet3->getColumnDimension('J')->setAutoSize(true);
+$sheet3->getColumnDimension('K')->setAutoSize(true);
+$sheet3->getColumnDimension('L')->setAutoSize(true);
+$sheet3->getColumnDimension('M')->setAutoSize(true);
+$sheet3->getColumnDimension('N')->setAutoSize(true);
+$sheet3->getColumnDimension('O')->setAutoSize(true);
+$sheet3->getColumnDimension('P')->setAutoSize(true);
+$sheet3->getColumnDimension('Q')->setAutoSize(true);
+$sheet3->getColumnDimension('R')->setAutoSize(true);
+$sheet3->getColumnDimension('S')->setAutoSize(true);
+$sheet3->getColumnDimension('T')->setAutoSize(true);
+
+
+$sheet3->setCellValue('A2', 'NO');
+$sheet3->setCellValue('B2', 'CENTER');
+$sheet3->setCellValue('C2', 'ID');
+$sheet3->setCellValue('D2', 'NASABAH');
+$sheet3->setCellValue('E2', 'PEMB');
+$sheet3->setCellValue('F2', 'KE');
+$sheet3->setCellValue('G2', 'RILL');
+$sheet3->setCellValue('H2', 'AMOUNT');
+$sheet3->setCellValue('I2', 'O.S');
+$sheet3->setCellValue('J2', 'CICILAN');
+$sheet3->setCellValue('K2', 'WAJIB');
+$sheet3->setCellValue('L2', 'SUKARELA');
+$sheet3->setCellValue('M2', 'DUE PASS');
+$sheet3->setCellValue('N2', "MASUK \nANGSURAN ");
+$sheet3->setCellValue('O2', "MASUK ANGSURAN X \n CICILAN");
+$sheet3->setCellValue('P2', 'SISA SUKARELA ');
+$sheet3->setCellValue('Q2', 'KETERANGAN');
+$sheet3->setCellValue('R2', 'STAFF');
+$sheet3->setCellValue('S2', 'HARI');
+$sheet3->getStyle('A2:Z2')->getAlignment()->setWrapText(true);
+
+
+$sheet2->getStyle('A2:AA2500')->applyFromArray($style);
+    $sheet3->getStyle('A2:AA2500')->applyFromArray($style);
 
 $baris_ws2=3;
 $no_baris_ws2=1;

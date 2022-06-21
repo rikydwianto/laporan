@@ -177,7 +177,9 @@ function int_xml($angka){
   $pecah = explode('.',$angka)[0];
   return (int) $pecah;
   }
-
+function clean_angka($angka){
+  return str_replace(",","",str_replace(".","",$angka));
+}
 
 function aman($con, $string)
 {
