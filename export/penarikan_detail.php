@@ -26,8 +26,8 @@ if (isset($_GET['tgl'])) {
 }
 
 $hari = hari_biasa($qtgl);
-// header("Content-type: application/vnd-ms-excel");
-// header("Content-Disposition: attachment; filename=penarikansimpanan.xls");
+header("Content-type: application/vnd-ms-excel");
+header("Content-Disposition: attachment; filename=penarikansimpanan.xls");
 ?>
 <!DOCTYPE html>
 <html>
