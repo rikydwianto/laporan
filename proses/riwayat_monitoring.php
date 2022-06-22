@@ -37,7 +37,8 @@
             left join pinjaman on pinjaman.id_pinjaman=monitoring.id_pinjaman
             left join karyawan on karyawan.id_karyawan=pinjaman.id_karyawan 
                             
-                            where pinjaman.id_cabang='$id_cabang' and monitoring.tgl_monitoring='$tgl' order by monitoring.waktu  desc");
+                            where pinjaman.id_cabang='$id_cabang' and karyawan.id_cabang='$id_cabang'  and monitoring.tgl_monitoring='$tgl' group by monitoring.id_detail_pinjaman order by monitoring.waktu  desc");
+        echo mysqli_error($con);
         while ($pinj = mysqli_fetch_array($q)) {
             if ($pinj['total_hari'] > 14) {
                 $tr = "#ffd4d4";

@@ -46,7 +46,7 @@
             <?php
             $tgl = date("Y-m-d");
             $total_penarikan = 0;
-            $penarikan = mysqli_query($con, "SELECT * FROM penarikan_simpanan left JOIN daftar_nasabah ON daftar_nasabah.`id_nasabah`=penarikan_simpanan.`id_anggota` where penarikan_simpanan.tgl_penarikan='$tgl' and penarikan_simpanan.id_karyawan='$id_karyawan' and daftar_nasabah.id_cabang='$id_cabang' ");
+            $penarikan = mysqli_query($con, "SELECT * FROM penarikan_simpanan left JOIN daftar_nasabah ON daftar_nasabah.`id_nasabah`=penarikan_simpanan.`id_anggota` where penarikan_simpanan.tgl_penarikan='$tgl' and penarikan_simpanan.id_karyawan='$id_karyawan' and daftar_nasabah.id_cabang='$id_cabang' and penarikan_simpanan.id_cabang='$id_cabang' ");
             while ($simp = mysqli_fetch_array($penarikan)) {
                 $total_penarikan = $total_penarikan + $simp['nominal_penarikan'];
             ?>

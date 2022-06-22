@@ -39,8 +39,9 @@
                     $total = mysqli_fetch_array(mysqli_query($con,"SELECT count(*) as total_mtr from monitoring m 
                     join pinjaman p on p.id_detail_pinjaman=m.id_detail_pinjaman 
                     where p.id_karyawan='$r[id_karyawan]' and p.monitoring='sudah' and m.tgl_monitoring >= '$tgl_awal' and  m.tgl_monitoring <= '$tgl_akhir'
-                    "));
-                    $total = $total['total_mtr'];
+                     "));
+                     echo mysqli_error($con);
+                    $total = ($total['total_mtr']===""?0:$total['total_mtr']);
                     $total_mtr +=$total;
                     if($total<1){
                         $ket='Tidak Mengumpulkan Monitoring';
