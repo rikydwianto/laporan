@@ -129,6 +129,13 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
              while($r=mysqli_fetch_array($q)){
                  $total_disburse += $r['jumlah_pinjaman'];
                  $group = explode("/",$r['id_detail_nasabah'])[2];
+                 $cek_tpk = mysqli_query($con,"select id from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$r[id_detail_nasabah]'");
+                 if(mysqli_num_rows($cek_tpk)>0){
+                    $tpk="YA";
+                }
+                else{
+                    $tpk="";
+                }
                  ?>
                  <tr >
                     <td style="height: 2.5px;" colspan="" ><?=$no++?>.</td>
@@ -148,10 +155,10 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
                     <td class='isi_tengah'><?=$r['pinjaman_ke']?></td>
                     <td class='kecil'><?=$r['nama_karyawan']?></td>
                     <td class='isi_tengah'><?=$r['tgl_cair']?></td>
-                    <td>
+                    <td >
                     
                     </td>
-                    <td></td>
+                    <td class='isi_tengah'><?=$tpk?></td>
                     <td></td>
                     <td></td>
                     <td >

@@ -20,6 +20,7 @@
     <a href="<?= $url . $menu ?>monitoring&staff" class='btn btn-danger'> <i class="fa fa-users"></i> Total Monitoring</a>
     <a href="<?= $url . $menu ?>monitoring&pu" class='btn btn-danger'> <i class="fa fa-users"></i> Detail Pinjaman umum</a>
     <a href="<?= $url . $menu ?>monitoring&daftar_pinjaman" class='btn btn-success'> <i class="fa fa-list"></i> Daftar Pinjaman</a>
+    <a href="<?= $url . $menu ?>monitoring&input_tpk" class='btn btn-danger'> <i class="fa fa-plus"></i> Input TPK</a>
     <a href="<?= $url . $menu ?>monitoring" onclick="buka()" class='btn btn-info'> <i class="fa fa-file-excel-o"></i> Export</a>
     <?php
     if (isset($_SESSION['nama_file'])) {
@@ -360,6 +361,10 @@
         //RIWAYAT MONITORING
         include("proses/daftar_pinjaman.php");
     }  
+    else if (isset($_GET['input_tpk'])) {
+        //RIWAYAT MONITORING
+        include("proses/input_tpk.php");
+    }  
     else {
 
 
@@ -386,6 +391,7 @@
                     <tr>
                         <!-- <th>no</th> -->
                         <th>STAFF</th>
+                        <th>TPK</th>
                         <th>NO Pinjaman</th>
                         <th>NASABAH</th>
                         <th>CTR</th>
@@ -455,6 +461,15 @@
                             $tr = "#42f554";
                         } 
                         else $tr = "#fffff";
+                        
+
+                        $cek_tpk = mysqli_query($con,"select id from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$pinj[id_detail_nasabah]'");
+                        if(mysqli_num_rows($cek_tpk)>0){
+                            $tpk="YA";
+                        }
+                        else{
+                            $tpk="";
+                        }
                     ?>
                         <tr style="background:<?= $tr ?>">
                             <!-- <td><?= $no++ ?></td> -->
@@ -464,6 +479,7 @@
                             </a>
                             <?= $pinj['nama_karyawan'] ?>
                             </td>
+                            <td><?=$tpk?></td>
                             <td><?= ganti_karakter($pinj['id_detail_pinjaman']) ?></td>
                             <td>
                                 <?= $pinj['nama_nasabah'] ?>

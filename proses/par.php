@@ -134,7 +134,7 @@ if(isset($_POST['preview'])){
                 $tgl_dis = explode('/',$tgl_dis);
                 $tgl_dis = $tgl_dis[2].'-'.$tgl_dis[1].'-'.$tgl_dis[0];
             }
-            ?>
+           /* 
             <!-- <tr>
                 <td><?=$no++?></td>
                 <td><?=$loan?></td>
@@ -154,7 +154,7 @@ if(isset($_POST['preview'])){
                 <td><?=$hari?></td>
                 <td><?=$nama_staff?></td>
             </tr> -->
-            <?php
+            */
             //   INSERT INTO `deliquency` (`id`, `loan`, `no_center`, `id_detail_nasabah`, `nasabah`, `amount`, `sisa_saldo`, `tunggakan`, `minggu`, `tgl_input`, `id_cabang`) VALUES (NULL, 'PU-072-21-01-000216', '003', 'AGT/072/01/003-000034', 'RUMNASIH', '6', '2', '1', '8', NULL, NULL); 
             mysqli_query($con,"INSERT INTO `deliquency` 
             ( id,`loan`, `no_center`, `id_detail_nasabah`, `nasabah`, `amount`, `sisa_saldo`, `tunggakan`, `minggu`, `tgl_input`, `id_cabang`,tgl_disburse,wajib,sukarela,pensiun,hariraya,cicilan,hari,staff,minggu_ke,minggu_rill,priode,kode_pemb) VALUES 
@@ -245,6 +245,14 @@ if(isset($_GET['bandingkan'])){
                     $baris['alasan']="";
 
                 }
+
+                $cek_tpk = mysqli_query($con,"select id from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'");
+                if(mysqli_num_rows($cek_tpk)>0){
+                    $baris['ket'].="topup khusus ";
+                }
+                else{
+                    $baris['ket'].="";
+                }
                 ?>
                 <tr style="background-color:<?=$baris['baris']?>;color:<?=$baris['text']?>">
                     <td><?=$no++?></td>
@@ -327,6 +335,13 @@ if(isset($_GET['bandingkan'])){
             else{
                 $baris['alasan']="";
 
+            }
+            $cek_tpk = mysqli_query($con,"select id from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'");
+            if(mysqli_num_rows($cek_tpk)>0){
+                $baris['ket'].="topup khusus ";
+            }
+            else{
+                $baris['ket'].="";
             }
             $total_tambah+=$data['sisa_saldo'];
             ?>

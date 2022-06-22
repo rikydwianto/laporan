@@ -128,8 +128,25 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
              where p.id_cabang='$id_cabang' and p.tgl_cair between '$tgl_awal' and '$tgl_akhir'");
              echo mysqli_error($con);
              while($r=mysqli_fetch_array($q)){
+                $cek_tpk = mysqli_query($con,"select id from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$r[id_detail_nasabah]'");
+                if(mysqli_num_rows($cek_tpk)>0){
+                    $tpk="TPK | ";
+                }
+                else{
+                    $tpk="";
+                }
                  $total_disburse += $r['jumlah_pinjaman'];
                  $group = explode("/",$r['id_detail_nasabah'])[2];
+
+                 $produk = strtolower($r['produk']);
+                 if ($produk == "pinjaman umum") $kode = "P.U";
+                 else if ($produk == "pinjaman sanitasi") $kode = "PSA";
+                 else if ($produk == "pinjaman mikrobisnis") $kode = "PMB";
+                 else if ($produk == "pinjaman arta") $kode = "ARTA";
+                 else if ($produk == "pinjaman dt. pendidikan") $kode = "PPD";
+                 else if ($produk == "pinjaman renovasirumah") $kode = "PRR";
+                 else $kode = "LL";
+
                  ?>
                  <tr >
                     <td class='kecil' colspan="" ><?=$no++?>.</td>
@@ -137,20 +154,20 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
                     <td class="kecil"style="white-space: nowrap"><?=$r['id_detail_pinjaman']?></td>
                     <td class="kecil"style="white-space: nowrap"><?=$r['nama_nasabah']?></td>
                     <td class="kecil"><?=$r['no_hp']?></td>
-                    <td class='kecil'><?=$r['center']?></td>
-                    <td class='isi_tengah'><?=$group?></td>
-                    <td class='kecil'><?=$r['produk']?></td>
+                    <td class='kecil' style="white-space: nowarp "><?=$r['center']?></td>
+                    <td class='kecil isi_tengah'><?=$group?></td>
+                    <td class='kecil isi_tengah' ><?=$kode?></td>
                     <td class="kecil"><?=angka($r['jumlah_pinjaman'])?></td>
                     <td class="kecil"><?=angka($r['outstanding'])?></td>
                     <td class='isi_tengah'><?=$r['jk_waktu']?></td>
                     <td class='isi_tengah'  ><?=$r['margin']?></td>
                     <td class="kecil"><?=angka($r['angsuran'])?></td>
-                    <td class="kecil"><?=$r['tujuan_pinjaman']?></td>
+                    <td class="kecil" style="font-size:10px;white-space: nowrap"><?=$r['tujuan_pinjaman']?></td>
                     <td class='isi_tengah'><?=$r['pinjaman_ke']?></td>
                     <td class='kecil' style="white-space: nowrap"><?=$r['nama_karyawan']?></td>
                     <td class='isi_tengah'><?=$r['tgl_cair']?></td>
-                    <td >
-                   
+                    <td class='kecil' >
+                   <?=$tpk?>
                     </td>
                     <td ></td>
                  </tr>

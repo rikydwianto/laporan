@@ -62,11 +62,11 @@ $ang = mysqli_fetch_array($cek);
     <tr>
         <th>ANGSURAN MASUK</th>
         <td>
-        <input type="number" required class='form-control' value='0' min="0" max="100" name='masuk[]' id='masuk-<?=$i?>' style="width: 100px;" pattern="\d+"/>
+        <input type="number" required class='form-control' value='0' min="1" max="100" name='masuk[]' id='masuk-<?=$i?>' style="width: 100px;" pattern="\d+"/>
 
         </td>
         <th>ALASAN</th>
-        <td> <input type="text" name='alasan[]' class='form-control' value='<?=$alasan?>' ></td>
+        <td> <input type="text" name='alasan[]' class='form-control' required value='<?=$alasan?>' ></td>
     </tr>
     
 
