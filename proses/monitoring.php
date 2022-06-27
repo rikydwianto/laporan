@@ -492,7 +492,7 @@
                                 echo $center;
                                 ?>
                             </td>
-                            <td><?= $pinj['jumlah_pinjaman'] ?></td>
+                            <td><?= angka($pinj['jumlah_pinjaman']) ?></td>
                             <td>
 
 
