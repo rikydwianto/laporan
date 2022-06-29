@@ -77,6 +77,8 @@
 			$par = mysqli_query($con,"SELECT  tgl_input,count(*) as hitung, sum(sisa_saldo) as total_par FROM deliquency where id_cabang='$id_cabang' and tgl_input='$tglakhir' group by tgl_input order by tgl_input desc");
 			$par = mysqli_fetch_array($par);
 
+			$tpk = mysqli_query($con,"SELECT COUNT(*) as total FROM pinjaman p JOIN tpk t ON p.`id_detail_nasabah`=t.`id_detail_nasabah` where p.id_cabang='$id_cabang' and t.id_cabang='$id_cabang'  and p.tgl_cair>='$tglawal' and p.tgl_cair<='$tglakhir'");
+			$tpk = mysqli_fetch_array($tpk)['total'];
 			foreach ($rekapp as $key => $value) {
 				
 					$cab = $data->cek_cabang($con,$value['id_cabang']);
@@ -190,6 +192,13 @@
 							<tr>
 								<td><b>TOTAL PAR <?=$tglakhir?></b></td>
 								<td><b><?=$par['hitung']?></b></td>
+								<td></td>
+							</tr>
+							
+							
+							<tr>
+								<td><b>TOTAL TPK </b></td>
+								<td><b><?=$tpk?></b></td>
 								<td></td>
 							</tr>
 							
