@@ -310,7 +310,7 @@ if(isset($_GET['bandingkan'])){
         SELECT d.*,k.nama_karyawan FROM deliquency d 
         JOIN center c ON c.`no_center`=d.`no_center` 
         JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
-        where d.loan not in (select loan from deliquency where tgl_input='$tgl_awal' and id_cabang='$id_cabang') and d.tgl_input='$tgl_banding' and c.id_cabang='$id_cabang' and d.minggu=1 and d.id_cabang='$id_cabang' order by k.nama_karyawan asc");
+        where d.loan not in (select loan from deliquency where tgl_input='$tgl_awal' and id_cabang='$id_cabang') and d.tgl_input='$tgl_banding' and c.id_cabang='$id_cabang' and  d.id_cabang='$id_cabang' order by k.nama_karyawan asc");
         while($data = mysqli_fetch_array($query1)){
 
             $qreason = (mysqli_query($con,"select * from alasan_par where id_loan='$data[loan]'  and id_cabang='$id_cabang'"));
