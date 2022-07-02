@@ -492,6 +492,18 @@ else{
     <h2><a href="<?=$url.$menu?>par&list" class="btn btn-success">Lihat Data Par</a></h2>
     <?php
 }
+
+if(isset($_GET['delete'])){
+        $tgl = $_GET['tgl'];
+        $hapus = mysqli_query($con,"delete from deliquency where tgl_input='$tgl' and id_cabang='$id_cabang'");
+
+        if($hapus){
+            alert("Data Berhasil dihapus");
+        }
+        else alert("Data gagal dihapus");
+
+        pindah($url.$menu."par");
+    }
 ?>
 
 </div>
