@@ -5,7 +5,7 @@ $tglakhir = $_GET['tglakhir'];
 $title_tpk = "Rekap TPK per Staff ". format_hari_tanggal($tglawal). " - ". format_hari_tanggal($tglakhir) .'<br>';
 ?>
 	<div class="row">
-		<div class="col-lg-12">
+		<div class="col-lg-8">
 			<h1 class="page-header">REKAP PINJAMAN TOPUP KHUSUS</h1>
             
 			<br>
