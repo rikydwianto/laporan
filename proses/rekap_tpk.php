@@ -22,10 +22,20 @@ $title_tpk = "Rekap TPK per Staff ". format_hari_tanggal($tglawal). " - ". forma
 		</form>
         <h2><?=$title_tpk?></h2>
 			<table class='table table-bordered'>
+            <?php
+            $qtgl = mysqli_query($con,"SELECT distinct tgl_cair as tgl FROM pinjaman p JOIN tpk t ON p.`id_detail_nasabah`=t.`id_detail_nasabah` where p.id_cabang='$id_cabang' and t.id_cabang='$id_cabang'  and p.tgl_cair>='$tglawal' and p.tgl_cair<='$tglakhir'"); 
+            ?>    
                 <thead>
                     <tr>
                         <th>NO</th>
                         <th>STAFF</th>
+                        <?php 
+                        while($tgl = mysqli_fetch_array($qtgl)){
+                            ?>
+                            <th><?=$tgl['tgl']?></th>
+                            <?php
+                        }
+                        ?>
                         <th>TOTAL</th>
                     </tr>
                 </thead>

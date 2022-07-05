@@ -43,14 +43,15 @@
             <th>NO</th>
             <th>NAMA</th>
             <th>OS PAR</th>
-            <th>TOTAL CLIENT PAR</th>
-            <th>TOTAL AGT</th>
-            <th>TOTAL ALASAN</th>
             <?php 
             foreach($q_hari as $hari){
                 echo "<th>$hari</th>";
             }
             ?>
+            <th>TOTAL PAR</th>
+            <th>TOTAL AGT</th>
+            <th>TOTAL ALASAN</th>
+            
         </tr>
         <?php 
         $total_par = 0;
@@ -76,9 +77,6 @@
                 <td><?=$no++?></td>
                 <td><?=$delin['nama_karyawan']?></td>
                 <td><?=rupiah($delin['balance'])?></td>
-                <td><?=$delin['total']?></td>
-                <td><?=$total_nasabah?></td>
-                <td><?=$hit['total_alasan']?> - (<?=round(($hit['total_alasan']/$delin['total'])*100)?> %)</td>
                 <?php 
             foreach($q_hari as $hari){
                 $perhari = mysqli_query($con,"SELECT SUM(sisa_saldo) AS os_par, COUNT(*) AS total_par FROM deliquency WHERE tgl_input='$tgl' AND hari='$hari' and id_cabang='$id_cabang' and staff like'%$delin[nama_karyawan]%'");
@@ -88,6 +86,10 @@
                 <?php 
             }
             ?>
+                <td><?=$delin['total']?></td>
+                <td><?=$total_nasabah?></td>
+                <td><?=$hit['total_alasan']?> - (<?=round(($hit['total_alasan']/$delin['total'])*100)?> %)</td>
+                
             </tr>
             <?php
         }
@@ -96,10 +98,7 @@
             <th colspan="2"></th>
             <!-- <th>NAMA</th> -->
             <th><?=rupiah($total_os)?></th>
-            <th><?=$total_par?></th>
-            <th><?=$total_semua?></th>
-            <th><?=$total_alasan?></th>
- <?php
+            <?php
             foreach($q_hari as $hari){
                 $perhari = mysqli_query($con,"SELECT SUM(sisa_saldo) AS os_par, COUNT(*) AS total_par FROM deliquency WHERE tgl_input='$tgl' AND hari='$hari' and id_cabang='$id_cabang' ");
                 $perhari = mysqli_fetch_array($perhari);
@@ -108,7 +107,11 @@
                 <?php 
             }
             ?>
+            <th><?=$total_par?></th>
+            <th><?=$total_semua?></th>
+            <th><?=$total_alasan?></th>
  
+            
         </tr>
     </table>
     </div>
