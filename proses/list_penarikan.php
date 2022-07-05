@@ -1,8 +1,10 @@
 <?php
 if (isset($_GET['tgl'])) {
     $qtgl = $_GET['tgl'];
+    $tglakhir = $_GET['tglakhir'];
 } else {
     $qtgl = date("Y-m-d");
+    $tglakhir = date("Y-m-d");
 }
 
 if (isset($_GET['del'])) {
@@ -97,7 +99,8 @@ if (isset($_GET['del'])) {
     <br>
     <form method='get' action='<?php echo $url . $menu ?>list_penarikan'>
         <input type=hidden name='menu' value='list_penarikan' />
-        <input type=date name='tgl' value='<?php echo isset($_GET['tgl']) ? $_GET['tgl'] : date("Y-m-d") ?>' onchange="submit()" />
+        <input type=date name='tgl' value='<?php echo isset($_GET['tgl']) ? $_GET['tgl'] : date("Y-m-d") ?>'  />
+        <input type=date name='tglakhir' value='<?php echo isset($_GET['tglakhir']) ? $_GET['tglakhir'] : date("Y-m-d") ?>'  />
         <input type=submit name='cari' value='CARI' />
     </form>
     <table class='table table-bordered'>
@@ -121,7 +124,7 @@ if (isset($_GET['del'])) {
         $tgl = date("Y-m-d");
         $total_penarikan = 0;
         $penarikan = mysqli_query($con, "SELECT * FROM penarikan_simpanan 
-         JOIN (select * from daftar_nasabah union select * from daftar_nasabah_mantan where id_cabang='$id_cabang') as daftar_nasabah ON daftar_nasabah.`id_nasabah`=penarikan_simpanan.`id_anggota` join karyawan on karyawan.id_karyawan=penarikan_simpanan.id_karyawan where penarikan_simpanan.tgl_penarikan='$qtgl' and daftar_nasabah.id_cabang='$id_cabang' and penarikan_simpanan.id_cabang='$id_cabang'
+         JOIN (select * from daftar_nasabah union select * from daftar_nasabah_mantan where id_cabang='$id_cabang') as daftar_nasabah ON daftar_nasabah.`id_nasabah`=penarikan_simpanan.`id_anggota` join karyawan on karyawan.id_karyawan=penarikan_simpanan.id_karyawan where (penarikan_simpanan.tgl_penarikan between '$qtgl' and '$tglakhir') and daftar_nasabah.id_cabang='$id_cabang' and penarikan_simpanan.id_cabang='$id_cabang'
          group by penarikan_simpanan.id_anggota order by karyawan.nama_karyawan asc");
          echo mysqli_error($con);
         $total_wajib = 0;

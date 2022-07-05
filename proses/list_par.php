@@ -27,7 +27,7 @@
                         <td><?=($total_center['total_center'])?></td>
                         <td><?=rupiah($cari['total_par'])?></td>
                         <td>
-                            <a href="<?=$url.$menu?>par&munculkan&tgl=<?=$cari['tgl_input']?>"  class="btn btn-success"> <i class="fa fa-eye"></i> Tampilkan Detail</a>
+                            <a href="<?=$url.$menu?>par&list&munculkan&tgl=<?=$cari['tgl_input']?>"  class="btn btn-success"> <i class="fa fa-eye"></i> Tampilkan Detail</a>
                             <a href="#" onclick="buka('popup/par.php?tgl=<?=$cari['tgl_input']?>')"  class="btn btn-primary"> <i class="fa fa-list"></i> Tampilkan Semua</a>
                             <a href="<?=$url.$menu?>par&delete&tgl=<?=$cari['tgl_input']?>" onclick="return window.confirm('apakah yakin menghapus semua data <?=format_hari_tanggal($cari['tgl_input'])?>')" class="btn btn-danger"> <i class="fa fa-times"></i> </a>
                         </td>
