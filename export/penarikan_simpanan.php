@@ -20,9 +20,11 @@ if (isset($_GET['tglawal']) || isset($_GET['tglakhir'])) {
 }
 
 if (isset($_GET['tgl'])) {
-    $qtgl =aman($con, $_GET['tgl']);
+    $qtgl = $_GET['tgl'];
+    $tglakhir = $_GET['tglakhir'];
 } else {
     $qtgl = date("Y-m-d");
+    $tglakhir = date("Y-m-d");
 }
 
 $hari = hari_biasa($qtgl);
@@ -66,6 +68,7 @@ header("Content-Disposition: attachment; filename=penarikansimpanan.xls");
     <table class='table' border="1">
         <tr>
             <th>No</th>
+            <th>TGL TRANSAKSI</th>
             <th>STAFF</th>
             <th>ID Nasabah</th>
             <th>ID</th>
@@ -83,14 +86,16 @@ header("Content-Disposition: attachment; filename=penarikansimpanan.xls");
         $tgl = date("Y-m-d");
         $total_penarikan = 0;
         $penarikan = mysqli_query($con, "SELECT * FROM penarikan_simpanan 
-        JOIN (select * from daftar_nasabah union select * from daftar_nasabah_mantan where id_cabang='$id_cabang') as daftar_nasabah ON daftar_nasabah.`id_nasabah`=penarikan_simpanan.`id_anggota` join karyawan on karyawan.id_karyawan=penarikan_simpanan.id_karyawan where penarikan_simpanan.tgl_penarikan='$qtgl' and daftar_nasabah.id_cabang='$id_cabang' and penarikan_simpanan.id_cabang='$id_cabang'
+        JOIN (select * from daftar_nasabah union select * from daftar_nasabah_mantan where id_cabang='$id_cabang') as daftar_nasabah ON daftar_nasabah.`id_nasabah`=penarikan_simpanan.`id_anggota` join karyawan on karyawan.id_karyawan=penarikan_simpanan.id_karyawan where (penarikan_simpanan.tgl_penarikan between '$qtgl' and '$tglakhir') and daftar_nasabah.id_cabang='$id_cabang' and penarikan_simpanan.id_cabang='$id_cabang'
         group by penarikan_simpanan.id_anggota order by karyawan.nama_karyawan asc");
         $total_wajib = 0;
         $total_sukarela = 0;
         $total_pensiun = 0;
         $total_hariraya = 0;
         while ($simp = mysqli_fetch_array($penarikan)) {
-            $total_penarikan = $total_penarikan + $simp['nominal_penarikan'];
+
+            $nominal = $simp['wajib'] + $simp['sukarela'] + $simp['pensiun'] + $simp['hariraya'];
+            $total_penarikan = $total_penarikan + $nominal;
             $kel = $simp['id_detail_nasabah'];
             $kel = explode("/", $kel);
             $kel = $kel[2];
@@ -101,6 +106,7 @@ header("Content-Disposition: attachment; filename=penarikansimpanan.xls");
         ?>
             <tr>
                 <td><?= $no++ ?>.</td>
+                <td><?= $simp['tgl_penarikan'] ?></td>
                 <td><?= $simp['nama_karyawan'] ?></td>
                 <td><?= $simp['id_detail_nasabah'] ?></td>
                 <td><?= $simp['id_anggota'] ?></td>
@@ -119,7 +125,7 @@ header("Content-Disposition: attachment; filename=penarikansimpanan.xls");
         }
         ?>
         <tr>
-            <th colspan="7">Total Penarikan</th>
+            <th colspan="8">Total Penarikan</th>
             <th><?= rupiah($total_wajib) ?></th>
             <th><?= rupiah($total_sukarela) ?></th>
             <th><?= rupiah($total_pensiun) ?></th>

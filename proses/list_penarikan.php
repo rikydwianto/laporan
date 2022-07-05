@@ -2,9 +2,11 @@
 if (isset($_GET['tgl'])) {
     $qtgl = $_GET['tgl'];
     $tglakhir = $_GET['tglakhir'];
+    $tglpar = $_GET['tglpar'];
 } else {
     $qtgl = date("Y-m-d");
     $tglakhir = date("Y-m-d");
+    $tglpar = date("Y-m-d");
 }
 
 if (isset($_GET['del'])) {
@@ -86,14 +88,14 @@ if (isset($_GET['del'])) {
 }
 ?>
 <div class='content table-responsive'>
-    <h2 class='page-header'>Penarikan Simpanan oleh Manager</h2>
+    <h2 class='page-header'>Penarikan Simpanan </h2>
     <a href="<?= $url . $menu ?>penarikan_simpanan&list=cari&cari=FILTER" class='btn btn-success'>
         <i class="fa fa-plus"></i> Tambah
     </a>
-    <a href="<?= $url . "export/penarikan_simpanan.php?" ?>upk&tgl=<?= $qtgl ?>" class='btn btn-danger'>
+    <a href="<?= $url . "export/penarikan_simpanan.php?" ?>upk&tgl=<?= $qtgl ?>&tglakhir=<?= $tglakhir ?>" class='btn btn-danger'>
         <i class="fa fa-file-excel-o"></i> EXPORT
     </a>
-    <a href="<?= $url . "export/penarikan_detail.php?" ?>tgl=<?= $qtgl ?>" class='btn btn-success'>
+    <a href="<?= $url . "export/penarikan_detail.php?" ?>tgl=<?= $qtgl ?>&tglakhir=<?= $tglakhir ?>&tglpar=<?= $tglpar ?>" class='btn btn-success'>
         <i class="fa fa-file-excel-o"></i> EXPORT
     </a>
     <br>
@@ -101,11 +103,26 @@ if (isset($_GET['del'])) {
         <input type=hidden name='menu' value='list_penarikan' />
         <input type=date name='tgl' value='<?php echo isset($_GET['tgl']) ? $_GET['tgl'] : date("Y-m-d") ?>'  />
         <input type=date name='tglakhir' value='<?php echo isset($_GET['tglakhir']) ? $_GET['tglakhir'] : date("Y-m-d") ?>'  />
+        <select name='tglpar' class='btn' >
+                        
+                        <option value="">PILIH MINGGU SEBELUM</option>
+                        <?php 
+                        error_reporting(0);
+                        $q_tgl = mysqli_query($con,"SELECT DISTINCT tgl_input FROM deliquency where id_cabang='$id_cabang'  order by tgl_input desc");
+                        while($tgl_ = mysqli_fetch_array($q_tgl)){
+                            ?>
+                            <option value="<?=$tgl_['tgl_input']?>" <?=($_GET['tgl']===$tgl_['tgl_input']?"selected":"")?>><?=format_hari_tanggal($tgl_['tgl_input'])?></option>
+                            <?php
+                        }
+                        ?>
+
+                    </select>
         <input type=submit name='cari' value='CARI' />
     </form>
     <table class='table table-bordered'>
         <tr>
             <th>No</th>
+            <th>TGL TRANSAKSI</th>
             <th>STAFF</th>
             <th>ID Nasabah</th>
             <th>ID</th>
@@ -132,7 +149,9 @@ if (isset($_GET['del'])) {
         $total_pensiun = 0;
         $total_hariraya = 0;
          while ($simp = mysqli_fetch_array($penarikan)) {
-            $total_penarikan = $total_penarikan + $simp['nominal_penarikan'];
+           
+            $nominal = $simp['wajib'] + $simp['sukarela'] + $simp['pensiun'] + $simp['hariraya'];
+            $total_penarikan = $total_penarikan + $nominal;
             $kel = $simp['id_detail_nasabah'];
             $kel = explode("/", $kel);
             $kel = $simp['kelompok'];
@@ -143,6 +162,7 @@ if (isset($_GET['del'])) {
         ?>
             <tr>
                 <td><?= $no++ ?>.</td>
+                <td><?= $simp['tgl_penarikan'] ?></td>
                 <td><?= $simp['nama_karyawan'] ?></td>
                 <td><?= $simp['id_detail_nasabah'] ?></td>
                 <td><?= $simp['id_anggota'] ?></td>
@@ -155,7 +175,7 @@ if (isset($_GET['del'])) {
                 <td><?= rupiah($simp['sukarela']) ?></td>
                 <td><?= rupiah($simp['pensiun']) ?></td>
                 <td><?= rupiah($simp['hariraya']) ?></td>
-                <td><?= rupiah($simp['nominal_penarikan']) ?></td>
+                <td><?= rupiah($total_penarikan) ?></td>
                 <td>
                     <a href="<?= $url . $menu ?>list_penarikan&del&id=<?= $simp['id_penarikan'] ?>" class="btn btn-danger"><i class='fa fa-times'></i></a>
                     <a href="<?= $url . $menu ?>list_penarikan&edit&id=<?= $simp['id_penarikan'] ?>" class="btn btn-info"><i class='fa fa-edit'></i></a>
@@ -165,7 +185,7 @@ if (isset($_GET['del'])) {
         }
         ?>
         <tr>
-            <th colspan="7">Total Penarikan</th>
+            <th colspan="8">Total Penarikan</th>
             <td><?= rupiah($total_wajib) ?></td>
             <td><?= rupiah($total_sukarela) ?></td>
             <td><?= rupiah($total_pensiun) ?></td>

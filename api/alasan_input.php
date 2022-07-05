@@ -73,5 +73,8 @@ $ang = mysqli_fetch_array($cek);
 <?php
 }
 else{
+    ?>
+    <a href="javascript:void(0)"  class="btn btn-primary btn-sm"><i class="fa fa-search"></i></a>
+    <?php
     echo "anggota tidak ditemukan";
 }

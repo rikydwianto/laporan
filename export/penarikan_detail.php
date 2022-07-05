@@ -20,10 +20,16 @@ if (isset($_GET['tglawal']) || isset($_GET['tglakhir'])) {
 }
 
 if (isset($_GET['tgl'])) {
-    $qtgl =aman($con, $_GET['tgl']);
+    $qtgl = $_GET['tgl'];
+    $tglakhir = $_GET['tglakhir'];
+    $tglpar = $_GET['tglpar'];
 } else {
     $qtgl = date("Y-m-d");
+    $tglakhir = date("Y-m-d");
+    $tglpar = date("Y-m-d");
 }
+
+
 
 $hari = hari_biasa($qtgl);
 header("Content-type: application/vnd-ms-excel");
@@ -91,14 +97,16 @@ header("Content-Disposition: attachment; filename=penarikansimpanan.xls");
         $tgl = date("Y-m-d");
         $total_penarikan = 0;
         $penarikan = mysqli_query($con, "SELECT * FROM penarikan_simpanan 
-        JOIN (select * from daftar_nasabah union select * from daftar_nasabah_mantan where id_cabang='$id_cabang') as daftar_nasabah ON daftar_nasabah.`id_nasabah`=penarikan_simpanan.`id_anggota` join karyawan on karyawan.id_karyawan=penarikan_simpanan.id_karyawan where penarikan_simpanan.tgl_penarikan='$qtgl' and daftar_nasabah.id_cabang='$id_cabang' and penarikan_simpanan.id_cabang='$id_cabang'
+        JOIN (select * from daftar_nasabah union select * from daftar_nasabah_mantan where id_cabang='$id_cabang') as daftar_nasabah ON daftar_nasabah.`id_nasabah`=penarikan_simpanan.`id_anggota` join karyawan on karyawan.id_karyawan=penarikan_simpanan.id_karyawan where (penarikan_simpanan.tgl_penarikan between '$qtgl' and '$tglakhir') and daftar_nasabah.id_cabang='$id_cabang' and penarikan_simpanan.id_cabang='$id_cabang'
         group by penarikan_simpanan.id_anggota order by karyawan.nama_karyawan asc");
         $total_wajib = 0;
         $total_sukarela = 0;
         $total_pensiun = 0;
         $total_hariraya = 0;
         while ($simp = mysqli_fetch_array($penarikan)) {
-            $total_penarikan = $total_penarikan + $simp['nominal_penarikan'];
+            $nominal = $simp['wajib'] + $simp['sukarela'] + $simp['pensiun'] + $simp['hariraya'];
+            $total_penarikan = $total_penarikan + $nominal;
+
             $kel = $simp['id_detail_nasabah'];
             $kel = explode("/", $kel);
             $kel = $kel[2];
@@ -106,7 +114,7 @@ header("Content-Disposition: attachment; filename=penarikansimpanan.xls");
             $total_sukarela += $simp['sukarela'];
             $total_pensiun += $simp['pensiun'];
             $total_hariraya += $simp['hariraya'];
-            $cek_delin = mysqli_query($con,"select * from deliquency where id_cabang='$id_cabang' and id_detail_nasabah='$simp[id_detail_nasabah]' order by tgl_input desc");
+            $cek_delin = mysqli_query($con,"select * from deliquency where id_cabang='$id_cabang' and id_detail_nasabah='$simp[id_detail_nasabah]' and tgl_input='$tglpar' order by tgl_input desc");
             $delin = mysqli_fetch_array($cek_delin);
         ?>
             <tr>

@@ -99,9 +99,10 @@
                     <tr>
                         <td><?= $i ?></td>
                         <td>
+                            
                         <input type="number" style="width: 120px;" class='form-control' id='id-<?=$i?>' onchange="alasan(<?=$i?>)" name='id[]' />
                     </td>
-                        <td ><p id='alasan-<?=$i?>'></p></td>
+                        <td ><p id='alasan-<?=$i?>'><a href="javascript:void(0)" style='float:right' class="btn btn-primary btn-sm"><i class="fa fa-search"></i></a></p></td>
                         <td>
                             <input type="date" class='form-control' onchange="ganti_total(<?=$i?>)" name='tgl[]' value="<?= date("Y-m-d") ?>" id='tgl' />
                         </td>
@@ -153,7 +154,6 @@
         let id= $("#id-"+nomor).val()
        if(id>0){
            $("#karyawan-"+nomor).attr("required","required");
-
        }
        else{
         $("#karyawan-"+nomor).removeAttr("required","required");
