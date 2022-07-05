@@ -111,7 +111,7 @@ if (isset($_GET['del'])) {
                         $q_tgl = mysqli_query($con,"SELECT DISTINCT tgl_input FROM deliquency where id_cabang='$id_cabang'  order by tgl_input desc");
                         while($tgl_ = mysqli_fetch_array($q_tgl)){
                             ?>
-                            <option value="<?=$tgl_['tgl_input']?>" <?=($_GET['tgl']===$tgl_['tgl_input']?"selected":"")?>><?=format_hari_tanggal($tgl_['tgl_input'])?></option>
+                            <option value="<?=$tgl_['tgl_input']?>" <?=($_GET['tglpar']===$tgl_['tgl_input']?"selected":"")?>><?=format_hari_tanggal($tgl_['tgl_input'])?></option>
                             <?php
                         }
                         ?>
