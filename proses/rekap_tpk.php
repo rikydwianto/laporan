@@ -23,7 +23,7 @@ $title_tpk = "Rekap TPK per Staff ". format_hari_tanggal($tglawal). " - ". forma
         <h2><?=$title_tpk?></h2>
 			<table class='table table-bordered'>
             <?php
-            $qtgl = mysqli_query($con,"SELECT distinct tgl_cair as tgl FROM pinjaman p JOIN tpk t ON p.`id_detail_nasabah`=t.`id_detail_nasabah` where p.id_cabang='$id_cabang' and t.id_cabang='$id_cabang'  and p.tgl_cair>='$tglawal' and p.tgl_cair<='$tglakhir'"); 
+            $qtgl = mysqli_query($con,"SELECT distinct tgl_cair as tgl FROM pinjaman p JOIN tpk t ON p.`id_detail_nasabah`=t.`id_detail_nasabah` where p.id_cabang='$id_cabang' and t.id_cabang='$id_cabang'  and p.tgl_cair>='$tglawal' and p.tgl_cair<='$tglakhir' order by tgl_cair asc"); 
             ?>    
                 <thead>
                     <tr>
@@ -31,8 +31,9 @@ $title_tpk = "Rekap TPK per Staff ". format_hari_tanggal($tglawal). " - ". forma
                         <th>STAFF</th>
                         <?php 
                         while($tgl = mysqli_fetch_array($qtgl)){
+                            $hari =  explode(",",format_hari_tanggal($tgl['tgl']))[0];
                             ?>
-                            <th><?=$tgl['tgl']?></th>
+                            <th style='text-align:center'><?=$tgl['tgl']?><br/><?=$hari?></th>
                             <?php
                         }
                         ?>
@@ -52,7 +53,28 @@ $title_tpk = "Rekap TPK per Staff ". format_hari_tanggal($tglawal). " - ". forma
                             <tr>
                                 <td><?=$no++?></td>
                                 <td><?=$kar['nama_karyawan']?></td>
-                                <td><?=$tpk?></td>
+                                <?php 
+                                 $qtgl1 = mysqli_query($con,"SELECT distinct tgl_cair as tgl FROM pinjaman p JOIN tpk t ON p.`id_detail_nasabah`=t.`id_detail_nasabah` where p.id_cabang='$id_cabang' and t.id_cabang='$id_cabang'  and p.tgl_cair>='$tglawal' and p.tgl_cair<='$tglakhir' order by tgl_cair asc"); 
+                                 while($tgl1 = mysqli_fetch_array($qtgl1)){
+                                     $qhit = mysqli_query($con,"SELECT COUNT(*) as total FROM pinjaman p JOIN tpk t ON p.`id_detail_nasabah`=t.`id_detail_nasabah` where p.id_cabang='$id_cabang' and t.id_cabang='$id_cabang'  and p.tgl_cair='$tgl1[tgl]' and p.id_karyawan='$kar[id_karyawan]'");
+                                    $hit = mysqli_fetch_array($qhit)['total'];
+                                    if($hit<1){
+                                        $background = "#fc4935";
+                                    }
+                                    else $background='';
+                                    ?>
+                                    <td style='text-align:center;background:<?=$background?>'><?=$hit?></td>
+                                    <?php
+                                }
+                                if($tpk>=10){
+                                    $background="#35fc3f";
+                                }
+                                else if($tpk<1){
+                                    $background = "#fc4935";
+                                }
+                                else $background='';
+                                ?>
+                                <td style="text-align: center;background: <?=$background?>;"><?=$tpk?></td>
                             </tr>
                             <?php
                         }
@@ -62,7 +84,17 @@ $title_tpk = "Rekap TPK per Staff ". format_hari_tanggal($tglawal). " - ". forma
                 <tfoot>
                     <tr>
                         <th colspan="2">TOTAL</th>
-                        <th colspan="1"><?=$total_tpk?></th
+                        <?php 
+                                 $qtgl1 = mysqli_query($con,"SELECT distinct tgl_cair as tgl FROM pinjaman p JOIN tpk t ON p.`id_detail_nasabah`=t.`id_detail_nasabah` where p.id_cabang='$id_cabang' and t.id_cabang='$id_cabang'  and p.tgl_cair>='$tglawal' and p.tgl_cair<='$tglakhir' order by tgl_cair asc"); 
+                                while($tgl1 = mysqli_fetch_array($qtgl1)){
+                                    $qhit = mysqli_query($con,"SELECT COUNT(*) as total FROM pinjaman p JOIN tpk t ON p.`id_detail_nasabah`=t.`id_detail_nasabah` where p.id_cabang='$id_cabang' and t.id_cabang='$id_cabang'  and p.tgl_cair='$tgl1[tgl]' ");
+                                    $hit = mysqli_fetch_array($qhit)['total'];
+                                    ?>
+                                    <th style='text-align:center'><?=$hit?></th>
+                                    <?php
+                                }
+                                ?>
+                        <th colspan="1" style="text-align: center;"><?=$total_tpk?></th
                     </tr>
                 </tfoot>
             </table>
