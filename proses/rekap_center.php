@@ -1,5 +1,5 @@
 
-<div class='content '>
+<div class='content table-responsive '>
     <h2 class='page-header'>REKAP PERUBAHAN CENTER  </h2>
     <form>
 			<div>
@@ -31,11 +31,28 @@
                 <?php 
                 echo mysqli_error($con);
                 $TGL = array();
-                while($tgl = mysqli_fetch_array($cari)){
-                    $TGL[]=$tgl['tgl_laporan'];
-                    ?>
-                <th colspan="2" style="text-align: center;"><?=$tgl['tgl_laporan']?></th>
-                    <?php
+                $startDate = new \DateTime($tglawal);
+                $endDate = new \DateTime($tglakhir);
+
+                $interval = \DateInterval::createFromDateString('1 day');
+                $period = new \DatePeriod($startDate, $interval, $endDate);
+
+                // foreach ($period as $date) {
+                // echo $date->format('Y-m-d');
+                // }
+
+                foreach ($period as $date) {
+                    $tgl_senin = $date->format('Y-m-d');
+                    $tgl = $date->format('Y-m-d');
+                    $pecah =strtolower(explode(",",format_hari_tanggal($tgl_senin))[0]);
+                    if($pecah=='senin'){
+                        $tgl_jumat = date("Y-m-d",(strtotime ( '+6 day' , strtotime ( date($tgl)) ) ));
+                        $TGL[]=$tgl;
+                            ?>
+                        <th colspan="2" style="text-align: center;"><?=format_hari_tanggal($tgl)?> s.d<br> <?=format_hari_tanggal($tgl_jumat)?></th>
+                            <?php
+
+                    }
                 }
                 ?>
 
@@ -70,10 +87,12 @@
             <td><?=$center['jam_center']?></td>
             <?php 
             foreach($TGL as $tgl){
+                $tgl_jumat = date("Y-m-d",(strtotime ( '+7 day' , strtotime ( date($tgl)) ) ));
+                // echo $tgl_jumat;
                 $qh = mysqli_query($con,"SELECT * FROM detail_laporan d 
                 JOIN laporan l ON d.id_laporan=l.id_laporan 
                 JOIN karyawan k ON k.`id_karyawan`=l.`id_karyawan` 
-                WHERE k.id_cabang='$id_cabang' and l.tgl_laporan='$tgl' and d.no_center='$center[no_center]'");
+                WHERE k.id_cabang='$id_cabang' and (l.tgl_laporan between '$tgl' and '$tgl_jumat') and d.no_center='$center[no_center]' and l.status_laporan='sukses'");
                 $detail = mysqli_fetch_array($qh);
                 
                 @$warna =($detail['status']==="null"?"merah":$detail['status']);
@@ -91,9 +110,15 @@
                 }
                 $total_anggota = $detail['total_agt'];
                 $total_bayar = $detail['total_bayar'];
-                $persen_bayar = round(($total_bayar/$total_anggota)*100);
+                if($total_bayar>0){
+                    $persen_bayar = round(($total_bayar/$total_anggota)*100);
+                }
+                else $persen_bayar=0;
                 $hadir = $detail['anggota_hadir'];
-                $persen_hadir = round(($hadir/$total_anggota)*100);
+                if($hadir>0){
+                    $persen_hadir = round(($hadir/$total_anggota)*100);
+                }
+                else $persen_hadir=0;
                 ?>
                 <td style="text-align: center;background-color: <?=$bg?>;"><?=$persen_bayar?>%</td>
                 <td style="text-align: center;background-color: <?=$bg?>;"><?=$persen_hadir?>%</td>
