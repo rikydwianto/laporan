@@ -119,7 +119,7 @@ header("Content-Disposition: attachment; filename=penarikansimpanan.xls");
                 <td><?= rupiah($simp['sukarela']) ?></td>
                 <td><?= rupiah($simp['pensiun']) ?></td>
                 <td><?= rupiah($simp['hariraya']) ?></td>
-                <td><?= rupiah($simp['nominal_penarikan']) ?></td>
+                <td><?= rupiah($nominal) ?></td>
             </tr>
         <?php
         }

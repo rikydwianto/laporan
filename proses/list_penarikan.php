@@ -175,7 +175,7 @@ if (isset($_GET['del'])) {
                 <td><?= rupiah($simp['sukarela']) ?></td>
                 <td><?= rupiah($simp['pensiun']) ?></td>
                 <td><?= rupiah($simp['hariraya']) ?></td>
-                <td><?= rupiah($total_penarikan) ?></td>
+                <td><?= rupiah($nominal) ?></td>
                 <td>
                     <a href="<?= $url . $menu ?>list_penarikan&del&id=<?= $simp['id_penarikan'] ?>" class="btn btn-danger"><i class='fa fa-times'></i></a>
                     <a href="<?= $url . $menu ?>list_penarikan&edit&id=<?= $simp['id_penarikan'] ?>" class="btn btn-info"><i class='fa fa-edit'></i></a>
