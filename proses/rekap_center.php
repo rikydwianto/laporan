@@ -106,7 +106,7 @@
                     $bg='#f4f72d';
                 }
                 else {
-                    $bg='';
+                    $bg='#f7332d';
                 }
                 $total_anggota = $detail['total_agt'];
                 $total_bayar = $detail['total_bayar'];
