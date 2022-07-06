@@ -344,8 +344,8 @@ if (isset($_POST['simpan_detail'])) {
 					$status = warna_center($kehadiran);
 
 			}
-			else if ($persen >= 0 && $persen < 50){
-				if($kehadiran>=0 && $persen < 50)
+			else if ($persen > 0 && $persen < 50){
+				if($kehadiran>0 && $persen < 50)
 					$status = "merah";
 				else
 					$status = warna_center($kehadiran);
