@@ -141,7 +141,10 @@ if (isset($_GET['del'])) {
         $tgl = date("Y-m-d");
         $total_penarikan = 0;
         $penarikan = mysqli_query($con, "SELECT * FROM penarikan_simpanan 
-         JOIN (select * from daftar_nasabah union select * from daftar_nasabah_mantan where id_cabang='$id_cabang') as daftar_nasabah ON daftar_nasabah.`id_nasabah`=penarikan_simpanan.`id_anggota` join karyawan on karyawan.id_karyawan=penarikan_simpanan.id_karyawan where (penarikan_simpanan.tgl_penarikan between '$qtgl' and '$tglakhir') and daftar_nasabah.id_cabang='$id_cabang' and penarikan_simpanan.id_cabang='$id_cabang' order by karyawan.nama_karyawan asc");
+         JOIN (select * from daftar_nasabah union select * from daftar_nasabah_mantan where id_cabang='$id_cabang' group by id_detail_nasabah) as daftar_nasabah ON daftar_nasabah.`id_nasabah`=penarikan_simpanan.`id_anggota` 
+         join karyawan on karyawan.id_karyawan=penarikan_simpanan.id_karyawan 
+         where (penarikan_simpanan.tgl_penarikan between '$qtgl' and '$tglakhir') 
+         and daftar_nasabah.id_cabang='$id_cabang' and penarikan_simpanan.id_cabang='$id_cabang' order by karyawan.nama_karyawan asc");
 
          echo mysqli_error($con);
         $total_wajib = 0;
