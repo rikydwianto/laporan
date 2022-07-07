@@ -77,6 +77,8 @@
             <?php
 
     $q_center = mysqli_query($con,"SELECT * FROM center c JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` where c.id_cabang='$id_cabang' order by no_center asc");
+    
+    
     while($center = mysqli_fetch_array($q_center)){
         ?>
         <tr>
@@ -94,20 +96,28 @@
                 JOIN karyawan k ON k.`id_karyawan`=l.`id_karyawan` 
                 WHERE k.id_cabang='$id_cabang' and (l.tgl_laporan between '$tgl' and '$tgl_jumat') and d.no_center='$center[no_center]' and l.status_laporan='sukses'");
                 $detail = mysqli_fetch_array($qh);
-                
+                $qck = mysqli_query($con,"SELECT id from center_kosong where id_cabang='$id_cabang' and no_center='$center[no_center]' and (tgl_transaksi between '$tgl' and '$tgl_jumat')");
                 @$warna =($detail['status']==="null"?"merah":$detail['status']);
-                if($warna=='merah'){
-                    $bg = "#f7332d";
-                }
-                else if($warna=='hijau'){
-                    $bg='#87f58c';
-                }
-                else if($warna=='kuning'){
-                    $bg='#f4f72d';
-                }
+                if(mysqli_num_rows($qck)) $bg='#968e8d';
                 else {
-                    $bg='#f7332d';
+
+                        if(mysqli_num_rows($qh)){
+                            
+                            if($warna=='merah'){
+                                $bg = "#f7332d";
+                        }
+                        else if($warna=='hijau'){
+                            $bg='#87f58c';
+                        }
+                        else if($warna=='kuning'){
+                            $bg='#f4f72d';
+                        }
+                        else {
+                            $bg='#f7332d';
+                        }
+                    }
                 }
+                
                 $total_anggota = $detail['total_agt'];
                 $total_bayar = $detail['total_bayar'];
                 if($total_bayar>0){
@@ -127,6 +137,7 @@
             ?>
         </tr>
         <?php
+        $warna='';
     }
     ?>
         </table>
