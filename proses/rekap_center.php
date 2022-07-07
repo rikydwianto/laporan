@@ -1,4 +1,7 @@
 
+<?php 
+$nama_hari = ['senin','selasa','rabu','kamis','jumat'];
+?>
 <div class='content table-responsive '>
     <h2 class='page-header'>REKAP PERUBAHAN CENTER  </h2>
     <form>
@@ -6,6 +9,41 @@
 				
 					
 				<input type="hidden" name='menu' value='rekap_center'/>
+                <select name="staff"  class='btn' id="">
+                    <option value="">Pilih Staff</option>
+                    <?php 
+                    $k = mysqli_query($con,"select * from karyawan where id_cabang='$id_cabang' and status_karyawan ='aktif' and id_jabatan=1 order by nama_karyawan asc");
+                    while($staff = mysqli_fetch_array($k)){
+                        if($staff['id_karyawan'] == $_GET['staff']){
+                            echo "<option selected value='$staff[id_karyawan]'>$staff[nama_karyawan]</option>";
+
+                        }
+                        else
+                        {
+                            echo "<option value='$staff[id_karyawan]'>$staff[nama_karyawan]</option>";
+
+                        }
+                    }
+                    ?>
+                </select>
+                <select name="hari" class='btn' id="">
+                    <option value="">Pilih Hari</option>
+                    <?php 
+                    foreach($nama_hari as $hari){
+                        if($hari == $_GET['hari']){
+                            ?>
+                        <option selected value="<?=$hari?>"><?=strtoupper($hari)?></option>
+                            <?php
+                        }
+                        else{
+
+                            ?>
+                    <option value="<?=$hari?>"><?=strtoupper($hari)?></option>
+                    <?php
+                        }
+                    }
+                    ?>
+                </select>
 				<input type="date" name='tglawal' value="<?=(isset($_GET['tglawal']) ?  $_GET['tglawal'] : date("Y-m-d",(strtotime ( '-1 day' , strtotime ( date("Y-m-d")) ) )) )?>" class=""/>
 				<input type="date" name='tglakhir' value="<?=(isset($_GET['tglakhir']) ?  $_GET['tglakhir'] : date("Y-m-d"))?>" class=""/>
 				<input type='submit' class="btn btn-info" name='cari' value='FILTER'/>
@@ -76,7 +114,18 @@
             </tr>
             <?php
 
-    $q_center = mysqli_query($con,"SELECT * FROM center c JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` where c.id_cabang='$id_cabang' order by no_center asc");
+$qhari="";
+$qstaff="";
+    if(!empty($_GET['hari']) ){
+        $hari = aman($con,$_GET['hari']);
+        $qhari = "and c.hari='$hari'";
+    }
+
+    if( !empty($_GET['staff']) ){
+        $staff = aman($con,$_GET['staff']);
+        $qstaff = "and k.id_karyawan='$staff'";
+    }
+    $q_center = mysqli_query($con,"SELECT * FROM center c JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` where c.id_cabang='$id_cabang' $qhari $qstaff order by no_center asc");
     
     
     while($center = mysqli_fetch_array($q_center)){
@@ -88,6 +137,7 @@
             <td><?=strtoupper($center['hari'])?></td>
             <td><?=$center['jam_center']?></td>
             <?php 
+            $bg='';
             foreach($TGL as $tgl){
                 $tgl_jumat = date("Y-m-d",(strtotime ( '+7 day' , strtotime ( date($tgl)) ) ));
                 // echo $tgl_jumat;
@@ -97,6 +147,20 @@
                 WHERE k.id_cabang='$id_cabang' and (l.tgl_laporan between '$tgl' and '$tgl_jumat') and d.no_center='$center[no_center]' and l.status_laporan='sukses'");
                 $detail = mysqli_fetch_array($qh);
                 $qck = mysqli_query($con,"SELECT id from center_kosong where id_cabang='$id_cabang' and no_center='$center[no_center]' and (tgl_transaksi between '$tgl' and '$tgl_jumat')");
+               
+                $total_anggota = $detail['total_agt'];
+                $total_bayar = $detail['total_bayar'];
+                if($total_bayar>0){
+                    $persen_bayar = round(($total_bayar/$total_anggota)*100);
+                }
+                else $persen_bayar=0;
+                $hadir = $detail['anggota_hadir'];
+                if($hadir>0){
+                    $persen_hadir = round(($hadir/$total_anggota)*100);
+                }
+                else $persen_hadir=0;
+
+                
                 @$warna =($detail['status']==="null"?"merah":$detail['status']);
                 if(mysqli_num_rows($qck)) $bg='#968e8d';
                 else {
@@ -116,19 +180,11 @@
                             $bg='#f7332d';
                         }
                     }
+                    else $bg='';
                 }
                 
-                $total_anggota = $detail['total_agt'];
-                $total_bayar = $detail['total_bayar'];
-                if($total_bayar>0){
-                    $persen_bayar = round(($total_bayar/$total_anggota)*100);
-                }
-                else $persen_bayar=0;
-                $hadir = $detail['anggota_hadir'];
-                if($hadir>0){
-                    $persen_hadir = round(($hadir/$total_anggota)*100);
-                }
-                else $persen_hadir=0;
+                
+                
                 ?>
                 <td style="text-align: center;background-color: <?=$bg?>;"><?=$persen_bayar?>%</td>
                 <td style="text-align: center;background-color: <?=$bg?>;"><?=$persen_hadir?>%</td>
