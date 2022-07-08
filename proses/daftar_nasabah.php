@@ -3,6 +3,7 @@
     <i>DAFTAR NASABAH </i>
     <hr />
     <a href="<?= $url . $menu ?>daftar_nasabah&duplikat" class="btn btn-danger"> Nasabah Duplikat</a>
+    <a href="<?= $url . $menu ?>daftar_nasabah&duplikat_semua" class="btn btn-primary"> Nasabah Duplikat SEMUA</a>
     <a href="<?= $url . $menu ?>daftar_nasabah&sinkron" class="btn btn-success"> Synchron</a>
     <a href="<?= $url . $menu ?>cek_nik" class="btn btn-info"> CEK NIK KTP</a>
     <br/>
@@ -169,6 +170,7 @@
             <thead>
                 <tr>
                     <th>NO</th>
+                    <th>CABANG</th>
                     <th>ID</th>
                     <th>KEL</th>
                     <th>CENTER</th>
@@ -187,9 +189,13 @@
                  GROUP BY  no_ktp HAVING count(*) > 1) and id_cabang='$id_cabang' order by no_ktp,nama_nasabah asc
                 ");
                 while ($dup = mysqli_fetch_array($query)) {
+
+                    $cabang = mysqli_query($con,"select  * from cabang where id_cabang='$dup[id_cabang]'");
+                    $cabang = mysqli_fetch_array($cabang)['nama_cabang'];
                 ?>
                     <tr>
                         <td><?=$no++?></td>
+                        <td><?=$cabang?></td>
                         <td><?=$dup['id_nasabah']?></td>
                         <td><?=$dup['kelompok']?></td>
                         <td><?=$dup['no_center']?></td>
@@ -211,6 +217,59 @@
         </table>
     <?php
     }
+    elseif (isset($_GET['duplikat_semua'])) {
+        ?>
+            <table class='table'>
+                <thead>
+                    <tr>
+                        <th>NO</th>
+                        <th>CABANG</th>
+                        <th>ID</th>
+                        <th>KEL</th>
+                        <th>CENTER</th>
+                        <th>NAMA</th>
+                        <th>SUAMI</th>
+                        <th>KTP</th>
+                        <th>TGL BERGABUNG</th>
+                        <th>HARI</th>
+                        <th>ALAMAT</th>
+                        <th>STAFF</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $query = mysqli_query($con, "SELECT * from daftar_nasabah where no_ktp in (SELECT daftar_nasabah.no_ktp FROM `daftar_nasabah` 
+                     GROUP BY  no_ktp HAVING count(*) > 1)  order by no_ktp,nama_nasabah asc
+                    ");
+                    while ($dup = mysqli_fetch_array($query)) {
+    
+                        $cabang = mysqli_query($con,"select  * from cabang where id_cabang='$dup[id_cabang]'");
+                        $cabang = mysqli_fetch_array($cabang)['nama_cabang'];
+                    ?>
+                        <tr>
+                            <td><?=$no++?></td>
+                            <td><?=$cabang?></td>
+                            <td><?=$dup['id_nasabah']?></td>
+                            <td><?=$dup['kelompok']?></td>
+                            <td><?=$dup['no_center']?></td>
+                            <td><?=$dup['nama_nasabah']?></td>
+                            <td><?=$dup['suami_nasabah']?></td>
+                            <td><?=$dup['no_ktp']?></tdd>
+                            <td><?=$dup['tgl_bergabung']?></td>
+                            <td><?=$dup['hari']?></td>
+                            <td><?=$dup['alamat_nasabah']?></td>
+                            <td><?=$dup['staff']?></td>
+                        </tr>
+                    <?php
+    
+                    }
+                    ?>
+    
+    
+                </tbody>
+            </table>
+        <?php
+        }
     elseif(isset($_GET['sinkron'])){
 
 
