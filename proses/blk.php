@@ -16,7 +16,7 @@ $objek = $reader->load($path);
 $ws = $objek->getActiveSheet();
 $last_row = $ws->getHighestDataRow();
 require './vendor/autoload.php';
-$tgl_input = $_GET['tgl'];
+$tgl_input = $_POST['tgl'];
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
