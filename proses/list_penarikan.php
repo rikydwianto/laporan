@@ -98,6 +98,9 @@ if (isset($_GET['del'])) {
     <a href="<?= $url . "export/penarikan_detail.php?" ?>tgl=<?= $qtgl ?>&tglakhir=<?= $tglakhir ?>&tglpar=<?= $tglpar ?>" class='btn btn-success'>
         <i class="fa fa-file-excel-o"></i> EXPORT
     </a>
+    <a href="<?= $url . "export/penarikan_detail2.php?" ?>tgl=<?= $qtgl ?>&tglakhir=<?= $tglakhir ?>&tglpar=<?= $tglpar ?>" class='btn btn-success'>
+        <i class="fa fa-file-excel-o"></i> EXPORT V2
+    </a>
     <br>
     <form method='get' action='<?php echo $url . $menu ?>list_penarikan'>
         <input type=hidden name='menu' value='list_penarikan' />

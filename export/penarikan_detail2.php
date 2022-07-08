@@ -84,8 +84,13 @@ $hari = hari_biasa($qtgl);
             <th>Tunggakan <br> "Week Pass Due"</th>
             <th>CIcilan Perminggu</th>
             <th>Cicilan melalui simpanan</th>
-            <th>Penarikan simpanan Wajib</th>
-            <th>Saldo Simpanan Wajib</th>
+            <th>WAJIB</th>
+            <th>PENSIUN</th>
+            <th>SUKARELA</th>
+            <th>HARI RAYA</th>
+            <th>LAINNYA</th>
+            <th>TOTAL PENARIKAN</th>
+            <th>Saldo Simpanan (ALL)</th>
             <th>Sisa Simpanan</th>
             <th>Sisa OS Par</th>
             <th>Alasan Penarikan</th>
@@ -116,6 +121,9 @@ $hari = hari_biasa($qtgl);
             $total_hariraya += $simp['hariraya'];
             $cek_delin = mysqli_query($con,"select * from deliquency where id_cabang='$id_cabang' and id_detail_nasabah='$simp[id_detail_nasabah]' and tgl_input='$tglpar' order by tgl_input desc");
             $delin = mysqli_fetch_array($cek_delin);
+
+        $simpanan_delin =     $delin['wajib']+$delin['pensiun']+$delin['hariraya']+$delin['sukarela'];
+        $total_simp =     $simp['wajib']+$simp['pensiun']+$simp['hariraya']+$simp['sukarela'];
         ?>
             <tr>
                 <td><?= $no++ ?></td>
@@ -132,8 +140,13 @@ $hari = hari_biasa($qtgl);
                 <td><?=angka($simp['cicilan'])?></td>
                 <td><?=$simp['angsuran_masuk']?></td>
                 <td><?= angka($simp['wajib']) ?></td>
-                <td><?=angka($delin['wajib'])?></td>
-                <td><?=angka($delin['wajib'] - $simp['wajib'])?></td>
+                <td><?= angka($simp['pensiun']) ?></td>
+                <td><?= angka($simp['sukarela']) ?></td>
+                <td><?= angka($simp['hariraya']) ?></td>
+                <td>0</td>
+                <td><?=angka($total_simp)?></td>
+                <td><?=angka($simpanan_delin)?></td>
+                <td><?=angka($simpanan_delin - $total_simp)?></td>
                 <td style="background-color: red;">Sisa OS Par</td>
                 <td><?=$simp['alasan']?></td>
                 <td><?=format_hari_tanggal($simp['tgl_penarikan'])?></td>
