@@ -7,6 +7,7 @@
         $nominal = clean_angka($_POST['nominal']);
         $wajib = clean_angka($_POST['wajib']);
         $alasan = ($_POST['alasan']);
+        $pemb = ($_POST['pemb']);
         $masuk = ($_POST['masuk']);
         $angsuran = ($_POST['angsuran']);
         $sukarela = clean_angka($_POST['sukarela']);
@@ -20,7 +21,7 @@
                 }
                 else $id_karyawan = $id_karyawan;
                 $id_zero = sprintf("%00d",$id[$a]);
-                $query = mysqli_query($con, "INSERT INTO `penarikan_simpanan` (`id_anggota`, `tgl_penarikan`, `nominal_penarikan`,`wajib`,`sukarela`,`pensiun`,`hariraya`,`alasan`,`angsuran_masuk`, `cicilan`,`id_karyawan`,`id_cabang`) VALUES ('$id_zero', '$tgl[$a]', '$nominal[$a]','$wajib[$a]','$sukarela[$a]','$pensiun[$a]','$hariraya[$a]','$alasan[$a]','$masuk[$a]','$angsuran[$a]', '$id_karyawan','$id_cabang'); ");
+                $query = mysqli_query($con, "INSERT INTO `penarikan_simpanan` (`id_anggota`, `tgl_penarikan`, `nominal_penarikan`,`wajib`,`sukarela`,`pensiun`,`hariraya`,`alasan`,`angsuran_masuk`, `cicilan`,`id_karyawan`,`id_cabang`,`kode_pemb`) VALUES ('$id_zero', '$tgl[$a]', '$nominal[$a]','$wajib[$a]','$sukarela[$a]','$pensiun[$a]','$hariraya[$a]','$alasan[$a]','$masuk[$a]','$angsuran[$a]', '$id_karyawan','$id_cabang','$pemb[$a]'); ");
                 if ($query) {
                     alert("Berhasil disimpan");
                     pindah($url . $menu . "penarikan_simpanan");
@@ -102,7 +103,10 @@
                             
                         <input type="number" style="width: 120px;" class='form-control' id='id-<?=$i?>' onchange="alasan(<?=$i?>)" name='id[]' />
                     </td>
-                        <td ><p id='alasan-<?=$i?>'><a href="javascript:void(0)" style='float:right' class="btn btn-primary btn-sm"><i class="fa fa-search"></i></a></p></td>
+                        <td >
+                            <p id='alasan-<?=$i?>'><a href="javascript:void(0)" style='float:right' class="btn btn-primary btn-sm"><i class="fa fa-search"></i></a></p>
+                            <p id='alasan1-<?=$i?>'></p>
+                        </td>
                         <td>
                             <input type="date" class='form-control' onchange="ganti_total(<?=$i?>)" name='tgl[]' value="<?= date("Y-m-d") ?>" id='tgl' />
                         </td>
@@ -148,9 +152,9 @@
         $("#nominal-"+nomor).val(total);
         $("#total-"+nomor).html("Total:"+total);
     }
-    let url="<?=$url?>/api/alasan_input.php";
+    let url="<?=$url?>/api/";
     let cab="<?=$id_cabang?>";
-    function alasan(nomor){
+    function alasan(nomor,pemb=""){
         let id= $("#id-"+nomor).val()
        if(id>0){
            $("#karyawan-"+nomor).attr("required","required");
@@ -160,8 +164,31 @@
        }
         
         // alert(id)
-        $.get(url+'?cab='+cab+"&urut="+nomor+"&id="+id,function(data){
-            $("#alasan-"+nomor).html(data)
+        $.get(url+'cek_pembiayaan.php?cab='+cab+"&urut="+nomor+"&id="+id,function(data){
+            // alert(data.trim());
+            if(data.trim()==2){
+                // alert("ada dua pembiayaan");
+                $.get(url+'cek_pembiayaan.php?CEKPEM&cab='+cab+"&urut="+nomor+"&id="+id,function(data){
+                    $("#alasan-"+nomor).html(data)
+
+                });
+            }
+            else{
+                $.get(url+'alasan_input.php?cab='+cab+"&urut="+nomor+"&id="+id,function(data){
+                    $("#alasan-"+nomor).html(data)
+                    
+                });
+
+            }
         });
+    }
+    function ganti_pem(nomor){
+        let isi = $("#pemb-"+nomor).val();
+        let id= $("#id-"+nomor).val()
+        $.get(url+'alasan_input.php?pemb='+isi+'&cab='+cab+"&urut="+nomor+"&id="+id,function(data){
+            $("#alasan-"+nomor).html(data)
+            
+        });
+
     }
 </script>
