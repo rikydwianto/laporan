@@ -72,7 +72,7 @@ $ang = mysqli_fetch_array($cek);
         <th>ANGSURAN MASUK <?=$pem?></th>
         <td>
             <input type="number" required class='form-control' value='0' min="1" max="100" name='masuk[]' id='masuk-<?=$i?>' style="width: 100px;" pattern="\d+"/>
-            <input type="text" required class='form-control' value='<?=$pem?>'name='pemb[]'  style="width: 100px;"/>
+            <input type="hidden" required class='form-control' value='<?=$pem?>'name='pemb[]'  style="width: 100px;"/>
 
         </td>
         <th>ALASAN</th>
