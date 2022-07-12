@@ -256,6 +256,7 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 		<li>
 			<a href="<?php echo $url . $menu ?>detail_center" class="w3-bar-item w3-button"><i class="fa fa-font-awesome"></i> Data Wilayah</a>
 		</li>
+		<li><a href="<?php echo $url . $menu ?>rekap_center" class="w3-bar-item w3-button"><i class="fa fa-build"></i> REKAP CENTER BAYAR</a></li>
 		<li>
 			<a href="<?php echo $url ?>lokasi.php" class="w3-bar-item w3-button"><i class="fa fa-globe"></i> LOKASI</a>
 		</li>
@@ -476,6 +477,7 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 		</li>
 		<li><a href="<?php echo $url . $menu ?>anggota" class="w3-bar-item w3-button"><i class="fa fa-users"></i> ANGGOTA</a></li>
 		<li><a href="<?php echo $url . $menu ?>rekap_center" class="w3-bar-item w3-button"><i class="fa fa-build"></i> REKAP CENTER BAYAR</a></li>
+		<li><a href="<?php echo $url . $menu ?>rekap_tabungan" class="w3-bar-item w3-button"><i class="fa fa-build"></i> REKAP TABUNGAN</a></li>
 		<li><a href="<?php echo $url . $menu ?>daftar_backup" class="w3-bar-item w3-button"><i class="fa fa-users"></i> DAFTAR ANGGOTA BACKUP</a></li>
 		<li><a href="<?php echo $url ?>lokasi.php" class="w3-bar-item w3-button"><i class="fa fa-globes"></i> LOKASI</a></li>
 		
@@ -576,6 +578,7 @@ else if (($_SESSION['id']) && $jabatan == 'BC') {
 			</ul>
 
 		</li>
+		<li><a href="<?php echo $url . $menu ?>rekap_center" class="w3-bar-item w3-button"><i class="fa fa-build"></i> REKAP CENTER BAYAR</a></li>
 		<li>
 			<a href="<?php echo $url . $menu ?>quotes" class="w3-bar-item w3-button"><i class="fa fa-folder"></i> Quotes</a>
 		</li>

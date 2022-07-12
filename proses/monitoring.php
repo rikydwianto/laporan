@@ -140,7 +140,7 @@
             </tr>
             <?php
             $total_monitoring = 0;
-            $cek_ka = mysqli_query($con, "SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_cabang='$cabang' and jabatan.singkatan_jabatan='SL' and karyawan.status_karyawan='aktif' order by karyawan.nama_karyawan asc");
+            $cek_ka = mysqli_query($con, "SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_cabang='$id_cabang' and jabatan.singkatan_jabatan='SL' and karyawan.status_karyawan='aktif' order by karyawan.nama_karyawan asc");
             while ($karyawan = mysqli_fetch_array($cek_ka)) {
             ?>
                 <tr>
@@ -268,7 +268,7 @@
                     }
 
 
-                    $q = mysqli_query($con, "select staff from pinjaman where id_karyawan is  null group by staff order by staff asc ");
+                    $q = mysqli_query($con, "select staff from pinjaman where id_karyawan is  null and id_cabang='$id_cabang' group by staff order by staff asc ");
                     while ($pinj = mysqli_fetch_array($q)) {
                     ?>
                         <tr>

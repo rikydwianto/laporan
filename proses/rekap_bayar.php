@@ -73,7 +73,7 @@
 			COUNT(*) as total
 				 FROM pinjaman WHERE monitoring='belum' and id_cabang='$id_cabang' and input_mtr='sudah' GROUP BY id_cabang ");
 			$mon = mysqli_fetch_array($qpin);
-			$total_monitoring = $mon['total'];
+			$total_monitoring = $mon['total'] - $mon['tiga_hari'];
 			$par = mysqli_query($con,"SELECT  tgl_input,count(*) as hitung, sum(sisa_saldo) as total_par FROM deliquency where id_cabang='$id_cabang' and tgl_input='$tglakhir' group by tgl_input order by tgl_input desc");
 			$par = mysqli_fetch_array($par);
 
@@ -186,7 +186,7 @@
 							<tr>
 								<td><b>TOTAL MONITORING</b></td>
 								<td><b><?=$total_monitoring?></b></td>
-								<td></td>
+								<td>H-3</td>
 							</tr>
 							
 							<tr>
