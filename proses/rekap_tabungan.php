@@ -72,12 +72,12 @@ else{
                     // if(!$tgl_next){
                         // }
                 // ?>
-                <td><?=hitung_tabungan($con,$id_cabang,$delin['id_detail_nasabah'],$tgl,$tgl_next,"sukarela")?></td>
+                <td><?=angka(hitung_tabungan($con,$id_cabang,$delin['id_detail_nasabah'],$tgl,$tgl_next,"sukarela"))?></td>
                 <?php
                 }
                 else{
                     ?>
-                    <td><?=hitung_tabungan($con,$id_cabang,$delin['id_detail_nasabah'],$tgl,$tgl_next,"sukarela")?></td>
+                    <td><?=angka(hitung_sekarang($con,$id_cabang,$delin['id_detail_nasabah'],$tgl,"sukarela"))?></td>
 
                     <?php
                 }

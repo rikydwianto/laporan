@@ -412,3 +412,11 @@ function hitung_tabungan($con,$id_cabang,$id_anggota,$tgl,$tgl_next,$tipe="sukar
   return $r2-$r;
 
 }
+
+function hitung_sekarang($con,$id_cabang,$id_anggota,$tgl,$tipe="sukarela"){
+  $q1 = mysqli_query($con,"SELECT * from deliquency where id_cabang='$id_cabang' and tgl_input='$tgl' and id_detail_nasabah='$id_anggota'");
+  $r = mysqli_fetch_array($q1)[$tipe];
+  
+  return $r;
+
+}
