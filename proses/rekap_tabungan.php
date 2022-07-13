@@ -65,7 +65,7 @@ $nama_hari = ['senin','selasa','rabu','kamis','jumat'];
             </form>
     <hr>
     <div class="col-md-12">
-        <h2 style='text-align:center'>REKAP TABUNGA DARI DELINSAVING<br> 
+        <h2 style='text-align:center'>REKAP TABUNGAN DARI DELINSAVING<br> 
         <?=format_hari_tanggal($tglawal)?> s/d <?=format_hari_tanggal($tglakhir)?>
         </h2>
     <?php 

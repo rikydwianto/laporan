@@ -153,8 +153,8 @@ header("Content-Disposition: attachment; filename=penarikansimpanan.xls");
                 <td><?= angka($simp['hariraya']) ?></td>
                 <td>0</td>
                 <td><?=angka($total_simp)?></td>
-                <td><?=angka($simpanan_delin)?></td>
-                <td><?=angka($simpanan_delin - $total_simp)?></td>
+                <td><?=angka($total_simp + $simp['sisa_semua'])?></td>
+                <td><?=angka($simp['sisa_semua'])?></td>
                 <td style="background-color: red;">Sisa OS Par</td>
                 <td><?=$simp['alasan']?></td>
                 <td><?=format_hari_tanggal($simp['tgl_penarikan'])?></td>

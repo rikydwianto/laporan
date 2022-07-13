@@ -13,6 +13,13 @@
         $sukarela = clean_angka($_POST['sukarela']);
         $pensiun = clean_angka($_POST['pensiun']);
         $hariraya = clean_angka($_POST['hariraya']);
+        
+        $sisa_hariraya = clean_angka($_POST['sisa_hariraya']);
+        $sisa_sukarela = clean_angka($_POST['sisa_sukarela']);
+        $sisa_wajib = clean_angka($_POST['sisa_wajib']);
+        $sisa_pensiun = clean_angka($_POST['sisa_pensiun']);
+
+        $sisa_semua = clean_angka($_POST['sisa']);
         $tgl = $_POST['tgl'];
         for ($a = 0; $a < count($id); $a++) {
             if (($id[$a] != "") && ($nominal[$a] != null)) {
@@ -20,8 +27,15 @@
                     $id_karyawan = $_POST['staff'][$a];
                 }
                 else $id_karyawan = $id_karyawan;
+
                 $id_zero = sprintf("%00d",$id[$a]);
-                $query = mysqli_query($con, "INSERT INTO `penarikan_simpanan` (`id_anggota`, `tgl_penarikan`, `nominal_penarikan`,`wajib`,`sukarela`,`pensiun`,`hariraya`,`alasan`,`angsuran_masuk`, `cicilan`,`id_karyawan`,`id_cabang`,`kode_pemb`) VALUES ('$id_zero', '$tgl[$a]', '$nominal[$a]','$wajib[$a]','$sukarela[$a]','$pensiun[$a]','$hariraya[$a]','$alasan[$a]','$masuk[$a]','$angsuran[$a]', '$id_karyawan','$id_cabang','$pemb[$a]'); ");
+                $S_sukarela  = $sisa_sukarela[$a] - $sukarela[$a];
+                $S_pensiun  = $sisa_pensiun[$a] - $pensiun[$a];
+                $S_wajib  = $sisa_wajib[$a] - $wajib[$a];
+                $S_hariraya  = $sisa_hariraya[$a] - $hariraya[$a];
+                $query = mysqli_query($con, "INSERT INTO `penarikan_simpanan` 
+                (`id_anggota`, `tgl_penarikan`, `nominal_penarikan`,`wajib`,`sukarela`,`pensiun`,`hariraya`,`alasan`,`angsuran_masuk`, `cicilan`,`id_karyawan`,`id_cabang`,`kode_pemb`,`sisa_semua`,`sisa_wajib`,`sisa_sukarela`,`sisa_pensiun`,`sisa_hariraya`) VALUES 
+                ('$id_zero', '$tgl[$a]', '$nominal[$a]','$wajib[$a]','$sukarela[$a]','$pensiun[$a]','$hariraya[$a]','$alasan[$a]','$masuk[$a]','$angsuran[$a]', '$id_karyawan','$id_cabang','$pemb[$a]','$sisa_semua[$a]','$S_wajib','$S_sukarela','$S_pensiun','$S_hariraya'); ");
                 if ($query) {
                     alert("Berhasil disimpan");
                     pindah($url . $menu . "penarikan_simpanan");
@@ -108,7 +122,7 @@
                             <p id='alasan1-<?=$i?>'></p>
                         </td>
                         <td>
-                            <input type="date" class='form-control' onchange="ganti_total(<?=$i?>)" name='tgl[]' value="<?= date("Y-m-d") ?>" id='tgl' />
+                            <input type="date" class='form-control' id='tgl-<?=$i?>' onchange="ganti_total(<?=$i?>)" name='tgl[]' value="<?= date("Y-m-d") ?>" id='tgl' />
                         </td>
                         <?php 
                         if($jabatan !='SL'){
@@ -149,13 +163,20 @@
         let pensiun =parseInt($("#pensiun-"+nomor).val())
         let hariraya =parseInt($("#hariraya-"+nomor).val())
         let total = wajib + sukarela + pensiun + hariraya
+        
+        let saldo = $("#saldo-"+nomor).val();
+        let semua = parseInt($("#semua-"+nomor).val())
+        let total_simpanan = semua - total;
         $("#nominal-"+nomor).val(total);
         $("#total-"+nomor).html("Total:"+total);
+        $("#total1-"+nomor).html(total_simpanan.toLocaleString('en-US')+"<br>"+semua.toLocaleString('en-US'));
+        $("#saldo-"+nomor).val(total_simpanan);
     }
     let url="<?=$url?>/api/";
     let cab="<?=$id_cabang?>";
     function alasan(nomor,pemb=""){
         let id= $("#id-"+nomor).val()
+        let tgl= $("#tgl-"+nomor).val()
        if(id>0){
            $("#karyawan-"+nomor).attr("required","required");
        }
@@ -174,7 +195,7 @@
                 });
             }
             else{
-                $.get(url+'alasan_input.php?cab='+cab+"&urut="+nomor+"&id="+id,function(data){
+                $.get(url+'alasan_input.php?cab='+cab+"&urut="+nomor+"&id="+id+"&tgl="+tgl,function(data){
                     $("#alasan-"+nomor).html(data)
                     
                 });
@@ -185,7 +206,8 @@
     function ganti_pem(nomor){
         let isi = $("#pemb-"+nomor).val();
         let id= $("#id-"+nomor).val()
-        $.get(url+'alasan_input.php?pemb='+isi+'&cab='+cab+"&urut="+nomor+"&id="+id,function(data){
+        let tgl= $("#tgl-"+nomor).val()
+        $.get(url+'alasan_input.php?pemb='+isi+'&cab='+cab+"&urut="+nomor+"&id="+id+"&tgl="+tgl,function(data){
             $("#alasan-"+nomor).html(data)
             
         });
