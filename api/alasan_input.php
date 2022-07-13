@@ -14,12 +14,12 @@ if(isset($_GET['pemb'])){
 }
 $tgl = $_GET['tgl'];
 $cek = mysqli_query($con,"select * from daftar_nasabah where id_cabang='$id_cabang' and id_nasabah='$id_anggota'");
-$cek_par = mysqli_query($con,"SELECT *, hariraya+pensiun+sukarela+wajib as total from deliquency where id_cabang='$id_cabang' and substring_index(id_detail_nasabah,'-',-1) like '".sprintf("%05d",$id_anggota)."' AND tgl_input IN (SELECT MAX(tgl_input) FROM deliquency WHERE id_cabang='$id_cabang') $qstring order by id desc ");
+$cek_par = mysqli_query($con,"SELECT *, hariraya+pensiun+sukarela+wajib as total from deliquency where id_cabang='$id_cabang' and substring_index(id_detail_nasabah,'-',-1) like '".sprintf("%06d",$id_anggota)."' AND tgl_input IN (SELECT MAX(tgl_input) FROM deliquency WHERE id_cabang='$id_cabang') $qstring order by id desc ");
 echo " ";
 
 if(mysqli_num_rows($cek)){
 $ang = mysqli_fetch_array($cek);
-    $q = mysqli_query($con,"select * from alasan_par where id_cabang='$id_cabang' and substring_index(id_detail_nasabah,'-',-1) like '".sprintf("%05d",$id_anggota)."'");
+    $q = mysqli_query($con,"select * from alasan_par where id_cabang='$id_cabang' and substring_index(id_detail_nasabah,'-',-1) like '".sprintf("%06d",$id_anggota)."'");
     if(mysqli_num_rows($q)){
         $r = mysqli_fetch_array($q);
         $alasan=$r['alasan'];
@@ -48,11 +48,11 @@ $ang = mysqli_fetch_array($cek);
     <tr>
         <th>WAJIB <br><small><p > <?=angka($delin['wajib'] - $tarik['Swajib'])?> </p></small> </th>
         <td>
-            <input type="number" class='form-control' value='0' min="0" max='<?=$delin['wajib']- $tarik['Swajib']?>' onchange="ganti_total(<?=$i?>)" name='wajib[]' id='wajib-<?=$i?>' style="width: 100px;" pattern="\d+"/></td>
+            <input type="number" class='form-control' value='0' min="0" onchange="ganti_total(<?=$i?>)" name='wajib[]' id='wajib-<?=$i?>' style="width: 100px;" pattern="\d+"/></td>
         <th>PENSIUN <br><small><p > <?=angka($delin['pensiun']- $tarik['Spensiun'])?> </p></small>
         <td>
         
-            <input type="number" class='form-control' value='0' min="0"  max='<?=$delin['pensiun']- $tarik['Spensiun']?>' onchange="ganti_total(<?=$i?>)" name='pensiun[]' id='pensiun-<?=$i?>' style="width: 100px;" pattern="\d+"/></td>
+            <input type="number" class='form-control' value='0' min="0"   onchange="ganti_total(<?=$i?>)" name='pensiun[]' id='pensiun-<?=$i?>' style="width: 100px;" pattern="\d+"/></td>
     </tr>
     <tr>
     <th>
@@ -60,14 +60,14 @@ $ang = mysqli_fetch_array($cek);
     </th>
     <td>
     <p > 
-        <input type="number" class='form-control' value='0' min="0"  max='<?=$delin['sukarela']- $tarik['Ssukarela']?>' onchange="ganti_total(<?=$i?>)" name='sukarela[]' id='sukarela-<?=$i?>' style="width: 100px;" pattern="\d+"/>
+        <input type="number" class='form-control' value='0' min="0"   onchange="ganti_total(<?=$i?>)" name='sukarela[]' id='sukarela-<?=$i?>' style="width: 100px;" pattern="\d+"/>
     </td>
     <th>
         HARI RAYA <br><small><p > <?=angka($delin['hariraya']- $tarik['Shariraya'])?> </p></small>
     </td>
     <td>
     
-        <input type="number" class='form-control'  max='<?=$delin['hariraya']- $tarik['Shariraya']?>' value='0' min="0" onchange="ganti_total(<?=$i?>)" name='hariraya[]' id='hariraya-<?=$i?>' style="width: 100px;" pattern="\d+"/>
+        <input type="number" class='form-control'  value='0' min="0" onchange="ganti_total(<?=$i?>)" name='hariraya[]' id='hariraya-<?=$i?>' style="width: 100px;" pattern="\d+"/>
         <input type="hidden" class='form-control' value='0' min="0" onchange="ganti_total(<?=$i?>)" name='nominal[]' id='nominal-<?=$i?>' style="width: 100px;" pattern="\d+"/>
     <small><p id='total-<?=$i?>'>total : </p></small>
     
