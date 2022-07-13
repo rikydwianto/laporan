@@ -75,17 +75,42 @@ $nama_hari = ['senin','selasa','rabu','kamis','jumat'];
     while($tgl = mysqli_fetch_array($qtgl)){
         $TGL[]=$tgl['tgl_input'];
     }
+    $TGL = array();
+        $startDate = new \DateTime($tglawal);
+        $endDate = new \DateTime($tglakhir);
+
+        $interval = \DateInterval::createFromDateString('1 day');
+        $period = new \DatePeriod($startDate, $interval, $endDate);
+
+        // foreach ($period as $date) {
+        // echo $date->format('Y-m-d');
+        // }
+
+        foreach ($period as $date) {
+            $tgl_senin = $date->format('Y-m-d');
+            $tgl = $date->format('Y-m-d');
+            $pecah =strtolower(explode(",",format_hari_tanggal($tgl_senin))[0]);
+            if($pecah=='senin'){
+                $tgl_jumat[] = date("Y-m-d",(strtotime ( '+6 day' , strtotime ( date($tgl)) ) ));
+                $TGL[]=$tgl;
+
+            }
+        }
+        error_reporting(0);
     ?>
     <table class='table table-bordered'>
         <tr>
             <th>NO</th>
             <th>NAMA</th>
             <th>CTR</th>
-            <?php 
+            <?php
+            $a=0; 
             foreach($TGL as $tgl){
+                
                 ?>
-                <th><?=$tgl?></th>
+                <th><?=$tgl?> s/d <br/><?=$tgl_jumat[$a]?></th>
                 <?php
+                $a++;
             }
             ?>
         </tr>
@@ -111,8 +136,9 @@ echo mysqli_error($con);
             <td><?=$delin['no_center']?></td>
             <?php 
             $a=1;
-
+            $b=0;
             foreach($TGL as $tgl){
+                $tgl_jumat =date("Y-m-d",(strtotime ( '+6 day' , strtotime ( date($tgl)) ) ));
                 if($a < count($TGL)){
 
                     $tgl_next = $TGL[$a];
@@ -129,7 +155,10 @@ echo mysqli_error($con);
                 $bg ="#f7332d";
 
                 ?>
-                <td style="background-color: <?=$bg?>"><?=angka($selisih)?></td>
+                <td style="background-color: <?=$bg?>">
+                <!-- <?=$tgl?><?=$tgl_next?><br/> -->
+                <?=($selisih)?>
+            </td>
                 <?php
                 }
                 else{
@@ -139,6 +168,7 @@ echo mysqli_error($con);
                     <?php
                 }
                 $a++;
+                $b++;
             }
             ?>
         </tr>
