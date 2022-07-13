@@ -7,10 +7,10 @@ $id_cabang=$_GET['cab'];
 $id_anggota = $_GET['id'];
 $urut = $_GET['urut'];
 $cek = mysqli_query($con,"select * from daftar_nasabah where id_cabang='$id_cabang' and id_nasabah='$id_anggota'");
-$cek_par = mysqli_query($con,"select * from deliquency where id_cabang='$id_cabang' and substring_index(id_detail_nasabah,'-',-1) like '".sprintf("%06d",$id_anggota)."' AND tgl_input IN (SELECT MAX(tgl_input) FROM deliquency WHERE id_cabang='$id_cabang') order by id desc ");
+$cek_par = mysqli_query($con,"select * from deliquency where id_cabang='$id_cabang' and (substring_index(id_detail_nasabah,'-',-1) like '".sprintf("%06d",$id_anggota)."' or substring_index(id_detail_nasabah,'-',-1) like '".sprintf("%05d",$id_anggota)."') AND tgl_input IN (SELECT MAX(tgl_input) FROM deliquency WHERE id_cabang='$id_cabang') order by id desc ");
 if(mysqli_num_rows($cek)){
 $ang = mysqli_fetch_array($cek);
-    $q = mysqli_query($con,"select * from alasan_par where id_cabang='$id_cabang' and substring_index(id_detail_nasabah,'-',-1) like '".sprintf("%06d",$id_anggota)."'");
+    $q = mysqli_query($con,"select * from alasan_par where id_cabang='$id_cabang' and (substring_index(id_detail_nasabah,'-',-1) like '".sprintf("%06d",$id_anggota)."' or substring_index(id_detail_nasabah,'-',-1) like '".sprintf("%05d",$id_anggota)."')");
     if(mysqli_num_rows($q)){
         $r = mysqli_fetch_array($q);
         $alasan=$r['alasan'];
