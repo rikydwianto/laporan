@@ -103,6 +103,7 @@ $nama_hari = ['senin','selasa','rabu','kamis','jumat'];
             <th>NO</th>
             <th>NAMA</th>
             <th>CTR</th>
+            <th>SALDO AWAL</th>
             <?php
             $a=0; 
             foreach($TGL as $tgl){
@@ -113,6 +114,7 @@ $nama_hari = ['senin','selasa','rabu','kamis','jumat'];
                 $a++;
             }
             ?>
+            <th>SALDO AKHIR</th>
         </tr>
         <?php 
           $qhari="";
@@ -134,43 +136,37 @@ echo mysqli_error($con);
             <td><?=$no++?></td>
             <td><?=$delin['nasabah']?></td>
             <td><?=$delin['no_center']?></td>
+            <td>
+                <?php $saldo_awal = hitung_sekarang($con,$id_cabang,$delin['id_detail_nasabah'],$TGL[0],"sukarela"); ?>
+                <?=angka($saldo_awal)?></td>
             <?php 
             $a=1;
             $b=0;
             foreach($TGL as $tgl){
                 $tgl_jumat =date("Y-m-d",(strtotime ( '+6 day' , strtotime ( date($tgl)) ) ));
-                if($a < count($TGL)){
-
-                    $tgl_next = $TGL[$a];
-                    // if(!$tgl_next){
-                        // }
-                // 
-                $selisih = hitung_tabungan($con,$id_cabang,$delin['id_detail_nasabah'],$tgl,$tgl_next,"sukarela");
-                if($selisih>0){
-                    $bg='#87f58c';
+                $selisih = hitung_tabungan($con,$id_cabang,$delin['id_detail_nasabah'],$tgl,$saldo_awal);
+                $saldo_awal = $saldo_awal + $selisih;
+                if($selisih==0){
+                    $bg='';
                 }
-                else if($selisih==0)
-                     $bg=""; 
-                else
-                $bg ="#f7332d";
-
-                ?>
-                <td style="background-color: <?=$bg?>">
-                <!-- <?=$tgl?><?=$tgl_next?><br/> -->
-                <?=($selisih)?>
-            </td>
-                <?php
+                elseif($selisih<1)
+                {
+                    $bg = "#f7332d";
                 }
                 else{
-                    ?>
-                    <td><?=angka(hitung_sekarang($con,$id_cabang,$delin['id_detail_nasabah'],$tgl,"sukarela"))?></td>
+                    $bg='#87f58c';
+                }
+?>
+
+                    <td style="background-color:<?=$bg?> ;"><?=angka($selisih)?></td>
 
                     <?php
-                }
-                $a++;
-                $b++;
             }
+            $saldo_awal=0;
+            $cari_tgl = mysqli_query($con,"SELECT distinct tgl_input from deliquency where id_cabang='$id_cabang' and (tgl_input between '$tgl' and '$tgl_jumat') order by tgl_input");
+            $cari_tgl = mysqli_fetch_array($cari_tgl)['tgl_input'];
             ?>
+            <td><?=angka(hitung_sekarang($con,$id_cabang,$delin['id_detail_nasabah'],$cari_tgl,"sukarela"))?></td>
         </tr>
             <?php
         }

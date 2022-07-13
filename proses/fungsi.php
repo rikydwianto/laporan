@@ -402,23 +402,13 @@ function warna_center($persen){
 
 
 
-function hitung_tabungan($con,$id_cabang,$id_anggota,$tgl,$tgl_next,$tipe="sukarela"){
+function hitung_tabungan($con,$id_cabang,$id_anggota,$tgl,$saldo_sebelum,$tipe="sukarela"){
   $tgl_jumat =date("Y-m-d",(strtotime ( '+6 day' , strtotime ( date($tgl)) ) ));
   $tgl_jumat1 =date("Y-m-d",(strtotime ( '+6 day' , strtotime ( date($tgl_jumat)) ) ));
-  $q1 = mysqli_query($con,"SELECT sum($tipe) as hasil from deliquency where id_cabang='$id_cabang' and (tgl_input between '$tgl' and '$tgl_jumat' ) and id_detail_nasabah='$id_anggota'");
-  $r = mysqli_fetch_array($q1)['hasil'];
+  $q1 = mysqli_query($con,"SELECT * from deliquency where id_cabang='$id_cabang' and (tgl_input between '$tgl' and '$tgl_jumat' ) and id_detail_nasabah='$id_anggota' order by id desc");
+  $r = mysqli_fetch_array($q1)[$tipe];
   
-  $q2 = mysqli_query($con,"SELECT sum($tipe) as hasil from deliquency where id_cabang='$id_cabang' and (tgl_input between '$tgl_next' and '$tgl_jumat1') and id_detail_nasabah='$id_anggota'");
-  $r2 = mysqli_fetch_array($q2)['hasil'];
-  if($r==null && $r2==null){
-    return 0;
-  }
-  // else if($r2==null){
-  //   return 0;
-  // }
-  return $r2-$r;
-  // return "SELECT sum($tipe) as hasil from deliquency where id_cabang='$id_cabang' and (tgl_input between '$tgl' and '$tgl_jumat' ) and id_detail_nasabah='$id_anggota'";
-  // return $tgl.'-'.$tgl_jumat;
+  return $saldo_sebelum -$r;
 }
 
 function hitung_sekarang($con,$id_cabang,$id_anggota,$tgl,$tipe="sukarela"){
