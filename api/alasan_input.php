@@ -14,7 +14,7 @@ if(isset($_GET['pemb'])){
 }
 $tgl = $_GET['tgl'];
 $cek = mysqli_query($con,"select * from daftar_nasabah where id_cabang='$id_cabang' and id_nasabah='$id_anggota'");
-$cek_par = mysqli_query($con,"SELECT *, hariraya+pensiun+sukarela+wajib as total from deliquency where id_cabang='$id_cabang' and substring_index(id_detail_nasabah,'-',-1) like '".sprintf("%06d",$id_anggota)."' AND tgl_input IN (SELECT MAX(tgl_input) FROM deliquency WHERE id_cabang='$id_cabang') $qstring order by id desc ");
+$cek_par = mysqli_query($con,"SELECT *, hariraya+pensiun+sukarela+wajib as total from deliquency where id_cabang='$id_cabang' and substring_index(id_detail_nasabah,'-',-1) like '".sprintf("%05d",$id_anggota)."' AND tgl_input IN (SELECT MAX(tgl_input) FROM deliquency WHERE id_cabang='$id_cabang') $qstring order by id desc ");
 echo " ";
 
 if(mysqli_num_rows($cek)){
