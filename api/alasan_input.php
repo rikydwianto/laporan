@@ -19,7 +19,7 @@ echo " ";
 
 if(mysqli_num_rows($cek)){
 $ang = mysqli_fetch_array($cek);
-    $q = mysqli_query($con,"select * from alasan_par where id_cabang='$id_cabang' and substring_index(id_detail_nasabah,'-',-1)='".sprintf("%06d",$id_anggota)."'");
+    $q = mysqli_query($con,"select * from alasan_par where id_cabang='$id_cabang' and substring_index(id_detail_nasabah,'-',-1) like '".sprintf("%05d",$id_anggota)."'");
     if(mysqli_num_rows($q)){
         $r = mysqli_fetch_array($q);
         $alasan=$r['alasan'];
