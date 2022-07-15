@@ -76,9 +76,46 @@ $nama_hari = ['senin','selasa','rabu','kamis','jumat'];
                     }
                     ?>
                 </select>
-    
-        <input type="date" name='tglawal' value="<?=(isset($_GET['tglawal']) ?  $_GET['tglawal'] : date("Y-m-d",(strtotime ( '-4 day' , strtotime ( date("Y-m-d")) ) )) )?>" class=""/>
-        <input type="date" name='tglakhir' value="<?=(isset($_GET['tglakhir']) ?  $_GET['tglakhir'] : date("Y-m-d"))?>" class=""/>
+
+                <select name='tglawal' class='btn' required>
+                        
+                        <option value="">PILIH MINGGU SEBELUM</option>
+                        <?php 
+                        error_reporting(0);
+                        $q_tgl = mysqli_query($con,"SELECT DISTINCT tgl_input FROM deliquency where id_cabang='$id_cabang'  order by tgl_input desc");
+                        while($tgl_ = mysqli_fetch_array($q_tgl)){
+                            $hari = format_hari_tanggal($tgl_['tgl_input']);
+                            if(strtolower(explode(",",$hari)[0])=='senin'){
+                            ?>
+                            <option value="<?=$tgl_['tgl_input']?>" <?=($_GET['tglawal']===$tgl_['tgl_input']?"selected":"")?>><?=format_hari_tanggal($tgl_['tgl_input'])?></option>
+                            <?php
+
+                            }
+                        }
+                        ?>
+
+                    </select>
+                    <select name='tglakhir' class='btn' required>
+                        
+                        <option value="">PILIH MINGGU INI</option>
+                        <?php
+                        $q_tgl = mysqli_query($con,"SELECT DISTINCT tgl_input FROM deliquency where id_cabang='$id_cabang' order by tgl_input desc");
+                        while($tgl_ = mysqli_fetch_array($q_tgl)){
+                            $hari = format_hari_tanggal($tgl_['tgl_input']);
+
+                            if(strtolower(explode(",",$hari)[0])=='jumat'){
+                            ?>
+                            <option value="<?=$tgl_['tgl_input']?>" <?=($_GET['tglakhir']===$tgl_['tgl_input']?"selected":"")?>><?=format_hari_tanggal($tgl_['tgl_input'])?></option>
+                            <?php
+   
+                            }
+   
+                        }
+                        ?>
+
+                    </select>
+        <!-- <input type="date" name='tglawal' value="<?=(isset($_GET['tglawal']) ?  $_GET['tglawal'] : date("Y-m-d",(strtotime ( '-4 day' , strtotime ( date("Y-m-d")) ) )) )?>" class=""/> -->
+        <!-- <input type="date" name='tglakhir' value="<?=(isset($_GET['tglakhir']) ?  $_GET['tglakhir'] : date("Y-m-d"))?>" class=""/> -->
         <input type='submit' class="btn btn-info" name='cari' value='FILTER'/>
         <!-- <a href="<?=$url.$menu?>rekap_kegiatan&tglawal=<?=date("Y-m-d",(strtotime ( '-1 day' , strtotime ( date("Y-m-d"))  )))?>&tglakhir=<?=date("Y-m-d",(strtotime ( '-1 day' , strtotime ( date("Y-m-d"))  )))?>&cari=FILTER" class="btn btn-danger">KEMARIN</a>
                 <a href="<?=$url.$menu?>rekap_kegiatan&tglawal=<?=date("Y-m-d")?>&tglakhir=<?=date("Y-m-d")?>&cari=FILTER" class="btn btn-danger">HARI INI</a> -->
