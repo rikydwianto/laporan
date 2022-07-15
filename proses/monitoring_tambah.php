@@ -66,10 +66,10 @@
                             $agt = (substr(ganti_karakter($id_nasabah),0,3));
     
                             if( $agt=="AGT" || $agt=="NSB"){
-                                $nasabah =  ganti_karakter($ws->getCell("D".$row)->getValue());
+                                $nasabah =  aman($con,ganti_karakter($ws->getCell("D".$row)->getValue()));
                             $loan = ganti_karakter($ws->getCell("C".$row)->getValue());
                             $no_center = ganti_karakter($ws->getCell("F".$row)->getValue());
-                            $id_nasabah = ganti_karakter1($ws->getCell("B".$row)->getValue());
+                            $id_nasabah =aman($con, ganti_karakter1($ws->getCell("B".$row)->getValue()));
                             $kelompok = ganti_karakter1($ws->getCell("G".$row)->getValue());
                             $hp = ganti_karakter1($ws->getCell("E".$row)->getValue());
                             $produk = ganti_karakter1($ws->getCell("H".$row)->getValue());

@@ -54,6 +54,28 @@ $nama_hari = ['senin','selasa','rabu','kamis','jumat'];
                     }
                     ?>
                 </select>
+                <?php 
+                $tabungan = array(
+                    "sukarela" => "SUKARELA",
+                    "hariraya" => "HARI RAYA",
+                    "wajib" => "WAJIB",
+                    "pensiun" => "PENSIUN",
+                );
+                ?>
+                <select name="tab" required class='' id="">
+                    <option value="">Pilih tabungan</option>
+                    <?php 
+                    $sel="";
+                    foreach($tabungan as $tab => $x){
+                        if($tab==$_GET['tab']) $sel='selected';
+                        else $sel="";
+                        ?>
+                        <option value="<?=$tab?>" <?=$sel?>><?=$x?></option>
+
+                        <?php
+                    }
+                    ?>
+                </select>
     
         <input type="date" name='tglawal' value="<?=(isset($_GET['tglawal']) ?  $_GET['tglawal'] : date("Y-m-d",(strtotime ( '-4 day' , strtotime ( date("Y-m-d")) ) )) )?>" class=""/>
         <input type="date" name='tglakhir' value="<?=(isset($_GET['tglakhir']) ?  $_GET['tglakhir'] : date("Y-m-d"))?>" class=""/>
@@ -70,7 +92,7 @@ $nama_hari = ['senin','selasa','rabu','kamis','jumat'];
         </h2>
     <?php 
     $TGL   = array();
-  
+ 
     $qtgl = mysqli_query($con,"SELECT tgl_input from deliquency where id_cabang='$id_cabang' and (tgl_input between '$tglawal' and '$tglakhir')  group by tgl_input order by tgl_input asc");
     while($tgl = mysqli_fetch_array($qtgl)){
         $TGL[]=$tgl['tgl_input'];
@@ -91,10 +113,11 @@ $nama_hari = ['senin','selasa','rabu','kamis','jumat'];
             $tgl = $date->format('Y-m-d');
             $pecah =strtolower(explode(",",format_hari_tanggal($tgl_senin))[0]);
             if($pecah=='senin'){
+                
                 $tgl_jumat[] = date("Y-m-d",(strtotime ( '+6 day' , strtotime ( date($tgl)) ) ));
                 $TGL[]=$tgl;
-
             }
+
         }
         error_reporting(0);
     ?>
@@ -117,6 +140,7 @@ $nama_hari = ['senin','selasa','rabu','kamis','jumat'];
             <th>SALDO AKHIR</th>
         </tr>
         <?php 
+         $simpanan=$_GET['tab'];
           $qhari="";
           $qstaff="";
               if(!empty($_GET['hari']) ){
@@ -128,7 +152,8 @@ $nama_hari = ['senin','selasa','rabu','kamis','jumat'];
                   $staff = aman($con,$_GET['staff']);
                   $qstaff = "and c.id_karyawan='$staff'";
               }
-        $q = mysqli_query($con,"SELECT * from deliquency deli join center c ON deli.`no_center`=c.`no_center` where deli.id_cabang='$id_cabang' and tgl_input ='$tglawal' $qhari  $qstaff group by id_detail_nasabah order by deli.no_center,deli.nasabah ");
+        $q = mysqli_query($con,"SELECT * from deliquency deli join center c ON deli.`no_center`=c.`no_center` where deli.id_cabang='$id_cabang' and tgl_input = '$tglawal' $qhari  $qstaff group by id_detail_nasabah order by deli.no_center,deli.nasabah ");
+
 echo mysqli_error($con);
         while($delin = mysqli_fetch_array($q)){
             ?>
@@ -137,15 +162,23 @@ echo mysqli_error($con);
             <td><?=$delin['nasabah']?></td>
             <td><?=$delin['no_center']?></td>
             <td>
-                <?php $saldo_awal = hitung_sekarang($con,$id_cabang,$delin['id_detail_nasabah'],$TGL[0],"sukarela"); ?>
+                <?php $saldo_awal = hitung_sekarang($con,$id_cabang,$delin['id_detail_nasabah'],$TGL[0],$simpanan); ?>
                 <?=angka($saldo_awal)?></td>
             <?php 
-            $a=1;
+            $a=0;
             $b=0;
             foreach($TGL as $tgl){
+                $senin_sebelum = $TGL[$a-1];
+                if($a==0){
+                    $saldo_sebelumnya = $saldo_awal;
+                }else{
+                    $saldo_sebelumnya = hitung_tabungan($con,$id_cabang,$delin['id_detail_nasabah'],$senin_sebelum,$saldo_awal,$simpanan);
+
+                }
                 $tgl_jumat =date("Y-m-d",(strtotime ( '+6 day' , strtotime ( date($tgl)) ) ));
-                $selisih = hitung_tabungan($con,$id_cabang,$delin['id_detail_nasabah'],$tgl,$saldo_awal);
-                $saldo_awal = $saldo_awal + $selisih;
+                $saldo_sekarang = hitung_tabungan($con,$id_cabang,$delin['id_detail_nasabah'],$tgl,$saldo_awal,$simpanan);
+                $saldo_awal=$saldo_sekarang-$saldo_awal;
+                $selisih=$saldo_sekarang-$saldo_sebelumnya;
                 if($selisih==0){
                     $bg='';
                 }
@@ -161,12 +194,14 @@ echo mysqli_error($con);
                     <td style="background-color:<?=$bg?> ;"><?=angka($selisih)?></td>
 
                     <?php
+                    $a++;
             }
+            $selisih2=0;
             $saldo_awal=0;
             $cari_tgl = mysqli_query($con,"SELECT distinct tgl_input from deliquency where id_cabang='$id_cabang' and (tgl_input between '$tgl' and '$tgl_jumat') order by tgl_input");
             $cari_tgl = mysqli_fetch_array($cari_tgl)['tgl_input'];
             ?>
-            <td><?=angka(hitung_sekarang($con,$id_cabang,$delin['id_detail_nasabah'],$cari_tgl,"sukarela"))?></td>
+            <td><?=angka(hitung_sekarang($con,$id_cabang,$delin['id_detail_nasabah'],$cari_tgl,$simpanan))?></td>
         </tr>
             <?php
         }

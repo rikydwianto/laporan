@@ -403,12 +403,12 @@ function warna_center($persen){
 
 
 function hitung_tabungan($con,$id_cabang,$id_anggota,$tgl,$saldo_sebelum,$tipe="sukarela"){
-  $tgl_jumat =date("Y-m-d",(strtotime ( '+6 day' , strtotime ( date($tgl)) ) ));
+  $tgl_jumat =date("Y-m-d",(strtotime ( '+1 day' , strtotime ( date($tgl)) ) ));
   $tgl_jumat1 =date("Y-m-d",(strtotime ( '+6 day' , strtotime ( date($tgl_jumat)) ) ));
-  $q1 = mysqli_query($con,"SELECT * from deliquency where id_cabang='$id_cabang' and (tgl_input between '$tgl' and '$tgl_jumat' ) and id_detail_nasabah='$id_anggota' order by id desc");
+  $q1 = mysqli_query($con,"SELECT * from deliquency where id_cabang='$id_cabang' and (tgl_input between '$tgl' and '$tgl_jumat' ) and id_detail_nasabah='$id_anggota' order by tgl_input desc");
   $r = mysqli_fetch_array($q1)[$tipe];
   
-  return $saldo_sebelum -$r;
+  return $r;
 }
 
 function hitung_sekarang($con,$id_cabang,$id_anggota,$tgl,$tipe="sukarela"){
