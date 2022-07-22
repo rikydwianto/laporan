@@ -26,8 +26,21 @@ if (isset($_GET['del'])) {
     if(isset($_POST['edit'])){
         $id_anggota = $_POST['id_nasabah'];
         $nominal = $_POST['nominal'];
+        $wajib = $_POST['wajib'];
+        $sukarela = $_POST['sukarela'];
+        $pensiun = $_POST['pensiun'];
+        $hariraya = $_POST['hariraya'];
+        $alasan = $_POST['alasan'];
         $tgl = $_POST['tanggal'];
-        $qEdit = mysqli_query($con," UPDATE `penarikan_simpanan` SET `nominal_penarikan` = '$nominal',`tgl_penarikan` = '$tgl',id_anggota='$id_anggota' WHERE `id_penarikan` = '$id'; 
+        $qEdit = mysqli_query($con," UPDATE `penarikan_simpanan` SET 
+        `nominal_penarikan` = '$nominal',
+        `wajib` = '$wajib',
+        `sukarela` = '$sukarela',
+        `pensiun` = '$pensiun',
+        `hariraya` = '$hariraya',
+        `alasan` = '$alasan',
+        
+        `tgl_penarikan` = '$tgl',id_anggota='$id_anggota' WHERE `id_penarikan` = '$id'; 
         ");
         if($qEdit){
             alert("Berhasil");
@@ -59,7 +72,35 @@ if (isset($_GET['del'])) {
             <div class="form-group">
                 <label class="col-md-4 control-label" for="textinput">NOMINAL</label>
                 <div class="col-md-4">
-                    <input id="textinput" name="nominal" value="<?=$pen['nominal_penarikan']?>"  type="text" placeholder="placeholder" class="form-control input-md">
+                    <input id="textinput" name="nominal" readonly value="<?=$pen['nominal_penarikan']?>"  type="text" placeholder="placeholder" class="form-control input-md">
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="textinput">WAJIB</label>
+                <div class="col-md-4">
+                    <input id="textinput" name="wajib" value="<?=$pen['wajib']?>"  type="text" placeholder="placeholder" class="form-control input-md">
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="textinput">SUKARELA</label>
+                <div class="col-md-4">
+                    <input id="textinput" name="sukarela" value="<?=$pen['sukarela']?>"  type="text" placeholder="placeholder" class="form-control input-md">
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="textinput">PENSIUN</label>
+                <div class="col-md-4">
+                    <input id="textinput" name="pensiun" value="<?=$pen['pensiun']?>"  type="text" placeholder="placeholder" class="form-control input-md">
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="textinput">HARI RAYA</label>
+                <div class="col-md-4">
+                    <input id="textinput" name="hariraya" value="<?=$pen['hariraya']?>"  type="text" placeholder="placeholder" class="form-control input-md">
 
                 </div>
             </div>
@@ -69,6 +110,13 @@ if (isset($_GET['del'])) {
                 <label class="col-md-4 control-label" for="textinput">TANGGAL </label>
                 <div class="col-md-4">
                     <input id="textinput" name="tanggal" value="<?=$pen['tgl_penarikan']?>"  type="date" placeholder="placeholder" class="form-control input-md">
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="textinput">TANGGAL </label>
+                <div class="col-md-4">
+                    <input id="textinput" name="alasan" value="<?=$pen['alasan']?>"  type="text" placeholder="placeholder" class="form-control input-md">
 
                 </div>
             </div>

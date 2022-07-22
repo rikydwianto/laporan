@@ -182,7 +182,7 @@ $nama_hari = ['senin','selasa','rabu','kamis','jumat'];
           $qstaff="";
               if(!empty($_GET['hari']) ){
                   $hari = strtoupper( aman($con,$_GET['hari']));
-                  $qhari = "and upper(deli.hari)='$hari'";
+                  $qhari = "and deli.hari='$hari'";
               }
           
               if( !empty($_GET['staff']) ){
