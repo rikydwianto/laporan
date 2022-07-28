@@ -9,7 +9,7 @@ elseif(isset($_GET['hapus'])){
    if($delete)
    {
     pesan("Berhasil Menghaspus soal",'success');
-    pindah("$url$menu".'kuis&act=bank-soal');
+    pindah("$url$menu".'kuis&act=tambah-soal');
    }
    else{
     pesan("Gagal menghapus : ". mysqli_error($con),'danger');
@@ -24,6 +24,7 @@ $q_tampil = "";
 if(isset($_GET['salin_soal']) && isset($_GET['idkuis'])){
     $tampil = true;
     $id = $_GET['idkuis'];
+    // echo $id;
     $q_tampil="where id not in(select id_bank_soal from kuis_soal where id_kuis='$id') ";
 }
 ?>
@@ -139,6 +140,10 @@ if(isset($_GET['salin_soal']) && isset($_GET['idkuis'])){
             (SELECT soal,pilihan_a,pilihan_b,pilihan_c,pilihan_d,pilihan_benar,'$id_kuis',id from kuis_bank_soal where id='$id')");
         }
         echo mysqli_error($con);
+        if($salin){
+            pesan("berhasil","success");
+            pindah("$url$menu"."kuis&act=tambah-soal&idkuis=$id_kuis");
+        }
     }
     ?>
 </form>

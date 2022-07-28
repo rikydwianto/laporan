@@ -8,7 +8,7 @@ if(isset($_POST['simpan_kuis'])){
     $lama = aman($con,$_POST['lama']);
     $status = aman($con,$_POST['status']);
     $insert = mysqli_query($con,"
-    UPDATE `komida`.`kuis` SET `status` = '$status',nama_kuis='$nama_kuis' WHERE `id_kuis` = '$ikuis'; 
+    UPDATE `komida`.`kuis` SET `status` = '$status',nama_kuis='$nama_kuis',tgl_kuis='$tgl',waktu='$lama' WHERE `id_kuis` = '$idkuis'; 
     ");
     if($insert)
     {

@@ -8,7 +8,7 @@ if(isset($_GET['hapus-soal-kuis'])){
     if($delete)
     {
         pesan("Berhasil Menghapus soal",'success');
-        pindah("$url$menu".'kuis&act=bank-soal');
+        pindah("$url$menu".'kuis&act=tambah-soal&idkuis='.$id_kuis);
     }
     else{
         pesan("Gagal menghapus : ". mysqli_error($con),'danger');
