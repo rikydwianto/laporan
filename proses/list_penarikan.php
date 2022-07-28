@@ -25,12 +25,12 @@ if (isset($_GET['del'])) {
 
     if(isset($_POST['edit'])){
         $id_anggota = $_POST['id_nasabah'];
-        $nominal = $_POST['nominal'];
         $wajib = $_POST['wajib'];
         $sukarela = $_POST['sukarela'];
         $pensiun = $_POST['pensiun'];
         $hariraya = $_POST['hariraya'];
         $alasan = $_POST['alasan'];
+        $nominal = $wajib+$sukarela+$pensiun+$hariraya;
         $tgl = $_POST['tanggal'];
         $qEdit = mysqli_query($con," UPDATE `penarikan_simpanan` SET 
         `nominal_penarikan` = '$nominal',

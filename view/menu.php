@@ -148,6 +148,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 					<a href="<?php echo $url . $menu ?>rekap_bayar"><i class="fa fa-file-excel-o"></i> Rekap Pembayaran</a>
 				</li>
 				<li>
+					<a href="<?php echo $url . $menu ?>rekap_kehadiran"><i class="fa fa-file-excel-o"></i> Rekap Kehadiran</a>
+				</li>
+				<li>
 					<a href="<?php echo $url . $menu ?>rekap_setoran&tgl=<?=date("Y-m-d")?>"><i class="fa fa-file-excel-o"></i> Rekap Setoran</a>
 				</li>
 				<li>
@@ -264,6 +267,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 			<a href="<?php echo $url . $menu ?>kelompok" class="w3-bar-item w3-button"><i class="fa fa-users"></i> Kelompok</a>
 		</li>
 		<li>
+			<a href="<?php echo $url . $menu ?>kuis" class="w3-bar-item w3-button"><i class="fa fa-circle-question"></i>KUISIONER</a>
+		</li>
+		<li>
 			<a href="<?php echo $url . $menu ?>surat" class="w3-bar-item w3-button"><i class="fa fa-inbox"></i> SURAT</a>
 		</li>
 		<li><a href="<?php echo $url . $menu ?>cek_nik" class="w3-bar-item w3-button"><i class="fa fa-search"></i> CEK NIK</a></li>
@@ -302,6 +308,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 				</li>
 				<li>
 					<a href="<?php echo $url . $menu ?>rekap_bayar"><i class="fa fa-file-excel-o"></i> Rekap Pembayaran</a>
+				</li>
+				<li>
+					<a href="<?php echo $url . $menu ?>rekap_kehadiran"><i class="fa fa-file-excel-o"></i> Rekap Kehadiran</a>
 				</li>
 				<li>
 					<a href="<?php echo $url . $menu ?>rekap_setoran&tgl=<?=date("Y-m-d")?>"><i class="fa fa-file-excel-o"></i> Rekap Setoran</a>
@@ -428,6 +437,9 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 				<a href="<?php echo $url . $menu ?>rekap_bayar"><i class="fa fa-file-excel-o"></i> Rekap Pembayaran</a>
 			</li>
 			<li>
+					<a href="<?php echo $url . $menu ?>rekap_kehadiran"><i class="fa fa-file-excel-o"></i> Rekap Kehadiran</a>
+				</li>
+			<li>
 				<a href="<?php echo $url . $menu ?>rekap_setoran&tgl=<?=date("Y-m-d")?>"><i class="fa fa-file-excel-o"></i> Rekap Setoran</a>
 			</li>
 			<li>
@@ -460,6 +472,8 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 					<a href="<?php echo $url . $menu ?>rekap_par_total" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> REKAP PAR</a>
 
 				</li>
+				<li><a href="<?php echo $url . $menu ?>rekap_center" class="w3-bar-item w3-button"><i class="fa fa-build"></i> REKAP CENTER BAYAR</a></li>
+				<li><a href="<?php echo $url . $menu ?>rekap_tabungan" class="w3-bar-item w3-button"><i class="fa fa-build"></i> REKAP TABUNGAN</a></li>
 				<li>
 					<a href="<?php echo $url . $menu ?>rekap_tpk" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> REKAP ANGGOTA TPK</a>
 
@@ -475,9 +489,11 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 			</ul>
 
 		</li>
+		<li>
+			<a href="<?php echo $url . $menu ?>kuis" class="w3-bar-item w3-button"><i class="fa fa-circle-question"></i>KUISIONER</a>
+		</li>
 		<li><a href="<?php echo $url . $menu ?>anggota" class="w3-bar-item w3-button"><i class="fa fa-users"></i> ANGGOTA</a></li>
-		<li><a href="<?php echo $url . $menu ?>rekap_center" class="w3-bar-item w3-button"><i class="fa fa-build"></i> REKAP CENTER BAYAR</a></li>
-		<li><a href="<?php echo $url . $menu ?>rekap_tabungan" class="w3-bar-item w3-button"><i class="fa fa-build"></i> REKAP TABUNGAN</a></li>
+		
 		<li><a href="<?php echo $url . $menu ?>daftar_backup" class="w3-bar-item w3-button"><i class="fa fa-users"></i> DAFTAR ANGGOTA BACKUP</a></li>
 		<li><a href="<?php echo $url ?>lokasi.php" class="w3-bar-item w3-button"><i class="fa fa-globes"></i> LOKASI</a></li>
 		
@@ -494,6 +510,8 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 		<li>
 			<a href="<?php echo $url . $menu ?>surat" class="w3-bar-item w3-button"><i class="fa fa-inbox"></i> SURAT</a>
 		</li>
+		
+		
 		
 		<li>
 			<a href="<?php echo $url . $menu ?>upk" class="w3-bar-item w3-button"><i class="fa fa-user-plus"></i> UPK NR</a>

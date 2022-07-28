@@ -1,9 +1,3 @@
-<?php 
-$id_soal = aman($con,$_GET['idsoal']);
-$soal = mysqli_query($con,"SELECT * from kuis_bank_soal where id='$id_soal'");
-$soal = mysqli_fetch_array($soal);
-echo mysqli_error($con);
-?>
 <form method="post">
    <div class="col-lg-8">
    <h2>BUAT SOAL</h2> 
@@ -11,7 +5,7 @@ echo mysqli_error($con);
    <table class='table'>
         <tr>
             <th>SOAL</th>
-            <th><textarea name="soal" id="" class='form-control' required cols="30" rows="5"><?=$soal['soal']?></textarea></th>
+            <th><textarea name="soal" id="" class='form-control' required cols="30" rows="5"></textarea></th>
         </tr>
         <tr>
             <th>PILIHAN</th>
@@ -23,8 +17,8 @@ echo mysqli_error($con);
                      foreach($pilihan as $pilih){
                         ?>
                         <tr>
-                            <td>PILIHAN <?=strtoupper($pilih)?> &nbsp;</td>
-                            <td>   <input type="text" value='<?=$soal['pilihan_'.$pilih]?>'  required class='form-control' name='pilihan_<?=$pilih?>' placeholder="PILIHAN <?=strtoupper($pilih)?>"></td>
+                            <td > <?=strtoupper($pilih)?> &nbsp;</td>
+                            <td>   <input type="text" required class='form-control' name='pilihan_<?=$pilih?>' placeholder="PILIHAN <?=strtoupper($pilih)?>"></td>
                         </tr>
                         <?php
                      }
@@ -36,11 +30,8 @@ echo mysqli_error($con);
                                 <option value="">PILIHAN BENAR</option>
                                 <?php
                                 foreach($pilihan as $pilih){
-                                    if($pilih==$soal['pilihan_benar'])
-                                    $sel = 'selected';
-                                    else $sel='';
                                     ?>
-                                    <option value="<?=$pilih?>" <?=$sel?>> PILIHAN <?=strtoupper($pilih)?></option>
+                                    <option value="<?=$pilih?>"> PILIHAN <?=strtoupper($pilih)?></option>
                                     <?php
                                 }
                                 ?>
@@ -55,7 +46,7 @@ echo mysqli_error($con);
         <tr>
             <td>KATEGORI</td>
             <td>
-                <input type="text" value='<?=$soal['kategori']?>'  name='kategori' class='form-control'> 
+                <input type="text" name='kategori' class='form-control'> 
                 pisahkan dengan koma jika ada beberapa kategori
             </td>
         </tr>
@@ -69,7 +60,7 @@ echo mysqli_error($con);
         <tr>
             <td>&nbsp;</td>
             <td>
-                <input type="submit"  value='SIMPAN Soal' name='simpan' class='btn btn-danger'> 
+                <input type="submit"  value='Buat Soal' name='buat' class='btn btn-danger'> 
                 
             </td>
         </tr>
@@ -77,7 +68,7 @@ echo mysqli_error($con);
    </div>
 </form>
 <?php 
-if(isset($_POST['simpan'])){
+if(isset($_POST['buat'])){
    $soal = aman($con,$_POST['soal']);
    $kategori = aman($con,$_POST['kategori']);
    $jawaban = aman($con,$_POST['jawaban']);
@@ -87,14 +78,8 @@ if(isset($_POST['simpan'])){
    $pilihan_d = aman($con,$_POST['pilihan_d']);
    $pembuat = aman($con,$_POST['pembuat']);
 
-   $insert = mysqli_query($con,"
-   UPDATE `kuis_bank_soal` SET `soal` = '$soal' , `pilihan_a` = '$pilihan_a' , `pilihan_b` = '$pilihan_b' , 
-   `pilihan_c` = '$pilihan_c'
-    , `pilihan_d` = '$pilihan_d' 
-    , `pilihan_benar` = '$jawaban' 
-    , `kategori` = '$kategori' 
-   WHERE `id` = '$id_soal'; 
-
+   $insert = mysqli_query($con,"INSERT INTO `kuis_bank_soal` (`soal`, `pilihan_a`, `pilihan_b`, `pilihan_c`, `pilihan_d`, `pilihan_benar`, `kategori`, `pembuat`) 
+                                VALUES ('$soal', '$pilihan_a', '$pilihan_b', '$pilihan_c', '$pilihan_d', '$jawaban', '$kategori', '$pembuat'); 
    ");
    if($insert)
    {

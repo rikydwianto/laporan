@@ -181,8 +181,11 @@ function clean_angka($angka){
   return str_replace(",","",str_replace(".","",$angka));
 }
 
-function aman($con, $string)
+function aman($con=null, $string)
 {
+  if($con==null){
+    $con = $GLOBALS['con'];
+  }
   return htmlspecialchars(mysqli_escape_string($con, $string));
 }
 

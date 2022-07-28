@@ -31,7 +31,33 @@ if(!$_SESSION['jabatan']){
 
 	
 	<div class="panel-body ">
-		<h3 class='page-header'>INFORMASI ! <hr/></h3>
+		<h3 class='page-header'>INFORMASI ! </h3>
+		<?php
+		$cari_kuis = mysqli_query($con,"select * from kuis where id_cabang='$id_cabang' and status='aktif' order by id_kuis desc");
+		if(mysqli_num_rows($cari_kuis)>0){
+			$kuis= mysqli_fetch_array($cari_kuis);
+			pesan("KUIS AKTIF <br> NAMA KUIS : $kuis[nama_kuis]","danger");
+			$id_karyawan =base64_encode(base64_encode($id_karyawan));
+			$id_cabang =base64_encode(base64_encode($id_cabang));
+			$id_kuis =base64_encode(base64_encode($kuis['id_kuis']));
+			$link_kuis=$url."isi_kuis.php?idk=$id_karyawan&cab=$id_cabang&kuis=$id_kuis";
+			?>
+
+			
+			<a href="<?=$link_kuis?>" class="btn btn-danger">KLIK DISINI UNTUK MEMULAI</a>
+			<hr>
+			<?php
+		}
+		else{
+			
+		}
+		$id_karyawan =(($id_karyawan));
+		
+			$id_cabang =(($id_cabang));
+		$id_karyawan =$_SESSION['id'];
+			$id_cabang =$_SESSION['cabang'];
+			$id_kuis =base64_decode(base64_decode($kuis['id_kuis']));
+?>
 		<div class="card">
 		  <ul class="list-group list-group-flush">
 			<li class="list-group-item"><?php echo strtoupper($karyawan['nama_karyawan']) ?> </li>
@@ -40,6 +66,8 @@ if(!$_SESSION['jabatan']){
 			<li class="list-group-item"> Wilayah <?php echo strtoupper($karyawan['wilayah']) ?></li>
 		  </ul>
 		</div>
+
+		
 		
 		<?php
 		if($jabatan=='SL'){

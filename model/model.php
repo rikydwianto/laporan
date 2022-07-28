@@ -1,4 +1,5 @@
 <?php
+//error_reporting(0);
 class Hitung{
 	public function hitung_center($con,$cabang){
 	$q=mysqli_query($con,"select count(no_center) as center from center where id_cabang=$cabang");
@@ -44,7 +45,7 @@ and laporan.status_laporan='sukses' and karyawan.id_cabang=$cabang and tgl_lapor
 	public function hitung_client($con,$cabang){
 		$q=mysqli_query($con,"select sum(anggota_center) as member from center where  id_cabang=$cabang");
 		$hit = mysqli_fetch_array($q);
-		if ($hit['member']>0)
+		if (@$hit['member']>0)
 			return $hit['member'];
 		else return 0;	
 	}

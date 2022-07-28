@@ -405,3 +405,4 @@ function addCommas(nStr)
 <script src="<?= $url ?>assets/js/script.js"></script>
 
 </html>
+<?php mysqli_close($con)?>
