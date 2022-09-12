@@ -9,9 +9,6 @@
 		text-align: center;
 	}
 
-	table {
-		width: 60%;
-	}
 </style>
 <div class='content table-responsive'>
 	<h2 class='page-header'>STATISTIK PETUGAS LAPANG </h2>
@@ -25,7 +22,7 @@
 	<?php
 	if (isset($_GET['tambah'])) {
 		$id = aman($con,$_GET['id']);
-		$tgl = $_GET['tanggal'];
+		$tgl = $_GET['tgl'];
 	?>
 		<!-- <form action="" method="post">
 			<textarea name="query" class='form-control' id="" cols="50" rows="20"></textarea>
@@ -85,7 +82,11 @@
 							$jumlah_center = ganti_karakter($ws->getCell("E".$row)->getValue());
 							$member = ganti_karakter($ws->getCell("G".$row)->getValue());
 							$client = ganti_karakter($ws->getCell("H".$row)->getValue());
+							$saving = ganti_karakter($ws->getCell("O".$row)->getValue()) + ganti_karakter($ws->getCell("P".$row)->getValue()) + ganti_karakter($ws->getCell("Q".$row)->getValue()) + ganti_karakter($ws->getCell("R".$row)->getValue()) + ganti_karakter($ws->getCell("S".$row)->getValue());
+							
+							$group = ganti_karakter($ws->getCell("F".$row)->getValue());
 							$disburse = ganti_karakter($ws->getCell("K".$row)->getValue());
+
 							$os = ganti_karakter($ws->getCell("L".$row)->getValue());
 							$masalah = ganti_karakter($ws->getCell("M".$row)->getValue());
 							$par = ganti_karakter($ws->getCell("N".$row)->getValue());
@@ -97,8 +98,8 @@
 							 }
 							 else{
 								 $text = " INSERT INTO `spl` 
-								 (`id_spl`, `id_statistik`, `staff`, `jumlah_center`, `member`, `client`, `disburse`, `outstanding`, `masalah`, `par`, `new_member`, `id_karyawan`, `id_cabang`) 
-								 VALUES (NULL, '$id', '$nama', '$jumlah_center', '$member', '$client', '$disburse', '$os', '$masalah', '$par', '$new_member', null, '$id_cabang');";
+								 (`id_spl`, `id_statistik`, `staff`, `jumlah_center`, `member`, `client`, `disburse`, `outstanding`, `masalah`, `par`, `new_member`, `id_karyawan`, `id_cabang`,`saving`,`group`) 
+								 VALUES (NULL, '$id', '$nama', '$jumlah_center', '$member', '$client', '$disburse', '$os', '$masalah', '$par', '$new_member', null, '$id_cabang','$saving','$group');";
 								 // echo $text;
 								 mysqli_query($con,$text);
 
@@ -145,10 +146,10 @@
 		while ($data = mysqli_fetch_assoc($query)) $array[] = $data;
 
 	?>
-		<div class="col-md-2">
+		<div class="col-md-0">
 
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-10">
 			<table class='table' >
 				<tr>
 					<th colspan="10" style="text-align:center;font-size:20px"><?= format_hari_tanggal($tgl) ?></th>
@@ -156,11 +157,14 @@
 				<tr>
 					<th>No.</th>
 					<th>Nama Staff</th>
-					<th> Center</th>
-					<th>Member</th>
 					<th>Client</th>
+					<th>Member</th>
+					<th> Group</th>
+					<th> Center</th>
+					<th>Arrea</th>
 					<th>Disburse</th>
 					<th>Outstanding</th>
+					<th>Saving</th>
 					<th>Outstanding<br>Masalah </th>
 					<th>Par</th>
 					<th>New Member</th>
@@ -174,17 +178,15 @@
 				$jumlah_center = 0;
 				$jumlah_member = 0;
 				$jumlah_client = 0;
+				$jumlah_group = 0;
+				$t_saving=0;
 				foreach ($array as $val) {
-
-				?>
-					<?php
 
 					$disburse =  angka_mentah($val['disburse']);
 					$outstanding = angka_mentah($val['outstanding']);
 					$total_disburse = $total_disburse + $disburse;
 					$total_outstanding = $total_outstanding + $outstanding;
-					?>
-					<?php
+					
 
 					$disburse =  angka_mentah($val['disburse']);
 					$masalah = angka_mentah($val['masalah']);
@@ -195,15 +197,22 @@
 					$jumlah_center = $jumlah_center + $val['jumlah_center'];
 					$jumlah_member = $jumlah_member + $val['member'];
 					$jumlah_client = $jumlah_client + $val['client'];
+					$group=$val['group'];
+					$jumlah_group = $jumlah_group + $group;
+					$saving = $val['saving'];
+					$t_saving = $saving + $t_saving
 					?>
 					<tr>
 						<td class='nama'><?= $no++ ?></td>
 						<td class='nama'><?= str_replace("Sub. Tot ", "", $val['nama_karyawan']) ?></td>
-						<td class='kotak'><?= $val['jumlah_center'] ?></td>
-						<td class='kotak'><?= $val['member'] ?></td>
 						<td class='kotak'><?= $val['client'] ?></td>
+						<td class='kotak'><?= $val['member'] ?></td>
+						<td class='kotak'><?= $group?></td>
+						<td class='kotak'><?= $val['jumlah_center'] ?></td>
+						<td class='kotak'><?= 0 ?></td>
 						<td class='kotak'><?= angka($disburse); ?></td>
 						<td class='kotak'><?= angka($outstanding) ?> </td>
+						<td class='kotak'><?= angka($saving) ?> </td>
 						<td class='kotak'><?= angka($masalah) ?> </td>
 						<td class='kotak'><?= round($val['par'],2) ?></td>
 						<td class='kotak'><?= ($new_member) ?></td>
@@ -216,11 +225,15 @@
 				<tr class='tengah'>
 					<td></td>
 					<td></td>
-					<td><?= $jumlah_center ?></td>
-					<td><?= $jumlah_member ?></td>
 					<td><?= $jumlah_client ?></td>
+					<td><?= $jumlah_member ?></td>
+					<td><?= $jumlah_group ?></td>
+					<td><?= $jumlah_center ?></td>
+					<td><?= 0 ?></td>
 					<td><?= angka($total_disburse) ?></td>
 					<td><?= angka($total_outstanding) ?></td>
+					<td><?= angka($t_saving) ?></td>
+
 					<td><?= angka($total_masalah) ?></td>
 					<td class='kotak'><?= round(($total_masalah / $total_outstanding) * 100, 2) ?></td>
 					<td class='kotak'><?= $total_new_member ?></td>
@@ -418,7 +431,7 @@
 if(isset($_POST['tambah_statistik'])){
 	mysqli_query($con,"INSERT INTO `statistik` (`tgl_statistik`, `id_cabang`) VALUES ('$_POST[tanggal]', '$id_cabang'); ");
 	$last = mysqli_insert_id($con);
-	pindah($url.$menu."spl&tambah&id=$last&tanggal=$_POST[tanggal]");
+	pindah($url.$menu."spl&tambah&id=$last&tgl=$_POST[tanggal]");
 }
 ?>
 <script>
