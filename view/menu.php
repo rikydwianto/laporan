@@ -486,6 +486,10 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 					<a href="<?php echo $url . $menu ?>anal_bayar" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> Analisi Agt Tidak Bayar</a>
 
 				</li>
+				<li>
+					<a href="<?php echo $url . $menu ?>tidak_bayar" class="w3-bar-item w3-button"><i class="fa fa-bar-users"></i> AGT TIDAK BAYAR</a>
+
+				</li>
 			</ul>
 
 		</li>
