@@ -194,14 +194,20 @@ while($r = mysqli_fetch_array($cek_delin1)){
             $wajib_minggu=0;
             if($kode_pemb=='PU' || $kode_pemb=='PMB'){
                 $wajib_minggu = $amount /1000;
-                if(is_float($wajib_minggu )){
-                    $pecah=explode(".",$wajib_minggu);
-                    $awal = $pecah[0];
-                    $wajib_minggu = ($awal + 1) * 1000;
-
+                if($amount<=1000000){
+                    $wajib_minggu=1000;
                 }
                 else{
-                    $wajib_minggu = $wajib_minggu * 1000 ;
+
+                    if(is_float($wajib_minggu )){
+                            $pecah=explode(".",$wajib_minggu);
+                        $awal = $pecah[0];
+                        $wajib_minggu = ($awal + 1) * 1000;
+
+                    }
+                    else{
+                        $wajib_minggu = $wajib_minggu * 1000 ;
+                    }
                 }
             }
            
