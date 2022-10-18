@@ -20,11 +20,11 @@ $cab  = mysqli_query($con,"select * from cabang where kode_cabang='$cabang'");
 $cab = mysqli_fetch_array($cab);
 $id_cabang = $cab['id_cabang'];
 
-$ceke = mysqli_query($con,"select * from tidak_bayar where id_detail_nasabah='$id' and tanggal='$tgl' and nik='$nik' and kode_cabang='$cabang'");
+$ceke = mysqli_query($con,"select * from tidak_bayar where id_detail_nasabah='$id' and tanggal='$tgl'");
 echo mysqli_error($con);
 if(mysqli_num_rows($ceke)){
     $tr = mysqli_fetch_array($ceke);
-    mysqli_query($con,"delete from tidak_bayar where id='$tr[id]'");
+    mysqli_query($con,"delete from tidak_bayar where id_detail_nasabah='$id' and tanggal='$tgl'");
     mysqli_query($con,"INSERT INTO `tidak_bayar` (`id`, `id_detail_nasabah`, `no_center`, `nik`, `nama`, `angsuran`, `sukarela`, `keterangan`, `balance`, `tanggal`, `kode_cabang`)
      VALUES (NULL, '$id_detail', '$center', '$nik', '$nama', '$angsuran', '$sukarela', '$ket', '$balance', '$tgl', '$cabang');
  
