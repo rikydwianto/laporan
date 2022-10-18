@@ -20,7 +20,7 @@ $cab  = mysqli_query($con,"select * from cabang where kode_cabang='$cabang'");
 $cab = mysqli_fetch_array($cab);
 $id_cabang = $cab['id_cabang'];
 
-$ceke = mysqli_query($con,"select * from tidak_bayar where id_detail_anggota='$id' and tanggal='$tgl' and nik='$nik' and kode_cabang='$cabang'");
+$ceke = mysqli_query($con,"select * from tidak_bayar where id_detail_nasabah='$id' and tanggal='$tgl' and nik='$nik' and kode_cabang='$cabang'");
 echo mysqli_error($con);
 if(mysqli_num_rows($ceke)){
     $tr = mysqli_fetch_array($ceke);
