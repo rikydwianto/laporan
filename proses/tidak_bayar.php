@@ -42,14 +42,16 @@ if(isset($_GET['cari']))
 			<th>KETERANGAN</th>
 		</tr>
         <?php 
-        $q = mysqli_query($con,"select * from tidak_bayar tb join cabang c on c.kode_cabang=tb.kode_cabang where c.id_cabang='$id_cabang' and (tanggal between '$tglawal' and '$tglakhir' ) ");
+        $qmax= mysqli_query($con,"SELECT MAX(tgl_input) AS tgl_max FROM deliquency where id_cabang='$id_cabang'");
+        $max = mysqli_fetch_array($qmax)['tgl_max'];
+        $q = mysqli_query($con,"select * from tidak_bayar tb join cabang c on c.kode_cabang=tb.kode_cabang join center ctr on ctr.no_center=tb.no_center join karyawan k on k.id_karyawan=ctr.id_karyawan where c.id_cabang='$id_cabang' and ctr.id_cabang='$id_cabang' and (tanggal between '$tglawal' and '$tglakhir' ) ");
         while($r=mysqli_fetch_array($q)){
             ?>
             <tr>
                 <td><?=$no++?></td>
                 <td><?=$r['no_center']?></td>
                 <td><?=$r['id_detail_nasabah']?></td>
-                <td><?=$r['nik']?></td>
+                <td><?=$r['nama_karyawan']?></td>
                 <td><?=$r['nama']?></td>
                 <td><?=angka($r['balance'])?></td>
                 <td><?=angka($r['angsuran'])?></td>
