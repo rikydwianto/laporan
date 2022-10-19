@@ -1,4 +1,4 @@
-<h1>Anggota tidak  Bayar</h1>
+<h1>CENTER TIDAK ADA TAPI ADA DI DELIN</h1>
 
 <?php
  if(isset($_GET['tglawal']) || isset($_GET['tglakhir']))

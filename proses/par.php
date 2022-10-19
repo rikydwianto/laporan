@@ -3,6 +3,7 @@
 
 	<h3 class="page-header">INPUT ANGGOTA PAR</h3>
     <a href="<?=$url.$menu?>par&list" class="btn btn-success">Lihat Data Par</a>
+    <a href="<?=$url.$menu?>center_tidak_ada" class="btn btn-primary">Syncrone merger center</a>
     <form method="post" enctype="multipart/form-data">
         <div class="col-md-4">
             <label for="formFile" class="form-label">SILAHKAN PILIH FILE</label>
