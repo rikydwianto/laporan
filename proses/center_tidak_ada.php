@@ -47,6 +47,7 @@ if(isset($_GET['cari']))
 			<th>NO</th>
 			<th>CENTER LAMA</th>
 			<th>CENTER BARU</th>
+			<th>ID</th>
 			<th>NAMA</th>
 			<th>STAFF</th>
 			<th>HARI</th>
@@ -85,6 +86,7 @@ if(isset($_GET['cari']))
                     ?>
                     </select>
             </td>
+                <td><?=$r['id_detail_nasabah']?></td>
                 <td><?=$r['nasabah']?></td>
                 <td><?=$r['staff']?></td>
                 <td><?=$r['hari']?></td>
