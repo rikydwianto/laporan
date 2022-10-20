@@ -44,11 +44,14 @@ if(isset($_GET['cari']))
         <?php 
         $qmax= mysqli_query($con,"SELECT MAX(tgl_input) AS tgl_max FROM deliquency where id_cabang='$id_cabang'");
         $max = mysqli_fetch_array($qmax)['tgl_max'];
-        $q = mysqli_query($con,"select * from tidak_bayar tb join cabang c on c.kode_cabang=tb.kode_cabang join center ctr on ctr.no_center=tb.no_center join karyawan k on k.id_karyawan=ctr.id_karyawan where c.id_cabang='$id_cabang' and ctr.id_cabang='$id_cabang' and (tanggal between '$tglawal' and '$tglakhir' )  ");
+        $q = mysqli_query($con,"select * from tidak_bayar tb join cabang c on c.kode_cabang=tb.kode_cabang join center ctr on ctr.no_center=tb.no_center join karyawan k on k.id_karyawan=ctr.id_karyawan where c.id_cabang='$id_cabang' and ctr.id_cabang='$id_cabang' 
+        and (tanggal between '$tglawal' and '$tglakhir' ) 
+        and tb.angsuran>0
+        ");
         echo mysqli_error($con);
         while($r=mysqli_fetch_array($q)){
-            $cek_delin = mysqli_query($con,"SELECT loan FROM deliquency WHERE id_cabang='12' and loan='$r[loanno]' ORDER BY tgl_input DESC LIMIT 0,1");
-            if(mysqli_num_rows($cek_delin)<1){
+            // $cek_delin = mysqli_query($con,"SELECT loan FROM deliquency WHERE id_cabang='12' and loan='$r[loanno]' ORDER BY tgl_input DESC LIMIT 0,1");
+            // if(mysqli_num_rows($cek_delin)<1){
 
                 ?>
             <tr>
@@ -63,7 +66,7 @@ if(isset($_GET['cari']))
                 <td><?=$r['keterangan']?></td>
             </tr>
             <?php
-        }
+            // }
         }
         ?>   
         </table>
