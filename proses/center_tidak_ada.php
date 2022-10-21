@@ -57,7 +57,7 @@ if(isset($_GET['cari']))
 
         $q = mysqli_query($con,"select * from deliquency where no_center not in (select no_center from center where id_cabang='$id_cabang') and id_cabang='$id_cabang' group by id_detail_nasabah order by tgl_input desc        ");
         while($r=mysqli_fetch_array($q)){
-            $cek_c = mysqli_query($con,"select * from daftar_nasabah where id_detail_nasabah='$r[id_detail_nasabah]' and id_cabang='$id_cabang'");
+            $cek_c = mysqli_query($con,"select * from daftar_nasabah where id_detail_nasabah='$r[id_detail_nasabah]' and id_cabang='$id_cabang' UNION select * from daftar_nasabah where id_detail_nasabah='$r[id_detail_nasabah]' and id_cabang='$id_cabang'");
             $client = mysqli_fetch_array($cek_c);
             ?>
             <tr>
