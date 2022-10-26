@@ -222,7 +222,7 @@ while($r = mysqli_fetch_array($cek_delin1)){
             WHERE c.`id_nasabah`='$IDs' AND a.`id_cabang`='$id_cabang' and b.`id_cabang`='$id_cabang' and c.`id_cabang`='$id_cabang'");
             $nama = mysqli_fetch_array($q);
             $warna="";
-            $cicilan = $pokok + $margin + $wajib_minggu;
+            $cicilan = $pokok + $margin ;//+ $wajib_minggu;
             $selisih = $r['minggu'];
             $ket='';
             $satu_angsuran=0;
