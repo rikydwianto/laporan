@@ -345,7 +345,7 @@ while($r = mysqli_fetch_array($cek_delin1)){
                     $a="";
                 }
                 $pensiun_tiga  = ($amount * 1/100) * 1000;
-                $satu_angsuran =  (($sukarela - 2000) + ($pensiun - 2000) +($hari_raya-2000) ) - $cicilan ;
+                $satu_angsuran =  (($sukarela - 2000) + ($pensiun - 2000) +($hari_raya==0?0:($hari_raya-2000)) ) - $cicilan ;
                 $tanpa_margin = $os - (($wajib-2000) + ($pensiun-2000) + ($sukarela-2000) + ($hari_raya-2000));
                
 
