@@ -303,7 +303,6 @@ while($r = mysqli_fetch_array($cek_delin1)){
             $cicilan = $pokok + $margin ;//+ $wajib_minggu;
             $selisih = $r['minggu'];
             $ket='';
-            $satu_angsuran=0;
             $warna_baris ="";
             $pensiun_tiga=0;
             $tanpa_margin=0;
@@ -315,14 +314,14 @@ while($r = mysqli_fetch_array($cek_delin1)){
                 if($selisih>=1){
                     
                     
-                    $pensiun_tiga  = ($amount * 1/100) * 1000;
-                    $satu_angsuran = $cicilan - (($sukarela - 2000) + ($pensiun - 2000) );
-                    $tanpa_margin = $os - (($wajib-2000) + ($pensiun-2000) + ($sukarela-2000) + ($hari_raya-2000));
+                    // $pensiun_tiga  = ($amount * 1/100) * 1000;
+                    // $satu_angsuran = $cicilan - (($sukarela - 2000) + ($pensiun - 2000) );
+                    // $tanpa_margin = $os - (($wajib-2000) + ($pensiun-2000) + ($sukarela-2000) + ($hari_raya-2000));
                     // $satu_angsuran = ($sukarela - 2000) -$cicilan;
                 }
                 else{
                     $ket = 'par '.($selisih - 1);
-                    $tanpa_margin = $os - (($wajib-2000) + ($pensiun-2000) + ($sukarela-2000) + ($hari_raya-2000));
+                    // $tanpa_margin = $os - (($wajib-2000) + ($pensiun-2000) + ($sukarela-2000) + ($hari_raya-2000));
 
                 }
             }
@@ -330,9 +329,6 @@ while($r = mysqli_fetch_array($cek_delin1)){
                 // $ket = "double ".$selisih;
             }
            
-            $pensiun_tiga  = ($amount * 1/100) * 1000;
-            $satu_angsuran = $cicilan - (($sukarela - 2000) + ($pensiun - 2000) +($hari_raya-2000) );
-            $tanpa_margin = $os - (($wajib-2000) + ($pensiun-2000) + ($sukarela-2000) + ($hari_raya-2000));
            
          
             $ket  = "ada";
@@ -348,6 +344,10 @@ while($r = mysqli_fetch_array($cek_delin1)){
                     $ket="-";
                     $a="";
                 }
+                $pensiun_tiga  = ($amount * 1/100) * 1000;
+                $satu_angsuran =  (($sukarela - 2000) + ($pensiun - 2000) +($hari_raya-2000) ) - $cicilan ;
+                $tanpa_margin = $os - (($wajib-2000) + ($pensiun-2000) + ($sukarela-2000) + ($hari_raya-2000));
+               
 
                 $total_simpanan   = $sukarela + $wajib + $pensiun_asli + $hari_raya;           
                 $sheet->setCellValue('A'.$baris, $nor++);
