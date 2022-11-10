@@ -242,9 +242,6 @@ $cek_delin = mysqli_num_rows($cek_delin1);
 while($r = mysqli_fetch_array($cek_delin1)){
     $kode = $r['loan'];
     $kode = explode("-",$kode)[0];
-    // $simp = mysqli_query($con,"select * from detail_simpanan where id_nasabah='$r[idn]' and id_cabang='$id_cabang' and pembiayaan='$kode'");
-    // $simp = mysqli_fetch_array($simp);
-    // $json  = $simp['detail_simpanan'];
     
     //         $json = json_decode($json);
             //    if($id_nasabah!=null){
@@ -315,37 +312,9 @@ while($r = mysqli_fetch_array($cek_delin1)){
                 // echo 'double 1';
             }
             elseif($selisih>=1){
-                //PAR DARI 1 sampe 100
-                // && $selisih <100
                 if($selisih>=1){
                     
-                    // $ket =  $selisih - 1 ." tunggakan";
-                    // if($nama['status_center']=='hijau' ){
-                    //     $warna_baris="#79ff54";
-                    //     $warna = "hijau";
-                    // }
-                    // elseif( $nama['status_center']=='kuning')
-                    // {
-                    //     $warna_baris="yellow";
-                    //     $warna = "kuning";
-                        
-                    // }
                     
-                    // if($pensiun){
-                    //     if($pensiun < $pensiun_tiga + 10000){
-                    //         $pensiun_tiga  = 0;
-                    //     }
-                    //     else{
-                    //         $pensiun_tiga  = ($amount * 1/100) * 1000;
-                    //     }
-                    //     $sukarela_pensiun = (($sukarela - 2000) + ($pensiun - $pensiun_tiga) );
-                    //     $satu_angsuran = $cicilan;
-                        
-                    // }
-                    // else{
-                    //    // $pensiun=0;
-                    //     $sukarela_pensiun = ($sukarela - 2000) ;
-                    // }
                     $pensiun_tiga  = ($amount * 1/100) * 1000;
                     $satu_angsuran = $cicilan - (($sukarela - 2000) + ($pensiun - 2000) );
                     $tanpa_margin = $os - (($wajib-2000) + ($pensiun-2000) + ($sukarela-2000) + ($hari_raya-2000));
@@ -361,30 +330,11 @@ while($r = mysqli_fetch_array($cek_delin1)){
                 // $ket = "double ".$selisih;
             }
            
+            $pensiun_tiga  = ($amount * 1/100) * 1000;
+            $satu_angsuran = $cicilan - (($sukarela - 2000) + ($pensiun - 2000) +($hari_raya-2000) );
+            $tanpa_margin = $os - (($wajib-2000) + ($pensiun-2000) + ($sukarela-2000) + ($hari_raya-2000));
            
-          /*   <!-- <tr>
-                    <th><?=$nor++?></th>
-                    <th><?=$r['nasabah']?></th>
-                    <th><?=$id_nasabah?></th>
-                    <th>NAMA</th>
-                    <th><?=$simp['pembiayaan']?> </th>
-                    <th><?=$ke?></th>
-                    <th><?=$rill?></th>
-                    <th><?=$amount?></th>
-                    <th><?=$os?></th>
-                    <th><?=$cicilan?></th>
-                    <th><?=$wajib?></th>
-                    <th><?=$sukarela?></th>
-                    <th><?=$pensiun?></th>
-                    <th>PAR</th>
-                    <th>1 angsuran</th>
-                    <th>tanpa Margin</th>
-                    <th>Warna</th>
-
-                    <th>#</th>
-                </tr> -->
          
-            */
             $ket  = "ada";
          
               $selisih = $r['minggu'];
