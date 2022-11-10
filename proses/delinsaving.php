@@ -306,6 +306,13 @@ while($r = mysqli_fetch_array($cek_delin1)){
             $warna_baris ="";
             $pensiun_tiga=0;
             $tanpa_margin=0;
+            //FILTER ANGGOTA TIGA TAHUN UNTUK PENGAMBILAN PENSIUN
+            if($nama['lama']>=3){
+                $pensiun_akhir = ($pensiun - 2000);
+            }
+            else $pensiun_akhir = 0;
+
+            //END PENSIUN
             if($selisih == 0)
             {
                 // echo 'double 1';
@@ -344,8 +351,8 @@ while($r = mysqli_fetch_array($cek_delin1)){
                     $ket="-";
                     $a="";
                 }
-                $pensiun_tiga  = ($amount * 1/100) * 1000;
-                $satu_angsuran =  (($sukarela - 2000) + ($pensiun - 2000) +($hari_raya==0?0:($hari_raya-2000)) ) - $cicilan ;
+                $pensiun_tiga  = ($amount * 0.01);
+                $satu_angsuran =  (($sukarela - 2000) + $pensiun_akhir +($hari_raya==0?0:($hari_raya-2000)) ) - $cicilan ;
                 $tanpa_margin = $os - (($wajib-2000) + ($pensiun-2000) + ($sukarela-2000) + ($hari_raya-2000));
                
 
