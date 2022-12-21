@@ -395,6 +395,7 @@
                         <th>NO Pinjaman</th>
                         <th>NASABAH</th>
                         <th>CTR</th>
+                        <th>HARI<br/>staff baru</th>
                         <th>PINJAMAN</th>
                         <th>PRODUK</th>
                         <th>Cair</th>
@@ -477,7 +478,7 @@
                                 <a href="<?= $url . $menu ?>monitoring&pindahstaff&idpinjaman=<?= $pinj['id_pinjaman'] ?>" class="">
                                 <i class="fa fa-gears"></i>
                             </a>
-                            <?= $pinj['nama_karyawan'] ?>
+                            <?= $nama_staff = $pinj['nama_karyawan'] ?>
                             </td>
                             <td><?=$tpk?></td>
                             <td><?= ganti_karakter($pinj['id_detail_pinjaman']) ?></td>
@@ -491,6 +492,26 @@
                                 $center = (explode(" ", $cen)[0]);
                                 echo $center;
                                 ?>
+                            </td>
+                            <td>
+                                <small>
+                                    
+                                    <?php 
+                            $cek_center = mysqli_query($con,"select * from center join karyawan on karyawan.id_karyawan=center.id_karyawan where center.no_center='$center' and center.id_cabang='$id_cabang' and karyawan.id_cabang='$id_cabang'limit 0,1");
+                            $center =mysqli_fetch_array($cek_center);
+                            if($nama_staff==$center['nama_karyawan']){
+                                $text_color = 'black';
+                                $text_ket = '';
+                            }
+                            else{
+                                $text_color='red';
+                                $text_ket='ganti - '.strtolower($center['nama_karyawan']);
+                            }
+                            echo $center['hari']."<br>";
+                            echo "<i style='color:$text_color'>$text_ket</i>";
+                            
+                            ?>
+                            </small>
                             </td>
                             <td><?= angka($pinj['jumlah_pinjaman']) ?></td>
                             <td>
