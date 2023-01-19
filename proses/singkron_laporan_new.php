@@ -169,6 +169,7 @@ if(isset($_GET['idk']) && isset($_GET['id_temp'])){
 </div>
 <?php 
 if(isset($_POST['kirim'])){
+    $idk = $_GET['idk'];
     $ket = $_POST['ket'];
     $tgl = $_POST['tgl'];
     $tmb_laporan = mysqli_query($con,"
