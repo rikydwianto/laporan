@@ -8,8 +8,8 @@
   <a href='<?=$url.$menu?>cabang&tambah_wilayah' class="btn btn-info" >
     <i class="fa fa-plus"></i> Tambah Wilayah
   </a> -->
-  <form method='get' action='<?php echo $url . $menu ?>laporan_manual'>
-        <input type=hidden name='menu' value='laporan_manual' />
+  <form method='get' action='<?php echo $url . $menu ?>singkron_laporan'>
+        <input type=hidden name='menu' value='singkron_laporan' />
         <input type=date name='tgl' value='<?php echo isset($_GET['tgl']) ? $_GET['tgl'] : date("Y-m-d") ?>' onchange="submit()" />
         <input type=submit name='cari' value='CARI' />
     </form>
@@ -173,7 +173,7 @@ if(isset($_POST['laporan'])){
             $tidak_bayar = $client[$a] - $bayar[$a];
             $persen = round(($bayar[$a]/$client[$a])*100);
             if ($persen >= 90) $status = "hijau";
-			else if ($persen > 30 && $persen < 90) $status = "kuning";
+			else if ($persen >= 30 && $persen < 90) $status = "kuning";
 			else if ($persen >= 0 && $persen < 30) $status = "merah";
 			else $status = 'merah';
             // $doa='y';

@@ -9,6 +9,7 @@
     <i class="fa fa-plus"></i> Tambah Wilayah
   </a> -->
   <a href="<?=$url.$menu?>singkron_laporan" class="btn btn-danger">.</a>
+  <a href="<?=$url.$menu?>singkron_laporan_new" class="btn btn-success">__</a>
   <form method='get' action='<?php echo $url . $menu ?>laporan_manual'>
         <input type=hidden name='menu' value='laporan_manual' />
         <input type=date name='tgl' value='<?php echo isset($_GET['tgl']) ? $_GET['tgl'] : date("Y-m-d") ?>' onchange="submit()" />
