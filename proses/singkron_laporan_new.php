@@ -195,6 +195,11 @@ if(isset($_POST['kirim'])){
             VALUES (NULL, '$id_laporan', '$ctr', '$warna', 'y', '$member', '$client', '$bayar', '$tdk_bayar', 'sukses', '$dtd','$absensi'); 
 
             ");
+
+
+            $d = mysqli_query($con, "UPDATE center SET doortodoor='$dtd',status_center = '$warna',
+            member_center = '$member' , anggota_center = '$client' , center_bayar = '$bayar' , 
+             id_laporan='$id_laporan'  , anggota_hadir='$absensi' WHERE no_center = '$ctr' and id_cabang=$id_cabang; ");
             echo mysqli_error($con);
   //no_center  status  doa     member  anggota_hadir  total_agt  total_bayar  total_tidak_bayar  status_detail_laporan  doortodoor  
 
