@@ -49,8 +49,19 @@ $nama_jabatan=$d['singkatan_jabatan'];
                 <td rowspan="2" style="padding: 10px;font-weight: bold;" ><?=strtoupper($hari['hari'])?></td>
                 <?php $qkar = mysqli_query($con,"SELECT distinct k.nama_karyawan from center c join karyawan k on k.id_karyawan=c.id_karyawan where c.id_cabang='$id_cabang' order by k.nama_karyawan asc ");
                 while($kar=mysqli_fetch_array($qkar)){
+                    $pecah_nama = explode(" ",strtoupper( $kar['nama_karyawan']));
+                    $nama_staff = $pecah_nama[0];
+                    if(strlen($nama_staff)<3){
+                        $nama_staff = $pecah_nama[0]." ".$pecah_nama[1];
+                    }
+                    else{
+                        if(!empty($pecah_nama[1])){
+
+                            $nama_staff = $nama_staff." ".$pecah_nama[1][0];
+                        }
+                    }
                     ?>
-                    <th colspan="1" style="font-size: 12px;min-width: 60px;"> &nbsp;&nbsp;<?=explode(" ",strtoupper( $kar['nama_karyawan']))[0]?>&nbsp;<?=@explode(" ",strtoupper( $kar['nama_karyawan']))[1][0]?>&nbsp;</th>
+                    <th colspan="1" style="font-size: 12px;min-width: 60px;"> &nbsp;&nbsp;<?=$nama_staff?>&nbsp;&nbsp;</th>
                     <?php
 
                     $center_hari = mysqli_query($con,"SELECT count(hari) as hitung_hari from center where id_cabang='$id_cabang' and hari='$hari[hari]'");
