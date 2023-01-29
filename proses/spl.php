@@ -190,7 +190,6 @@
 
 					$disburse =  angka_mentah($val['disburse']);
 					$masalah = angka_mentah($val['masalah']);
-					$total_disburse = $total_disburse + $disburse;
 					$total_masalah = $total_masalah + $masalah;
 					$new_member = $val['new_member'];
 					$total_new_member = $total_new_member + $new_member;
