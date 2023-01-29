@@ -174,6 +174,7 @@
 				$total_outstanding = 0;
 				$total_disburse = 0;
 				$total_masalah = 0;
+				$total_area = 0;
 				$total_new_member = 0;
 				$jumlah_center = 0;
 				$jumlah_member = 0;
@@ -181,6 +182,10 @@
 				$jumlah_group = 0;
 				$t_saving=0;
 				foreach ($array as $val) {
+
+					$q_desa = mysqli_query($con,"SELECT id_karyawan,COUNT(DISTINCT desa) AS total_desa,desa FROM center WHERE id_karyawan='$val[id_karyawan]' ");
+					$desa = mysqli_fetch_array($q_desa);
+					$desa = $desa['total_desa'];
 
 					$disburse =  angka_mentah($val['disburse']);
 					$outstanding = angka_mentah($val['outstanding']);
@@ -199,7 +204,8 @@
 					$group=$val['group'];
 					$jumlah_group = $jumlah_group + $group;
 					$saving = $val['saving'];
-					$t_saving = $saving + $t_saving
+					$t_saving = $saving + $t_saving;
+					$total_area  += $desa;
 					?>
 					<tr>
 						<td class='nama'><?= $no++ ?></td>
@@ -208,7 +214,7 @@
 						<td class='kotak'><?= $val['member'] ?></td>
 						<td class='kotak'><?= $group?></td>
 						<td class='kotak'><?= $val['jumlah_center'] ?></td>
-						<td class='kotak'><?= 0 ?></td>
+						<td class='kotak'><?= $desa ?></td>
 						<td class='kotak'><?= angka($disburse); ?></td>
 						<td class='kotak'><?= angka($outstanding) ?> </td>
 						<td class='kotak'><?= angka($saving) ?> </td>
@@ -228,7 +234,7 @@
 					<td><?= $jumlah_member ?></td>
 					<td><?= $jumlah_group ?></td>
 					<td><?= $jumlah_center ?></td>
-					<td><?= 0 ?></td>
+					<td><?= $total_area?></td>
 					<td><?= angka($total_disburse) ?></td>
 					<td><?= angka($total_outstanding) ?></td>
 					<td><?= angka($t_saving) ?></td>
