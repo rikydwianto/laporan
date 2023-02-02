@@ -20,12 +20,18 @@
   <a href="<?=$url?>/export/center_papan2.php" class='btn btn-primary'>
 			<i class="fa fa-file-excel-o"></i>  JADWAL PAPAN JAM + DESA
 		</a>
-		<a href="<?=$url.$menu?>center&konfirmasi" class='btn btn-info'>
-				  <i class="fa fa-file-excel-o"></i> KONFIRMASI
-			  </a>
-  <a href="<?=$url.$menu?>center&unkonfirmasi" class='btn btn-info'>
-			<i class="fa fa-file-excel-o"></i> UN - KONFIRMASI
+  <a href="<?=$url?>/export/center_papan_nama.php" class='btn btn-warning'>
+			<i class="fa fa-file-excel-o"></i>  JADWAL PAPAN JAM + NAMA CENTER
 		</a>
+  <a href="<?=$url.$menu?>sync_center" class='btn btn-danger'>
+			<i class="fa fa-gears"></i>  SYNC NEW
+		</a>
+		<!-- <a href="<?=$url.$menu?>center&konfirmasi" class='btn btn-info'>
+				  <i class="fa fa-file-excel-o"></i> KONFIRMASI
+			  </a> -->
+  <!-- <a href="<?=$url.$menu?>center&unkonfirmasi" class='btn btn-info'>
+			<i class="fa fa-file-excel-o"></i> UN - KONFIRMASI
+		</a> -->
 <br>
 <br>
 
@@ -450,6 +456,7 @@
 				<th>DOA</th>
 				<th>STATUS</th>
 				<th>STAFF</th>
+				<th>Nama Center</th>
 				<th>Lat,Lng</th>
 
 				<th>#</th>
@@ -472,6 +479,7 @@
 				<td><?=$center['doa_center'];?></td>
 				<td><?=$center['status_center'];?></td>
 				<td><?=$data['nama_karyawan'];?></td>
+				<td><?=$center['nama_center'];?></td>
 				<td>
 				<?php if($center['latitude']!= null || $center['longitude'] !=NULL) : ?>
 					<a href="<?=link_maps($center['latitude'],$center['longitude'])?>">Arahkan</a>

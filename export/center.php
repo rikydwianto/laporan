@@ -33,6 +33,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
 	<table border="1">
 		<tr>
 			<td>NO</td>
+			<td>NAMA CENTER</td>
 			<td>STAFF</td>
 			<td>HARI</td>
 			<td>id_karyawan</td>
@@ -48,6 +49,7 @@ $nama_jabatan=$d['singkatan_jabatan'];
 			?>
 		<tr>
 			<td><?=$ctr['no_center']?></td>
+			<td><?=$ctr['nama_center']?></td>
 			<td><?=$ctr['nama_karyawan']?></td>
 			<td><?=strtoupper($ctr['hari'])?></td>
 			<td><?=($ctr['id_karyawan'])?></td>
