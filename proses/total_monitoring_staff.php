@@ -16,7 +16,7 @@ if (empty($batas)) {
         <br>
         untuk mengisi anggota silahkan pilih menu "NASABAH STAFF" diatas
         <table class="table table-bordered">
-            <tr>
+            <tr valign="middle">
                 <th>
                     NO
                 </th>
@@ -28,10 +28,11 @@ if (empty($batas)) {
                 <th class='tengah'>ARTA</th>
                 <th class='tengah'>PRR</th>
                 <th class='tengah'>LAIN-LAIN</th>
-                <th class='tengah'>TOTAL MONITORING</th>
+                <th class='tengah'>TOTAL<br>MONITORING</th>
                 <th class='tengah'>AGT</th>
                 <th class='tengah'><?=$batas?>%</th>
                 <th class='tengah'>Ket</th>
+                <th class='tengah'>Harus <br/>Kumpulkan</th>
                 <th class='tengah'></th>
             </tr>
             <?php
@@ -100,7 +101,7 @@ if (empty($batas)) {
                 $hitung_agt = $hitung_agt['member'];
                 $tiga_persen = ($hitung_agt == null ? 0 : round($hitung_agt * $batas / 100));
               
-                
+                $kumpul =null;
                 if($tiga_persen==$total){
                     $lebih='Pas';
                     $warna='';
@@ -113,9 +114,11 @@ if (empty($batas)) {
                 elseif($total>=($tiga_persen*3)){
                     $lebih ="lebih dari 9%";
                     $warna="#b0b0b0";
+                    $kumpul =  $total - $tiga_persen;
                 }
                 else{
                     $lebih = "Lebih";
+                    $kumpul =  $total - $tiga_persen;
                    
                     $warna = '#fcc0c0';
                    
@@ -144,6 +147,7 @@ if (empty($batas)) {
                     <td class='tengah'><?= $hitung_agt ?></td>
                     <td class='tengah'><?= $tiga_persen ?></td>
                     <td class='tengah'><?= $lebih ?></td>
+                    <td class='tengah'><?=$kumpul?></td>
                     <td><a href="<?= $url . $menu ?>monitoring&id=<?= $karyawan['id_karyawan'] ?>"> Detail</a> </td>
                 </tr>
             <?php
@@ -163,6 +167,7 @@ if (empty($batas)) {
                 </td>
                 <td><?= ($total_agt) ?></td>
                 <td><?= round(($total_monitoring/$total_agt)*100) ?>%</td>
+                <td></td>
                 <td></td>
                 <td></td>
             </tr>
