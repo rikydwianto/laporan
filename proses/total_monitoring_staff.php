@@ -32,7 +32,7 @@ if (empty($batas)) {
                 <th class='tengah'>AGT</th>
                 <th class='tengah'><?=$batas?>%</th>
                 <th class='tengah'>Ket</th>
-                <th class='tengah'>Harus <br/>Kumpulkan</th>
+                <th class='tengah'>Minimal <br/>Mengumpulkan</th>
                 <th class='tengah'></th>
             </tr>
             <?php
