@@ -69,8 +69,10 @@ require_once("model/model.php");
                                             $menu_asal = $_GET['url']; 
                                             $menu_asal1 = explode("=",$menu_asal)[1];
                                             // echo $menu_asal;
+
+                                            $d = detail_karyawan($con, $cek['id_karyawan']);
                                             pindah("$url");
-                                            $text = "login @user  : $user  $cek[nama_karyawan]";
+                                            $text = "login @user  : $user  $cek[nama_karyawan] cabang : $d[nama_cabang]";
                                            
                                             
                                             
