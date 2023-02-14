@@ -9,6 +9,7 @@ Icon\?
 /node_modules
 /config
 /config/seting.php
+/file
 /.idea
 /.vscode
 /.vagrant
