@@ -49,7 +49,7 @@
 		<?php 
 		$x = "<i style='color:red;font-weight:bold'>X</i>";
 		$ok = "<b style='color:green;font-weight:bold'>OK</b>";
-		$cek_ka=mysqli_query($con,"SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_cabang='$cabang' and jabatan.singkatan_jabatan='SL' order by karyawan.nama_karyawan asc");
+		$cek_ka=mysqli_query($con,"SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_cabang='$cabang' and jabatan.singkatan_jabatan='SL' and karyawan.status_karyawan='aktif' order by karyawan.nama_karyawan asc");
 		$hitung_member = 0; 
 		$hitung_agt = 0; 
 		$hitung_bayar = 0; 
