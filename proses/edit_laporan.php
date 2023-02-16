@@ -8,7 +8,7 @@
 		$qtgl=date("Y-m-d");
 	}
 ?>
-<div class="col-md-12" style="">
+<div class="col-md-12"">
 	<div class="table-responsive " >
 		<h3 class="page-header">
 			EDIT LAPORAN
@@ -33,7 +33,7 @@
 		</tr>
 		<?php 
 		
-		$cek_ka=mysqli_query($con,"SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_cabang='$cabang' and jabatan.singkatan_jabatan='SL' order by karyawan.nama_karyawan asc");
+		$cek_ka=mysqli_query($con,"SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_cabang='$cabang' and jabatan.singkatan_jabatan='SL' and karyawan.status_karyawan='aktif' order by karyawan.nama_karyawan asc");
 		$hitung_agt = 0; 
 		$hitung_bayar = 0; 
 		$hitung_tdk_bayar= 0; 
