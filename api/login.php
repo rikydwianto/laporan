@@ -1,6 +1,6 @@
 <?php
 header("Content-Type: application/json; charset=UTF-8");
-
+error_reporting(0);
 //panggil koneksi.php
 require_once "../config/seting.php";
 require_once "../config/koneksi.php";
@@ -39,7 +39,7 @@ else{
                 if ($cek['password'] == $pass) {
                     $d = detail_karyawan($con, $cek['id_karyawan']);
                     $text = "Login Berhasil sebagai : $cek[nama_karyawan] cabang : $d[nama_cabang]";
-                    $data = array("id"=>$d['id_karyawan'],'idc'=>$d['id_cabang']);
+                    $data = array("id"=>$d['id_karyawan'],'idc'=>$d['id_cabang'],'jabatan'=>$d['singkatan_jabatan']);
                     $kode='202';
                 } else{
                     $text="Password yang anda masukan tidak sesuai";
