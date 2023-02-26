@@ -62,9 +62,21 @@ else{
             else if($menu=="statistik"){
                 $kode ="200";
                 $pesan="Statistik Cabbang";
+                //INFORMASI PAR
                 $q="SELECT COUNT(*) AS total_par,tgl_input, SUM(`sisa_saldo`) AS total_balance FROM `deliquency` WHERE id_cabang=$id_cabang AND tgl_input=(SELECT MAX(`tgl_input`) FROM deliquency WHERE id_cabang=$id_cabang)";
                 $q = mysqli_fetch_assoc((mysqli_query($con,$q)));
+                //MEMBER
+                $q1=mysqli_query($con,"select sum(total_nasabah) as member from total_nasabah where  id_cabang=$id_cabang");
+                $hit1 = mysqli_fetch_array($q1);
+
+                //INFORMASI CENTER
+                $q2=mysqli_query($con,"select count(no_center) as center from center where id_cabang=$id_cabang");
+                $hit2 = mysqli_fetch_array($q2);
+                	
+                
                 $data=$q;
+                $data['total_member']=$hit1['member'];
+                $data['total_center']= $hit2['center'];
             }
             else{
                 $kode='404';
