@@ -28,7 +28,7 @@ else{
            
             if($menu=="detail_login"){
                 $kode="200";
-                $pesan="berhasil";
+                $pesan="Detail";
                 $query = mysqli_query($con, "SELECT kode_cabang,nama_karyawan,nama_jabatan,nik_karyawan,nama_cabang,singkatan_jabatan,singkatan_cabang,status_karyawan FROM karyawan,jabatan,cabang,wilayah where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang 
                             and cabang.id_wilayah=wilayah.id_wilayah
                             and karyawan.id_karyawan='$id' ");
@@ -58,6 +58,13 @@ else{
                     
                 $data = $array;
                 }
+            }
+            else if($menu=="statistik"){
+                $kode ="200";
+                $pesan="Statistik Cabbang";
+                $q="SELECT COUNT(*) AS total_par,tgl_input, SUM(`sisa_saldo`) AS total_balance FROM `deliquency` WHERE id_cabang=$id_cabang AND tgl_input=(SELECT MAX(`tgl_input`) FROM deliquency WHERE id_cabang=$id_cabang)";
+                $q = mysqli_fetch_assoc((mysqli_query($con,$q)));
+                $data=$q;
             }
             else{
                 $kode='404';
