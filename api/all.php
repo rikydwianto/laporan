@@ -73,10 +73,17 @@ else{
                 $q2=mysqli_query($con,"select count(no_center) as center from center where id_cabang=$id_cabang");
                 $hit2 = mysqli_fetch_array($q2);
                 	
-                
+                $qpin = mysqli_query($con,"SELECT id_karyawan,COUNT(*) as total
+                    FROM pinjaman WHERE monitoring='belum' and id_cabang='$id_cabang' and input_mtr='sudah' GROUP BY id_cabang ");
+                $mon = mysqli_fetch_array($qpin);
+                $mon1 = $mon['total'];
+
+
                 $data=$q;
                 $data['total_member']=$hit1['member'];
                 $data['total_center']= $hit2['center'];
+                $data['total_monitoring']= $mon1;
+
             }
             else{
                 $kode='404';
