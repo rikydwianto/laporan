@@ -1,6 +1,6 @@
 <?php
 header("Content-Type: application/json; charset=UTF-8");
-
+error_reporting(0);
 //panggil koneksi.php
 require_once "../config/seting.php";
 require_once "../config/koneksi.php";
@@ -79,10 +79,21 @@ else{
                 $mon1 = $mon['total'];
 
 
+                //AM AK DAN NETT
+                $anggota="SELECT sum(anggota.anggota_masuk) as masuk,sum(anggota.anggota_keluar) as keluar,sum(anggota.net_anggota) as nett,sum(anggota.psa) as psa,sum(anggota.ppd) as ppd,sum(anggota.prr) as prr,sum(anggota.arta) as arta,sum(anggota.pmb) as pmb,karyawan.nama_karyawan FROM `anggota`,karyawan where anggota.id_karyawan=karyawan.id_karyawan and karyawan.id_cabang=$id_cabang and anggota.tgl_anggota >= '".date("Y-m-01")."' and anggota.tgl_anggota <= '".date("Y-m-31")."' GROUP by anggota.id_karyawan order by karyawan.nama_karyawan asc";
+
+                $stak=mysqli_query($con,$anggota);
+                $stak = mysqli_fetch_assoc($stak);
+                
+
                 $data=$q;
                 $data['total_member']=$hit1['member'];
                 $data['total_center']= $hit2['center'];
                 $data['total_monitoring']= $mon1;
+                $data['total_am']=$stak['masuk']+0;
+                $data['total_ak']=$stak['keluar']+0;
+                $data['total_nett']=$stak['nett']+0;
+                $data['q']=$anggota;
 
             }
             else{
