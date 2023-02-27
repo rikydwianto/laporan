@@ -80,7 +80,7 @@ else{
 
 
                 //AM AK DAN NETT
-                $anggota="SELECT sum(anggota.anggota_masuk) as masuk,sum(anggota.anggota_keluar) as keluar,sum(anggota.net_anggota) as nett,sum(anggota.psa) as psa,sum(anggota.ppd) as ppd,sum(anggota.prr) as prr,sum(anggota.arta) as arta,sum(anggota.pmb) as pmb,karyawan.nama_karyawan FROM `anggota`,karyawan where anggota.id_karyawan=karyawan.id_karyawan and karyawan.id_cabang=$id_cabang and anggota.tgl_anggota >= '".date("Y-m-01")."' and anggota.tgl_anggota <= '".date("Y-m-31")."' GROUP by anggota.id_karyawan order by karyawan.nama_karyawan asc";
+                $anggota="SELECT sum(anggota.anggota_masuk) as masuk,sum(anggota.anggota_keluar) as keluar,sum(anggota.net_anggota) as nett,sum(anggota.psa) as psa,sum(anggota.ppd) as ppd,sum(anggota.prr) as prr,sum(anggota.arta) as arta,sum(anggota.pmb) as pmb,karyawan.nama_karyawan FROM `anggota`,karyawan where anggota.id_karyawan=karyawan.id_karyawan and karyawan.id_cabang=$id_cabang and anggota.tgl_anggota >= '".date("Y-m-01")."' and anggota.tgl_anggota <= '".date("Y-m-31")."' ";
 
                 $stak=mysqli_query($con,$anggota);
                 $stak = mysqli_fetch_assoc($stak);
