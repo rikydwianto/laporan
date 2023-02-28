@@ -51,7 +51,6 @@ else{
                
                 $q="SELECT $table.nama_nasabah,$table.suami_nasabah,$table.no_center,$table.kelompok,$table.id,$table.id_detail_nasabah,$table.no_ktp,$table.hp_nasabah from $table  where $berdasarkan like '$cari%'and $table.id_cabang='$id_cabang' group by id_detail_nasabah order by nama_nasabah asc limit 0,20";
                 $query = mysqli_query($con, "$q");
-                $arra = array();
                 $array=array();
                 while($data=mysqli_fetch_assoc($query)) $array[]=$data; 
                
@@ -93,7 +92,37 @@ else{
                 $data['total_am']=$stak['masuk']+0;
                 $data['total_ak']=$stak['keluar']+0;
                 $data['total_nett']=$stak['nett']+0;
-                $data['q']=$anggota;
+
+            }
+            else if($menu=="detail_nasabah"){
+                $pesan="detail nasabah";
+                $kode=200;
+                $id_nsb = aman($con,$_POST['id_nsb']);
+                $table="daftar_nasabah";
+                $q="SELECT * from $table  where id = '$id_nsb' and id_cabang='$id_cabang' ";
+                $query = mysqli_query($con, "$q");
+                $array=array();
+                $data=mysqli_fetch_assoc($query);
+                 $array=$data; 
+                 $text = "
+CTR/KELP            : $data[no_center]/$data[kelompok]
+ID Detail           : $data[id_detail_nasabah]
+Nama Nasabah        : $data[nama_nasabah]
+Nama Suami          : $data[suami_nasabah]
+NO HP               : $data[hp_nasabah]
+NO KTP              : $data[no_ktp]
+TGL Bergabung       : $data[tgl_bergabung]
+Alamat              : $data[alamat_nasabah]
+
+STAFF        : $data[staff]
+Hari Minggon : $data[hari]
+
+                 ";
+                
+               
+                
+                $data = $array;
+                $data['text']=$text;
 
             }
             else{
