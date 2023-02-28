@@ -49,7 +49,7 @@ else{
                 $pesan="ditemukan";
                 @$berdasarkan  = aman($con,$_POST['kategori']);
                
-                $q="SELECT $table.nama_nasabah,$table.suami_nasabah,$table.no_center,$table.kelompok,$table.id,$table.id_detail_nasabah,$table.no_ktp,$table.hp_nasabah from $table  where $berdasarkan like '$cari%'and $table.id_cabang='$id_cabang' group by id_detail_nasabah order by nama_nasabah asc limit 0,20";
+                $q="SELECT $table.nama_nasabah,$table.suami_nasabah,$table.no_center,$table.kelompok,$table.id,$table.id_detail_nasabah,$table.no_ktp,$table.hp_nasabah from $table  where $berdasarkan like '$cari%'and $table.id_cabang='$id_cabang' group by id_detail_nasabah order by nama_nasabah asc limit 0,50";
                 $query = mysqli_query($con, "$q");
                 $array=array();
                 while($data=mysqli_fetch_assoc($query)) $array[]=$data; 
