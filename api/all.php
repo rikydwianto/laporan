@@ -52,7 +52,7 @@ else{
                 $q="SELECT $table.nama_nasabah,$table.suami_nasabah,$table.no_center,$table.kelompok,$table.id,$table.id_detail_nasabah,$table.no_ktp,$table.hp_nasabah from $table  where $berdasarkan like '$cari%'and $table.id_cabang='$id_cabang' group by id_detail_nasabah order by nama_nasabah asc limit 0,50";
                 $query = mysqli_query($con, "$q");
                 $array=array();
-                while($data=mysqli_fetch_assoc($query)) $array[]=$data; 
+                while($data=mysqli_fetch_assoc($query)) {$array[]=$data; }
                
                     
                 $data = $array;
@@ -103,27 +103,52 @@ else{
                 $query = mysqli_query($con, "$q");
                 $array=array();
                 $data=mysqli_fetch_assoc($query);
+                //https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-512.png
+                $url_photo = "https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-512.png";
                  $array=$data; 
-                 $text = "
-CTR/KELP            : $data[no_center]/$data[kelompok]
-ID Detail           : $data[id_detail_nasabah]
-Nama Nasabah        : $data[nama_nasabah]
-Nama Suami          : $data[suami_nasabah]
-NO HP               : $data[hp_nasabah]
-NO KTP              : $data[no_ktp]
-TGL Bergabung       : $data[tgl_bergabung]
-Alamat              : $data[alamat_nasabah]
 
-STAFF        : $data[staff]
-Hari Minggon : $data[hari]
+                 //PAR
 
-                 ";
-                
+                 $qpar="SELECT * FROM `deliquency` WHERE id_cabang=$id_cabang AND tgl_input=(SELECT MAX(`tgl_input`) FROM deliquency WHERE id_cabang=$id_cabang) and id_detail_nasabah='$data[id_detail_nasabah]'";
+                 $qpar=mysqli_query($con,$qpar);
+                 $par = mysqli_fetch_assoc($qpar);
+
+                 
+                 if(mysqli_num_rows($qpar)>0){
+                    $status_par = "ya";
+                 }
+                 else{
+                    $status_par="tidak";
+                 }
+
+
+                 //STATUS TPK
+
+                 
+                 $qtab="select * from detail_simpanan where id_cabang='$id_cabang' and id_nasabah='$data[id_nasabah]' AND `update_simpanan`=(SELECT MAX(`update_simpanan`) FROM detail_simpanan WHERE id_cabang=$id_cabang)";
+                 $cek_detail = mysqli_query($con,$qtab);
+
+                 if(mysqli_num_rows($cek_detail)){
+                    $status_tabungan = "ada";
+                 }
+                 else{
+                    $status_tabungan="tidakada";
+                 }
                
-                
+                $simpanan=mysqli_fetch_assoc($cek_detail);
                 $data = $array;
+                $tgl_simp = $simpanan['update_simpanan'];
+                $simpanan = json_decode($simpanan['detail_simpanan'],true);
+                $data['photo_nasabah']=$url_photo;
                 $data['text']=$text;
-
+                $data['status_par']=$status_par;
+                $data['update_simpanan']=format_hari_tanggal($tgl_simp);
+                $data['status_tabungan']=$status_tabungan;
+                $data['wajib']=$simpanan['wajib']+0;
+                $data['sukarela']=$simpanan['sukarela']+0;
+                $data['pensiun']=$simpanan['pensiun']+0;
+                $data['hariraya']=$simpanan['hari_raya']+0;
+                $data['total']=$simpanan['wajib']+$simpanan['sukarela']+$simpanan['pensiun']+$simpanan['hari_raya'];
             }
             else{
                 $kode='404';
