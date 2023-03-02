@@ -35,7 +35,7 @@ else{
                             and cabang.id_wilayah=wilayah.id_wilayah
                             and karyawan.id_karyawan='$id' ");
                     $data = mysqli_fetch_assoc($query);
-                $url_p="https://laporan-baru.site/rikydwianto.jpg";
+                $url_p="https://www.google.com/url?sa=i&url=https%3A%2F%2Fjournal.sociolla.com%2Flifestyle%2F5-fakta-menarik-film-avatar-yang-kembali-tayang&psig=AOvVaw0-RFqZm4RBX1TPQ4H2ZpnA&ust=1677887678898000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCNCf4Oq4vv0CFQAAAAAdAAAAABAE";
                 $data['photo']="$url_p";
             }
             else if($menu=="cari_nasabah"){
