@@ -7,7 +7,9 @@ require_once "../config/koneksi.php";
 require_once("../proses/fungsi.php");
 require_once("../model/model.php");
 $kode = '400';
+$TOKEN_TELE = $token;
 @$token  = aman($con,$_POST['token']);
+
 @$id  = aman($con,$_POST['id']);
 @$id_cabang  = aman($con,$_POST['id_cabang']);
 @$menu  = aman($con,$_POST['menu']);
@@ -149,6 +151,46 @@ else{
                 $data['pensiun']=$simpanan['pensiun']+0;
                 $data['hariraya']=$simpanan['hari_raya']+0;
                 $data['total']=$simpanan['wajib']+$simpanan['sukarela']+$simpanan['pensiun']+$simpanan['hari_raya'];
+            }
+            else if($menu=="tampil_monitoring"){
+                $cari = aman($con,$_POST['cari']);
+                $berdasarkan = aman($con,$_POST['berdasarkan']);
+                $filter_kosong="";
+                if($cari==""){
+                    $filter_kosong = "";
+                }
+                else{
+                    $filter_kosong="and p.$berdasarkan like '%$cari%'";
+                }
+                $qpin = mysqli_query($con,"SELECT * FROM pinjaman p 
+                join karyawan k on k.id_karyawan=p.id_karyawan 
+                WHERE monitoring='belum' and p.id_cabang='$id_cabang' and input_mtr='sudah' $filter_kosong order by p.nama_nasabah asc");
+                     $array=array();
+                     while($data=mysqli_fetch_assoc($qpin)) {$array[]=$data; }
+
+                $data = $array;
+
+                //LIST MONITORING
+
+            }
+            else if($menu=="monitoring"){
+                $kode="200";
+                $pesan="iinput mtr";
+                $id  = aman($con,$_POST['id_pin']);
+                $mtr  = aman($con,$_POST['mtr']);
+                $detail  = aman($con,$_POST['detail']);
+            
+                $edit  = mysqli_query($con, "update pinjaman set monitoring='$mtr' where id_pinjaman='$id'");
+                $keluan  = mysqli_query($con, "update banding_monitoring set status='selesai' where id_detail_pinjaman='$detail'");
+                if($mtr=='sudah'){
+                    $input = mysqli_query($con,"INSERT INTO `monitoring` (`id_pinjaman`,`id_detail_pinjaman`, `tgl_monitoring`,waktu) VALUES ('$id','$detail', curdate(),current_time()); ");   
+                   $text = "$id_cabang sedang input monitoring pake android ";
+                    $url_tele = "https://api.telegram.org/$TOKEN_TELE/sendMessage?parse_mode=html&chat_id=1185334687&text=$text&force_reply=true";
+                    file_get_contents($url_tele);
+                }
+                else{
+                    $input = mysqli_query($con,"DELETE FROM `monitoring` WHERE `id_pinjaman` = '$id'; ");
+                }
             }
             else{
                 $kode='404';
