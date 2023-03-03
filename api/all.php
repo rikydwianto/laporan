@@ -35,8 +35,14 @@ else{
                             and cabang.id_wilayah=wilayah.id_wilayah
                             and karyawan.id_karyawan='$id' ");
                     $data = mysqli_fetch_assoc($query);
+                
+                
                 $url_p="https://images.soco.id/589-5-fakta-menarik-film-avatar-yang-kembali-tayang-5.jpg.jpg";
                 $data['photo']="$url_p";
+
+
+                
+
             }
             else if($menu=="cari_nasabah"){
                 $table = "daftar_nasabah";
@@ -87,13 +93,20 @@ else{
                 $stak = mysqli_fetch_assoc($stak);
                 
 
+                $urut = mysqli_fetch_array(mysqli_query($con,"select max(no_urut) as no_urut from surat where id_cabang='$id_cabang' AND YEAR(tgl_surat) = YEAR(curdate()) "));
+                $urut = ($urut['no_urut']==NULL?0:$urut['no_urut']);
+
+                
+
                 $data=$q;
                 $data['total_member']=$hit1['member'];
                 $data['total_center']= $hit2['center'];
-                $data['total_monitoring']= $mon1;
+                $data['total_monitoring']= sprintf("%0d", $mon1);
                 $data['total_am']=$stak['masuk']+0;
                 $data['total_ak']=$stak['keluar']+0;
                 $data['total_nett']=$stak['nett']+0;
+                $data['surat_terakhir']=sprintf("%03d", $urut);
+                $data['surat_sekarang']=sprintf("%03d", $urut+1);
 
             }
             else if($menu=="detail_nasabah"){
