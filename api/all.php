@@ -31,9 +31,7 @@ else{
             if($menu=="detail_login"){
                 $kode="200";
                 $pesan="Detail";
-                $query = mysqli_query($con, "SELECT kode_cabang,nama_karyawan,nama_jabatan,nik_karyawan,nama_cabang,singkatan_jabatan,singkatan_cabang,status_karyawan FROM karyawan,jabatan,cabang,wilayah where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang 
-                            and cabang.id_wilayah=wilayah.id_wilayah
-                            and karyawan.id_karyawan='$id' ");
+                $query = mysqli_query($con, "SELECT kode_cabang,nama_karyawan,nama_jabatan,nik_karyawan,nama_cabang,singkatan_jabatan,singkatan_cabang,status_karyawan FROM karyawan,jabatan,cabang,wilayah where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and cabang.id_wilayah=wilayah.id_wilayah and karyawan.id_karyawan='$id' ");
                     $data = mysqli_fetch_assoc($query);
                 
                 

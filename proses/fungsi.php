@@ -421,3 +421,65 @@ function hitung_sekarang($con,$id_cabang,$id_anggota,$tgl,$tipe="sukarela"){
   return $r;
 
 }
+
+
+
+//SEND PUSH NOTIF FCM
+function send_notif($to,$title,$isi,$tipe=""){
+  
+// FCM endpoint
+$url = 'https://fcm.googleapis.com/fcm/send';
+
+// Authorization key FCM
+$authorizationKey = 'AAAAhIfi4qw:APA91bEFqu4AXSKIUpnhqc6T7wWOk8FYtwp1u-n-zsqpDS096raASZcw5kNnkZ7zSVv070JBAFL42V13IfWwbhlGqSIHvYiTRenwatfxg9Z80QLK9eUTW3MSJivj0his2IbS6r2RX1cq';
+
+// Data payload untuk pesan
+$data = array(
+    'title' => $title,
+    'body' => $isi,
+    'param'=>"isi param"
+);
+
+// Data opsional untuk konfigurasi pesan
+$options = array(
+    'tipe'=>$tipe,
+    'priority' => 'high',
+    'sound' => 'default',
+);
+
+// JSON payload untuk pesan
+$payload = array(
+    'notification' => $data,
+    'data' => $options,
+    'to' => $to
+);
+
+// Konversi payload ke format JSON
+$jsonPayload = json_encode($payload);
+
+// Konfigurasi HTTP request
+$headers = array(
+    'Authorization: key=' . $authorizationKey,
+    'Content-Type: application/json'
+);
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonPayload);
+
+// Kirim HTTP request
+$response = curl_exec($ch);
+
+// Cek apakah request berhasil atau tidak
+if ($response === false) {
+    $error = curl_error($ch);
+    echo 'Gagal mengirim pesan FCM: ' . $error;
+} else {
+    echo 'Pesan FCM berhasil dikirim: ' . $response;
+}
+
+// Tutup HTTP request
+curl_close($ch);
+}

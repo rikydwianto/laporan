@@ -10,6 +10,7 @@ $kode = '400';
 @$username  = aman($con,$_POST['uname']);
 @$password  = aman($con,$_POST['pw']);
 @$token  = aman($con,$_POST['token']);
+@$token_fcm  = aman($con,$_POST['token_fcm']);
 
 $data =null;
 $text=null;
@@ -39,6 +40,7 @@ else{
                 if ($cek['password'] == $pass) {
                     $d = detail_karyawan($con, $cek['id_karyawan']);
                     $text = "Login Berhasil sebagai : $cek[nama_karyawan] cabang : $d[nama_cabang]";
+                    mysqli_query($con,"update karyawan set token_fcm='$token_fcm' where id_karyawan='$d[id_karyawan]'");
                     $data = array("id"=>$d['id_karyawan'],'idc'=>$d['id_cabang'],'jabatan'=>$d['singkatan_jabatan']);
                     $kode='202';
                 } else{
