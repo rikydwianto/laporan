@@ -13,7 +13,7 @@ $TOKEN_TELE = $token;
 @$id  = aman($con,$_POST['id']);
 @$id_cabang  = aman($con,$_POST['id_cabang']);
 @$menu  = aman($con,$_POST['menu']);
-
+@$token_fcm  = aman($con,$_POST['token_fcm']);
 $data =null;
 $text=null;
 if($id==""){
@@ -41,6 +41,9 @@ else{
 
                 
 
+            }
+            else if($menu=='update_fcm_token'){
+                mysqli_query($con,"update karyawan set token_fcm='$token_fcm' where id_karyawan='$id'");
             }
             else if($menu=="cari_nasabah"){
                 $table = "daftar_nasabah";
@@ -94,7 +97,17 @@ else{
                 $urut = mysqli_fetch_array(mysqli_query($con,"select max(no_urut) as no_urut from surat where id_cabang='$id_cabang' AND YEAR(tgl_surat) = YEAR(curdate()) "));
                 $urut = ($urut['no_urut']==NULL?0:$urut['no_urut']);
 
-                
+                //NOTIFIKASI
+                $qnot = mysqli_query($con,"SELECT * from notifikasi where id_karyawan='$id' and dibaca='belum' order by waktu desc ");
+                if(mysqli_num_rows($qnot)>0){
+                    $notif_status ="ada";
+                }
+                else{
+                    $notif_status='tidakada';
+                }
+
+                $notif =mysqli_fetch_array($qnot);
+                $total_notif = mysqli_num_rows($qnot);
 
                 $data=$q;
                 $data['total_member']=$hit1['member'];
@@ -105,6 +118,11 @@ else{
                 $data['total_nett']=$stak['nett']+0;
                 $data['surat_terakhir']=sprintf("%03d", $urut);
                 $data['surat_sekarang']=sprintf("%03d", $urut+1);
+
+                $data['status_notif']=$notif_status;
+                $data['judul_notif']=$notif['judul'];
+                $data['isi_notif']=$notif['isi_notifikasi'];
+                $data['total_notif']=$total_notif;
 
             }
             else if($menu=="detail_nasabah"){
@@ -122,17 +140,30 @@ else{
 
                  //PAR
 
-                 $qpar="SELECT * FROM `deliquency` WHERE id_cabang=$id_cabang AND tgl_input=(SELECT MAX(`tgl_input`) FROM deliquency WHERE id_cabang=$id_cabang) and id_detail_nasabah='$data[id_detail_nasabah]'";
+                 $qpar="SELECT * FROM `deliquency` WHERE id_cabang='$id_cabang' AND tgl_input=(SELECT MAX(`tgl_input`) FROM deliquency WHERE id_cabang='$id_cabang') and id_detail_nasabah='$data[id_detail_nasabah]'";
                  $qpar=mysqli_query($con,$qpar);
                  $par = mysqli_fetch_assoc($qpar);
+                 $tgl_update_par = $par['tgl_input'];
 
-                 
                  if(mysqli_num_rows($qpar)>0){
                     $status_par = "ya";
+                    
                  }
                  else{
                     $status_par="tidak";
+
                  }
+                 $qlihatpar = mysqli_query($con,"select * from deliquency where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]' and tgl_input='$tgl_update_par'");
+                 while($data_par=mysqli_fetch_array($qlihatpar)){
+                    $pemb = $data_par['loan'];
+                    $pemb = explode("-",$pemb)[0];
+                    $cair = rupiah($data_par['amount']);
+                    $saldo = rupiah($data_par['sisa_saldo']);
+                    $cicilan = rupiah($data_par['cicilan']);
+                    $isi_par .= "Pemb : $pemb\n  - Cair : $cair | Balance : $saldo\n  - Angsuran : $cicilan\n\n";
+                     
+                 }
+                 $detail_par=$isi_par;
 
 
                  //STATUS TPK
@@ -152,6 +183,8 @@ else{
                 $data = $array;
                 $tgl_simp = $simpanan['update_simpanan'];
                 $simpanan = json_decode($simpanan['detail_simpanan'],true);
+                $data['tgl_update_par']=$tgl_update_par;
+                $data['detail_par']=$detail_par;
                 $data['photo_nasabah']=$url_photo;
                 $data['text']=$text;
                 $data['status_par']=$status_par;
@@ -202,6 +235,22 @@ else{
                 else{
                     $input = mysqli_query($con,"DELETE FROM `monitoring` WHERE `id_pinjaman` = '$id'; ");
                 }
+            }
+            else if($menu=="notif"){
+                $q=mysqli_query($con,"select * from notifikasi where id_karyawan='$id' order by waktu desc");
+                $array=array();
+                while($r=mysqli_fetch_assoc($q)){
+                    $array[]=$r;
+                }
+                $data=$array;
+            }
+            else if($menu=='notif_baca'){
+                $id_notif = aman($con,$_POST['id_notif']);
+                mysqli_query($con,"update notifikasi set dibaca='dibaca' where id='$id_notif'");
+            }
+            else if($menu=='bersihkan_notif'){
+                $id_notif = aman($con,$_POST['id_notif']);
+                mysqli_query($con,"delete from notifikasi where id_karyawan='$id' and dibaca='dibaca'");
             }
             else{
                 $kode='404';

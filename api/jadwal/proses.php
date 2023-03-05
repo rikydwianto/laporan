@@ -4,5 +4,6 @@ require_once "../../config/seting.php";
 require_once "../../config/koneksi.php";
 require_once("../../proses/fungsi.php");
 require_once("../../model/model.php");
-send_notif($token_fcm,"HAI","ISI PUSH NOTIF","sss");
+$id_karyawan=1;
+send_notif($token_fcm,"HAI2","ISI PUSH NOTIFISI PUSH NOTIFISI PUSH NOTIFISI PUSH NOTIFISI PUSH NOTIFISI PUSH NOTIFISI PUSH NOTIFISI PUSH NOTIF",$id_karyawan,"admin");
 ?>

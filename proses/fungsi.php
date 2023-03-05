@@ -425,7 +425,7 @@ function hitung_sekarang($con,$id_cabang,$id_anggota,$tgl,$tipe="sukarela"){
 
 
 //SEND PUSH NOTIF FCM
-function send_notif($to,$title,$isi,$tipe=""){
+function send_notif($to,$title,$isi,$id_karyawan,$tipe=""){
   
 // FCM endpoint
 $url = 'https://fcm.googleapis.com/fcm/send';
@@ -477,6 +477,9 @@ if ($response === false) {
     $error = curl_error($ch);
     echo 'Gagal mengirim pesan FCM: ' . $error;
 } else {
+  global $con;
+  mysqli_query($con,"INSERT INTO `notifikasi` (`judul`, `isi_notifikasi`, `aksi`, `dibaca`,`id_karyawan`) VALUES ('$title', '$isi', '$tipe', 'belum',$id_karyawan); 
+  ");
     echo 'Pesan FCM berhasil dikirim: ' . $response;
 }
 
