@@ -250,7 +250,7 @@ else{
             }
             else if($menu=='bersihkan_notif'){
                 $id_notif = aman($con,$_POST['id_notif']);
-                mysqli_query($con,"delete from notifikasi where id_karyawan='$id' and dibaca='dibaca'");
+                mysqli_query($con,"delete from notifikasi where id_karyawan='$id' ");
             }
             else if($menu=='cek_no_surat'){
 
