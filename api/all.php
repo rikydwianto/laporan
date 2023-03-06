@@ -252,6 +252,65 @@ else{
                 $id_notif = aman($con,$_POST['id_notif']);
                 mysqli_query($con,"delete from notifikasi where id_karyawan='$id' and dibaca='dibaca'");
             }
+            else if($menu=='cek_no_surat'){
+
+                $kategori = aman($con,$_POST['kategori']);
+                $tgl = aman($con,$_POST['tgl_surat']);
+                if(!empty($kategori)){
+                    $kategori=strtoupper("$kategori/");
+                }
+                else{
+                    $kategori="";
+                }
+                
+                
+                $query = mysqli_query($con, "SELECT singkatan_cabang,kode_cabang FROM karyawan,jabatan,cabang,wilayah where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and cabang.id_wilayah=wilayah.id_wilayah and karyawan.id_karyawan='$id' ");
+                $data = mysqli_fetch_assoc($query);
+                $singkatan_cabang = $data['singkatan_cabang'];
+                $kode_cabang="KMD";
+                $romawi = ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII',''];
+                $urut = mysqli_fetch_array(mysqli_query($con,"select max(no_urut) as no_urut from surat where id_cabang='$id_cabang' AND YEAR(tgl_surat) = YEAR('$tgl') "));
+                $urut = ($urut['no_urut']==NULL?0:$urut['no_urut']);
+
+                $mon = date('n',strtotime($tgl));
+                $bulan = $mon;
+
+                $no_surat = sprintf("%03d", $urut+1)."/$kode_cabang-$singkatan_cabang/$kategori".$romawi[$bulan]."/".date("Y",strtotime($tgl));
+                $data['no_surat_lengkap']= $no_surat;
+                $data['no_surat']=sprintf("%03d",$urut+1);
+                $data['tgl_surat']=$tgl;
+            
+            }
+            else if($menu=='tambah_surat_keluar'){
+                
+                $no_urut = aman($con,$_POST['no_urut']);
+                $no_surat = aman($con,$_POST['no_surat']);
+                $tgl_surat = aman($con,$_POST['tgl_surat']);
+                $perihal = aman($con,$_POST['perihal']);
+                $kategori = aman($con,$_POST['kategori']);
+                $tmb = mysqli_query($con,"INSERT INTO `surat` (`no_urut`, `no_surat`, `perihal_surat`, `kategori_surat`, `tgl_surat`, `isi_surat`, `type_surat`, `id_cabang`, `id_karyawan`)
+                VALUES ('$no_urut', '$no_surat', '$perihal', '$kategori', '$tgl_surat', '', 'surat', '$id_cabang', '$id');"); 
+                if($tmb){
+                    $pesan="berhasil";
+                }
+                else{
+                    $pesan="gagal input";
+                }
+            }
+            else if($menu=="list_surat_keluar"){
+                $pesan ="list surat keluar";
+                $qsa = mysqli_query($con,"select s.*,k.nama_karyawan from surat s join karyawan k on s.id_karyawan=k.id_karyawan where s.id_cabang='$id_cabang' order by s.id_surat desc limit 0,30");
+                    $array = array();
+                    while($r=mysqli_fetch_assoc($qsa)){
+                        $array[]=$r;
+
+                    }
+                    $data = $array;
+            }
+            else if($menu=='hapus_surat'){
+                $id_surat = aman($con,$_POST['id_surat']);
+                mysqli_query($con,"delete from surat where id_surat='$id_surat' and id_cabang='$id_cabang'");
+            }
             else{
                 $kode='404';
                 $pesan="Permintaan tidak jelas";
