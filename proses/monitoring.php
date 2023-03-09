@@ -195,6 +195,11 @@
             mysqli_query($con,"UPDATE pinjaman set input_mtr ='sudah' where tgl_cair='$tgl_baru' and id_cabang='$id_cabang'");
             
         }
+        if(isset($_GET['delete'])){
+            $tgl_baru = $_GET['tgl_cair'];
+            mysqli_query($con,"delete from pinjaman where tgl_cair='$tgl_baru' and id_cabang='$id_cabang'");
+            
+        }
     ?>
         <form action="" method="post">
             <!-- <input type="submit" value="SIMPAN" name='mtr' class='btn btn-danger'> -->
@@ -324,6 +329,8 @@
                         <td><?=$rsin['total']?></td>
                         <td>
                             <a href="<?=$url.$menu?>monitoring&ganti&tgl_cair=<?=$rsin['tgl_cair']?>&bagikan" class="btn btn-success">BAGIKAN</a>
+                            <a href="<?=$url.$menu?>monitoring&list_bagi&tgl_cair=<?=$rsin['tgl_cair']?>&data" class="btn btn-primary">LIST</a>
+                            <a href="<?=$url.$menu?>monitoring&ganti&tgl_cair=<?=$rsin['tgl_cair']?>&delete" class="btn btn-danger">HAPUS</a>
                         </td>
                     </tr>
 
@@ -345,6 +352,10 @@
         //RIWAYAT MONITORING
         include("proses/pindahstaff.php");
     }  
+    else if (isset($_GET['list_bagi'])) {
+        //RIWAYAT MONITORING
+        include("proses/monitoring_list_bagi.php");
+    }  
     else if (isset($_GET['pengumpulan_mtr'])) {
         //RIWAYAT MONITORING
         include("proses/kumpul_monitoring.php");
@@ -365,6 +376,22 @@
         //RIWAYAT MONITORING
         include("proses/input_tpk.php");
     }  
+    else if (isset($_GET['hapus_tpk'])) {
+        $id = aman($con, $_GET['id']);
+        $detail = aman($con, $_GET['detail']);
+
+        $q = mysqli_query($con, "DELETE FROM tpk WHERE `id_detail_nasabah` = '$id' ; ");
+        // $q1 = mysqli_query($con, "UPDATE `banding_monitoring` SET `status` = 'selesai' WHERE `id_detail_pinjaman` = '$detail'; ");
+        if(isset($_GET['ref'])){
+            $ref = $_GET['ref'];
+            pindah("$url$menu" ."monitoring&". $ref);
+
+        }
+        else{
+            pindah("$url$menu" . 'monitoring&banding');
+
+        }
+    }
     else {
 
 

@@ -57,6 +57,7 @@ $pinjaman = mysqli_fetch_array($query);
 
 
                 <a href="<?=$url.$menu?>monitoring&hapus&id=<?=$pinjaman['id_pinjaman']?>&ref=monitoring" class="btn btn-danger">HAPUS DATA</a>
+                <a href="<?=$url.$menu?>monitoring&hapus_tpk&id=<?=$pinjaman['id_detail_nasabah']?>&ref=monitoring" class="btn btn-danger">HAPUS DARI TPK</a>
             </td>
         </tr>
     </table>
