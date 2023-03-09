@@ -31,7 +31,7 @@ else{
             if($menu=="detail_login"){
                 $kode="200";
                 $pesan="Detail";
-                $query = mysqli_query($con, "SELECT kode_cabang,nama_karyawan,nama_jabatan,nik_karyawan,nama_cabang,singkatan_jabatan,singkatan_cabang,status_karyawan FROM karyawan,jabatan,cabang,wilayah where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and cabang.id_wilayah=wilayah.id_wilayah and karyawan.id_karyawan='$id' ");
+                $query = mysqli_query($con, "SELECT cabang.*,kode_cabang,nama_karyawan,nama_jabatan,nik_karyawan,nama_cabang,singkatan_jabatan,singkatan_cabang,status_karyawan FROM karyawan,jabatan,cabang,wilayah where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and cabang.id_wilayah=wilayah.id_wilayah and karyawan.id_karyawan='$id' ");
                     $data = mysqli_fetch_assoc($query);
                 
                 
@@ -71,7 +71,7 @@ else{
                 $kode ="200";
                 $pesan="Statistik Cabbang";
                 //INFORMASI PAR
-                $q="SELECT COUNT(*) AS total_par,tgl_input, SUM(`sisa_saldo`) AS total_balance FROM `deliquency` WHERE id_cabang=$id_cabang AND tgl_input=(SELECT MAX(`tgl_input`) FROM deliquency WHERE id_cabang=$id_cabang)";
+                $q="SELECT COUNT(*) AS total_par,tgl_input, SUM(`sisa_saldo`) + 0 AS total_balance  FROM `deliquency` WHERE id_cabang=$id_cabang AND tgl_input=(SELECT MAX(`tgl_input`) FROM deliquency WHERE id_cabang=$id_cabang)";
                 $q = mysqli_fetch_assoc((mysqli_query($con,$q)));
                 //MEMBER
                 $q1=mysqli_query($con,"select sum(total_nasabah) as member from total_nasabah where  id_cabang=$id_cabang");
@@ -310,6 +310,46 @@ else{
             else if($menu=='hapus_surat'){
                 $id_surat = aman($con,$_POST['id_surat']);
                 mysqli_query($con,"delete from surat where id_surat='$id_surat' and id_cabang='$id_cabang'");
+            }
+            else if($menu=='list_center'){
+                $no_center = aman($con,$_POST['no_center']);
+                if($no_center!=""){
+                    $filter_center = " and no_center='$no_center'";
+                }
+                else{
+                    $filter_center="";
+                }
+               $pesan="List Center $filter_center";
+               $q=mysqli_query($con,"select * from center where id_cabang='$id_cabang' $filter_center order by no_center asc ");
+               $array = array();
+               while($r=mysqli_fetch_assoc($q)){
+                   $array[]=$r;
+
+               }
+               $data = $array;
+            }
+            else if($menu=="lokasi_center"){
+                $a="SELECT
+                c.*,
+                k.nama_karyawan,
+                cb.nama_cabang
+              FROM
+                center c
+                JOIN karyawan k
+                  ON c.id_karyawan = k.`id_karyawan`
+                JOIN cabang cb
+                  ON cb.id_cabang = c.id_cabang
+              WHERE c.latitude IS NOT NULL
+                AND c.latitude <> ''
+                AND c.latitude <> 'null' AND c.`id_cabang`=$id_cabang
+                GROUP BY c.`id_cabang`,c.`no_center` ,c.`latitude`";
+                $q= mysqli_query($con,$a);
+                $array = array();
+                while($r=mysqli_fetch_assoc($q)){
+                    $array[] = $r;
+                }
+                $pesan = "Center";
+                $data = $array;
             }
             else{
                 $kode='404';
