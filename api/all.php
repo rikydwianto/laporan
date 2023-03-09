@@ -319,7 +319,7 @@ else{
                 else{
                     $filter_center="";
                 }
-               $pesan="List Center $filter_center";
+               $pesan="List Center ";
                $q=mysqli_query($con,"select * from center where id_cabang='$id_cabang' $filter_center order by no_center asc ");
                $array = array();
                while($r=mysqli_fetch_assoc($q)){
@@ -350,6 +350,12 @@ else{
                 }
                 $pesan = "Center";
                 $data = $array;
+            }
+            else if($menu=='detail_center'){
+                $pesan = "Detail center";
+                $no_center = aman($con,$_POST['no_center']);
+                $q=mysqli_query($con,"select * from center ctr join cabang cb on ctr.id_cabang=cb.id_cabang where ctr.id_cabang='$id_cabang' and ctr.no_center='$no_center' order by no_center asc ");
+                $data = mysqli_fetch_assoc($q);
             }
             else{
                 $kode='404';

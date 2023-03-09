@@ -1,5 +1,5 @@
 <?php
-$token_fcm = "d1fLll2zRq6Ff1v95Dr0I2:APA91bF-7-sfirT8e6gCIXwM8sVj85B34kjnNVb-jT1cqRtvgDcSJS2izg0tEWZd9C8rFuVcD7M7dS23WvgRk362UkpLN7FC6r39D2vcIvo4k1pPAv1lkzbQ9lrb4iuF9AA-iT9iH392";
+$token_fcm = "fUT08tOsSUy-ohmgJkOguq:APA91bETW3CrClK33zZXRnN453Od8Kklhw2HEz7n3SNYOaK_WMW2avLvp-TIw-BdpgjYj_3FjM0rMWtEGb4zVhY4-OsbwNrnsvwniI3lNlr5zQNtBDDfoYn3UlHb-1X4XIyhH_Ekky3a";
 require_once "../../config/seting.php";
 require_once "../../config/koneksi.php";
 require_once("../../proses/fungsi.php");
