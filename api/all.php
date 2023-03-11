@@ -128,10 +128,26 @@ else{
             else if($menu=="detail_nasabah"){
                 $pesan="detail nasabah";
                 $kode=200;
-                $id_nsb = aman($con,$_POST['id_nsb']);
                 $table="daftar_nasabah";
+                $id_nsb = aman($con,$_POST['id_nsb']);
+                $id_detail = aman($con,$_POST['id_detail_nasabah']);
+                if($id_detail != "kosong"){
+                    // $id_detail = explode("-",$id_detail)[1]+0;
+                    $qcek_id = "select id from $table where id_detail_nasabah='$id_detail' and id_cabang='$id_cabang'";
+                    $cek_id = mysqli_query($con,$qcek_id);
+                    $cek_id = mysqli_fetch_assoc($cek_id)['id'];
+                    $id_nsb=$cek_id;
+                }
+                $pesan ="Detail Nasabah";
+                
                 $q="SELECT * from $table  where id = '$id_nsb' and id_cabang='$id_cabang' ";
                 $query = mysqli_query($con, "$q");
+                if(mysqli_num_rows($query)){
+                    $status_ada="ada";  
+                   }
+                   else{
+                      $status_ada="tidak ada";
+                   }
                 $array=array();
                 $data=mysqli_fetch_assoc($query);
                 //https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-512.png
@@ -165,7 +181,7 @@ else{
                  }
                  $detail_par=$isi_par;
 
-
+                
                  //STATUS TPK
 
                  
@@ -185,6 +201,7 @@ else{
                 $simpanan = json_decode($simpanan['detail_simpanan'],true);
                 $data['tgl_update_par']=$tgl_update_par;
                 $data['detail_par']=$detail_par;
+                
                 $data['photo_nasabah']=$url_photo;
                 $data['text']=$text;
                 $data['status_par']=$status_par;
@@ -195,6 +212,7 @@ else{
                 $data['pensiun']=$simpanan['pensiun']+0;
                 $data['hariraya']=$simpanan['hari_raya']+0;
                 $data['total']=$simpanan['wajib']+$simpanan['sukarela']+$simpanan['pensiun']+$simpanan['hari_raya'];
+                $data['ada']=$status_ada;
             }
             else if($menu=="tampil_monitoring"){
                 $cari = aman($con,$_POST['cari']);
@@ -235,6 +253,39 @@ else{
                 else{
                     $input = mysqli_query($con,"DELETE FROM `monitoring` WHERE `id_pinjaman` = '$id'; ");
                 }
+            }
+            else if($menu=="detail_pinjaman"){
+                $pesan = "berhasil";
+                $id_pinjaman = aman($con,$_POST['id_pinjaman']);
+                $id_nasabah = aman($con,$_POST['id_nasabah']);
+                $qpin = mysqli_query($con,"SELECT * from pinjaman where id_cabang='$id_cabang' and id_detail_nasabah='$id_nasabah' and id_detail_pinjaman='$id_pinjaman'");
+                $hasil=mysqli_fetch_assoc($qpin);
+
+                
+                $ctr = explode(" -",$hasil['center'])[0];
+
+
+                $qstaf = mysqli_query($con,"SELECT * from center ctr join karyawan k on k.id_karyawan=ctr.id_karyawan where ctr.no_center='$ctr' and ctr.id_cabang='$id_cabang'");
+                $staff = mysqli_fetch_assoc($qstaf);
+                $staff = $staff['nama_karyawan'];
+
+                $qtpk = mysqli_query($con,"select * from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$id_nasabah'");
+                if(mysqli_num_rows($qtpk)){
+                    $tpk = "TPK";
+                }
+                else 
+                {
+                    $tpk="BUKAN TPK";
+                }
+                $data=$hasil;
+
+
+
+                $data['no_center']=sprintf("%03d",$ctr);
+                $data['no_kelompok']=sprintf("%03d",$hasil['kelompok']);
+                $data['status_tpk']=$tpk;
+                $data['nama_karyawan']=$staff;
+
             }
             else if($menu=="notif"){
                 $q=mysqli_query($con,"select * from notifikasi where id_karyawan='$id' order by waktu desc");
