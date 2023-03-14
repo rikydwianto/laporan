@@ -256,7 +256,9 @@
 					<?php
 					$no = 1;
 					$total_am=0;
-					$kary = mysqli_query($con, "SELECT *,count(tgl_bergabung) as am, SUBSTRING_INDEX( SUBSTRING_INDEX(id_detail_nasabah,'/',-1),'-',1) as center FROM temp_anggota where id_cabang='$id_cabang' and status_input='belum' and SUBSTRING_INDEX( SUBSTRING_INDEX(id_detail_nasabah,'/',-1),'-',1)>$cek_max and  staff is not null GROUP BY SUBSTRING_INDEX( SUBSTRING_INDEX(id_detail_nasabah,'/',-1),'-',1) order by staff asc ");
+					$q_center_baru = "SELECT *,count(tgl_bergabung) as am, SUBSTRING_INDEX( SUBSTRING_INDEX(id_detail_nasabah,'/',-1),'-',1) as center FROM temp_anggota where id_cabang='$id_cabang' and status_input='belum' and SUBSTRING_INDEX( SUBSTRING_INDEX(id_detail_nasabah,'/',-1),'-',1)>$cek_max and  staff is not null GROUP BY SUBSTRING_INDEX( SUBSTRING_INDEX(id_detail_nasabah,'/',-1),'-',1) order by staff asc";
+					echo $q_center_baru;
+					$kary = mysqli_query($con, "$q_center_baru ");
 					while ($nama = mysqli_fetch_array($kary)) {
 						$total_am = $total_am + $nama['am'];
 					?>
