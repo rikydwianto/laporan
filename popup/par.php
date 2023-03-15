@@ -79,16 +79,30 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
 	JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` where d.tgl_input='$tgl' and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' $q_tambah  $q_tambah1 order by k.nama_karyawan asc");
     while($data = mysqli_fetch_array($query)){
         $total_bermasalah+=$data['sisa_saldo'];
-        $par = mysqli_num_rows(mysqli_query($con,"select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]' and id_cabang='$id_cabang'"));
+        $par = mysqli_num_rows(mysqli_query($con,"select * from tpk where id_detail_nasabah='$data[id_detail_nasabah]' and id_cabang='$id_cabang'"));
         if($par){
             $baris['baris']= "#c9c7c1";
             $baris['text']= "red";
-            $baris['ket']='RE/DTD';
+            $baris['ket']='TPK';
         }
         else{
             $baris['baris'] = "#ffff";
             $baris['text'] = "#black";
             $baris['ket']='';
+            $cek_topup = mysqli_query($con,"select * from keterangan_topup where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'");
+            echo mysqli_error($con);
+            if(mysqli_num_rows($cek_topup)){
+                $top = mysqli_fetch_assoc($cek_topup);
+                $baris['ket'].=$top['topup'];
+            }
+            else{
+                $cek_topup = mysqli_query($con,"select * from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'");
+                if(mysqli_num_rows($cek_topup)){
+                    $baris['baris']= "#c9c7c1";
+                    $baris['text']= "red";
+                    $baris['ket'].="TPK";
+                }
+            }
 
         } 
         ?>

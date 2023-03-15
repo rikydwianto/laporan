@@ -249,10 +249,22 @@ if(isset($_GET['bandingkan'])){
 
                 $cek_tpk = mysqli_query($con,"select id from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'");
                 if(mysqli_num_rows($cek_tpk)>0){
-                    $baris['ket'].="topup khusus ";
+                    $baris['ket'].="TPK ";
                 }
                 else{
                     $baris['ket'].="";
+                    $cek_topup = mysqli_query($con,"select * from keterangan_topup where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'");
+                    echo mysqli_error($con);
+                    if(mysqli_num_rows($cek_topup)){
+                        $top = mysqli_fetch_assoc($cek_topup);
+                        $baris['ket'].=$top['topup'];
+                    }
+                    else{
+                        $cek_topup = mysqli_query($con,"select * from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'");
+                        if(mysqli_num_rows($cek_topup)){
+                            $baris['ket'].="TPK";
+                        }
+                    }
                 }
                 ?>
                 <tr style="background-color:<?=$baris['baris']?>;color:<?=$baris['text']?>">
@@ -339,10 +351,22 @@ if(isset($_GET['bandingkan'])){
             }
             $cek_tpk = mysqli_query($con,"select id from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'");
             if(mysqli_num_rows($cek_tpk)>0){
-                $baris['ket'].="topup khusus ";
+                $baris['ket'].="TPK ";
             }
             else{
                 $baris['ket'].="";
+                $cek_topup = mysqli_query($con,"select * from keterangan_topup where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'");
+                    echo mysqli_error($con);
+                    if(mysqli_num_rows($cek_topup)){
+                        $top = mysqli_fetch_assoc($cek_topup);
+                        $baris['ket'].=$top['topup'];
+                    }
+                    else{
+                        $cek_topup = mysqli_query($con,"select * from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'");
+                        if(mysqli_num_rows($cek_topup)){
+                            $baris['ket'].="TPK";
+                        }
+                    }
             }
             $total_tambah+=$data['sisa_saldo'];
             ?>
