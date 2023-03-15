@@ -130,12 +130,24 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
                  $total_disburse += $r['jumlah_pinjaman'];
                  $group = explode("/",$r['id_detail_nasabah'])[2];
                  $id_angka = explode("-",$r['id_detail_nasabah'])[1];
+                 $tpr="";
                  $cek_tpk = mysqli_query($con,"select id from tpk where id_cabang='$id_cabang' and (id_detail_nasabah='$r[id_detail_nasabah]' or id_nasabah='$id_angka')");
                  if(mysqli_num_rows($cek_tpk)>0){
                     $tpk="YA";
                 }
                 else{
                     $tpk="";
+                    $cek_topup = mysqli_query($con, "select * from keterangan_topup where id_cabang='$id_cabang' and id_detail_nasabah='$r[id_detail_nasabah]'");
+                    echo mysqli_error($con);
+                    if (mysqli_num_rows($cek_topup)) {
+                        $top = mysqli_fetch_assoc($cek_topup);
+                        $tpr = "YA";
+                    } else {
+                        $cek_topup = mysqli_query($con, "select * from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$r[id_detail_nasabah]'");
+                        if (mysqli_num_rows($cek_topup)) {
+                            $topup = "YA";
+                        }
+                    }
                 }
                  ?>
                  <tr >
@@ -156,9 +168,8 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
                     <td class='isi_tengah'><?=$r['pinjaman_ke']?></td>
                     <td class='kecil'><?=$r['nama_karyawan']?></td>
                     <td class='isi_tengah'><?=$r['tgl_cair']?></td>
-                    <td >
                     
-                    </td>
+                    <td class='isi_tengah'><?=$tpr?></td>
                     <td class='isi_tengah'><?=$tpk?></td>
                     <td></td>
                     <td></td>

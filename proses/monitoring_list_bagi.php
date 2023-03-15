@@ -7,6 +7,7 @@ $tgl = $_GET['tgl_cair'];
         <tr>
             <th>no</th>
             <th>STAFF</th>
+            <th>TOPUP</th>
             <th>NO Pinjaman</th>
             <th>ID NASABAH</th>
             <th>NASABAH</th>
@@ -22,10 +23,25 @@ $tgl = $_GET['tgl_cair'];
         
         where pinjaman.id_cabang='$id_cabang' and input_mtr='belum' and pinjaman.tgl_cair='$tgl' order by karyawan.nama_karyawan asc");
     while ($pinj = mysqli_fetch_array($q)) {
+        $topup="";
+        $cek_topup = mysqli_query($con,"select * from keterangan_topup where id_cabang='$id_cabang' and id_detail_nasabah='$pinj[id_detail_nasabah]'");
+        echo mysqli_error($con);
+        if(mysqli_num_rows($cek_topup)){
+            $top = mysqli_fetch_assoc($cek_topup);
+            $topup =$top['topup'];
+        }
+        else{
+            $cek_topup = mysqli_query($con,"select * from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$pinj[id_detail_nasabah]'");
+            if(mysqli_num_rows($cek_topup)){
+                $topup="KHUSUS";
+            }
+        }
+
 ?>
     <tr>
         <td><?=$no++?></td>
         <td><?=$pinj['nama_karyawan']?></td>
+        <td><?=$topup?></td>
         <td><?=$pinj['id_detail_pinjaman']?></td>
         <td><?=$pinj['id_detail_nasabah']?></td>
         <td><?=$pinj['nama_nasabah']?></td>
@@ -37,7 +53,7 @@ $tgl = $_GET['tgl_cair'];
             $ref= urlencode("list_bagi&tgl_cair=$tgl&data");
             ?>
             <a href="<?=$url.$menu?>monitoring&hapus&id=<?=$pinj['id_pinjaman']?>&ref=<?=$ref?>" class="btn btn-danger">Hapus Pinjaman</a>
-            <a href="<?=$url.$menu?>monitoring&hapus_tpk&id=<?=$pinj['id_detail_nasabah']?>&ref=<?=$ref?>" class="btn btn-primary">HAPUS TPK</a>
+            <a href="<?=$url.$menu?>monitoring&hapus_tpk&id=<?=$pinj['id_detail_nasabah']?>&ref=<?=$ref?>" class="btn btn-primary">HAPUS TOPUP</a>
         </td>
     </tr>
 <?php

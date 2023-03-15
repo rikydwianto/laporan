@@ -380,7 +380,8 @@
         $id = aman($con, $_GET['id']);
         $detail = aman($con, $_GET['detail']);
 
-        $q = mysqli_query($con, "DELETE FROM tpk WHERE `id_detail_nasabah` = '$id' ; ");
+        $q = mysqli_query($con, "DELETE FROM tpk WHERE `id_detail_nasabah` = '$id' and id_cabang='$id_cabang' ; ");
+        $q = mysqli_query($con, "DELETE FROM keterangan_topup WHERE `id_detail_nasabah` = '$id' and id_cabang='$id_cabang' ; ");
         // $q1 = mysqli_query($con, "UPDATE `banding_monitoring` SET `status` = 'selesai' WHERE `id_detail_pinjaman` = '$detail'; ");
         if(isset($_GET['ref'])){
             $ref = $_GET['ref'];
@@ -418,7 +419,7 @@
                     <tr>
                         <!-- <th>no</th> -->
                         <th>STAFF</th>
-                        <th>TPK</th>
+                        <th>TOPUP</th>
                         <th>NO Pinjaman</th>
                         <th>NASABAH</th>
                         <th>CTR</th>
@@ -493,10 +494,22 @@
 
                         $cek_tpk = mysqli_query($con,"select id from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$pinj[id_detail_nasabah]'");
                         if(mysqli_num_rows($cek_tpk)>0){
-                            $tpk="YA";
+                            $tpk="TPK";
                         }
                         else{
-                            $tpk="";
+                           $tpk="";
+                            $cek_topup = mysqli_query($con,"select * from keterangan_topup where id_cabang='$id_cabang' and id_detail_nasabah='$pinj[id_detail_nasabah]'");
+                            echo mysqli_error($con);
+                            if(mysqli_num_rows($cek_topup)){
+                                $top = mysqli_fetch_assoc($cek_topup);
+                                $tpk=$top['topup'];
+                            }
+                            else{
+                                $cek_topup = mysqli_query($con,"select * from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$pinj[id_detail_nasabah]'");
+                                if(mysqli_num_rows($cek_topup)){
+                                    $topup="KHUSUS";
+                                }
+                            }
                         }
                     ?>
                         <tr style="background:<?= $tr ?>">
