@@ -114,7 +114,7 @@ if (empty($batas)) {
                 elseif($total>=($tiga_persen*3)){
                     $lebih ="lebih dari 9%";
                     $warna="#b0b0b0";
-                    $kumpul =  $total - $tiga_persen;
+                    $kumpul =  ($total - $tiga_persen)+1;
                 }
                 else{
                     $lebih = "Lebih";
