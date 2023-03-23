@@ -408,6 +408,19 @@ else{
                 $q=mysqli_query($con,"select * from center ctr join cabang cb on ctr.id_cabang=cb.id_cabang where ctr.id_cabang='$id_cabang' and ctr.no_center='$no_center' order by no_center asc ");
                 $data = mysqli_fetch_assoc($q);
             }
+            else if($menu=='set_lokasi'){
+                $pesan = "Lokasi";
+                $no_center = aman($con,$_POST['no_center']);
+                $lat = aman($con,$_POST['lat']);
+                $long = aman($con,$_POST['long']);
+                $q=mysqli_query($con,"update center set latitude='$lat',longitude='$long' where no_center='$no_center' and id_cabang='$id_cabang'");
+                if($q){
+                    $pesan="Lokasi Berhasil diubah";
+                }
+                else{
+                    $pesan="gagal diubah";
+                }
+            }
             else{
                 $kode='404';
                 $pesan="Permintaan tidak jelas";
