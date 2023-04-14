@@ -1,6 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Selamat Hari Raya Idul Fitri</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style type="text/css">
+		body {
+			background-color: #F8E0E0;
+			font-family: Arial, sans-serif;
+			text-align: center;
+		}
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 50px 20px;
+		}
+		.card {
+			background-color: #FFFFFF;
+			border-radius: 10px;
+			box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+			padding: 30px;
+			margin-bottom: 30px;
+		}
+		h1 {
+			color: #F44336;
+			font-size: 3em;
+			margin-top: 0;
+			margin-bottom: 20px;
+		}
+		p {
+			color: #333333;
+			font-size: 1.2em;
+			margin-top: 20px;
+			margin-bottom: 20px;
+		}
+		button {
+			background-color: #F44336;
+			color: #FFFFFF;
+			font-size: 1.2em;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			margin-top: 30px;
+		}
+		button:hover {
+			background-color: #E53935;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="card">
+			<h1>Selamat Hari Raya Idul Fitri</h1>
+			<p>Taqabbalallahu Minna Wa Minkum</p>
+			<p>Mohon Maaf Lahir dan Batin</p>
+			<button>Jangan Bekerja Terus</button>
+		</div>
+	</div>
+</body>
+</html>
+
 <?php
 // error_reporting(0);
 // error_reporting()
+exit();
 require_once "config/seting.php";
 require_once "config/koneksi.php";
 require_once("proses/fungsi.php");
