@@ -421,6 +421,14 @@ else{
                     $pesan="gagal diubah";
                 }
             }
+            else if($menu=="all_staff"){
+		        $cek=mysqli_query($con,"SELECT k.`id_karyawan`,k.`nik_karyawan`,k.`nama_karyawan`,j.* FROM karyawan k JOIN jabatan j ON k.`id_jabatan`=j.`id_jabatan`  WHERE id_cabang='$id_cabang' AND k.`status_karyawan`='aktif' ORDER BY nama_karyawan ASC");
+                $array=array();
+                while($data=mysqli_fetch_assoc($cek)) {$array[]=$data; }
+               
+                    
+                $data = $array;
+            }
             else{
                 $kode='404';
                 $pesan="Permintaan tidak jelas";
