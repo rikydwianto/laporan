@@ -1,5 +1,5 @@
 <?php
-header("Content-Type: application/json; charset=UTF-8");
+// header("Content-Type: application/json; charset=UTF-8");
 error_reporting(0);
 //panggil koneksi.php
 require_once "../config/seting.php";
@@ -340,7 +340,7 @@ else{
                 $perihal = aman($con,$_POST['perihal']);
                 $kategori = aman($con,$_POST['kategori']);
                 $tmb = mysqli_query($con,"INSERT INTO `surat` (`no_urut`, `no_surat`, `perihal_surat`, `kategori_surat`, `tgl_surat`, `isi_surat`, `type_surat`, `id_cabang`, `id_karyawan`)
-                VALUES ('$no_urut', '$no_surat', '$perihal', '$kategori', '$tgl_surat', '', 'surat', '$id_cabang', '$id');"); 
+                VALUES ('$no_urut', '$no_surat', '$perihal', '$kategori', '$tgl_surat', '', 'keluar', '$id_cabang', '$id');"); 
                 if($tmb){
                     $pesan="berhasil";
                 }
@@ -429,6 +429,81 @@ else{
                     
                 $data = $array;
             }
+            else if($menu=='angsuran'){
+                $cair = aman($con,$_POST['cair']);
+                $produk=array(
+                    'UMUM'=>array('max'=>'10000000',
+                        'min'=>'100000',
+                        'jk'=>array(
+                            25=>12,
+                            50=>24,
+                            75=>36,
+                            100=>42,
+                        ),
+                    ),
+                    'PMB'=>array('max'=>'20000000',
+                        'min'=>'5000000',
+                        'jk'=>array(
+                            25=>12,
+                            50=>24,
+                            75=>36,
+                            100=>42,
+                        ),
+                    ),
+                    'DTP'=>array('max'=>'5000000',
+                        'min'=>'500000',
+                        'jk'=>array(
+                            50=>12,
+                            75=>18,
+                            100=>24,
+                            125=>30,
+                            150=>36,
+                        ),
+                    ),
+                    'PSA'=>array('max'=>'6000000',
+                        'min'=>'1000000',
+                        'jk'=>array(
+                            26=>11,
+                            51=>22,
+                            76=>33,
+                            101=>44,
+                        ),
+                    ),
+                );
+                $hasil_angsuran = array();
+                $data_angsuran = [];
+                foreach($produk as $pr => $data){
+                    
+                    $max = $data['max'];
+                    if($max>=$cair){
+                        foreach($data['jk'] as $jk =>$mrg ){
+                        
+                            $total_margin =  $cair * ($mrg/100);
+                            $pokok_margin = $cair + $total_margin;
+                            $angsuran = $pokok_margin / $jk;
+                            $hasil_angsuran['pokok_margin']=rupiah($pokok_margin);
+                            $hasil_angsuran['total_margin']=rupiah($total_margin);
+                            $hasil_angsuran['produk']=$pr;
+                            $hasil_angsuran['pokok']=rupiah($cair);
+                            $hasil_angsuran['angsuran']=rupiah($angsuran);
+                            $hasil_angsuran['jk']=$jk;
+                            $hasil_angsuran['margin']=$mrg;
+                        array_push($data_angsuran,$hasil_angsuran);
+                        }
+                    }
+                    else{
+                        $hasil_angsuran['pokok_margin']=            "";
+                        $hasil_angsuran['total_margin']=            "";
+                        $hasil_angsuran['produk']=          "";
+                        $hasil_angsuran['pokok']=           "";
+                        $hasil_angsuran['angsuran']=            "";
+                        $hasil_angsuran['jk']=          "";
+                        $hasil_angsuran['margin']=          "";
+                    }
+                }
+
+                $data = ($data_angsuran);
+            }
             else{
                 $kode='404';
                 $pesan="Permintaan tidak jelas";
@@ -444,3 +519,6 @@ else{
 
 
 echo json_encode(array("kode"=>$kode,"pesan"=>"$pesan","data"=>$data));
+
+
+
