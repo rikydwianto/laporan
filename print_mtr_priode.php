@@ -111,7 +111,7 @@ $_SESSION['kode_cabang']=$d['kode_cabang'];?>
             $total_disburse = 0;
             $q = mysqli_query($con,"SELECT * from pinjaman p
             join karyawan k on k.id_karyawan=p.id_karyawan
-             where p.id_cabang='$id_cabang' and p.tgl_cair  <= '$tgl_akhir' $q_kar order by p.tgl_cair asc");
+             where p.id_cabang='$id_cabang' and p.tgl_cair  <= '$tgl_akhir' and p.monitoring='belum' $q_kar order by p.tgl_cair asc");
              echo mysqli_error($con);
              while($r=mysqli_fetch_array($q)){
                  $total_disburse += $r['jumlah_pinjaman'];
