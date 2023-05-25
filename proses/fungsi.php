@@ -437,7 +437,7 @@ $authorizationKey = 'AAAAhIfi4qw:APA91bEFqu4AXSKIUpnhqc6T7wWOk8FYtwp1u-n-zsqpDS0
 $data = array(
     'title' => $title,
     'body' => $isi,
-    'param'=>"isi param"
+    'param'=>$tipe
 );
 
 // Data opsional untuk konfigurasi pesan

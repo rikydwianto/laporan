@@ -14,6 +14,10 @@ $TOKEN_TELE = $token;
 @$id_cabang  = aman($con,$_POST['id_cabang']);
 @$menu  = aman($con,$_POST['menu']);
 @$token_fcm  = aman($con,$_POST['token_fcm']);
+
+$cek_admin = mysqli_query($con,"SELECT k.id_karyawan,k.`token_fcm`,j.singkatan_jabatan FROM karyawan k JOIN jabatan j ON j.`id_jabatan`=k.`id_jabatan` where k.id_cabang='$id_cabang' and singkatan_jabatan IN('ADM','MIS')");
+
+
 $data =null;
 $text=null;
 if($id==""){
@@ -68,6 +72,23 @@ else{
 
                 );
 
+                mysqli_query($con,"update ambil_stok set status='proses' where id_cabang='$id_cabang' and id_ambil='$id_cart'");
+                mysqli_query($con,"update detail_ambil_stok set status='proses' where id_ambil='$id_cart'");
+                while($adm = mysqli_fetch_array($cek_admin)){
+                    send_notif($adm['token_fcm'],"PERMINTAAN CETAKAN/FORM/BUKU","Ada Permintaan $nama dari .... tolong segera diproses ya.",$adm['id_karyawan'],"admin");
+
+                }
+
+
+            }
+            else if($menu=='cek_chart'){
+                $cek_cart = mysqli_query($con,"select * from ambil_stok where id_karyawan ='$id' and id_cabang='$id_cabang' and tanggal=curdate() and status='pending'");
+                if(mysqli_num_rows($cek_cart)){
+                   $cart = mysqli_fetch_array($cek_cart);
+                   $id_cart = $cart['id_ambil'];
+                   $kode = "200";
+                   $pesan = "tampilkan data disini!";
+                }
 
             }
             else{
