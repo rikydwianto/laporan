@@ -52,6 +52,7 @@ echo mysqli_error($con);
                         <th>SIMPANAN KREDIT</th>
                         <th>TOTAL</th>
                         <th>TOTAL UANG</th>
+                        <th>MEMBER</th>
                         <th>BAYAR</th>
                         <th>HADIR</th>
                     </tr>
@@ -108,7 +109,8 @@ echo mysqli_error($con);
                         <td align='right'><?=angka($sukarelakredit)?></td>
                         <td align='right'><?=angka($sukareladebet-$sukarelakredit)?></td>
                         <td align='right'><?=angka($total_uang)?></td>
-                        <td align='right'><?=$del_laporan['total_bayar']?>/<?=$del_laporan['member']?></td>
+                        <td align='right'><?=$del_laporan['member']?></td>
+                        <td align='right'><?=$del_laporan['total_bayar']?></td>
                         <td align='right'><?=$del_laporan['anggota_hadir']?></td>
                     </tr>
                 <?php 
