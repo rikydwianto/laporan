@@ -235,7 +235,9 @@ $hari = strtolower($hari[0]);
 
 				</td>
 				<td><a class='btn btn-danger' href="<?php echo "$url$menu" . "tmb_laporan&id_laporan=$id_laporan&dellaporan" ?>" onclick="return window.confirm('Yakin akan hapus laporan ini???')">Hapus</a></td>
-				<td><input type="submit" name='simpan_detail' class='btn btn-primary' value="SIMPAN" /></td>
+				<td>
+					<!-- <input type="submit" name='simpan_detail' class='btn btn-primary' value="SIMPAN" /> -->
+				</td>
 				<td>
 
 					<input type="submit" name='konfirmasi_laporan' class='btn btn-success'  value="KONFIRMASI" onclick="return window.confirm('Apakah sudah benar?')" />
@@ -418,6 +420,7 @@ if (isset($_POST['konfirmasi_laporan'])) {
 			} else {
 				$q = mysqli_query($con, "INSERT INTO detail_laporan ( id_laporan, no_center, status, doa,member, total_agt, total_bayar, total_tidak_bayar, status_detail_laporan,doortodoor,anggota_hadir) VALUES ( '$id_laporan', '" . sprintf("%03d", $no_center[$x]) . "', '" . $status . "', '$doa[$x]', '" . $member[$x] . "','" . $total_agt[$x] . "', '" . $total_bayar[$x] . "', '" . $total_tidak_bayar[$x] . "', 'sukses','" . $dtd[$x] . "','$hadir[$x]')");
 			}
+			mysqli_query($con,"update center set status_center='$status' where no_center='$no_center[$x]' and id_cabang='$id_cabang'");
 			center($con, $no_center[$x], $doa[$x], $status, $member[$x], $total_agt[$x], $total_bayar[$x], $id_cabang, $cek_laporan['id_karyawan'], $hari, $id_laporan, $jam[$x], $dtd[$x],$hadir[$x]);
 		}
 	}

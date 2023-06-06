@@ -52,6 +52,8 @@ echo mysqli_error($con);
                         <th>SIMPANAN KREDIT</th>
                         <th>TOTAL</th>
                         <th>TOTAL UANG</th>
+                        <th>BAYAR</th>
+                        <th>HADIR</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -80,6 +82,20 @@ echo mysqli_error($con);
                 $total_uang=(($total+$sukareladebet)-$sukarelakredit);
                 $total_semua += $total_uang;
                 //{"attribute":{"CenterID1":"133","Disbursed":"0.0000","DanaResiko":"0.0000","Pokok":"1426100.0000","NISBAH":"396700.0000","WajibDebet":"74000.0000","WajibKredit":"0.0000","SukarelaDebet":"26600.0000","SukarelaKredit":"128400.0000","PokokDebet":"0.0000","PokokKredit":"0.0000","PensiunDebet":"0.0000","PensiunKredit":"0.0000","SiharaDebet":"395000.0000","SiharaKredit":"0.0000","RupaPendapatan":"0.0000","RupaPendapatan2":"0.0000","QurbanDebet":"0.0000","QurbanKredit":"0.0000","RupaPendapatan3":"0.0000","TOTAL":"2190000.0000"}}
+                $de_laporan = mysqli_query($con,"SELECT
+                dl.*
+              FROM
+                detail_laporan dl
+                JOIN laporan l
+                  ON l.`id_laporan` = dl.`id_laporan`
+                JOIN karyawan k
+                  ON k.`id_karyawan` = l.`id_karyawan`
+              WHERE no_center = '$center'
+                AND tgl_laporan = '$tgl'
+                AND k.`id_cabang`='$id_cabang'
+                AND dl.`status_detail_laporan`='sukses'");
+                $del_laporan = mysqli_fetch_array($de_laporan);
+                error_reporting(0)
                 ?>
                 <tr>
                         <td><?=$no++?></td>
@@ -92,6 +108,8 @@ echo mysqli_error($con);
                         <td align='right'><?=angka($sukarelakredit)?></td>
                         <td align='right'><?=angka($sukareladebet-$sukarelakredit)?></td>
                         <td align='right'><?=angka($total_uang)?></td>
+                        <td align='right'><?=$del_laporan['total_bayar']?>/<?=$del_laporan['member']?></td>
+                        <td align='right'><?=$del_laporan['anggota_hadir']?></td>
                     </tr>
                 <?php 
                 }
