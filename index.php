@@ -20,7 +20,6 @@ $kode_cabang = $_SESSION['kode_cabang'];
 
 $singkatan_cabang = $d['singkatan_cabang']; 
 ?>
-ada
 <!DOCTYPE html>
 <html lang="en">
 

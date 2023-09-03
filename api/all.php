@@ -432,7 +432,7 @@ else{
             else if($menu=='angsuran'){
                 $cair = aman($con,$_POST['cair']);
                 $produk=array(
-                    'UMUM'=>array('max'=>'10000000',
+                    'UMUM'=>array('max'=>'12000000',
                         'min'=>'100000',
                         'jk'=>array(
                             25=>12,
@@ -441,7 +441,7 @@ else{
                             100=>42,
                         ),
                     ),
-                    'PMB'=>array('max'=>'20000000',
+                    'PMB'=>array('max'=>'25000000',
                         'min'=>'5000000',
                         'jk'=>array(
                             25=>12,
@@ -450,7 +450,7 @@ else{
                             100=>42,
                         ),
                     ),
-                    'DTP'=>array('max'=>'5000000',
+                    'DTP'=>array('max'=>'10000000',
                         'min'=>'500000',
                         'jk'=>array(
                             50=>12,
@@ -460,7 +460,7 @@ else{
                             150=>36,
                         ),
                     ),
-                    'PSA'=>array('max'=>'6000000',
+                    'PSA'=>array('max'=>'7000000',
                         'min'=>'1000000',
                         'jk'=>array(
                             26=>11,
