@@ -29,25 +29,29 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 		?>
 		<li><a href="<?php echo $url . $menu ?>laporan" class="w3-bar-item w3-button"><i class="fa fa-search"></i> Lihat Laporan</a></li>
 		<li><a href="<?php echo $url . $menu ?>center-staff" class="w3-bar-item w3-button"><i class="fa fa-building"></i> Center</a></li>
-		<li><a href="<?php echo $url . $menu ?>center-blacklist" class="w3-bar-item w3-button"><i class="fa fa-times"></i> Center BlackList</a></li>
-		<li><a href="<?php echo $url . $menu ?>cashflow_sl" class="w3-bar-item w3-button"><i class="fa fa-file-excel-o"></i> Cashflow </a></li>
+		<!-- <li><a href="<?php echo $url . $menu ?>center-blacklist" class="w3-bar-item w3-button"><i class="fa fa-times"></i> Center BlackList</a></li> -->
+		<!-- <li><a href="<?php echo $url . $menu ?>cashflow_sl" class="w3-bar-item w3-button"><i class="fa fa-file-excel-o"></i> Cashflow </a></li>
 
 		<li>
 			<a href="<?php echo $url . $menu ?>detail_center" class="w3-bar-item w3-button"><i class="fas fa-globe-europe"></i> Data Wilayah</a>
-		</li>
+		</li> -->
 		
 		<li>
 			<a href="<?php echo $url . $menu ?>deliquency_sl" class="w3-bar-item w3-button"><i class="fas fa-globe-europe"></i> ANGGOTA PAR</a>
+		</li>
+		
+		<li>
+			<a href="<?php echo $url . $menu ?>transfer_input" class="w3-bar-item w3-button"><i class="fas fa-dollar"></i> AGT TRANSFER</a>
 		</li>
 		<li><a href="<?php echo $url . $menu ?>cek_nik" class="w3-bar-item w3-button"><i class="fa fa-search"></i> CEK NIK</a></li>
 
 		<li>
 			<a href="<?php echo $url . $menu ?>list-monitoring" class="w3-bar-item w3-button"><i class="fas fa-globe-europe"></i> MONITORING</a>
 		</li>
-
+<!-- 
 		<li>
 			<a href="<?php echo $url . $menu ?>daftar_backup_sl" class="w3-bar-item w3-button"><i class="fas fa-times"></i> ANGGOTA BACKUP</a>
-		</li>
+		</li> -->
 
 		<li>
 			<a href="<?php echo $url . $menu ?>penarikan_simpanan" class="w3-bar-item w3-button"><i class="fas fa-dollar"></i> Penarikan Simpanan</a>

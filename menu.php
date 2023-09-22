@@ -8,6 +8,7 @@ if (isset($_GET['menu'])) {
 				include("proses/rekap_bayar.php");
 				break;
 			
+			
 
 			case "tmb_laporan":
 				include("proses/tmb_laporan.php");
@@ -69,7 +70,11 @@ if (isset($_GET['menu'])) {
 			case "logout":
 				include("proses/logout.php");
 				break;
-				case "ket_laporan":
+			case "transfer_input":
+				include("proses/transfer_input.php");
+			break;
+			
+			case "ket_laporan":
 					include("proses/ket_laporan.php");
 					break;
 			case "deliquency_sl":

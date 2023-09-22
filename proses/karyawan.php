@@ -99,6 +99,18 @@
 	<div class='content'>
 	
 		<?php 
+		if(isset($_POST['reset_tele'])){
+			$idk=$_GET['idkaryawan'];
+			$q = mysqli_query($con,"update karyawan set id_telegram='' where id_karyawan='$idk'");
+			if($q){
+				$_SESSION['pesan']="Berhasil direset";
+			}
+			else{
+				$_SESSION['pesan']="gagal direset";
+			}
+			
+		}
+
 		if(isset($_POST['ubah']))
 		{
 			$idk=$_GET['idkaryawan'];
@@ -178,7 +190,10 @@
 					</tr>
 					<tr>
 						<th></th>
-						<th><input type='submit' value='UBAH' name='ubah' class='btn btn-danger'/></th>
+						<th>
+							<input type='submit' value='UBAH' name='ubah' class='btn btn-warning'/>
+							<input type='submit' value='RESET TELE' name='reset_tele' class='btn btn-danger'/>
+						</th>
 					</tr>
 				</table>
 			</form>
