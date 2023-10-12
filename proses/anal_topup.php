@@ -105,14 +105,14 @@
             <td><?=$data['id_detail_nasabah']?></td>
             <td><?=$data['nasabah']?></td>
             <td><?=($data['minggu_rill'])?></td>
-            <td><?=angka($data['amount'])?></td>
-            <td><?=angka(round($data['sisa_saldo']))?></td>
-            <td><?=angka($saldo)?></td>
+            <td><?=($data['amount'])?></td>
+            <td><?=(round($data['sisa_saldo']))?></td>
+            <td><?=($saldo)?></td>
             <?php 
             foreach($jk as $j => $v){
                 ?>
                 <!-- <td>ANGSURAN<br/><?=$j?> + margin</td> -->
-                <td><?=angka(($saldo+($saldo*$v))/$j)?></td>
+                <td><?=(($saldo+($saldo*$v))/$j)?></td>
                 <?php
             }
             ?>

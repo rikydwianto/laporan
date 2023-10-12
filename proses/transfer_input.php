@@ -35,6 +35,68 @@
             </table>
         </form>
     </div>
+    <div class="col-sm-12">
+        <table class="table">
+            <tr>
+                <th>NO</th>
+                <th>TANGGAL</th>
+                <th>TRANSFER</th>
+                <th>KETERANGAN</th>
+                <th>DETAIL</th>
+                <th>STATUS</th>
+                <th>#</th>
+            </tr>
+            <?php 
+            $q = mysqli_query($con,"select * from bukti_tf where id_karyawan='$id_karyawan' order by tanggal desc");
+            while($r = mysqli_fetch_array($q)){
+                ?>
+                <tr>
+                    <td><?=$no++?></td>
+                    <td><?=$r['tanggal']?></td>
+                    <td><?=rupiah($r['total_nominal'])?></td>
+                    <td><?=$r['keterangan']?></td>
+                    <td>
+                    <table>
+                        
+                        <?php 
+                        $q1 = mysqli_query($con,"SELECT * from detail_tf where id_bukti='$r[id_bukti]'");
+                        while($row = mysqli_fetch_array($q1)){
+                            ?>
+                        <tr>
+                            <td><?=$row['center']?>/<?=$row['kelompok']?>-</td>
+                            <td><?=$row['nama_nasabah']?>-</td>
+                            <td><?=rupiah($row['total'])?></td>
+                        </tr>
+                        <?php
+                        }
+                        ?>
+                    </table>
+                    </td>
+                    <td><?=strtoupper($r['status'])?></td>
+                    <td>
+                        <?php 
+                        if($r['status']=='pending'){
+                            ?>
+                            <a href="<?=$url.$menu."transfer_input&id_tf=".$r['id_bukti']?>" class="btn btn-danger">
+                            <i class="fa fa-pencil"></i>
+                            </a>
+                            <?php
+                        }
+                        else{
+                            ?>
+                            <a href="<?=$url.$menu."transfer_input&id_tf=".$r['id_bukti']?>" class="btn btn-success">Q</a>
+                            <?php
+
+                        }
+                        ?>
+                        
+                    </td>
+                </tr>
+                <?php
+            }
+            ?>
+        </table>
+    </div>
     <?php
     }
     else{
@@ -45,7 +107,10 @@
         where tf.id_bukti='$id_tf'");
         $bukti = mysqli_fetch_array($cek);
 
-        
+        if(!mysqli_num_rows($cek)){
+           alert("Tidak ditemukan!");
+            pindah($url);
+        }
         ?>
     <h1>Detail TF</h1>
     <div class="col-sm-12">
@@ -109,9 +174,16 @@
                 <td><?=rupiah($r['total'])?></td>
                 <td><?=$r['keterangan']?></td>
                 <td>
-                    <a href="<?=$url.$menu."transfer_input&id_tf=".$id_tf."&hapus_detail&id_detail=".$r['id_detail_tf']?>"
+                    <?php 
+                    if($bukti['status']=='pending'){
+                        ?>
+                        <a href="<?=$url.$menu."transfer_input&id_tf=".$id_tf."&hapus_detail&id_detail=".$r['id_detail_tf']?>"
                         onclick="return window.confirm('Apakah anda yakin akan dihapus?')" class="btn  btn-sm"> <i
                             class="fa fa-times"></i></a>
+                        <?php
+                    }
+                    ?>
+                    
                 </td>
             </tr>
             <?php
@@ -125,10 +197,17 @@
         $hitung = mysqli_fetch_array($hitung);
         $total =  $hitung['total'];
        if($total==$bukti['total_nominal']){
+        if($bukti['status']=='simpan'){
+
+        }
+
+        else{
+
+        
         ?>
         <a href="<?=$url.$menu."transfer_input&id_tf=".$id_tf."&simpan"?>" class="btn btn-lg btn-danger">SIMPAN</a>
         <?php
-        
+        }
        }
        else{
         $kurang =  $bukti['total_nominal']-$total;
