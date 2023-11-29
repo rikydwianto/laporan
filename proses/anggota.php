@@ -42,7 +42,7 @@
 				$last_row = $ws->getHighestDataRow();
 				
 				$ket_excel =  $ws->getCell("A4")->getValue();
-				if($ket_excel=="DATABASE NASABAH "){
+				if($ket_excel=="DATABASE NASABAH " || $ket_excel=="DATABASE NASABAH " || $ket_excel=="DATABASE NASABAH"){
 					for ($row = 2; $row <= $last_row; $row++) {
 						$no_id =  $ws->getCell("B" . $row)->getValue();
 						if ($no_id == null) {
