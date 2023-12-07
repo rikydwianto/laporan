@@ -22,6 +22,7 @@
     <a href="<?= $url . $menu ?>monitoring&daftar_pinjaman" class='btn btn-success'> <i class="fa fa-list"></i> Daftar Pinjaman</a>
     <a href="<?= $url . $menu ?>monitoring&input_tpk" class='btn btn-danger'> <i class="fa fa-plus"></i> Input TPK</a>
     <a href="<?= $url . $menu ?>monitoring" onclick="buka()" class='btn btn-info'> <i class="fa fa-file-excel-o"></i> Export</a>
+    <a href="<?= $url . $menu ?>monitoring&importan"  class='btn btn-danger'> <i class="fa fa-gear"></i> IMPORTANT</a>
     <?php
     if (isset($_SESSION['nama_file'])) {
     ?>
@@ -376,6 +377,14 @@
         //RIWAYAT MONITORING
         include("proses/input_tpk.php");
     }  
+    else if (isset($_GET['importan'])) {
+        //RIWAYAT MONITORING
+        include("proses/monitoring_setting.php");
+    }  
+    else if (isset($_GET['proses_importan'])) {
+        //RIWAYAT MONITORING
+        include("proses/proses_importan.php");
+    }  
     else if (isset($_GET['hapus_tpk'])) {
         $id = aman($con, $_GET['id']);
         $detail = aman($con, $_GET['detail']);
@@ -695,4 +704,6 @@
             });
         }
     }
+
+
 </script>
