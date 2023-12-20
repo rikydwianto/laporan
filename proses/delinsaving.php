@@ -377,7 +377,7 @@ ini_set('max_execution_time', '0'); // for infinite time of execution
             $sheet->setCellValue('s' . $baris, ($satu_angsuran == 0 ? "" : ($satu_angsuran)));
             $sheet->setCellValue('t' . $baris, ($tanpa_margin == 0 ? "" : ($tanpa_margin)));
             $sheet->setCellValue('u' . $baris, explode(" - ", $r['staff'])[1]);
-            $sheet->setCellValue('v' . $baris, $r['hari']);
+            $sheet->setCellValue('v' . $baris, $nama['hari']);
             // $sheet->setCellValue('w'.$baris, $idn);
             $sheet->setCellValue('W' . $baris, $priode);
             $sheet->setCellValue('X' . $baris, $ket);

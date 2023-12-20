@@ -123,7 +123,7 @@
                 <td><?= $row['minggu'] ?></td>
                 <td><?= $ket ?></td>
                 <td><input type="text" class='form-control' name="alasan[]" value="<?= $a ?>" id=""></td>
-                <td><input type="date" class='' name="tgl[]" value="<?= $tgl_target ?>" id=""></td>
+                <td><input type="text" class='form-control' name="tgl[]" value="<?= $tgl_target ?>" id=""></td>
             </tr>
             <?php
                 }
