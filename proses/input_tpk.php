@@ -29,7 +29,7 @@ if (isset($_POST['input_tpk'])) {
         } else {
             if ($id_nasabah != "") {
                 $cek = mysqli_query($con, "select id_detail_nasabah from daftar_nasabah where id_cabang='$id_cabang' and id_nasabah='$id_nasabah' ");
-                $cek1 = mysqli_fetch_array($cek);
+                $cek1 = mysqli_fetch_assoc($cek);
                 $ID = $cek1['id_detail_nasabah'];
                 $cek_tpk = mysqli_query($con, "SELECT id from tpk where id_cabang='$id_cabang' and id_nasabah='$id_nasabah'");
                 if (!mysqli_num_rows($cek_tpk)) {

@@ -8,13 +8,13 @@
             <?php $nett = $_GET['cash']; ?>
             <tr>
                 <td>Nama Group</td>
-                <td><input type="text" value="<?=$nama_group?>" class='form-control' name="nama_group" id="">
+                <td><input type="text" value="<?= $nama_group ?>" class='form-control' name="nama_group" id="">
                     <br> <small>Tambahkan Urutan Kelompok misal 01 - senin</small>
                 </td>
             </tr>
             <tr>
                 <td>CashFlow Kelompok</td>
-                <td><input type="number" value="<?=$nett?>" class='form-control' name="cashflow" id="">
+                <td><input type="number" value="<?= $nett ?>" class='form-control' name="cashflow" id="">
                     <br> <small>Untuk target per kelompok</small>
                 </td>
             </tr>
@@ -33,7 +33,7 @@
             <?php
             $no = 1;
             $cekgroup = mysqli_query($con, "select * from `group` where id_cabang='$id_cabang'");
-            while ($tampilGroup = mysqli_fetch_array($cekgroup)) {
+            while ($tampilGroup = mysqli_fetch_assoc($cekgroup)) {
             ?>
                 <tr>
                     <td><?= $no++ ?></td>
@@ -53,7 +53,7 @@
 <?php
 if (isset($_POST['simpan_kelompok']) && isset($_GET['edit'])) {
     $nama_group = $_POST['nama_group'];
-    $id_group = aman($con,$_GET['idgroup']);
+    $id_group = aman($con, $_GET['idgroup']);
     $cash = $_POST['cashflow'];
     mysqli_query($con, "UPDATE `group` SET nama_group='$nama_group',nett_cashflow='$cash' WHERE `id_group` = '$id_group'");
     pindah("$url$menu" . "crud_kelompok");
@@ -64,7 +64,7 @@ if (isset($_POST['simpan_kelompok']) && isset($_GET['edit'])) {
     pindah("$url$menu" . "crud_kelompok");
 }
 if (isset($_GET['hapus'])) {
-    $id_group =aman($con, $_GET['idgroup']);
+    $id_group = aman($con, $_GET['idgroup']);
     mysqli_query($con, "DELETE FROM `group` WHERE `id_group` ='$id_group'");
     $q = mysqli_query($con, "DELETE FROM `group_user` WHERE `id_group` ='$id_group'");
     pindah("$url$menu" . "crud_kelompok");

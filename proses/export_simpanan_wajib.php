@@ -1,13 +1,12 @@
-<a href="<?=$url.$menu?>blk_input" class="btn btn-success"> Kembali</a>
+<a href="<?= $url . $menu ?>blk_input" class="btn btn-success"> Kembali</a>
 <?php
-ini_set('max_execution_time',0);
-if(isset($_GET['download'])){
-    $download = $_GET['download'];
-    $back_dir    ="/export/excel/par/";
-    $file =$back_dir.$download;
-    pindah($url.$file);
-    pindah($url.$menu."blk_input");
-    
+ini_set('max_execution_time', 0);
+if (isset($_GET['download'])) {
+  $download = $_GET['download'];
+  $back_dir    = "/export/excel/par/";
+  $file = $back_dir . $download;
+  pindah($url . $file);
+  pindah($url . $menu . "blk_input");
 }
 // // // // $file = $_FILES['file']['tmp_name'];
 // // // // $path = $file;
@@ -22,7 +21,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
 $baris = 3;
-$no1=1;
+$no1 = 1;
 
 $spreadsheet = new Spreadsheet();
 
@@ -77,47 +76,44 @@ $spreadsheet->createSheet();
 <h2>BLK </h2>
 <?php
 
-$cek_tgl = mysqli_query($con,"SELECT max(tgl_input) AS tgl FROM deliquency WHERE id_cabang='$id_cabang' ORDER BY tgl_input DESC");
-$tgl_delin = mysqli_fetch_array($cek_tgl);
+$cek_tgl = mysqli_query($con, "SELECT max(tgl_input) AS tgl FROM deliquency WHERE id_cabang='$id_cabang' ORDER BY tgl_input DESC");
+$tgl_delin = mysqli_fetch_assoc($cek_tgl);
 $tgl_delin = $tgl_delin['tgl'];
 $no1 = 1;
-$cek_delin1 = mysqli_query($con,"SELECT  deliquency.* FROM deliquency  WHERE tgl_input='$tgl_delin' AND id_cabang='$id_cabang'  ");
+$cek_delin1 = mysqli_query($con, "SELECT  deliquency.* FROM deliquency  WHERE tgl_input='$tgl_delin' AND id_cabang='$id_cabang'  ");
 $cek_delin = mysqli_num_rows($cek_delin1);
 // error_reporting(0);
-  $nor=1;
-while($r = mysqli_fetch_array($cek_delin1)){
-   
-               
-
-                $sheet->setCellValue('A'.$baris, $nor++);
-                $sheet->setCellValue('b'.$baris, $nasabah);
-                $sheet->setCellValue('c'.$baris, $id_nasabah);
-                $sheet->setCellValue('D'.$baris, $nama['no_center']);
-                $sheet->setCellValue('e'.$baris, $loan);
-                $sheet->setCellValue('f'.$baris, $kode_pemb);
-                $sheet->setCellValue('g'.$baris, $tgl_dis);
-                $sheet->setCellValue('h'.$baris, $ke);
-                $sheet->setCellValue('i'.$baris, $rill);
-                $sheet->setCellValue('j'.$baris, $amount);
-
-                //SHEET 2
+$nor = 1;
+while ($r = mysqli_fetch_assoc($cek_delin1)) {
 
 
-                $baris++;
-            
-            
 
-        }
-        $kode_cabang  = $_SESSION['kode_cabang'];
-        $text ="$nik $kode_cabang sedang mengunduh alasan PAR";
-    
-        $url_tele = "https://api.telegram.org/$token/sendMessage?parse_mode=html&chat_id=1185334687&text=$text&reply_message_id=214&force_reply=true";
-        file_get_contents($url_tele);
+  $sheet->setCellValue('A' . $baris, $nor++);
+  $sheet->setCellValue('b' . $baris, $nasabah);
+  $sheet->setCellValue('c' . $baris, $id_nasabah);
+  $sheet->setCellValue('D' . $baris, $nama['no_center']);
+  $sheet->setCellValue('e' . $baris, $loan);
+  $sheet->setCellValue('f' . $baris, $kode_pemb);
+  $sheet->setCellValue('g' . $baris, $tgl_dis);
+  $sheet->setCellValue('h' . $baris, $ke);
+  $sheet->setCellValue('i' . $baris, $rill);
+  $sheet->setCellValue('j' . $baris, $amount);
+
+  //SHEET 2
+
+
+  $baris++;
+}
+$kode_cabang  = $_SESSION['kode_cabang'];
+$text = "$nik $kode_cabang sedang mengunduh alasan PAR";
+
+$url_tele = "https://api.telegram.org/$token/sendMessage?parse_mode=html&chat_id=1185334687&text=$text&reply_message_id=214&force_reply=true";
+file_get_contents($url_tele);
 ?>
 </tbody>
 
 </table>
-<?php 
+<?php
 // $spreadsheet->getActiveSheet()->setTitle('Data Par');
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
 $spreadsheet->setActiveSheetIndex(0);
@@ -125,6 +121,6 @@ $spreadsheet->setActiveSheetIndex(0);
 
 
 $writer = new Xlsx($spreadsheet);
-$filename=$_SESSION['kode_cabang'].'-Alasan PAR new - '.date("Y-m-d").' - '. time() ;
-$writer->save('export/excel/par/'.$filename.'.xlsx');
-pindah($url."blk.php?download=".$filename.".xlsx");
+$filename = $_SESSION['kode_cabang'] . '-Alasan PAR new - ' . date("Y-m-d") . ' - ' . time();
+$writer->save('export/excel/par/' . $filename . '.xlsx');
+pindah($url . "blk.php?download=" . $filename . ".xlsx");

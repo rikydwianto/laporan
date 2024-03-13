@@ -8,7 +8,6 @@
 		width: 50px;
 		text-align: center;
 	}
-
 </style>
 <div class='content table-responsive'>
 	<h2 class='page-header'>STATISTIK PETUGAS LAPANG </h2>
@@ -21,33 +20,33 @@
 
 	<?php
 	if (isset($_GET['tambah'])) {
-		$id = aman($con,$_GET['id']);
+		$id = aman($con, $_GET['id']);
 		$tgl = $_GET['tgl'];
 	?>
 		<!-- <form action="" method="post">
 			<textarea name="query" class='form-control' id="" cols="50" rows="20"></textarea>
 			<input type="submit" value="Execute" name='ekse' />
 		</form> -->
-			<?php
-			//CODE FOR EKSE QUERY
-			if (isset($_POST['ekse'])) {
-				$text = ($_POST['query']);
-				$text = str_replace("**", ",id_statistik,id_cabang) ", $text);
-				$text = str_replace("###", ",'$id','$id_cabang'); ", $text);
-				// echo $text;
-				$query = mysqli_multi_query($con, $text);
-				if ($query) {
-					// sleep(5);
-					alert("Terima Kasih telah menunggu, Data berhasil input ...");
-					pindah($url.$menu."spl");
-				} else {
-					pesan("Gagal <br/> $text", 'danger');
-				}
+		<?php
+		//CODE FOR EKSE QUERY
+		if (isset($_POST['ekse'])) {
+			$text = ($_POST['query']);
+			$text = str_replace("**", ",id_statistik,id_cabang) ", $text);
+			$text = str_replace("###", ",'$id','$id_cabang'); ", $text);
+			// echo $text;
+			$query = mysqli_multi_query($con, $text);
+			if ($query) {
+				// sleep(5);
+				alert("Terima Kasih telah menunggu, Data berhasil input ...");
+				pindah($url . $menu . "spl");
+			} else {
+				pesan("Gagal <br/> $text", 'danger');
 			}
-			?>
-			<form method="post" enctype="multipart/form-data">
+		}
+		?>
+		<form method="post" enctype="multipart/form-data">
 			<div class="col-md-6">
-				<label for="formFile" class="form-label">SILAHKAN PILIH FILE : SPL/ STATISTIK PETUGAS LAPANG TGL <?=$tgl?></label>
+				<label for="formFile" class="form-label">SILAHKAN PILIH FILE : SPL/ STATISTIK PETUGAS LAPANG TGL <?= $tgl ?></label>
 				<input class="form-control" type="file" name='file' accept=".xls,.xlsx,.csv" id="formFile">
 				<input type="submit" value="Proses" class='btn btn-danger' name='preview'>
 			</div>
@@ -61,12 +60,12 @@
 			</tr>
 
 			<?php
-			
+
 			if (isset($_POST['preview'])) {
 				$nama_file = $_FILES['file']['tmp_name'];
 				$_SESSION['nama_file'] = $nama_file;
 				$path = $_SESSION['nama_file'];
-				$id=$_GET['id'];
+				$id = $_GET['id'];
 				$reader = PHPExcel_IOFactory::createReaderForFile($path);
 				$objek = $reader->load($path);
 				$ws = $objek->getActiveSheet();
@@ -78,37 +77,34 @@
 						$subtot = ganti_karakter(substr($params, 0, 4));
 						if ($subtot == 'Sub.') {
 							$staff =  ganti_karakter($ws->getCell("W" . $row)->getValue());
-							$nama =  substr($ws->getCell("D" . $row)->getValue(),9);
-							$jumlah_center = ganti_karakter($ws->getCell("E".$row)->getValue());
-							$member = ganti_karakter($ws->getCell("G".$row)->getValue());
-							$client = ganti_karakter($ws->getCell("H".$row)->getValue());
-							$saving = ganti_karakter($ws->getCell("O".$row)->getValue()) + ganti_karakter($ws->getCell("P".$row)->getValue()) + ganti_karakter($ws->getCell("Q".$row)->getValue()) + ganti_karakter($ws->getCell("R".$row)->getValue()) + ganti_karakter($ws->getCell("S".$row)->getValue());
-							
-							$group = ganti_karakter($ws->getCell("F".$row)->getValue());
-							$disburse = ganti_karakter($ws->getCell("K".$row)->getValue());
+							$nama =  substr($ws->getCell("D" . $row)->getValue(), 9);
+							$jumlah_center = ganti_karakter($ws->getCell("E" . $row)->getValue());
+							$member = ganti_karakter($ws->getCell("G" . $row)->getValue());
+							$client = ganti_karakter($ws->getCell("H" . $row)->getValue());
+							$saving = ganti_karakter($ws->getCell("O" . $row)->getValue()) + ganti_karakter($ws->getCell("P" . $row)->getValue()) + ganti_karakter($ws->getCell("Q" . $row)->getValue()) + ganti_karakter($ws->getCell("R" . $row)->getValue()) + ganti_karakter($ws->getCell("S" . $row)->getValue());
 
-							$os = ganti_karakter($ws->getCell("L".$row)->getValue());
-							$masalah = ganti_karakter($ws->getCell("M".$row)->getValue());
-							$par = ganti_karakter($ws->getCell("N".$row)->getValue());
-							$new_member = ganti_karakter($ws->getCell("U".$row)->getValue());
-							$cek_anggota = mysqli_num_rows(mysqli_query($con,"SELECT * FROM spl JOIN statistik ON spl.`id_statistik`=statistik.`id_statistik`
+							$group = ganti_karakter($ws->getCell("F" . $row)->getValue());
+							$disburse = ganti_karakter($ws->getCell("K" . $row)->getValue());
+
+							$os = ganti_karakter($ws->getCell("L" . $row)->getValue());
+							$masalah = ganti_karakter($ws->getCell("M" . $row)->getValue());
+							$par = ganti_karakter($ws->getCell("N" . $row)->getValue());
+							$new_member = ganti_karakter($ws->getCell("U" . $row)->getValue());
+							$cek_anggota = mysqli_num_rows(mysqli_query($con, "SELECT * FROM spl JOIN statistik ON spl.`id_statistik`=statistik.`id_statistik`
 							 WHERE spl.id_statistik='$id' AND spl.`id_cabang`='$id_cabang' AND statistik.tgl_statistik='$tgl' and statistik.staff='$nama' "));
-							 if($cek_anggota){
-
-							 }
-							 else{
-								 $text = " INSERT INTO `spl` 
+							if ($cek_anggota) {
+							} else {
+								$text = " INSERT INTO `spl` 
 								 (`id_spl`, `id_statistik`, `staff`, `jumlah_center`, `member`, `client`, `disburse`, `outstanding`, `masalah`, `par`, `new_member`, `id_karyawan`, `id_cabang`,`saving`,`group`) 
 								 VALUES (NULL, '$id', '$nama', '$jumlah_center', '$member', '$client', '$disburse', '$os', '$masalah', '$par', '$new_member', null, '$id_cabang','$saving','$group');";
-								 // echo $text;
-								 mysqli_query($con,$text);
-
-							 }
-							pindah($url.$menu."spl");
+								// echo $text;
+								mysqli_query($con, $text);
+							}
+							pindah($url . $menu . "spl");
 						}
 					}
 				}
-				?>
+			?>
 				<tr>
 					<td></td>
 					<td></td>
@@ -121,23 +117,20 @@
 					</td>
 				</tr>
 			<?php
-			// pindah($url.$menu."anggota&sinkron");
+				// pindah($url.$menu."anggota&sinkron");
 			}
 
 			?>
 		</table>
 	<?php
-	} 
-	else if(isset($_GET['hapus'])){
-        $id = aman($con,$_GET['id']);
-        // $detail = aman($con,$_GET['detail']);
-        
-        $q1 = mysqli_query($con,"DELETE FROM `statistik` WHERE `id_statistik` = '$id' ; ");
-        $q1 = mysqli_query($con,"DELETE FROM `spl` WHERE `id_statistik` = '$id' ; ");
-        pindah("$url$menu".'spl');
+	} else if (isset($_GET['hapus'])) {
+		$id = aman($con, $_GET['id']);
+		// $detail = aman($con,$_GET['detail']);
 
-    }
-	elseif (isset($_GET['detail'])) {
+		$q1 = mysqli_query($con, "DELETE FROM `statistik` WHERE `id_statistik` = '$id' ; ");
+		$q1 = mysqli_query($con, "DELETE FROM `spl` WHERE `id_statistik` = '$id' ; ");
+		pindah("$url$menu" . 'spl');
+	} elseif (isset($_GET['detail'])) {
 		$id = aman($con, $_GET['id']);
 		$tgl = aman($con, $_GET['tgl']);
 		$sql = "select * from spl join karyawan on karyawan.id_karyawan=spl.id_karyawan where id_statistik='$id' ";
@@ -150,7 +143,7 @@
 
 		</div>
 		<div class="col-md-10">
-			<table class='table' >
+			<table class='table'>
 				<tr>
 					<th colspan="10" style="text-align:center;font-size:20px"><?= format_hari_tanggal($tgl) ?></th>
 				</tr>
@@ -180,18 +173,18 @@
 				$jumlah_member = 0;
 				$jumlah_client = 0;
 				$jumlah_group = 0;
-				$t_saving=0;
+				$t_saving = 0;
 				foreach ($array as $val) {
 
-					$q_desa = mysqli_query($con,"SELECT id_karyawan,COUNT(DISTINCT desa) AS total_desa,desa FROM center WHERE id_karyawan='$val[id_karyawan]' ");
-					$desa = mysqli_fetch_array($q_desa);
+					$q_desa = mysqli_query($con, "SELECT id_karyawan,COUNT(DISTINCT desa) AS total_desa,desa FROM center WHERE id_karyawan='$val[id_karyawan]' ");
+					$desa = mysqli_fetch_assoc($q_desa);
 					$desa = $desa['total_desa'];
 
 					$disburse =  angka_mentah($val['disburse']);
 					$outstanding = angka_mentah($val['outstanding']);
 					$total_disburse = $total_disburse + $disburse;
 					$total_outstanding = $total_outstanding + $outstanding;
-					
+
 
 					$disburse =  angka_mentah($val['disburse']);
 					$masalah = angka_mentah($val['masalah']);
@@ -201,30 +194,30 @@
 					$jumlah_center = $jumlah_center + $val['jumlah_center'];
 					$jumlah_member = $jumlah_member + $val['member'];
 					$jumlah_client = $jumlah_client + $val['client'];
-					$group=$val['group'];
+					$group = $val['group'];
 					$jumlah_group = $jumlah_group + $group;
 					$saving = $val['saving'];
 					$t_saving = $saving + $t_saving;
 					$total_area  += $desa;
-					?>
+				?>
 					<tr>
 						<td class='nama'><?= $no++ ?></td>
 						<td class='nama'><?= str_replace("Sub. Tot ", "", $val['nama_karyawan']) ?></td>
 						<td class='kotak'><?= $val['client'] ?></td>
 						<td class='kotak'><?= $val['member'] ?></td>
-						<td class='kotak'><?= $group?></td>
+						<td class='kotak'><?= $group ?></td>
 						<td class='kotak'><?= $val['jumlah_center'] ?></td>
 						<td class='kotak'><?= $desa ?></td>
 						<td class='kotak'><?= angka($disburse); ?></td>
 						<td class='kotak'><?= angka($outstanding) ?> </td>
 						<td class='kotak'><?= angka($saving) ?> </td>
 						<td class='kotak'><?= angka($masalah) ?> </td>
-						<td class='kotak'><?= round($val['par'],2) ?></td>
+						<td class='kotak'><?= round($val['par'], 2) ?></td>
 						<td class='kotak'><?= ($new_member) ?></td>
 					</tr>
 
 				<?php
-				$new_member += ($val['new_member']);
+					$new_member += ($val['new_member']);
 				}
 				?>
 				<tr class='tengah'>
@@ -234,7 +227,7 @@
 					<td><?= $jumlah_member ?></td>
 					<td><?= $jumlah_group ?></td>
 					<td><?= $jumlah_center ?></td>
-					<td><?= $total_area?></td>
+					<td><?= $total_area ?></td>
 					<td><?= angka($total_disburse) ?></td>
 					<td><?= angka($total_outstanding) ?></td>
 					<td><?= angka($t_saving) ?></td>
@@ -278,11 +271,11 @@
 								$text = " UPDATE `spl` SET `staff` = null , id_karyawan='$karyawan[$i]' WHERE `staff` = '$mdis[$i]'; ";
 
 								$q = mysqli_query($con, "$text");
-								$cek_total_anggota = mysqli_num_rows(mysqli_query($con,"select * from total_nasabah where id_cabang='$id_cabang' and id_karyawan='$karyawan[$i]'"));
-								if($cek_total_anggota>0){
-									mysqli_query($con,"UPDATE `total_nasabah` SET `total_nasabah` = '$agt[$i]' WHERE `id_karyawan` = '$karyawan[$i]';");
-								} else{
-									mysqli_query($con,"INSERT into total_nasabah(id_karyawan,total_nasabah,id_cabang) values('$karyawan[$i]','$agt[$i]','$id_cabang')");
+								$cek_total_anggota = mysqli_num_rows(mysqli_query($con, "select * from total_nasabah where id_cabang='$id_cabang' and id_karyawan='$karyawan[$i]'"));
+								if ($cek_total_anggota > 0) {
+									mysqli_query($con, "UPDATE `total_nasabah` SET `total_nasabah` = '$agt[$i]' WHERE `id_karyawan` = '$karyawan[$i]';");
+								} else {
+									mysqli_query($con, "INSERT into total_nasabah(id_karyawan,total_nasabah,id_cabang) values('$karyawan[$i]','$agt[$i]','$id_cabang')");
 								}
 							}
 						}
@@ -291,7 +284,7 @@
 
 
 					$q = mysqli_query($con, "select staff,member from spl where id_karyawan is  null group by staff order by staff asc ");
-					while ($pinj = mysqli_fetch_array($q)) {
+					while ($pinj = mysqli_fetch_assoc($q)) {
 					?>
 						<tr>
 							<td><?= $no++ ?></td>
@@ -339,7 +332,7 @@
 			</tr>
 			<?php
 			$qstatistik = mysqli_query($con, "select * from statistik where id_cabang='$id_cabang' order by tgl_statistik desc");
-			while ($statistik = mysqli_fetch_array($qstatistik)) {
+			while ($statistik = mysqli_fetch_assoc($qstatistik)) {
 			?>
 				<tr>
 					<td><?= $no++ ?></td>
@@ -347,24 +340,23 @@
 						<a href="<?= $url . $menu ?>spl&detail&id=<?= $statistik['id_statistik'] ?>&tgl=<?= $statistik['tgl_statistik'] ?>"> <?= format_hari_tanggal($statistik['tgl_statistik']) ?></a>
 					</td>
 					<td>
-						<?php 
-						$hitung_spl = mysqli_query($con,"select count(*) as hitung from spl where id_statistik='$statistik[id_statistik]'"); 
-						$hitung_spl = mysqli_fetch_array($hitung_spl);
+						<?php
+						$hitung_spl = mysqli_query($con, "select count(*) as hitung from spl where id_statistik='$statistik[id_statistik]'");
+						$hitung_spl = mysqli_fetch_assoc($hitung_spl);
 
-						if($hitung_spl['hitung']<1){
-							?>
+						if ($hitung_spl['hitung'] < 1) {
+						?>
 							<a href="<?= $url . $menu ?>spl&tambah&id=<?= $statistik['id_statistik'] ?>&tgl=<?= $statistik['tgl_statistik'] ?>" class="btn btn-danger"> <i class="fa fa-plus"></i></a>
 
-							<?php
-						}
-						else{
-							?>
+						<?php
+						} else {
+						?>
 							<a href="<?= $url . $menu ?>spl&ganti&tgl=<?= $statistik['tgl_statistik'] ?>" class="btn btn-success">Syncron</a>
 
-							<?php
-						} 
+						<?php
+						}
 						?>
-						
+
 						<a href="<?= $url ?>export/spl.php?id=<?= $statistik['id_statistik'] ?>" class="btn btn-info"> <i class="fa fa-print"></i></a>
 						<a href="<?= $url . $menu ?>spl&hapus&tgl=<?= $statistik['tgl_statistik'] ?>&id=<?= $statistik['id_statistik'] ?>" class="btn btn-danger" onclick="return window.confirm('Yakin menghapus SPL ini?')"> <i class="fa fa-times"></i> </a>
 					</td>
@@ -433,10 +425,10 @@
 <?php
 
 
-if(isset($_POST['tambah_statistik'])){
-	mysqli_query($con,"INSERT INTO `statistik` (`tgl_statistik`, `id_cabang`) VALUES ('$_POST[tanggal]', '$id_cabang'); ");
+if (isset($_POST['tambah_statistik'])) {
+	mysqli_query($con, "INSERT INTO `statistik` (`tgl_statistik`, `id_cabang`) VALUES ('$_POST[tanggal]', '$id_cabang'); ");
 	$last = mysqli_insert_id($con);
-	pindah($url.$menu."spl&tambah&id=$last&tgl=$_POST[tanggal]");
+	pindah($url . $menu . "spl&tambah&id=$last&tgl=$_POST[tanggal]");
 }
 ?>
 <script>

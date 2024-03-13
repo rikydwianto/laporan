@@ -7,11 +7,11 @@
     <a href="<?= $url . $menu ?>list-monitoring&filter" class='btn btn-danger'> <i class="fa fa-eye"></i> Lihat Semua Data</a> <br /><br />
 
     <form method='get' action='<?php echo $url . $menu ?>monitoring'>
-            <input type=hidden name='menu' value="list-monitoring" />
-            <!-- <input type=hidden name='staff' /> -->
-            Sampai Dengan <input type=date name='tgl' value='<?php echo isset($_GET['tgl']) ? $_GET['tgl'] : date("Y-m-d") ?>' />
-            <input type=submit name='cari' value='CARI' />
-        </form>
+        <input type=hidden name='menu' value="list-monitoring" />
+        <!-- <input type=hidden name='staff' /> -->
+        Sampai Dengan <input type=date name='tgl' value='<?php echo isset($_GET['tgl']) ? $_GET['tgl'] : date("Y-m-d") ?>' />
+        <input type=submit name='cari' value='CARI' />
+    </form>
     <form action="" method="post">
         <?php
         if (isset($_POST['lapor'])) {
@@ -26,7 +26,7 @@
                 <?php
                 for ($i = 0; $i < count($lapor); $i++) {
                     $qnasabah = mysqli_query($con, "select * from pinjaman where id_detail_pinjaman ='$lapor[$i]'");
-                    $nasabah  = mysqli_fetch_array($qnasabah);
+                    $nasabah  = mysqli_fetch_assoc($qnasabah);
                 ?>
                     <tr>
                         <td>
@@ -38,7 +38,7 @@
                             <br><input type="text" class='form-group' disabled value='<?= ganti_karakter($nasabah['produk']) ?>(<?= $nasabah['pinjaman_ke'] ?>)'>
                         </td>
                         <td>
-                            <input type="date" value='<?=date("Y-m-d")?>' name="tanggal[]" id="" class='form-control'>
+                            <input type="date" value='<?= date("Y-m-d") ?>' name="tanggal[]" id="" class='form-control'>
                         </td>
                         <td>
                             <textarea name="keluhan[]" id="" cols="40" rows="3" class='form-control'></textarea>
@@ -59,13 +59,13 @@
         <?php
         }
 
-        if(isset($_POST['ajukan'])){
+        if (isset($_POST['ajukan'])) {
             $id_de = $_POST['id_pinjaman'];
             $tanggal = $_POST['tanggal'];
-           
-            for($i=0;$i<count($id_de);$i++){
+
+            for ($i = 0; $i < count($id_de); $i++) {
                 $keluhan = htmlspecialchars($_POST['keluhan'][$i]);
-                $q = mysqli_query($con,"INSERT INTO `banding_monitoring` (`id_pinjaman`, `id_detail_pinjaman`, `tgl_banding`, `keterangan_banding`, `id_karyawan`, `id_cabang`)
+                $q = mysqli_query($con, "INSERT INTO `banding_monitoring` (`id_pinjaman`, `id_detail_pinjaman`, `tgl_banding`, `keterangan_banding`, `id_karyawan`, `id_cabang`)
                  VALUES (null, '$id_de[$i]', '$tanggal[$i]', '$keluhan', '$id_karyawan', '$id_cabang'); ");
             }
             alert("Berhasil disimpan, silahkan tunggu konfirmasi dari adm");
@@ -117,17 +117,15 @@
                 from pinjaman left join karyawan on karyawan.id_karyawan=pinjaman.id_karyawan
                 
                     where pinjaman.id_cabang='$id_cabang' $q_tambah $q_id and tgl_cair <='$tgl' and input_mtr='sudah' order by pinjaman.nama_nasabah,pinjaman.id_detail_pinjaman asc");
-                while ($pinj = mysqli_fetch_array($q)) {
+                while ($pinj = mysqli_fetch_assoc($q)) {
                     if ($pinj['total_hari'] > 14) {
                         $tr = "#ffd4d4";
-                    }
-                    else if ($pinj['total_hari'] >= 0 && $pinj['total_hari']<=3) {
+                    } else if ($pinj['total_hari'] >= 0 && $pinj['total_hari'] <= 3) {
                         $tr = "#42f554";
-                    }
-                     else $tr = "#fffff";
+                    } else $tr = "#fffff";
 
-                    $qbanding = mysqli_query($con,"select * from banding_monitoring where id_detail_pinjaman='$pinj[id_detail_pinjaman]'");
-                    
+                    $qbanding = mysqli_query($con, "select * from banding_monitoring where id_detail_pinjaman='$pinj[id_detail_pinjaman]'");
+
 
                 ?>
 
@@ -139,27 +137,27 @@
                         <td><?= ($pinj['detail']) ?></td>
                         <td><?= $pinj['jumlah_pinjaman'] ?></td>
                         <td>
-                            <?php 
-                            $produk = strtolower($pinj['produk']); 
-                            if($produk=="pinjaman umum") $kode = "P.U";
-                            else if($produk=="pinjaman sanitasi") $kode = "PSA";
-                            else if($produk=="pinjaman mikrobisnis") $kode = "PMB";
-                            else if($produk=="pinjaman arta") $kode = "ARTA";
-                            else if($produk=="pinjaman dt. pendidikan") $kode = "PPD";
-                            else if($produk=="pinjaman renovasirumah") $kode = "PRR";
-                            else $kode="LL";
-                             
-                             echo $kode;
-                            ?>    
+                            <?php
+                            $produk = strtolower($pinj['produk']);
+                            if ($produk == "pinjaman umum") $kode = "P.U";
+                            else if ($produk == "pinjaman sanitasi") $kode = "PSA";
+                            else if ($produk == "pinjaman mikrobisnis") $kode = "PMB";
+                            else if ($produk == "pinjaman arta") $kode = "ARTA";
+                            else if ($produk == "pinjaman dt. pendidikan") $kode = "PPD";
+                            else if ($produk == "pinjaman renovasirumah") $kode = "PRR";
+                            else $kode = "LL";
+
+                            echo $kode;
+                            ?>
                         </td>
                         <td>
-                        <?php
-                        if(mysqli_num_rows($qbanding)){
-                            $banding = mysqli_fetch_array($qbanding);
-                            echo $banding['pesan']." - ";
-                            echo ($banding['status']==="belum"?"onproses":"selesai");
-                        } 
-                        ?>    
+                            <?php
+                            if (mysqli_num_rows($qbanding)) {
+                                $banding = mysqli_fetch_assoc($qbanding);
+                                echo $banding['pesan'] . " - ";
+                                echo ($banding['status'] === "belum" ? "onproses" : "selesai");
+                            }
+                            ?>
                         </td>
                         <td><?= $pinj['pinjaman_ke'] ?></td>
 

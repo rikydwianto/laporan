@@ -43,7 +43,7 @@
                                 while ($kec1 = mysqli_fetch_assoc($kec)) {
                                     echo "<option  disabled>$kec1[kecamatan]</option>";
                                     $desa = mysqli_query($con, "select * from daftar_wilayah_cabang where id_cabang='$id_cabang' and kecamatan='$kec1[kecamatan]'");
-                                    while ($TampilDesa = mysqli_fetch_array($desa)) {
+                                    while ($TampilDesa = mysqli_fetch_assoc($desa)) {
                                         echo "<option value='$TampilDesa[id_daftar_wilayah]' > -   $TampilDesa[desa]</option>";
                                     }
                                 }
@@ -130,7 +130,7 @@
             //FORM EDIT
 
             $sq = mysqli_query($con, "select * from data_center where id_data_center='$id'");
-            $editCenter = mysqli_fetch_array($sq);
+            $editCenter = mysqli_fetch_assoc($sq);
 
 
 
@@ -148,7 +148,7 @@
                                 while ($kec1 = mysqli_fetch_assoc($kec)) {
                                     echo "<option  disabled>$kec1[kecamatan]</option>";
                                     $desa = mysqli_query($con, "select * from daftar_wilayah_cabang where id_cabang='$id_cabang' and kecamatan='$kec1[kecamatan]'");
-                                    while ($TampilDesa = mysqli_fetch_array($desa)) {
+                                    while ($TampilDesa = mysqli_fetch_assoc($desa)) {
                                         if ($TampilDesa['desa'] == $editCenter['desa']) {
 
                                             echo "<option value='$TampilDesa[id_daftar_wilayah]' selected> -   $TampilDesa[desa]</option>";
@@ -261,7 +261,7 @@
                 <tbody>
                     <?php
                     $kec = mysqli_query($con, "select * from daftar_wilayah_cabang where id_cabang='$id_cabang' group by kecamatan order by kecamatan asc ");
-                    while ($kecamatan = mysqli_fetch_array($kec)) {
+                    while ($kecamatan = mysqli_fetch_assoc($kec)) {
                     ?>
                         <tr>
                             <th><?= $no++ ?></th>
@@ -274,12 +274,12 @@
                             <th colspan="5">
                                 <?php
                                 $hitung_kec = mysqli_query($con, "SELECT COUNT(kecamatan) AS kecamatan FROM daftar_wilayah_cabang where kecamatan='$kecamatan[kecamatan]' and id_cabang='$id_cabang' GROUP BY kecamatan ");
-                                $hitung_kec = mysqli_fetch_array($hitung_kec);
+                                $hitung_kec = mysqli_fetch_assoc($hitung_kec);
                                 $hitung_kec = $hitung_kec['kecamatan'];
                                 echo "<b>" . $hitung_kec . " Desa</b> | ";
 
                                 $hitung_alamat = mysqli_query($con, "SELECT COUNT(rt) AS rt FROM data_center WHERE kecamatan='$kecamatan[kecamatan]' AND id_cabang='$id_cabang' GROUP BY kecamatan  ");
-                                $hitung_alamat = mysqli_fetch_array($hitung_alamat);
+                                $hitung_alamat = mysqli_fetch_assoc($hitung_alamat);
                                 $hitung_alamat = $hitung_alamat['rt'];
                                 echo "<b>" . (int)$hitung_alamat . " Alamat</b>";
                                 ?>
@@ -302,16 +302,16 @@
                         if (strtolower($kecamatan['kecamatan']) == $keca) {
                             $qdet = mysqli_query($con, "select * from daftar_wilayah_cabang where kecamatan='$keca' and id_cabang='$id_cabang' group by desa ");
                             $no1 = 1;
-                            while ($detailCenter = mysqli_fetch_array($qdet)) {
+                            while ($detailCenter = mysqli_fetch_assoc($qdet)) {
                         ?>
                                 <tr>
                                     <td>&nbsp;&nbsp;&nbsp;&nbsp;<i><?= $no1++ ?>.</i></td>
                                     <td><?= strtoupper($detailCenter['kecamatan']) ?></td>
                                     <td>
                                         <a href="<?= $url . $menu ?>detail_center&kecamatan=<?= strtolower($kecamatan['kecamatan']) ?>&desa=<?= strtolower($detailCenter['desa']) ?>">
-                                            <?php echo strtoupper($detailCenter['desa']); 
+                                            <?php echo strtoupper($detailCenter['desa']);
                                             $hitung_detail_alamat = mysqli_query($con, "SELECT COUNT(desa) AS desa FROM data_center WHERE desa='$detailCenter[desa]' AND id_cabang='$id_cabang' GROUP BY kecamatan  ");
-                                            $hitung_detail_alamat = mysqli_fetch_array($hitung_detail_alamat);
+                                            $hitung_detail_alamat = mysqli_fetch_assoc($hitung_detail_alamat);
                                             $hitung_detail_alamat = $hitung_detail_alamat['desa'];
                                             echo "<b>(" . (int)$hitung_detail_alamat . ")</b>";
                                             ?>
@@ -327,9 +327,9 @@
                                         <td>CENTER</td>
                                     <?php
                                     } else {
-                                        ?>
+                                    ?>
                                         <th colspan="4">&nbsp</th>
-                                        <?php
+                                    <?php
                                     }
                                     ?>
                                     <td>
@@ -349,7 +349,7 @@
                                 if (strtolower($detailCenter['desa']) == $desa) {
                                     $qdetail = mysqli_query($con, "select * from data_center where kecamatan='$keca' and id_cabang='$id_cabang' and desa='$desa'  ");
                                     $no2 = 1;
-                                    while ($detail = mysqli_fetch_array($qdetail)) {
+                                    while ($detail = mysqli_fetch_assoc($qdetail)) {
                                 ?>
                                         <tr>
                                             <td>&nbsp;&nbsp;&nbsp;&nbsp;</i></td>

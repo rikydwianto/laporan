@@ -3,7 +3,7 @@ $id_perbaikan = aman($con, $_GET['id_perbaikan']);
 $qper = mysqli_query($con, "SELECT * from perbaikan 
 JOIN karyawan on perbaikan.id_karyawan=karyawan.id_karyawan
 JOIN center on perbaikan.no_center=center.no_center where perbaikan.id_perbaikan='$id_perbaikan'");
-$per = mysqli_fetch_array($qper);
+$per = mysqli_fetch_assoc($qper);
 ?>
 <form method="post">
 
@@ -119,7 +119,7 @@ $per = mysqli_fetch_array($qper);
         <?php
         } else if ($per['kesalahan'] == "~~~~~STATUS PERKAWINAN TIDAK DI ISI~~~~NOMOR NIK TERDAPA DUPLIKASI") {
         ?>
-        
+
             <tr>
                 <td>STATUS</td>
                 <td>
@@ -131,7 +131,7 @@ $per = mysqli_fetch_array($qper);
                     </select>
                 </td>
             </tr>
-            
+
             <tr>
                 <td> NIK </td>
                 <td><input type="text" name="nik" minlength="16" maxlength="16" id="" class='form-control'></td>
@@ -141,10 +141,9 @@ $per = mysqli_fetch_array($qper);
                 <td><input type="submit" value="KONFIRMASI" class='btn btn-info' name='submit_kawin_nik'></td>
             </tr>
         <?php
-        }
-    else {//if ($per['kesalahan'] == "~~~~~STATUS PERKAWINAN TIDAK DI ISI~~~~NOMOR NIK TERDAPA DUPLIKASI") {
+        } else { //if ($per['kesalahan'] == "~~~~~STATUS PERKAWINAN TIDAK DI ISI~~~~NOMOR NIK TERDAPA DUPLIKASI") {
         ?>
-        <tr>
+            <tr>
                 <td>TANGGAL LAHIR</td>
                 <td><input type="date" name="tgl_lahir" id="" class='form-control'></td>
             </tr>
@@ -244,7 +243,7 @@ if (isset($_POST['submit_semua'])) {
      nama_ibu_kandung='$ibu_kandung',
      status_pernikahan='$status_nikah',
       status='sudah'  WHERE `id_perbaikan` = '$id_perbaikan'; ");
-      
+
     pindah($url . $menu . "perbaikan_sl");
 }
 ?>

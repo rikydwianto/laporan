@@ -20,19 +20,19 @@ if (isset($_GET['del'])) {
     pindah("$url" . "$menu" . "list_penarikan");
 } else if (isset($_GET['edit'])) {
     $id = aman($con, $_GET['id']);
-    $q1= mysqli_query($con,"select * from penarikan_simpanan where id_penarikan='$id'");
-    $pen = mysqli_fetch_array($q1);
+    $q1 = mysqli_query($con, "select * from penarikan_simpanan where id_penarikan='$id'");
+    $pen = mysqli_fetch_assoc($q1);
 
-    if(isset($_POST['edit'])){
+    if (isset($_POST['edit'])) {
         $id_anggota = $_POST['id_nasabah'];
         $wajib = $_POST['wajib'];
         $sukarela = $_POST['sukarela'];
         $pensiun = $_POST['pensiun'];
         $hariraya = $_POST['hariraya'];
         $alasan = $_POST['alasan'];
-        $nominal = $wajib+$sukarela+$pensiun+$hariraya;
+        $nominal = $wajib + $sukarela + $pensiun + $hariraya;
         $tgl = $_POST['tanggal'];
-        $qEdit = mysqli_query($con," UPDATE `penarikan_simpanan` SET 
+        $qEdit = mysqli_query($con, " UPDATE `penarikan_simpanan` SET 
         `nominal_penarikan` = '$nominal',
         `wajib` = '$wajib',
         `sukarela` = '$sukarela',
@@ -42,10 +42,9 @@ if (isset($_GET['del'])) {
         
         `tgl_penarikan` = '$tgl',id_anggota='$id_anggota' WHERE `id_penarikan` = '$id'; 
         ");
-        if($qEdit){
+        if ($qEdit) {
             alert("Berhasil");
-        }
-        else{
+        } else {
             pesan("gagal disimpan");
         }
         pindah("$url" . "$menu" . "list_penarikan");
@@ -63,7 +62,7 @@ if (isset($_GET['del'])) {
             <div class="form-group">
                 <label class="col-md-4 control-label" for="id">ID ANGGOTA</label>
                 <div class="col-md-4">
-                    <input id="id" name="id_nasabah" type="text" value="<?=$pen['id_anggota']?>" placeholder="ID NASABAH" class="form-control input-md">
+                    <input id="id" name="id_nasabah" type="text" value="<?= $pen['id_anggota'] ?>" placeholder="ID NASABAH" class="form-control input-md">
 
                 </div>
             </div>
@@ -72,35 +71,35 @@ if (isset($_GET['del'])) {
             <div class="form-group">
                 <label class="col-md-4 control-label" for="textinput">NOMINAL</label>
                 <div class="col-md-4">
-                    <input id="textinput" name="nominal" readonly value="<?=$pen['nominal_penarikan']?>"  type="text" placeholder="placeholder" class="form-control input-md">
+                    <input id="textinput" name="nominal" readonly value="<?= $pen['nominal_penarikan'] ?>" type="text" placeholder="placeholder" class="form-control input-md">
 
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-4 control-label" for="textinput">WAJIB</label>
                 <div class="col-md-4">
-                    <input id="textinput" name="wajib" value="<?=$pen['wajib']?>"  type="text" placeholder="placeholder" class="form-control input-md">
+                    <input id="textinput" name="wajib" value="<?= $pen['wajib'] ?>" type="text" placeholder="placeholder" class="form-control input-md">
 
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-4 control-label" for="textinput">SUKARELA</label>
                 <div class="col-md-4">
-                    <input id="textinput" name="sukarela" value="<?=$pen['sukarela']?>"  type="text" placeholder="placeholder" class="form-control input-md">
+                    <input id="textinput" name="sukarela" value="<?= $pen['sukarela'] ?>" type="text" placeholder="placeholder" class="form-control input-md">
 
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-4 control-label" for="textinput">PENSIUN</label>
                 <div class="col-md-4">
-                    <input id="textinput" name="pensiun" value="<?=$pen['pensiun']?>"  type="text" placeholder="placeholder" class="form-control input-md">
+                    <input id="textinput" name="pensiun" value="<?= $pen['pensiun'] ?>" type="text" placeholder="placeholder" class="form-control input-md">
 
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-4 control-label" for="textinput">HARI RAYA</label>
                 <div class="col-md-4">
-                    <input id="textinput" name="hariraya" value="<?=$pen['hariraya']?>"  type="text" placeholder="placeholder" class="form-control input-md">
+                    <input id="textinput" name="hariraya" value="<?= $pen['hariraya'] ?>" type="text" placeholder="placeholder" class="form-control input-md">
 
                 </div>
             </div>
@@ -109,14 +108,14 @@ if (isset($_GET['del'])) {
             <div class="form-group">
                 <label class="col-md-4 control-label" for="textinput">TANGGAL </label>
                 <div class="col-md-4">
-                    <input id="textinput" name="tanggal" value="<?=$pen['tgl_penarikan']?>"  type="date" placeholder="placeholder" class="form-control input-md">
+                    <input id="textinput" name="tanggal" value="<?= $pen['tgl_penarikan'] ?>" type="date" placeholder="placeholder" class="form-control input-md">
 
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-4 control-label" for="textinput">TANGGAL </label>
                 <div class="col-md-4">
-                    <input id="textinput" name="alasan" value="<?=$pen['alasan']?>"  type="text" placeholder="placeholder" class="form-control input-md">
+                    <input id="textinput" name="alasan" value="<?= $pen['alasan'] ?>" type="text" placeholder="placeholder" class="form-control input-md">
 
                 </div>
             </div>
@@ -152,22 +151,22 @@ if (isset($_GET['del'])) {
     <br>
     <form method='get' action='<?php echo $url . $menu ?>list_penarikan'>
         <input type=hidden name='menu' value='list_penarikan' />
-        <input type=date name='tgl' value='<?php echo isset($_GET['tgl']) ? $_GET['tgl'] : date("Y-m-d") ?>'  />
-        <input type=date name='tglakhir' value='<?php echo isset($_GET['tglakhir']) ? $_GET['tglakhir'] : date("Y-m-d") ?>'  />
-        <select name='tglpar' class='btn' >
-                        
-                        <option value="">PILIH MINGGU SEBELUM</option>
-                        <?php 
-                        error_reporting(0);
-                        $q_tgl = mysqli_query($con,"SELECT DISTINCT tgl_input FROM deliquency where id_cabang='$id_cabang'  order by tgl_input desc");
-                        while($tgl_ = mysqli_fetch_array($q_tgl)){
-                            ?>
-                            <option value="<?=$tgl_['tgl_input']?>" <?=($_GET['tglpar']===$tgl_['tgl_input']?"selected":"")?>><?=format_hari_tanggal($tgl_['tgl_input'])?></option>
-                            <?php
-                        }
-                        ?>
+        <input type=date name='tgl' value='<?php echo isset($_GET['tgl']) ? $_GET['tgl'] : date("Y-m-d") ?>' />
+        <input type=date name='tglakhir' value='<?php echo isset($_GET['tglakhir']) ? $_GET['tglakhir'] : date("Y-m-d") ?>' />
+        <select name='tglpar' class='btn'>
 
-                    </select>
+            <option value="">PILIH MINGGU SEBELUM</option>
+            <?php
+            error_reporting(0);
+            $q_tgl = mysqli_query($con, "SELECT DISTINCT tgl_input FROM deliquency where id_cabang='$id_cabang'  order by tgl_input desc");
+            while ($tgl_ = mysqli_fetch_assoc($q_tgl)) {
+            ?>
+                <option value="<?= $tgl_['tgl_input'] ?>" <?= ($_GET['tglpar'] === $tgl_['tgl_input'] ? "selected" : "") ?>><?= format_hari_tanggal($tgl_['tgl_input']) ?></option>
+            <?php
+            }
+            ?>
+
+        </select>
         <input type=submit name='cari' value='CARI' />
     </form>
     <table class='table table-bordered'>
@@ -201,13 +200,13 @@ if (isset($_GET['del'])) {
         //  join karyawan on karyawan.id_karyawan=penarikan_simpanan.id_karyawan 
         //  where (penarikan_simpanan.tgl_penarikan between '$qtgl' and '$tglakhir') 
         //  and daftar_nasabah.id_cabang='$id_cabang' and penarikan_simpanan.id_cabang='$id_cabang' group by penarikan_simpanan.id_penarikan order by karyawan.nama_karyawan asc";
-         echo mysqli_error($con);
+        echo mysqli_error($con);
         $total_wajib = 0;
         $total_sukarela = 0;
         $total_pensiun = 0;
         $total_hariraya = 0;
-         while ($simp = mysqli_fetch_array($penarikan)) {
-           
+        while ($simp = mysqli_fetch_assoc($penarikan)) {
+
             $nominal = $simp['wajib'] + $simp['sukarela'] + $simp['pensiun'] + $simp['hariraya'];
             $total_penarikan = $total_penarikan + $nominal;
             $kel = $simp['id_detail_nasabah'];
@@ -225,8 +224,8 @@ if (isset($_GET['del'])) {
                 <td><?= $simp['id_detail_nasabah'] ?></td>
                 <td><?= $simp['id_anggota'] ?></td>
 
-                <td> <?= sprintf("%03d",$kel) ?></td>
-                <td><?= sprintf("%03d",$simp['no_center']) ?></td>
+                <td> <?= sprintf("%03d", $kel) ?></td>
+                <td><?= sprintf("%03d", $simp['no_center']) ?></td>
 
                 <td><?= $simp['nama_nasabah'] ?></td>
                 <td><?= rupiah($simp['wajib']) ?></td>

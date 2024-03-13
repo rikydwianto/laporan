@@ -8,7 +8,7 @@
         $tglakhir = date("Y-12-31");
         // dd
     }
-    
+
     ?>
     <h2 class='page-header'> KELOMPOK </h2>
     <i>Kelompok/Groups melihat capaian per groups</i>
@@ -24,7 +24,7 @@
     </div>
     <?php
     $qGrup = mysqli_query($con, "select * from `group`   where id_cabang='$cabang' order by nama_group asc");
-    while ($tampilGrup = mysqli_fetch_array($qGrup)) {
+    while ($tampilGrup = mysqli_fetch_assoc($qGrup)) {
 
     ?>
         <div class="col-md-4 ">
@@ -49,7 +49,7 @@
                             $total_nett = 0;
                             $total_target = 0;
                             $staff = mysqli_query($con, "SELECT * FROM `group_user` LEFT JOIN karyawan ON `group_user`.`id_karyawan`=karyawan.`id_karyawan` WHERE `group_user`.`id_group`='$tampilGrup[id_group]' order by karyawan.nama_karyawan");
-                            while ($tampilStaff = mysqli_fetch_array($staff)) {
+                            while ($tampilStaff = mysqli_fetch_assoc($staff)) {
 
                                 $q = "SELECT sum(anggota.anggota_masuk) as masuk,
                         sum(anggota.anggota_keluar) as keluar,
@@ -65,7 +65,7 @@
                         karyawan.id_karyawan='$tampilStaff[id_karyawan]'
                         GROUP by anggota.id_karyawan order by karyawan.nama_karyawan asc";
                                 $tampilData = mysqli_query($con, $q);
-                                $tampilData = mysqli_fetch_array($tampilData);
+                                $tampilData = mysqli_fetch_assoc($tampilData);
 
                                 $q2 = "SELECT sum(cashflow.cashflow_masuk) as masuk,
                         sum(cashflow.cashflow_keluar) as keluar,
@@ -81,7 +81,7 @@
                         karyawan.id_karyawan='$tampilStaff[id_karyawan]'
                         GROUP by cashflow.id_karyawan order by karyawan.nama_karyawan asc";
                                 $cashflow = mysqli_query($con, $q2);
-                                $cashflow = mysqli_fetch_array($cashflow);
+                                $cashflow = mysqli_fetch_assoc($cashflow);
 
 
 

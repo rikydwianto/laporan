@@ -1,11 +1,11 @@
 <h2>RIWAYAT MONITORING</h2>
 <form method='get' action='<?php echo $url . $menu ?>monitoring'>
-            <input type=hidden name='menu' value="monitoring" />
-            <input type=hidden name='riwayat' />
-            Tanggal <input type=date name='tgl' value='<?php echo isset($_GET['tgl']) ? $_GET['tgl'] : date("Y-m-d") ?>' />
-            <input type=submit name='cari' value='CARI' />
-        </form>
-    
+    <input type=hidden name='menu' value="monitoring" />
+    <input type=hidden name='riwayat' />
+    Tanggal <input type=date name='tgl' value='<?php echo isset($_GET['tgl']) ? $_GET['tgl'] : date("Y-m-d") ?>' />
+    <input type=submit name='cari' value='CARI' />
+</form>
+
 
 <TABLE class='table' id='riwayat_monitoring'>
     <thead>
@@ -39,7 +39,7 @@
                             
                             where pinjaman.id_cabang='$id_cabang' and karyawan.id_cabang='$id_cabang'  and monitoring.tgl_monitoring='$tgl' group by monitoring.id_detail_pinjaman order by monitoring.waktu  desc");
         echo mysqli_error($con);
-        while ($pinj = mysqli_fetch_array($q)) {
+        while ($pinj = mysqli_fetch_assoc($q)) {
             if ($pinj['total_hari'] > 14) {
                 $tr = "#ffd4d4";
             } else $tr = "#fffff";

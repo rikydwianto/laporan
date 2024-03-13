@@ -20,9 +20,9 @@ if (isset($_POST['topup'])) {
     $date = $_POST['tgl'];
     $xml = simplexml_load_file($file);
     $xml = $xml->Tablix1->Details_Collection;
-   mysqli_query($con, "DELETE FROM topup where id_cabang='$id_cabang' and tgl_topup='$date'");
-   mysqli_query($con, "DELETE FROM keterangan_topup where id_cabang='$id_cabang' and tgl_topup='$date'");
-//    echo $file;
+    mysqli_query($con, "DELETE FROM topup where id_cabang='$id_cabang' and tgl_topup='$date'");
+    mysqli_query($con, "DELETE FROM keterangan_topup where id_cabang='$id_cabang' and tgl_topup='$date'");
+    //    echo $file;
     foreach ($xml->Details  as $sum) {
 
         mysqli_query($con, "INSERT INTO 
@@ -30,17 +30,17 @@ if (isset($_POST['topup'])) {
                 VALUES ('$sum[OsPokokTopUP]', '$sum[NetDisburse]', '$date', '$sum[OfficerName]', '$id_cabang'); 
                 ");
         $jenis_topup = $sum['JenisTopUp'];
-        if($jenis_topup!=""){
-        //    echo $jenis_topup."<br/>";
-           mysqli_query($con, "INSERT INTO 
+        if ($jenis_topup != "") {
+            //    echo $jenis_topup."<br/>";
+            mysqli_query($con, "INSERT INTO 
            `keterangan_topup` (`id_detail_nasabah`, `topup`, `tgl_topup`, `id_cabang`) 
            VALUES ('$sum[ClientID]','$jenis_topup','$date','$id_cabang'); 
            ");
-           if($jenis_topup=="KHUSUS"){
-            $id_nasabah = $sum['ClientID'];
-            $id_nasabah = explode("-",$id_nasabah)[1]+0;
+            if ($jenis_topup == "KHUSUS") {
+                $id_nasabah = $sum['ClientID'];
+                $id_nasabah = explode("-", $id_nasabah)[1] + 0;
                 mysqli_query($con, "INSERT INTO `tpk` (`id_nasabah`, `id_detail_nasabah`, `id_cabang`) VALUES ('$id_nasabah', '$sum[ClientID]', '$id_cabang'); ");
-           }
+            }
         }
     }
 }
@@ -131,32 +131,32 @@ if (isset($_POST['ekse'])) {
 
 
         ?>
-        <tr>
-            <td><?= $no++ ?></td>
-            <td><?= $id_nasabah ?></td>
-            <td><?= $loan ?></td>
-            <td><?= $nasabah ?></td>
-            <td><?= $hp ?></td>
-            <td><?= $no_center ?></td>
-            <td><?= $kelompok ?></td>
-            <td><?= $produk ?></td>
-            <td><?= $pinjaman ?></td>
-            <td><?= $outstanding ?></td>
-            <td><?= $jk ?></td>
-            <td><?= $angsuran ?></td>
-            <td><?= $tujuan ?></td>
-            <td><?= $pinj_ke ?></td>
-            <td><?= $staff ?></td>
-            <td><?= $tgl_pengajuan ?></td>
-            <td><?= $tgl_pencairan ?></td>
-            <td><?= $tgl_angsuran ?></td>
+                        <tr>
+                            <td><?= $no++ ?></td>
+                            <td><?= $id_nasabah ?></td>
+                            <td><?= $loan ?></td>
+                            <td><?= $nasabah ?></td>
+                            <td><?= $hp ?></td>
+                            <td><?= $no_center ?></td>
+                            <td><?= $kelompok ?></td>
+                            <td><?= $produk ?></td>
+                            <td><?= $pinjaman ?></td>
+                            <td><?= $outstanding ?></td>
+                            <td><?= $jk ?></td>
+                            <td><?= $angsuran ?></td>
+                            <td><?= $tujuan ?></td>
+                            <td><?= $pinj_ke ?></td>
+                            <td><?= $staff ?></td>
+                            <td><?= $tgl_pengajuan ?></td>
+                            <td><?= $tgl_pencairan ?></td>
+                            <td><?= $tgl_angsuran ?></td>
 
 
-        </tr>
+                        </tr>
         <?php
 
                         $cari_loan = mysqli_query($con, "select id_detail_pinjaman from pinjaman where id_cabang='$id_cabang' and id_detail_pinjaman='$loan'");
-                        $cari_loan = mysqli_fetch_array($cari_loan);
+                        $cari_loan = mysqli_fetch_assoc($cari_loan);
                         $cari_loan = $cari_loan['id_detail_pinjaman'];
                         if ($cari_loan == $loan) {
                             $ket = "ada";

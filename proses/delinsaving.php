@@ -236,7 +236,7 @@ ini_set('max_execution_time', '0'); // for infinite time of execution
         <?php
 
         $cek_tgl = mysqli_query($con, "SELECT max(tgl_input) AS tgl FROM deliquency WHERE id_cabang='$id_cabang' ORDER BY tgl_input DESC");
-        $tgl_delin = mysqli_fetch_array($cek_tgl);
+        $tgl_delin = mysqli_fetch_assoc($cek_tgl);
         $tgl_delin = $tgl_delin['tgl'];
         $no1 = 1;
         $cek_delin1 = mysqli_query($con, "SELECT  SUBSTRING_INDEX(id_detail_nasabah,'-',-1) as idn,deliquency.* FROM deliquency  WHERE tgl_input='$tgl_delin' 
@@ -244,7 +244,7 @@ ini_set('max_execution_time', '0'); // for infinite time of execution
         $cek_delin = mysqli_num_rows($cek_delin1);
         // error_reporting(0);
         $nor = 1;
-        while ($r = mysqli_fetch_array($cek_delin1)) {
+        while ($r = mysqli_fetch_assoc($cek_delin1)) {
             $kode = $r['loan'];
             $kode = explode("-", $kode)[0];
 
@@ -301,7 +301,7 @@ ini_set('max_execution_time', '0'); // for infinite time of execution
             JOIN karyawan b ON b.id_karyawan=a.id_karyawan
             JOIN daftar_nasabah c ON c.no_center=a.`no_center` 
             WHERE c.`id_nasabah`='$IDs' AND a.`id_cabang`='$id_cabang' and b.`id_cabang`='$id_cabang' and c.`id_cabang`='$id_cabang'");
-            $nama = mysqli_fetch_array($q);
+            $nama = mysqli_fetch_assoc($q);
             $warna = "";
             $cicilan = $pokok + $margin; //+ $wajib_minggu;
             $selisih = $r['minggu'];
@@ -341,7 +341,7 @@ ini_set('max_execution_time', '0'); // for infinite time of execution
             $selisih = $r['minggu'];
             $cek_alasan = mysqli_query($con, "SELECT * from alasan_par where id_cabang='$id_cabang' and id_detail_nasabah='$id_nasabah' and id_loan='$loan'");
             if (mysqli_num_rows($cek_alasan)) {
-                $reason = mysqli_fetch_array($cek_alasan);
+                $reason = mysqli_fetch_assoc($cek_alasan);
                 $ket = $reason['alasan'];
                 $target = $reason['penyelesaian_par'];
                 $a = $ket;

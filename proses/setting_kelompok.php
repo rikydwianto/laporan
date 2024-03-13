@@ -13,8 +13,8 @@
             <?php
             $no = 1;
             $qk = mysqli_query($con, "select * from karyawan where id_cabang='$id_cabang' and status_karyawan='aktif' and id_jabatan=(select id_jabatan from jabatan where singkatan_jabatan='SL') order by nama_karyawan asc");
-            while ($tampilStaff = mysqli_fetch_array($qk)) {
-                $cek = mysqli_fetch_array(mysqli_query($con, "select  * from `group_user` where id_karyawan='$tampilStaff[id_karyawan]'"));
+            while ($tampilStaff = mysqli_fetch_assoc($qk)) {
+                $cek = mysqli_fetch_assoc(mysqli_query($con, "select  * from `group_user` where id_karyawan='$tampilStaff[id_karyawan]'"));
                 $idgroup = $cek['id_group'];
             ?>
                 <tr>
@@ -26,7 +26,7 @@
                             <option value="">Siilahkan Isi Kelompok</option>
                             <?php
                             $cekgroup = mysqli_query($con, "select * from `group` where id_cabang='$id_cabang'");
-                            while ($tampilGroup = mysqli_fetch_array($cekgroup)) {
+                            while ($tampilGroup = mysqli_fetch_assoc($cekgroup)) {
                                 if ($tampilGroup['id_group'] == $idgroup) {
                             ?>
                                     <option value="<?= $tampilGroup['id_group'] ?>" selected><?= $tampilGroup['nama_group'] ?></option>

@@ -30,7 +30,7 @@
        pinjaman.id_detail_pinjaman IN (SELECT pinjaman.id_detail_pinjaman FROM `pinjaman`
              GROUP BY  pinjaman.id_detail_pinjaman HAVING COUNT(*) > 1) ORDER BY pinjaman.nama_nasabah
 ");
-        while ($pinj = mysqli_fetch_array($q)) {
+        while ($pinj = mysqli_fetch_assoc($q)) {
             if ($pinj['total_hari'] > 14) {
                 $tr = "#ffd4d4";
             } else $tr = "#fffff";
@@ -63,9 +63,9 @@
                 <td><?= $pinj['tgl_cair'] ?></td>
 
                 <td>
-                   
 
-                <?php
+
+                    <?php
                     if ($pinj['monitoring'] == 'belum') {
                         $tombol = "btn-danger";
                     } elseif ($pinj['monitoring'] == 'sudah') {
@@ -75,7 +75,7 @@
                     ?>
                     <span class="pull-right" id='loading_<?= $pinj['id_pinjaman'] ?>' class="badge rounded-pill bg-danger"></span>
                     <a href="#modalku1" id="custId" class="btn btn-warning" data-toggle="modal" data-id="<?= $pinj['id_pinjaman'] ?>">Detail</a>
-                    <a href="<?=$url.$menu."monitoring&ref=duplikat&hapus&id=".$pinj['id_pinjaman']?>"  class="btn btn-danger"> <i class="fa fa-times"></i> </a>
+                    <a href="<?= $url . $menu . "monitoring&ref=duplikat&hapus&id=" . $pinj['id_pinjaman'] ?>" class="btn btn-danger"> <i class="fa fa-times"></i> </a>
                     <input type="button" id="cek_<?= $pinj['id_pinjaman'] ?>" class='btn <?= $tombol ?>' value='<?= $pinj['monitoring'] ?>' onclick="monitoring('<?= $pinj['id_pinjaman'] ?>','<?= $pinj['id_detail_pinjaman'] ?>')" id="">
 
                 </td>
