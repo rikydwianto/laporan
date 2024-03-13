@@ -23,7 +23,7 @@
                     <?php
                     error_reporting(0);
                     $q_tgl = mysqli_query($con, "SELECT DISTINCT tgl_input FROM deliquency where id_cabang='$id_cabang'  order by tgl_input desc");
-                    while ($tgl_ = mysqli_fetch_array($q_tgl)) {
+                    while ($tgl_ = mysqli_fetch_assoc($q_tgl)) {
                     ?>
                     <option value="<?= $tgl_['tgl_input'] ?>"
                         <?= ($_GET['sebelum'] === $tgl_['tgl_input'] ? "selected" : "") ?>>
@@ -44,7 +44,7 @@
                     <option value="">PILIH MINGGU INI</option>
                     <?php
                     $q_tgl = mysqli_query($con, "SELECT DISTINCT tgl_input FROM deliquency where id_cabang='$id_cabang' order by tgl_input desc");
-                    while ($tgl_ = mysqli_fetch_array($q_tgl)) {
+                    while ($tgl_ = mysqli_fetch_assoc($q_tgl)) {
                     ?>
                     <option value="<?= $tgl_['tgl_input'] ?>"
                         <?= ($_GET['minggu_ini'] === $tgl_['tgl_input'] ? "selected" : "") ?>>
@@ -136,32 +136,7 @@
                             $tgl_dis = explode('/', $tgl_dis);
                             $tgl_dis = $tgl_dis[2] . '-' . $tgl_dis[1] . '-' . $tgl_dis[0];
                         }
-                        /* 
-            <!-- <tr>
-                <td><?=$no++?></td>
-        <td><?=$loan?></td>
-        <td><?=$no_center?></td>
-        <td><?=$id_nasabah?></td>
-        <td><?=$nasabah?></td>
-        <td><?=$amount?></td>
-        <td><?=$balance?></td>
-        <td><?=$tunggakan?></td>
-        <td><?=$minggu?></td>
-        <td><?=$tgl_dis?></td>
-        <td><?=$wajib?></td>
-        <td><?=$sukarela?></td>
-        <td><?=$pensiun?></td>
-        <td><?=$hariraya?></td>
-        <td><?=$cicilan?></td>
-        <td><?=$hari?></td>
-        <td><?=$nama_staff?></td>
-        </tr> -->
-        */
-        // // INSERT INTO `deliquency` (`id`, `loan`, `no_center`, `id_detail_nasabah`, `nasabah`, `amount`,
-        // `sisa_saldo`,
-        // `tunggakan`, `minggu`, `tgl_input`, `id_cabang`) VALUES (NULL, 'PU-072-21-01-000216', '003',
-        // 'AGT/072/01/003-000034', 'RUMNASIH', '6', '2', '1', '8', NULL, NULL);
-        mysqli_query($con, "INSERT INTO `deliquency`
+                        mysqli_query($con, "INSERT INTO `deliquency`
         ( id,`loan`, `no_center`, `id_detail_nasabah`, `nasabah`, `amount`, `sisa_saldo`, `tunggakan`, `minggu`,
         `tgl_input`,
         `id_cabang`,tgl_disburse,wajib,sukarela,pensiun,hariraya,cicilan,hari,staff,minggu_ke,minggu_rill,priode,kode_pemb)
@@ -169,12 +144,12 @@
         (NULL, '$loan', '$no_center', '$id_nasabah', '$nasabah', '$amount', '$balance', '$tunggakan', '$minggu', '$tgl',
         '$id_cabang','$tgl_dis','$wajib','$sukarela','$pensiun','$hariraya','$cicilan','$hari','$nama_staff','$minggu_ke','$minggu_rill','$priode','$kode');
         ");
-        }
-        }
-        }
-        alert("Berhasil ditambahkan!");
-        pindah($url . $menu . "par");
-        ?>
+                    }
+                }
+            }
+            alert("Berhasil ditambahkan!");
+            pindah($url . $menu . "par");
+            ?>
     </table>
     <?php
     }
@@ -220,12 +195,12 @@
             JOIN center c ON c.`no_center`=d.`no_center` 
             JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
             where d.loan not in (select loan from deliquency where tgl_input='$tgl_banding' and id_cabang='$id_cabang') and d.tgl_input='$tgl_awal' and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' order by k.nama_karyawan asc");
-                    while ($data = mysqli_fetch_array($query)) {
+                    while ($data = mysqli_fetch_assoc($query)) {
                         $total_os += $data['sisa_saldo'];
                         $ID = (int)explode("-", $data['id_detail_nasabah'])[1];
                         $qreason = (mysqli_query($con, "select * from alasan_par where id_loan='$data[loan]'  and id_cabang='$id_cabang'"));
-                        $qak = mysqli_num_rows(mysqli_query($con, "select * from temp_anggota_keluar where id_nasabah='$ID'  and id_cabang='$id_cabang'"));
-                        $par = mysqli_num_rows(mysqli_query($con, "select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]' and id_cabang='$id_cabang'"));
+                        $qak = mysqli_num_rows(mysqli_query($con, "select * from temp_anggota_keluar where id_nasabah='$ID'  and id_cabang='$id_cabang' limit 1"));
+                        $par = mysqli_num_rows(mysqli_query($con, "select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]' and id_cabang='$id_cabang  limit 1'"));
                         if ($par) {
                             $baris['baris'] = "#c9c7c1";
                             $baris['text'] = "red";
@@ -241,25 +216,25 @@
                             $baris['ket'] .= "";
                         }
                         if ((mysqli_num_rows($qreason))) {
-                            $reason  = mysqli_fetch_array($qreason);
+                            $reason  = mysqli_fetch_assoc($qreason);
                             $baris['alasan'] = $reason['alasan'];
-                            $baris['penyelesaian_par']=$reason['penyelesaian_par'];
+                            $baris['penyelesaian_par'] = $reason['penyelesaian_par'];
                         } else {
                             $baris['alasan'] = "";
-                            $baris['penyelesaian_par']="";
+                            $baris['penyelesaian_par'] = "";
                         }
-                        $cek_tpk = mysqli_query($con, "select id from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'");
+                        $cek_tpk = mysqli_query($con, "select id from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'  limit 1");
                         if (mysqli_num_rows($cek_tpk) > 0) {
                             $baris['ket'] .= "TPK ";
                         } else {
                             $baris['ket'] .= "";
-                            $cek_topup = mysqli_query($con, "select * from keterangan_topup where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'");
+                            $cek_topup = mysqli_query($con, "select * from keterangan_topup where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'  limit 1");
                             echo mysqli_error($con);
                             if (mysqli_num_rows($cek_topup)) {
                                 $top = mysqli_fetch_assoc($cek_topup);
                                 $baris['ket'] .= $top['topup'];
                             } else {
-                                $cek_topup = mysqli_query($con, "select * from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'");
+                                $cek_topup = mysqli_query($con, "select * from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'  limit 1");
                                 if (mysqli_num_rows($cek_topup)) {
                                     $baris['ket'] .= "TPK";
                                 }
@@ -326,11 +301,11 @@
         JOIN center c ON c.`no_center`=d.`no_center` 
         JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
         where d.loan not in (select loan from deliquency where tgl_input='$tgl_awal' and id_cabang='$id_cabang') and d.tgl_input='$tgl_banding' and c.id_cabang='$id_cabang' and  d.id_cabang='$id_cabang' order by k.nama_karyawan asc");
-                    while ($data = mysqli_fetch_array($query1)) {
+                    while ($data = mysqli_fetch_assoc($query1)) {
 
-                        $qreason = (mysqli_query($con, "select * from alasan_par where id_loan='$data[loan]'  and id_cabang='$id_cabang'"));
+                        $qreason = (mysqli_query($con, "select * from alasan_par where id_loan='$data[loan]'  and id_cabang='$id_cabang'  limit 1"));
 
-                        $par = mysqli_num_rows(mysqli_query($con, "select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]' and id_cabang='$id_cabang'"));
+                        $par = mysqli_num_rows(mysqli_query($con, "select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]' and id_cabang='$id_cabang'  limit 1"));
                         if ($par) {
                             $baris['baris'] = "#c9c7c1";
                             $baris['text'] = "red";
@@ -341,25 +316,25 @@
                             $baris['ket'] = '';
                         }
                         if ((mysqli_num_rows($qreason))) {
-                            $reason  = mysqli_fetch_array($qreason);
+                            $reason  = mysqli_fetch_assoc($qreason);
                             $baris['alasan'] = $reason['alasan'];
-                            $baris['penyelesaian_par']=$reason['penyelesaian_par'];
+                            $baris['penyelesaian_par'] = $reason['penyelesaian_par'];
                         } else {
                             $baris['alasan'] = "";
-                            $baris['penyelesaian_par']="";
+                            $baris['penyelesaian_par'] = "";
                         }
-                        $cek_tpk = mysqli_query($con, "select id from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'");
+                        $cek_tpk = mysqli_query($con, "select id from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'  limit 1");
                         if (mysqli_num_rows($cek_tpk) > 0) {
                             $baris['ket'] .= "TPK ";
                         } else {
                             $baris['ket'] .= "";
-                            $cek_topup = mysqli_query($con, "select * from keterangan_topup where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'");
+                            $cek_topup = mysqli_query($con, "select * from keterangan_topup where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'  limit 1");
                             echo mysqli_error($con);
                             if (mysqli_num_rows($cek_topup)) {
                                 $top = mysqli_fetch_assoc($cek_topup);
                                 $baris['ket'] .= $top['topup'];
                             } else {
-                                $cek_topup = mysqli_query($con, "select * from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'");
+                                $cek_topup = mysqli_query($con, "select * from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'  limit 1");
                                 if (mysqli_num_rows($cek_topup)) {
                                     $baris['ket'] .= "TPK";
                                 }
@@ -436,11 +411,11 @@
         JOIN center c ON c.`no_center`=d.`no_center` 
         JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` 
         where d.loan  in (select loan from deliquency where tgl_input='$tgl_banding' and id_cabang='$id_cabang') and d.tgl_input='$tgl_awal' and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' order by k.nama_karyawan asc");
-                    while ($data = mysqli_fetch_array($query_s)) {
+                    while ($data = mysqli_fetch_assoc($query_s)) {
 
                         $loan = $data['loan'];
-                        $banding = mysqli_query($con, "select sisa_saldo from deliquency where loan='$loan' and tgl_input='$tgl_banding' and id_cabang='$id_cabang'");
-                        $banding = mysqli_fetch_array($banding);
+                        $banding = mysqli_query($con, "select sisa_saldo from deliquency where loan='$loan' and tgl_input='$tgl_banding' and id_cabang='$id_cabang'  limit 1");
+                        $banding = mysqli_fetch_assoc($banding);
                         $saldo_awal = $data['sisa_saldo'];
                         $saldo_akhir = $banding['sisa_saldo'];
                         $total = $saldo_awal - $saldo_akhir;

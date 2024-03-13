@@ -13,8 +13,9 @@
         <div class="col-md-4">
             <label for="formFile" class="form-label">SILAHKAN PILIH FILE : DETAIL NASABAH SRSS</label>
             <input class="form-control" type="file" name='file' accept=".xls,.xlsx,.csv,.xml" id="formFile">
-            <input type="submit" value="Proses" onclick="return confirm('Apakah Sudah yakin? ')" class='btn btn-danger' name='preview'>
-            <input type="submit" value="Proses XML" onclick="return confirm('Apakah Sudah yakin? ')" class='btn btn-info' name='xml_preview'>
+            <!-- <input type="submit" value="Proses" onclick="return confirm('Apakah Sudah yakin? ')" class='btn btn-danger' name='preview'> -->
+            <input type="submit" value="Proses XML" onclick="return confirm('Apakah Sudah yakin? ')"
+                class='btn btn-info' name='xml_preview'>
         </div>
 
         <?php
@@ -23,8 +24,8 @@
         //XML
         if (isset($_POST['xml_preview'])) {
         ?>
-            <table border=1>
-                <?php
+        <table border=1>
+            <?php
                 //set_time_limit(5000);
                 $file = $_FILES['file']['tmp_name'];
                 $xml = simplexml_load_file($file);
@@ -72,7 +73,7 @@
                 alert("Sebanyak " . ($no_input) . " telah diinput, silahkan sinkron");
                 pindah($url . $menu . "daftar_nasabah&sinkron");
                 ?>
-            </table>
+        </table>
         <?php
             $id_gabung = implode("','", $id_kumpul);
             mysqli_query($con, "DELETE FROM daftar_nasabah where id_cabang='$id_cabang' and id_nasabah not in('$id_gabung')");
@@ -116,7 +117,7 @@
                         $hari = ganti_karakter1($ws->getCell("T" . $row)->getValue());
                         $tgl_bergabung = str_replace("/", "-", ganti_karakter1($ws->getCell("K" . $row)->getValue()));
                         $tgl_bergabung =  date("Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($tgl_bergabung));
-                        $q = mysqli_query($con, "select id_detail_nasabah from daftar_nasabah where id_detail_nasabah='$id_nasabah' and id_cabang='$id_cabang'");
+                        $q = mysqli_query($con, "select id_detail_nasabah from daftar_nasabah where id_detail_nasabah='$id_nasabah' and id_cabang='$id_cabang' limit 1");
                         if (mysqli_num_rows($q)) {
                             // $ket="ada di db";   
                             //tidak usah di insert
@@ -145,107 +146,107 @@
 
         if (isset($_GET['duplikat'])) {
         ?>
-            <table class='table'>
-                <thead>
-                    <tr>
-                        <th>NO</th>
-                        <th>CABANG</th>
-                        <th>ID</th>
-                        <th>KEL</th>
-                        <th>CENTER</th>
-                        <th>NAMA</th>
-                        <th>SUAMI</th>
-                        <th>KTP</th>
-                        <th>TGL BERGABUNG</th>
-                        <th>HARI</th>
-                        <th>ALAMAT</th>
-                        <th>STAFF</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
+        <table class='table'>
+            <thead>
+                <tr>
+                    <th>NO</th>
+                    <th>CABANG</th>
+                    <th>ID</th>
+                    <th>KEL</th>
+                    <th>CENTER</th>
+                    <th>NAMA</th>
+                    <th>SUAMI</th>
+                    <th>KTP</th>
+                    <th>TGL BERGABUNG</th>
+                    <th>HARI</th>
+                    <th>ALAMAT</th>
+                    <th>STAFF</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
                     $query = mysqli_query($con, "SELECT * from daftar_nasabah where no_ktp in (SELECT daftar_nasabah.no_ktp FROM `daftar_nasabah` where id_cabang='$id_cabang'
                  GROUP BY  no_ktp HAVING count(*) > 1) and id_cabang='$id_cabang' order by no_ktp,nama_nasabah asc
                 ");
-                    while ($dup = mysqli_fetch_array($query)) {
+                    while ($dup = mysqli_fetch_assoc($query)) {
 
                         $cabang = mysqli_query($con, "select  * from cabang where id_cabang='$dup[id_cabang]'");
-                        $cabang = mysqli_fetch_array($cabang)['nama_cabang'];
+                        $cabang = mysqli_fetch_assoc($cabang)['nama_cabang'];
                     ?>
-                        <tr>
-                            <td><?= $no++ ?></td>
-                            <td><?= $cabang ?></td>
-                            <td><?= $dup['id_nasabah'] ?></td>
-                            <td><?= $dup['kelompok'] ?></td>
-                            <td><?= $dup['no_center'] ?></td>
-                            <td><?= $dup['nama_nasabah'] ?></td>
-                            <td><?= $dup['suami_nasabah'] ?></td>
-                            <td><?= $dup['no_ktp'] ?></tdd>
-                            <td><?= $dup['tgl_bergabung'] ?></td>
-                            <td><?= $dup['hari'] ?></td>
-                            <td><?= $dup['alamat_nasabah'] ?></td>
-                            <td><?= $dup['staff'] ?></td>
-                        </tr>
-                    <?php
+                <tr>
+                    <td><?= $no++ ?></td>
+                    <td><?= $cabang ?></td>
+                    <td><?= $dup['id_nasabah'] ?></td>
+                    <td><?= $dup['kelompok'] ?></td>
+                    <td><?= $dup['no_center'] ?></td>
+                    <td><?= $dup['nama_nasabah'] ?></td>
+                    <td><?= $dup['suami_nasabah'] ?></td>
+                    <td><?= $dup['no_ktp'] ?></tdd>
+                    <td><?= $dup['tgl_bergabung'] ?></td>
+                    <td><?= $dup['hari'] ?></td>
+                    <td><?= $dup['alamat_nasabah'] ?></td>
+                    <td><?= $dup['staff'] ?></td>
+                </tr>
+                <?php
 
                     }
                     ?>
 
 
-                </tbody>
-            </table>
+            </tbody>
+        </table>
         <?php
         } elseif (isset($_GET['duplikat_semua'])) {
         ?>
-            <table class='table'>
-                <thead>
-                    <tr>
-                        <th>NO</th>
-                        <th>CABANG</th>
-                        <th>ID</th>
-                        <th>KEL</th>
-                        <th>CENTER</th>
-                        <th>NAMA</th>
-                        <th>SUAMI</th>
-                        <th>KTP</th>
-                        <th>TGL BERGABUNG</th>
-                        <th>HARI</th>
-                        <th>ALAMAT</th>
-                        <th>STAFF</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
+        <table class='table'>
+            <thead>
+                <tr>
+                    <th>NO</th>
+                    <th>CABANG</th>
+                    <th>ID</th>
+                    <th>KEL</th>
+                    <th>CENTER</th>
+                    <th>NAMA</th>
+                    <th>SUAMI</th>
+                    <th>KTP</th>
+                    <th>TGL BERGABUNG</th>
+                    <th>HARI</th>
+                    <th>ALAMAT</th>
+                    <th>STAFF</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
                     $query = mysqli_query($con, "SELECT * from daftar_nasabah where no_ktp in (SELECT daftar_nasabah.no_ktp FROM `daftar_nasabah` 
                      GROUP BY  no_ktp HAVING count(*) > 1)  order by no_ktp,nama_nasabah asc
                     ");
-                    while ($dup = mysqli_fetch_array($query)) {
+                    while ($dup = mysqli_fetch_assoc($query)) {
 
                         $cabang = mysqli_query($con, "select  * from cabang where id_cabang='$dup[id_cabang]'");
-                        $cabang = mysqli_fetch_array($cabang)['nama_cabang'];
+                        $cabang = mysqli_fetch_assoc($cabang)['nama_cabang'];
                     ?>
-                        <tr>
-                            <td><?= $no++ ?></td>
-                            <td><?= $cabang ?></td>
-                            <td><?= $dup['id_nasabah'] ?></td>
-                            <td><?= $dup['kelompok'] ?></td>
-                            <td><?= $dup['no_center'] ?></td>
-                            <td><?= $dup['nama_nasabah'] ?></td>
-                            <td><?= $dup['suami_nasabah'] ?></td>
-                            <td><?= $dup['no_ktp'] ?></tdd>
-                            <td><?= $dup['tgl_bergabung'] ?></td>
-                            <td><?= $dup['hari'] ?></td>
-                            <td><?= $dup['alamat_nasabah'] ?></td>
-                            <td><?= $dup['staff'] ?></td>
-                        </tr>
-                    <?php
+                <tr>
+                    <td><?= $no++ ?></td>
+                    <td><?= $cabang ?></td>
+                    <td><?= $dup['id_nasabah'] ?></td>
+                    <td><?= $dup['kelompok'] ?></td>
+                    <td><?= $dup['no_center'] ?></td>
+                    <td><?= $dup['nama_nasabah'] ?></td>
+                    <td><?= $dup['suami_nasabah'] ?></td>
+                    <td><?= $dup['no_ktp'] ?></tdd>
+                    <td><?= $dup['tgl_bergabung'] ?></td>
+                    <td><?= $dup['hari'] ?></td>
+                    <td><?= $dup['alamat_nasabah'] ?></td>
+                    <td><?= $dup['staff'] ?></td>
+                </tr>
+                <?php
 
                     }
                     ?>
 
 
-                </tbody>
-            </table>
+            </tbody>
+        </table>
         <?php
         } elseif (isset($_GET['sinkron'])) {
 
@@ -268,8 +269,8 @@
                 }
                 mysqli_query($con, "DELETE from center WHERE no_center NOT IN (SELECT DISTINCT no_center FROM daftar_nasabah WHERE id_cabang='$id_cabang') AND id_cabang='$id_cabang'");
                 $qcek_center = mysqli_query($con, "select *,count(*) as total_anggota from daftar_nasabah where id_cabang='$id_cabang'  group by no_center");
-                while ($cek_center = mysqli_fetch_array($qcek_center)) {
-                    $hitung_center = mysqli_fetch_array(mysqli_query($con, "select * from center where no_center='$cek_center[no_center]' and id_cabang='$id_cabang'"));
+                while ($cek_center = mysqli_fetch_assoc($qcek_center)) {
+                    $hitung_center = mysqli_fetch_assoc(mysqli_query($con, "select * from center where no_center='$cek_center[no_center]' and id_cabang='$id_cabang'"));
                     if ($hitung_center) {
                         $hari = strtolower($cek_center['hari']);
                         mysqli_query($con, "UPDATE `center` SET `member_center` = '$cek_center[total_anggota]',hari='$hari', id_karyawan='$cek_center[id_karyawan]', konfirmasi='y' WHERE `no_center` = '$cek_center[no_center]' and id_cabang='$id_cabang'; ");
@@ -287,30 +288,30 @@
 
 
         ?>
-            <div class="col-md-12">
-                <table class='table'>
-                    <tr>
-                        <th>NO</th>
-                        <th>NAMA MDIS</th>
-                        <th>TOTAL AGT </th>
-                        <th>GANTI </th>
-                    </tr>
-                    <?php
+        <div class="col-md-12">
+            <table class='table'>
+                <tr>
+                    <th>NO</th>
+                    <th>NAMA MDIS</th>
+                    <th>TOTAL AGT </th>
+                    <th>GANTI </th>
+                </tr>
+                <?php
                     $total_n = 0;
                     $q_nama = mysqli_query($con, "select count(id_nasabah) as total, staff from daftar_nasabah where id_cabang='$id_cabang' and id_karyawan is null group by staff");
-                    while ($nama = mysqli_fetch_array($q_nama)) {
+                    while ($nama = mysqli_fetch_assoc($q_nama)) {
                         $total_n += $nama['total'];
                     ?>
-                        <tr>
-                            <td><?= $no++ ?></td>
-                            <td><?= $nama['staff'] ?></td>
-                            <td><?= $nama['total'] ?></td>
-                            <td>
-                                <input type="hidden" name="nama_mdis[]" value="<?= $nama['staff'] ?>">
-                                <input type="hidden" name="total_nasabah[]" value="<?= $nama['total'] ?>">
-                                <select name="karyawan[]" id="" required class='form-control'>
-                                    <option value="">Pilih Staff</option>
-                                    <?php $data_karyawan  = (karyawan($con, $id_cabang)['data']);
+                <tr>
+                    <td><?= $no++ ?></td>
+                    <td><?= $nama['staff'] ?></td>
+                    <td><?= $nama['total'] ?></td>
+                    <td>
+                        <input type="hidden" name="nama_mdis[]" value="<?= $nama['staff'] ?>">
+                        <input type="hidden" name="total_nasabah[]" value="<?= $nama['total'] ?>">
+                        <select name="karyawan[]" id="" required class='form-control'>
+                            <option value="">Pilih Staff</option>
+                            <?php $data_karyawan  = (karyawan($con, $id_cabang)['data']);
                                     for ($i = 0; $i < count($data_karyawan); $i++) {
                                         $nama_karyawan = $data_karyawan[$i]['nama_karyawan'];
                                         if (strtolower($nama_karyawan) == strtolower($nama['staff'])) {
@@ -320,22 +321,22 @@
                                         }
                                     }
                                     ?>
-                                </select>
-                            </td>
-                        </tr>
-                    <?php
+                        </select>
+                    </td>
+                </tr>
+                <?php
                     }
                     ?>
-                    <tr>
-                        <td colspan="2"></td>
-                        <td colspan="1"><?= $total_n ?></td>
-                        <td>
-                            <input type="submit" class='btn btn-success' value='KONFIRMASI' name='ganti' />
-                        </td>
-                    </tr>
+                <tr>
+                    <td colspan="2"></td>
+                    <td colspan="1"><?= $total_n ?></td>
+                    <td>
+                        <input type="submit" class='btn btn-success' value='KONFIRMASI' name='ganti' />
+                    </td>
+                </tr>
 
-                </table>
-            </div>
+            </table>
+        </div>
         <?php
         }
         ?>
