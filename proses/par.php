@@ -459,18 +459,37 @@
     </div>
     <?php
         }
+
+
+
+
+
+        if ($kat == 'simpanan') {
         ?>
+    <a href="javascript:void(0)" onclick="printPageArea('simpanan')" class="btn btn-success">print <i
+            class="fa fa-print"></i></a>
+    <div id='simpanan'>
+        <h3> CEK SIMPANAN</h3>
+        <table class='table'>
+            <tr>
+                <th>NO</th>
+                <th>LOAN</th>
+                <th>CENTER</th>
+                <th>ID AGT</th>
+                <th>ANGGOTA</th>
+                <th>DISBURSE</th>
+                <th>BALANCE</th>
+                <th>BALANCE </th>
+                <th>MINUS</th>
+                <th>WEEK</th>
+                <th>STATUS</th>
+                <th>STAFF</th>
+            </tr>
 
-
-
-
-
-
-
-
-
-
+        </table>
+    </div>
     <?php
+        }
     } elseif (isset($_GET['rekap'])) {
         include("./proses/rekap_par.php");
     } elseif (isset($_GET['rekap_semua'])) {
@@ -480,7 +499,7 @@
     } else if (isset($_GET['list'])) {
         include("./proses/list_par.php");
     } else {
-    ?>
+        ?>
     <h2><a href="<?= $url . $menu ?>par&list" class="btn btn-success">Lihat Data Par</a></h2>
     <?php
     }

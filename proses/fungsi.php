@@ -2,27 +2,27 @@
 function alert($isi)
 {
 ?>
-  <script>
-    alert('<?php echo $isi ?>')
-  </script>
+<script>
+alert('<?php echo $isi ?>')
+</script>
 
 <?php
 }
 function pindah($url)
 {
 ?>
-  <script>
-    window.location.href = "<?php echo $url ?>";
-  </script>
+<script>
+window.location.href = "<?php echo $url ?>";
+</script>
 <?php
 
 }
 function kembali()
 {
 ?>
-  <script>
-    window.history.back(-2);
-  </script>
+<script>
+window.history.back(-2);
+</script>
 <?php
 
 }
@@ -168,9 +168,9 @@ function detail_karyawan($con, $id)
 function pesan($pesan, $warna = 'primary')
 {
 ?>
-  <div class="alert alert-<?= $warna ?>" role="alert">
+<div class="alert alert-<?= $warna ?>" role="alert">
     <?= $pesan ?>
-  </div>
+</div>
 <?php
 }
 function int_xml($angka)
@@ -268,23 +268,22 @@ function angka($angka, $separator = null)
 function separator($tipe = 'titik')
 {
 ?>
-  <select name="tipe" id="" class='form-control'>
+<select name="tipe" id="" class='form-control'>
     <option <?= ($tipe === "titik" ? "selected" : ""); ?> value="titik">Titik</option>
     <option <?= ($tipe === "tanpa_titik" ? "selected" : ""); ?> value="tanpa_titik">Tanpa Titik</option>
     <option <?= ($tipe === "koma" ? "selected" : ""); ?> value="koma">Koma</option>
     <option <?= ($tipe === "strip" ? "selected" : ""); ?> value="strip">Strip</option>
-  </select>
+</select>
 <?php
 }
 function kategori($kat = 'naik')
 {
 ?>
-  <select name="kat" id="" class='form-control'>
+<select name="kat" id="" class='form-control'>
     <option <?= ($kat === "naik" ? "selected" : ""); ?> value="naik">KENAIKAN DAN PENURUNAN AGT PAR</option>
-    <!-- <option <?= ($kat === "turun" ? "selected" : ""); ?>  value="turun">TURUN PAR</option> -->
     <option <?= ($kat === "berkurang" ? "selected" : ""); ?> value="berkurang">TURUN OUTSTANDING PAR</option>
-    <!-- <option <?= ($kat === "strip" ? "selected" : ""); ?>  value="strip">Strip</option> -->
-  </select>
+    <option <?= ($kat === "simpanan" ? "selected" : ""); ?> value="simpanan">CEK SIMPANAN MASUK</option>
+</select>
 <?php
 }
 function wilayah($con, $kode)
