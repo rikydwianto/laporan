@@ -21,13 +21,13 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 ?>
 
 <?php
-	if ($cekJam['belum'] == 0) {
-	?>
+    if ($cekJam['belum'] == 0) {
+    ?>
 <li><a href="<?php echo $url . $menu ?>tmb_laporan" class="w3-bar-item w3-button"><i class="fa fa-plus"></i> Tambah
         Laporan</a></i>
     <?php
-	}
-		?>
+    }
+        ?>
 <li><a href="<?php echo $url . $menu ?>laporan" class="w3-bar-item w3-button"><i class="fa fa-search"></i> Lihat
         Laporan</a></li>
 <li><a href="<?php echo $url . $menu ?>center-staff" class="w3-bar-item w3-button"><i class="fa fa-building"></i>
@@ -76,7 +76,7 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 
 <?php
 } else if (($_SESSION['id']) && $su == 'y') {
-	?>
+    ?>
 <li>
     <a href="#"><i class="fa fa-building"></i> Master Data<span class="fa arrow"></span></a>
     <ul class="nav nav-second-level">
@@ -176,7 +176,8 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
             <a href="<?php echo $url . $menu ?>rekap_kehadiran"><i class="fa fa-file-excel-o"></i> Rekap Kehadiran</a>
         </li>
         <li>
-            <a href="<?php echo $url . $menu ?>rekap_setoran&tgl=<?=date("Y-m-d")?>"><i class="fa fa-file-excel-o"></i>
+            <a href="<?php echo $url . $menu ?>rekap_setoran&tgl=<?= date("Y-m-d") ?>"><i
+                    class="fa fa-file-excel-o"></i>
                 Rekap Setoran</a>
         </li>
         <li>
@@ -258,8 +259,8 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 </li>
 
 <?php
-} else if (($_SESSION['id']) && $jabatan == 'BM' || $jabatan == 'ASM'|| $jabatan == 'PJS') {
-	?>
+} else if (($_SESSION['id']) && $jabatan == 'BM' || $jabatan == 'ASM' || $jabatan == 'PJS') {
+    ?>
 <li>
     <a href="#"><i class="fa fa-building"></i> Master Data<span class="fa arrow"></span></a>
     <ul class="nav nav-second-level">
@@ -361,7 +362,8 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
             <a href="<?php echo $url . $menu ?>rekap_kehadiran"><i class="fa fa-file-excel-o"></i> Rekap Kehadiran</a>
         </li>
         <li>
-            <a href="<?php echo $url . $menu ?>rekap_setoran&tgl=<?=date("Y-m-d")?>"><i class="fa fa-file-excel-o"></i>
+            <a href="<?php echo $url . $menu ?>rekap_setoran&tgl=<?= date("Y-m-d") ?>"><i
+                    class="fa fa-file-excel-o"></i>
                 Rekap Setoran</a>
         </li>
         <li>
@@ -421,8 +423,8 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
     <a href="<?php echo $url . $menu ?>logout" class=""><i class="fa fa-sign-out"></i> Logout</a>
 </li>
 <?php
-} else if (($_SESSION['id']) && $jabatan == 'MIS'  || $jabatan=='BC') {
-	?>
+} else if (($_SESSION['id']) && $jabatan == 'MIS'  || $jabatan == 'BC') {
+    ?>
 <li>
     <a href="#"><i class="fa fa-building"></i> Master Data<span class="fa arrow"></span></a>
     <ul class="nav nav-second-level">
@@ -506,7 +508,8 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
             <a href="<?php echo $url . $menu ?>rekap_kehadiran"><i class="fa fa-file-excel-o"></i> Rekap Kehadiran</a>
         </li>
         <li>
-            <a href="<?php echo $url . $menu ?>rekap_setoran&tgl=<?=date("Y-m-d")?>"><i class="fa fa-file-excel-o"></i>
+            <a href="<?php echo $url . $menu ?>rekap_setoran&tgl=<?= date("Y-m-d") ?>"><i
+                    class="fa fa-file-excel-o"></i>
                 Rekap Setoran</a>
         </li>
         <li>
@@ -570,26 +573,26 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
     </ul>
 
 </li>
-<li>
+<!-- <li>
     <a href="<?php echo $url . $menu ?>kuis" class="w3-bar-item w3-button"><i
             class="fa fa-circle-question"></i>KUISIONER</a>
-</li>
+</li> -->
 <li><a href="<?php echo $url . $menu ?>anggota" class="w3-bar-item w3-button"><i class="fa fa-users"></i> ANGGOTA</a>
 </li>
 
 <li><a href="<?php echo $url . $menu ?>daftar_backup" class="w3-bar-item w3-button"><i class="fa fa-users"></i> DAFTAR
         ANGGOTA BACKUP</a></li>
 <!-- <li><a href="<?php echo $url ?>lokasi.php" class="w3-bar-item w3-button"><i class="fa fa-globes"></i> LOKASI</a></li> -->
-<li>
+<!-- <li>
     <a href="<?php echo $url . $menu ?>transfer_list"><i class="fa fa-money"></i> LIST TRANSFER</a>
-</li>
+</li> -->
 <li>
     <a href="<?php echo $url . $menu ?>monitoring" class="w3-bar-item w3-button"><i class="fa fa-folder"></i>
         MONITORING</a>
 </li>
 <li><a href="<?php echo $url . $menu ?>spl" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> SPL</a></li>
-<li><a href="<?php echo $url . $menu ?>broadcast_telegram" class="w3-bar-item w3-button"><i class="fa fa-phone"></i>
-        REMINDER</a></li>
+<!-- <li><a href="<?php echo $url . $menu ?>broadcast_telegram" class="w3-bar-item w3-button"><i class="fa fa-phone"></i>
+        REMINDER</a></li> -->
 <li><a href="<?php echo $url . $menu ?>cek_kelompok" class="w3-bar-item w3-button"><i class="fa fa-build"></i> CEK
         KELOMPOK</a></li>
 
@@ -622,9 +625,8 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
     <a href="<?php echo $url . $menu ?>logout" class=""><i class="fa fa-sign-out"></i> Logout</a>
 </li>
 <?php
-} 
-else if (($_SESSION['id']) && $jabatan == 'ADM') {
-	?>
+} else if (($_SESSION['id']) && $jabatan == 'ADM') {
+    ?>
 <li>
     <a href="<?php echo $url . $menu ?>monitoring" class="w3-bar-item w3-button"><i class="fa fa-folder"></i>
         MONITORING</a>
@@ -671,9 +673,8 @@ else if (($_SESSION['id']) && $jabatan == 'ADM') {
 </li>
 
 <?php
-}
-else if (($_SESSION['id']) && $jabatan == 'BC') {
-	?>
+} else if (($_SESSION['id']) && $jabatan == 'BC') {
+    ?>
 <li><a href="<?php echo $url . $menu ?>pemb_lain" class="w3-bar-item w3-button"><i class="fa fa-dollar"></i> Pembiayaan
         Lain</a></li>
 <li>
@@ -711,4 +712,4 @@ else if (($_SESSION['id']) && $jabatan == 'BC') {
 }
 
 
-	?>
+    ?>
