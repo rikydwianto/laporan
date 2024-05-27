@@ -17,7 +17,7 @@ require_once("model/model.php");
     <meta name="author" content="">
 
     <title>KOPERASI MITRA DHUAFA</title>
-	<link rel="icon" type="image/png" sizes="16x16" href="<?= $url ?>assets/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?= $url ?>assets/logo-motif.png">
     <!-- Bootstrap Core CSS -->
     <link href="<?= $url ?>assets/css/bootstrap.min.css" rel="stylesheet">
 
@@ -50,7 +50,7 @@ require_once("model/model.php");
                     <div class="panel-body">
                         <form role="form" method="post">
                             <?php
-                            $text="";
+                            $text = "";
                             if (isset($_POST['login'])) {
                                 $user = aman($con, $_POST['username']);
                                 $pass = aman($con, md5($_POST['password']));
@@ -66,29 +66,24 @@ require_once("model/model.php");
                                             $_SESSION['su'] = $cek['super_user'];
                                             $_SESSION['informasi'] = 1;
                                             pesan("BERHASIL LOGIN", 'success');
-                                            $menu_asal = $_GET['url']; 
-                                            $menu_asal1 = explode("=",$menu_asal)[1];
+                                            $menu_asal = $_GET['url'];
+                                            $menu_asal1 = explode("=", $menu_asal)[1];
                                             // echo $menu_asal;
 
                                             $d = detail_karyawan($con, $cek['id_karyawan']);
                                             pindah("$url");
                                             $text = "login @user  : $user  $cek[nama_karyawan] cabang : $d[nama_cabang]";
-                                           
-                                            
-                                            
-                                        } else{
-                                            $text="$user percobaan login password salah";
+                                        } else {
+                                            $text = "$user percobaan login password salah";
                                             pesan("NIK DITEMUKAN, Password SALAH!!", 'danger');
-
                                         }
-                                    } else{
-                                        $text="@user $user tidak aktif mencoba login ";
+                                    } else {
+                                        $text = "@user $user tidak aktif mencoba login ";
                                         pesan("STATUS ANDA DINONAKTIKAN, SILAHKAN HUBUNGI ATASAN ANDA", 'danger');
-
                                     }
                                 } else {
                                     pesan("USER/NIK TIDAK DITEMUKAN", 'danger');
-                                    $text="Percobaan login @user $user tidak ditemukan";
+                                    $text = "Percobaan login @user $user tidak ditemukan";
                                 }
                             }
 
@@ -97,7 +92,8 @@ require_once("model/model.php");
                             ?>
                             <fieldset>
                                 <div class="form-group">
-                                    <input type="text" name="username" class="form-control" placeholder="contoh 3729/2017" autofocus="">
+                                    <input type="text" name="username" class="form-control"
+                                        placeholder="contoh 3729/2017" autofocus="">
                                 </div>
                                 <div class="form-group">
                                     <input type="password" class="form-control" required name="password">

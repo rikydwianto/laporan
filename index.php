@@ -41,7 +41,7 @@ $status_cabang = $d['status_cabang'];
 
 
     <title>LAPORAN | <?= strtoupper($d['nama_cabang']) ?></title>
-    <link rel="icon" type="image/png" sizes="16x16" href="<?= $url ?>assets/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?= $url ?>assets/logo-motif.png">
     <!-- Bootstrap Core CSS -->
     <link href="<?= $url ?>assets/css/bootstrap.min.css" rel="stylesheet">
 
@@ -281,6 +281,10 @@ $status_cabang = $d['status_cabang'];
                                     </p>
 
                                     <br><br>
+                                    <h4>Sekiranya bersedia untuk mengisi survey
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSc15fGnUlQ_zmt7UVVbSYsx2D19MGRv2ehhmgeyl_8c99eT0A/viewform"
+                                            target="_blank" class="btn">KLIK DISINI</a>
+                                    </h4>
                                     <a href="<?= $url . $menu ?>quotes">Tambah Quote Disini</a>
 
                                 </div>
