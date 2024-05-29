@@ -45,9 +45,13 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 </li>
 
 <li>
+    <a href="<?php echo $url . $menu ?>tpk_sl" class="w3-bar-item w3-button"><i class="fas fa-dollar"></i>
+        ANALISA TPK</a>
+</li>
+<!-- <li>
     <a href="<?php echo $url . $menu ?>transfer_input" class="w3-bar-item w3-button"><i class="fas fa-dollar"></i> AGT
         TRANSFER</a>
-</li>
+</li> -->
 <li><a href="<?php echo $url . $menu ?>cek_nik" class="w3-bar-item w3-button"><i class="fa fa-search"></i> CEK NIK</a>
 </li>
 

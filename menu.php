@@ -1,4 +1,3 @@
-
 <?php
 if (isset($_GET['menu'])) {
 	$getmenu = $_GET['menu'];
@@ -7,8 +6,8 @@ if (isset($_GET['menu'])) {
 			case "rekap_bayar":
 				include("proses/rekap_bayar.php");
 				break;
-			
-			
+
+
 
 			case "tmb_laporan":
 				include("proses/tmb_laporan.php");
@@ -54,8 +53,8 @@ if (isset($_GET['menu'])) {
 			case "daftar_wilayah":
 				include("proses/tambah_wilayah.php");
 				break;
-			
-			
+
+
 			default:
 				if (file_exists("proses/$getmenu.php")) {
 					include "proses/$getmenu.php";
@@ -72,11 +71,11 @@ if (isset($_GET['menu'])) {
 				break;
 			case "transfer_input":
 				include("proses/transfer_input.php");
-			break;
-			
+				break;
+
 			case "ket_laporan":
-					include("proses/ket_laporan.php");
-					break;
+				include("proses/ket_laporan.php");
+				break;
 			case "deliquency_sl":
 				include("./proses/deliquency_sl.php");
 				break;
@@ -130,21 +129,26 @@ if (isset($_GET['menu'])) {
 				break;
 			case "penarikan_simpanan":
 				include("proses/penarikan_simpanan.php");
-			break;
+				break;
 			case "center-blacklist":
 				include("proses/center-blacklist.php");
-			break;
+				break;
 			case "list-monitoring":
 				include("proses/list-monitoring.php");
-			break;
+				break;
 			case "daftar_backup_sl":
 				include("proses/daftar_backup_sl.php");
 				break;
-			
+
 			case "deliquency_reason":
 				include("proses/deliquency_reason.php");
 				break;
-			
+
+
+			case "tpk_sl":
+				include("proses/tpk_sl.php");
+				break;
+
 			default:
 				include "halaman-403.php";
 				break;

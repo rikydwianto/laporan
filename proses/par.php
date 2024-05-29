@@ -127,6 +127,7 @@
                             $minggu_rill = ganti_karakter(str_replace(",", "", $ws->getCell("AD" . $row)->getValue()));
                             $priode = ganti_karakter(str_replace(",", "", $ws->getCell("I" . $row)->getValue()));
                             $kode = ganti_karakter(str_replace(",", "", $ws->getCell("G" . $row)->getValue()));
+                            $jenis_topup = ganti_karakter(str_replace(",", "", $ws->getCell("AH" . $row)->getValue()));
                         } else {
                             $amount = (int)ganti_karakter(str_replace(",", "", $ws->getCell("F" . $row)->getValue()));
                             $balance = (int)ganti_karakter(str_replace(",", "", $ws->getCell("K" . $row)->getValue()));
@@ -139,10 +140,10 @@
                         mysqli_query($con, "INSERT INTO `deliquency`
         ( id,`loan`, `no_center`, `id_detail_nasabah`, `nasabah`, `amount`, `sisa_saldo`, `tunggakan`, `minggu`,
         `tgl_input`,
-        `id_cabang`,tgl_disburse,wajib,sukarela,pensiun,hariraya,cicilan,hari,staff,minggu_ke,minggu_rill,priode,kode_pemb)
+        `id_cabang`,tgl_disburse,wajib,sukarela,pensiun,hariraya,cicilan,hari,staff,minggu_ke,minggu_rill,priode,kode_pemb,jenis_topup)
         VALUES
         (NULL, '$loan', '$no_center', '$id_nasabah', '$nasabah', '$amount', '$balance', '$tunggakan', '$minggu', '$tgl',
-        '$id_cabang','$tgl_dis','$wajib','$sukarela','$pensiun','$hariraya','$cicilan','$hari','$nama_staff','$minggu_ke','$minggu_rill','$priode','$kode');
+        '$id_cabang','$tgl_dis','$wajib','$sukarela','$pensiun','$hariraya','$cicilan','$hari','$nama_staff','$minggu_ke','$minggu_rill','$priode','$kode','$jenis_topup');
         ");
                     }
                 }

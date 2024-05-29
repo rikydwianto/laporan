@@ -26,12 +26,13 @@ $tgl_banding = $_GET['minggu_ini'];
     </form>
     <?php
     $jk = array(
-        "25" => 0.12,
-        "50" => 0.24,
-        "75" => 0.36,
-        "100" => 0.48,
+        "25" => 0.06,
+        "50" => 0.06,
+        "75" => 0.06,
+        "100" => 0.06,
     );
     ?>
+
     <table class='table table-bordered'>
         <tr>
             <td>NO</td>
@@ -39,19 +40,22 @@ $tgl_banding = $_GET['minggu_ini'];
             <td>CENTER</td>
             <td>ID AGT</td>
             <td>ANGGOTA</td>
+            <td>JW</td>
             <td>RIll</td>
             <td>DISBURSE</td>
             <td>BALANCE</td>
-            <td>TOPUP <br /> BAL + 1%</td>
+            <td>TOPUP</td>
             <?php
             foreach ($jk as $j => $v) {
             ?>
-                <td>ANGSURAN<br /><?= $j ?> + margin</td>
+            <td>ANGSURAN<br /><?= $j ?></td>
             <?php
             }
             ?>
             <td>HARI</td>
             <td>STAFF</td>
+            <td>JENIS TOPUP</td>
+            <td>KETERANGAN</td>
         </tr>
 
         <?php
@@ -67,7 +71,7 @@ $tgl_banding = $_GET['minggu_ini'];
         $query = mysqli_query($con, "
     SELECT d.*,k.nama_karyawan, c.hari as hari_center FROM deliquency d 
 	JOIN center c ON c.`no_center`=d.`no_center` 
-	JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` where d.tgl_input in (select max(tgl_input) from deliquency where id_cabang='$id_cabang') and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' and k.id_cabang='$id_cabang' $q_tambah order by k.nama_karyawan,d.sisa_saldo asc");
+	JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` where d.tgl_input in (select max(tgl_input) from deliquency where id_cabang='$id_cabang') and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' and k.id_cabang='$id_cabang' $q_tambah  order by k.nama_karyawan,d.sisa_saldo asc");
 
         echo mysqli_error($con);
         while ($data = mysqli_fetch_assoc($query)) {
@@ -87,33 +91,57 @@ $tgl_banding = $_GET['minggu_ini'];
             } else {
                 $hari = $data['hari_center'];
             }
+            $setengah = ($data['minggu_rill'] / $data['priode']) * 100;
+            if ($setengah >= 50) {
+                $jk = array(
+                    "25" => 0.06,
+                    "50" => 0.06,
+                    "75" => 0.06,
+                    "100" => 0.06,
+                );
+            } else {
+                $jk = array(
+                    "25" => 0.12,
+                    "50" => 0.12,
+                    "75" => 0.12,
+                    "100" => 0.12,
+                );
+            }
+
+
             $bagi = 1000000;
             $saldo = $data['sisa_saldo'] / $bagi;
             $saldo  = round(round($saldo, 2, PHP_ROUND_HALF_UP) * $bagi, 2);
-            $saldo = $saldo +  ($saldo * 0.01);
+            $saldo = $saldo +  ($saldo * 0);
             $saldo = ceil($saldo / 100000) * 100000;
+            if ($setengah < 50 && $data['jenis_topup'] == 'KHUSUS') {
+                $ket_tpk = "TIDAK BISA TPK";
+            } else $ket_tpk = "";
         ?>
-            <tr style="background-color:<?= $baris['baris'] ?>;color:<?= $baris['text'] ?>">
-                <td><?= $no++ ?></td>
-                <td><?= $data['loan'] ?></td>
-                <td><?= $data['no_center'] ?></td>
-                <td><?= $data['id_detail_nasabah'] ?></td>
-                <td><?= $data['nasabah'] ?></td>
-                <td><?= ($data['minggu_rill']) ?></td>
-                <td><?= ($data['amount']) ?></td>
-                <td><?= (round($data['sisa_saldo'])) ?></td>
-                <td><?= ($saldo) ?></td>
-                <?php
+        <tr style="background-color:<?= $baris['baris'] ?>;color:<?= $baris['text'] ?>">
+            <td><?= $no++ ?></td>
+            <td><?= $data['loan'] ?></td>
+            <td><?= $data['no_center'] ?></td>
+            <td><?= $data['id_detail_nasabah'] ?></td>
+            <td><?= $data['nasabah'] ?></td>
+            <td><?= ($data['priode']) ?></td>
+            <td><?= ($data['minggu_rill']) ?></td>
+            <td><?= angka($data['amount']) ?></td>
+            <td><?= angka(round($data['sisa_saldo'])) ?></td>
+            <td><?= angka($saldo) ?></td>
+            <?php
                 foreach ($jk as $j => $v) {
                 ?>
-                    <!-- <td>ANGSURAN<br/><?= $j ?> + margin</td> -->
-                    <td><?= (($saldo + ($saldo * $v)) / $j) ?></td>
-                <?php
+            <!-- <td>ANGSURAN<br/><?= $j ?> + margin</td> -->
+            <td><?= angka(($saldo + ($saldo * $v)) / $j) ?></td>
+            <?php
                 }
                 ?>
-                <td><?= strtoupper($hari) ?></td>
-                <td><?= $data['nama_karyawan'] ?></td>
-            </tr>
+            <td><?= strtoupper($hari) ?></td>
+            <td><?= $data['nama_karyawan'] ?></td>
+            <td><?= $data['jenis_topup'] ?></td>
+            <td><?= $ket_tpk ?></td>
+        </tr>
         <?php
         } ?>
         <tr>
@@ -123,16 +151,16 @@ $tgl_banding = $_GET['minggu_ini'];
     </table>
 </div>
 <script>
-    $("#karyawan").on("change", function() {
-        var url = "<?= $url . $menu ?>par&anal_topup=ANALISA+TOPUP";
-        let id = $(this).val();
-        // alert(id);
-        if (id == null) {
-            window.location.replace(url);
+$("#karyawan").on("change", function() {
+    var url = "<?= $url . $menu ?>par&anal_topup=ANALISA+TOPUP";
+    let id = $(this).val();
+    // alert(id);
+    if (id == null) {
+        window.location.replace(url);
 
-        } else {
-            window.location.replace(url + "&id=" + id);
+    } else {
+        window.location.replace(url + "&id=" + id);
 
-        }
-    });
+    }
+});
 </script>
