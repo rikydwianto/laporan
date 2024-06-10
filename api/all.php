@@ -36,9 +36,9 @@ if ($id == "") {
                 $url_p = "https://images.soco.id/589-5-fakta-menarik-film-avatar-yang-kembali-tayang-5.jpg.jpg";
                 $data['photo'] = "$url_p";
 
-                $pesan = "Login android sebagai : $data[nama_karyawan] \ncabang $data[nama_cabang]\njabatan : $data[singkatan_jabatan]";
-                $url_tele = "https://api.telegram.org/$token/sendMessage?parse_mode=html&chat_id=1185334687&text=$pesan&reply_message_id=214&force_reply=true";
-                file_get_contents($url_tele);
+                // $pesan = "Login android sebagai : $data[nama_karyawan] \ncabang $data[nama_cabang]\njabatan : $data[singkatan_jabatan]";
+                // $url_tele = "https://api.telegram.org/$token/sendMessage?parse_mode=html&chat_id=1185334687&text=$pesan&reply_message_id=214&force_reply=true";
+                // file_get_contents($url_tele);
             } else if ($menu == 'update_fcm_token') {
                 mysqli_query($con, "update karyawan set token_fcm='$token_fcm' where id_karyawan='$id'");
             } else if ($menu == "cari_nasabah") {
