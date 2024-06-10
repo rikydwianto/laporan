@@ -9,8 +9,10 @@ if (empty($batas)) {
 <form method='get' action='<?php echo $url . $menu ?>monitoring'>
     <input type=hidden name='menu' value="monitoring" />
     <input type=hidden name='staff' />
-    Sampai Dengan <input type=date name='tgl' id='tgl' value='<?php echo isset($_GET['tgl']) ? $_GET['tgl'] : date("Y-m-d") ?>' />
-    <br /> BATAS MONITORING(PERSEN)<input type=number class='' style="width:100px" name='batas' value='<?php echo isset($_GET['batas']) ? $_GET['batas'] : 3 ?>' />
+    Sampai Dengan <input type=date name='tgl' id='tgl'
+        value='<?php echo isset($_GET['tgl']) ? $_GET['tgl'] : date("Y-m-d") ?>' />
+    <br /> BATAS MONITORING(PERSEN)<input type=number class='' style="width:100px" name='batas'
+        value='<?php echo isset($_GET['batas']) ? $_GET['batas'] : 3 ?>' />
     <input type=submit name='cari' class='btn btn-success' value='FILTER' />
 </form>
 <button onclick="btn_click()" class='btn btn-danger' id='print_biasa'>Print Data</button>
@@ -124,31 +126,37 @@ untuk mengisi anggota silahkan pilih menu "NASABAH STAFF" diatas
             $warna = '#50ff4a';
             $lebih = "NOL";
         }
+        if ($hitung_agt == 0) {
+            $kumpul = "";
+            $lebih = "Anggota NOLL";
+            $warna = '#e4e7ed';
+        }
         $total_agt += $hitung_agt;
     ?>
-        <tr style='background:<?= $warna ?>;'>
-            <td><?= $no++ ?></td>
-            <td><?= $karyawan['nama_karyawan'] ?></td>
-            <td class='tengah'><?= $pu ?></td>
-            <td class='tengah'><?= $pmb ?></td>
-            <td class='tengah'><?= $ppd ?></td>
-            <td class='tengah'><?= $psa ?></td>
-            <td class='tengah'><?= $arta ?></td>
-            <td class='tengah'><?= $prr ?></td>
-            <td class='tengah'><?= $lain ?></td>
+    <tr style='background:<?= $warna ?>;'>
+        <td><?= $no++ ?></td>
+        <td><?= $karyawan['nama_karyawan'] ?></td>
+        <td class='tengah'><?= $pu ?></td>
+        <td class='tengah'><?= $pmb ?></td>
+        <td class='tengah'><?= $ppd ?></td>
+        <td class='tengah'><?= $psa ?></td>
+        <td class='tengah'><?= $arta ?></td>
+        <td class='tengah'><?= $prr ?></td>
+        <td class='tengah'><?= $lain ?></td>
 
-            <td class='tengah'>
-                <?= ($total == NULL ? 0 : $total) ?>
-            </td>
-            <td class='tengah'><?= $hitung_agt ?></td>
-            <td class='tengah'><?= $tiga_persen ?></td>
-            <td class='tengah'><?= $lebih ?></td>
-            <td class='tengah'><?= $kumpul ?></td>
-            <td>
-                <a href="<?= $url . $menu ?>monitoring&id=<?= $karyawan['id_karyawan'] ?>"> Detail</a> |
-                <a href="<?= $url ?>print_mtr_priode.php?menu=monitoring&ddd=<?= $karyawan['id_karyawan'] ?>&tgl_akhir=<?= $tgl ?>" target="_blank"> Print</a>
-            </td>
-        </tr>
+        <td class='tengah'>
+            <?= ($total == NULL ? 0 : $total) ?>
+        </td>
+        <td class='tengah'><?= $hitung_agt ?></td>
+        <td class='tengah'><?= $tiga_persen ?></td>
+        <td class='tengah'><?= $lebih ?></td>
+        <td class='tengah'><?= $kumpul ?></td>
+        <td>
+            <a href="<?= $url . $menu ?>monitoring&id=<?= $karyawan['id_karyawan'] ?>"> Detail</a> |
+            <a href="<?= $url ?>print_mtr_priode.php?menu=monitoring&ddd=<?= $karyawan['id_karyawan'] ?>&tgl_akhir=<?= $tgl ?>"
+                target="_blank"> Print</a>
+        </td>
+    </tr>
     <?php
     }
     ?>
@@ -173,13 +181,15 @@ untuk mengisi anggota silahkan pilih menu "NASABAH STAFF" diatas
 </table>
 
 <script>
-    var url = "<?= $url ?>";
+var url = "<?= $url ?>";
 
-    function btn_click() {
-        // alert(00);
-        var tgl1 = $("#tgl").val();
-        // alert(tgl1 + tgl2)
-        var w = window.open('<?= $url ?>print_mtr_priode.php?menu=monitoring&tgl_akhir=' + tgl1, 'Print Daftar Pinjaman', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=1200,height=720,left = 0,top = 0');
+function btn_click() {
+    // alert(00);
+    var tgl1 = $("#tgl").val();
+    // alert(tgl1 + tgl2)
+    var w = window.open('<?= $url ?>print_mtr_priode.php?menu=monitoring&tgl_akhir=' + tgl1, 'Print Daftar Pinjaman',
+        'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=1200,height=720,left = 0,top = 0'
+    );
 
-    }
+}
 </script>
