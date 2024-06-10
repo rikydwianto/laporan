@@ -39,9 +39,6 @@ if ($username == "" && $password == "") {
                         mysqli_query($con, "update karyawan set token_fcm='$token_fcm' where id_karyawan='$d[id_karyawan]'");
                         $data = array("id" => $d['id_karyawan'], 'idc' => $d['id_cabang'], 'jabatan' => $d['singkatan_jabatan']);
                         $kode = '202';
-                        $pesan = "Berhasil Login android sebagai : $d[nama_karyawan] \ncabang $d[nama_cabang]\njabatan : $d[singkatan_jabatan]";
-                        $url_tele = "https://api.telegram.org/$token/sendMessage?parse_mode=html&chat_id=1185334687&text=$pesan&reply_message_id=214&force_reply=true";
-                        file_get_contents($url_tele);
                     } else {
                         $text = "Password yang anda masukan tidak sesuai";
                     }
