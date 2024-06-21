@@ -75,72 +75,73 @@
     }
     if (isset($_GET['tambah'])) {
     ?>
-        <div class="col-md-6">
-            <form method="post">
-                <h3>Tambah Cabang</h3>
-                <table class='table'>
+    <div class="col-md-6">
+        <form method="post">
+            <h3>Tambah Cabang</h3>
+            <table class='table'>
 
-                    <tr>
-                        <td>Kode Cabang</td>
-                        <td>
-                            <input name='kode_cabang' class="form-control"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Nama Cabang</td>
-                        <td>
-                            <input name='nama_cabang' class="form-control"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>SINGKATAN</td>
-                        <td>
-                            <input name='singkatan_cabang' class="form-control"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Latitude</td>
-                        <td>
-                            <input name='lat' value="" class="form-control"></input>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>Kode Cabang</td>
+                    <td>
+                        <input name='kode_cabang' class="form-control"></input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nama Cabang</td>
+                    <td>
+                        <input name='nama_cabang' class="form-control"></input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>SINGKATAN</td>
+                    <td>
+                        <input name='singkatan_cabang' class="form-control"></input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Latitude</td>
+                    <td>
+                        <input name='lat' value="" class="form-control"></input>
+                    </td>
+                </tr>
 
-                    <tr>
-                        <td>Longitude</td>
-                        <td>
-                            <input name='lng' value="" class="form-control"></input>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>Longitude</td>
+                    <td>
+                        <input name='lng' value="" class="form-control"></input>
+                    </td>
+                </tr>
 
-                    <tr>
-                        <td>Wilayah</td>
-                        <td>
-                            <select name='wilayah' required class="form-control" aria-label="Default select example " id='wilayah'>
-                                <option value=''> -- Silahkan Pilih Cabang --</option>
-                                <?php
+                <tr>
+                    <td>Wilayah</td>
+                    <td>
+                        <select name='wilayah' required class="form-control" aria-label="Default select example "
+                            id='wilayah'>
+                            <option value=''> -- Silahkan Pilih Cabang --</option>
+                            <?php
                                 $jab = mysqli_query($con, "select * from wilayah ");
                                 while ($wil = mysqli_fetch_assoc($jab)) {
                                     echo "<option value='$wil[id_wilayah]' ><b>$wil[wilayah]</b></option>";
                                 }
                                 ?>
-                            </select>
+                        </select>
 
-                        </td>
+                    </td>
 
-                    </tr>
+                </tr>
 
-                    <tr>
-                        <td> </td>
-                        <td>
-                            <input type='submit' name='tambah_cabang' class="btn btn-success" value='TAMBAH CABANG'></input>
-                        </td>
-                    </tr>
+                <tr>
+                    <td> </td>
+                    <td>
+                        <input type='submit' name='tambah_cabang' class="btn btn-success" value='TAMBAH CABANG'></input>
+                    </td>
+                </tr>
 
-                </table>
+            </table>
 
-            </form>
+        </form>
 
-        </div>
+    </div>
     <?php
     }
 
@@ -155,51 +156,52 @@
         $lat = $_GET['lat'];
         $lng = $_GET['lng'];
     ?>
-        <div class="col-md-6">
-            <form method="post">
-                <h3>EDIT Cabang</h3>
-                <table class='table'>
+    <div class="col-md-6">
+        <form method="post">
+            <h3>EDIT Cabang</h3>
+            <table class='table'>
 
-                    <tr>
-                        <td>Kode Cabang</td>
-                        <td>
-                            <input type="hidden" name='idcab' value="<?= $idcab ?>" class="form-control"></input>
-                            <input name='kode_cabang' value="<?= $kode ?>" class="form-control"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Nama Cabang</td>
-                        <td>
-                            <input name='nama_cabang' value="<?= $nama ?>" class="form-control"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Singkatan Cabang</td>
-                        <td>
-                            <input name='singkatan_cabang' value="<?= $singkatan ?>" class="form-control"></input>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>Kode Cabang</td>
+                    <td>
+                        <input type="hidden" name='idcab' value="<?= $idcab ?>" class="form-control"></input>
+                        <input name='kode_cabang' value="<?= $kode ?>" class="form-control"></input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nama Cabang</td>
+                    <td>
+                        <input name='nama_cabang' value="<?= $nama ?>" class="form-control"></input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Singkatan Cabang</td>
+                    <td>
+                        <input name='singkatan_cabang' value="<?= $singkatan ?>" class="form-control"></input>
+                    </td>
+                </tr>
 
-                    <tr>
-                        <td>Latitude</td>
-                        <td>
-                            <input name='lat' value="<?= $lat ?>" class="form-control"></input>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>Latitude</td>
+                    <td>
+                        <input name='lat' value="<?= $lat ?>" class="form-control"></input>
+                    </td>
+                </tr>
 
-                    <tr>
-                        <td>Longitude</td>
-                        <td>
-                            <input name='lng' value="<?= $lng ?>" class="form-control"></input>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>Longitude</td>
+                    <td>
+                        <input name='lng' value="<?= $lng ?>" class="form-control"></input>
+                    </td>
+                </tr>
 
-                    <tr>
-                        <td>Wilayah</td>
-                        <td>
-                            <select name='wilayah' required class="form-control" aria-label="Default select example " id='wilayah'>
-                                <option value=''> -- Silahkan Pilih Wilayah --</option>
-                                <?php
+                <tr>
+                    <td>Wilayah</td>
+                    <td>
+                        <select name='wilayah' required class="form-control" aria-label="Default select example "
+                            id='wilayah'>
+                            <option value=''> -- Silahkan Pilih Wilayah --</option>
+                            <?php
                                 $jab = mysqli_query($con, "select * from wilayah ");
                                 while ($wil = mysqli_fetch_assoc($jab)) {
                                     if ($wilayah == $wil['id_wilayah'])
@@ -208,46 +210,46 @@
                                         echo "<option value='$wil[id_wilayah]' ><b>$wil[wilayah]</b></option>";
                                 }
                                 ?>
-                            </select>
+                        </select>
 
-                        </td>
+                    </td>
 
-                    </tr>
+                </tr>
 
-                    <tr>
-                        <td> </td>
-                        <td>
-                            <input type='submit' name='edit_cabang' class="btn btn-success" value='SIMPAN CABANG'></input>
-                        </td>
-                    </tr>
+                <tr>
+                    <td> </td>
+                    <td>
+                        <input type='submit' name='edit_cabang' class="btn btn-success" value='SIMPAN CABANG'></input>
+                    </td>
+                </tr>
 
-                </table>
+            </table>
 
-            </form>
+        </form>
 
-        </div>
+    </div>
     <?php
     }
 
 
     if (isset($_GET['tambah_wilayah'])) {
     ?>
-        <div class="col-md-6">
-            <form method="post">
-                <h3>Tambah Wilayah</h3>
-                <table class='table'>
+    <div class="col-md-6">
+        <form method="post">
+            <h3>Tambah Wilayah</h3>
+            <table class='table'>
 
-                    <tr>
-                        <td>Nama Wilayah</td>
-                        <td>
-                            <input name='nama_wilayah' class="form-control"></input>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>Nama Wilayah</td>
+                    <td>
+                        <input name='nama_wilayah' class="form-control"></input>
+                    </td>
+                </tr>
 
-                    <tr>
-                        <td>REGIONAL</td>
-                        <td>
-                            <!-- 	<select name='wilayah' required class="form-control" aria-label="Default select example "id='wilayah'>
+                <tr>
+                    <td>REGIONAL</td>
+                    <td>
+                        <!-- 	<select name='wilayah' required class="form-control" aria-label="Default select example "id='wilayah'>
 								<option value=''> -- Silahkan Pilih Cabang --</option>
 								<?php
                                 $jab = mysqli_query($con, "select * from wilayah ");
@@ -257,22 +259,23 @@
                                 ?>
 							  </select> -->
 
-                        </td>
+                    </td>
 
-                    </tr>
+                </tr>
 
-                    <tr>
-                        <td> </td>
-                        <td>
-                            <input type='submit' name='tambah_wilayah' class="btn btn-success" value='TAMBAH WILAYAH'></input>
-                        </td>
-                    </tr>
+                <tr>
+                    <td> </td>
+                    <td>
+                        <input type='submit' name='tambah_wilayah' class="btn btn-success"
+                            value='TAMBAH WILAYAH'></input>
+                    </td>
+                </tr>
 
-                </table>
+            </table>
 
-            </form>
+        </form>
 
-        </div>
+    </div>
     <?php
     }
 
@@ -344,6 +347,15 @@
             pesan("Cabang Berhasil di Non-Aktifkan", 'success');
         }
     }
+    if (isset($_GET['hapus-center'])) {
+        $idcab = $_GET['idcab'];
+        $q = mysqli_query($con, "delete from center where id_cabang='$idcab'");
+
+
+        if ($q) {
+            pesan("SEMUA CENTER BERHASIL DIHAPUS", 'success');
+        }
+    }
 
     ?>
 
@@ -370,56 +382,67 @@
             $wil = mysqli_query($con, "select * from wilayah");
             while ($wilayah = mysqli_fetch_assoc($wil)) {
             ?>
-                <tr>
+            <tr>
 
-                    <th><?= $no++ ?></th>
-                    <th colspan="1"><?= $wilayah['wilayah'] ?></th>
-                    <th>
-                        <hr>
-                    </th>
-                    <th>
-                        <hr>
-                    </th>
-                    <th>
-                        <hr>
-                    </th>
-                    <th>
-                        <hr>
-                    </th>
+                <th><?= $no++ ?></th>
+                <th colspan="1"><?= $wilayah['wilayah'] ?></th>
+                <th>
+                    <hr>
+                </th>
+                <th>
+                    <hr>
+                </th>
+                <th>
+                    <hr>
+                </th>
+                <th>
+                    <hr>
+                </th>
 
-                </tr>
-                <?php
+            </tr>
+            <?php
                 $q = mysqli_query($con, "select * from cabang  where id_wilayah ='$wilayah[id_wilayah]' order by nama_cabang asc");
                 while ($center = mysqli_fetch_assoc($q)) {
                 ?>
-                    <tr>
-                        <td><?= $no++; ?></td>
-                        <td><?= $wilayah['wilayah'] ?></td>
-                        <td><?= strtoupper($center['nama_cabang']); ?></td>
-                        <td><?= $center['kode_cabang']; ?></td>
-                        <td><?= $center['status_cabang'] == 'aktif' ? $center['status_cabang'] : "Non-Aktif"; ?></td>
+            <tr>
+                <td><?= $no++; ?></td>
+                <td><?= $wilayah['wilayah'] ?></td>
+                <td><?= strtoupper($center['nama_cabang']); ?></td>
+                <td><?= $center['kode_cabang']; ?></td>
+                <td><?= $center['status_cabang'] == 'aktif' ? $center['status_cabang'] : "Non-Aktif"; ?></td>
 
-                        <td>
-                            <a class="btn btn-danger" href="<?= $url . $menu ?>cabang&del&idcab=<?= $center['id_cabang'] ?>" onclick="return window.confirm('Menghapus cabang dapat mempengaruhi SEMUA')"> <i class='fa fa-times'></i> Hapus</a>
-                            <a class="btn btn-warning" href="<?= $url . $menu ?>cabang&edit&idcab=<?= $center['id_cabang'] ?>&kode_cabang=<?= $center['kode_cabang'] ?>&nama_cabang=<?= $center['nama_cabang'] ?>&wilayah=<?= $center['id_wilayah'] ?>&lat=<?= $center['latitude'] ?>&lng=<?= $center['longitude'] ?>&singkatan_cabang=<?= $center['singkatan_cabang'] ?>">
-                                <i class='fa fa-edit'></i> EDIT</a>
-                            <!-- <a class="btn btn-success" href="<?= $url . $menu ?>cabang&backup&idcab=<?= $center['id_cabang'] ?>&kode_cabang=<?= $center['kode_cabang'] ?>&nama_cabang=<?= $center['nama_cabang'] ?>&wilayah=<?= $center['id_wilayah'] ?>&lat=<?= $center['latitude'] ?>&lng=<?= $center['longitude'] ?>&singkatan_cabang=<?= $center['singkatan_cabang'] ?>">
+                <td>
+                    <a class="btn btn-danger" href="<?= $url . $menu ?>cabang&del&idcab=<?= $center['id_cabang'] ?>"
+                        onclick="return window.confirm('Menghapus cabang dapat mempengaruhi SEMUA')"> <i
+                            class='fa fa-times'></i> Hapus</a>
+                    <a class="btn btn-warning"
+                        href="<?= $url . $menu ?>cabang&edit&idcab=<?= $center['id_cabang'] ?>&kode_cabang=<?= $center['kode_cabang'] ?>&nama_cabang=<?= $center['nama_cabang'] ?>&wilayah=<?= $center['id_wilayah'] ?>&lat=<?= $center['latitude'] ?>&lng=<?= $center['longitude'] ?>&singkatan_cabang=<?= $center['singkatan_cabang'] ?>">
+                        <i class='fa fa-edit'></i> EDIT</a>
+                    <!-- <a class="btn btn-success" href="<?= $url . $menu ?>cabang&backup&idcab=<?= $center['id_cabang'] ?>&kode_cabang=<?= $center['kode_cabang'] ?>&nama_cabang=<?= $center['nama_cabang'] ?>&wilayah=<?= $center['id_wilayah'] ?>&lat=<?= $center['latitude'] ?>&lng=<?= $center['longitude'] ?>&singkatan_cabang=<?= $center['singkatan_cabang'] ?>">
 								<i class='fa fa-database'></i> Backup</a> -->
-                            <?php
+                    <?php
                             if ($center['status_cabang'] != 'aktif') {
                             ?>
-                                <a class="btn btn-success" href="<?= $url . $menu ?>cabang&aktifkan&idcab=<?= $center['id_cabang'] ?>" onclick="return window.confirm('Aktifkan Cabang')"> <i class='fa fa-eye'></i> Aktifkan</a>
-                            <?php
+                    <a class="btn btn-success"
+                        href="<?= $url . $menu ?>cabang&aktifkan&idcab=<?= $center['id_cabang'] ?>"
+                        onclick="return window.confirm('Aktifkan Cabang')"> <i class='fa fa-eye'></i> Aktifkan</a>
+                    <?php
                             } else {
                             ?>
-                                <a class="btn btn-primary" href="<?= $url . $menu ?>cabang&matikan&idcab=<?= $center['id_cabang'] ?>" onclick="return window.confirm('Non-Aktifkan Cabang')"> <i class='fa fa-eye-slash'></i>
-                                    Non-Aktif</a>
-                            <?php
+                    <a class="btn btn-primary"
+                        href="<?= $url . $menu ?>cabang&matikan&idcab=<?= $center['id_cabang'] ?>"
+                        onclick="return window.confirm('Non-Aktifkan Cabang')"> <i class='fa fa-eye-slash'></i>
+                        Non-Aktif</a>
+                    <?php
                             }
                             ?>
-                        </td>
-                    </tr>
-                <?php
+                    <a class="btn btn-danger"
+                        onclick="return window.confirm('APAKAH YAKIN AKAN MENGHAPUS SEMUA CENTER DICABANG INI???')"
+                        href="<?= $url . $menu ?>cabang&hapus-center&idcab=<?= $center['id_cabang'] ?>&kode_cabang=<?= $center['kode_cabang'] ?>">
+                        <i class='fa fa-edit'></i> HAPUS SEMUA CTR</a>
+                </td>
+            </tr>
+            <?php
                 }
                 ?>
             <?php
