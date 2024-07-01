@@ -107,7 +107,7 @@ if (isset($_POST['ekse'])) {
                     if ($agt == "AGT" || $agt == "NSB") {
                         $nasabah =  aman($con, ganti_karakter($ws->getCell("D" . $row)->getValue()));
                         $loan = ganti_karakter($ws->getCell("C" . $row)->getValue());
-                        $no_center = ganti_karakter($ws->getCell("F" . $row)->getValue());
+                        $no_center = aman($con, ganti_karakter($ws->getCell("F" . $row)->getValue()));
                         $id_nasabah = aman($con, ganti_karakter1($ws->getCell("B" . $row)->getValue()));
                         $kelompok = ganti_karakter1($ws->getCell("G" . $row)->getValue());
                         $hp = ganti_karakter1($ws->getCell("E" . $row)->getValue());
