@@ -10,9 +10,9 @@ $query = mysqli_query($con, "SELECT * FROM karyawan,jabatan,cabang,wilayah where
 $karyawan = mysqli_fetch_array($query);
 
 if (!$_SESSION['jabatan']) {
-	$_SESSION['jabatan'] = $karyawan['singkatan_jabatan'];
-	$_SESSION['cabang'] = $karyawan['id_cabang'];
-	pindah($url);
+    $_SESSION['jabatan'] = $karyawan['singkatan_jabatan'];
+    $_SESSION['cabang'] = $karyawan['id_cabang'];
+    pindah($url);
 }
 $cek_laporan1 = mysqli_query($con, "select * from laporan where tgl_laporan='$tgl1' and id_karyawan='$id_karyawan' ");
 
@@ -21,7 +21,7 @@ $cek_laporan = mysqli_fetch_array($cek_laporan1);
 ?>
 <?php
 if ($jabatan !== "SL")
-	include("view/statistik.php");
+    include("view/statistik.php");
 ?>
 
 <div class="col-md-4 ">
@@ -32,29 +32,29 @@ if ($jabatan !== "SL")
         <div class="panel-body ">
             <h3 class='page-header'>INFORMASI ! </h3>
             <?php
-			$cari_kuis = mysqli_query($con, "select * from kuis where id_cabang='$id_cabang' and status='aktif' order by id_kuis desc");
-			if (mysqli_num_rows($cari_kuis) > 0) {
-				$kuis = mysqli_fetch_array($cari_kuis);
-				pesan("KUIS AKTIF <br> NAMA KUIS : $kuis[nama_kuis]", "danger");
-				$id_karyawan = base64_encode(base64_encode($id_karyawan));
-				$id_cabang = base64_encode(base64_encode($id_cabang));
-				$id_kuis = base64_encode(base64_encode($kuis['id_kuis']));
-				$link_kuis = $url . "isi_kuis.php?idk=$id_karyawan&cab=$id_cabang&kuis=$id_kuis";
-			?>
+            $cari_kuis = mysqli_query($con, "select * from kuis where id_cabang='$id_cabang' and status='aktif' order by id_kuis desc");
+            if (mysqli_num_rows($cari_kuis) > 0) {
+                $kuis = mysqli_fetch_array($cari_kuis);
+                pesan("KUIS AKTIF <br> NAMA KUIS : $kuis[nama_kuis]", "danger");
+                $id_karyawan = base64_encode(base64_encode($id_karyawan));
+                $id_cabang = base64_encode(base64_encode($id_cabang));
+                $id_kuis = base64_encode(base64_encode($kuis['id_kuis']));
+                $link_kuis = $url . "isi_kuis.php?idk=$id_karyawan&cab=$id_cabang&kuis=$id_kuis";
+            ?>
 
 
             <a href="<?= $link_kuis ?>" class="btn btn-danger">KLIK DISINI UNTUK MEMULAI</a>
             <hr>
             <?php
-			} else {
-			}
-			$id_karyawan = (($id_karyawan));
+            } else {
+            }
+            $id_karyawan = (($id_karyawan));
 
-			$id_cabang = (($id_cabang));
-			$id_karyawan = $_SESSION['id'];
-			$id_cabang = $_SESSION['cabang'];
-			$id_kuis = base64_decode(base64_decode($kuis['id_kuis']));
-			?>
+            $id_cabang = (($id_cabang));
+            $id_karyawan = $_SESSION['id'];
+            $id_cabang = $_SESSION['cabang'];
+            $id_kuis = base64_decode(base64_decode($kuis['id_kuis']));
+            ?>
             <div class="card">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item"><?php echo strtoupper($karyawan['nama_karyawan']) ?> </li>
@@ -69,16 +69,16 @@ if ($jabatan !== "SL")
 
 
             <?php
-			if ($jabatan == 'SL') {
-				$qpin = mysqli_query($con, "SELECT id_karyawan,
+            if ($jabatan == 'SL') {
+                $qpin = mysqli_query($con, "SELECT id_karyawan,
 			SUM(CASE WHEN (DATEDIFF('$tgl1', tgl_cair)) >=0 AND (DATEDIFF('$tgl1', tgl_cair)) <=2 THEN 1 ELSE 0 END) AS tiga,
 			SUM(CASE WHEN (DATEDIFF('$tgl1', tgl_cair)) >2 AND (DATEDIFF('$tgl1', tgl_cair)) <=14 THEN 1 ELSE 0 END) AS normal,
 			SUM(CASE WHEN (DATEDIFF('$tgl1', tgl_cair)) >14  THEN 1 ELSE 0 END) AS kurang_normal,
 			COUNT(*) as total
 				 FROM pinjaman WHERE monitoring='belum' and id_karyawan='$id_karyawan' and input_mtr='sudah' GROUP BY id_karyawan ");
-				$mon = mysqli_fetch_array($qpin);
-				$mon1 = $mon['total'];
-			?>
+                $mon = mysqli_fetch_array($qpin);
+                $mon1 = $mon['total'];
+            ?>
             <h3 class='page-header'>MONITORING !
                 <hr />
             </h3>
@@ -89,14 +89,14 @@ if ($jabatan !== "SL")
                 <h3><a href='<?= $url . $menu ?>list-monitoring'>Total Monitoring : <?= $mon1 ?></a> </h3>
             </div>
             <?php
-			}
+            }
 
 
 
 
-			//STATISTIK
-			if ($jabatan != 'SL') {
-			?>
+            //STATISTIK
+            if ($jabatan != 'SL') {
+            ?>
             <h3 class='page-header'>STATUS CENTER
                 <hr />
             </h3>
@@ -131,16 +131,16 @@ if ($jabatan !== "SL")
 
             </div>
             <?php
-				$qpin = mysqli_query($con, "SELECT id_karyawan,
+                $qpin = mysqli_query($con, "SELECT id_karyawan,
 			SUM(CASE WHEN (DATEDIFF('$tgl1', tgl_cair)) >=0 AND (DATEDIFF('$tgl1', tgl_cair)) <=2 THEN 1 ELSE 0 END) AS tiga_hari,
 			SUM(CASE WHEN (DATEDIFF('$tgl1', tgl_cair)) >2 AND (DATEDIFF('$tgl1', tgl_cair)) <=14 THEN 1 ELSE 0 END) AS normal,
 			SUM(CASE WHEN (DATEDIFF('$tgl1', tgl_cair)) >14  THEN 1 ELSE 0 END) AS kurang_normal,
 			COUNT(*) as total
 				 FROM pinjaman WHERE monitoring='belum' and id_cabang='$id_cabang' and input_mtr='sudah' GROUP BY id_cabang ");
-				$mon = mysqli_fetch_array($qpin);
-				$mon1 = $mon['total'];
+                $mon = mysqli_fetch_array($qpin);
+                $mon1 = $mon['total'];
 
-				?>
+                ?>
             <div class="card">
                 <h4> KELUHAN MONITORING : <?= $hitung_banding ?> </h4>
                 <h4> Monitoring 0 - 3 hari : <?= $mon['tiga_hari'] ?> </h4>
@@ -149,8 +149,8 @@ if ($jabatan !== "SL")
                 <h3><a href='<?= $url . $menu ?>monitoring'>Total Monitoring : <?= $mon1 ?></a> </h3>
             </div>
             <?php
-			}
-			?>
+            }
+            ?>
 
         </div>
 
@@ -166,15 +166,15 @@ if ($jabatan !== "SL")
     <div class="panel panel-default  ">
         <?php
 
-		if ($jabatan == 'SL') {
-			//ADA DI VIEW/MENU.PHP
-			if ($cekJam['belum'] > 0) {
-				include "proses/konfirmasi_center.php";
-			} else {
-				include "index-sl.php";
-			}
-		} else if ($jabatan == 'BM' || $jabatan == 'ASM' || $jabatan == 'MIS') {
-		?>
+        if ($jabatan == 'SL') {
+            //ADA DI VIEW/MENU.PHP
+            if ($cekJam['belum'] > 0) {
+                include "proses/konfirmasi_center.php";
+            } else {
+                include "index-sl.php";
+            }
+        } else if ($jabatan == 'BM' || $jabatan == 'ASM' || $jabatan == 'MIS') {
+        ?>
         <h2 class="page-header">
             <?php echo format_hari_tanggal(date("Y-m-d")) . ""; ?>
         </h2>
@@ -207,31 +207,32 @@ if ($jabatan !== "SL")
                 </tr>
                 <?php
 
-					$cek_ka = mysqli_query($con, "SELECT distinct k.nama_karyawan, k.id_karyawan from center c join karyawan k on k.id_karyawan=c.id_karyawan where c.id_cabang='$id_cabang' and c.hari='$hari' order by k.nama_karyawan asc");
-					$hitung_member = 0;
-					$hitung_agt = 0;
-					$hitung_bayar = 0;
-					$hitung_tdk_bayar = 0;
-					$hitung_center = 0;
-					$hitung_chg = 0;
-					while ($tampil = mysqli_fetch_array($cek_ka)) {
-						$cek_l1 = mysqli_query($con, "select * from laporan where id_karyawan='$tampil[id_karyawan]' and tgl_laporan='$tgl1'");
+                    $cek_ka = mysqli_query($con, "SELECT distinct k.nama_karyawan, k.id_karyawan from center c join karyawan k on k.id_karyawan=c.id_karyawan where c.id_cabang='$id_cabang' and c.hari='$hari' order by k.nama_karyawan asc");
+                    $hitung_member = 0;
+                    $hitung_agt = 0;
+                    $hitung_bayar = 0;
+                    $hitung_tdk_bayar = 0;
+                    $hitung_center = 0;
+                    $hitung_chg = 0;
 
-						$cek_l = mysqli_query($con, "SELECT sum(detail_laporan.total_agt)as anggota, sum(detail_laporan.member)as member, sum(detail_laporan.total_bayar)as bayar,sum(detail_laporan.total_tidak_bayar)as tidak_bayar,count(no_center) as hitung_center, laporan.* FROM laporan,detail_laporan where laporan.id_laporan=detail_laporan.id_laporan and laporan.tgl_laporan='$tgl1' and laporan.id_karyawan='$tampil[id_karyawan]'");
+                    while ($tampil = mysqli_fetch_array($cek_ka)) {
+                        $cek_l1 = mysqli_query($con, "select * from laporan where id_karyawan='$tampil[id_karyawan]' and tgl_laporan='$tgl1'");
 
-						// echo "SELECT sum(detail_laporan.total_agt)as anggota, sum(detail_laporan.total_bayar)as bayar,sum(detail_laporan.total_tidak_bayar)as tidak_bayar,count(no_center) as hitung_center, laporan.* FROM laporan,detail_laporan where laporan.id_laporan=detail_laporan.id_laporan and laporan.tgl_laporan='$tgl1' and laporan.id_karyawan='$tampil[id_karyawan]'";
-						if (mysqli_num_rows($cek_l)) {
-							$tampil_lapor = mysqli_fetch_array($cek_l);
-							if ($tampil_lapor['anggota'] != NULL) {
-								$hitung_member = $hitung_member + $tampil_lapor['member'];
-								$hitung_agt = $hitung_agt + $tampil_lapor['anggota'];
-								$hitung_bayar = $hitung_bayar + $tampil_lapor['bayar'];
+                        $cek_l = mysqli_query($con, "SELECT sum(detail_laporan.total_agt)as anggota, sum(detail_laporan.member)as member, sum(detail_laporan.total_bayar)as bayar,sum(detail_laporan.total_tidak_bayar)as tidak_bayar,count(no_center) as hitung_center, laporan.* FROM laporan,detail_laporan where laporan.id_laporan=detail_laporan.id_laporan and laporan.tgl_laporan='$tgl1' and laporan.id_karyawan='$tampil[id_karyawan]'");
+                        echo mysqli_error($con);
+                        // echo "SELECT sum(detail_laporan.total_agt)as anggota, sum(detail_laporan.total_bayar)as bayar,sum(detail_laporan.total_tidak_bayar)as tidak_bayar,count(no_center) as hitung_center, laporan.* FROM laporan,detail_laporan where laporan.id_laporan=detail_laporan.id_laporan and laporan.tgl_laporan='$tgl1' and laporan.id_karyawan='$tampil[id_karyawan]'";
+                        if (mysqli_num_rows($cek_l) > 0) {
+                            $tampil_lapor = mysqli_fetch_array($cek_l);
+                            if ($tampil_lapor['anggota'] != NULL) {
+                                $hitung_member = $hitung_member + $tampil_lapor['member'];
+                                $hitung_agt = $hitung_agt + $tampil_lapor['anggota'];
+                                $hitung_bayar = $hitung_bayar + $tampil_lapor['bayar'];
 
-								$hitung_center = $hitung_center + $tampil_lapor['hitung_center'];
+                                $hitung_center = $hitung_center + $tampil_lapor['hitung_center'];
 
 
 
-								$qchg = mysqli_query($con, "SELECT SUM(detail_laporan.`total_bayar`) AS bayar,
+                                $qchg = mysqli_query($con, "SELECT SUM(detail_laporan.`total_bayar`) AS bayar,
 						SUM(detail_laporan.`total_tidak_bayar`) AS tidak_bayar,
 						(SUM(detail_laporan.`total_bayar`)/SUM(detail_laporan.`total_agt`) *100) AS persen
 						 FROM laporan JOIN detail_laporan ON laporan.`id_laporan`=detail_laporan.`id_laporan` 
@@ -240,17 +241,17 @@ if ($jabatan !== "SL")
 						 GROUP BY laporan.`id_karyawan`
 						 
 						");
-								$persen = round(($tampil_lapor['bayar'] / $tampil_lapor['anggota'] * 100), 2);
-								$chg = mysqli_fetch_array($qchg);
-								$chg = round($chg['persen'], 2);
-								$rubah = $persen - $chg;
-								$hitung_chg = $rubah + $hitung_chg;
-								if ($rubah > 0) {
-									$warna_chg = "#52eb34";
-								} else {
-									$warna_chg = "#e4544d";
-								}
-					?>
+                                $persen = round(($tampil_lapor['bayar'] / $tampil_lapor['anggota'] * 100), 2);
+                                $chg = mysqli_fetch_array($qchg);
+                                $chg = round($chg['persen'], 2);
+                                $rubah = $persen - $chg;
+                                $hitung_chg = $rubah + $hitung_chg;
+                                if ($rubah > 0) {
+                                    $warna_chg = "#52eb34";
+                                } else {
+                                    $warna_chg = "#e4544d";
+                                }
+                    ?>
                 <tr>
                     <td><?php echo $no++ ?>.</td>
 
@@ -271,11 +272,11 @@ if ($jabatan !== "SL")
 
                 </tr>
                 <?php
-								$hitung_tdk_bayar = $hitung_tdk_bayar + $tidak_bayar;
-							} else {
-								if (mysqli_num_rows($cek_l1)) {
-									$tampil_lapor1 = mysqli_fetch_array($cek_l1);
-								?>
+                                $hitung_tdk_bayar = $hitung_tdk_bayar + $tidak_bayar;
+                            } else {
+                                if (mysqli_num_rows($cek_l1)) {
+                                    $tampil_lapor1 = mysqli_fetch_array($cek_l1);
+                                ?>
                 <tr>
 
                     <td><?php echo $no++ ?>.</td>
@@ -293,9 +294,9 @@ if ($jabatan !== "SL")
                     <td><small><i><?php echo $tampil_lapor1['status_laporan'] ?></i></small></td>
                 </tr>
                 <?php
-								} else {
+                                } else {
 
-								?>
+                                ?>
                 <tr>
                     <td><?php echo $no++ ?>.</td>
 
@@ -304,23 +305,23 @@ if ($jabatan !== "SL")
 
                 </tr>
                 <?php
-								}
-							}
-						} else {
+                                }
+                            }
+                        } else {
 
-							?>
+                            ?>
                 <tr>
                     <td colspan=5>Belum bikin laporan </td>
                 </tr>
                 <?php
-						}
-						?>
+                        }
+                        ?>
 
                 <?php
 
-					}
+                    }
 
-					$total__cgh = mysqli_query($con, "SELECT SUM(detail_laporan.`total_bayar`) AS bayar,
+                    $total__cgh = mysqli_query($con, "SELECT SUM(detail_laporan.`total_bayar`) AS bayar,
 						SUM(detail_laporan.`total_tidak_bayar`) AS tidak_bayar,
 						(SUM(detail_laporan.`total_bayar`)/SUM(detail_laporan.`total_agt`) *100) AS persen
 						 FROM laporan JOIN detail_laporan ON laporan.`id_laporan`=detail_laporan.`id_laporan` 
@@ -329,15 +330,15 @@ if ($jabatan !== "SL")
 						 GROUP BY laporan.`id_karyawan`
 						 
 						");
-					$total_chg_persen = mysqli_fetch_array($total__cgh);
-					$persen = round(($hitung_bayar / $hitung_agt) * 100, 2);
-					$hitung_chg = $total_chg_persen['persen'] - $persen;
-					if ($hitung_chg > 0) {
-						$warna_chg = "#52eb34";
-					} else {
-						$warna_chg = "#e4544d";
-					}
-					?>
+                    $total_chg_persen = mysqli_fetch_array($total__cgh);
+                    $persen = round(($hitung_bayar / $hitung_agt) * 100, 2);
+                    $hitung_chg = $total_chg_persen['persen'] - $persen;
+                    if ($hitung_chg > 0) {
+                        $warna_chg = "#52eb34";
+                    } else {
+                        $warna_chg = "#e4544d";
+                    }
+                    ?>
                 <tr>
                     <th colspan=2>Total</th>
                     <th><?php echo $hitung_center ?></th>
@@ -352,9 +353,9 @@ if ($jabatan !== "SL")
         </div>
         <?php
 
-		}
-		if ($jabatan == 'ADM') {
-		?>
+        }
+        if ($jabatan == 'ADM') {
+        ?>
         <h2 class='page-header' style='text-align:center'>SISA MONITORING
             <hr />
         </h2>
@@ -369,29 +370,29 @@ if ($jabatan !== "SL")
                 <td></td>
             </tr>
             <?php
-				$total_monitoring = 0;
-				$cek_ka = mysqli_query($con, "SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_cabang='$cabang' and jabatan.singkatan_jabatan='SL' and karyawan.status_karyawan='aktif' order by karyawan.nama_karyawan asc");
-				while ($karyawan = mysqli_fetch_array($cek_ka)) {
-				?>
+                $total_monitoring = 0;
+                $cek_ka = mysqli_query($con, "SELECT * FROM karyawan,jabatan,cabang where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and karyawan.id_cabang='$cabang' and jabatan.singkatan_jabatan='SL' and karyawan.status_karyawan='aktif' order by karyawan.nama_karyawan asc");
+                while ($karyawan = mysqli_fetch_array($cek_ka)) {
+                ?>
             <tr>
                 <td><?= $no++ ?></td>
                 <td><?= $karyawan['nik_karyawan'] ?></td>
                 <td><?= $karyawan['nama_karyawan'] ?></td>
                 <td>
                     <?php
-							$q = mysqli_query($con, "select count(id_detail_nasabah) as total from pinjaman where monitoring='belum' and id_karyawan='$karyawan[id_karyawan]' and id_cabang='$id_cabang' and input_mtr='sudah'");
-							$total = mysqli_fetch_array($q);
-							$total = $total['total'];
-							$total_monitoring = $total + $total_monitoring;
-							echo $total;
-							?>
+                            $q = mysqli_query($con, "select count(id_detail_nasabah) as total from pinjaman where monitoring='belum' and id_karyawan='$karyawan[id_karyawan]' and id_cabang='$id_cabang' and input_mtr='sudah'");
+                            $total = mysqli_fetch_array($q);
+                            $total = $total['total'];
+                            $total_monitoring = $total + $total_monitoring;
+                            echo $total;
+                            ?>
 
                 </td>
                 <td><a href="<?= $url . $menu ?>monitoring&id=<?= $karyawan['id_karyawan'] ?>"> Detail</a> </td>
             </tr>
             <?php
-				}
-				?>
+                }
+                ?>
             <tr>
                 <td colspan="3"></td>
                 <td><?= $total_monitoring ?></td>
@@ -399,9 +400,9 @@ if ($jabatan !== "SL")
         </table>
         <?php
 
-		}
+        }
 
-		?>
+        ?>
 
 
 
