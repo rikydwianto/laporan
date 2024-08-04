@@ -147,6 +147,7 @@ if ($jabatan !== "SL")
                 <h4> Monitoring 4 - 14 hari : <?= $mon['normal'] ?> </h4>
                 <h4> lebih 14 hari : <?= $mon['kurang_normal'] ?> </h4>
                 <h3><a href='<?= $url . $menu ?>monitoring'>Total Monitoring : <?= $mon1 ?></a> </h3>
+                <a href="<?=$url.$menu?>laporan_dtc" class="btn btn-danger">Laporan DTC</a>
             </div>
             <?php
             }
@@ -396,6 +397,7 @@ if ($jabatan !== "SL")
             <tr>
                 <td colspan="3"></td>
                 <td><?= $total_monitoring ?></td>
+               
             </tr>
         </table>
         <?php
