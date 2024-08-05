@@ -490,3 +490,10 @@ function send_notif($to, $title, $isi, $id_karyawan, $tipe = "")
   // Tutup HTTP request
   curl_close($ch);
 }
+
+function getCabang($id_cabang){
+  global $con;
+  $q = mysqli_query($con,"SELECT * from cabang where id_cabang='$id_cabang'");
+  return mysqli_fetch_assoc($q);
+
+}
