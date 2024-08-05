@@ -331,7 +331,7 @@ if ($jabatan !== "SL")
 						 
 						");
                     $total_chg_persen = mysqli_fetch_array($total__cgh);
-                    $persen = round(($hitung_bayar / $hitung_agt) * 100, 2);
+                    @$persen = round(($hitung_bayar / $hitung_agt) * 100, 2);
                     $hitung_chg = $total_chg_persen['persen'] - $persen;
                     if ($hitung_chg > 0) {
                         $warna_chg = "#52eb34";
