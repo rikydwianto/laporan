@@ -46,6 +46,7 @@ $d = detail_karyawan($con, $id_karyawan); ?>
                     </div>
                     <div class="card-footer text-muted">
                         <a href="#">Hubungi Administrator</a>
+                        <a href="<?= $url . "auth.php" ?>">Login Ulang</a>
                     </div>
                 </div>
             </div>
