@@ -19,51 +19,68 @@
 
         <div class="table-responsive">
 
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>NO</th>
-                        <th>CABANG</th>
-                        <th>NIK</th>
-                        <th>NAMA</th>
-                        <th>TGL TRANSAKSI</th>
-                        <th>DETAIL</th>
-                        <th>SINGKRON</th>
-                        <th>#</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
+            <form action="" method="post">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>NO</th>
+                            <th>CABANG</th>
+                            <th>NIK</th>
+                            <th>NAMA</th>
+                            <th>TGL TRANSAKSI</th>
+                            <th>DETAIL</th>
+                            <th>SINGKRON</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
 
-                        $cab  = getCabang($id_cabang);
-                        $nama_cabang = strtoupper($cab['nama_cabang']);
-                        $q_cek  = mysqli_query($con, "SELECT * from temp_laporan_dtc where cabang='$nama_cabang' and tanggal='$tgl'");
-                        if (mysqli_num_rows($q_cek)) {
-                            while ($r = mysqli_fetch_assoc($q_cek)) {
-                        ?>
-                    <tr>
-                        <td><?= $no++ ?></td>
-                        <td><?= $r['cabang'] ?></td>
-                        <td><?= $r['nik'] ?></td>
-                        <td><?= $r['nama_staff'] ?></td>
-                        <td><?= $r['tanggal'] ?></td>
-                        <td></td>
-                        <td><?= $r['singkron_laporan'] ?></td>
-                        <td>#</td>
-                    </tr>
-                    <?php
-                            }
-                        } else {
+                            $cab  = getCabang($id_cabang);
+                            $nama_cabang = strtoupper($cab['nama_cabang']);
+                            $q_cek  = mysqli_query($con, "SELECT * from temp_laporan_dtc where cabang='$nama_cabang' and tanggal='$tgl'");
+                            if (mysqli_num_rows($q_cek)) {
+                                while ($r = mysqli_fetch_assoc($q_cek)) {
                             ?>
-                    <tr>
-                        <td colspan="8" align="center">Tidak ada Data!</td>
-                    </tr>
-                    <?php
-                        }
-                        ?>
-                </tbody>
+                        <tr>
+                            <td><?= $no++ ?></td>
+                            <td><?= $r['cabang'] ?></td>
+                            <td><?= $r['nik'] ?></td>
+                            <td><?= $r['nama_staff'] ?></td>
+                            <td><?= $r['tanggal'] ?></td>
+                            <td>
 
-            </table>
+
+                            </td>
+                            <td><?= $r['singkron_laporan'] ?></td>
+                            <td>#</td>
+                        </tr>
+
+                        <?php
+                                    $json = json_decode($r['json_laporan'], true);
+                                    foreach ($json as $data) {
+                                    ?>
+                        <tr>
+                            <th>Center : </th>
+                            <td colspan="7"></td>
+                        </tr>
+                        <?php
+                                    }
+                                    ?>
+                        <?php
+                                }
+                            } else {
+                                ?>
+                        <tr>
+                            <td colspan="8" align="center">Tidak ada Data!</td>
+                        </tr>
+                        <?php
+                            }
+                            ?>
+                    </tbody>
+
+                </table>
+            </form>
         </div>
         <?php
         }
