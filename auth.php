@@ -85,10 +85,10 @@ require_once("model/model.php");
                                     pesan("USER/NIK TIDAK DITEMUKAN", 'danger');
                                     $text = "Percobaan login @user $user tidak ditemukan";
                                 }
+                                $url = "https://api.telegram.org/$token/sendMessage?parse_mode=html&chat_id=1185334687&text=$text&reply_message_id=214&force_reply=true";
+                                file_get_contents($url);
                             }
 
-                            $url = "https://api.telegram.org/$token/sendMessage?parse_mode=html&chat_id=1185334687&text=$text&reply_message_id=214&force_reply=true";
-                            file_get_contents($url);
                             ?>
                             <fieldset>
                                 <div class="form-group">

@@ -35,10 +35,23 @@ if ($username == "" && $password == "") {
                 if ($cek['status_karyawan'] == 'aktif') {
                     if ($cek['password'] == $pass) {
                         $d = detail_karyawan($con, $cek['id_karyawan']);
-                        $text = "Login Berhasil sebagai : $cek[nama_karyawan] cabang : $d[nama_cabang]";
-                        mysqli_query($con, "update karyawan set token_fcm='$token_fcm' where id_karyawan='$d[id_karyawan]'");
-                        $data = array("id" => $d['id_karyawan'], 'idc' => $d['id_cabang'], 'jabatan' => $d['singkatan_jabatan']);
-                        $kode = '202';
+                        $status_cabang = $d['status_cabang'];
+                        $su = $d['super_user'];
+                        if ($su != 'y') {
+                            if ($status_cabang == 'nonaktif') {
+                                $text = "$d[nama_cabang] dilock!";
+                            } else {
+                                $text = "Login Berhasil sebagai : $cek[nama_karyawan] cabang : $d[nama_cabang]";
+                                mysqli_query($con, "update karyawan set token_fcm='$token_fcm' where id_karyawan='$d[id_karyawan]'");
+                                $data = array("id" => $d['id_karyawan'], 'idc' => $d['id_cabang'], 'jabatan' => $d['singkatan_jabatan']);
+                                $kode = '202';
+                            }
+                        } else {
+                            $text = "Login Berhasil sebagai : $cek[nama_karyawan] cabang : $d[nama_cabang]";
+                            mysqli_query($con, "update karyawan set token_fcm='$token_fcm' where id_karyawan='$d[id_karyawan]'");
+                            $data = array("id" => $d['id_karyawan'], 'idc' => $d['id_cabang'], 'jabatan' => $d['singkatan_jabatan']);
+                            $kode = '202';
+                        }
                     } else {
                         $text = "Password yang anda masukan tidak sesuai";
                     }
