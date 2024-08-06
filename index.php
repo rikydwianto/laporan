@@ -21,9 +21,13 @@ $kode_cabang = $_SESSION['kode_cabang'];
 $singkatan_cabang = $d['singkatan_cabang'];
 $status_cabang = $d['status_cabang'];
 // pindah("maintanance.php");
-if ($status_cabang == 'nonaktif') {
-    pindah("lock.php");
+if ($su != 'y') {
+    if ($status_cabang == 'nonaktif') {
+        pindah("lock.php");
+    }
 }
+
+// echo $su;
 ?>
 <!DOCTYPE html>
 <html lang="en">
