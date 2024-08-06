@@ -147,7 +147,7 @@ if ($jabatan !== "SL")
                 <h4> Monitoring 4 - 14 hari : <?= $mon['normal'] ?> </h4>
                 <h4> lebih 14 hari : <?= $mon['kurang_normal'] ?> </h4>
                 <h3><a href='<?= $url . $menu ?>monitoring'>Total Monitoring : <?= $mon1 ?></a> </h3>
-                <a href="<?=$url.$menu?>laporan_dtc" class="btn btn-danger">Laporan DTC</a>
+                <a href="<?= $url . $menu ?>laporan_dtc" class="btn btn-danger">Laporan DTC</a>
             </div>
             <?php
             }
@@ -174,7 +174,7 @@ if ($jabatan !== "SL")
             } else {
                 include "index-sl.php";
             }
-        } else if ($jabatan == 'BM' || $jabatan == 'ASM' || $jabatan == 'MIS') {
+        } else if ($jabatan == 'BM' || $jabatan == 'ASM' || $jabatan == 'MIS' || $su == 'y') {
         ?>
         <h2 class="page-header">
             <?php echo format_hari_tanggal(date("Y-m-d")) . ""; ?>
@@ -351,6 +351,7 @@ if ($jabatan !== "SL")
                     <th style="color:<?= $warna_chg ?>"><?php echo round($hitung_chg, 2) ?></th>
                 </tr>
             </table>
+
         </div>
         <?php
 
@@ -397,7 +398,7 @@ if ($jabatan !== "SL")
             <tr>
                 <td colspan="3"></td>
                 <td><?= $total_monitoring ?></td>
-               
+
             </tr>
         </table>
         <?php
