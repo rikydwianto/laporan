@@ -69,6 +69,12 @@
     <?php
     $no = 1;
     if (isset($_POST['preview'])) {
+        require_once 'vendor/autoload.php';
+
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+
     ?>
     <table class='table'>
         <tr>
@@ -87,7 +93,9 @@
             $file = $_FILES['file']['tmp_name'];
             $path = $file;
             $tgl = $_POST['tgl'];
-            $reader = PHPExcel_IOFactory::createReaderForFile($path);
+            // $reader = PHPExcel_IOFactory::createReaderForFile($path);
+            $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile($path);
+
             $objek = $reader->load($path);
             $ws = $objek->getActiveSheet();
             $last_row = $ws->getHighestDataRow();
@@ -153,6 +161,7 @@
             ?>
     </table>
     <?php
+
     }
     $sepat = $_GET['tipe'];
     if (isset($_GET['bandingkan'])) {

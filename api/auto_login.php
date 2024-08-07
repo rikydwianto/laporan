@@ -32,7 +32,6 @@ if ($id == "") {
                     $_SESSION['cabang'] = $cek['id_cabang'];
                     $_SESSION['su'] = $cek['super_user'];
                     $_SESSION['informasi'] = 1;
-                    pesan("BERHASIL LOGIN", 'success');
                     $menu_asal = $_GET['url'];
                     $menu_asal1 = explode("=", $menu_asal)[1];
                     // echo $menu_asal;
