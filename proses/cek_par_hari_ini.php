@@ -20,7 +20,7 @@
                     <select class="form-control" id="delinSelect" name="tgl_delin">
                         <option value="" selected>Pilih Delin</option>
                         <?php
-                            $q_delin = mysqli_query($con, "SELECT DISTINCT tgl_input FROM deliquency where id_cabang='$id_cabang'");
+                            $q_delin = mysqli_query($con, "SELECT DISTINCT tgl_input FROM deliquency where id_cabang='$id_cabang' order by tgl_input desc");
                             while ($tgl_delin = mysqli_fetch_assoc($q_delin)) {
                             ?>
                         <option value="<?= $tgl_delin['tgl_input'] ?>"><?= $tgl_delin['tgl_input'] ?></option>
@@ -36,7 +36,7 @@
                     <select class="form-control" id="fileSelect" name="tgl_bayar">
                         <option value="" selected>Temp Bayar</option>
                         <?php
-                            $q_delin = mysqli_query($con, "SELECT DISTINCT tgl_bayar FROM temp_bayar where id_cabang='$id_cabang'");
+                            $q_delin = mysqli_query($con, "SELECT DISTINCT tgl_bayar FROM temp_bayar where id_cabang='$id_cabang' order by tgl_bayar desc");
                             while ($tgl_bayar = mysqli_fetch_assoc($q_delin)) {
                             ?>
                         <option value="<?= $tgl_bayar['tgl_bayar'] ?>"><?= $tgl_bayar['tgl_bayar'] ?></option>
