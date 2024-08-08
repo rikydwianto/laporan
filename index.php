@@ -5,6 +5,7 @@ require_once "config/seting.php";
 require_once "config/koneksi.php";
 require_once("proses/fungsi.php");
 require_once("model/model.php");
+require_once 'vendor/autoload.php';
 require("vendor/PHPExcel/Classes/PHPExcel.php");
 $id_karyawan = $_SESSION['id'];
 // $url="http://192.168.100.6/laporan/";
