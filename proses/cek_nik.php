@@ -1,15 +1,19 @@
+<?php
+if ($su == 'y') {
+?>
+
 <div class='content table-responsive'>
     <h2 class='page-header'>CARI NASABAH / MANTAN NASABAH </h2>
     <i>DAFTAR NASABAH/MANTAN NASABAH </i>
     <hr />
-    <br/>
-    <br/>
-    <br/>
+    <br />
+    <br />
+    <br />
     <div class="col-lg-4">
 
         <!-- <form method="post"  enctype="multipart/form-data"> -->
-            <div class="input-group">
-               
+        <div class="input-group">
+
             <span class="input-group-text">CARI BERDASARKAN NIK, NAMA, SUAMI, ID NASABAH</span>
             <select name="" id="kategori" class='btn btn-info'>
                 <option value="aktif">NASABAH AKTIF</option>
@@ -26,7 +30,7 @@
 
             </select>
             <input type="text" id='cari' aria-label="First name" class="form-control">
-            </div>
+        </div>
 
         <!-- </form> -->
     </div>
@@ -36,23 +40,42 @@
         </div>
     </div>
 
-    
+
 </div>
 <script>
-    var url = "<?= $url ?>";
-    var cabang = "<?= $id_cabang ?>";
-    $(document).ready(function(){
-        $("#cari").on('keyup',function(event){
-            event.preventDefault();
-            let cari = $(this).val();
-            let kategori = $("#kategori").val();
-            let berdasarkan = $("#berdasarkan").val();
-            let berdasarkan_hasil = $("#berdasarkan").find('option').filter(':selected').text();
-            // alert(berdasarkan_hasil);
-            $.get(url + "api/cek_nik.php?cari=" + cari + "&id="+cabang+"&kategori=" + kategori+"&berdasarkan=" + berdasarkan +"&berdasarkan_hasil=" + berdasarkan_hasil , function(data, status) {
+var url = "<?= $url ?>";
+var cabang = "<?= $id_cabang ?>";
+$(document).ready(function() {
+    $("#cari").on('keyup', function(event) {
+        event.preventDefault();
+        let cari = $(this).val();
+        let kategori = $("#kategori").val();
+        let berdasarkan = $("#berdasarkan").val();
+        let berdasarkan_hasil = $("#berdasarkan").find('option').filter(':selected').text();
+        // alert(berdasarkan_hasil);
+        $.get(url + "api/cek_nik.php?cari=" + cari + "&id=" + cabang + "&kategori=" + kategori +
+            "&berdasarkan=" + berdasarkan + "&berdasarkan_hasil=" + berdasarkan_hasil,
+            function(data, status) {
                 $("#hasil").html(data);
 
             });
-        });
     });
+});
 </script>
+<?php
+} else {
+?>
+<div class='content table-responsive'>
+    <h2 class='page-header'>SILAHKAN GUNAKAN APK ANDROID UNTUK MENCARI NASABAH </h2>
+    <i>DAFTAR NASABAH/MANTAN NASABAH </i>
+    <hr />
+    <br />
+    <br />
+    <br />
+    <div class="col-lg-4">
+    </div>
+
+</div>
+<?php
+}
+?>
