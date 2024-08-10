@@ -7,7 +7,7 @@ $(document).ready(function () {
   myChart = new Chart(ctx, {
     type: "pie",
     data: {
-      labels: ["3-4 Hari", "0-3 Hari", "Lebih dari 14 hari"],
+      labels: ["3-44 Hari", "0-3 Hari", "Lebih dari 14 hari"],
       datasets: [
         {
           label: "Monitoring",
