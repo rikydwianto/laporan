@@ -16,6 +16,10 @@ $jabatan = $_SESSION['jabatan'];
 $cabang = $_SESSION['cabang'];
 $id_cabang = $_SESSION['cabang'];
 $d = detail_karyawan($con, $id_karyawan);
+if ($d['singkatan_jabata'] == 'SL') {
+  echo "Kamu tidak bisa akses ini ";
+  exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,100 +46,7 @@ $d = detail_karyawan($con, $id_karyawan);
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.3/css/dataTables.dataTables.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.3/css/dataTables.bootstrap.css" />
     <style>
-    .navbar-sticky {
-        position: -webkit-sticky;
-        /* Untuk Safari */
-        position: fixed;
-        top: 0;
-        z-index: 1000;
-        /* Pastikan navbar di atas konten lain */
-    }
 
-    .floating-btn {
-        position: fixed;
-        /* Membuat tombol tetap berada di tempat yang ditentukan */
-        bottom: 20px;
-        /* Jarak dari bawah layar */
-        right: 20px;
-        /* Jarak dari kanan layar */
-        z-index: 1000;
-        /* Menjaga tombol tetap di atas konten lain */
-        border-radius: 50%;
-        /* Membuat tombol bulat */
-        width: 60px;
-        /* Lebar tombol */
-        height: 60px;
-        /* Tinggi tombol */
-        display: flex;
-        /* Menyusun konten di dalam tombol */
-        justify-content: center;
-        /* Memusatkan konten secara horizontal */
-        align-items: center;
-        /* Memusatkan konten secara vertikal */
-        background-color: #007bff;
-        /* Warna latar belakang tombol */
-        color: #fff;
-        /* Warna teks */
-        border: none;
-        /* Menghilangkan border default */
-        font-size: 24px;
-        /* Ukuran font */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        /* Bayangan tombol */
-        cursor: pointer;
-        /* Mengubah kursor saat hover */
-        transition: background-color 0.3s;
-        /* Efek transisi untuk perubahan warna */
-    }
-
-    .floating-btn:hover {
-        background-color: #0056b3;
-        /* Warna latar belakang saat hover */
-    }
-
-    .offcanvas-body {
-        padding: 1rem;
-    }
-
-    .menu-item {
-        display: flex;
-        align-items: center;
-        padding: 1rem;
-        margin-bottom: 1rem;
-        border: 1px solid #ddd;
-        /* border-radius: 8px; */
-        /* Rounded corners for boxes */
-        background-color: #fff;
-        /* Light background color */
-        cursor: pointer;
-        transition: background-color 0.2s, box-shadow 0.2s;
-    }
-
-    .menu-item:hover {
-        background-color: #e9ecef;
-        /* Slightly darker background on hover */
-        /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
-        /* Add shadow on hover */
-    }
-
-    .menu-item .icon {
-        font-size: 1.5rem;
-        margin-right: 1rem;
-        color: #007bff;
-    }
-
-    .menu-item .text {
-        font-size: 1rem;
-    }
-
-    .offcanvas-header {
-        border-bottom: 1px solid #ddd;
-    }
-
-    .offcanvas-bottom.custom-height {
-        height: 50vh;
-        /* Tinggi 80% dari viewport height */
-    }
     </style>
 </head>
 

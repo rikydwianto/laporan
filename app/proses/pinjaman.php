@@ -24,7 +24,7 @@ where p.id_cabang='$id_cabang' and p.monitoring ='belum' $q_staff  and input_mtr
                             <tr>
                                 <th>NO</th>
                                 <th>Staff</th>
-                                <th>Center</th>
+                                <th>CTR</th>
                                 <th>Anggota</th>
                                 <th>Loan no</th>
                             </tr>

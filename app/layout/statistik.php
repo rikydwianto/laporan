@@ -20,6 +20,7 @@ $update_pinjaman_akhir = mysqli_fetch_assoc(mysqli_query($con, $q_update_terakhi
 <input type="hidden" id="normal" value="<?= $mon['normal'] ?>">
 <input type="hidden" id="kurang_normal" value="<?= $mon['kurang_normal'] ?>">
 <div class="row">
+    <h4>Haii, <?= $d['nama_karyawan'] ?>, Apa kabar hari ini? </h4>
     <div class="col-lg-6 col-md-6 col-sm-6" id='staff'>
         <a href="index.php?menu=staff">
             <div class="card card-stats">
