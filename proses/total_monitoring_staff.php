@@ -61,7 +61,7 @@ untuk mengisi anggota silahkan pilih menu "NASABAH STAFF" diatas
         $q = mysqli_query($con, "
                 SELECT  id_karyawan,
                 SUM(CASE WHEN produk = 'PINJAMAN UMUM' THEN 1 ELSE 0 END) AS pu,
-                SUM(CASE WHEN produk = 'PINJAMAN MIKROBISNIS' THEN 1 ELSE 0 END) AS pmb,
+                SUM(CASE WHEN produk = 'PINJAMAN MIKROBISNIS' OR produk = 'PINJAMAN MIKRO BISNIS' THEN 1 ELSE 0 END) AS pmb,
                 SUM(CASE WHEN produk = 'PINJAMAN SANITASI' THEN 1 ELSE 0 END) AS psa,
                 SUM(CASE WHEN produk = 'PINJAMAN DT. PENDIDIKAN' THEN 1 ELSE 0 END) AS ppd,
                 SUM(CASE WHEN produk = 'PINJAMAN ARTA' THEN 1 ELSE 0 END) AS arta,
@@ -70,6 +70,7 @@ untuk mengisi anggota silahkan pilih menu "NASABAH STAFF" diatas
                 produk != 'PINJAMAN UMUM' AND  
                 produk != 'PINJAMAN SANITASI' AND
                 produk != 'PINJAMAN MIKROBISNIS' AND
+                produk != 'PINJAMAN MIKRO BISNIS' AND
                 produk != 'PINJAMAN DT. PENDIDIKAN' AND
                 produk != 'PINJAMAN ARTA' AND produk != 'PINJAMAN RENOVASIRUMAH'
                 
