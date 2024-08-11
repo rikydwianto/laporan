@@ -15,7 +15,7 @@ if (isset($_SESSION)) {
         $edit  = mysqli_query($con, "update pinjaman set monitoring='$mtr' where id_pinjaman='$id'");
         $keluan  = mysqli_query($con, "update banding_monitoring set status='selesai' where id_detail_pinjaman='$detail'");
         if ($mtr == 'sudah') {
-            if (isset($_GET['newapp'])) $text = "New App monitoring : $_SESSION[nama_karyawan] sedang input monitoring";
+            if (isset($_GET['newapp'])) $text = "New App monitoring : $_SESSION[nama_karyawan] sedang input monitoring $detail";
             else $text = "$_SESSION[nama_karyawan] sedang input monitoring";
             $input = mysqli_query($con, "INSERT INTO `monitoring` (`id_pinjaman`,`id_detail_pinjaman`, `tgl_monitoring`,waktu) VALUES ('$id','$detail', curdate(),current_time()); ");
             $url_tele = "https://api.telegram.org/$token/sendMessage?parse_mode=html&chat_id=1185334687&text=$text&reply_message_id=214&force_reply=true";

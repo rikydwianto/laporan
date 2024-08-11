@@ -83,6 +83,8 @@ if ($d['singkatan_jabata'] == 'SL') {
             include "./proses/pinjaman.php";
           } else if ($menu == 'staff') {
             include "./proses/staff.php";
+          } else if ($menu == 'rekap_bulan') {
+            include "./proses/rekap_bulan.php";
           } else {
             include "layout/statistik.php";
           }
@@ -112,6 +114,12 @@ if ($d['singkatan_jabata'] == 'SL') {
                     <a href="index.php?menu=pinjaman" style="text-decoration: none;">
                         <div class="menu-item">
                             <i class="nc-icon icon nc-money-coins text-success"></i><span class="text">Semua
+                                Monitoring</span>
+                        </div>
+                    </a>
+                    <a href="index.php?menu=rekap_bulan" style="text-decoration: none;">
+                        <div class="menu-item">
+                            <i class="nc-icon icon nc-bullet-list-67 text-success"></i><span class="text">Rekap
                                 Monitoring</span>
                         </div>
                     </a>

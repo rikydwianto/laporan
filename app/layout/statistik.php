@@ -22,7 +22,7 @@ $update_pinjaman_akhir = mysqli_fetch_assoc(mysqli_query($con, $q_update_terakhi
 <div class="row">
     <h4>Haii, <?= $d['nama_karyawan'] ?>, Apa kabar hari ini? </h4>
     <div class="col-lg-6 col-md-6 col-sm-6" id='staff'>
-        <a href="index.php?menu=staff">
+        <a href="index.php?menu=staff" style="text-decoration: none;">
             <div class="card card-stats">
                 <div class="card-body">
                     <div class="row">
@@ -50,7 +50,7 @@ $update_pinjaman_akhir = mysqli_fetch_assoc(mysqli_query($con, $q_update_terakhi
         </a>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6">
-        <a href="index.php?menu=pinjaman">
+        <a href="index.php?menu=pinjaman" style="text-decoration: none;">
             <div class="card card-stats">
                 <div class="card-body">
                     <div class="row">

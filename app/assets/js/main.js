@@ -7,7 +7,7 @@ $(document).ready(function () {
   myChart = new Chart(ctx, {
     type: "pie",
     data: {
-      labels: ["3-44 Hari", "0-3 Hari", "Lebih dari 14 hari"],
+      labels: ["3-14 Hari", "0-3 Hari", "Lebih dari 14 hari"],
       datasets: [
         {
           label: "Monitoring",
@@ -361,3 +361,111 @@ function kembali() {
   // Kembali ke halaman sebelumnya
   window.history.back(); // atau window.history.go(-1);
 }
+
+$(document).ready(function () {
+  var table = $("#rekap_monitoring").DataTable({
+    paging: false, // Nonaktifkan pagination
+    lengthChange: false, // Sembunyikan opsi "entries per page"
+    info: false, // Nonaktifkan informasi "Showing X to Y of Z entries"
+    searching: true, // Tetap aktifkan pencarian
+    ordering: true, // Tetap aktifkan sorting
+    autoWidth: true, // Otomatis atur lebar kolom
+    language: {
+      emptyTable: "Tidak ada data yang tersedia", // Pesan jika tidak ada data
+    },
+  });
+  function formatDetail(data) {
+    let tableHTML = "";
+    data.monitoring.forEach((row) => {
+      tableHTML += `
+          <tr>
+              <td><a href='index.php?menu=pinjaman&filter&staff=${row.id}'>${row.staff}</a></td>
+              <td>${row.total}</td>
+          </tr>
+      `;
+    });
+
+    console.log(tableHTML);
+    return `
+    <table class='table table-bordered '>
+     <tr>
+              <th>Staff</th>
+              <th>Total</th>
+          </tr>
+      ${tableHTML}
+          
+          
+        </table>`;
+  }
+  // Event listener untuk tombol "Detail"
+  $("#rekap_monitoring tbody").on("click", ".detail-btn", function () {
+    var tr = $(this).closest("tr");
+    var row = table.row(tr);
+
+    if (row.child.isShown()) {
+      // Jika baris detail sedang ditampilkan, sembunyikan
+      row.child.hide();
+      tr.removeClass("shown");
+    } else {
+      // Tampilkan baris detail
+      var detailData = $(tr).data("detail"); // Ambil data detail dari atribut data
+      row.child(formatDetail(detailData)).show();
+      tr.addClass("shown");
+    }
+  });
+});
+
+$(document).ready(function () {
+  var table = $("#list_rekap_minggu").DataTable({
+    paging: false, // Nonaktifkan pagination
+    lengthChange: false, // Sembunyikan opsi "entries per page"
+    info: false, // Nonaktifkan informasi "Showing X to Y of Z entries"
+    searching: true, // Tetap aktifkan pencarian
+    ordering: true, // Tetap aktifkan sorting
+    autoWidth: true, // Otomatis atur lebar kolom
+    language: {
+      emptyTable: "Tidak ada data yang tersedia", // Pesan jika tidak ada data
+    },
+  });
+  function formatDetail(data) {
+    let tableHTML = "";
+    data.minggu.forEach((row) => {
+      tableHTML += `
+          <tr>
+              <td><a href='index.php?menu=pinjaman&filter_minggu&tgl_1=${row.tgl_awal}&tgl_2=${row.tgl_akhir}'>${row.minggu_ke}</a></td>
+              <td><a href='index.php?menu=pinjaman&filter_minggu&tgl_1=${row.tgl_awal}&tgl_2=${row.tgl_akhir}'>${row.tgl_awal} sd ${row.tgl_akhir}</a></td>
+              <td>${row.total}</td>
+          </tr>
+      `;
+    });
+
+    console.log(tableHTML);
+    return `
+    <table class='table table-bordered '>
+     <tr>
+              <th>Minggu ke</th>
+              <th>Priode</th>
+              <th>Total</th>
+          </tr>
+      ${tableHTML}
+          
+          
+        </table>`;
+  }
+  // Event listener untuk tombol "Detail"
+  $("#list_rekap_minggu tbody").on("click", ".detail-btn", function () {
+    var tr = $(this).closest("tr");
+    var row = table.row(tr);
+
+    if (row.child.isShown()) {
+      // Jika baris detail sedang ditampilkan, sembunyikan
+      row.child.hide();
+      tr.removeClass("shown");
+    } else {
+      // Tampilkan baris detail
+      var detailData = $(tr).data("detail"); // Ambil data detail dari atribut data
+      row.child(formatDetail(detailData)).show();
+      tr.addClass("shown");
+    }
+  });
+});
