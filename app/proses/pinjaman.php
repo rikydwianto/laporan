@@ -57,7 +57,12 @@ where p.id_cabang='$id_cabang' and p.monitoring ='belum' $q_staff  and input_mtr
                                         <?= $pinjaman['nama_karyawan'] ?>
                                 </td>
                                 <td><?= $center ?></td>
-                                <th><?= $pinjaman['nama_nasabah'] ?></th>
+                                <th>
+                                    <a href="cari_nasabah.php?id_detail=<?= $pinjaman['id_detail_nasabah'] ?>">
+
+                                        <?= $pinjaman['nama_nasabah'] ?>
+                                </th>
+                                </a>
                                 <td><button
                                         class="btn btn-info detail-btn"><?= $pinjaman['id_detail_pinjaman'] ?></button>
                                 </td>

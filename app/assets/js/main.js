@@ -107,7 +107,7 @@ $(document).ready(function () {
     paging: false, // Nonaktifkan pagination
     lengthChange: false, // Sembunyikan opsi "entries per page"
     info: false, // Nonaktifkan informasi "Showing X to Y of Z entries"
-    searching: true, // Tetap aktifkan pencarian
+    searching: false, // Tetap aktifkan pencarian
     ordering: true, // Tetap aktifkan sorting
     autoWidth: true, // Otomatis atur lebar kolom
     language: {
