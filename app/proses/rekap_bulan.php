@@ -246,7 +246,7 @@ function cari_minggu($bulan, $tahun, $url)
                                 $json = json_encode($json);
 
                             ?>
-                            <tr data-detail_json="<?= $json ?>">
+                            <tr data-detail_json='<?= $json ?>'>
                                 <td><?= $no++ ?></td>
                                 <td><a
                                         href="<?= $url . $menu ?>monitoring&filter_bulan=<?= $tahun . '-' . sprintf("%02d", $bulan['bulan']) ?>"><?= bulan_indo($bulan['bulan']) ?>
