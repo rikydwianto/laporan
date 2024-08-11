@@ -201,7 +201,7 @@ function cari_minggu($bulan, $tahun, $url)
                             <tr>
                                 <th>NO</th>
                                 <th>Bulan - Tahun</th>
-                                <th>Total</th>
+                                <!-- <th>Total</th> -->
                                 <th>#</th>
                             </tr>
                         </thead>
@@ -252,7 +252,7 @@ function cari_minggu($bulan, $tahun, $url)
                                         href="<?= $url . $menu ?>monitoring&filter_bulan=<?= $tahun . '-' . sprintf("%02d", $bulan['bulan']) ?>"><?= bulan_indo($bulan['bulan']) ?>
                                         - <?= $tahun ?></a>
                                 </td>
-                                <td><?= $hitung_monitoring ?></td>
+                                <!-- <td><?= $hitung_monitoring ?></td> -->
                                 <td><button class="btn btn-primary detail-btn">Detail</button></td>
                             </tr>
                             <?php
