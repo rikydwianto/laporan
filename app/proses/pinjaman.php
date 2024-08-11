@@ -5,11 +5,13 @@ if (isset($_GET['filter'])) $q_staff = "and p.id_karyawan='$id'";
 else $q_staff = '';
 if (isset($_GET['filter_bulan'])) $q_bulan = " and tgl_cair like '$_GET[filter_bulan]-%' ";
 else $q_bulan = '';
+if (isset($_GET['filter_minggu'])) $q_minggu = " and tgl_cair between '$_GET[tgl_1]' and '$_GET[tgl_2]' ";
+else $q_minggu = '';
 
 $q = mysqli_query($con, "select *,DATEDIFF(CURDATE(), tgl_cair) as total_hari from pinjaman p left 
 join karyawan k on k.id_karyawan=p.id_karyawan 
 
-where p.id_cabang='$id_cabang' and p.monitoring ='belum' $q_staff $q_bulan and input_mtr='sudah' order by k.nama_karyawan asc");
+where p.id_cabang='$id_cabang' and p.monitoring ='belum' $q_staff $q_bulan $q_minggu and input_mtr='sudah' order by k.nama_karyawan asc");
 ?>
 <div class="row">
     <div class="col-md-12">

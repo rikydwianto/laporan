@@ -432,8 +432,8 @@ $(document).ready(function () {
     data.minggu.forEach((row) => {
       tableHTML += `
           <tr>
-              <td><a href='index.php?menu=pinjaman&filter_minggu&tgl_1=${row.tgl_awal}&tgl_2=${row.tgl_akhir}'>${row.minggu_ke}</a></td>
-              <td><a href='index.php?menu=pinjaman&filter_minggu&tgl_1=${row.tgl_awal}&tgl_2=${row.tgl_akhir}'>${row.tgl_awal} sd ${row.tgl_akhir}</a></td>
+              <td><a href='index.php?menu=pinjaman&filter_minggu&tgl_1=${row.tgl_awal}&tgl_2=${row.tgl_akhir}'>Ke-${row.minggu_ke}</a></td>
+              <td><a href='index.php?menu=pinjaman&filter_minggu&tgl_1=${row.tgl_awal}&tgl_2=${row.tgl_akhir}' style="text-decoration: none;">${row.tgl_awal} sd ${row.tgl_akhir}</a></td>
               <td>${row.total}</td>
           </tr>
       `;
