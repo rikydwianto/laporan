@@ -35,8 +35,8 @@ function cari_minggu($bulan, $tahun, $url)
 {
     $path = $_SERVER['DOCUMENT_ROOT'];
     // $url = "";
-    // $jsonData = file_get_contents($url . 'api/priode.json');
-    $jsonData = file_get_contents('https://not.comdev.my.id/api/priode.json');
+    $jsonData = file_get_contents($url . 'api/priode.json');
+    // $jsonData = file_get_contents('https://not.comdev.my.id/api/priode.json');
     $weeksOfYears = json_decode($jsonData, true);
     // Filter dates for May 2024 and get the corresponding week
     $bulan_array = array();
@@ -208,6 +208,7 @@ function cari_minggu($bulan, $tahun, $url)
                         <tbody>
 
                             <?php
+                            $json = "";
                             $no = 1;
                             $hitung_total = 0;
                             $qbulan = mysqli_query($con, "SELECT YEAR(tgl_cair) AS tahun,MONTH(tgl_cair) AS bulan FROM pinjaman p  WHERE p.id_cabang='$id_cabang' and monitoring='belum' GROUP BY MONTH(tgl_cair),YEAR(tgl_cair) ORDER BY p.tgl_cair DESC");
@@ -233,7 +234,6 @@ function cari_minggu($bulan, $tahun, $url)
                                                                             AND tgl_cair <= '$tgl_akhir' 
                                                                             AND monitoring='belum' 
                                                                             AND input_mtr='sudah'");
-                                    echo mysqli_error($con);
                                     $hitung_monitoring = mysqli_fetch_assoc($hitung_monitoring)['total'];
                                     $mi[] = array(
                                         'minggu_ke' => $a['minggu_rill'],
@@ -242,10 +242,11 @@ function cari_minggu($bulan, $tahun, $url)
                                         'total' => $hitung_monitoring,
                                     );
                                 }
-                                $json = json_encode(array('minggu' => $mi));
+                                $json = (array('minggu' => $mi));
+                                $json = json_encode($json);
 
                             ?>
-                            <tr data-detail="<?= $json ?>">
+                            <tr data-detail_json="<?= $json ?>">
                                 <td><?= $no++ ?></td>
                                 <td><a
                                         href="<?= $url . $menu ?>monitoring&filter_bulan=<?= $tahun . '-' . sprintf("%02d", $bulan['bulan']) ?>"><?= bulan_indo($bulan['bulan']) ?>

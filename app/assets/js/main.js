@@ -385,7 +385,6 @@ $(document).ready(function () {
       `;
     });
 
-    console.log(tableHTML);
     return `
     <table class='table table-bordered '>
      <tr>
@@ -429,6 +428,7 @@ $(document).ready(function () {
   });
   function formatDetail(data) {
     let tableHTML = "";
+    console.log(data);
     data.minggu.forEach((row) => {
       tableHTML += `
           <tr>
@@ -463,7 +463,7 @@ $(document).ready(function () {
       tr.removeClass("shown");
     } else {
       // Tampilkan baris detail
-      var detailData = $(tr).data("detail"); // Ambil data detail dari atribut data
+      var detailData = $(tr).data("detail_json"); // Ambil data detail dari atribut data
       row.child(formatDetail(detailData)).show();
       tr.addClass("shown");
     }
