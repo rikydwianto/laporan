@@ -249,7 +249,7 @@ function cari_minggu($bulan, $tahun, $url)
                             <tr data-detail_json='<?= $json ?>'>
                                 <td><?= $no++ ?></td>
                                 <td><a
-                                        href="<?= $url . $menu ?>monitoring&filter_bulan=<?= $tahun . '-' . sprintf("%02d", $bulan['bulan']) ?>"><?= bulan_indo($bulan['bulan']) ?>
+                                        href="index.php?menu=pinjaman&filter_bulan=<?= $tahun . '-' . sprintf("%02d", $bulan['bulan']) ?>"><?= bulan_indo($bulan['bulan']) ?>
                                         - <?= $tahun ?></a>
                                 </td>
                                 <!-- <td><?= $hitung_monitoring ?></td> -->

@@ -20,7 +20,10 @@ where p.id_cabang='$id_cabang' and p.monitoring ='belum' $q_staff $q_bulan $q_mi
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title"> Monitoring
-                    <?= isset($_GET['filter']) ? "an " . $staff['nama_karyawan'] : "" ?> </h5>
+                    <?= isset($_GET['filter']) ? "an " . $staff['nama_karyawan'] : "" ?>
+                    <?= isset($_GET['filter_bulan']) ? " Bulan " . $_GET['filter_bulan'] : "" ?>
+                    <?= isset($_GET['filter_minggu']) ? " Dari " . $_GET['tgl_1'] . ' s/d ' . $_GET['tgl_2'] : "" ?>
+                </h5>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

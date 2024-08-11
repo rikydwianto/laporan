@@ -176,7 +176,7 @@ $(document).ready(function () {
 $(document).ready(function () {
   var table = $("#list_monitoring").DataTable({
     paging: true, // Nonaktifkan pagination
-    lengthChange: false, // Sembunyikan opsi "entries per page"
+    lengthChange: true, // Sembunyikan opsi "entries per page"
     info: false, // Nonaktifkan informasi "Showing X to Y of Z entries"
     searching: true, // Tetap aktifkan pencarian
     ordering: true, // Tetap aktifkan sorting
