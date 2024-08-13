@@ -34,7 +34,7 @@ if ($id == "") {
 
 
                 $url_p = "https://images.soco.id/589-5-fakta-menarik-film-avatar-yang-kembali-tayang-5.jpg.jpg";
-                // $url_p = "https://www.svgrepo.com/show/61986/avatar.svg";
+                $url_p = "https://img.freepik.com/free-vector/man-wearing-eyeglasses-avatar-character_24877-83454.jpg?t=st=1723528490~exp=1723532090~hmac=7286eca341b479eb9b426be83254b9e125df1df43741dd1a3ec36069d49eb28a&w=740";
                 $data['photo'] = "$url_p";
 
                 $pesan_tele = "Login android sebagai : $data[nama_karyawan] \ncabang $data[nama_cabang]\njabatan : $data[singkatan_jabatan]";
