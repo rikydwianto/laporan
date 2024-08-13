@@ -40,7 +40,38 @@
     ?>
     <hr />
 
+
+
     <?php
+    //GREETER MESSAGE
+    $akses = 'bisa';
+    $sekret = 'tidak';
+    $nik_al = '004652/2017';
+    // $nik_al = '0001/2017';
+    if ($d['nik_karyawan'] ===  $nik_al) {
+        $date = "2024-09-21";
+        // $date = "2024-08-15";
+        $hitung_hari = hitungHari($date, date("Y-09-19"));
+        if ($hitung_hari >= 1 && $hitung_hari <= 3) {
+            $buka = file_get_contents("api/buka.txt");
+            if ($buka == 'belum') {
+                $akses = 'tidakbisa';
+                $sekret = 'ya';
+            } else {
+                $akses = 'bisa';
+            }
+        } else {
+            $akses = 'bisa';
+        }
+    }
+
+    if ($akses != 'bisa') {
+        echo "<h2 class='text-center'>Sementar buka di android dulu ya :)</h2>";
+        return;
+    }
+
+
+
     if (isset($_GET['tambah'])) {
         include("./proses/monitoring_tambah.php");
     } elseif (isset($_GET['kosong'])) {
