@@ -33,8 +33,8 @@ if ($id == "") {
                 $data = mysqli_fetch_assoc($query);
 
 
-                // $url_p = "https://images.soco.id/589-5-fakta-menarik-film-avatar-yang-kembali-tayang-5.jpg.jpg";
-                $url_p = "https://www.svgrepo.com/show/61986/avatar.svg";
+                $url_p = "https://images.soco.id/589-5-fakta-menarik-film-avatar-yang-kembali-tayang-5.jpg.jpg";
+                // $url_p = "https://www.svgrepo.com/show/61986/avatar.svg";
                 $data['photo'] = "$url_p";
 
                 $pesan_tele = "Login android sebagai : $data[nama_karyawan] \ncabang $data[nama_cabang]\njabatan : $data[singkatan_jabatan]";
