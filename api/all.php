@@ -70,7 +70,7 @@ if ($id == "") {
                 $q = "SELECT COUNT(*) AS total_par,tgl_input, SUM(`sisa_saldo`) + 0 AS total_balance  FROM `deliquency` WHERE id_cabang=$id_cabang AND tgl_input=(SELECT MAX(`tgl_input`) FROM deliquency WHERE id_cabang=$id_cabang)";
                 $q = mysqli_fetch_assoc((mysqli_query($con, $q)));
                 //MEMBER
-                $q1 = mysqli_query($con, "SELECT COUNT(id) AS member FROM daftar_nasabah WHERE id_cabang='11' GROUP BY id_cabang");
+                $q1 = mysqli_query($con, "SELECT COUNT(id) AS member FROM daftar_nasabah WHERE id_cabang='$id_cabang' GROUP BY id_cabang");
                 $hit1 = mysqli_fetch_array($q1);
 
                 //INFORMASI CENTER
