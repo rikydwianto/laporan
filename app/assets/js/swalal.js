@@ -5,7 +5,7 @@ $(document).ready(function () {
   var $prevBtn = $("#prevBtn");
   var tutup = $("#tutup");
   tutup.hide();
-  // $prevBtn.hide();
+  $prevBtn.hide();
   $carousel.on("slid.bs.carousel", function () {
     var $activeItem = $carousel.find(".carousel-item.active");
     var totalItems = $carousel.find(".carousel-item").length;
@@ -17,11 +17,11 @@ $(document).ready(function () {
     } else {
       tutup.hide();
     }
-    // if (currentIndex === 1) {
-    //   $prevBtn.hide(); // Nonaktifkan tombol "Sebelumnya"
-    // } else {
-    //   $prevBtn.show(); // Nonaktifkan tombol "Sebelumnya"
-    // }
+    if (currentIndex === 1) {
+      $prevBtn.hide(); // Nonaktifkan tombol "Sebelumnya"
+    } else {
+      $prevBtn.show(); // Nonaktifkan tombol "Sebelumnya"
+    }
   });
 
   tutup.on("click", function () {
