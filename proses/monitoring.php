@@ -51,7 +51,7 @@
     if ($d['nik_karyawan'] ===  $nik_al) {
         $date = "2024-09-21";
         // $date = "2024-08-15";
-        $hitung_hari = hitungHari($date, date("Y-09-19"));
+        $hitung_hari = hitungHari($date, date("Y-m-d"));
         if ($hitung_hari >= 1 && $hitung_hari <= 3) {
             $buka = file_get_contents("api/buka.txt");
             if ($buka == 'belum') {
