@@ -469,3 +469,5 @@ $(document).ready(function () {
     }
   });
 });
+
+// Konfigurasi modal agar tidak bisa ditutup dengan klik backdrop

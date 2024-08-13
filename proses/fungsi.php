@@ -323,7 +323,9 @@ function cek_center($con, $center)
 function status_upk()
 {
   $status = array(
-    'jadi', 'pending', 'batal'
+    'jadi',
+    'pending',
+    'batal'
   );
   return ($status);
 }
@@ -491,9 +493,22 @@ function send_notif($to, $title, $isi, $id_karyawan, $tipe = "")
   curl_close($ch);
 }
 
-function getCabang($id_cabang){
+function getCabang($id_cabang)
+{
   global $con;
-  $q = mysqli_query($con,"SELECT * from cabang where id_cabang='$id_cabang'");
+  $q = mysqli_query($con, "SELECT * from cabang where id_cabang='$id_cabang'");
   return mysqli_fetch_assoc($q);
+}
 
+function hitungHari($tanggalMulai, $tanggalAkhir)
+{
+  // Konversi string tanggal menjadi objek DateTime
+  $mulai = new DateTime($tanggalMulai);
+  $akhir = new DateTime($tanggalAkhir);
+
+  // Hitung perbedaan antara dua tanggal
+  $perbedaan = $mulai->diff($akhir);
+
+  // Kembalikan jumlah hari
+  return $perbedaan->days;
 }

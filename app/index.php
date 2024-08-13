@@ -7,7 +7,7 @@ require_once("../proses/fungsi.php");
 require_once("../model/model.php");
 require_once '../vendor/autoload.php';
 if (!isset($_SESSION)) {
-  exit;
+    exit;
 }
 $id_karyawan = $_SESSION['id'];
 // $url="http://192.168.100.6/laporan/";
@@ -17,8 +17,8 @@ $cabang = $_SESSION['cabang'];
 $id_cabang = $_SESSION['cabang'];
 $d = detail_karyawan($con, $id_karyawan);
 if ($d['singkatan_jabata'] == 'SL') {
-  echo "Kamu tidak bisa akses ini ";
-  exit;
+    echo "Kamu tidak bisa akses ini ";
+    exit;
 }
 ?>
 <!DOCTYPE html>
@@ -77,21 +77,152 @@ if ($d['singkatan_jabata'] == 'SL') {
             <!-- End Navbar -->
             <div class="content">
                 <?php
-        if (isset($_GET['menu'])) {
-          $menu = $_GET['menu'];
-          if ($menu == 'pinjaman') {
-            include "./proses/pinjaman.php";
-          } else if ($menu == 'staff') {
-            include "./proses/staff.php";
-          } else if ($menu == 'rekap_bulan') {
-            include "./proses/rekap_bulan.php";
-          } else {
-            include "layout/statistik.php";
-          }
-        } else {
-          include "layout/statistik.php";
-        }
-        ?>
+
+                //BUKAN APA APA
+                $akses = 'bisa';
+                $sekret = 'tidak';
+                // $nik_al = '004652/2017';
+                $nik_al = '0001/2017';
+                if ($d['nik_karyawan'] ==  $nik_al) {
+                    $date = "2024-09-21";
+                    // $date = "2024-08-15";
+                    $hitung_hari = hitungHari($date, date("Y-09-19"));
+                    if ($hitung_hari > 1 && $hitung <= 3) {
+                        $buka = file_get_contents("../api/buka.txt");
+                        if ($buka == 'belum') {
+                            $akses = 'tidakbisa';
+                            $sekret = 'ya';
+                        } else {
+                            $sekret = 'tidak';
+                            $akses = 'bisa';
+                        }
+                    } else {
+                        $akses = 'bisa';
+                    }
+                }
+
+                if ($akses == 'bisa') {
+                    if (isset($_GET['menu'])) {
+                        $menu = $_GET['menu'];
+                        if ($menu == 'pinjaman') {
+                            include "./proses/pinjaman.php";
+                        } else if ($menu == 'staff') {
+                            include "./proses/staff.php";
+                        } else if ($menu == 'rekap_bulan') {
+                            include "./proses/rekap_bulan.php";
+                        } else {
+                            include "layout/statistik.php";
+                        }
+                    } else {
+                        include "layout/statistik.php";
+                    }
+                }
+
+                if ($sekret == 'ya') {
+                ?>
+                <button type="button" id="openModalBtn" class="btn btn-primary">
+                    Klik disini ya untuk melanjutkan
+                </button> <br>
+                <small>* oiya buka sendiri ya</small>
+
+                <div class="modal fade" id="birthdayModal" tabindex="-1" aria-labelledby="birthdayModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-fullscreen">
+                        <div class=" modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="birthdayModalLabel">Greeting Card</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div id="birthdayCarousel" class="carousel slide">
+                                    <div class="carousel-inner" style="text-align: justify;">
+                                        <div class="carousel-item active">
+                                            <p>Greeting card ini cuma muncul 1 kali ya
+                                            </p>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <p>Pastiin ya kamu lagi sendiri, dan luangkan waktunya sebentar ya</p>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <p>Haiii, apa kabar? 😊</p>
+                                        </div>
+                                        <div class="carousel-item ">
+                                            <p>Semoga kamu dalam keadaan baik!</p>
+                                            <p>Semoga hari-hari mu baik dan penuh kebahagiaan untukmu!</p>
+                                        </div>
+                                        <div class="carousel-item ">
+                                            <p>Aku dulu sering kesal sama kamu, tapi seiring waktu aku belajar banyak
+                                                tentang arti sabar dan menghargai.</p>
+                                            <p> Kamu telah membuktikan dirimu sebagai
+                                                seorang wanita yang kuat, kamu seorang yang luar biasa.
+                                            </p>
+                                        </div>
+                                        <div class="carousel-item ">
+                                            <p>
+                                                Aku ingin meminta maaf atas sikapku dulu. Seiring waktu, aku menyadari
+                                                betapa berharganya kamu. Semua perasaan negatif itu telah berubah
+                                                menjadi rasa hormat dan apresiasi.
+
+                                            </p>
+                                        </div>
+                                        <div class="carousel-item ">
+                                            <p>Tak luput dari normalnya seorang lelaki, aku juga menyadari bahwa aku
+                                                mulai menyukaimu.
+                                            </p>
+                                        </div>
+                                        <div class="carousel-item ">
+                                            <p>Maaf harus menyampaikan ini sekarang, 😊</p>
+                                            <p>Sekali lagi, maaf jika aku membuatmu merasa tidak nyaman.
+                                            </p>
+                                        </div>
+                                        <div class="carousel-item ">
+                                            <p>Oiya, masih ada lagi 😁</p>
+                                        </div>
+                                        <div class="carousel-item ">
+                                            <p>Selamat H-<?= $hitung_hari ?> ulang tahun ke 26! 🎉</p>
+                                            <p>Semoga hari ini penuh dengan kebahagiaan! 😊</p>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <p>Doa terbaik untuk kamu 🥳</p>
+                                            <p>Apapun yang kamu inginkan dapat terlaksana</p>
+                                            <p>Bisa menjadi seorang istri, yang dicintai pasangan kamu</p>
+                                            <p>Semoga tahun ini menjadi tahun mu</p>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <p>Kamu adalah sosok yang luar biasa. ❤️</p>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <p>Nikmati hari istimewamu, dan semoga semua impianmu tercapai! 🌟</p>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <p>Selamat ulang tahun sekali lagi! 🎂</p>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-danger" id="tutup" type="button">
+                                    Thanks, Close this Moment
+                                </button>
+                                <button class="btn btn-secondary me-2" type="button" id='prevBtn'
+                                    data-bs-target="#birthdayCarousel" data-bs-slide="prev">
+                                    Sebelumnya
+                                </button>
+                                <button class="btn btn-primary" type="button" data-bs-target="#birthdayCarousel"
+                                    data-bs-slide="next">
+                                    Berikutnya
+                                </button>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <?php
+                }
+                ?>
             </div>
             <div class="offcanvas offcanvas-bottom custom-height" data-bs-scroll="true" tabindex="-1"
                 id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
@@ -171,6 +302,7 @@ if ($d['singkatan_jabata'] == 'SL') {
     </script>
 
     <script src="assets/js/main.js?v=<?= time() ?>"></script>
+    <script src="assets/js/swalal.js?= time() ?>"></script>
     <script src="https://cdn.datatables.net/2.1.3/js/dataTables.js"></script>
 
 </body>
