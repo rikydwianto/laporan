@@ -87,6 +87,7 @@ if ($d['singkatan_jabata'] == 'SL') {
                     $date = "2024-09-21";
                     // $date = "2024-08-15";
                     $hitung_hari = hitungHari($date, date("Y-m-d"));
+                    // $hitung_hari = hitungHari($date, date("Y-09-19"));
                     if ($hitung_hari >= 1 && $hitung_hari <= 3) {
                         $buka = file_get_contents("../api/buka.txt");
                         if ($buka == 'belum') {
@@ -200,7 +201,7 @@ if ($d['singkatan_jabata'] == 'SL') {
     </script>
 
     <script src="assets/js/main.js?v=<?= time() ?>"></script>
-    <script src="assets/js/swalal.js?= time() ?>"></script>
+    <script src="assets/js/swalal.js?v=<?= time() ?>"></script>
     <script src="https://cdn.datatables.net/2.1.3/js/dataTables.js"></script>
 
 </body>

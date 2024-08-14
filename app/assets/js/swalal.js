@@ -25,17 +25,36 @@ $(document).ready(function () {
   });
 
   tutup.on("click", function () {
-    $.ajax({
-      url: url + "api/proses_tutup.php",
-      type: "GET",
-      success: function (data, status) {
-        setTimeout(() => {
-          window.location.reload();
-        }, "1000");
+    let timerInterval;
+    Swal.fire({
+      title: "Just drop me a message to respond to, whatever it is! :)",
+      html: "I will close in <b></b> milliseconds.",
+      timer: 5000,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+        const timer = Swal.getPopup().querySelector("b");
+        timerInterval = setInterval(() => {
+          timer.textContent = `${Swal.getTimerLeft()}`;
+        }, 100);
       },
-      error: function (xhr, status, error) {
-        console.error("Request failed: " + status + ", " + error);
+      willClose: () => {
+        clearInterval(timerInterval);
       },
+    }).then((result) => {
+      /* Read more about handling dismissals below */
+      if (result.dismiss === Swal.DismissReason.timer) {
+        $.ajax({
+          url: url + "api/proses_tutup.php",
+          type: "GET",
+          success: function (data, status) {
+            location.reload();
+          },
+          error: function (xhr, status, error) {
+            console.log(xhr);
+          },
+        });
+      }
     });
   });
   $("#openModalBtn").on("click", function () {
