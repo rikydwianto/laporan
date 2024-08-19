@@ -7,7 +7,7 @@
     <div class="modal-dialog modal-fullscreen">
         <div class=" modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="birthdayModalLabel">Greeting Card</h5>
+                <h5 class="modal-title" id="birthdayModalLabel">Pesan Penting</h5>
             </div>
             <div class="modal-body">
                 <div id="birthdayCarousel" class="carousel slide">
@@ -72,6 +72,12 @@
                         </div>
                         <div class="carousel-item">
                             <p>Selamat ulang tahun sekali lagi! 🎂</p>
+                            <div>
+                                <p>Sebelum pergi dari sini, Isi Harapan atau Afirmasi ya :)</p>
+                                <textarea class='form-control' name="" id="harapan"></textarea>
+                                <span id="error-message" style="color: red;"></span>
+
+                            </div>
                         </div>
                     </div>
 
