@@ -186,17 +186,6 @@ $(document).ready(function () {
     },
   });
   function formatDetail(data) {
-    // Menggunakan data detail yang disimpan dalam atribut data
-    /* 
-     'id_anggota' => ($pinjaman['id_detail_nasabah']),
-      'disburse' => angka($pinjaman['jumlah_pinjaman']),
-      'produk' => $pinjaman['produk'],
-      'tujuan_pinjaman' => $pinjaman['tujuan_pinjaman'],
-      'pinjaman_ke' => $pinjaman['pinjaman_ke'],
-      'tgl_cair' => $pinjaman['tgl_cair'],
-      'no_hp' => $pinjaman['no_hp'],
-      'jk_waktu' => $pinjaman['jk_waktu'],
-    */
     return `
     <table class='table table-bordered '>
           <tr>

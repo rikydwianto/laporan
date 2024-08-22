@@ -512,8 +512,18 @@
                     } else {
                         $q_banding = "";
                     }
-                    $q = mysqli_query($con, "select *,DATEDIFF(CURDATE(), tgl_cair) as total_hari from pinjaman left 
-                        join karyawan on karyawan.id_karyawan=pinjaman.id_karyawan 
+                    // $q = mysqli_query($con, "select *,DATEDIFF(CURDATE(), tgl_cair) as total_hari from pinjaman left 
+                    //     join karyawan on karyawan.id_karyawan=pinjaman.id_karyawan 
+
+                    //     where pinjaman.id_cabang='$id_cabang' $q_tambah $q_id $q_hari $q_banding $q_bulan and input_mtr='sudah' order by karyawan.nama_karyawan asc");
+                    $q = mysqli_query($con, "SELECT
+                                            pinjaman.*,
+                                            DATEDIFF(CURDATE(), tgl_cair) AS total_hari,
+                                            karyawan.`nama_karyawan`
+                                            FROM
+                                            pinjaman
+                                            LEFT JOIN karyawan
+                                                ON karyawan.id_karyawan = pinjaman.id_karyawan 
                         
                         where pinjaman.id_cabang='$id_cabang' $q_tambah $q_id $q_hari $q_banding $q_bulan and input_mtr='sudah' order by karyawan.nama_karyawan asc");
                     while ($pinj = mysqli_fetch_assoc($q)) {

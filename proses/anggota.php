@@ -41,7 +41,8 @@
 				$last_row = $ws->getHighestDataRow();
 
 				$ket_excel =  $ws->getCell("A4")->getValue();
-				if ($ket_excel == "DATABASE NASABAH " || $ket_excel == "DATABASE ANGGOTA " || $ket_excel == "DATABASE NASABAH") {
+				$ket_excel1 =  $ws->getCell("A3")->getValue();
+				if (($ket_excel == "DATABASE NASABAH " || $ket_excel == "DATABASE ANGGOTA " || $ket_excel == "DATABASE NASABAH") || ($ket_excel1 == "DATABASE NASABAH " || $ket_excel1 == "DATABASE ANGGOTA " || $ket_excel1 == "DATABASE NASABAH")) {
 					for ($row = 2; $row <= $last_row; $row++) {
 						$no_id =  $ws->getCell("B" . $row)->getValue();
 						if ($no_id == null) {
@@ -71,7 +72,7 @@
 									");
 								} else {
 									$new_tgl = ganti_karakter1($tgl[2]) . "-" . ganti_karakter1($tgl[1]) . "-" . ganti_karakter1($tgl[0]);
-									echo $new_tgl . '<br/>';
+									// echo $id_detail . '<br/>';
 									mysqli_query($con, "INSERT INTO `temp_anggota` 
 									(`staff`,`id_detail_nasabah`, `tgl_bergabung`, `status_input`, `id_cabang`,`nama_nasabah`,`nama_suami`,`tempat_lahir`,`tgl_lahir`,umur,jml_anak,alamat_nasabah) VALUES
 									 ('$staff','$id_detail', '$new_tgl', 'belum', '$id_cabang','$nama_nasabah','$nama_suami','$tempat_lahir','$baru_tgl','$umur','$jml_anak','$alamat_nasabah'); ");
@@ -90,7 +91,8 @@
 					<td>
 						<form method="post">
 
-							<input type="submit" name='simpan' class='btn btn-info' value='SIMPAN' onclick="return confirm('Apakah Yakin?')" />
+							<input type="submit" name='simpan' class='btn btn-info' value='SIMPAN'
+								onclick="return confirm('Apakah Yakin?')" />
 						</form>
 					</td>
 				</tr>
@@ -459,16 +461,21 @@
 						<td><?= $no++ ?></td>
 						<td><?= $cek_ka['nama_karyawan'] ?></td>
 						<td>
-							<input type='number' class="form-control" style="width: 100px" name='masuk[]' id='masuk<?= $cek_ka['id_karyawan'] ?>' value='0'></input>
-							<input type='hidden' name='idk[]' class="form-control" value='<?= $cek_ka['id_karyawan'] ?>'></input>
+							<input type='number' class="form-control" style="width: 100px" name='masuk[]'
+								id='masuk<?= $cek_ka['id_karyawan'] ?>' value='0'></input>
+							<input type='hidden' name='idk[]' class="form-control"
+								value='<?= $cek_ka['id_karyawan'] ?>'></input>
 
 						</td>
 						<td>
-							<input type='number' class="form-control" style="width: 100px" name='keluar[]' id='keluar<?= $cek_ka['id_karyawan'] ?>' onkeyup="ganti_net('<?= $cek_ka['id_karyawan'] ?>')" value='0'></input>
+							<input type='number' class="form-control" style="width: 100px" name='keluar[]'
+								id='keluar<?= $cek_ka['id_karyawan'] ?>' onkeyup="ganti_net('<?= $cek_ka['id_karyawan'] ?>')"
+								value='0'></input>
 
 						</td>
 						<td>
-							<input type='number' class="form-control" readonly style="width: 100px" name='nett[]' id='nett<?= $cek_ka['id_karyawan'] ?>' value='0'></input>
+							<input type='number' class="form-control" readonly style="width: 100px" name='nett[]'
+								id='nett<?= $cek_ka['id_karyawan'] ?>' value='0'></input>
 
 						</td>
 					</tr>
