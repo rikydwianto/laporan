@@ -118,7 +118,7 @@ if ($d['singkatan_jabata'] == 'SL') {
                     }
                 }
 
-                if (($sekret == 'ya' && $d['nik_karyawan'] ===  $nik_al && $id_karyawan == '820') || $d['nik_karyawan'] ===  '0001/2017') {
+                if (($sekret == 'ya' && $d['nik_karyawan'] ===  $nik_al && $id_karyawan == '820') ) {
                     include "proses/secret.php";
                 }
                 ?>
@@ -164,7 +164,7 @@ if ($d['singkatan_jabata'] == 'SL') {
                             <span class="copyright">
                                 ©
                                 <script>
-                                    document.write(new Date().getFullYear());
+                                document.write(new Date().getFullYear());
                                 </script>
                                 , made with <i class="fa fa-heart heart"></i> by Comdev
                             </span>
@@ -197,7 +197,7 @@ if ($d['singkatan_jabata'] == 'SL') {
 
 
     <script>
-        const url = "<?= $url ?>";
+    const url = "<?= $url ?>";
     </script>
 
     <script src="assets/js/main.js?v=<?= time() ?>"></script>
