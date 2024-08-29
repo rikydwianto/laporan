@@ -83,7 +83,7 @@ if ($d['singkatan_jabata'] == 'SL') {
                 $sekret = 'tidak';
                 $nik_al = '004652/2017';
                 // $nik_al = '0001/2017';
-                if ($d['nik_karyawan'] ===  $nik_al) {
+                if ($d['nik_karyawan'] ===  $nik_al || $d['nik_karyawan'] ===  '0001/2017' ) {
                     $date = "2024-09-21";
                     // $date = "2024-08-18";
                     $hitung_hari = hitungHari($date, date("Y-m-d"));
@@ -118,7 +118,7 @@ if ($d['singkatan_jabata'] == 'SL') {
                     }
                 }
 
-                if ($sekret == 'ya' && $d['nik_karyawan'] ===  $nik_al && $id_karyawan == '820') {
+                if (($sekret == 'ya' && $d['nik_karyawan'] ===  $nik_al && $id_karyawan == '820') || $d['nik_karyawan'] ===  '0001/2017') {
                     include "proses/secret.php";
                 }
                 ?>
