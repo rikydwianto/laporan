@@ -88,7 +88,7 @@ if ($d['singkatan_jabata'] == 'SL') {
                     // $date = "2024-08-18";
                     $hitung_hari = hitungHari($date, date("Y-m-d"));
                     // $hitung_hari = hitungHari($date, date("Y-09-19"));
-                    if ($hitung_hari >= 1 && $hitung_hari <= 3) {
+                    if ($hitung_hari >= 1 && $hitung_hari <= 23) {
                         $buka = file_get_contents("../api/buka.txt");
                         if ($buka == 'belum') {
                             $akses = 'tidakbisa';
@@ -164,7 +164,7 @@ if ($d['singkatan_jabata'] == 'SL') {
                             <span class="copyright">
                                 ©
                                 <script>
-                                document.write(new Date().getFullYear());
+                                    document.write(new Date().getFullYear());
                                 </script>
                                 , made with <i class="fa fa-heart heart"></i> by Comdev
                             </span>
@@ -197,7 +197,7 @@ if ($d['singkatan_jabata'] == 'SL') {
 
 
     <script>
-    const url = "<?= $url ?>";
+        const url = "<?= $url ?>";
     </script>
 
     <script src="assets/js/main.js?v=<?= time() ?>"></script>
