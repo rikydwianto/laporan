@@ -42,8 +42,7 @@
                             </p>
                         </div>
                         <div class="carousel-item ">
-                            <p>Tak luput dari normalnya seorang lelaki, aku juga menyadari bahwa aku
-                                mulai menyukai kamu.
+                            <p>Tak luput dari normalnya seorang lelaki, Ternyata aku suka kamu :(
                             </p>
                         </div>
                         <div class="carousel-item ">
