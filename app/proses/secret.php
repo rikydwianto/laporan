@@ -45,6 +45,10 @@
                             <p>Tak luput dari normalnya seorang lelaki, Ternyata aku suka kamu :(
                             </p>
                         </div>
+                         <div class="carousel-item ">
+                            <p> Aku malu banget, gak bisa jaga perasaan aku</p>
+                            <p> Ini alesan aku kenapa aku nungguin kepastian dari pusat, saking malunya, takut kalau gak jadi disini terus ketemu kamu, aku malu</p>
+                        </div>
                         <div class="carousel-item ">
                             <p>Maaf harus menyampaikan ini sekarang, 😊</p>
                             <p>Sekali lagi, maaf jika aku membuatmu merasa tidak nyaman.
