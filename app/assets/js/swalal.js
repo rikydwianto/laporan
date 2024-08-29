@@ -17,7 +17,7 @@ $(document).ready(function () {
       tutup.show();
     } else {
       tutup.hide();
-      // tutup.prop("disabled", true);
+      tutup.prop("disabled", true);
     }
     if (currentIndex === 1) {
       $prevBtn.hide(); // Nonaktifkan tombol "Sebelumnya"
