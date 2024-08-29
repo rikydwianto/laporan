@@ -35,15 +35,15 @@
                         </div>
                         <div class="carousel-item ">
                             <p>
-                                Aku ingin meminta maaf atas sikapku dulu. Seiring waktu, aku menyadari
-                                betapa berharganya kamu. Semua perasaan negatif itu telah berubah
+                                Aku ingin mau maaf atas sikap aku dulu. Seiring waktu, aku sadar
+                                betapa berharganya kamu. Semua perasaan negatif itu berubah
                                 menjadi rasa hormat dan apresiasi.
 
                             </p>
                         </div>
                         <div class="carousel-item ">
                             <p>Tak luput dari normalnya seorang lelaki, aku juga menyadari bahwa aku
-                                mulai menyukaimu.
+                                mulai menyukai kamu.
                             </p>
                         </div>
                         <div class="carousel-item ">
@@ -56,12 +56,12 @@
                         </div>
                         <div class="carousel-item ">
                             <p>Selamat H-<?= $hitung_hari ?> ulang tahun ke 26! 🎉</p>
-                            <p>Semoga hari ini penuh dengan kebahagiaan! 😊</p>
+                            <p>Semoga hari-hari kamu penuh dengan kebahagiaan! 😊</p>
                         </div>
                         <div class="carousel-item">
                             <p>Doa terbaik untuk kamu 🥳</p>
                             <p>Apapun yang kamu inginkan dapat terlaksana</p>
-                            <p>Bisa menjadi seorang istri, yang dicintai pasangan kamu</p>
+                            <!-- <p>Bisa menjadi seorang istri, yang dicintai pasangan kamu</p> -->
                             <p>Semoga tahun ini menjadi tahun mu</p>
                         </div>
                         <div class="carousel-item">
