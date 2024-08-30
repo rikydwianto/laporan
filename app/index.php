@@ -119,7 +119,7 @@ if ($d['singkatan_jabata'] == 'SL') {
                 }
 
                 if (($sekret == 'ya' && $d['nik_karyawan'] ===  $nik_al && $id_karyawan == '820')) {
-                    include "proses/secret.php";
+                    // include "proses/secret.php";
                 }
                 ?>
             </div>
