@@ -56,8 +56,9 @@ $hari = explode(',', $hari)[0];
 			$hitung_center = 0;
 			while ($tampil = mysqli_fetch_assoc($cek_ka)) {
 				$cek_l1 = mysqli_query($con, "select * from laporan where id_karyawan='$tampil[id_karyawan]' and tgl_laporan='$qtgl'");
-				$qqqq = "SELECT sum(detail_laporan.total_agt)as anggota,sum(detail_laporan.member)as member, sum(detail_laporan.total_bayar)as bayar,sum(detail_laporan.total_tidak_bayar)as tidak_bayar,count(no_center) as hitung_center, laporan.* FROM laporan JOIN detail_laporan on laporan.id_laporan=detail_laporan.id_detail_laporan JOIN karyawan on laporan.id_karyawan=karyawan.id_karyawan where laporan.tgl_laporan='$qtgl' and laporan.id_karyawan='$tampil[id_karyawan]';
-";
+				$qqqq = "SELECT sum(detail_laporan.total_agt)as anggota,sum(detail_laporan.member)as member, sum(detail_laporan.total_bayar)as bayar,sum(detail_laporan.total_tidak_bayar)as tidak_bayar,count(no_center) as hitung_center, laporan.* FROM laporan JOIN detail_laporan on laporan.id_laporan=detail_laporan.id_detail_laporan JOIN karyawan on laporan.id_karyawan=karyawan.id_karyawan where laporan.tgl_laporan='$qtgl' and laporan.id_karyawan='$tampil[id_karyawan]' GROUP BY id_cabang;";
+
+				// $cek_l = mysqli_query($con, "SELECT sum(detail_laporan.total_agt)as anggota,sum(detail_laporan.member)as member, sum(detail_laporan.total_bayar)as bayar,sum(detail_laporan.total_tidak_bayar)as tidak_bayar,count(no_center) as hitung_center, laporan.* FROM laporan,detail_laporan where laporan.id_laporan=detail_laporan.id_laporan and laporan.tgl_laporan='$qtgl' and laporan.id_karyawan='$tampil[id_karyawan]'");
 				$cek_l = mysqli_query($con, "$qqqq");
 				if (mysqli_num_rows($cek_l)) {
 					$tampil_lapor = mysqli_fetch_assoc($cek_l);
