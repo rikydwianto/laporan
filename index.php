@@ -1,6 +1,5 @@
 <?php
-// error_reporting(0);
-// error_reporting()
+ob_start();
 require_once "config/seting.php";
 require_once "config/koneksi.php";
 require_once("proses/fungsi.php");
@@ -127,24 +126,24 @@ if ($su != 'y') {
                                 }
 
                     ?>
-                    <form action="" method="post">
-                        <select name="nama_cabang" id="">
+                                <form action="" method="post">
+                                    <select name="nama_cabang" id="">
 
-                            <?php
+                                        <?php
                                         $q = mysqli_query($con, "SELECT * FROM cabang $qu order by nama_cabang asc");
                                         while ($r = mysqli_fetch_array($q)) {
                                             if ($id_cabang == $r['id_cabang'])
                                                 $sel = 'selected';
                                             else $sel = '';
                                         ?>
-                            <option value="<?= $r['id_cabang'] ?>" <?= $sel ?>><?= strtoupper($r['nama_cabang']) ?>
-                            </option>
-                            <?php
+                                            <option value="<?= $r['id_cabang'] ?>" <?= $sel ?>><?= strtoupper($r['nama_cabang']) ?>
+                                            </option>
+                                        <?php
                                         }
                                         ?>
-                        </select>
-                        <input type="submit" name='submit_cabang' value='GANTI CABANG' />
-                    </form>
+                                    </select>
+                                    <input type="submit" name='submit_cabang' value='GANTI CABANG' />
+                                </form>
 
                     <?php
                                 if (isset($_POST['submit_cabang']) && $_POST['submit_cabang'] == 'GANTI CABANG') {
@@ -334,10 +333,10 @@ if ($su != 'y') {
 <script src="<?= $url ?>assets/js/morris.data.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
 <script type="text/javascript">
-var url_link = "<?= $url ?>";
-var idcab = "<?php echo $cabang ?>";
+    var url_link = "<?= $url ?>";
+    var idcab = "<?php echo $cabang ?>";
 
-<?php
+    <?php
     if ($_SESSION['informasi'] <= 2) {
         echo '$("#modalku").modal(); ';
         $_SESSION['informasi'] = $_SESSION['informasi'] + 1;
@@ -349,77 +348,77 @@ var idcab = "<?php echo $cabang ?>";
     ?>
 
 
-$(document).ready(function() {
-    $("#tutup_pesan").on('click', function() {
-        $("#hadis").modal();
-    });
-    $("#tutup_pesan1").on('click', function() {
-        $("#hadis").modal();
-    });
-    $('#modalku1').on('show.bs.modal', function(e) {
-        var rowid = $(e.relatedTarget).data('id');
-        $.get(url + "api/detail_monitoring.php?id=" + rowid, function(data, status) {
+    $(document).ready(function() {
+        $("#tutup_pesan").on('click', function() {
+            $("#hadis").modal();
+        });
+        $("#tutup_pesan1").on('click', function() {
+            $("#hadis").modal();
+        });
+        $('#modalku1').on('show.bs.modal', function(e) {
+            var rowid = $(e.relatedTarget).data('id');
+            $.get(url + "api/detail_monitoring.php?id=" + rowid, function(data, status) {
 
-            setTimeout(function() {
-                $("#isi_detail").html("Mohon Tunggu");
-            }, 0);
-            setTimeout(function() {
-                $("#isi_detail").html(data);
-            }, 800);
+                setTimeout(function() {
+                    $("#isi_detail").html("Mohon Tunggu");
+                }, 0);
+                setTimeout(function() {
+                    $("#isi_detail").html(data);
+                }, 800);
+            });
         });
     });
-});
 
-function salin(text) {
-    var sampleTextarea = document.createElement("textarea");
-    document.body.appendChild(sampleTextarea);
-    sampleTextarea.value = text; //save main text in it
-    sampleTextarea.select(); //select textarea contenrs
-    document.execCommand("copy");
-    document.body.removeChild(sampleTextarea);
-}
-var oilCanvas = document.getElementById("oilChart");
-
-var oilData = {
-    labels: [
-        "Saudi Arabia",
-        "Russia",
-        "Iraq",
-        "United Arab Emirates",
-        "Canada"
-    ],
-    datasets: [{
-        data: [133.3, 86.2, 52.2, 51.2, 50.2],
-        backgroundColor: [
-            "#FF6384",
-            "#63FF84",
-            "#84FF63",
-            "#8463FF",
-            "#6384FF"
-        ]
-    }]
-};
-
-var pieChart = new Chart(oilCanvas, {
-    type: 'pie',
-    data: oilData
-});
-
-
-
-
-
-function addCommas(nStr) {
-    nStr += '';
-    x = nStr.split('.');
-    x1 = x[0];
-    x2 = x.length > 1 ? '.' + x[1] : '';
-    var rgx = /(\d+)(\d{3})/;
-    while (rgx.test(x1)) {
-        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    function salin(text) {
+        var sampleTextarea = document.createElement("textarea");
+        document.body.appendChild(sampleTextarea);
+        sampleTextarea.value = text; //save main text in it
+        sampleTextarea.select(); //select textarea contenrs
+        document.execCommand("copy");
+        document.body.removeChild(sampleTextarea);
     }
-    return x1 + x2;
-}
+    var oilCanvas = document.getElementById("oilChart");
+
+    var oilData = {
+        labels: [
+            "Saudi Arabia",
+            "Russia",
+            "Iraq",
+            "United Arab Emirates",
+            "Canada"
+        ],
+        datasets: [{
+            data: [133.3, 86.2, 52.2, 51.2, 50.2],
+            backgroundColor: [
+                "#FF6384",
+                "#63FF84",
+                "#84FF63",
+                "#8463FF",
+                "#6384FF"
+            ]
+        }]
+    };
+
+    var pieChart = new Chart(oilCanvas, {
+        type: 'pie',
+        data: oilData
+    });
+
+
+
+
+
+    function addCommas(nStr) {
+        nStr += '';
+        x = nStr.split('.');
+        x1 = x[0];
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        }
+        return x1 + x2;
+    }
 </script>
 <script src="<?= $url ?>assets/js/script_wilayah.js"></script>
 <script src="<?= $url ?>assets/js/grafik.js"></script>
