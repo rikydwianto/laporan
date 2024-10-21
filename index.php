@@ -26,6 +26,8 @@ if ($su != 'y') {
         pindah("lock.php");
     }
 }
+set_time_limit(30000);
+
 
 // echo $su;
 ?>
