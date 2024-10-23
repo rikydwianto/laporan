@@ -22,9 +22,11 @@
 
                     <option value="">PILIH MINGGU SEBELUM</option>
                     <?php
-                    error_reporting(0);
+                    // error_reporting(0);
                     $q_tgl = mysqli_query($con, "SELECT DISTINCT tgl_input FROM deliquency where id_cabang='$id_cabang'  order by tgl_input desc");
-                    while ($tgl_ = mysqli_fetch_assoc($q_tgl)) {
+                    $tgl_del = mysqli_fetch_all($q_tgl, MYSQLI_ASSOC);
+                    var_dump($tgl_del);
+                    foreach ($tgl_del as $tgl_) {
                     ?>
                         <option value="<?= $tgl_['tgl_input'] ?>"
                             <?= ($_GET['sebelum'] === $tgl_['tgl_input'] ? "selected" : "") ?>>
@@ -44,8 +46,7 @@
 
                     <option value="">PILIH MINGGU INI</option>
                     <?php
-                    $q_tgl = mysqli_query($con, "SELECT DISTINCT tgl_input FROM deliquency where id_cabang='$id_cabang' order by tgl_input desc");
-                    while ($tgl_ = mysqli_fetch_assoc($q_tgl)) {
+                    foreach ($tgl_del as $tgl_) {
                     ?>
                         <option value="<?= $tgl_['tgl_input'] ?>"
                             <?= ($_GET['minggu_ini'] === $tgl_['tgl_input'] ? "selected" : "") ?>>
