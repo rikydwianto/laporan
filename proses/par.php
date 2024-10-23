@@ -26,9 +26,9 @@
                     $q_tgl = mysqli_query($con, "SELECT DISTINCT tgl_input FROM deliquency where id_cabang='$id_cabang'  order by tgl_input desc");
                     while ($tgl_ = mysqli_fetch_assoc($q_tgl)) {
                     ?>
-                    <option value="<?= $tgl_['tgl_input'] ?>"
-                        <?= ($_GET['sebelum'] === $tgl_['tgl_input'] ? "selected" : "") ?>>
-                        <?= format_hari_tanggal($tgl_['tgl_input']) ?></option>
+                        <option value="<?= $tgl_['tgl_input'] ?>"
+                            <?= ($_GET['sebelum'] === $tgl_['tgl_input'] ? "selected" : "") ?>>
+                            <?= format_hari_tanggal($tgl_['tgl_input']) ?></option>
                     <?php
                     }
                     ?>
@@ -47,9 +47,9 @@
                     $q_tgl = mysqli_query($con, "SELECT DISTINCT tgl_input FROM deliquency where id_cabang='$id_cabang' order by tgl_input desc");
                     while ($tgl_ = mysqli_fetch_assoc($q_tgl)) {
                     ?>
-                    <option value="<?= $tgl_['tgl_input'] ?>"
-                        <?= ($_GET['minggu_ini'] === $tgl_['tgl_input'] ? "selected" : "") ?>>
-                        <?= format_hari_tanggal($tgl_['tgl_input']) ?></option>
+                        <option value="<?= $tgl_['tgl_input'] ?>"
+                            <?= ($_GET['minggu_ini'] === $tgl_['tgl_input'] ? "selected" : "") ?>>
+                            <?= format_hari_tanggal($tgl_['tgl_input']) ?></option>
                     <?php
                     }
                     ?>
@@ -74,20 +74,20 @@
 
 
     ?>
-    <table class='table'>
-        <tr>
-            <td>no</td>
-            <td>loan</td>
-            <td>no_center</td>
-            <td>id_nasabah</td>
-            <td>nasabah</td>
-            <td>amount</td>
-            <td>balance</td>
-            <td>tunggakan</td>
-            <td>minggu</td>
-            <td>tgl dis</td>
-        </tr>
-        <?php
+        <table class='table'>
+            <tr>
+                <td>no</td>
+                <td>loan</td>
+                <td>no_center</td>
+                <td>id_nasabah</td>
+                <td>nasabah</td>
+                <td>amount</td>
+                <td>balance</td>
+                <td>tunggakan</td>
+                <td>minggu</td>
+                <td>tgl dis</td>
+            </tr>
+            <?php
             $file = $_FILES['file']['tmp_name'];
             $path = $file;
             $tgl = $_POST['tgl'];
@@ -157,7 +157,7 @@
             alert("Berhasil ditambahkan!");
             pindah($url . $menu . "par");
             ?>
-    </table>
+        </table>
     <?php
 
     }
@@ -167,48 +167,79 @@
         $tgl_awal  = $_GET['sebelum'];
         $tgl_banding = $_GET['minggu_ini'];
     ?>
-    <a href="#" onclick="buka('popup/par.php?tgl=<?= $tgl_awal ?>')" class="btn btn-primary"> <i class="fa fa-list"></i>
-        Tampilkan Semua AGT PAR TGL <?= $tgl_awal ?></a>
-    <a href="#" onclick="buka('popup/par.php?tgl=<?= $tgl_banding ?>')" class="btn btn-danger"> <i
-            class="fa fa-list"></i>
-        Tampilkan Semua AGT PAR TGL <?= $tgl_banding ?></a>
-    <?php
+        <a href="#" onclick="buka('popup/par.php?tgl=<?= $tgl_awal ?>')" class="btn btn-primary"> <i class="fa fa-list"></i>
+            Tampilkan Semua AGT PAR TGL <?= $tgl_awal ?></a>
+        <a href="#" onclick="buka('popup/par.php?tgl=<?= $tgl_banding ?>')" class="btn btn-danger"> <i
+                class="fa fa-list"></i>
+            Tampilkan Semua AGT PAR TGL <?= $tgl_banding ?></a>
+        <?php
         $kat = $_GET['kat'];
         if ($kat == 'turun' || $kat == 'naik') {
         ?>
-    <a href="#rekap" onclick="printPageArea('turun_par')" class="btn btn-success">print <i class="fa fa-print"></i></a>
-    <div id='turun_par'>
-        <h3>PENURUNAN ANGGOTA PAR</h3>
-        <table class='table table-bordered'>
-            <tr>
-                <th>NO</th>
-                <th>LOAN</th>
-                <th>CENTER</th>
-                <th>ID AGT</th>
-                <th>ANGGOTA</th>
-                <th>TANGGAL</th>
-                <th>DISBURSE</th>
-                <th>BALANCE</th>
-                <th>ARREAS</th>
-                <th>WEEK PAS</th>
-                <th>STATUS</th>
-                <th>ALASAN</th>
-                <th>TARGET</th>
-                <th>STAFF</th>
-            </tr>
+            <a href="#rekap" onclick="printPageArea('turun_par')" class="btn btn-success">print <i class="fa fa-print"></i></a>
+            <div id='turun_par'>
+                <h3>PENURUNAN ANGGOTA PAR</h3>
+                <table class='table table-bordered'>
+                    <tr>
+                        <th>NO</th>
+                        <th>LOAN</th>
+                        <th>CENTER</th>
+                        <th>ID AGT</th>
+                        <th>ANGGOTA</th>
+                        <th>TANGGAL</th>
+                        <th>DISBURSE</th>
+                        <th>BALANCE</th>
+                        <th>ARREAS</th>
+                        <th>WEEK PAS</th>
+                        <th>STATUS</th>
+                        <th>ALASAN</th>
+                        <th>TARGET</th>
+                        <th>STAFF</th>
+                    </tr>
 
-            <?php
+                    <?php
                     $total_os = 0;
-                    $query = mysqli_query($con, " SELECT d.*,k.nama_karyawan FROM deliquency d 
+                    $query = mysqli_query($con, " SELECT d.id,
+    d.loan,
+    d.no_center,
+    d.id_detail_nasabah,
+    d.nasabah,
+    d.amount,
+    d.sisa_saldo,
+    d.tunggakan,
+    d.minggu,
+    d.tgl_input,
+    d.id_cabang,
+    d.tgl_disburse,
+    d.cabang,
+    d.wajib,
+    d.sukarela,
+    d.pensiun,
+    d.hariraya,
+    d.lainlain,
+    d.cicilan,
+    d.hari,
+    d.staff,
+    d.minggu_ke,
+    d.minggu_rill,
+    d.priode,
+    d.kode_pemb,
+    d.jenis_topup,k.nama_karyawan FROM deliquency d 
             JOIN center c ON c.`no_center`=d.`no_center` 
             JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
             where d.loan not in (select loan from deliquency where tgl_input='$tgl_banding' and id_cabang='$id_cabang') and d.tgl_input='$tgl_awal' and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' order by k.nama_karyawan asc");
                     while ($data = mysqli_fetch_assoc($query)) {
                         $total_os += $data['sisa_saldo'];
                         $ID = (int)explode("-", $data['id_detail_nasabah'])[1];
-                        $qreason = (mysqli_query($con, "select * from alasan_par where id_loan='$data[loan]'  and id_cabang='$id_cabang'"));
-                        $qak = mysqli_num_rows(mysqli_query($con, "select * from temp_anggota_keluar where id_nasabah='$ID'  and id_cabang='$id_cabang' limit 1"));
-                        $par = mysqli_num_rows(mysqli_query($con, "select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]' and id_cabang='$id_cabang  limit 1'"));
+                        $qreason = (mysqli_query($con, "select  id,
+                                                            id_loan,
+                                                            id_detail_nasabah,
+                                                            id_cabang,
+                                                            id_karyawan,
+                                                            penyelesaian_par from alasan_par where id_loan='$data[loan]'  and id_cabang='$id_cabang'"));
+                        $qak = mysqli_num_rows(mysqli_query($con, "select id_nasabah,tgl_keluar,id_karyawan,id_cabang,status,alasan
+                                                                     from temp_anggota_keluar where id_nasabah='$ID'  and id_cabang='$id_cabang' limit 1"));
+                        $par = mysqli_num_rows(mysqli_query($con, "select id,id_karyawan,loan,id_detail_nasabah,id_cabang from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]' and id_cabang='$id_cabang  limit 1'"));
                         if ($par) {
                             $baris['baris'] = "#c9c7c1";
                             $baris['text'] = "red";
@@ -236,84 +267,115 @@
                             $baris['ket'] .= "TPK ";
                         } else {
                             $baris['ket'] .= "";
-                            $cek_topup = mysqli_query($con, "select * from keterangan_topup where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'  limit 1");
+                            $cek_topup = mysqli_query($con, "select id_topup,id_detail_nasabah,id_detail_pinjaman,topup,id_cabang,tgl_topup from keterangan_topup where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'  limit 1");
                             echo mysqli_error($con);
                             if (mysqli_num_rows($cek_topup)) {
                                 $top = mysqli_fetch_assoc($cek_topup);
                                 $baris['ket'] .= $top['topup'];
                             } else {
-                                $cek_topup = mysqli_query($con, "select * from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'  limit 1");
+                                $cek_topup = mysqli_query($con, "select id,id_nasabah,id_detail_nasabah,id_cabang from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'  limit 1");
                                 if (mysqli_num_rows($cek_topup)) {
                                     $baris['ket'] .= "TPK";
                                 }
                             }
                         }
                     ?>
-            <tr style="background-color:<?= $baris['baris'] ?>;color:<?= $baris['text'] ?>">
-                <td><?= $no++ ?></td>
-                <td><?= $data['loan'] ?></td>
-                <td><?= $data['no_center'] ?></td>
-                <td><?= $data['id_detail_nasabah'] ?></td>
-                <td><?= $data['nasabah'] ?></td>
-                <td><?= $data['tgl_disburse'] ?></td>
-                <td><?= angka($data['amount'], $sepat) ?></td>
-                <td><?= angka($data['sisa_saldo'], $sepat) ?></td>
-                <td><?= angka($data['tunggakan'], $sepat) ?></td>
-                <td><?= $data['minggu'] ?></td>
-                <td><?= $baris['ket'] ?></td>
-                <td><?= $baris['alasan'] ?></td>
-                <td><?= $baris['penyelesaian_par'] ?></td>
-                <td><?= $data['nama_karyawan'] ?></td>
-            </tr>
-            <?php
+                        <tr style="background-color:<?= $baris['baris'] ?>;color:<?= $baris['text'] ?>">
+                            <td><?= $no++ ?></td>
+                            <td><?= $data['loan'] ?></td>
+                            <td><?= $data['no_center'] ?></td>
+                            <td><?= $data['id_detail_nasabah'] ?></td>
+                            <td><?= $data['nasabah'] ?></td>
+                            <td><?= $data['tgl_disburse'] ?></td>
+                            <td><?= angka($data['amount'], $sepat) ?></td>
+                            <td><?= angka($data['sisa_saldo'], $sepat) ?></td>
+                            <td><?= angka($data['tunggakan'], $sepat) ?></td>
+                            <td><?= $data['minggu'] ?></td>
+                            <td><?= $baris['ket'] ?></td>
+                            <td><?= $baris['alasan'] ?></td>
+                            <td><?= $baris['penyelesaian_par'] ?></td>
+                            <td><?= $data['nama_karyawan'] ?></td>
+                        </tr>
+                    <?php
                     } ?>
-            <tr>
-                <th colspan="7">TOTAL OUTSTANDING BERKURANG</th>
-                <th>-<?= angka($total_os, $sepat) ?></th>
-            </tr>
-        </table>
-    </div>
-    <?php
+                    <tr>
+                        <th colspan="7">TOTAL OUTSTANDING BERKURANG</th>
+                        <th>-<?= angka($total_os, $sepat) ?></th>
+                    </tr>
+                </table>
+            </div>
+            <?php
             // }
 
             // if($kat=='naik'){
             //     
             ?>
-    <a href="#rekap" onclick="printPageArea('tambah_par')" class="btn btn-success">print <i class="fa fa-print"></i></a>
+            <a href="#rekap" onclick="printPageArea('tambah_par')" class="btn btn-success">print <i class="fa fa-print"></i></a>
 
-    <div id='tambah_par'>
-        <h3>PENAMBAHAN ANGGOTA PAR</h3>
-        <table class='table table-bordered'>
-            <tr>
-                <th>NO</th>
-                <th>LOAN</th>
-                <th>CENTER</th>
-                <th>ID AGT</th>
-                <th>ANGGOTA</th>
-                <th>TANGGAL</th>
-                <th>DISBURSE</th>
-                <th>BALANCE</th>
-                <th>ARREAS</th>
-                <th>WEEK PAS</th>
-                <th>STATUS</th>
-                <th>ALASAN</th>
-                <th>TARGET</th>
-                <th>STAFF</th>
-            </tr>
+            <div id='tambah_par'>
+                <h3>PENAMBAHAN ANGGOTA PAR</h3>
+                <table class='table table-bordered'>
+                    <tr>
+                        <th>NO</th>
+                        <th>LOAN</th>
+                        <th>CENTER</th>
+                        <th>ID AGT</th>
+                        <th>ANGGOTA</th>
+                        <th>TANGGAL</th>
+                        <th>DISBURSE</th>
+                        <th>BALANCE</th>
+                        <th>ARREAS</th>
+                        <th>WEEK PAS</th>
+                        <th>STATUS</th>
+                        <th>ALASAN</th>
+                        <th>TARGET</th>
+                        <th>STAFF</th>
+                    </tr>
 
-            <?php
+                    <?php
                     $no = 1;
                     $total_tambah = 0;
                     $query1 = mysqli_query($con, "
-        SELECT d.*,k.nama_karyawan FROM deliquency d 
+        SELECT d.id,
+    d.loan,
+    d.no_center,
+    d.id_detail_nasabah,
+    d.nasabah,
+    d.amount,
+    d.sisa_saldo,
+    d.tunggakan,
+    d.minggu,
+    d.tgl_input,
+    d.id_cabang,
+    d.tgl_disburse,
+    d.cabang,
+    d.wajib,
+    d.sukarela,
+    d.pensiun,
+    d.hariraya,
+    d.lainlain,
+    d.cicilan,
+    d.hari,
+    d.staff,
+    d.minggu_ke,
+    d.minggu_rill,
+    d.priode,
+    d.kode_pemb,
+    d.jenis_topup,k.nama_karyawan FROM deliquency d 
         JOIN center c ON c.`no_center`=d.`no_center` 
         JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
         where d.loan not in (select loan from deliquency where tgl_input='$tgl_awal' and id_cabang='$id_cabang') and d.tgl_input='$tgl_banding' and c.id_cabang='$id_cabang' and  d.id_cabang='$id_cabang' order by k.nama_karyawan asc");
                     while ($data = mysqli_fetch_assoc($query1)) {
 
-                        $qreason = (mysqli_query($con, "select * from alasan_par where id_loan='$data[loan]'  and id_cabang='$id_cabang'  limit 1"));
+                        $qreason = (mysqli_query($con, "select  id,
+                                                            id_loan,
+                                                            id_detail_nasabah,
+                                                            id_cabang,
+                                                            id_karyawan,
+                                                            penyelesaian_par
+                                                        from alasan_par where id_loan='$data[loan]'  and id_cabang='$id_cabang'  limit 1"));
 
-                        $par = mysqli_num_rows(mysqli_query($con, "select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]' and id_cabang='$id_cabang'  limit 1"));
+                        $par = mysqli_num_rows(mysqli_query($con, "select id,id_karyawan,loan,id_detail_nasabah,id_cabang from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]' and id_cabang='$id_cabang'  limit 1"));
                         if ($par) {
                             $baris['baris'] = "#c9c7c1";
                             $baris['text'] = "red";
@@ -336,13 +398,13 @@
                             $baris['ket'] .= "TPK ";
                         } else {
                             $baris['ket'] .= "";
-                            $cek_topup = mysqli_query($con, "select * from keterangan_topup where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'  limit 1");
+                            $cek_topup = mysqli_query($con, "select id_topup,id_detail_nasabah,id_detail_pinjaman,topup,id_cabang,tgl_topup from keterangan_topup where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'  limit 1");
                             echo mysqli_error($con);
                             if (mysqli_num_rows($cek_topup)) {
                                 $top = mysqli_fetch_assoc($cek_topup);
                                 $baris['ket'] .= $top['topup'];
                             } else {
-                                $cek_topup = mysqli_query($con, "select * from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'  limit 1");
+                                $cek_topup = mysqli_query($con, "select id,id_nasabah,id_detail_nasabah,id_cabang from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'  limit 1");
                                 if (mysqli_num_rows($cek_topup)) {
                                     $baris['ket'] .= "TPK";
                                 }
@@ -350,31 +412,31 @@
                         }
                         $total_tambah += $data['sisa_saldo'];
                     ?>
-            <tr style="background-color:<?= $baris['baris'] ?>;color:<?= $baris['text'] ?>">
-                <td><?= $no++ ?></td>
-                <td><?= $data['loan'] ?></td>
-                <td><?= $data['no_center'] ?></td>
-                <td><?= $data['id_detail_nasabah'] ?></td>
-                <td><?= $data['nasabah'] ?></td>
-                <td><?= $data['tgl_disburse'] ?></td>
-                <td><?= angka($data['amount'], $sepat) ?></td>
-                <td><?= angka($data['sisa_saldo'], $sepat) ?></td>
-                <td><?= angka($data['tunggakan'], $sepat) ?></td>
-                <td><?= $data['minggu'] ?></td>
-                <td><?= $baris['ket'] ?></td>
-                <td><?= $baris['alasan'] ?></td>
-                <td><?= $baris['penyelesaian_par'] ?></td>
-                <td><?= $data['nama_karyawan'] ?></td>
-            </tr>
-            <?php
+                        <tr style="background-color:<?= $baris['baris'] ?>;color:<?= $baris['text'] ?>">
+                            <td><?= $no++ ?></td>
+                            <td><?= $data['loan'] ?></td>
+                            <td><?= $data['no_center'] ?></td>
+                            <td><?= $data['id_detail_nasabah'] ?></td>
+                            <td><?= $data['nasabah'] ?></td>
+                            <td><?= $data['tgl_disburse'] ?></td>
+                            <td><?= angka($data['amount'], $sepat) ?></td>
+                            <td><?= angka($data['sisa_saldo'], $sepat) ?></td>
+                            <td><?= angka($data['tunggakan'], $sepat) ?></td>
+                            <td><?= $data['minggu'] ?></td>
+                            <td><?= $baris['ket'] ?></td>
+                            <td><?= $baris['alasan'] ?></td>
+                            <td><?= $baris['penyelesaian_par'] ?></td>
+                            <td><?= $data['nama_karyawan'] ?></td>
+                        </tr>
+                    <?php
                     } ?>
-            <tr>
-                <th colspan="7">TOTAL OUTSTANDING BERTAMBAH</th>
-                <th>+<?= angka($total_tambah, $sepat) ?></th>
-            </tr>
-        </table>
-    </div>
-    <?php
+                    <tr>
+                        <th colspan="7">TOTAL OUTSTANDING BERTAMBAH</th>
+                        <th>+<?= angka($total_tambah, $sepat) ?></th>
+                    </tr>
+                </table>
+            </div>
+        <?php
         }
         ?>
 
@@ -384,38 +446,63 @@
 
 
 
-    <!-- PENGURANGAN OUTSTANDING PAR -->
-    <!-- PENGURANGAN OUTSTANDING PAR -->
-    <!-- PENGURANGAN OUTSTANDING PAR -->
-    <!-- PENGURANGAN OUTSTANDING PAR -->
-    <?php
+        <!-- PENGURANGAN OUTSTANDING PAR -->
+        <!-- PENGURANGAN OUTSTANDING PAR -->
+        <!-- PENGURANGAN OUTSTANDING PAR -->
+        <!-- PENGURANGAN OUTSTANDING PAR -->
+        <?php
         if ($kat == 'berkurang') {
         ?>
-    <a href="javascript:void(0)" onclick="printPageArea('turun_os')" class="btn btn-success">print <i
-            class="fa fa-print"></i></a>
-    <div id='turun_os'>
-        <h3> PENGURANGAN OUTSTANDING PAR</h3>
-        <table class='table'>
-            <tr>
-                <th>NO</th>
-                <th>LOAN</th>
-                <th>CENTER</th>
-                <th>ID AGT</th>
-                <th>ANGGOTA</th>
-                <th>DISBURSE</th>
-                <th>BALANCE</th>
-                <th>BALANCE </th>
-                <th>MINUS</th>
-                <th>WEEK</th>
-                <th>STATUS</th>
-                <th>STAFF</th>
-            </tr>
+            <a href="javascript:void(0)" onclick="printPageArea('turun_os')" class="btn btn-success">print <i
+                    class="fa fa-print"></i></a>
+            <div id='turun_os'>
+                <h3> PENGURANGAN OUTSTANDING PAR</h3>
+                <table class='table'>
+                    <tr>
+                        <th>NO</th>
+                        <th>LOAN</th>
+                        <th>CENTER</th>
+                        <th>ID AGT</th>
+                        <th>ANGGOTA</th>
+                        <th>DISBURSE</th>
+                        <th>BALANCE</th>
+                        <th>BALANCE </th>
+                        <th>MINUS</th>
+                        <th>WEEK</th>
+                        <th>STATUS</th>
+                        <th>STAFF</th>
+                    </tr>
 
-            <?php
+                    <?php
                     $no = 1;
                     $total_minus = 0;
                     $query_s = mysqli_query($con, "
-        SELECT d.*,k.nama_karyawan FROM deliquency d 
+        SELECT d.id,
+    d.loan,
+    d.no_center,
+    d.id_detail_nasabah,
+    d.nasabah,
+    d.amount,
+    d.sisa_saldo,
+    d.tunggakan,
+    d.minggu,
+    d.tgl_input,
+    d.id_cabang,
+    d.tgl_disburse,
+    d.cabang,
+    d.wajib,
+    d.sukarela,
+    d.pensiun,
+    d.hariraya,
+    d.lainlain,
+    d.cicilan,
+    d.hari,
+    d.staff,
+    d.minggu_ke,
+    d.minggu_rill,
+    d.priode,
+    d.kode_pemb,
+    d.jenis_topup,k.nama_karyawan FROM deliquency d 
         JOIN center c ON c.`no_center`=d.`no_center` 
         JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` 
         where d.loan  in (select loan from deliquency where tgl_input='$tgl_banding' and id_cabang='$id_cabang') and d.tgl_input='$tgl_awal' and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' order by k.nama_karyawan asc");
@@ -442,30 +529,30 @@
                                 $baris['ket'] = '';
                             }
                     ?>
-            <tr style="background-color:<?= $baris['baris'] ?>;color:<?= $baris['text'] ?>">
-                <td><?= $no++ ?></td>
-                <td><?= $data['loan'] ?></td>
-                <td><?= $data['no_center'] ?></td>
-                <td><?= $data['id_detail_nasabah'] ?></td>
-                <td><?= $data['nasabah'] ?></td>
-                <td><?= angka($data['amount'], $sepat) ?></td>
-                <td><?= angka($saldo_awal, $sepat) ?></td>
-                <td><?= angka($saldo_akhir, $sepat) ?></td>
-                <td>-<?= angka($total, $sepat) ?></td>
-                <td><?= $data['minggu'] ?></td>
-                <td><?= $baris['ket'] ?></td>
-                <td><?= $data['nama_karyawan'] ?></td>
-            </tr>
-            <?php
+                            <tr style="background-color:<?= $baris['baris'] ?>;color:<?= $baris['text'] ?>">
+                                <td><?= $no++ ?></td>
+                                <td><?= $data['loan'] ?></td>
+                                <td><?= $data['no_center'] ?></td>
+                                <td><?= $data['id_detail_nasabah'] ?></td>
+                                <td><?= $data['nasabah'] ?></td>
+                                <td><?= angka($data['amount'], $sepat) ?></td>
+                                <td><?= angka($saldo_awal, $sepat) ?></td>
+                                <td><?= angka($saldo_akhir, $sepat) ?></td>
+                                <td>-<?= angka($total, $sepat) ?></td>
+                                <td><?= $data['minggu'] ?></td>
+                                <td><?= $baris['ket'] ?></td>
+                                <td><?= $data['nama_karyawan'] ?></td>
+                            </tr>
+                    <?php
                         }
                     } ?>
-            <tr>
-                <th colspan="8">TOTAL OUTSTANDING BERKURANG</th>
-                <th>-<?= angka($total_minus, $sepat) ?></th>
-            </tr>
-        </table>
-    </div>
-    <?php
+                    <tr>
+                        <th colspan="8">TOTAL OUTSTANDING BERKURANG</th>
+                        <th>-<?= angka($total_minus, $sepat) ?></th>
+                    </tr>
+                </table>
+            </div>
+        <?php
         }
 
 
@@ -474,29 +561,29 @@
 
         if ($kat == 'simpanan') {
         ?>
-    <a href="javascript:void(0)" onclick="printPageArea('simpanan')" class="btn btn-success">print <i
-            class="fa fa-print"></i></a>
-    <div id='simpanan'>
-        <h3> CEK SIMPANAN</h3>
-        <table class='table'>
-            <tr>
-                <th>NO</th>
-                <th>LOAN</th>
-                <th>CENTER</th>
-                <th>ID AGT</th>
-                <th>ANGGOTA</th>
-                <th>DISBURSE</th>
-                <th>BALANCE</th>
-                <th>BALANCE </th>
-                <th>MINUS</th>
-                <th>WEEK</th>
-                <th>STATUS</th>
-                <th>STAFF</th>
-            </tr>
+            <a href="javascript:void(0)" onclick="printPageArea('simpanan')" class="btn btn-success">print <i
+                    class="fa fa-print"></i></a>
+            <div id='simpanan'>
+                <h3> CEK SIMPANAN</h3>
+                <table class='table'>
+                    <tr>
+                        <th>NO</th>
+                        <th>LOAN</th>
+                        <th>CENTER</th>
+                        <th>ID AGT</th>
+                        <th>ANGGOTA</th>
+                        <th>DISBURSE</th>
+                        <th>BALANCE</th>
+                        <th>BALANCE </th>
+                        <th>MINUS</th>
+                        <th>WEEK</th>
+                        <th>STATUS</th>
+                        <th>STAFF</th>
+                    </tr>
 
-        </table>
-    </div>
-    <?php
+                </table>
+            </div>
+        <?php
         }
     } elseif (isset($_GET['rekap'])) {
         include("./proses/rekap_par.php");
@@ -508,7 +595,7 @@
         include("./proses/list_par.php");
     } else {
         ?>
-    <h2><a href="<?= $url . $menu ?>par&list" class="btn btn-success">Lihat Data Par</a></h2>
+        <h2><a href="<?= $url . $menu ?>par&list" class="btn btn-success">Lihat Data Par</a></h2>
     <?php
     }
 
@@ -527,27 +614,27 @@
 </div>
 
 <style>
-/* style sheet for "A4" printing */
-@page {
-    size: auto;
-    size: F4;
-    margin: 0mm;
-}
+    /* style sheet for "A4" printing */
+    @page {
+        size: auto;
+        size: F4;
+        margin: 0mm;
+    }
 </style>
 <script>
-function printPageArea(areaID) {
-    var printContent = document.getElementById(areaID);
-    var WinPrint = window.open('', '', 'width=900,height=650');
-    WinPrint.document.write(printContent.innerHTML);
-    WinPrint.document.close();
-    WinPrint.focus();
-    WinPrint.print();
-    WinPrint.close();
-}
+    function printPageArea(areaID) {
+        var printContent = document.getElementById(areaID);
+        var WinPrint = window.open('', '', 'width=900,height=650');
+        WinPrint.document.write(printContent.innerHTML);
+        WinPrint.document.close();
+        WinPrint.focus();
+        WinPrint.print();
+        WinPrint.close();
+    }
 
-function buka(url) {
-    let l = "<?= $url ?>";
-    var myWindow = window.open(url, "DATA PAR", "width=1000,height=1000");
-    //   myWindow.document.write("<p>This is 'MsgWindow'. I am 200px wide and 100px tall!</p>");
-}
+    function buka(url) {
+        let l = "<?= $url ?>";
+        var myWindow = window.open(url, "DATA PAR", "width=1000,height=1000");
+        //   myWindow.document.write("<p>This is 'MsgWindow'. I am 200px wide and 100px tall!</p>");
+    }
 </script>
