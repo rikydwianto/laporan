@@ -53,6 +53,7 @@
 				<input class="form-control" type="file" name='file' accept=".xml" id="formFile">
 				<!-- <input type="submit" value="Proses"  class='btn btn-danger' name='preview'> -->
 				<input type="submit" value="Proses" class='btn btn-info' name='xml-preview'>
+				<input type="submit" value="Proses Versi LAMA" class='btn btn-info' name='xml-preview-2'>
 			</div>
 		</form>
 	<?php
@@ -65,73 +66,193 @@
 	if (isset($_POST['xml-preview'])) {
 		$file = $_FILES['file']['tmp_name'];
 		$path = $file;
-		$xml = simplexml_load_file($path) or die("Error: Cannot create object");
+		// libxml_use_internal_errors(true);
+
+		libxml_use_internal_errors(true); // Abaikan error XML
+		$xml = simplexml_load_file($path, null, LIBXML_NOCDATA);
+		if (!$xml) {
+			echo "Error saat memuat XML:<br>";
+			foreach (libxml_get_errors() as $error) {
+				echo "Line {$error->line}: {$error->message}<br>";
+			}
+			// exit;
+		}
 
 		$validate = $xml['Name'];
-		if ($validate == "CenterMeeting") {
-			//   echo ($xml[0]->Tablix2['HARI_Collection']);
-			$xml = new SimpleXMLElement($path, 0, true);
-			$xml = ($xml->Tablix2->HARI_Collection);
-			$hari = $xml->HARI;
 
-			// echo $hari;
+		if ($xml) {
+			$hariCollection = $xml->Tablix2->HARI_Collection;
 			$total_center = 0;
-			$hitung_hari = count($hari);
-			foreach ($hari  as $day) {
-				$days = strtolower($day["HARI1"]);
-				//   echo $day['HARI1']."<br/>";
-				foreach ($day->OfficerName_Collection as $hari_staff) {
-					//   echo $day;
-					foreach ($hari_staff->OfficerName as $staff) {
-						$nama_staff = explode("Total ", $staff['OfficerName1'])[0];
-						//   echo $nama_staff."<br/>";
-						foreach ($staff->CenterID_Collection->CenterID as $ctr_staf) {
-							$no_center =  $ctr_staf['CenterID'];
-							$qcek = mysqli_query($con, "SELECT no_center from center where id_cabang='$id_cabang' and no_center='$no_center'");
-							$center[] = $no_center;
-							$detail_center = $ctr_staf->Details_Collection->Details;
-							$jam = $detail_center['MeetingTime'];
-							$agt = $detail_center['Textbox128'];
-							$client = $detail_center['JumlahClient'];
-							$desa = $detail_center['DusunName'];
-							$kecamatan = $detail_center['KecamatanName'];
-							$kab = $detail_center['KabupatenName'];
-							//   echo $no++." ";
-							$hitung = mysqli_num_rows($qcek);
-							if ($hitung > 0) {
-								$txt = "UPDATE `center` SET 
-							`member_center` = '$agt',
-							`anggota_center` = '$client',
-							center_bayar='$client',
-							jam_center='$jam',
-							hari='$days',
-							konfirmasi='t',
-							anggota_hadir='$agt',
-							staff='$nama_staff', desa='$desa', kecamatan='$kecamatan', kabupaten='$kab'
-							 WHERE `no_center` = '$no_center' and id_cabang='$id_cabang'; 
-							";
-								mysqli_query($con, $txt);
-							} else {
-								// echo $no_center."Tidak<br/>";
-								$qtxt = "INSERT INTO 
-							`center` (`id_center`, `no_center`, `doa_center`, `hari`, `status_center`, `member_center`, `anggota_center`, `center_bayar`, `id_cabang`, `id_karyawan`, `id_laporan`, `jam_center`, `latitude`, `longitude`, `doortodoor`, `blacklist`, `konfirmasi`, `staff`,desa,kecamatan,kabupaten,anggota_hadir) 
-							VALUES (NULL, '$no_center', 'y', '$days', 'hijau', '$agt', '$client', '$client', '$id_cabang', '0', '0', '$jam', 'null', 'null', 't', 't', 't', '$nama_staff','$desa','$kecamatan','$kab','$agt'); 
-							";
-								mysqli_query($con, $qtxt);
-							}
-							$total_center++;
+			$center = [];
+
+			foreach ($hariCollection->HARI as $day) {
+				$days = strtolower((string)$day['HARI1']);
+
+				foreach ($day->OfficerName_Collection->OfficerName as $staff) {
+					$nama_staff = explode("Total ", (string)$staff['OfficerName1'])[0];
+					$nama_staff = trim(preg_replace('/[\r\n]+/', ' ', $nama_staff));
+
+					foreach ($staff->CenterID_Collection->CenterID as $ctr_staf) {
+						$no_center = (string)$ctr_staf['CenterID'];
+						$detail_center = $ctr_staf->CenterName->Details_Collection->Details;
+
+						$jam = (string)$detail_center['MeetingTime'];
+						$agt = $detail_center['Textbox128'] + 0;
+						$client = $detail_center['JumlahClient'] + 0;
+						$desa = (string)$detail_center['DusunName'];
+						$kecamatan = (string)$detail_center['KecamatanName'];
+						$kab = (string)$detail_center['KabupatenName'];
+						$centerName = (string) $ctr_staf->CenterName['CenterName']; // Ambil nama center
+						$qcek = mysqli_query($con, "SELECT no_center FROM center WHERE id_cabang='$id_cabang' AND no_center='$no_center'");
+						if (!$qcek) {
+							die("Error in SQL Query (SELECT): " . mysqli_error($con));
 						}
+
+						$center[] = $no_center;
+						$hitung = mysqli_num_rows($qcek);
+
+						if ($hitung > 0) {
+							$txt = "UPDATE `center` SET 
+									`member_center` = '$agt',
+									`anggota_center` = '$client',
+									`center_bayar` = '$client',
+									`jam_center` = '$jam',
+									`hari` = '$days',
+									`konfirmasi` = 't',
+									`anggota_hadir` = '$agt',
+									`staff` = '$nama_staff', 
+									`desa` = '$desa', 
+									`kecamatan` = '$kecamatan', 
+									`kabupaten` = '$kab',
+									`nama_center`='$centerName'
+								WHERE `no_center` = '$no_center' AND `id_cabang` = '$id_cabang';";
+							if (!mysqli_query($con, $txt)) {
+								die("Error in SQL Query (UPDATE): " . mysqli_error($con));
+							}
+						} else {
+							$qtxt = "INSERT INTO 
+									`center` (`id_center`, `no_center`, `doa_center`, `hari`, `status_center`, `member_center`, `anggota_center`, `center_bayar`, `id_cabang`, `id_karyawan`, `id_laporan`, `jam_center`, `latitude`, `longitude`, `doortodoor`, `blacklist`, `konfirmasi`, `staff`, `desa`, `kecamatan`, `kabupaten`, `anggota_hadir`,`nama_center`) 
+								VALUES (NULL, '$no_center', 'y', '$days', 'hijau', '$agt', '$client', '$client', '$id_cabang', '0', '0', '$jam', 'null', 'null', 't', 't', 't', '$nama_staff', '$desa', '$kecamatan', '$kab', '$agt','$centerName');";
+							if (!mysqli_query($con, $qtxt)) {
+								die("Error in SQL Query (INSERT): " . mysqli_error($con));
+							}
+						}
+						$total_center++;
 					}
 				}
 			}
+
 			$gabung_center = implode("','", $center);
-			mysqli_query($con, "DELETE from center WHERE no_center NOT IN ('$gabung_center') AND id_cabang='$id_cabang'");
-			//   echo "$total_center ========================";
+			if (!mysqli_query($con, "DELETE FROM center WHERE no_center NOT IN ('$gabung_center') AND id_cabang='$id_cabang'")) {
+				die("Error in SQL Query (DELETE): " . mysqli_error($con));
+			}
 			pindah($url . $menu . "center&sinkron");
+		} else {
+			echo "Nama dokumen XML tidak valid.";
 		}
-		//   echo var_dump($xml);
-		exit;
+		// exit;
 	}
+
+
+	if (isset($_POST['xml-preview-2'])) {
+		$file = $_FILES['file']['tmp_name'];
+		$path = $file;
+
+		// Abaikan error XML
+		libxml_use_internal_errors(true);
+		$xml = simplexml_load_file($path, null, LIBXML_NOCDATA);
+		if (!$xml) {
+			echo "Error saat memuat XML:<br>";
+			foreach (libxml_get_errors() as $error) {
+				echo "Line {$error->line}: {$error->message}<br>";
+			}
+			// exit; // Anda bisa menghapus exit jika ingin melanjutkan dengan eksekusi
+		}
+
+		$validate = $xml['Name'];
+
+		if ($xml) {
+			$hariCollection = $xml->Tablix2->HARI_Collection;
+			$total_center = 0;
+			$center = [];
+
+			foreach ($hariCollection->HARI as $day) {
+				$days = strtolower((string)$day['HARI1']);
+
+				foreach ($day->OfficerName_Collection->OfficerName as $staff) {
+					$nama_staff = explode("Total ", (string)$staff['OfficerName1'])[0];
+					$nama_staff = trim(preg_replace('/[\r\n]+/', ' ', $nama_staff));
+
+					foreach ($staff->CenterID_Collection->CenterID as $ctr_staf) {
+						$no_center = (string)$ctr_staf['CenterID'];
+						$detail_center = $ctr_staf->Details_Collection->Details;
+
+						// Ambil data center
+						$jam = (string)$detail_center['MeetingTime'];
+						$agt = $detail_center['Textbox128'] + 0;
+						$client = $detail_center['JumlahClient'] + 0;
+						$desa = (string)$detail_center['DusunName'];
+						$kecamatan = (string)$detail_center['KecamatanName'];
+						$kab = (string)$detail_center['KabupatenName'];
+						$centerName = (string)$ctr_staf->CenterName['CenterName']; // Ambil nama center
+
+						// Cek apakah center sudah ada dalam database
+						$qcek = mysqli_query($con, "SELECT no_center FROM center WHERE id_cabang='$id_cabang' AND no_center='$no_center'");
+						if (!$qcek) {
+							die("Error in SQL Query (SELECT): " . mysqli_error($con));
+						}
+
+						$center[] = $no_center;
+						$hitung = mysqli_num_rows($qcek);
+
+						// Update jika center sudah ada
+						if ($hitung > 0) {
+							$txt = "UPDATE `center` SET 
+									`member_center` = '$agt',
+									`anggota_center` = '$client',
+									`center_bayar` = '$client',
+									`jam_center` = '$jam',
+									`hari` = '$days',
+									`konfirmasi` = 't',
+									`anggota_hadir` = '$agt',
+									`staff` = '$nama_staff', 
+									`desa` = '$desa', 
+									`kecamatan` = '$kecamatan', 
+									`kabupaten` = '$kab',
+									`nama_center` = '$centerName'
+								WHERE `no_center` = '$no_center' AND `id_cabang` = '$id_cabang';";
+							if (!mysqli_query($con, $txt)) {
+								die("Error in SQL Query (UPDATE): " . mysqli_error($con));
+							}
+						} else {
+							// Jika center belum ada, insert data baru
+							$qtxt = "INSERT INTO 
+									`center` (`id_center`, `no_center`, `doa_center`, `hari`, `status_center`, `member_center`, `anggota_center`, `center_bayar`, `id_cabang`, `id_karyawan`, `id_laporan`, `jam_center`, `latitude`, `longitude`, `doortodoor`, `blacklist`, `konfirmasi`, `staff`, `desa`, `kecamatan`, `kabupaten`, `anggota_hadir`, `nama_center`) 
+								VALUES (NULL, '$no_center', 'y', '$days', 'hijau', '$agt', '$client', '$client', '$id_cabang', '0', '0', '$jam', 'null', 'null', 't', 't', 't', '$nama_staff', '$desa', '$kecamatan', '$kab', '$agt', '$centerName');";
+							if (!mysqli_query($con, $qtxt)) {
+								die("Error in SQL Query (INSERT): " . mysqli_error($con));
+							}
+						}
+						$total_center++;
+					}
+				}
+			}
+
+			// Menghapus center yang tidak ada dalam XML
+			$gabung_center = implode("','", $center);
+			if (!mysqli_query($con, "DELETE FROM center WHERE no_center NOT IN ('$gabung_center') AND id_cabang='$id_cabang'")) {
+				die("Error in SQL Query (DELETE): " . mysqli_error($con));
+			}
+			pindah($url . $menu . "center&sinkron");
+		} else {
+			echo "Nama dokumen XML tidak valid.";
+		}
+		// exit;
+	}
+
+
+
+
 
 
 	if (isset($_POST['preview'])) {
@@ -245,11 +366,13 @@
 					<table class='table'>
 						<tr>
 							<td>No Center</td>
-							<td><input type="number" disabled class='form-control' name="center" value="<?= $cek_center['no_center'] ?>" id=""></td>
+							<td><input type="number" disabled class='form-control' name="center"
+									value="<?= $cek_center['no_center'] ?>" id=""></td>
 						</tr>
 						<tr>
 							<td>Status</td>
-							<td><input type="text" disabled class='form-control' value="<?= $cek_center['status_center'] ?>" id=""></td>
+							<td><input type="text" disabled class='form-control' value="<?= $cek_center['status_center'] ?>"
+									id=""></td>
 						</tr>
 						<tr>
 							<td>Staff</td>
@@ -281,7 +404,8 @@
 						</tr>
 						<tr>
 							<td>JAM</td>
-							<td><input type="text" class='form-control' name="jam" value="<?= $cek_center['jam_center'] ?>" id=""></td>
+							<td><input type="text" class='form-control' name="jam" value="<?= $cek_center['jam_center'] ?>"
+									id=""></td>
 						</tr>
 						<tr>
 							<td>HARI</td>
@@ -359,7 +483,9 @@
 							<td></td>
 							<td>
 
-								<input type='submit' class='btn btn-danger' onclick="window.confirm('Apakah anda yakin memindahkan, semua laporan juga akan diganti oleh staff baru')" name='pindah_staff' value="PINDAHKAN CENTER" />
+								<input type='submit' class='btn btn-danger'
+									onclick="window.confirm('Apakah anda yakin memindahkan, semua laporan juga akan diganti oleh staff baru')"
+									name='pindah_staff' value="PINDAHKAN CENTER" />
 							</td>
 						</tr>
 					</table>
@@ -477,8 +603,11 @@
 
 							<td>
 
-								<a href="<?= $url . $menu ?>center&del&iddet=<?= $center['id_center'] ?>" onclick="return window.confirm('Apakah yakin menghapus center ini')"> <i class='fa fa-times'></i> Hapus</a>
-								<a href="<?= $url . $menu ?>center&edit&iddet=<?= $center['id_center'] ?>"> <i class='fa fa-edit'></i>
+								<a href="<?= $url . $menu ?>center&del&iddet=<?= $center['id_center'] ?>"
+									onclick="return window.confirm('Apakah yakin menghapus center ini')"> <i
+										class='fa fa-times'></i> Hapus</a>
+								<a href="<?= $url . $menu ?>center&edit&iddet=<?= $center['id_center'] ?>"> <i
+										class='fa fa-edit'></i>
 									Edit</a>
 							</td>
 						</tr>
