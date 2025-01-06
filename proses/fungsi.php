@@ -1,28 +1,135 @@
 <?php
+function rubahkata($text)
+{
+  // Daftar kata-kata terlarang
+  $badwords = [
+    "poker",
+    "blackjack",
+    "roulette",
+    "baccarat",
+    "slot",
+    "togel",
+    "sicbo",
+    "dominoqq",
+    "capsa",
+    "jackpot",
+    "taruhan",
+    "betting",
+    "bet",
+    "odd",
+    "parlay",
+    "pasang taruhan",
+    "gambling",
+    "bookie",
+    "bandar",
+    "taruhan bola",
+    "mix parlay",
+    "odds",
+    "handicap",
+    "kasino",
+    "online casino",
+    "situs judi",
+    "agen judi",
+    "bandar online",
+    "chip gratis",
+    "deposit judi",
+    "withdraw judi",
+    "freebet",
+    "bonus deposit",
+    "promo slot",
+    "putaran gratis",
+    "jackpot besar",
+    "daftar sekarang",
+    "link alternatif",
+    "bermain sekarang",
+    "spin gratis",
+    "judi",
+    "taruhan",
+    "dadu",
+    "lotre",
+    "undian",
+    "nomor togel",
+    "menebak angka",
+    "main kartu",
+    "bandar togel",
+    "menang besar",
+    "cuan judi",
+    "gacor",
+    "slot gacor",
+    "pola slot",
+    "maxwin",
+    "auto win",
+    "pola gacor",
+    "jackpot gacor",
+    "scatter",
+    "spin",
+    "winrate",
+    "modal kecil",
+    "anti rungkat",
+    "akun pro",
+    "akun hoki",
+    "slot anti rungkat",
+    "deposit kecil",
+    "tanpa modal",
+    "bonus besar",
+    "free spin",
+    "auto jackpot",
+    "deposit pulsa",
+    "tanpa potongan",
+    "garansi menang",
+    "bonus rollingan",
+    "bonus cashback",
+    "kode referral",
+    "event spesial",
+    "hoki besar",
+    "no limit",
+    "link gacor",
+    "akun gacor",
+    "buyspin",
+    "turbo spin",
+    "slot demo",
+    "akun rtp tinggi",
+    "rtp live",
+    "room slot",
+    "jam hoki",
+    "turn over",
+    "win streak",
+    "turbo win",
+    "hoki slot"
+  ];
+
+  // Loop through badwords dan ganti dengan string kosong
+  foreach ($badwords as $word) {
+    $text = str_ireplace($word, '', $text);
+  }
+
+  return $text;
+}
+
 function alert($isi)
 {
 ?>
-<script>
-alert('<?php echo $isi ?>')
-</script>
+  <script>
+    alert('<?php echo $isi ?>')
+  </script>
 
 <?php
 }
 function pindah($url)
 {
 ?>
-<script>
-window.location.href = "<?php echo $url ?>";
-</script>
+  <script>
+    window.location.href = "<?php echo $url ?>";
+  </script>
 <?php
 
 }
 function kembali()
 {
 ?>
-<script>
-window.history.back(-2);
-</script>
+  <script>
+    window.history.back(-2);
+  </script>
 <?php
 
 }
@@ -168,9 +275,9 @@ function detail_karyawan($con, $id)
 function pesan($pesan, $warna = 'primary')
 {
 ?>
-<div class="alert alert-<?= $warna ?>" role="alert">
+  <div class="alert alert-<?= $warna ?>" role="alert">
     <?= $pesan ?>
-</div>
+  </div>
 <?php
 }
 function int_xml($angka)
@@ -268,22 +375,22 @@ function angka($angka, $separator = null)
 function separator($tipe = 'titik')
 {
 ?>
-<select name="tipe" id="" class='form-control'>
+  <select name="tipe" id="" class='form-control'>
     <option <?= ($tipe === "titik" ? "selected" : ""); ?> value="titik">Titik</option>
     <option <?= ($tipe === "tanpa_titik" ? "selected" : ""); ?> value="tanpa_titik">Tanpa Titik</option>
     <option <?= ($tipe === "koma" ? "selected" : ""); ?> value="koma">Koma</option>
     <option <?= ($tipe === "strip" ? "selected" : ""); ?> value="strip">Strip</option>
-</select>
+  </select>
 <?php
 }
 function kategori($kat = 'naik')
 {
 ?>
-<select name="kat" id="" class='form-control'>
+  <select name="kat" id="" class='form-control'>
     <option <?= ($kat === "naik" ? "selected" : ""); ?> value="naik">KENAIKAN DAN PENURUNAN AGT PAR</option>
     <option <?= ($kat === "berkurang" ? "selected" : ""); ?> value="berkurang">TURUN OUTSTANDING PAR</option>
     <option <?= ($kat === "simpanan" ? "selected" : ""); ?> value="simpanan">CEK SIMPANAN MASUK</option>
-</select>
+  </select>
 <?php
 }
 function wilayah($con, $kode)

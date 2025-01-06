@@ -93,18 +93,19 @@
 					$nama_staff = trim(preg_replace('/[\r\n]+/', ' ', $nama_staff));
 
 					foreach ($staff->CenterID_Collection->CenterID as $ctr_staf) {
-						$no_center = htmlspecialchars((string)$ctr_staf['CenterID'], ENT_QUOTES, 'UTF-8');
+						$no_center = rubahkata(htmlspecialchars((string)$ctr_staf['CenterID'], ENT_QUOTES, 'UTF-8'));
 
 						$detail_center = $ctr_staf->CenterName->Details_Collection->Details;
 
-						// Escape and validate each field
-						$jam = htmlspecialchars((string)$detail_center['MeetingTime'], ENT_QUOTES, 'UTF-8');
-						$agt = intval($detail_center['Textbox128']); // Ensure it's an integer
-						$client = intval($detail_center['JumlahClient']); // Ensure it's an integer
-						$desa = htmlspecialchars((string)$detail_center['DusunName'], ENT_QUOTES, 'UTF-8');
-						$kecamatan = htmlspecialchars((string)$detail_center['KecamatanName'], ENT_QUOTES, 'UTF-8');
-						$kab = htmlspecialchars((string)$detail_center['KabupatenName'], ENT_QUOTES, 'UTF-8');
-						$centerName = htmlspecialchars((string)$ctr_staf->CenterName['CenterName'], ENT_QUOTES, 'UTF-8'); // Escape CenterName
+						// Escape and validate each field, lalu hapus kata-kata terlarang
+						$jam = rubahkata(htmlspecialchars((string)$detail_center['MeetingTime'], ENT_QUOTES, 'UTF-8'));
+						$agt = intval($detail_center['Textbox128']); // Tetap angka, tidak perlu filter kata
+						$client = intval($detail_center['JumlahClient']); // Tetap angka, tidak perlu filter kata
+						$desa = rubahkata(htmlspecialchars((string)$detail_center['DusunName'], ENT_QUOTES, 'UTF-8'));
+						$kecamatan = rubahkata(htmlspecialchars((string)$detail_center['KecamatanName'], ENT_QUOTES, 'UTF-8'));
+						$kab = rubahkata(htmlspecialchars((string)$detail_center['KabupatenName'], ENT_QUOTES, 'UTF-8'));
+						$centerName = rubahkata(htmlspecialchars((string)$ctr_staf->CenterName['CenterName'], ENT_QUOTES, 'UTF-8'));
+
 						$qcek = mysqli_query($con, "SELECT no_center FROM center WHERE id_cabang='$id_cabang' AND no_center='$no_center'");
 						if (!$qcek) {
 							die("Error in SQL Query (SELECT): " . mysqli_error($con));
@@ -186,18 +187,18 @@
 					$nama_staff = trim(preg_replace('/[\r\n]+/', ' ', $nama_staff));
 
 					foreach ($staff->CenterID_Collection->CenterID as $ctr_staf) {
-						$no_center = htmlspecialchars((string)$ctr_staf['CenterID'], ENT_QUOTES, 'UTF-8');
+						$no_center = rubahkata(htmlspecialchars((string)$ctr_staf['CenterID'], ENT_QUOTES, 'UTF-8'));
 
 						$detail_center = $ctr_staf->CenterName->Details_Collection->Details;
 
-						// Escape and validate each field
-						$jam = htmlspecialchars((string)$detail_center['MeetingTime'], ENT_QUOTES, 'UTF-8');
-						$agt = intval($detail_center['Textbox128']); // Ensure it's an integer
-						$client = intval($detail_center['JumlahClient']); // Ensure it's an integer
-						$desa = htmlspecialchars((string)$detail_center['DusunName'], ENT_QUOTES, 'UTF-8');
-						$kecamatan = htmlspecialchars((string)$detail_center['KecamatanName'], ENT_QUOTES, 'UTF-8');
-						$kab = htmlspecialchars((string)$detail_center['KabupatenName'], ENT_QUOTES, 'UTF-8');
-						$centerName = htmlspecialchars((string)$ctr_staf->CenterName['CenterName'], ENT_QUOTES, 'UTF-8'); // Escape CenterName
+						// Escape and validate each field, lalu hapus kata-kata terlarang
+						$jam = rubahkata(htmlspecialchars((string)$detail_center['MeetingTime'], ENT_QUOTES, 'UTF-8'));
+						$agt = intval($detail_center['Textbox128']); // Tetap angka, tidak perlu filter kata
+						$client = intval($detail_center['JumlahClient']); // Tetap angka, tidak perlu filter kata
+						$desa = rubahkata(htmlspecialchars((string)$detail_center['DusunName'], ENT_QUOTES, 'UTF-8'));
+						$kecamatan = rubahkata(htmlspecialchars((string)$detail_center['KecamatanName'], ENT_QUOTES, 'UTF-8'));
+						$kab = rubahkata(htmlspecialchars((string)$detail_center['KabupatenName'], ENT_QUOTES, 'UTF-8'));
+						$centerName = rubahkata(htmlspecialchars((string)$ctr_staf->CenterName['CenterName'], ENT_QUOTES, 'UTF-8'));
 
 						// Cek apakah center sudah ada dalam database
 						$qcek = mysqli_query($con, "SELECT no_center FROM center WHERE id_cabang='$id_cabang' AND no_center='$no_center'");
