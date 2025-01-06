@@ -93,16 +93,18 @@
 					$nama_staff = trim(preg_replace('/[\r\n]+/', ' ', $nama_staff));
 
 					foreach ($staff->CenterID_Collection->CenterID as $ctr_staf) {
-						$no_center = (string)$ctr_staf['CenterID'];
+						$no_center = htmlspecialchars((string)$ctr_staf['CenterID'], ENT_QUOTES, 'UTF-8');
+
 						$detail_center = $ctr_staf->CenterName->Details_Collection->Details;
 
-						$jam = (string)$detail_center['MeetingTime'];
-						$agt = $detail_center['Textbox128'] + 0;
-						$client = $detail_center['JumlahClient'] + 0;
-						$desa = (string)$detail_center['DusunName'];
-						$kecamatan = (string)$detail_center['KecamatanName'];
-						$kab = (string)$detail_center['KabupatenName'];
-						$centerName = (string) $ctr_staf->CenterName['CenterName']; // Ambil nama center
+						// Escape and validate each field
+						$jam = htmlspecialchars((string)$detail_center['MeetingTime'], ENT_QUOTES, 'UTF-8');
+						$agt = intval($detail_center['Textbox128']); // Ensure it's an integer
+						$client = intval($detail_center['JumlahClient']); // Ensure it's an integer
+						$desa = htmlspecialchars((string)$detail_center['DusunName'], ENT_QUOTES, 'UTF-8');
+						$kecamatan = htmlspecialchars((string)$detail_center['KecamatanName'], ENT_QUOTES, 'UTF-8');
+						$kab = htmlspecialchars((string)$detail_center['KabupatenName'], ENT_QUOTES, 'UTF-8');
+						$centerName = htmlspecialchars((string)$ctr_staf->CenterName['CenterName'], ENT_QUOTES, 'UTF-8'); // Escape CenterName
 						$qcek = mysqli_query($con, "SELECT no_center FROM center WHERE id_cabang='$id_cabang' AND no_center='$no_center'");
 						if (!$qcek) {
 							die("Error in SQL Query (SELECT): " . mysqli_error($con));
@@ -184,17 +186,18 @@
 					$nama_staff = trim(preg_replace('/[\r\n]+/', ' ', $nama_staff));
 
 					foreach ($staff->CenterID_Collection->CenterID as $ctr_staf) {
-						$no_center = (string)$ctr_staf['CenterID'];
-						$detail_center = $ctr_staf->Details_Collection->Details;
+						$no_center = htmlspecialchars((string)$ctr_staf['CenterID'], ENT_QUOTES, 'UTF-8');
 
-						// Ambil data center
-						$jam = (string)$detail_center['MeetingTime'];
-						$agt = $detail_center['Textbox128'] + 0;
-						$client = $detail_center['JumlahClient'] + 0;
-						$desa = (string)$detail_center['DusunName'];
-						$kecamatan = (string)$detail_center['KecamatanName'];
-						$kab = (string)$detail_center['KabupatenName'];
-						$centerName = (string)$ctr_staf->CenterName['CenterName']; // Ambil nama center
+						$detail_center = $ctr_staf->CenterName->Details_Collection->Details;
+
+						// Escape and validate each field
+						$jam = htmlspecialchars((string)$detail_center['MeetingTime'], ENT_QUOTES, 'UTF-8');
+						$agt = intval($detail_center['Textbox128']); // Ensure it's an integer
+						$client = intval($detail_center['JumlahClient']); // Ensure it's an integer
+						$desa = htmlspecialchars((string)$detail_center['DusunName'], ENT_QUOTES, 'UTF-8');
+						$kecamatan = htmlspecialchars((string)$detail_center['KecamatanName'], ENT_QUOTES, 'UTF-8');
+						$kab = htmlspecialchars((string)$detail_center['KabupatenName'], ENT_QUOTES, 'UTF-8');
+						$centerName = htmlspecialchars((string)$ctr_staf->CenterName['CenterName'], ENT_QUOTES, 'UTF-8'); // Escape CenterName
 
 						// Cek apakah center sudah ada dalam database
 						$qcek = mysqli_query($con, "SELECT no_center FROM center WHERE id_cabang='$id_cabang' AND no_center='$no_center'");
