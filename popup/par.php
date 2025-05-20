@@ -121,8 +121,8 @@ LEFT JOIN alasan_par a ON d.id_detail_nasabah = a.id_detail_nasabah where d.tgl_
                     <td><?= angka($data['tunggakan'], $sepat) ?></td>
                     <td><?= $data['minggu'] ?></td>
                     <td><?= $baris['ket'] ?></td>
-                    <td><?= $baris['alasan'] ?></td>
-                    <td><?= $baris['penyelesaian_par'] ?></td>
+                    <td><?= $data['alasan'] ?></td>
+                    <td><?= $data['penyelesaian_par'] ?></td>
                     <td><?= $data['nama_karyawan'] ?></td>
                 </tr>
             <?php
