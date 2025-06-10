@@ -95,9 +95,11 @@ if (isset($_POST['ekse'])) {
         $ws = $objek->getActiveSheet();
         $last_row = $ws->getHighestDataRow();
 
-        $ket_excel =  $ws->getCell("A3")->getValue();
+        $ket_excel =  $ws->getCell("A1")->getValue();
         echo $ket_excel;
-        if ($ket_excel == 'DAFTAR PINJAMAN ') {
+        // if ($ket_excel == 'DAFTAR PINJAMAN ') {
+        if (preg_match('/DAFTAR PINJAMAN/i', $ket_excel)) {
+
             for ($row = 7; $row <= $last_row; $row++) {
                 $id_nasabah =  $ws->getCell("B" . $row)->getValue();
                 if ($id_nasabah == null) {
