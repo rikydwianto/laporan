@@ -494,12 +494,14 @@ if ($id == "") {
                 $nominal=aman($con,$_POST['nominal']);;
                 $lokasi=aman($con,$_POST['lokasi']);;
                 $id_karyawan=aman($con,$_POST['id']);;
+                $photo = aman($con,$_POST['photo']);;
                 list($latitude,$longitude)=explode(",",$lokasi);
                 $query = mysqli_query($con, "SELECT cabang.*,kode_cabang,nama_karyawan,nama_jabatan,nik_karyawan,nama_cabang,singkatan_jabatan,singkatan_cabang,status_karyawan FROM karyawan,jabatan,cabang,wilayah where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and cabang.id_wilayah=wilayah.id_wilayah and karyawan.id_karyawan='$id_karyawan' ");
                 $data_staff = mysqli_fetch_assoc($query);
                 $staff=$data_staff['nama_karyawan'];
-                $tmb = mysqli_query($con, "INSERT INTO `pembayaran_nasabah` (`id_nasabah`, `nama`, `center`, `kelompok`, `nominal`, `lokasi`, `id_karyawan`, `staff`,`latitude`,`longitude`)
-                VALUES ('$id_nasabah', '$nama', '$center', '$kelompok', '$nominal', '$lokasi', '$id_karyawan', '$staff','$latitude','$longitude');");
+                
+                $tmb = mysqli_query($con, "INSERT INTO `pembayaran_nasabah` (`id_nasabah`, `nama`, `center`, `kelompok`, `nominal`, `lokasi`, `id_karyawan`, `staff`,`latitude`,`longitude`,`foto`)
+                VALUES ('$id_nasabah', '$nama', '$center', '$kelompok', '$nominal', '$lokasi', '$id_karyawan', '$staff','$latitude','$longitude','$photo');");
                 if ($tmb) {
                     $pesan = "berhasil simpan pembayaran";
                     $kode = "200";
