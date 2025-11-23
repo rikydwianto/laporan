@@ -372,6 +372,7 @@ if ($id == "") {
             } else if ($menu == 'detail_center') {
                 $pesan = "Detail center";
                 $no_center = aman($con, $_POST['no_center']);
+                $id_cabang = aman($con, $_POST['id_cabang']);
                 $q = mysqli_query($con, "select * from center ctr join cabang cb on ctr.id_cabang=cb.id_cabang where ctr.id_cabang='$id_cabang' and ctr.no_center='$no_center' order by no_center asc ");
                 $data = mysqli_fetch_assoc($q);
             } else if ($menu == 'set_lokasi') {
@@ -471,7 +472,44 @@ if ($id == "") {
                 }
 
                 $data = ($data_angsuran);
-            } else {
+            } 
+            else if($menu=='simpan_bayar'){
+                /*
+                    params.put("id_nasabah", idNasabah);
+                    params.put("nama", finalNama);
+                    params.put("center", finalCenter);
+                    params.put("kelompok", finalKelompok);
+                    params.put("nominal", nominal);
+                    params.put("lokasi", lokasi);
+                    params.put("id", utils.getId_karyawan());
+
+                    CREATE TABLE `pembayaran_nasabah` ( `id` INT(11) NOT NULL AUTO_INCREMENT, `id_nasabah` VARCHAR(50) NOT NULL, `nama` VARCHAR(100) NOT NULL, `center` VARCHAR(50) NOT NULL, `kelompok` VARCHAR(50) NOT NULL, `nominal` DECIMAL(15,2) NOT NULL, `lokasi` VARCHAR(100) NOT NULL, `foto` LONGTEXT DEFAULT NULL, -- jika simpan foto base64 `id_karyawan` VARCHAR(50) NOT NULL, -- id staff/karyawan yang input `staff` VARCHAR(100) NOT NULL, -- nama staff/karyawan `tanggal` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (`id`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+                */
+                $id_nasabah=aman($con,$_POST['id_nasabah']);;
+                $nama=aman($con,$_POST['nama']);;
+                $center=aman($con,$_POST['center']);;
+                $kelompok=aman($con,$_POST['kelompok']);;
+                $nominal=aman($con,$_POST['nominal']);;
+                $lokasi=aman($con,$_POST['lokasi']);;
+                $id_karyawan=aman($con,$_POST['id']);;
+                $query = mysqli_query($con, "SELECT cabang.*,kode_cabang,nama_karyawan,nama_jabatan,nik_karyawan,nama_cabang,singkatan_jabatan,singkatan_cabang,status_karyawan FROM karyawan,jabatan,cabang,wilayah where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and cabang.id_wilayah=wilayah.id_wilayah and karyawan.id_karyawan='$id_karyawan' ");
+                $data_staff = mysqli_fetch_assoc($query);
+                $staff=$data_staff['nama_karyawan'];
+                $tmb = mysqli_query($con, "INSERT INTO `pembayaran_nasabah` (`id_nasabah`, `nama`, `center`, `kelompok`, `nominal`, `lokasi`, `id_karyawan`, `staff`)
+                VALUES ('$id_nasabah', '$nama', '$center', '$kelompok', '$nominal', '$lokasi', '$id_karyawan', '$staff');");
+                if ($tmb) {
+                    $pesan = "berhasil simpan pembayaran";
+                } else {
+                    $pesan = "gagal simpan pembayaran";
+                }
+                
+
+
+
+            }
+            else {
                 $kode = '404';
                 $pesan = "Permintaan tidak jelas";
             }
