@@ -359,7 +359,8 @@ if ($id == "") {
                   ON cb.id_cabang = c.id_cabang
               WHERE c.latitude IS NOT NULL
                 AND c.latitude <> ''
-                AND c.latitude <> 'null' AND c.`id_cabang`=$id_cabang
+                AND c.latitude <> 'null' 
+                -- AND c.`id_cabang`=$id_cabang
                 GROUP BY c.`id_cabang`,c.`no_center` ,c.`latitude`";
                 $q = mysqli_query($con, $a);
                 $array = array();
