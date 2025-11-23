@@ -494,7 +494,7 @@ if ($id == "") {
                 $nominal=aman($con,$_POST['nominal']);;
                 $lokasi=aman($con,$_POST['lokasi']);;
                 $id_karyawan=aman($con,$_POST['id']);;
-                $photo = aman($con,$_POST['photo']);;
+                $photo = aman($con,$_POST['foto']);;
                 list($latitude,$longitude)=explode(",",$lokasi);
                 $query = mysqli_query($con, "SELECT cabang.*,kode_cabang,nama_karyawan,nama_jabatan,nik_karyawan,nama_cabang,singkatan_jabatan,singkatan_cabang,status_karyawan FROM karyawan,jabatan,cabang,wilayah where karyawan.id_jabatan=jabatan.id_jabatan and karyawan.id_cabang=cabang.id_cabang and cabang.id_wilayah=wilayah.id_wilayah and karyawan.id_karyawan='$id_karyawan' ");
                 $data_staff = mysqli_fetch_assoc($query);
