@@ -30,7 +30,8 @@ $result = mysqli_query($con, $query);
     </div>
 
     <div class="card-body">
-        <table class="table table-bordered table-striped table-hover">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover">
             <thead class="table-dark">
                 <tr>
                     <th>NO</th>
@@ -40,8 +41,6 @@ $result = mysqli_query($con, $query);
                     <th>Kelompok</th>
                     <th>Nominal</th>
                     <th>Lokasi</th>
-                    <th>Latitude</th>
-                    <th>Longitude</th>
                     <th>Foto</th>
                     <th>Staff</th>
                     <th>Keterangan</th>
@@ -60,9 +59,12 @@ $result = mysqli_query($con, $query);
                             <td><?= $row['center']; ?></td>
                             <td><?= $row['kelompok']; ?></td>
                             <td><?= rupiah($row['nominal']); ?></td>
-                            <td><?= $row['lokasi']; ?></td>
-                            <td><?= $row['latitude']; ?></td>
-                            <td><?= $row['longitude']; ?></td>
+                            <td>
+                                <a href="https://www.google.com/maps/search/?api=1&query=<?= $row['latitude']; ?>,<?= $row['longitude']; ?>" target="_blank">
+
+                                <?= $row['lokasi']; ?>
+                                </a>
+                            </td>
                             <td>
                                 <!-- photo adalah base64 -->
                                 <?php if(!empty($row['foto'])){ ?>
@@ -84,5 +86,6 @@ $result = mysqli_query($con, $query);
                 <?php } ?>
             </tbody>
         </table>
+        </div>
     </div>
 </div>
