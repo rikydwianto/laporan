@@ -429,7 +429,6 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 <?php
 } else if (($_SESSION['id']) && $jabatan == 'MIS'  || $jabatan == 'BC') {
     ?>
-    DISINI
 <li>
     <a href="#"><i class="fa fa-building"></i> Master Data<span class="fa arrow"></span></a>
     <ul class="nav nav-second-level">

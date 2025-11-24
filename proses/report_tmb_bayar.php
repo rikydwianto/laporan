@@ -1,22 +1,25 @@
 <?php
 // query tanpa SELECT *
 $query = "SELECT 
-            id,
-            id_nasabah,
-            nama,
-            center,
-            kelompok,
-            nominal,
-            lokasi,
-            latitude,
-            longitude,
-            foto,
-            id_karyawan,
-            staff,
-            created_at,
-            keterangan,
-            tanggal
-          FROM pembayaran_nasabah where id_cabang='$id_cabang' ORDER BY created_at DESC";
+            p.id,
+            p.id_nasabah,
+            p.nama,
+            p.center,
+            p.kelompok,
+            p.nominal,
+            p.lokasi,
+            p.latitude,
+            p.longitude,
+            p.foto,
+            p.id_karyawan,
+            k.nama_karyawan AS staff,
+            p.created_at,
+            p.keterangan,
+            p.tanggal
+        FROM pembayaran_nasabah AS p
+        JOIN karyawan AS k ON p.id_karyawan = k.id_karyawan
+        WHERE k.id_cabang = '$id_cabang'
+        ORDER BY p.created_at DESC;";
 
 $result = mysqli_query($con, $query);
 ?>
