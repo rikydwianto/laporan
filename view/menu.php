@@ -429,6 +429,7 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 <?php
 } else if (($_SESSION['id']) && $jabatan == 'MIS'  || $jabatan == 'BC') {
     ?>
+    DISINI
 <li>
     <a href="#"><i class="fa fa-building"></i> Master Data<span class="fa arrow"></span></a>
     <ul class="nav nav-second-level">
@@ -599,6 +600,7 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
         REMINDER</a></li> -->
 <li><a href="<?php echo $url . $menu ?>cek_kelompok" class="w3-bar-item w3-button"><i class="fa fa-build"></i> CEK
         KELOMPOK</a></li>
+<li><a href="<?php echo $url . $menu ?>report_tmb_bayar" class="w3-bar-item w3-button"><i class="fa fa-build"></i> REPORT BAYAR</a></li>
 
 
 
