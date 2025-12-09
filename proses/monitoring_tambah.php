@@ -114,6 +114,16 @@ if (isset($_POST['ekse'])) {
                     $agt = (substr(ganti_karakter($id_nasabah), 0, 3));
 
                     if ($agt == "AGT" || $agt == "NSB") {
+                        // $nasabah =  aman($con, ganti_karakter($ws->getCell("D" . $row)->getValue()));
+                        // $loan = ganti_karakter($ws->getCell("C" . $row)->getValue());
+                        // $no_center = aman($con, ganti_karakter($ws->getCell("F" . $row)->getValue()));
+                        // $id_nasabah = aman($con, ganti_karakter1($ws->getCell("B" . $row)->getValue()));
+                        // $kelompok = ganti_karakter1($ws->getCell("G" . $row)->getValue());
+                        // $hp = ganti_karakter1($ws->getCell("E" . $row)->getValue());
+                        // $produk = ganti_karakter1($ws->getCell("H" . $row)->getValue());
+                        // $tujuan = ganti_karakter1($ws->getCell("N" . $row)->getValue());
+                        // $pinj_ke = ganti_karakter1($ws->getCell("O" . $row)->getValue());
+                        // $staff = ganti_karakter1($ws->getCell("P" . $row)->getValue());
                         $nasabah =  aman($con, ganti_karakter($ws->getCell("D" . $row)->getValue()));
                         $loan = ganti_karakter($ws->getCell("C" . $row)->getValue());
                         $no_center = aman($con, ganti_karakter($ws->getCell("F" . $row)->getValue()));
@@ -121,22 +131,37 @@ if (isset($_POST['ekse'])) {
                         $kelompok = ganti_karakter1($ws->getCell("G" . $row)->getValue());
                         $hp = ganti_karakter1($ws->getCell("E" . $row)->getValue());
                         $produk = ganti_karakter1($ws->getCell("H" . $row)->getValue());
-                        $tujuan = ganti_karakter1($ws->getCell("N" . $row)->getValue());
-                        $pinj_ke = ganti_karakter1($ws->getCell("O" . $row)->getValue());
-                        $staff = ganti_karakter1($ws->getCell("P" . $row)->getValue());
-                        $tgl_pengajuan = str_replace("/", "-", ganti_karakter1($ws->getCell("Q" . $row)->getValue()));
-                        $tgl_pencairan = str_replace("/", "-", ganti_karakter1($ws->getCell("R" . $row)->getValue()));
-                        $tgl_angsuran = str_replace("/", "-", ganti_karakter1($ws->getCell("S" . $row)->getValue()));
-                        $margin = ganti_karakter1($ws->getCell("L" . $row)->getValue());
+                        $tujuan = ganti_karakter1($ws->getCell("O" . $row)->getValue());
+                        $pinj_ke = ganti_karakter1($ws->getCell("P" . $row)->getValue());
+                        $staff = ganti_karakter1($ws->getCell("R" . $row)->getValue());
 
 
+                        // $tgl_pengajuan = str_replace("/", "-", ganti_karakter1($ws->getCell("Q" . $row)->getValue()));
+                        // $tgl_pencairan = str_replace("/", "-", ganti_karakter1($ws->getCell("R" . $row)->getValue()));
+                        // $tgl_angsuran = str_replace("/", "-", ganti_karakter1($ws->getCell("S" . $row)->getValue()));
+                        
 
+                        $tgl_pengajuan = str_replace("/", "-", ganti_karakter1($ws->getCell("S" . $row)->getValue()));
+                        $tgl_pencairan = str_replace("/", "-", ganti_karakter1($ws->getCell("T" . $row)->getValue()));
+                        $tgl_angsuran = str_replace("/", "-", ganti_karakter1($ws->getCell("U" . $row)->getValue()));
+                        
+                        
+                        
+                        
+                        
+                        // $pinjaman = (int)ganti_karakter(str_replace(",", "", $ws->getCell("I" . $row)->getValue()));
+                        // $outstanding = (int)ganti_karakter(str_replace(",", "", $ws->getCell("J" . $row)->getValue()));
+                        // $jk = (int)ganti_karakter(str_replace(",", "", $ws->getCell("K" . $row)->getValue()));
+                        // $angsuran = (int)ganti_karakter(str_replace(",", "", $ws->getCell("M" . $row)->getValue()));
+                        // $tunggakan = (int)ganti_karakter(str_replace(",", "", $ws->getCell("L" . $row)->getValue()));
+                        // $minggu = (int)ganti_karakter(str_replace(",", "", $ws->getCell("M" . $row)->getValue()));
+                        $margin = ganti_karakter1($ws->getCell("M" . $row)->getValue());
                         $pinjaman = (int)ganti_karakter(str_replace(",", "", $ws->getCell("I" . $row)->getValue()));
-                        $outstanding = (int)ganti_karakter(str_replace(",", "", $ws->getCell("J" . $row)->getValue()));
-                        $jk = (int)ganti_karakter(str_replace(",", "", $ws->getCell("K" . $row)->getValue()));
-                        $angsuran = (int)ganti_karakter(str_replace(",", "", $ws->getCell("M" . $row)->getValue()));
-                        $tunggakan = (int)ganti_karakter(str_replace(",", "", $ws->getCell("L" . $row)->getValue()));
-                        $minggu = (int)ganti_karakter(str_replace(",", "", $ws->getCell("M" . $row)->getValue()));
+                        $outstanding = (int)ganti_karakter(str_replace(",", "", $ws->getCell("K" . $row)->getValue()));
+                        $jk = (int)ganti_karakter(str_replace(",", "", $ws->getCell("L" . $row)->getValue()));
+                        $angsuran = (int)ganti_karakter(str_replace(",", "", $ws->getCell("N" . $row)->getValue()));
+                        $tunggakan = (int)ganti_karakter(str_replace(",", "", $ws->getCell("M" . $row)->getValue()));
+                        $minggu = (int)ganti_karakter(str_replace(",", "", $ws->getCell("N" . $row)->getValue()));
 
 
         ?>
