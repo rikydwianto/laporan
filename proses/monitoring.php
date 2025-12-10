@@ -284,7 +284,7 @@
                     AND id_cabang = '$id_cabang'
                 ");
 
-                alert("Memperbaiki tanggal pencairan... Harap tunggu");
+                        alert("Memperbaiki tanggal pencairan... Harap tunggu");
                         while ($moni = mysqli_fetch_assoc($mon)) {
                             $tgl = explode("-", $moni['tgl_pencairan']);
                             $new_tgl = "{$tgl[2]}-{$tgl[1]}-{$tgl[0]}";
@@ -300,13 +300,12 @@
                         // Sinkron nama staff
                         for ($i = 0; $i < count($mdis); $i++) {
                             if (!empty($karyawan[$i])) {
-                                mysqli_query($con, "
-                            UPDATE pinjaman 
-                            SET staff = NULL, id_karyawan = '{$karyawan[$i]}' 
-                            WHERE staff = '{$mdis[$i]}' 
-                            AND id_cabang = '$id_cabang'
-                        ");
-                        alert("Memperbaiki nama staff {$mdis[$i]}... Harap tunggu");
+                                $qr = "UPDATE pinjaman 
+                                                    SET staff = NULL, id_karyawan = '{$karyawan[$i]}' 
+                                                    WHERE staff = '{$mdis[$i]}' 
+                                                    AND id_cabang = '$id_cabang'";
+                                mysqli_query($con, $qr);
+                                alert("query: $qr");
                             }
                         }
                         alert("Memperbaiki data anggota dan disburse... Harap tunggu");
