@@ -276,7 +276,7 @@
 
                         $karyawan = $_POST['karyawan'];
                         $mdis     = $_POST['nama_mdis'];
-                        var_dump($mdis);
+                        
 
                         // Perbaikan tanggal untuk data yang belum punya id_karyawan
                         $mon = mysqli_query($con, "
@@ -297,19 +297,29 @@
                     ");
                         }
 
-                        alert("Memperbaiki nama staff... Harap tunggu");
-                        // Sinkron nama staff
-                        for ($i = 0; $i < count($mdis); $i++) {
-                            if (!empty($karyawan[$i])) {
+
+
+                        // for ($i = 0; $i < count($mdis); $i++) {
+                        //     $qr = "UPDATE pinjaman 
+                        //                             SET staff = NULL, id_karyawan = '{$karyawan[$i]}' 
+                        //                             WHERE staff = '{$mdis[$i]}' 
+                        //                             AND id_cabang = '$id_cabang'";
+                        //     mysqli_query($con, $qr);
+                        //     alert("query: $qr");
+                        // }
+                        foreach ($mdis as $index => $nama_mdis) {
+                            $id_karyawan = $karyawan[$index];
+                            if (!empty($id_karyawan)) {
                                 $qr = "UPDATE pinjaman 
-                                                    SET staff = NULL, id_karyawan = '{$karyawan[$i]}' 
-                                                    WHERE staff = '{$mdis[$i]}' 
-                                                    AND id_cabang = '$id_cabang'";
+                                        SET staff = NULL, id_karyawan = '$id_karyawan' 
+                                        WHERE staff = '$nama_mdis' 
+                                        AND id_cabang = '$id_cabang'";
                                 mysqli_query($con, $qr);
-                                alert("query: $qr");
+                                // alert("Memperbaiki nama staff $nama_mdis... Harap tunggu queri: $qr");
+                                // echo "query: $qr<br/>";
                             }
+
                         }
-                        alert("Memperbaiki data anggota dan disburse... Harap tunggu");
 
                         // Input ke tabel disburse
                         $update = mysqli_query($con, "
@@ -549,7 +559,128 @@
                 </thead>
                 <tbody>
                     <?php
-                    // … (seluruh kode PHP kamu tetap sama, tidak saya ubah) …
+                    if (isset($_GET['filter'])) {
+                        $q_tambah = "";
+                    } else {
+                        $q_tambah = "and pinjaman.monitoring ='belum'";
+                    }
+                    if (isset($_GET['filter_bulan'])) {
+                        $filter_bulan = mysqli_real_escape_string($con, $_GET['filter_bulan']);
+                        $q_bulan = "and pinjaman.tgl_cair like '$filter_bulan-%%'";
+                    } else {
+                        $q_bulan = "";
+                    }
+
+                    if (isset($_GET['id'])) {
+                        $id = aman($con, $_GET['id']);
+                        $q_id = "and pinjaman.id_karyawan = '$id'";
+                    } else {
+                        $q_id = "";
+                    }
+
+                    if (isset($_GET['tgl'])) {
+                        $id = aman($con, $_GET['tgl']);
+                        $q_hari = "and DATEDIFF(CURDATE(), tgl_cair) >$id";
+                    } else {
+                        $q_hari = "";
+                    }
+
+                    if (isset($_GET['banding'])) {
+
+                        $q_banding = "and pinjaman.id_detail_pinjaman IN(SELECT id_detail_pinjaman FROM banding_monitoring where status='belum' and id_cabang='$id_cabang')";
+                    } else {
+                        $q_banding = "";
+                    }
+                    
+                    // OPTIMASI: Ambil data utama dengan JOIN
+                    $q = mysqli_query($con, "SELECT
+                                            pinjaman.*,
+                                            DATEDIFF(CURDATE(), tgl_cair) AS total_hari,
+                                            karyawan.`nama_karyawan`
+                                            FROM
+                                            pinjaman
+                                            LEFT JOIN karyawan
+                                                ON karyawan.id_karyawan = pinjaman.id_karyawan 
+                        
+                        where pinjaman.id_cabang='$id_cabang' $q_tambah $q_id $q_hari $q_banding $q_bulan and input_mtr='sudah' order by karyawan.nama_karyawan asc");
+                    
+                    // OPTIMASI: Ambil semua data sekali untuk menghindari query dalam loop
+                    $temp_data = [];
+                    $nasabah_ids_empty_topup = []; // Hanya untuk yang jenis_topup kosong
+                    $center_ids = [];
+                    while ($pinj = mysqli_fetch_assoc($q)) {
+                        $temp_data[] = $pinj;
+                        
+                        // Hanya kumpulkan ID nasabah jika jenis_topup kosong/null
+                        if (empty($pinj['jenis_topup'])) {
+                            $nasabah_ids_empty_topup[] = "'" . mysqli_real_escape_string($con, $pinj['id_detail_nasabah']) . "'";
+                        }
+                        
+                        $cen = $pinj['center'];
+                        $center = (explode(" ", $cen)[0]);
+                        $center_ids[] = "'" . mysqli_real_escape_string($con, $center) . "'";
+                    }
+                    
+                    // Ambil TPK hanya untuk nasabah yang jenis_topup kosong
+                    $tpk_data = [];
+                    if (!empty($nasabah_ids_empty_topup)) {
+                        $nasabah_in = implode(',', array_unique($nasabah_ids_empty_topup));
+                        $qtpk_all = mysqli_query($con, "
+                            SELECT id_detail_nasabah 
+                            FROM tpk 
+                            WHERE id_detail_nasabah IN ($nasabah_in) AND id_cabang='$id_cabang'
+                        ");
+                        while ($row = mysqli_fetch_assoc($qtpk_all)) {
+                            $tpk_data[$row['id_detail_nasabah']] = true;
+                        }
+                    }
+                    
+                    // Ambil topup hanya untuk nasabah yang jenis_topup kosong
+                    $topup_data = [];
+                    if (!empty($nasabah_ids_empty_topup)) {
+                        $nasabah_in = implode(',', array_unique($nasabah_ids_empty_topup));
+                        $qtopup_all = mysqli_query($con, "
+                            SELECT id_detail_nasabah, topup 
+                            FROM keterangan_topup 
+                            WHERE id_detail_nasabah IN ($nasabah_in) AND id_cabang='$id_cabang'
+                        ");
+                        while ($row = mysqli_fetch_assoc($qtopup_all)) {
+                            $topup_data[$row['id_detail_nasabah']] = $row['topup'];
+                        }
+                    }
+                    
+                    // Ambil semua center sekali
+                    $center_data = [];
+                    if (!empty($center_ids)) {
+                        $center_in = implode(',', array_unique($center_ids));
+                        $qcenter_all = mysqli_query($con, "
+                            SELECT c.no_center, c.hari, k.nama_karyawan 
+                            FROM center c
+                            INNER JOIN karyawan k ON k.id_karyawan = c.id_karyawan
+                            WHERE c.no_center IN ($center_in) AND c.id_cabang='$id_cabang' AND k.id_cabang='$id_cabang'
+                        ");
+                        while ($row = mysqli_fetch_assoc($qcenter_all)) {
+                            $center_data[$row['no_center']] = $row;
+                        }
+                    }
+                    
+                    // Ambil semua keluhan sekali (jika banding)
+                    $keluhan_data = [];
+                    if (isset($_GET['banding']) && !empty($temp_data)) {
+                        $detail_pinjaman_ids = [];
+                        foreach ($temp_data as $p) {
+                            $detail_pinjaman_ids[] = "'" . mysqli_real_escape_string($con, $p['id_detail_pinjaman']) . "'";
+                        }
+                        $detail_in = implode(',', array_unique($detail_pinjaman_ids));
+                        $qkeluh_all = mysqli_query($con, "
+                            SELECT id_detail_pinjaman, id_banding_monitoring, keterangan_banding 
+                            FROM banding_monitoring 
+                            WHERE id_detail_pinjaman IN ($detail_in)
+                        ");
+                        while ($row = mysqli_fetch_assoc($qkeluh_all)) {
+                            $keluhan_data[$row['id_detail_pinjaman']] = $row;
+                        }
+                    }
 
                     foreach ($temp_data as $pinj) {
 
