@@ -1,16 +1,6 @@
 <?php
 ob_start();
 
-// Izinkan semua origin (jika aman)
-header("Access-Control-Allow-Origin: *");
-
-// Atau spesifik subdomain/URL tertentu
-// header("Access-Control-Allow-Origin: https://subdomain.rikydwianto.my.id");
-
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
-header("Referrer-Policy: no-referrer-when-downgrade"); // Atur referrer policy
-
 require_once "config/seting.php";
 require_once "config/koneksi.php";
 require_once("proses/fungsi.php");
@@ -329,115 +319,117 @@ set_time_limit(3000000);
 
 
         </div>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<!-- jQuery -->
-<script src="<?= $url ?>assets/js/jquery.min.js"></script>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
 
-<!-- Bootstrap Core JavaScript -->
-<script src="<?= $url ?>assets/js/bootstrap.min.js"></script>
+        <!-- jQuery -->
+        <!-- jQuery -->
+        <script src="<?= $url ?>assets/js/jquery.min.js"></script>
 
-<!-- Metis Menu Plugin JavaScript -->
-<script src="<?= $url ?>assets/js/metisMenu.min.js"></script>
+        <!-- Popper harus sebelum Bootstrap -->
+        <script src="<?= $url ?>assets/js/popper.min.js"></script>
 
-<!-- Custom Theme JavaScript -->
-<script src="<?= $url ?>assets/js/startmin.js"></script>
-<script src="<?= $url ?>assets/js/popper.min.js"></script>
-<script src="<?= $url ?>assets/js/morris.min.js"></script>
-<script src="<?= $url ?>assets/js/morris.data.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
-<script type="text/javascript">
-    var url_link = "<?= $url ?>";
-    var idcab = "<?php echo $cabang ?>";
+        <!-- Bootstrap -->
+        <script src="<?= $url ?>assets/js/bootstrap.min.js"></script>
 
-    <?php
-    if ($_SESSION['informasi'] <= 2) {
-        echo '$("#modalku").modal(); ';
-        $_SESSION['informasi'] = $_SESSION['informasi'] + 1;
-    } else {
-    }
+        <!-- Plugin lain -->
+        <script src="<?= $url ?>assets/js/metisMenu.min.js"></script>
+        <script src="<?= $url ?>assets/js/startmin.js"></script>
+        <script src="<?= $url ?>assets/js/morris.min.js"></script>
+        <script src="<?= $url ?>assets/js/morris.data.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
+        <script type="text/javascript">
+            var url_link = "<?= $url ?>";
+            var idcab = "<?php echo $cabang ?>";
 
-
-
-    ?>
+            <?php
+            if ($_SESSION['informasi'] <= 2) {
+                echo '$("#modalku").modal(); ';
+                $_SESSION['informasi'] = $_SESSION['informasi'] + 1;
+            } else {
+            }
 
 
-    $(document).ready(function() {
-        $("#tutup_pesan").on('click', function() {
-            $("#hadis").modal();
-        });
-        $("#tutup_pesan1").on('click', function() {
-            $("#hadis").modal();
-        });
-        $('#modalku1').on('show.bs.modal', function(e) {
-            var rowid = $(e.relatedTarget).data('id');
-            $.get(url + "api/detail_monitoring.php?id=" + rowid, function(data, status) {
 
-                setTimeout(function() {
-                    $("#isi_detail").html("Mohon Tunggu");
-                }, 0);
-                setTimeout(function() {
-                    $("#isi_detail").html(data);
-                }, 800);
+            ?>
+
+
+            $(document).ready(function() {
+                $("#tutup_pesan").on('click', function() {
+                    $("#hadis").modal();
+                });
+                $("#tutup_pesan1").on('click', function() {
+                    $("#hadis").modal();
+                });
+                $('#modalku1').on('show.bs.modal', function(e) {
+                    var rowid = $(e.relatedTarget).data('id');
+                    $.get(url + "api/detail_monitoring.php?id=" + rowid, function(data, status) {
+
+                        setTimeout(function() {
+                            $("#isi_detail").html("Mohon Tunggu");
+                        }, 0);
+                        setTimeout(function() {
+                            $("#isi_detail").html(data);
+                        }, 800);
+                    });
+                });
             });
-        });
-    });
 
-    function salin(text) {
-        var sampleTextarea = document.createElement("textarea");
-        document.body.appendChild(sampleTextarea);
-        sampleTextarea.value = text; //save main text in it
-        sampleTextarea.select(); //select textarea contenrs
-        document.execCommand("copy");
-        document.body.removeChild(sampleTextarea);
-    }
-    var oilCanvas = document.getElementById("oilChart");
+            function salin(text) {
+                var sampleTextarea = document.createElement("textarea");
+                document.body.appendChild(sampleTextarea);
+                sampleTextarea.value = text; //save main text in it
+                sampleTextarea.select(); //select textarea contenrs
+                document.execCommand("copy");
+                document.body.removeChild(sampleTextarea);
+            }
+            var oilCanvas = document.getElementById("oilChart");
 
-    var oilData = {
-        labels: [
-            "Saudi Arabia",
-            "Russia",
-            "Iraq",
-            "United Arab Emirates",
-            "Canada"
-        ],
-        datasets: [{
-            data: [133.3, 86.2, 52.2, 51.2, 50.2],
-            backgroundColor: [
-                "#FF6384",
-                "#63FF84",
-                "#84FF63",
-                "#8463FF",
-                "#6384FF"
-            ]
-        }]
-    };
+            var oilData = {
+                labels: [
+                    "Saudi Arabia",
+                    "Russia",
+                    "Iraq",
+                    "United Arab Emirates",
+                    "Canada"
+                ],
+                datasets: [{
+                    data: [133.3, 86.2, 52.2, 51.2, 50.2],
+                    backgroundColor: [
+                        "#FF6384",
+                        "#63FF84",
+                        "#84FF63",
+                        "#8463FF",
+                        "#6384FF"
+                    ]
+                }]
+            };
 
-    var pieChart = new Chart(oilCanvas, {
-        type: 'pie',
-        data: oilData
-    });
+            var pieChart = new Chart(oilCanvas, {
+                type: 'pie',
+                data: oilData
+            });
 
 
 
 
 
-    function addCommas(nStr) {
-        nStr += '';
-        x = nStr.split('.');
-        x1 = x[0];
-        x2 = x.length > 1 ? '.' + x[1] : '';
-        var rgx = /(\d+)(\d{3})/;
-        while (rgx.test(x1)) {
-            x1 = x1.replace(rgx, '$1' + ',' + '$2');
-        }
-        return x1 + x2;
-    }
-</script>
-<script src="<?= $url ?>assets/js/script_wilayah.js"></script>
-<script src="<?= $url ?>assets/js/grafik.js"></script>
-<script src="<?= $url ?>assets/js/script.js"></script>
+            function addCommas(nStr) {
+                nStr += '';
+                x = nStr.split('.');
+                x1 = x[0];
+                x2 = x.length > 1 ? '.' + x[1] : '';
+                var rgx = /(\d+)(\d{3})/;
+                while (rgx.test(x1)) {
+                    x1 = x1.replace(rgx, '$1' + ',' + '$2');
+                }
+                return x1 + x2;
+            }
+        </script>
+        <script src="<?= $url ?>assets/js/script_wilayah.js"></script>
+        <script src="<?= $url ?>assets/js/grafik.js"></script>
+        <script src="<?= $url ?>assets/js/script.js"></script>
+</body>
 
 </html>
 <?php mysqli_close($con) ?>
