@@ -319,6 +319,8 @@ set_time_limit(3000000);
 
         </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <!-- jQuery -->
 <script src="<?= $url ?>assets/js/jquery.min.js"></script>
 
