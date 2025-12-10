@@ -46,6 +46,7 @@ require_once("model/model.php");
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">Silahkan Login !</h3>
+                        
                     </div>
                     <div class="panel-body">
                         <form role="form" method="post">
@@ -64,7 +65,8 @@ require_once("model/model.php");
                                             $_SESSION['id_cabang'] = $cek['id_cabang'];
                                             $_SESSION['cabang'] = $cek['id_cabang'];
                                             $_SESSION['su'] = $cek['super_user'];
-                                            $_SESSION['informasi'] = 1;
+                                            $_SESSION['informasi_login'] = 'ya';
+                                            // var_dump($_SESSION);
                                             pesan("BERHASIL LOGIN", 'success');
                                             $menu_asal = $_GET['url'];
                                             $menu_asal1 = explode("=", $menu_asal)[1];
@@ -75,14 +77,14 @@ require_once("model/model.php");
                                             $text = "login @user  : $user  $cek[nama_karyawan] cabang : $d[nama_cabang]";
                                         } else {
                                             $text = "$user percobaan login password salah";
-                                            pesan("NIK DITEMUKAN, Password SALAH!!", 'danger');
+                                            pesan("Kombinasi USER/PASSWORD SALAH", 'danger');
                                         }
                                     } else {
                                         $text = "@user $user tidak aktif mencoba login ";
                                         pesan("STATUS ANDA DINONAKTIKAN, SILAHKAN HUBUNGI ATASAN ANDA", 'danger');
                                     }
                                 } else {
-                                    pesan("USER/NIK TIDAK DITEMUKAN", 'danger');
+                                    pesan("Kombinasi USER/PASSWORD SALAH 2", 'danger');
                                     $text = "Percobaan login @user $user tidak ditemukan";
                                 }
                                 $url = "https://api.telegram.org/$token/sendMessage?parse_mode=html&chat_id=1185334687&text=$text&reply_message_id=214&force_reply=true";

@@ -429,6 +429,62 @@ set_time_limit(3000000);
         <script src="<?= $url ?>assets/js/script_wilayah.js"></script>
         <script src="<?= $url ?>assets/js/grafik.js"></script>
         <script src="<?= $url ?>assets/js/script.js"></script>
+
+        <!-- Modal Peringatan Migrasi -->
+        <div class="modal fade" id="modalPeringatanMigrasi" tabindex="-1" role="dialog" aria-labelledby="modalPeringatanLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" style="border: 3px solid #ff6b6b;">
+                    <div class="modal-header" style="background-color: #ff6b6b; color: white;">
+                        <h4 class="modal-title" id="modalPeringatanLabel">
+                            <i class="fa fa-exclamation-triangle"></i> PEMBERITAHUAN PENTING
+                        </h4>
+                    </div>
+                    <div class="modal-body text-center" style="padding: 30px;">
+                        <div style="font-size: 60px; color: #ff6b6b; margin-bottom: 20px;">
+                            <i class="fa fa-bell"></i>
+                        </div>
+                        <h3 style="color: #333; margin-bottom: 20px;">Informasi Migrasi Sistem</h3>
+                        <p style="font-size: 16px; line-height: 1.8; color: #555;">
+                            Beberapa hari ke depan akan ada <strong>migrasi sistem</strong>.<br>
+                            Harap segera hubungi admin untuk informasi lebih lanjut.
+                        </p>
+                        <div style="margin: 25px 0; padding: 20px; background-color: #f8f9fa; border-radius: 8px; border-left: 4px solid #28a745;">
+                            <p style="margin: 0; font-size: 14px; color: #666;">Hubungi Admin WhatsApp:</p>
+                            <a href="https://wa.me/6281214657370" target="_blank" style="font-size: 24px; color: #25D366; font-weight: bold; text-decoration: none;">
+                                <i class="fa fa-whatsapp"></i> 0812-1465-7370
+                            </a>
+                        </div>
+                        <p style="font-size: 13px; color: #888; margin-top: 15px;">
+                            <i class="fa fa-info-circle"></i> Pastikan Anda sudah menghubungi admin sebelum migrasi dilakukan
+                        </p>
+                    </div>
+                    <div class="modal-footer" style="justify-content: center;">
+                        <button type="button" class="btn btn-success btn-lg" data-dismiss="modal" style="padding: 10px 40px;">
+                            <i class="fa fa-check"></i> Saya Mengerti
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Auto show modal saat halaman dimuat
+            $(document).ready(function() {
+                // Cek apakah user sudah pernah melihat modal hari ini
+                var modalShownToday = localStorage.getItem('modalMigrasiShown');
+                var today = new Date().toDateString();
+                
+                if (modalShownToday !== today) {
+                    // Tampilkan modal setelah 1 detik
+                    setTimeout(function() {
+                        $('#modalPeringatanMigrasi').modal('show');
+                    }, 1000);
+                    
+                    // Simpan bahwa modal sudah ditampilkan hari ini
+                    localStorage.setItem('modalMigrasiShown', today);
+                }
+            });
+        </script>
 </body>
 
 </html>
