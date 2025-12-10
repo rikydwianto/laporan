@@ -447,13 +447,7 @@
                     <th>PRODUK</th>
                     <th>Cair</th>
                     <th>KE</th>
-                    <?php
-                        if (isset($_GET['banding'])) {
-                        ?>
-                    <th>Keluhan</th>
-                    <?php
-                        }
-                        ?>
+                
                     <th>#</th>
 
                 </tr>
@@ -672,14 +666,7 @@
                     </td>
                     <td><?= $pinj['tgl_cair'] ?></td>
                     <td><?= $pinj['pinjaman_ke'] ?></td>
-                    <?php
-                            if (isset($_GET['banding']) && isset($keluhan_data[$pinj['id_detail_pinjaman']])) {
-                                $keluh = $keluhan_data[$pinj['id_detail_pinjaman']]['keterangan_banding'];
-                            ?>
-                    <td><?= $keluh ?></td>
-                    <?php
-                            }
-                            ?>
+                 
                     <td>
                         <?php
                                 if ($pinj['monitoring'] == 'belum') {
