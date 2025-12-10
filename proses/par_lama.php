@@ -91,7 +91,7 @@
         <?php
             $file = $_FILES['file']['tmp_name'];
             $path = $file;
-            $tgl = mysqli_real_escape_string($con, $_POST['tgl']);
+            $tgl = $_POST['tgl'];
             // $reader = PHPExcel_IOFactory::createReaderForFile($path);
             $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile($path);
 
@@ -162,14 +162,11 @@
     <?php
 
     }
-    
-    // Escape variables untuk keamanan
-    $sepat = isset($_GET['tipe']) ? mysqli_real_escape_string($con, $_GET['tipe']) : '';
-    
+    $sepat = $_GET['tipe'];
     if (isset($_GET['bandingkan'])) {
 
-        $tgl_awal  = mysqli_real_escape_string($con, $_GET['sebelum']);
-        $tgl_banding = mysqli_real_escape_string($con, $_GET['minggu_ini']);
+        $tgl_awal  = $_GET['sebelum'];
+        $tgl_banding = $_GET['minggu_ini'];
     ?>
     <a href="#" onclick="buka('popup/par.php?tgl=<?= $tgl_awal ?>')" class="btn btn-primary"> <i class="fa fa-list"></i>
         Tampilkan Semua AGT PAR TGL <?= $tgl_awal ?></a>
@@ -177,7 +174,7 @@
             class="fa fa-list"></i>
         Tampilkan Semua AGT PAR TGL <?= $tgl_banding ?></a>
     <?php
-        $kat = isset($_GET['kat']) ? mysqli_real_escape_string($con, $_GET['kat']) : '';
+        $kat = $_GET['kat'];
         if ($kat == 'turun' || $kat == 'naik') {
         ?>
     <a href="#rekap" onclick="printPageArea('turun_par')" class="btn btn-success">print <i class="fa fa-print"></i></a>
@@ -203,143 +200,47 @@
 
             <?php
                     $total_os = 0;
-                    
-                    // OPTIMASI: Gunakan LEFT JOIN untuk menghindari NOT IN subquery
-                    $query = mysqli_query($con, "
-                        SELECT 
-                            d.id,
-                            d.loan,
-                            d.no_center,
-                            d.id_detail_nasabah,
-                            d.nasabah,
-                            d.amount,
-                            d.sisa_saldo,
-                            d.tunggakan,
-                            d.minggu,
-                            d.tgl_input,
-                            d.id_cabang,
-                            d.tgl_disburse,
-                            d.cabang,
-                            d.wajib,
-                            d.sukarela,
-                            d.pensiun,
-                            d.hariraya,
-                            d.lainlain,
-                            d.cicilan,
-                            d.hari,
-                            d.staff,
-                            d.minggu_ke,
-                            d.minggu_rill,
-                            d.priode,
-                            d.kode_pemb,
-                            d.jenis_topup,
-                            k.nama_karyawan 
-                        FROM deliquency d 
-                        INNER JOIN center c ON c.no_center = d.no_center AND c.id_cabang = '$id_cabang'
-                        INNER JOIN karyawan k ON k.id_karyawan = c.id_karyawan
-                        LEFT JOIN deliquency d2 ON d2.loan = d.loan 
-                            AND d2.tgl_input = '$tgl_banding' 
-                            AND d2.id_cabang = '$id_cabang'
-                        WHERE d.tgl_input = '$tgl_awal' 
-                            AND d.id_cabang = '$id_cabang'
-                            AND d2.loan IS NULL
-                        ORDER BY k.nama_karyawan ASC
-                    ");
-                    
-                    // OPTIMASI: Ambil semua data sekali untuk mengurangi query dalam loop
-                    $loan_list = [];
-                    $id_nasabah_list = [];
-                    $temp_data = [];
+                    $query = mysqli_query($con, " SELECT d.id,
+    d.loan,
+    d.no_center,
+    d.id_detail_nasabah,
+    d.nasabah,
+    d.amount,
+    d.sisa_saldo,
+    d.tunggakan,
+    d.minggu,
+    d.tgl_input,
+    d.id_cabang,
+    d.tgl_disburse,
+    d.cabang,
+    d.wajib,
+    d.sukarela,
+    d.pensiun,
+    d.hariraya,
+    d.lainlain,
+    d.cicilan,
+    d.hari,
+    d.staff,
+    d.minggu_ke,
+    d.minggu_rill,
+    d.priode,
+    d.kode_pemb,
+    d.jenis_topup,k.nama_karyawan FROM deliquency d 
+            JOIN center c ON c.`no_center`=d.`no_center` 
+            JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
+            where d.loan not in (select loan from deliquency where tgl_input='$tgl_banding' and id_cabang='$id_cabang') and d.tgl_input='$tgl_awal' and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' order by k.nama_karyawan asc");
                     while ($data = mysqli_fetch_assoc($query)) {
-                        $temp_data[] = $data;
-                        $loan_list[] = "'" . mysqli_real_escape_string($con, $data['loan']) . "'";
-                        $ID = (int)explode("-", $data['id_detail_nasabah'])[1];
-                        $id_nasabah_list[$data['loan']] = $ID;
-                    }
-                    
-                    // Ambil semua alasan_par sekali
-                    $alasan_data = [];
-                    if (!empty($loan_list)) {
-                        $loan_in = implode(',', $loan_list);
-                        $qreason_all = mysqli_query($con, "
-                            SELECT id_loan, alasan, penyelesaian_par 
-                            FROM alasan_par 
-                            WHERE id_loan IN ($loan_in) AND id_cabang='$id_cabang'
-                        ");
-                        while ($row = mysqli_fetch_assoc($qreason_all)) {
-                            $alasan_data[$row['id_loan']] = $row;
-                        }
-                    }
-                    
-                    // Ambil semua anggota_par sekali
-                    $par_data = [];
-                    if (!empty($temp_data)) {
-                        $nasabah_in = implode(',', array_map(function($d) use ($con) {
-                            return "'" . mysqli_real_escape_string($con, $d['id_detail_nasabah']) . "'";
-                        }, $temp_data));
-                        $qpar_all = mysqli_query($con, "
-                            SELECT id_detail_nasabah 
-                            FROM anggota_par 
-                            WHERE id_detail_nasabah IN ($nasabah_in) AND id_cabang='$id_cabang'
-                        ");
-                        while ($row = mysqli_fetch_assoc($qpar_all)) {
-                            $par_data[$row['id_detail_nasabah']] = true;
-                        }
-                    }
-                    
-                    // Ambil semua anggota keluar sekali
-                    $ak_data = [];
-                    if (!empty($id_nasabah_list)) {
-                        $id_in = implode(',', array_unique($id_nasabah_list));
-                        $qak_all = mysqli_query($con, "
-                            SELECT id_nasabah 
-                            FROM temp_anggota_keluar 
-                            WHERE id_nasabah IN ($id_in) AND id_cabang='$id_cabang'
-                        ");
-                        while ($row = mysqli_fetch_assoc($qak_all)) {
-                            $ak_data[$row['id_nasabah']] = true;
-                        }
-                    }
-                    
-                    // Ambil semua TPK sekali
-                    $tpk_data = [];
-                    if (!empty($temp_data)) {
-                        $nasabah_in = implode(',', array_map(function($d) use ($con) {
-                            return "'" . mysqli_real_escape_string($con, $d['id_detail_nasabah']) . "'";
-                        }, $temp_data));
-                        $qtpk_all = mysqli_query($con, "
-                            SELECT id_detail_nasabah 
-                            FROM tpk 
-                            WHERE id_detail_nasabah IN ($nasabah_in) AND id_cabang='$id_cabang'
-                        ");
-                        while ($row = mysqli_fetch_assoc($qtpk_all)) {
-                            $tpk_data[$row['id_detail_nasabah']] = true;
-                        }
-                    }
-                    
-                    // Ambil semua topup sekali
-                    $topup_data = [];
-                    if (!empty($temp_data)) {
-                        $nasabah_in = implode(',', array_map(function($d) use ($con) {
-                            return "'" . mysqli_real_escape_string($con, $d['id_detail_nasabah']) . "'";
-                        }, $temp_data));
-                        $qtopup_all = mysqli_query($con, "
-                            SELECT id_detail_nasabah, topup 
-                            FROM keterangan_topup 
-                            WHERE id_detail_nasabah IN ($nasabah_in) AND id_cabang='$id_cabang'
-                        ");
-                        while ($row = mysqli_fetch_assoc($qtopup_all)) {
-                            $topup_data[$row['id_detail_nasabah']] = $row['topup'];
-                        }
-                    }
-                    
-                    // Loop untuk display data
-                    foreach ($temp_data as $data) {
                         $total_os += $data['sisa_saldo'];
-                        $ID = $id_nasabah_list[$data['loan']];
-                        
-                        // Cek dari data yang sudah diambil
-                        $par = isset($par_data[$data['id_detail_nasabah']]);
+                        $ID = (int)explode("-", $data['id_detail_nasabah'])[1];
+                        $qreason = (mysqli_query($con, "select  id,
+                                                            id_loan,
+                                                            id_detail_nasabah,
+                                                            id_cabang,
+                                                            id_karyawan,
+                                                            penyelesaian_par from alasan_par where id_loan='$data[loan]'  and id_cabang='$id_cabang'"));
+                        $qak = mysqli_num_rows(mysqli_query($con, "select id_nasabah,tgl_keluar,id_karyawan,id_cabang,status,alasan
+                                                                     from temp_anggota_keluar where id_nasabah='$ID'  and id_cabang='$id_cabang' limit 1"));
+                        $par = mysqli_num_rows(mysqli_query($con, "select id,id_karyawan,loan,id_detail_nasabah,id_cabang from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]' and id_cabang='$id_cabang  limit 1'"));
                         if ($par) {
                             $baris['baris'] = "#c9c7c1";
                             $baris['text'] = "red";
@@ -349,24 +250,34 @@
                             $baris['text'] = "#black";
                             $baris['ket'] = '';
                         }
-                        
-                        if (isset($ak_data[$ID])) {
+                        if (($qak)) {
                             $baris['ket'] .= "Agt Keluar";
+                        } else {
+                            $baris['ket'] .= "";
                         }
-                        
-                        if (isset($alasan_data[$data['loan']])) {
-                            $baris['alasan'] = $alasan_data[$data['loan']]['alasan'];
-                            $baris['penyelesaian_par'] = $alasan_data[$data['loan']]['penyelesaian_par'];
+                        if ((mysqli_num_rows($qreason))) {
+                            $reason  = mysqli_fetch_assoc($qreason);
+                            $baris['alasan'] = $reason['alasan'];
+                            $baris['penyelesaian_par'] = $reason['penyelesaian_par'];
                         } else {
                             $baris['alasan'] = "";
                             $baris['penyelesaian_par'] = "";
                         }
-                        
-                        if (isset($tpk_data[$data['id_detail_nasabah']])) {
+                        $cek_tpk = mysqli_query($con, "select id from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'  limit 1");
+                        if (mysqli_num_rows($cek_tpk) > 0) {
                             $baris['ket'] .= "TPK ";
                         } else {
-                            if (isset($topup_data[$data['id_detail_nasabah']])) {
-                                $baris['ket'] .= $topup_data[$data['id_detail_nasabah']];
+                            $baris['ket'] .= "";
+                            $cek_topup = mysqli_query($con, "select id_topup,id_detail_nasabah,id_detail_pinjaman,topup,id_cabang,tgl_topup from keterangan_topup where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'  limit 1");
+                            echo mysqli_error($con);
+                            if (mysqli_num_rows($cek_topup)) {
+                                $top = mysqli_fetch_assoc($cek_topup);
+                                $baris['ket'] .= $top['topup'];
+                            } else {
+                                $cek_topup = mysqli_query($con, "select id,id_nasabah,id_detail_nasabah,id_cabang from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'  limit 1");
+                                if (mysqli_num_rows($cek_topup)) {
+                                    $baris['ket'] .= "TPK";
+                                }
                             }
                         }
                     ?>
@@ -395,6 +306,10 @@
         </table>
     </div>
     <?php
+            // }
+
+            // if($kat=='naik'){
+            //     
             ?>
     <a href="#rekap" onclick="printPageArea('tambah_par')" class="btn btn-success">print <i class="fa fa-print"></i></a>
 
@@ -421,118 +336,47 @@
             <?php
                     $no = 1;
                     $total_tambah = 0;
-                    
-                    // OPTIMASI: Gunakan LEFT JOIN untuk menghindari NOT IN subquery
                     $query1 = mysqli_query($con, "
-                        SELECT 
-                            d.id,
-                            d.loan,
-                            d.no_center,
-                            d.id_detail_nasabah,
-                            d.nasabah,
-                            d.amount,
-                            d.sisa_saldo,
-                            d.tunggakan,
-                            d.minggu,
-                            d.tgl_input,
-                            d.id_cabang,
-                            d.tgl_disburse,
-                            d.cabang,
-                            d.wajib,
-                            d.sukarela,
-                            d.pensiun,
-                            d.hariraya,
-                            d.lainlain,
-                            d.cicilan,
-                            d.hari,
-                            d.staff,
-                            d.minggu_ke,
-                            d.minggu_rill,
-                            d.priode,
-                            d.kode_pemb,
-                            d.jenis_topup,
-                            k.nama_karyawan 
-                        FROM deliquency d 
-                        INNER JOIN center c ON c.no_center = d.no_center AND c.id_cabang = '$id_cabang'
-                        INNER JOIN karyawan k ON k.id_karyawan = c.id_karyawan
-                        LEFT JOIN deliquency d2 ON d2.loan = d.loan 
-                            AND d2.tgl_input = '$tgl_awal' 
-                            AND d2.id_cabang = '$id_cabang'
-                        WHERE d.tgl_input = '$tgl_banding' 
-                            AND d.id_cabang = '$id_cabang'
-                            AND d2.loan IS NULL
-                        ORDER BY k.nama_karyawan ASC
-                    ");
-                    
-                    // Menggunakan teknik yang sama seperti di atas
-                    $loan_list = [];
-                    $temp_data = [];
+        SELECT d.id,
+    d.loan,
+    d.no_center,
+    d.id_detail_nasabah,
+    d.nasabah,
+    d.amount,
+    d.sisa_saldo,
+    d.tunggakan,
+    d.minggu,
+    d.tgl_input,
+    d.id_cabang,
+    d.tgl_disburse,
+    d.cabang,
+    d.wajib,
+    d.sukarela,
+    d.pensiun,
+    d.hariraya,
+    d.lainlain,
+    d.cicilan,
+    d.hari,
+    d.staff,
+    d.minggu_ke,
+    d.minggu_rill,
+    d.priode,
+    d.kode_pemb,
+    d.jenis_topup,k.nama_karyawan FROM deliquency d 
+        JOIN center c ON c.`no_center`=d.`no_center` 
+        JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan`
+        where d.loan not in (select loan from deliquency where tgl_input='$tgl_awal' and id_cabang='$id_cabang') and d.tgl_input='$tgl_banding' and c.id_cabang='$id_cabang' and  d.id_cabang='$id_cabang' order by k.nama_karyawan asc");
                     while ($data = mysqli_fetch_assoc($query1)) {
-                        $temp_data[] = $data;
-                        $loan_list[] = "'" . mysqli_real_escape_string($con, $data['loan']) . "'";
-                    }
-                    
-                    // Ambil semua data sekali (sama seperti query sebelumnya)
-                    $alasan_data = [];
-                    if (!empty($loan_list)) {
-                        $loan_in = implode(',', $loan_list);
-                        $qreason_all = mysqli_query($con, "
-                            SELECT id_loan, alasan, penyelesaian_par 
-                            FROM alasan_par 
-                            WHERE id_loan IN ($loan_in) AND id_cabang='$id_cabang'
-                        ");
-                        while ($row = mysqli_fetch_assoc($qreason_all)) {
-                            $alasan_data[$row['id_loan']] = $row;
-                        }
-                    }
-                    
-                    $par_data = [];
-                    if (!empty($temp_data)) {
-                        $nasabah_in = implode(',', array_map(function($d) use ($con) {
-                            return "'" . mysqli_real_escape_string($con, $d['id_detail_nasabah']) . "'";
-                        }, $temp_data));
-                        $qpar_all = mysqli_query($con, "
-                            SELECT id_detail_nasabah 
-                            FROM anggota_par 
-                            WHERE id_detail_nasabah IN ($nasabah_in) AND id_cabang='$id_cabang'
-                        ");
-                        while ($row = mysqli_fetch_assoc($qpar_all)) {
-                            $par_data[$row['id_detail_nasabah']] = true;
-                        }
-                    }
-                    
-                    $tpk_data = [];
-                    if (!empty($temp_data)) {
-                        $nasabah_in = implode(',', array_map(function($d) use ($con) {
-                            return "'" . mysqli_real_escape_string($con, $d['id_detail_nasabah']) . "'";
-                        }, $temp_data));
-                        $qtpk_all = mysqli_query($con, "
-                            SELECT id_detail_nasabah 
-                            FROM tpk 
-                            WHERE id_detail_nasabah IN ($nasabah_in) AND id_cabang='$id_cabang'
-                        ");
-                        while ($row = mysqli_fetch_assoc($qtpk_all)) {
-                            $tpk_data[$row['id_detail_nasabah']] = true;
-                        }
-                    }
-                    
-                    $topup_data = [];
-                    if (!empty($temp_data)) {
-                        $nasabah_in = implode(',', array_map(function($d) use ($con) {
-                            return "'" . mysqli_real_escape_string($con, $d['id_detail_nasabah']) . "'";
-                        }, $temp_data));
-                        $qtopup_all = mysqli_query($con, "
-                            SELECT id_detail_nasabah, topup 
-                            FROM keterangan_topup 
-                            WHERE id_detail_nasabah IN ($nasabah_in) AND id_cabang='$id_cabang'
-                        ");
-                        while ($row = mysqli_fetch_assoc($qtopup_all)) {
-                            $topup_data[$row['id_detail_nasabah']] = $row['topup'];
-                        }
-                    }
-                    
-                    foreach ($temp_data as $data) {
-                        $par = isset($par_data[$data['id_detail_nasabah']]);
+
+                        $qreason = (mysqli_query($con, "select  id,
+                                                            id_loan,
+                                                            id_detail_nasabah,
+                                                            id_cabang,
+                                                            id_karyawan,
+                                                            penyelesaian_par
+                                                        from alasan_par where id_loan='$data[loan]'  and id_cabang='$id_cabang'  limit 1"));
+
+                        $par = mysqli_num_rows(mysqli_query($con, "select id,id_karyawan,loan,id_detail_nasabah,id_cabang from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]' and id_cabang='$id_cabang'  limit 1"));
                         if ($par) {
                             $baris['baris'] = "#c9c7c1";
                             $baris['text'] = "red";
@@ -542,23 +386,31 @@
                             $baris['text'] = "#black";
                             $baris['ket'] = '';
                         }
-                        
-                        if (isset($alasan_data[$data['loan']])) {
-                            $baris['alasan'] = $alasan_data[$data['loan']]['alasan'];
-                            $baris['penyelesaian_par'] = $alasan_data[$data['loan']]['penyelesaian_par'];
+                        if ((mysqli_num_rows($qreason))) {
+                            $reason  = mysqli_fetch_assoc($qreason);
+                            $baris['alasan'] = $reason['alasan'];
+                            $baris['penyelesaian_par'] = $reason['penyelesaian_par'];
                         } else {
                             $baris['alasan'] = "";
                             $baris['penyelesaian_par'] = "";
                         }
-                        
-                        if (isset($tpk_data[$data['id_detail_nasabah']])) {
+                        $cek_tpk = mysqli_query($con, "select id from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'  limit 1");
+                        if (mysqli_num_rows($cek_tpk) > 0) {
                             $baris['ket'] .= "TPK ";
                         } else {
-                            if (isset($topup_data[$data['id_detail_nasabah']])) {
-                                $baris['ket'] .= $topup_data[$data['id_detail_nasabah']];
+                            $baris['ket'] .= "";
+                            $cek_topup = mysqli_query($con, "select id_topup,id_detail_nasabah,id_detail_pinjaman,topup,id_cabang,tgl_topup from keterangan_topup where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'  limit 1");
+                            echo mysqli_error($con);
+                            if (mysqli_num_rows($cek_topup)) {
+                                $top = mysqli_fetch_assoc($cek_topup);
+                                $baris['ket'] .= $top['topup'];
+                            } else {
+                                $cek_topup = mysqli_query($con, "select id,id_nasabah,id_detail_nasabah,id_cabang from tpk where id_cabang='$id_cabang' and id_detail_nasabah='$data[id_detail_nasabah]'  limit 1");
+                                if (mysqli_num_rows($cek_topup)) {
+                                    $baris['ket'] .= "TPK";
+                                }
                             }
                         }
-                        
                         $total_tambah += $data['sisa_saldo'];
                     ?>
             <tr style="background-color:<?= $baris['baris'] ?>;color:<?= $baris['text'] ?>">
@@ -625,73 +477,49 @@
             <?php
                     $no = 1;
                     $total_minus = 0;
-                    
-                    // OPTIMASI: Gunakan INNER JOIN untuk mendapatkan kedua saldo sekaligus
                     $query_s = mysqli_query($con, "
-                        SELECT 
-                            d.id,
-                            d.loan,
-                            d.no_center,
-                            d.id_detail_nasabah,
-                            d.nasabah,
-                            d.amount,
-                            d.sisa_saldo as saldo_awal,
-                            d.tunggakan,
-                            d.minggu,
-                            d.tgl_input,
-                            d.id_cabang,
-                            d.tgl_disburse,
-                            d.cabang,
-                            d.wajib,
-                            d.sukarela,
-                            d.pensiun,
-                            d.hariraya,
-                            d.lainlain,
-                            d.cicilan,
-                            d.hari,
-                            d.staff,
-                            d.minggu_ke,
-                            d.minggu_rill,
-                            d.priode,
-                            d.kode_pemb,
-                            d.jenis_topup,
-                            k.nama_karyawan,
-                            d2.sisa_saldo as saldo_akhir
-                        FROM deliquency d 
-                        INNER JOIN center c ON c.no_center = d.no_center AND c.id_cabang = '$id_cabang'
-                        INNER JOIN karyawan k ON k.id_karyawan = c.id_karyawan
-                        INNER JOIN deliquency d2 ON d2.loan = d.loan 
-                            AND d2.tgl_input = '$tgl_banding' 
-                            AND d2.id_cabang = '$id_cabang'
-                        WHERE d.tgl_input = '$tgl_awal' 
-                            AND d.id_cabang = '$id_cabang'
-                            AND d.sisa_saldo > d2.sisa_saldo
-                        ORDER BY k.nama_karyawan ASC
-                    ");
-                    
-                    $par_checked = [];
+        SELECT d.id,
+    d.loan,
+    d.no_center,
+    d.id_detail_nasabah,
+    d.nasabah,
+    d.amount,
+    d.sisa_saldo,
+    d.tunggakan,
+    d.minggu,
+    d.tgl_input,
+    d.id_cabang,
+    d.tgl_disburse,
+    d.cabang,
+    d.wajib,
+    d.sukarela,
+    d.pensiun,
+    d.hariraya,
+    d.lainlain,
+    d.cicilan,
+    d.hari,
+    d.staff,
+    d.minggu_ke,
+    d.minggu_rill,
+    d.priode,
+    d.kode_pemb,
+    d.jenis_topup,k.nama_karyawan FROM deliquency d 
+        JOIN center c ON c.`no_center`=d.`no_center` 
+        JOIN karyawan k ON k.`id_karyawan`=c.`id_karyawan` 
+        where d.loan  in (select loan from deliquency where tgl_input='$tgl_banding' and id_cabang='$id_cabang') and d.tgl_input='$tgl_awal' and c.id_cabang='$id_cabang' and d.id_cabang='$id_cabang' order by k.nama_karyawan asc");
                     while ($data = mysqli_fetch_assoc($query_s)) {
-                        $saldo_awal = $data['saldo_awal'];
-                        $saldo_akhir = $data['saldo_akhir'];
+
+                        $loan = $data['loan'];
+                        $banding = mysqli_query($con, "select sisa_saldo from deliquency where loan='$loan' and tgl_input='$tgl_banding' and id_cabang='$id_cabang'  limit 1");
+                        $banding = mysqli_fetch_assoc($banding);
+                        $saldo_awal = $data['sisa_saldo'];
+                        $saldo_akhir = $banding['sisa_saldo'];
                         $total = $saldo_awal - $saldo_akhir;
-                        
+
                         if ($total > 0) {
-                            $total_minus += $total;
-                            
-                            // Cek par status (bisa dioptimasi lebih lanjut dengan batch query jika perlu)
-                            if (!isset($par_checked[$data['id_detail_nasabah']])) {
-                                $par = mysqli_num_rows(mysqli_query($con, "
-                                    SELECT id 
-                                    FROM anggota_par 
-                                    WHERE id_detail_nasabah='" . mysqli_real_escape_string($con, $data['id_detail_nasabah']) . "' 
-                                    AND id_cabang='$id_cabang' 
-                                    LIMIT 1
-                                "));
-                                $par_checked[$data['id_detail_nasabah']] = $par;
-                            } else {
-                                $par = $par_checked[$data['id_detail_nasabah']];
-                            }
-                            
+                            $total_minus +=  $total;
+
+                            // $par = mysqli_num_rows(mysqli_query($con,"select * from anggota_par where id_detail_nasabah='$data[id_detail_nasabah]' and id_cabang='$id_cabang'"));
                             if ($par) {
                                 $baris['baris'] = "#c9c7c1";
                                 $baris['text'] = "red";
@@ -759,8 +587,8 @@
     <?php
         }
     } elseif (isset($_GET['rekap'])) {
-        $tgl_awal  = mysqli_real_escape_string($con, $_GET['sebelum']);
-        $tgl_banding = mysqli_real_escape_string($con, $_GET['minggu_ini']);
+        $tgl_awal  = $_GET['sebelum'];
+$tgl_banding = $_GET['minggu_ini'];
         // include("./proses/rekap_par.php");
         pindah($url . $menu . "rekap_par&sebelum=$tgl_awal&tipe=$sepat&minggu_ini=$tgl_banding&kat=naik&rekap=REKAP");
     } elseif (isset($_GET['rekap_semua'])) {
@@ -776,8 +604,8 @@
     }
 
     if (isset($_GET['delete'])) {
-        $tgl = mysqli_real_escape_string($con, $_GET['tgl']);
-        $hapus = mysqli_query($con, "DELETE FROM deliquency WHERE tgl_input='$tgl' AND id_cabang='$id_cabang'");
+        $tgl = $_GET['tgl'];
+        $hapus = mysqli_query($con, "delete from deliquency where tgl_input='$tgl' and id_cabang='$id_cabang'");
 
         if ($hapus) {
             alert("Data Berhasil dihapus");
