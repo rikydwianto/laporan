@@ -1,18 +1,18 @@
-<?php 
-// Escape input untuk keamanan
-$tgl_awal  = isset($_GET['tgl_awal']) ? mysqli_real_escape_string($con, $_GET['tgl_awal']) : '';
-$tgl_akhir = isset($_GET['tgl_akhir']) ? mysqli_real_escape_string($con, $_GET['tgl_akhir']) : '';
-?>
+<?php @$tgl_awal  = $_GET['tgl_awal'];
+@$tgl_akhir = $_GET['tgl_akhir']; ?>
 <form action="" method="get">
     <input type="hidden" name="menu" value="monitoring">
     <div class="col-md-4">
         <h3>DARI</h3>
         <input type="date" value="<?= ($tgl_awal == "" ? date("Y-m-d") : $tgl_awal) ?>" required name="tgl_awal" class='form-control' id="">
+
+
     </div>
     <div class="col-md-4">
         <h3>SAMPAI</h3>
         <input type="date" required value="<?= ($tgl_akhir == "" ? date("Y-m-d") : $tgl_akhir) ?>" name="tgl_akhir" class='form-control' id="">
         <input type="submit" value="REKAP SEMUA" name='pengumpulan_mtr' class='btn btn-danger btn-md btn-info'>
+
     </div>
 </form>
 <div class="col-md-12">
@@ -29,39 +29,20 @@ $tgl_akhir = isset($_GET['tgl_akhir']) ? mysqli_real_escape_string($con, $_GET['
             </tr>
 
             <?php
-            $no = 1;
             $total_mtr = 0;
-            
-            // OPTIMASI: Gunakan LEFT JOIN untuk menggabungkan query
-            // Satu query untuk mendapatkan karyawan dan total monitoring sekaligus
-            $cek_ka = mysqli_query($con, "
-                SELECT 
-                    k.id_karyawan,
-                    k.nik_karyawan,
-                    k.nama_karyawan,
-                    COUNT(m.id_monitoring) as total_mtr
-                FROM karyawan k 
-                INNER JOIN jabatan j ON j.id_jabatan = k.id_jabatan 
-                LEFT JOIN pinjaman p ON p.id_karyawan = k.id_karyawan 
-                    AND p.monitoring = 'sudah'
-                LEFT JOIN monitoring m ON m.id_detail_pinjaman = p.id_detail_pinjaman 
-                    AND m.tgl_monitoring >= '$tgl_awal' 
-                    AND m.tgl_monitoring <= '$tgl_akhir'
-                WHERE j.singkatan_jabatan = 'SL' 
-                    AND k.id_cabang = '$id_cabang' 
-                    AND k.status_karyawan = 'aktif'
-                GROUP BY k.id_karyawan, k.nik_karyawan, k.nama_karyawan
-                ORDER BY k.nama_karyawan ASC
-            ");
-            
-            if (mysqli_error($con)) {
-                echo mysqli_error($con);
-            }
-            
+            $cek_ka = mysqli_query($con, "SELECT * FROM karyawan k 
+                join jabatan j on  j.id_jabatan=k.id_jabatan 
+                where j.singkatan_jabatan='SL' and k.id_cabang='$id_cabang' and k.status_karyawan='aktif'
+                order by k.nama_karyawan asc
+                ");
             while ($r = mysqli_fetch_assoc($cek_ka)) {
-                $total = (int)$r['total_mtr'];
+                $total = mysqli_fetch_assoc(mysqli_query($con, "SELECT count(*) as total_mtr from monitoring m 
+                    join pinjaman p on p.id_detail_pinjaman=m.id_detail_pinjaman 
+                    where p.id_karyawan='$r[id_karyawan]' and p.monitoring='sudah' and m.tgl_monitoring >= '$tgl_awal' and  m.tgl_monitoring <= '$tgl_akhir'
+                     "));
+                echo mysqli_error($con);
+                $total = ($total['total_mtr'] === "" ? 0 : $total['total_mtr']);
                 $total_mtr += $total;
-                
                 if ($total < 1) {
                     $ket = 'Tidak Mengumpulkan Monitoring';
                 } else {
