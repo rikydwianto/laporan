@@ -276,7 +276,6 @@
 
                         $karyawan = $_POST['karyawan'];
                         $mdis     = $_POST['nama_mdis'];
-                        var_dump($mdis);
 
                         // Perbaikan tanggal untuk data yang belum punya id_karyawan
                         $mon = mysqli_query($con, "
