@@ -43,15 +43,29 @@ $d = detail_karyawan($con, $id_karyawan); ?>
                         </svg>
                         <p>Maaf, cabang <?= $d['nama_cabang'] ?> di Lock, silahkan hubungi administrator untuk
                             mengaktifkan!.</p>
+                        <?php 
+                        $ttesx = urlencode("Hallo pak, saya .. dari cabang " . $d['nama_cabang'] ."  .. Isi pesan .." ."\n\nterimakasih ");
+                        ?>
+                        <div class="alert alert-warning mt-3" role="alert">
+                            <h5 class="alert-heading"><i class="fas fa-exclamation-triangle"></i> Pemberitahuan Penting</h5>
+                            <hr>
+                            <p><strong>Akan ada pendataan ulang dan migrasi sistem.</strong></p>
+                            <p>Silahkan hubungi admin untuk informasi lebih lanjut:</p>
+                            <a href="https://wa.me/6281214657370?text=<?= $ttesx ?>" 
+                               class="btn btn-success btn-lg">
+                                <i class="fab fa-whatsapp"></i> Hubungi Admin: 0812-1465-7370
+                            </a>
+                        </div>
+                        
                         <?php
-                        echo '<a href="https://wa.me/6281214657370?text=Hallo%20pak%2C%20saya%20..%20dari%20cabang%20...%0A%0Aterimakasih%20ya" class="btn btn-success m-3">Kirim pesan ke pembuat langsung</a>';
+                        echo '<a href="https://wa.me/6281214657370?text=' . $ttesx . '" class="btn btn-success m-3">Kirim pesan ke pembuat langsung</a>';
                         echo "<h1>Terima kasih semua</h1>";
 
                         ?>
                     </div>
                     <div class="card-footer text-muted">
                         <a
-                            href="https://wa.me/6281214657370?text=Hallo%20pak%2C%20saya%20..%20dari%20cabang%20...%0A%0Aterimakasih%20ya">hubungi
+                            href="https://wa.me/6281214657370?text=<?= $ttesx ?>">hubungi
                             Nomor ya untuk aktifin kembali</a>
                         <a href="<?= $url . "auth.php" ?>">Login Ulang</a>
                     </div>
