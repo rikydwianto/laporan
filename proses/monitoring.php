@@ -385,7 +385,7 @@
     } else if (isset($_GET['list_bagi'])) {
         include("proses/monitoring_list_bagi.php");
     } else if (isset($_GET['pengumpulan_mtr'])) {
-        include("proses/kumpul_monitoring_optimized.php");
+        include("proses/kumpul_monitoring.php");
     } else if (isset($_GET['nasabah_staff'])) {
         include("proses/nasabah_staff.php");
     } else if (isset($_GET['duplikat'])) {
