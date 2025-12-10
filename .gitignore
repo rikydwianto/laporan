@@ -18,5 +18,5 @@ yarn-error.log
 .env
 php_error.log
 nbproject/
-
+file/
 api/buka.txt
