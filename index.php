@@ -1,5 +1,16 @@
 <?php
 ob_start();
+
+// Izinkan semua origin (jika aman)
+header("Access-Control-Allow-Origin: *");
+
+// Atau spesifik subdomain/URL tertentu
+// header("Access-Control-Allow-Origin: https://subdomain.rikydwianto.my.id");
+
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header("Referrer-Policy: no-referrer-when-downgrade"); // Atur referrer policy
+
 require_once "config/seting.php";
 require_once "config/koneksi.php";
 require_once("proses/fungsi.php");

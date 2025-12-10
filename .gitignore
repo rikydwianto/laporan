@@ -16,7 +16,7 @@ Icon\?
 npm-debug.log
 yarn-error.log
 .env
-
+php_error.log
 nbproject/
 
 api/buka.txt
