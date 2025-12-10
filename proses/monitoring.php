@@ -306,6 +306,7 @@
                             WHERE staff = '{$mdis[$i]}' 
                             AND id_cabang = '$id_cabang'
                         ");
+                        alert("Memperbaiki nama staff {$mdis[$i]}... Harap tunggu");
                             }
                         }
                         alert("Memperbaiki data anggota dan disburse... Harap tunggu");
