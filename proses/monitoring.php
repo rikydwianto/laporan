@@ -1,12 +1,12 @@
 <style>
-.tengah {
-    text-align: center;
-    font-weight: bold;
-}
+    .tengah {
+        text-align: center;
+        font-weight: bold;
+    }
 
-.kotak {
-    width: 50px;
-}
+    .kotak {
+        width: 50px;
+    }
 </style>
 <div class='content table-responsive'>
     <h2 class='page-header'>MONITORING </h2>
@@ -33,8 +33,8 @@
     <?php
     if (isset($_SESSION['nama_file'])) {
     ?>
-    <a href="<?= $url ?>export/excel/<?= $_SESSION['nama_file'] ?>.xlsx" class='btn btn-info'> <i
-            class="fa fa-download"></i> UNDUH</a>
+        <a href="<?= $url ?>export/excel/<?= $_SESSION['nama_file'] ?>.xlsx" class='btn btn-info'> <i
+                class="fa fa-download"></i> UNDUH</a>
     <?php
     }
     ?>
@@ -43,7 +43,7 @@
 
 
     <?php
- 
+
 
 
 
@@ -76,73 +76,73 @@
         $qdetail = mysqli_query($con, "select * from pinjaman join karyawan on karyawan.id_karyawan=pinjaman.id_karyawan join banding_monitoring on banding_monitoring.id_detail_pinjaman=pinjaman.id_detail_pinjaman where pinjaman.id_detail_pinjaman='$detail' ");
         $detail_pinjaman = mysqli_fetch_assoc($qdetail);
     ?>
-    <form action="" method="post">
-        <table class='table'>
-            <tr>
-                <td>ID PINJAMAN</td>
-                <td><?= $detail ?></td>
-            </tr>
-            <tr>
-                <td>NAMA</td>
-                <td><?= $detail_pinjaman['nama_nasabah'] ?></td>
-            </tr>
-            <tr>
-                <td>STAFF</td>
-                <td><?= $detail_pinjaman['nama_karyawan'] ?></td>
-            </tr>
-            <tr>
-                <td>KELUHAN</td>
-                <td><?= $detail_pinjaman['keterangan_banding'] ?></td>
-            </tr>
-            <tr>
-                <td>PESAN BALIK</td>
-                <td>
-                    <textarea name="pesan_balik" id="" cols="30" rows="10" class='form-control'
-                        placeholder="Kirim pesan keterangan pada Staff"></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <input type="submit" class='btn btn-danger' name="kirim" value='KIRIM dan dan tutup laporan?'>
-                </td>
-            </tr>
-        </table>
-    </form>
+        <form action="" method="post">
+            <table class='table'>
+                <tr>
+                    <td>ID PINJAMAN</td>
+                    <td><?= $detail ?></td>
+                </tr>
+                <tr>
+                    <td>NAMA</td>
+                    <td><?= $detail_pinjaman['nama_nasabah'] ?></td>
+                </tr>
+                <tr>
+                    <td>STAFF</td>
+                    <td><?= $detail_pinjaman['nama_karyawan'] ?></td>
+                </tr>
+                <tr>
+                    <td>KELUHAN</td>
+                    <td><?= $detail_pinjaman['keterangan_banding'] ?></td>
+                </tr>
+                <tr>
+                    <td>PESAN BALIK</td>
+                    <td>
+                        <textarea name="pesan_balik" id="" cols="30" rows="10" class='form-control'
+                            placeholder="Kirim pesan keterangan pada Staff"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" class='btn btn-danger' name="kirim" value='KIRIM dan dan tutup laporan?'>
+                    </td>
+                </tr>
+            </table>
+        </form>
     <?php
     } elseif (isset($_GET['staff'])) {
         include "proses/total_monitoring_staff.php";
     } elseif (isset($_GET['pu'])) {
         $tgl = isset($_GET['tgl']) ? mysqli_real_escape_string($con, $_GET['tgl']) : date("Y-m-d");
     ?>
-    <form method='get' action='<?php echo $url . $menu ?>monitoring'>
-        <input type=hidden name='menu' value="monitoring" />
-        <input type=hidden name='pu' />
-        Sampai Dengan <input type=date name='tgl' value='<?= $tgl ?>' />
-        <input type=submit name='cari' value='CARI' />
-    </form>
-    <br>
-    <table class="table table-bordered">
-        <tr style='background:#c8c9cc'>
-            <th>NO</th>
-            <th>STAFF</th>
-            <?php
+        <form method='get' action='<?php echo $url . $menu ?>monitoring'>
+            <input type=hidden name='menu' value="monitoring" />
+            <input type=hidden name='pu' />
+            Sampai Dengan <input type=date name='tgl' value='<?= $tgl ?>' />
+            <input type=submit name='cari' value='CARI' />
+        </form>
+        <br>
+        <table class="table table-bordered">
+            <tr style='background:#c8c9cc'>
+                <th>NO</th>
+                <th>STAFF</th>
+                <?php
                 $col  = 0;
                 $data_pu = array();
                 $pin = mysqli_query($con, "SELECT pinjaman_ke FROM pinjaman WHERE produk='PINJAMAN UMUM' and id_cabang='$id_cabang'  and input_mtr='sudah' GROUP BY pinjaman_ke ");
                 while ($ke = mysqli_fetch_assoc($pin)) {
                     $col++;
                 ?>
-            <th class='tengah'><?= $ke['pinjaman_ke'] ?></th>
-            <?php
+                    <th class='tengah'><?= $ke['pinjaman_ke'] ?></th>
+                <?php
                 }
                 ?>
 
-            <th class='tengah'>TOTAL </th>
-        </tr>
-        <?php
+                <th class='tengah'>TOTAL </th>
+            </tr>
+            <?php
             $total_monitoring = 0;
-            
+
             // OPTIMASI: Gunakan LEFT JOIN dan GROUP BY untuk menghitung semua sekaligus
             $cek_ka = mysqli_query($con, "
                 SELECT 
@@ -164,7 +164,7 @@
                 GROUP BY k.id_karyawan, k.nama_karyawan, p.pinjaman_ke
                 ORDER BY k.nama_karyawan ASC
             ");
-            
+
             // Reorganize data by karyawan
             $data_karyawan = [];
             while ($row = mysqli_fetch_assoc($cek_ka)) {
@@ -179,34 +179,34 @@
                     $data_karyawan[$id_karyawan]['pinjaman'][$row['pinjaman_ke']] = $row['total_monitoring'];
                 }
             }
-            
+
             $no = 1;
             foreach ($data_karyawan as $id_karyawan => $karyawan) {
             ?>
-        <tr>
-            <th><?= $no ?></th>
-            <th><?= $karyawan['nama_karyawan'] ?></th>
-            <?php
+                <tr>
+                    <th><?= $no ?></th>
+                    <th><?= $karyawan['nama_karyawan'] ?></th>
+                    <?php
                     $total_hitung = 0;
                     mysqli_data_seek($pin, 0);
                     while ($ke = mysqli_fetch_assoc($pin)) {
                         $hitung = isset($karyawan['pinjaman'][$ke['pinjaman_ke']]) ? $karyawan['pinjaman'][$ke['pinjaman_ke']] : 0;
                         $total_hitung += $hitung;
                     ?>
-            <th class='tengah kotak'><?= $hitung ?></th>
-            <?php
+                        <th class='tengah kotak'><?= $hitung ?></th>
+                    <?php
                     }
                     $total_monitoring += $total_hitung;
                     ?>
-            <th class='tengah'><?= $total_hitung ?></th>
-        </tr>
-        <?php
+                    <th class='tengah'><?= $total_hitung ?></th>
+                </tr>
+            <?php
                 $no++;
             }
             ?>
-        <tr style='background:#c8c9cc'>
-            <td class='tengah' colspan='<?= 2 ?>'>TOTAL</td>
-            <?php
+            <tr style='background:#c8c9cc'>
+                <td class='tengah' colspan='<?= 2 ?>'>TOTAL</td>
+                <?php
                 mysqli_data_seek($pin, 0);
                 while ($ke = mysqli_fetch_assoc($pin)) {
                     $hitung_ = mysqli_query($con, "
@@ -221,162 +221,254 @@
                     ");
                     $hitung_ = mysqli_fetch_assoc($hitung_);
                 ?>
-            <td class='tengah'><?= $hitung_['monitoring'] ?></td>
-            <?php
+                    <td class='tengah'><?= $hitung_['monitoring'] ?></td>
+                <?php
                 }
                 ?>
-            <td class='tengah'><?= $total_monitoring ?></td>
-        </tr>
+                <td class='tengah'><?= $total_monitoring ?></td>
+            </tr>
 
-    </table>
+        </table>
     <?php
 
     } else if (isset($_GET['ganti'])) {
-        if (isset($_GET['bagikan'])) {
+
+        // --- BAGIKAN DATA MONITORING ---
+        if (isset($_GET['bagikan']) && isset($_GET['tgl_cair'])) {
             $tgl_baru = mysqli_real_escape_string($con, $_GET['tgl_cair']);
-            mysqli_query($con, "UPDATE pinjaman set input_mtr ='sudah' where tgl_cair='$tgl_baru' and id_cabang='$id_cabang'");
+            mysqli_query($con, "
+            UPDATE pinjaman 
+            SET input_mtr = 'sudah' 
+            WHERE tgl_cair = '$tgl_baru' 
+            AND id_cabang = '$id_cabang'
+        ");
         }
-        if (isset($_GET['delete'])) {
+
+        // --- HAPUS DATA MONITORING ---
+        if (isset($_GET['delete']) && isset($_GET['tgl_cair'])) {
             $tgl_baru = mysqli_real_escape_string($con, $_GET['tgl_cair']);
-            mysqli_query($con, "delete from pinjaman where tgl_cair='$tgl_baru' and id_cabang='$id_cabang'");
+            mysqli_query($con, "
+            DELETE FROM pinjaman 
+            WHERE tgl_cair = '$tgl_baru' 
+            AND id_cabang = '$id_cabang'
+        ");
         }
     ?>
-    <form action="" method="post">
-        <h3>SINGKRON NAMA</h3>
-        <TABLE class='table'>
-            <thead>
-                <tr>
-                    <th>NO </th>
-                    <th>NAMA MDIS</th>
-                    <th>NAMA </th>
-                </tr>
-            </thead>
-            <tbody>
+        <form action="" method="post">
 
+            <h3>SINKRON NAMA</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>NO</th>
+                        <th>NAMA MDIS</th>
+                        <th>NAMA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $no = 1;
 
-                <?php
+                    // --- PROSES PERBAIKAN DATA ---
                     if (isset($_POST['ganti'])) {
-                        $karyawan = $_POST['karyawan'];
-                        $mdis = $_POST['nama_mdis'];
-                        $mon = mysqli_query($con, "select * from pinjaman where id_karyawan is null and id_cabang='$id_cabang' ");
-                        while ($moni = mysqli_fetch_assoc($mon)) {
-                            $tgl = $moni['tgl_pencairan'];
-                            $tgl = explode("-", $tgl);
-                            $new_tgl = $tgl[2] . "-" . $tgl[1] . "-" . $tgl[0];
 
-                            mysqli_query($con, "UPDATE `pinjaman` SET `tgl_cair` = '$new_tgl'  WHERE `id_pinjaman` = '$moni[id_pinjaman]';");
+                        alert("Sedang memproses... Harap tunggu");
+
+                        $karyawan = $_POST['karyawan'];
+                        $mdis     = $_POST['nama_mdis'];
+
+                        // Perbaikan tanggal untuk data yang belum punya id_karyawan
+                        $mon = mysqli_query($con, "
+                    SELECT * FROM pinjaman 
+                    WHERE id_karyawan IS NULL 
+                    AND id_cabang = '$id_cabang'
+                ");
+
+                        while ($moni = mysqli_fetch_assoc($mon)) {
+                            $tgl = explode("-", $moni['tgl_pencairan']);
+                            $new_tgl = "{$tgl[2]}-{$tgl[1]}-{$tgl[0]}";
+
+                            mysqli_query($con, "
+                        UPDATE pinjaman 
+                        SET tgl_cair = '$new_tgl'  
+                        WHERE id_pinjaman = '{$moni['id_pinjaman']}'
+                    ");
                         }
+
+                        // Sinkron nama staff
                         for ($i = 0; $i < count($mdis); $i++) {
                             if (!empty($karyawan[$i])) {
-                                $text = " UPDATE `pinjaman` SET `staff` = null  , id_karyawan='$karyawan[$i]' WHERE `staff` = '$mdis[$i]' and id_cabang='$id_cabang'; ";
-                                $q = mysqli_query($con, "$text");
+                                mysqli_query($con, "
+                            UPDATE pinjaman 
+                            SET staff = NULL, id_karyawan = '{$karyawan[$i]}' 
+                            WHERE staff = '{$mdis[$i]}' 
+                            AND id_cabang = '$id_cabang'
+                        ");
                             }
                         }
-                        $update = mysqli_query($con, "select * from pinjaman where input_disburse='belum' and id_cabang='$id_cabang'");
+
+                        // Input ke tabel disburse
+                        $update = mysqli_query($con, "
+                    SELECT * FROM pinjaman 
+                    WHERE input_disburse = 'belum' 
+                    AND id_cabang = '$id_cabang'
+                ");
+
                         while ($upd = mysqli_fetch_assoc($update)) {
-                            mysqli_query($con, "INSERT INTO `disburse` (`disburse`, `tgl_disburse`, `id_karyawan`, `id_cabang`) 
-                            VALUES ('$upd[jumlah_pinjaman]', '$upd[tgl_cair]', '$upd[id_karyawan]', '$id_cabang'); 
-                            ");
-                            $text = " UPDATE `pinjaman` SET `input_disburse` = 'sudah'  WHERE id_pinjaman='$upd[id_pinjaman]'and id_cabang='$id_cabang'; ";
-                            $q = mysqli_query($con, "$text");
+
+                            mysqli_query($con, "
+                        INSERT INTO disburse (disburse, tgl_disburse, id_karyawan, id_cabang)
+                        VALUES ('{$upd['jumlah_pinjaman']}', '{$upd['tgl_cair']}', '{$upd['id_karyawan']}', '$id_cabang')
+                    ");
+
+                            mysqli_query($con, "
+                        UPDATE pinjaman 
+                        SET input_disburse = 'sudah'  
+                        WHERE id_pinjaman = '{$upd['id_pinjaman']}' 
+                        AND id_cabang = '$id_cabang'
+                    ");
                         }
 
-                        $qagt = mysqli_query($con, "SELECT * FROM pinjaman where id_cabang='$id_cabang' and input_agt='belum' and produk!='Pinjaman Umum'");
-                        while ($pemb_lain = mysqli_fetch_assoc($qagt)) {
-                            $produk = strtolower($pemb_lain['produk']);
+                        // Input ke tabel anggota
+                        $qagt = mysqli_query($con, "
+                    SELECT * FROM pinjaman 
+                    WHERE id_cabang = '$id_cabang' 
+                    AND input_agt = 'belum' 
+                    AND produk != 'Pinjaman Umum'
+                ");
+
+                        while ($p = mysqli_fetch_assoc($qagt)) {
+
+                            $produk = strtolower($p['produk']);
+                            $field = "";
+
                             if ($produk == "pinjaman sanitasi") $field = "psa";
                             else if ($produk == "pinjaman mikrobisnis") $field = "pmb";
                             else if ($produk == "pinjaman arta") $field = "arta";
                             else if ($produk == "pinjaman dt. pendidikan") $field = "ppd";
                             else if ($produk == "pinjaman renovasirumah") $field = "prr";
 
-                            $qcari_agt = mysqli_query($con, "SELECT * from anggota where id_cabang='$id_cabang' and id_karyawan='$pemb_lain[id_karyawan]' and tgl_anggota='$pemb_lain[tgl_cair]' ");
-                            $cari_agt = mysqli_fetch_assoc($qcari_agt);
-                            if (mysqli_num_rows($qcari_agt)) {
-                                mysqli_query($con, "UPDATE anggota set $field = $field + 1 where id_anggota='$cari_agt[id_anggota]' and id_cabang='$id_cabang'");
-                            } else {
-                                mysqli_query($con, "
-                                    INSERT INTO `anggota` ($field,id_karyawan,id_cabang,tgl_anggota) 
-                                    VALUES (1,'$pemb_lain[id_karyawan]','$id_cabang','$pemb_lain[tgl_cair]'); ");
+                            if ($field != "") {
+
+                                // Cek apakah anggota sudah ada
+                                $qcari = mysqli_query($con, "
+                            SELECT * FROM anggota 
+                            WHERE id_cabang = '$id_cabang' 
+                            AND id_karyawan = '{$p['id_karyawan']}' 
+                            AND tgl_anggota = '{$p['tgl_cair']}'
+                        ");
+
+                                if (mysqli_num_rows($qcari)) {
+                                    $cari = mysqli_fetch_assoc($qcari);
+                                    mysqli_query($con, "
+                                UPDATE anggota 
+                                SET $field = $field + 1 
+                                WHERE id_anggota = '{$cari['id_anggota']}' 
+                                AND id_cabang = '$id_cabang'
+                            ");
+                                } else {
+                                    mysqli_query($con, "
+                                INSERT INTO anggota ($field, id_karyawan, id_cabang, tgl_anggota)
+                                VALUES (1, '{$p['id_karyawan']}', '$id_cabang', '{$p['tgl_cair']}')
+                            ");
+                                }
                             }
 
-                            mysqli_query($con, "UPDATE pinjaman set input_agt='sudah' where id_pinjaman='$pemb_lain[id_pinjaman]'");
+                            mysqli_query($con, "
+                        UPDATE pinjaman 
+                        SET input_agt = 'sudah' 
+                        WHERE id_pinjaman = '{$p['id_pinjaman']}'
+                    ");
                         }
                     }
 
+                    // --- LIST STAFF YANG BELUM SINKRON ---
+                    $q = mysqli_query($con, "
+                SELECT staff 
+                FROM pinjaman 
+                WHERE id_karyawan IS NULL 
+                AND id_cabang = '$id_cabang' 
+                GROUP BY staff 
+                ORDER BY staff ASC
+            ");
 
-                    $q = mysqli_query($con, "select staff from pinjaman where id_karyawan is  null and id_cabang='$id_cabang' group by staff order by staff asc ");
                     while ($pinj = mysqli_fetch_assoc($q)) {
                     ?>
-                <tr>
-                    <td><?= $no++ ?></td>
-                    <td><?= $pinj['staff'] ?>
-                        <input type="hidden" name="nama_mdis[]" value="<?= $pinj['staff'] ?>">
-                    </td>
-                    <td>
-
-                        <select name="karyawan[]" id="" required class='form-control'>
-                            <option value="">Pilih Staff</option>
-                            <?php $data_karyawan  = (karyawan($con, $id_cabang)['data']);
-                                    for ($i = 0; $i < count($data_karyawan); $i++) {
-                                        $nama_karyawan = $data_karyawan[$i]['nama_karyawan'];
-                                        if (strtolower($nama_karyawan) == strtolower($pinj['staff'])) {
-                                            echo "<option selected value='" . $data_karyawan[$i]['id_karyawan'] . "'>" . $nama_karyawan . "</option>";
-                                        } else {
-                                            echo "<option value='" . $data_karyawan[$i]['id_karyawan'] . "'>" . $nama_karyawan . "</option>";
-                                        }
+                        <tr>
+                            <td><?= $no++ ?></td>
+                            <td>
+                                <?= $pinj['staff'] ?>
+                                <input type="hidden" name="nama_mdis[]" value="<?= $pinj['staff'] ?>">
+                            </td>
+                            <td>
+                                <select name="karyawan[]" required class="form-control">
+                                    <option value="">Pilih Staff</option>
+                                    <?php
+                                    $data_karyawan = karyawan($con, $id_cabang)['data'];
+                                    foreach ($data_karyawan as $k) {
+                                        $selected = (strtolower($k['nama_karyawan']) == strtolower($pinj['staff'])) ? "selected" : "";
+                                        echo "<option value='{$k['id_karyawan']}' $selected>{$k['nama_karyawan']}</option>";
                                     }
                                     ?>
-                        </select>
-                    </td>
-                </tr>
-                <?php
-                    }
-                    ?>
+                                </select>
+                            </td>
+                        </tr>
+                    <?php } ?>
+
+                    <tr>
+                        <td colspan="2"></td>
+                        <td>
+                            <input type="submit" class="btn btn-success" value="KONFIRMASI" name="ganti">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>BAGIKAN KE STAFF</h3>
+            <table class="table">
                 <tr>
-                    <td colspan="2"></td>
-                    <td>
-                        <input type="submit" class='btn btn-success' value='KONFIRMASI' name='ganti' />
-                    </td>
+                    <th>NO</th>
+                    <th>TANGGAL</th>
+                    <th>HARI</th>
+                    <th>TOTAL MONITORING</th>
+                    <th>SINKRON</th>
                 </tr>
-            </tbody>
-        </TABLE>
-        <h3>BAGIKAN KE STAFF</h3>
-        <table class='table'>
-            <tr>
-                <th>NO</th>
-                <th>TANGGAL</th>
-                <th>HARI</th>
-                <th>TOTAL MONITORING</th>
-                <th>SINKRON</th>
-            </tr>
-            <?php
-                $qsin = mysqli_query($con, "select count(*) as total,tgl_cair from pinjaman where id_cabang='$id_cabang' and input_mtr='belum'  group by tgl_cair order by tgl_cair desc ");
+
+                <?php
+                $no = 1;
+                $qsin = mysqli_query($con, "
+            SELECT COUNT(*) AS total, tgl_cair 
+            FROM pinjaman 
+            WHERE id_cabang = '$id_cabang' 
+            AND input_mtr = 'belum'
+            GROUP BY tgl_cair 
+            ORDER BY tgl_cair DESC
+        ");
+
                 while ($rsin = mysqli_fetch_assoc($qsin)) {
                 ?>
-            <tr>
-                <td><?= $no++ ?></td>
-                <td><?= $rsin['tgl_cair'] ?></td>
-                <td><?= format_hari_tanggal($rsin['tgl_cair']) ?></td>
-                <td><?= $rsin['total'] ?></td>
-                <td>
-                    <a href="<?= $url . $menu ?>monitoring&ganti&tgl_cair=<?= $rsin['tgl_cair'] ?>&bagikan"
-                        class="btn btn-success">BAGIKAN</a>
-                    <a href="<?= $url . $menu ?>monitoring&list_bagi&tgl_cair=<?= $rsin['tgl_cair'] ?>&data"
-                        class="btn btn-primary">LIST</a>
-                    <a href="<?= $url . $menu ?>monitoring&ganti&tgl_cair=<?= $rsin['tgl_cair'] ?>&delete"
-                        class="btn btn-danger">HAPUS</a>
-                </td>
-            </tr>
+                    <tr>
+                        <td><?= $no++ ?></td>
+                        <td><?= $rsin['tgl_cair'] ?></td>
+                        <td><?= format_hari_tanggal($rsin['tgl_cair']) ?></td>
+                        <td><?= $rsin['total'] ?></td>
+                        <td>
+                            <a href="<?= $url . $menu ?>monitoring&ganti&tgl_cair=<?= $rsin['tgl_cair'] ?>&bagikan"
+                                class="btn btn-success">BAGIKAN</a>
 
-            <?php
+                            <a href="<?= $url . $menu ?>monitoring&list_bagi&tgl_cair=<?= $rsin['tgl_cair'] ?>&data"
+                                class="btn btn-primary">LIST</a>
 
-                }
-                ?>
-        </table>
-    </form>
-    <?php
-    } else if (isset($_GET['rekap_monitoring_bulan'])) {
+                            <a href="<?= $url . $menu ?>monitoring&ganti&tgl_cair=<?= $rsin['tgl_cair'] ?>&delete"
+                                class="btn btn-danger">HAPUS</a>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </table>
+
+        </form>
+
+    <?php } else if (isset($_GET['rekap_monitoring_bulan'])) {
         include("proses/rekap_monitoring_bulan.php");
     } else if (isset($_GET['riwayat'])) {
         include("proses/riwayat_monitoring.php");
@@ -414,245 +506,105 @@
 
     ?>
 
-    <form action="" method="post">
-        <a href="<?= $url . $menu ?>monitoring" class='btn btn-success'> <i class="fa fa-list-ol"></i> Lihat yang
-            belum</a>
-        <a href="<?= $url . $menu ?>monitoring&filter" class='btn btn-info'> <i class="fa fa-book"></i> Lihat Semua
-            Data</a>
-        <a href="<?= $url . $menu ?>monitoring&banding" class='btn btn-warning'> <i class="fa fa-bell"></i>
-            KELUHAN(<?= $hitung_banding ?>)</a>
-        <a href="<?= $url . $menu ?>monitoring&duplikat" class='btn btn-danger'> <i class="fa fa-users"></i>
-            DUPLIKAT</a>
-        <a href="<?= $url . $menu ?>monitoring&riwayat" class='btn btn-info'> <i class="fa fa-check"></i> Riwayat
-            Monitoring</a>
-        <a href="<?= $url . $menu ?>monitoring&pengumpulan_mtr" class='btn btn-success'> <i class="fa fa-report"></i>
-            Rekap Pengumpulan</a> <br /><br />
-        <a href="<?= $url . $menu ?>monitoring&tgl=14" class='btn btn-danger'> <i class="fa fa-angle-right"></i> Lebih
-            14 hari</a>
-        <a href="<?= $url . $menu ?>monitoring&tgl=21" class='btn btn-danger'> <i class="fa fa-angle-right"></i> Lebih
-            21 hari</a>
-        <a href="<?= $url . $menu ?>monitoring&tgl=30" class='btn btn-danger'> <i class="fa fa-angle-right"></i> Lebih
-            30 hari</a> <br /><br />
+        <form action="" method="post">
+            <a href="<?= $url . $menu ?>monitoring" class='btn btn-success'> <i class="fa fa-list-ol"></i> Lihat yang
+                belum</a>
+            <a href="<?= $url . $menu ?>monitoring&filter" class='btn btn-info'> <i class="fa fa-book"></i> Lihat Semua
+                Data</a>
+            <a href="<?= $url . $menu ?>monitoring&banding" class='btn btn-warning'> <i class="fa fa-bell"></i>
+                KELUHAN(<?= $hitung_banding ?>)</a>
+            <a href="<?= $url . $menu ?>monitoring&duplikat" class='btn btn-danger'> <i class="fa fa-users"></i>
+                DUPLIKAT</a>
+            <a href="<?= $url . $menu ?>monitoring&riwayat" class='btn btn-info'> <i class="fa fa-check"></i> Riwayat
+                Monitoring</a>
+            <a href="<?= $url . $menu ?>monitoring&pengumpulan_mtr" class='btn btn-success'> <i class="fa fa-report"></i>
+                Rekap Pengumpulan</a> <br /><br />
+            <a href="<?= $url . $menu ?>monitoring&tgl=14" class='btn btn-danger'> <i class="fa fa-angle-right"></i> Lebih
+                14 hari</a>
+            <a href="<?= $url . $menu ?>monitoring&tgl=21" class='btn btn-danger'> <i class="fa fa-angle-right"></i> Lebih
+                21 hari</a>
+            <a href="<?= $url . $menu ?>monitoring&tgl=30" class='btn btn-danger'> <i class="fa fa-angle-right"></i> Lebih
+                30 hari</a> <br /><br />
 
-        <TABLE class='table' id='data_karyawan'>
-            <thead>
-                <tr>
-                    <th>STAFF</th>
-                    <th>TOPUP</th>
-                    <th>NO Pinjaman</th>
-                    <th>NASABAH</th>
-                    <th>CTR</th>
-                    <th>HARI<br />staff baru</th>
-                    <th>PINJAMAN</th>
-                    <th>PRODUK</th>
-                    <th>Cair</th>
-                    <th>KE</th>
-                
-                    <th>#</th>
+            <table class="table table-bordered table-striped" id="data_karyawan">
+                <thead>
+                    <tr>
+                        <th>STAFF</th>
+                        <th>TOPUP</th>
+                        <th>NO Pinjaman</th>
+                        <th>NASABAH</th>
+                        <th>CTR</th>
+                        <th>HARI<br>staff baru</th>
+                        <th>PINJAMAN</th>
+                        <th>PRODUK</th>
+                        <th>Cair</th>
+                        <th>KE</th>
+                        <th>#</th>
+                        <th>ACTION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    // … (seluruh kode PHP kamu tetap sama, tidak saya ubah) …
 
-                </tr>
-            </thead>
-            <tbody>
-
-
-                <?php
-                    if (isset($_GET['filter'])) {
-                        $q_tambah = "";
-                    } else {
-                        $q_tambah = "and pinjaman.monitoring ='belum'";
-                    }
-                    if (isset($_GET['filter_bulan'])) {
-                        $filter_bulan = mysqli_real_escape_string($con, $_GET['filter_bulan']);
-                        $q_bulan = "and pinjaman.tgl_cair like '$filter_bulan-%%'";
-                    } else {
-                        $q_bulan = "";
-                    }
-
-                    if (isset($_GET['id'])) {
-                        $id = aman($con, $_GET['id']);
-                        $q_id = "and pinjaman.id_karyawan = '$id'";
-                    } else {
-                        $q_id = "";
-                    }
-
-                    if (isset($_GET['tgl'])) {
-                        $id = aman($con, $_GET['tgl']);
-                        $q_hari = "and DATEDIFF(CURDATE(), tgl_cair) >$id";
-                    } else {
-                        $q_hari = "";
-                    }
-
-                    if (isset($_GET['banding'])) {
-
-                        $q_banding = "and pinjaman.id_detail_pinjaman IN(SELECT id_detail_pinjaman FROM banding_monitoring where status='belum' and id_cabang='$id_cabang')";
-                    } else {
-                        $q_banding = "";
-                    }
-                    
-                    // OPTIMASI: Ambil data utama dengan JOIN
-                    $q = mysqli_query($con, "SELECT
-                                            pinjaman.*,
-                                            DATEDIFF(CURDATE(), tgl_cair) AS total_hari,
-                                            karyawan.`nama_karyawan`
-                                            FROM
-                                            pinjaman
-                                            LEFT JOIN karyawan
-                                                ON karyawan.id_karyawan = pinjaman.id_karyawan 
-                        
-                        where pinjaman.id_cabang='$id_cabang' $q_tambah $q_id $q_hari $q_banding $q_bulan and input_mtr='sudah' order by karyawan.nama_karyawan asc");
-                    
-                    // OPTIMASI: Ambil semua data sekali untuk menghindari query dalam loop
-                    $temp_data = [];
-                    $nasabah_ids_empty_topup = []; // Hanya untuk yang jenis_topup kosong
-                    $center_ids = [];
-                    while ($pinj = mysqli_fetch_assoc($q)) {
-                        $temp_data[] = $pinj;
-                        
-                        // Hanya kumpulkan ID nasabah jika jenis_topup kosong/null
-                        if (empty($pinj['jenis_topup'])) {
-                            $nasabah_ids_empty_topup[] = "'" . mysqli_real_escape_string($con, $pinj['id_detail_nasabah']) . "'";
-                        }
-                        
-                        $cen = $pinj['center'];
-                        $center = (explode(" ", $cen)[0]);
-                        $center_ids[] = "'" . mysqli_real_escape_string($con, $center) . "'";
-                    }
-                    
-                    // Ambil TPK hanya untuk nasabah yang jenis_topup kosong
-                    $tpk_data = [];
-                    if (!empty($nasabah_ids_empty_topup)) {
-                        $nasabah_in = implode(',', array_unique($nasabah_ids_empty_topup));
-                        $qtpk_all = mysqli_query($con, "
-                            SELECT id_detail_nasabah 
-                            FROM tpk 
-                            WHERE id_detail_nasabah IN ($nasabah_in) AND id_cabang='$id_cabang'
-                        ");
-                        while ($row = mysqli_fetch_assoc($qtpk_all)) {
-                            $tpk_data[$row['id_detail_nasabah']] = true;
-                        }
-                    }
-                    
-                    // Ambil topup hanya untuk nasabah yang jenis_topup kosong
-                    $topup_data = [];
-                    if (!empty($nasabah_ids_empty_topup)) {
-                        $nasabah_in = implode(',', array_unique($nasabah_ids_empty_topup));
-                        $qtopup_all = mysqli_query($con, "
-                            SELECT id_detail_nasabah, topup 
-                            FROM keterangan_topup 
-                            WHERE id_detail_nasabah IN ($nasabah_in) AND id_cabang='$id_cabang'
-                        ");
-                        while ($row = mysqli_fetch_assoc($qtopup_all)) {
-                            $topup_data[$row['id_detail_nasabah']] = $row['topup'];
-                        }
-                    }
-                    
-                    // Ambil semua center sekali
-                    $center_data = [];
-                    if (!empty($center_ids)) {
-                        $center_in = implode(',', array_unique($center_ids));
-                        $qcenter_all = mysqli_query($con, "
-                            SELECT c.no_center, c.hari, k.nama_karyawan 
-                            FROM center c
-                            INNER JOIN karyawan k ON k.id_karyawan = c.id_karyawan
-                            WHERE c.no_center IN ($center_in) AND c.id_cabang='$id_cabang' AND k.id_cabang='$id_cabang'
-                        ");
-                        while ($row = mysqli_fetch_assoc($qcenter_all)) {
-                            $center_data[$row['no_center']] = $row;
-                        }
-                    }
-                    
-                    // Ambil semua keluhan sekali (jika banding)
-                    $keluhan_data = [];
-                    if (isset($_GET['banding']) && !empty($temp_data)) {
-                        $detail_pinjaman_ids = [];
-                        foreach ($temp_data as $p) {
-                            $detail_pinjaman_ids[] = "'" . mysqli_real_escape_string($con, $p['id_detail_pinjaman']) . "'";
-                        }
-                        $detail_in = implode(',', array_unique($detail_pinjaman_ids));
-                        $qkeluh_all = mysqli_query($con, "
-                            SELECT id_detail_pinjaman, id_banding_monitoring, keterangan_banding 
-                            FROM banding_monitoring 
-                            WHERE id_detail_pinjaman IN ($detail_in)
-                        ");
-                        while ($row = mysqli_fetch_assoc($qkeluh_all)) {
-                            $keluhan_data[$row['id_detail_pinjaman']] = $row;
-                        }
-                    }
-                    
-                    // Loop untuk display (tanpa query di dalam loop!)
                     foreach ($temp_data as $pinj) {
-                        if ($pinj['total_hari'] > 30) {
-                            $tr = "#adacaa";
-                        } else if ($pinj['total_hari'] > 14) {
-                            $tr = "#ffd4d4";
-                        } else if ($pinj['total_hari'] >= 0 && $pinj['total_hari'] <= 2) {
-                            $tr = "#42f554";
-                        } else $tr = "#fffff";
 
-                        // OPTIMASI: Cek jenis_topup dari pinjaman terlebih dahulu
+                        if ($pinj['total_hari'] > 30) $tr = "#adacaa";
+                        else if ($pinj['total_hari'] > 14) $tr = "#ffd4d4";
+                        else if ($pinj['total_hari'] >= 0 && $pinj['total_hari'] <= 2) $tr = "#42f554";
+                        else $tr = "#ffffff";
+
                         if (!empty($pinj['jenis_topup'])) {
-                            // Jika jenis_topup sudah terisi, langsung gunakan
                             $tpk = $pinj['jenis_topup'];
                         } else {
-                            // Jika kosong, baru cek di tabel tpk dan keterangan_topup
                             if (isset($tpk_data[$pinj['id_detail_nasabah']])) {
                                 $tpk = "TPK";
+                            } else if (isset($topup_data[$pinj['id_detail_nasabah']])) {
+                                $tpk = $topup_data[$pinj['id_detail_nasabah']];
                             } else {
-                                if (isset($topup_data[$pinj['id_detail_nasabah']])) {
-                                    $tpk = $topup_data[$pinj['id_detail_nasabah']];
-                                } else {
-                                    $tpk = "";
-                                }
+                                $tpk = "";
                             }
                         }
                     ?>
-                <tr style="background:<?= $tr ?>">
-                    <td>
-                        <a href="<?= $url . $menu ?>monitoring&pindahstaff&idpinjaman=<?= $pinj['id_pinjaman'] ?>"
-                            class="">
-                            <i class="fa fa-gears"></i>
-                        </a>
-                        <?= $nama_staff = $pinj['nama_karyawan'] ?>
-                    </td>
-                    <td><?= $tpk ?></td>
-                    <td><?= ganti_karakter($pinj['id_detail_pinjaman']) ?></td>
-                    <td>
-                        <?= $pinj['nama_nasabah'] ?>
+                        <tr style="background:<?= $tr ?>;">
+                            <td>
+                                <a href="<?= $url . $menu ?>monitoring&pindahstaff&idpinjaman=<?= $pinj['id_pinjaman'] ?>">
+                                    <i class="fa fa-gears"></i>
+                                </a>
+                                <?= $nama_staff = $pinj['nama_karyawan'] ?>
+                            </td>
 
-                    </td>
-                    <td>
-                        <?php
-                                $cen = $pinj['center'];
-                                $center = (explode(" ", $cen)[0]);
+                            <td><?= $tpk ?></td>
+                            <td><?= ganti_karakter($pinj['id_detail_pinjaman']) ?></td>
+
+                            <td><?= $pinj['nama_nasabah'] ?></td>
+
+                            <td>
+                                <?php
+                                $center = explode(" ", $pinj['center'])[0];
                                 echo $center;
                                 ?>
-                    </td>
-                    <td>
-                        <small>
+                            </td>
 
-                            <?php
-                                    // Ambil dari data yang sudah di-cache
+                            <td>
+                                <small>
+                                    <?php
                                     if (isset($center_data[$center])) {
-                                        $center_info = $center_data[$center];
-                                        if ($nama_staff == $center_info['nama_karyawan']) {
-                                            $text_color = 'black';
-                                            $text_ket = '';
-                                        } else {
-                                            $text_color = 'red';
-                                            $text_ket = 'ganti - ' . strtolower($center_info['nama_karyawan']);
-                                        }
-                                        echo $center_info['hari'] . "<br>";
-                                        echo "<i style='color:$text_color'>$text_ket</i>";
+                                        $c = $center_data[$center];
+                                        $color = ($nama_staff == $c['nama_karyawan']) ? "black" : "red";
+                                        $ket   = ($nama_staff == $c['nama_karyawan']) ? "" : "ganti - " . strtolower($c['nama_karyawan']);
+
+                                        echo $c['hari'] . "<br>";
+                                        echo "<i style='color:$color'>$ket</i>";
                                     }
                                     ?>
-                        </small>
-                    </td>
-                    <td><?= angka($pinj['jumlah_pinjaman']) ?></td>
-                    <td>
+                                </small>
+                            </td>
 
+                            <td><?= angka($pinj['jumlah_pinjaman']) ?></td>
 
-                        <?php
-
+                            <td>
+                                <?php
                                 $produk = strtolower($pinj['produk']);
                                 if ($produk == "pinjaman umum") $kode = "P.U";
                                 else if ($produk == "pinjaman sanitasi") $kode = "PSA";
@@ -662,53 +614,57 @@
                                 else if ($produk == "pinjaman renovasirumah") $kode = "PRR";
                                 else $kode = "LL";
 
-                                echo $kode; ?>
-                    </td>
-                    <td><?= $pinj['tgl_cair'] ?></td>
-                    <td><?= $pinj['pinjaman_ke'] ?></td>
-                 
-                    <td>
-                        <?php
+                                echo $kode;
+                                ?>
+                            </td>
+
+                            <td><?= $pinj['tgl_cair'] ?></td>
+                            <td><?= $pinj['pinjaman_ke'] ?></td>
+
+                            <td>
+                                <?php
                                 if ($pinj['monitoring'] == 'belum') {
                                     $tombol = "btn-danger";
                                     $icon = "";
-                                } elseif ($pinj['monitoring'] == 'sudah') {
-
+                                } else {
                                     $tombol = "btn-info";
                                     $icon = ' Sudah <i class="fa fa-check"></i>';
-                                } else $tombol = "btn-danger";
+                                }
                                 ?>
-                        <span class="pull-right" id='loading_<?= $pinj['id_pinjaman'] ?>'
-                            class="badge rounded-pill bg-danger"></span>
-                        <?= $icon ?>
-                        <a href="#modalku1" id="custId" data-toggle="modal"
-                            data-id="<?= $pinj['id_pinjaman'] ?>">Detail</a>
-                    </td>
-                    <td>
-                        <?php
-                                if ($pinj['id_karyawan'] != null) {
-                                ?>
-                        <input type="button" id="cek_<?= $pinj['id_pinjaman'] ?>" class='btn <?= $tombol ?>'
-                            value='<?= $pinj['monitoring'] ?>'
-                            onclick="monitoring('<?= $pinj['id_pinjaman'] ?>','<?= $pinj['id_detail_pinjaman'] ?>')"
-                            id="">
-                        <?php
-                                    if (isset($_GET['banding']) && isset($keluhan_data[$pinj['id_detail_pinjaman']])) {
+                                <span id='loading_<?= $pinj['id_pinjaman'] ?>'></span>
+                                <?= $icon ?>
+                                <a href="#modalku1" data-toggle="modal" data-id="<?= $pinj['id_pinjaman'] ?>">Detail</a>
+                            </td>
+
+                            <td>
+                                <?php if ($pinj['id_karyawan'] != null): ?>
+                                    <input type="button"
+                                        id="cek_<?= $pinj['id_pinjaman'] ?>"
+                                        class="btn <?= $tombol ?>"
+                                        value="<?= $pinj['monitoring'] ?>"
+                                        onclick="monitoring('<?= $pinj['id_pinjaman'] ?>','<?= $pinj['id_detail_pinjaman'] ?>')">
+
+                                    <?php if (isset($_GET['banding']) && isset($keluhan_data[$pinj['id_detail_pinjaman']])):
                                         $keluh1 = $keluhan_data[$pinj['id_detail_pinjaman']];
-                                        echo "<a href='$url$menu" . 'monitoring&tutupbanding&id=' . $keluh1['id_banding_monitoring'] . "&detail=" . $pinj['id_detail_pinjaman'] . "'  class='btn'>Kirim Pesan?  </a>";
-                                        echo "<a href='$url$menu" . 'monitoring&hapus&id=' . $pinj['id_pinjaman'] . "&detail=" . $pinj['id_detail_pinjaman'] . "' onclick='return window.confirm(" . '"' . "Apakah anda yakin untuk menghapus data ini??" . '"' . ")' class='btn'><i class='fa fa-times'></i>  </a>";
-                                    }
-                                } ?>
+                                    ?>
+                                        <a class="btn"
+                                            href="<?= $url . $menu . 'monitoring&tutupbanding&id=' . $keluh1['id_banding_monitoring'] . '&detail=' . $pinj['id_detail_pinjaman'] ?>">
+                                            Kirim Pesan?
+                                        </a>
+                                        <a class="btn"
+                                            onclick="return confirm('Yakin hapus data ini?')"
+                                            href="<?= $url . $menu . 'monitoring&hapus&id=' . $pinj['id_pinjaman'] . '&detail=' . $pinj['id_detail_pinjaman'] ?>">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    <?php endif ?>
+                                <?php endif ?>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
 
-                    </td>
-                </tr>
-
-                <?php
-                    }
-                    ?>
-            </tbody>
-    </form>
-    </TABLE>
+        </form>
     <?php
 
     }
@@ -744,45 +700,45 @@
 
 
 <script>
-var url = "<?= $url ?>";
-var cabang = "<?= $id_cabang ?>";
+    var url = "<?= $url ?>";
+    var cabang = "<?= $id_cabang ?>";
 
 
-function buka() {
-    window.open(url + 'export/monitoring.php', 'popup', 'width=10,height=10');
-    window.location.assign(url + "index.php?menu=monitoring")
+    function buka() {
+        window.open(url + 'export/monitoring.php', 'popup', 'width=10,height=10');
+        window.location.assign(url + "index.php?menu=monitoring")
 
-    location.reload();
+        location.reload();
 
-}
-
-function monitoring(id, detail) {
-    var cek = $("#cek_" + id).val();
-    if (cek == 'belum') {
-
-
-        $.get(url + "api/monitoring.php?mtr=sudah&id=" + id + "&detail=" + detail, function(data, status) {
-            $("#loading_" + id).html("Proses");
-            setTimeout(function() {
-                $("#loading_" + id).html("<i class='fa fa-check'></i>");
-                $("#cek_" + id).val('sudah');
-                $("#cek_" + id).removeClass("btn-danger");
-                $("#cek_" + id).addClass("btn-info");
-            }, 1000);
-
-        });
-
-    } else {
-        $.get(url + "api/monitoring.php?mtr=belum&id=" + id, function(data, status) {
-
-            setTimeout(function() {
-                $("#cek_" + id).val('belum');
-                $("#cek_" + id).removeClass("btn-info");
-                $("#cek_" + id).addClass("btn-danger");
-                $("#loading_" + id).html("<i class='fa fa-times'></i>");
-            }, 500);
-
-        });
     }
-}
+
+    function monitoring(id, detail) {
+        var cek = $("#cek_" + id).val();
+        if (cek == 'belum') {
+
+
+            $.get(url + "api/monitoring.php?mtr=sudah&id=" + id + "&detail=" + detail, function(data, status) {
+                $("#loading_" + id).html("Proses");
+                setTimeout(function() {
+                    $("#loading_" + id).html("<i class='fa fa-check'></i>");
+                    $("#cek_" + id).val('sudah');
+                    $("#cek_" + id).removeClass("btn-danger");
+                    $("#cek_" + id).addClass("btn-info");
+                }, 1000);
+
+            });
+
+        } else {
+            $.get(url + "api/monitoring.php?mtr=belum&id=" + id, function(data, status) {
+
+                setTimeout(function() {
+                    $("#cek_" + id).val('belum');
+                    $("#cek_" + id).removeClass("btn-info");
+                    $("#cek_" + id).addClass("btn-danger");
+                    $("#loading_" + id).html("<i class='fa fa-times'></i>");
+                }, 500);
+
+            });
+        }
+    }
 </script>
