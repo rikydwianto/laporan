@@ -335,7 +335,8 @@ set_time_limit(3000000);
                         </div>
                         <h3 style="color: #333; margin-bottom: 20px;">Informasi Migrasi Sistem</h3>
                         <p style="font-size: 16px; line-height: 1.8; color: #555;">
-                            Beberapa hari ke depan akan ada <strong>migrasi sistem</strong>.<br>
+                            <strong>Penyesuaian perubahan daftar pinjaman</strong> telah diupdate ke aplikasi ini.<br>
+                            Silahkan hubungi admin untuk konfirmasi karena beberapa hari ke depan akan ada <strong>migrasi sistem</strong>.<br>
                             Harap segera hubungi admin untuk informasi lebih lanjut.
                         </p>
                         <div style="margin: 25px 0; padding: 20px; background-color: #f8f9fa; border-radius: 8px; border-left: 4px solid #28a745;">
@@ -469,21 +470,16 @@ set_time_limit(3000000);
         
 
         <script>
-            // Auto show modal saat halaman dimuat
+            // Auto show modal saat baru login
             $(document).ready(function() {
-                // Cek apakah user sudah pernah melihat modal hari ini
-                var modalShownToday = localStorage.getItem('modalMigrasiShown');
-                var today = new Date().toDateString();
-                
-                if (modalShownToday !== today) {
-                    // Tampilkan modal setelah 1 detik
-                    setTimeout(function() {
-                        $('#modalPeringatanMigrasi').modal('show');
-                    }, 1000);
-                    
-                    // Simpan bahwa modal sudah ditampilkan hari ini
-                    localStorage.setItem('modalMigrasiShown', today);
+                <?php
+                // Cek apakah user baru login (belum ada session modal_shown_today)
+                $today = date('Y-m-d');
+                if (!isset($_SESSION['modal_shown_today']) || $_SESSION['modal_shown_today'] != $today) {
+                    echo "$('#modalPeringatanMigrasi').modal('show');";
+                    $_SESSION['modal_shown_today'] = $today;
                 }
+                ?>
             });
         </script>
 </body>
