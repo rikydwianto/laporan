@@ -293,7 +293,8 @@ function clean_angka($angka)
 function aman($con = null, $string)
 {
   if ($con == null) {
-    $con = $GLOBALS['con'];
+    global $con;
+    // $con = $GLOBALS['con'];
   }
   return htmlspecialchars(mysqli_escape_string($con, $string));
 }

@@ -38,15 +38,49 @@ if (isset($_GET['lebih'])) {
             <?php
             if (isset($_GET['hari'])) {
                 $qtam = "and hari='$_GET[hari]'";
-            } else $qtam = "";
-            $q = mysqli_query($con, "select no_center, kelompok, count(kelompok) as total,hari,k.nama_karyawan from daftar_nasabah d join karyawan k on k.id_karyawan=d.id_karyawan where d.id_cabang='$id_cabang'  $qtam group by no_center,kelompok order by nama_karyawan,no_center,kelompok,hari       ");
-            echo mysqli_error($con);
-            while ($r = mysqli_fetch_assoc($q)) {
-                $qhitung = mysqli_query($con, "select count(kelompok) as total_anggota FROM daftar_nasabah where no_center='$r[no_center]' and kelompok='$r[kelompok]' and id_cabang='$id_cabang'
+            } else {
+                $qtam = "";
+            }
+            
+            // OPTIMIZED: Single query dengan subquery untuk menghitung total
+            $q = mysqli_query($con, "
+                SELECT 
+                    no_center, 
+                    kelompok, 
+                    COUNT(*) as total_anggota,
+                    hari,
+                    k.nama_karyawan,
+                    GROUP_CONCAT(d.id_detail_nasabah ORDER BY d.id_nasabah DESC) as id_list,
+                    GROUP_CONCAT(d.nama_nasabah ORDER BY d.id_nasabah DESC SEPARATOR '|||') as nama_list
+                FROM daftar_nasabah d 
+                JOIN karyawan k ON k.id_karyawan = d.id_karyawan 
+                WHERE d.id_cabang = '$id_cabang' $qtam 
+                GROUP BY no_center, kelompok, hari, k.nama_karyawan
+                HAVING total_anggota >= $lebih
+                ORDER BY nama_karyawan, no_center, kelompok, hari
             ");
-                $hitung = mysqli_fetch_assoc($qhitung)['total_anggota'];
-                if ($hitung >= $lebih) {
-
+            echo mysqli_error($con);
+            
+            // Cache kelompok data per center untuk menghindari query berulang
+            $center_kelompok_cache = [];
+            
+            while ($r = mysqli_fetch_assoc($q)) {
+                $hitung = $r['total_anggota'];
+                $center_key = $r['no_center'];
+                
+                // Cache kelompok data untuk center ini jika belum ada
+                if (!isset($center_kelompok_cache[$center_key])) {
+                    $qkel = mysqli_query($con, "
+                        SELECT kelompok, COUNT(*) as total_anggota 
+                        FROM daftar_nasabah 
+                        WHERE no_center = '$center_key' AND id_cabang = '$id_cabang' 
+                        GROUP BY kelompok
+                    ");
+                    $center_kelompok_cache[$center_key] = [];
+                    while ($kel = mysqli_fetch_assoc($qkel)) {
+                        $center_kelompok_cache[$center_key][] = $kel;
+                    }
+                }
             ?>
                     <tr>
                         <td><?= $no++ ?></td>
@@ -56,15 +90,20 @@ if (isset($_GET['lebih'])) {
                         <td>
                             <?php
                             $limit = $hitung - 6;
-                            $qn = mysqli_query($con, "select * from daftar_nasabah where id_cabang='$id_cabang' and no_center='$r[no_center]' and kelompok='$r[kelompok]' order by id_nasabah desc limit 0,$limit");
-                            while ($merger = mysqli_fetch_assoc($qn)) {
+                            
+                            // Parse data dari GROUP_CONCAT
+                            $id_array = explode(',', $r['id_list']);
+                            $nama_array = explode('|||', $r['nama_list']);
+                            
+                            // Ambil hanya yang perlu dipindah (limit pertama)
+                            for ($i = 0; $i < min($limit, count($id_array)); $i++) {
                             ?>
-                                <?= $merger['nama_nasabah'] ?> - <a onclick="salin('<?= $merger['id_detail_nasabah'] ?>')"><?= $merger['id_detail_nasabah'] ?></a><br />
+                                <?= htmlspecialchars($nama_array[$i]) ?> - <a onclick="salin('<?= htmlspecialchars($id_array[$i]) ?>')"><?= htmlspecialchars($id_array[$i]) ?></a><br />
                             <?php
                             }
 
-                            $qkel = mysqli_query($con, "select count(kelompok) as total_anggota,kelompok FROM daftar_nasabah where no_center='$r[no_center]' and id_cabang='$id_cabang' group by kelompok");
-                            while ($kel = mysqli_fetch_assoc($qkel)) {
+                            // Tampilkan info kelompok dari cache
+                            foreach ($center_kelompok_cache[$center_key] as $kel) {
                             ?>
                                 kel : <?= $kel['kelompok'] ?>
                                 agt : <?= $kel['total_anggota'] ?><br />
@@ -76,7 +115,6 @@ if (isset($_GET['lebih'])) {
                         <td><?= $r['hari'] ?></td>
                     </tr>
             <?php
-                }
             }
             ?>
         </tbody>

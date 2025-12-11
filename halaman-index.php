@@ -36,24 +36,21 @@ if ($jabatan !== "SL")
             if (mysqli_num_rows($cari_kuis) > 0) {
                 $kuis = mysqli_fetch_array($cari_kuis);
                 pesan("KUIS AKTIF <br> NAMA KUIS : $kuis[nama_kuis]", "danger");
-                $id_karyawan = base64_encode(base64_encode($id_karyawan));
-                $id_cabang = base64_encode(base64_encode($id_cabang));
+                $id_karyawan_encoded = base64_encode(base64_encode($id_karyawan));
+                $id_cabang_encoded = base64_encode(base64_encode($id_cabang));
                 $id_kuis = base64_encode(base64_encode($kuis['id_kuis']));
-                $link_kuis = $url . "isi_kuis.php?idk=$id_karyawan&cab=$id_cabang&kuis=$id_kuis";
+                $link_kuis = $url . "isi_kuis.php?idk=$id_karyawan_encoded&cab=$id_cabang_encoded&kuis=$id_kuis";
             ?>
 
 
             <a href="<?= $link_kuis ?>" class="btn btn-danger">KLIK DISINI UNTUK MEMULAI</a>
             <hr>
             <?php
-            } else {
             }
-            $id_karyawan = (($id_karyawan));
-
-            $id_cabang = (($id_cabang));
+            
+            // Reset variables after kuis section
             $id_karyawan = $_SESSION['id'];
             $id_cabang = $_SESSION['cabang'];
-            $id_kuis = base64_decode(base64_decode($kuis['id_kuis']));
             ?>
             <div class="card">
                 <ul class="list-group list-group-flush">
@@ -332,7 +329,15 @@ if ($jabatan !== "SL")
 						 
 						");
                     $total_chg_persen = mysqli_fetch_array($total__cgh);
-                    @$persen = round(($hitung_bayar / $hitung_agt) * 100, 2);
+                    //perbaiki ini karna error dibagi 0
+
+                    // Cek jika $hitung_agt tidak 0 untuk menghindari division by zero
+                    if ($hitung_agt > 0) {
+                        $persen = round(($hitung_bayar / $hitung_agt) * 100, 2);
+                    } else {
+                        $persen = 0;
+                    }
+                    
                     $hitung_chg = $total_chg_persen['persen'] - $persen;
                     if ($hitung_chg > 0) {
                         $warna_chg = "#52eb34";
