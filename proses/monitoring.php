@@ -657,7 +657,7 @@
                             SELECT 
                                 c.no_center, 
                                 c.hari, 
-                                IFNULL(k.nama_karyawan, 'Belum ada staff') as nama_karyawan,
+                                IFNULL(c.staff, 'Belum ada staff') as nama_karyawan,
                                 c.id_karyawan
                             FROM center c
                             LEFT JOIN karyawan k ON k.id_karyawan = c.id_karyawan AND k.id_cabang='$id_cabang'
