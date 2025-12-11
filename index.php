@@ -1,6 +1,6 @@
 <?php
 ob_start();
-
+error_reporting(E_ALL);
 require_once "config/seting.php";
 require_once "config/koneksi.php";
 require_once("proses/fungsi.php");

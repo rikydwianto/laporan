@@ -59,6 +59,9 @@ require_once("model/model.php");
                                 if (mysqli_num_rows($q)) {
                                     $cek = mysqli_fetch_array($q);
                                     if ($cek['status_karyawan'] == 'aktif') {
+                                        var_dump($cek);
+                                        //validasi password //93279e3308bdbbeed946fc965017f67a menggunakan md5
+                                        
                                         if ($cek['password'] == $pass) {
                                             $_SESSION['id'] = $cek['id_karyawan'];
                                             $_SESSION['nama_karyawan'] = $cek['nama_karyawan'];
@@ -76,8 +79,8 @@ require_once("model/model.php");
                                             pindah("$url");
                                             $text = "login @user  : $user  $cek[nama_karyawan] cabang : $d[nama_cabang]";
                                         } else {
-                                            $text = "$user percobaan login password salah";
-                                            pesan("Kombinasi USER/PASSWORD SALAH", 'danger');
+                                            $text = "$user percobaan login password salah ";
+                                            pesan("Kombinasi USER/PASSWORD SALAH 1", 'danger');
                                         }
                                     } else {
                                         $text = "@user $user tidak aktif mencoba login ";

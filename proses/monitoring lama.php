@@ -649,19 +649,15 @@
                         }
                     }
                     
-                    // OPTIMASI: Ambil semua center sekali dengan LEFT JOIN untuk handle center tanpa staff
+                    // Ambil semua center sekali
                     $center_data = [];
                     if (!empty($center_ids)) {
                         $center_in = implode(',', array_unique($center_ids));
                         $qcenter_all = mysqli_query($con, "
-                            SELECT 
-                                c.no_center, 
-                                c.hari, 
-                                IFNULL(k.nama_karyawan, 'Belum ada staff') as nama_karyawan,
-                                c.id_karyawan
+                            SELECT c.no_center, c.hari, k.nama_karyawan 
                             FROM center c
-                            LEFT JOIN karyawan k ON k.id_karyawan = c.id_karyawan AND k.id_cabang='$id_cabang'
-                            WHERE c.no_center IN ($center_in) AND c.id_cabang='$id_cabang'
+                            INNER JOIN karyawan k ON k.id_karyawan = c.id_karyawan
+                            WHERE c.no_center IN ($center_in) AND c.id_cabang='$id_cabang' AND k.id_cabang='$id_cabang'
                         ");
                         while ($row = mysqli_fetch_assoc($qcenter_all)) {
                             $center_data[$row['no_center']] = $row;
@@ -728,30 +724,13 @@
                             <td>
                                 <small>
                                     <?php
-                                    // OPTIMASI: Cek center dari data cache dengan fallback jika staff kosong
                                     if (isset($center_data[$center])) {
                                         $c = $center_data[$center];
-                                        
-                                        // Jika center belum ada staff atau id_karyawan null
-                                        if (empty($c['id_karyawan']) || $c['nama_karyawan'] == 'Belum ada staff') {
-                                            $color = "orange";
-                                            $ket = "center belum punya staff";
-                                        }
-                                        // Jika staff center sama dengan staff pinjaman
-                                        else if ($nama_staff == $c['nama_karyawan']) {
-                                            $color = "black";
-                                            $ket = "";
-                                        }
-                                        // Jika staff center berbeda dengan staff pinjaman
-                                        else {
-                                            $color = "red";
-                                            $ket = "ganti - " . strtolower($c['nama_karyawan']);
-                                        }
+                                        $color = ($nama_staff == $c['nama_karyawan']) ? "black" : "red";
+                                        $ket   = ($nama_staff == $c['nama_karyawan']) ? "" : "ganti - " . strtolower($c['nama_karyawan']);
 
                                         echo $c['hari'] . "<br>";
                                         echo "<i style='color:$color'>$ket</i>";
-                                    } else {
-                                        echo "<i style='color:gray'>Center tidak ditemukan</i>";
                                     }
                                     ?>
                                 </small>
