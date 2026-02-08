@@ -150,7 +150,7 @@ $hari = explode(',', $hari)[0];
 				<th><?php echo $hitung_agt ?></th>
 				<th><?php echo $hitung_bayar ?></th>
 				<th><?php echo $hitung_tdk_bayar ?></th>
-				<th colspan=9><?php echo $persen = round(($hitung_bayar / $hitung_agt) * 100, 2) ?>%</th>
+			<th colspan=9><?php echo $persen = $hitung_agt > 0 ? round(($hitung_bayar / $hitung_agt) * 100, 2) : 0 ?>%</th>
 			</tr>
 		</table>
 

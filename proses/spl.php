@@ -19,9 +19,10 @@
 	<hr />
 
 	<?php
+	$no = 1;
 	if (isset($_GET['tambah'])) {
-		$id = aman($con, $_GET['id']);
-		$tgl = $_GET['tgl'];
+		$id = isset($_GET['id']) ? aman($con, $_GET['id']) : '';
+		$tgl = isset($_GET['tgl']) ? $_GET['tgl'] : '';
 	?>
 		<!-- <form action="" method="post">
 			<textarea name="query" class='form-control' id="" cols="50" rows="20"></textarea>
@@ -212,7 +213,7 @@
 						<td class='kotak'><?= angka($outstanding) ?> </td>
 						<td class='kotak'><?= angka($saving) ?> </td>
 						<td class='kotak'><?= angka($masalah) ?> </td>
-						<td class='kotak'><?= round($val['par'], 2) ?></td>
+				<td class='kotak'><?= isset($val['par']) && is_numeric($val['par']) ? round($val['par'], 2) : 0 ?></td>
 						<td class='kotak'><?= ($new_member) ?></td>
 					</tr>
 
@@ -233,7 +234,7 @@
 					<td><?= angka($t_saving) ?></td>
 
 					<td><?= angka($total_masalah) ?></td>
-					<td class='kotak'><?= round(($total_masalah / $total_outstanding) * 100, 2) ?></td>
+					<td class='kotak'><?= $total_outstanding > 0 ? round(($total_masalah / $total_outstanding) * 100, 2) : 0 ?></td>
 					<td class='kotak'><?= $total_new_member ?></td>
 				</tr>
 
@@ -245,6 +246,7 @@
 	<?php
 
 	} else if (isset($_GET['ganti'])) {
+		$no = 1;
 	?>
 		<form action="" method="post">
 			<!-- <input type="submit" value="SIMPAN" name='mtr' class='btn btn-danger'> -->
@@ -323,6 +325,7 @@
 		</form>
 	<?php
 	} else {
+		$no = 1;
 	?>
 		<table class='table'>
 			<tr>

@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<?php require_once "../config/seting.php";
+<?php 
+require_once "../config/seting.php";
 require_once "../config/koneksi.php";
 require_once("../proses/fungsi.php");
-
 require_once("../model/model.php");
 require("../vendor/PHPExcel/Classes/PHPExcel.php");
+
 $id_karyawan = $_SESSION['id'];
 $tgl = aman($con, $_GET['tgl']);
 $sepat = 'titik';
@@ -17,8 +16,10 @@ $id_cabang = $_SESSION['cabang'];
 $su = $_SESSION['su'];
 $d = detail_karyawan($con, $id_karyawan);
 $nama_jabatan = $d['singkatan_jabatan'];
-$_SESSION['kode_cabang'] = $d['kode_cabang']; ?>
-
+$_SESSION['kode_cabang'] = $d['kode_cabang']; 
+?>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <style>
         table,

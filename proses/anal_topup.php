@@ -133,7 +133,7 @@ $tgl_banding = $_GET['minggu_ini'];
                 foreach ($jk as $j => $v) {
                 ?>
             <!-- <td>ANGSURAN<br/><?= $j ?> + margin</td> -->
-            <td><?= angka(($saldo + ($saldo * $v)) / $j) ?></td>
+            <td><?= $j > 0 ? angka(($saldo + ($saldo * $v)) / $j) : 0 ?></td>
             <?php
                 }
                 ?>

@@ -76,7 +76,7 @@ else {
 		<option value="">Silahkan pilih Provinsi</option>
 
 		<?php
-		$idprov = aman($con,['prov']);
+		$idprov = isset($_GET['prov']) ? aman($con,$_GET['prov']) : '';
 		$qprov  = mysqli_query($con, "SELECT kode,nama FROM daftar_wilayah WHERE CHAR_LENGTH(kode)=2 ORDER BY nama");
 		while ($prov = mysqli_fetch_array($qprov)) {
 			if ($prov['kode'] == $idprov)

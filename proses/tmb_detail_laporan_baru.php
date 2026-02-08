@@ -429,7 +429,7 @@ if (isset($_POST['edit_detail'])) {
 	$bayar = $_POST['bayar']; //TOTAL ANGGOTA //TOTAL CLIENT
 	$tdk = $_POST['tdk'];
 
-	$persen = round(($bayar / $anggota) * 100);
+	$persen = $anggota > 0 ? round(($bayar / $anggota) * 100) : 0;
 	if ($persen >= 90) $status = "hijau";
 	else if ($persen > 30 && $persen < 90) $status = "kuning";
 	else if ($persen >= 1 && $persen < 30) $status = "merah";

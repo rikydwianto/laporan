@@ -79,7 +79,7 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 
 
 <?php
-} else if (($_SESSION['id']) && $su == 'y') {
+} else if (isset($_SESSION['id']) && $_SESSION['id'] && $su == 'y') {
     ?>
 <li>
     <a href="#"><i class="fa fa-building"></i> Master Data<span class="fa arrow"></span></a>
@@ -263,7 +263,7 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 </li>
 
 <?php
-} else if (($_SESSION['id']) && $jabatan == 'BM' || $jabatan == 'ASM' || $jabatan == 'PJS') {
+} else if (isset($_SESSION['id']) && $_SESSION['id'] && ($jabatan == 'BM' || $jabatan == 'ASM' || $jabatan == 'PJS')) {
     ?>
 <li>
     <a href="#"><i class="fa fa-building"></i> Master Data<span class="fa arrow"></span></a>
@@ -427,7 +427,7 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
     <a href="<?php echo $url . $menu ?>logout" class=""><i class="fa fa-sign-out"></i> Logout</a>
 </li>
 <?php
-} else if (($_SESSION['id']) && $jabatan == 'MIS'  || $jabatan == 'BC') {
+} else if (isset($_SESSION['id']) && $_SESSION['id'] && ($jabatan == 'MIS'  || $jabatan == 'BC')) {
     ?>
 <li>
     <a href="#"><i class="fa fa-building"></i> Master Data<span class="fa arrow"></span></a>
@@ -630,7 +630,7 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
     <a href="<?php echo $url . $menu ?>logout" class=""><i class="fa fa-sign-out"></i> Logout</a>
 </li>
 <?php
-} else if (($_SESSION['id']) && $jabatan == 'ADM') {
+} else if (isset($_SESSION['id']) && $_SESSION['id'] && $jabatan == 'ADM') {
     ?>
 <li>
     <a href="<?php echo $url . $menu ?>monitoring" class="w3-bar-item w3-button"><i class="fa fa-folder"></i>
@@ -678,7 +678,7 @@ if (isset($_SESSION['id']) && $jabatan == 'SL') {
 </li>
 
 <?php
-} else if (($_SESSION['id']) && $jabatan == 'BC') {
+} else if (isset($_SESSION['id']) && $_SESSION['id'] && $jabatan == 'BC') {
     ?>
 <li><a href="<?php echo $url . $menu ?>pemb_lain" class="w3-bar-item w3-button"><i class="fa fa-dollar"></i> Pembiayaan
         Lain</a></li>

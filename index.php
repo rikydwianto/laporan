@@ -7,20 +7,20 @@ require_once("proses/fungsi.php");
 require_once("model/model.php");
 require_once 'vendor/autoload.php';
 require("vendor/PHPExcel/Classes/PHPExcel.php");
-$id_karyawan = $_SESSION['id'];
+$id_karyawan = $_SESSION['id'] ?? null;
 // $url="http://192.168.100.6/laporan/";
-$nama_karyawan = $_SESSION['nama_karyawan'];
-$jabatan = $_SESSION['jabatan'];
-$cabang = $_SESSION['cabang'];
-$id_cabang = $_SESSION['cabang'];
-$su = $_SESSION['su'];
-$d = detail_karyawan($con, $id_karyawan);
-$nama_jabatan = $d['singkatan_jabatan'];
-$_SESSION['kode_cabang'] = $d['kode_cabang'];
-$kode_cabang = $_SESSION['kode_cabang'];
+$nama_karyawan = $_SESSION['nama_karyawan'] ?? '';
+$jabatan = $_SESSION['jabatan'] ?? '';
+$cabang = $_SESSION['cabang'] ?? '';
+$id_cabang = $_SESSION['cabang'] ?? '';
+$su = $_SESSION['su'] ?? 'n';
+$d = $id_karyawan ? detail_karyawan($con, $id_karyawan) : null;
+$nama_jabatan = $d['singkatan_jabatan'] ?? '';
+$_SESSION['kode_cabang'] = $d['kode_cabang'] ?? '';
+$kode_cabang = $_SESSION['kode_cabang'] ?? '';
 
-$singkatan_cabang = $d['singkatan_cabang'];
-$status_cabang = $d['status_cabang'];
+$singkatan_cabang = $d['singkatan_cabang'] ?? '';
+$status_cabang = $d['status_cabang'] ?? '';
 // pindah("maintanance.php");
 if ($su != 'y') {
     if ($status_cabang == 'nonaktif') {
@@ -49,7 +49,7 @@ set_time_limit(3000000);
     <meta http-equiv="Referrer-Policy" content="no-referrer, strict-origin-when-cross-origin">
 
 
-    <title>LAPORAN | <?= strtoupper($d['nama_cabang']) ?></title>
+    <title>LAPORAN | <?= @strtoupper($d['nama_cabang']) ?></title>
     <link rel="icon" type="image/png" sizes="16x16" href="<?= $url ?>assets/logo-motif.png">
     <!-- Bootstrap Core CSS -->
     <link href="<?= $url ?>assets/css/bootstrap.min.css" rel="stylesheet">
@@ -98,7 +98,7 @@ set_time_limit(3000000);
                     <div class="row">
                         <div class="col-lg-12">
                             <h1 class="page-header">
-                                <!--KOMIDA <?= strtoupper($d['nama_cabang']) ?>-->
+                                <!--KOMIDA <?= isset($d['nama_cabang']) ? strtoupper($d['nama_cabang']) : '' ?>-->
                             </h1>
                         </div>
                     </div>
@@ -107,7 +107,7 @@ set_time_limit(3000000);
                     <?php
 
                     if (!isset($_SESSION['id'])) {
-                        $refer = urlencode($_SERVER['HTTP_REFERER']);
+                        $refer = isset($_SERVER['HTTP_REFERER']) ? urlencode($_SERVER['HTTP_REFERER']) : '';
                         pindah("auth.php?url=$refer");
                     } else {
                         // if ($status_cabang != "aktif") {
@@ -192,10 +192,10 @@ set_time_limit(3000000);
                                             <p>
 
                                             <h2 style="text-align: center;">Sistem Informasi Cabang
-                                                <?= strtoupper($d['nama_cabang']) ?></h2><br>
+                                                <?= isset($d['nama_cabang']) ? strtoupper($d['nama_cabang']) : '' ?></h2><br>
                                             <ul>
                                                 <?php
-                                                $number = cal_days_in_month(CAL_GREGORIAN, date("m"), date("Y"));
+                                                $number = date("t"); // Get number of days in current month
                                                 $tgl_akhir = date("Y-m-$number");
                                                 $tgl_depan = date("Y-m-" . ($number - 6));
 

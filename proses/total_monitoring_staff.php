@@ -174,7 +174,7 @@ untuk mengisi anggota silahkan pilih menu "NASABAH STAFF" diatas
             <?= ($total_monitoring) ?>
         </td>
         <td><?= ($total_agt) ?></td>
-        <td><?= round(($total_monitoring / $total_agt) * 100) ?>%</td>
+        <td><?= $total_agt > 0 ? round(($total_monitoring / $total_agt) * 100) : 0 ?>%</td>
         <td></td>
         <td></td>
         <td></td>

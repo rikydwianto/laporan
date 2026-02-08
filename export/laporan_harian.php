@@ -192,8 +192,8 @@ $nama_jabatan=$d['singkatan_jabatan'];
 						 
 						");
 			$total_chg_persen = mysqli_fetch_array($total__cgh);
-			$persen = round(($hitung_bayar/$hitung_agt)*100,2);
-			$hitung_chg = $total_chg_persen['persen'] - $persen;
+			$persen = $hitung_agt > 0 ? round(($hitung_bayar/$hitung_agt)*100,2) : 0;
+			$hitung_chg = (isset($total_chg_persen['persen']) && $total_chg_persen['persen'] !== null) ? $total_chg_persen['persen'] - $persen : 0;
 			if($hitung_chg>0){
 				$warna_chg = "#52eb34";
 			}

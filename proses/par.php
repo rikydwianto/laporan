@@ -25,18 +25,17 @@
                     // error_reporting(0);
                     $q_tgl = mysqli_query($con, "SELECT DISTINCT tgl_input FROM deliquency where id_cabang='$id_cabang'  order by tgl_input desc");
                     $tgl_del = mysqli_fetch_all($q_tgl, MYSQLI_ASSOC);
-                    var_dump($tgl_del);
                     foreach ($tgl_del as $tgl_) {
                     ?>
                     <option value="<?= $tgl_['tgl_input'] ?>"
-                        <?= ($_GET['sebelum'] === $tgl_['tgl_input'] ? "selected" : "") ?>>
+                        <?= (isset($_GET['sebelum']) && $_GET['sebelum'] === $tgl_['tgl_input'] ? "selected" : "") ?>>
                         <?= format_hari_tanggal($tgl_['tgl_input']) ?></option>
                     <?php
                     }
                     ?>
 
                 </select>
-                <?= separator($_GET['tipe']) ?>
+                <?= separator(isset($_GET['tipe']) ? $_GET['tipe'] : '') ?>
 
 
             </div>
@@ -49,14 +48,14 @@
                     foreach ($tgl_del as $tgl_) {
                     ?>
                     <option value="<?= $tgl_['tgl_input'] ?>"
-                        <?= ($_GET['minggu_ini'] === $tgl_['tgl_input'] ? "selected" : "") ?>>
+                        <?= (isset($_GET['minggu_ini']) && $_GET['minggu_ini'] === $tgl_['tgl_input'] ? "selected" : "") ?>>
                         <?= format_hari_tanggal($tgl_['tgl_input']) ?></option>
                     <?php
                     }
                     ?>
 
                 </select>
-                <?= kategori($_GET['kat']) ?>
+                <?= kategori(isset($_GET['kat']) ? $_GET['kat'] : '') ?>
                 <input type="submit" value="BANDINGKAN" name='bandingkan' class='btn btn-md btn-danger'>
                 <input type="submit" value="REKAP" name='rekap' class='btn btn-md btn-info'>
                 <!-- <input type="submit" value="REKAP SEMUA" name='rekap_semua' class='btn btn-danger btn-md btn-info'> -->

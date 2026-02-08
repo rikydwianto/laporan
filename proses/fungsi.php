@@ -146,6 +146,7 @@ function format_hari_tanggal($waktu)
     'Jumat',
     'Sabtu'
   );
+  $waktu = $waktu ?? date('Y-m-d');
   $hr = date('w', strtotime($waktu));
   $hari = $hari_array[$hr];
   $tanggal = date('j', strtotime($waktu));
@@ -290,11 +291,19 @@ function clean_angka($angka)
   return str_replace(",", "", str_replace(".", "", $angka));
 }
 
-function aman($con = null, $string)
+function aman($con = null, $string = '')
 {
+
   if ($con == null) {
     global $con;
     // $con = $GLOBALS['con'];
+  }
+  // Validasi jika $string bukan string, convert ke string atau return empty
+  if (!is_string($string)) {
+    if (is_array($string)) {
+      return ''; // Return empty string jika array
+    }
+    $string = (string) $string; // Convert ke string
   }
   return htmlspecialchars(mysqli_escape_string($con, $string));
 }

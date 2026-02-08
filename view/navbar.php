@@ -1,6 +1,6 @@
 <nav class="navbar navbar-inverse navbar-fixed-top " role="navigation">
         <div class="navbar-header">
-            <a class="navbar-brand" href="<?=$url ?>"><?= strtoupper($d['nama_cabang']) ?></a>
+            <a class="navbar-brand" href="<?=$url ?>"><?= isset($d['nama_cabang']) ? strtoupper($d['nama_cabang']) : '' ?></a>
         </div>
 
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -23,7 +23,7 @@
                     <i class="fa fa-user fa-fw"></i>  <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#"><i class="fa fa-user fa-fw"></i> <?=$d['nama_karyawan'] ?></a>
+                    <li><a href="#"><i class="fa fa-user fa-fw"></i> <?= isset($d['nama_karyawan']) ? $d['nama_karyawan'] : '' ?></a>
                     </li>
                     <li><a href="<?php echo $url.$menu?>setting"><i class="fa fa-gear fa-fw"></i> Settings</a>
                     </li>
@@ -36,7 +36,7 @@
 
         <!-- Sidebar -->
         <div class="navbar-default sidebar " role="navigation">
-            <div style="overflow: 0">
+            <div style="overflow-y: auto; height: calc(100vh - 51px); position: fixed; width: 250px;">
                     
                 <div class="sidebar-nav navbar-collapse "    class='bg-dark'>
 

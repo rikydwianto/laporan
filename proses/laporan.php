@@ -179,11 +179,11 @@ $tahun = ($_POST['tahun'] == "" ? date("Y") : $_POST['tahun']);
 							<th>
 								<?php echo  $hitung_tdk_bayar ?>
 							</th>
-							<th><?php echo round(($hitung_bayar / $hitung_agt) * 100, 2) ?>%</th>
+						<th><?php echo $hitung_agt > 0 ? round(($hitung_bayar / $hitung_agt) * 100, 2) : 0 ?>%</th>
 						</tr>
 						<tr>
 							<th colspan=8 style="text-align:center">
-								Prosentase pembayaran <?php echo round(($hitung_bayar / $hitung_agt) * 100, 2) ?>% <br />
+							Prosentase pembayaran <?php echo $hitung_agt > 0 ? round(($hitung_bayar / $hitung_agt) * 100, 2) : 0 ?>% <br />
 								<?php
 								if ($cek_laporan['status_laporan'] == 'pending') {
 									echo "<i>laporan belum di konfirmasi, silahkan selesaikan laporan</i>";

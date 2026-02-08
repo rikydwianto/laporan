@@ -9,7 +9,7 @@ $query = mysqli_query($con, "SELECT * FROM karyawan,jabatan,cabang,wilayah where
  and karyawan.id_karyawan='$id_karyawan' ");
 $karyawan = mysqli_fetch_array($query);
 
-if (!$_SESSION['jabatan']) {
+if (!isset($_SESSION['jabatan']) || !$_SESSION['jabatan']) {
     $_SESSION['jabatan'] = $karyawan['singkatan_jabatan'];
     $_SESSION['cabang'] = $karyawan['id_cabang'];
     pindah($url);
@@ -338,7 +338,7 @@ if ($jabatan !== "SL")
                         $persen = 0;
                     }
                     
-                    $hitung_chg = $total_chg_persen['persen'] - $persen;
+                    $hitung_chg = (isset($total_chg_persen['persen']) && $total_chg_persen['persen'] !== null) ? $total_chg_persen['persen'] - $persen : 0;
                     if ($hitung_chg > 0) {
                         $warna_chg = "#52eb34";
                     } else {
