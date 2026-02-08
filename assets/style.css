@@ -279,29 +279,42 @@ a:focus {
 }
 
 .sidebar-nav {
-	background-color: #1e293b;
-	color: #f9fafb;
+	background-color: #ffffff;
+	color: #1f2937;
+	border-right: 1px solid #e5e7eb;
 }
 
 .sidebar-nav .nav>li>a {
-	color: #f1f5f9;
+	color: #374151;
 	padding: 12px 20px;
 	transition: all 0.2s;
 	border-left: 3px solid transparent;
+	font-weight: 500;
 }
 
 .sidebar-nav .nav>li>a:hover,
 .sidebar-nav .nav>li>a:focus,
 .sidebar-nav .nav>li>a:active {
-	background-color: rgba(102, 126, 234, 0.1);
-	color: #e5e7eb;
+	background-color: #f3f4f6;
+	color: #667eea;
 	border-left: 3px solid #667eea;
 }
 
 .sidebar-nav .nav>li.active>a {
-	background: linear-gradient(90deg, rgba(102, 126, 234, 0.2) 0%, transparent 100%);
+	background: linear-gradient(90deg, rgba(102, 126, 234, 0.1) 0%, transparent 100%);
 	border-left: 3px solid #667eea;
-	color: white;
+	color: #667eea;
+	font-weight: 600;
+}
+
+.sidebar-nav .nav>li>a i {
+	color: #6b7280;
+	margin-right: 10px;
+}
+
+.sidebar-nav .nav>li>a:hover i,
+.sidebar-nav .nav>li.active>a i {
+	color: #667eea;
 }
 
 /* Page wrapper spacing */

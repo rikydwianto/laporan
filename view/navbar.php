@@ -45,12 +45,12 @@
         </ul>
 
         <!-- Sidebar -->
-        <div class="navbar-default sidebar" role="navigation" style="background: #1e293b;">
-            <div style="overflow-y: auto; height: calc(100vh - 51px); position: fixed; width: 250px; background: #1e293b;">
+        <div class="navbar-default sidebar" role="navigation" style="background: #ffffff; border-right: 1px solid #e5e7eb;">
+            <div style="overflow-y: auto; height: calc(100vh - 51px); position: fixed; width: 250px; background: #ffffff;">
                     
                 <div class="sidebar-nav navbar-collapse" style="padding: 0;">
 
-                    <ul class="nav" id="side-menu" style="background: #1e293b;">
+                    <ul class="nav" id="side-menu" style="background: #ffffff;">
                         <li class="sidebar-search" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; margin: 0; border: none;">
                             <div class="text" style="color: white; font-weight: 700; font-size: 15px; letter-spacing: 1.2px; text-align: center;">
                                 <i class="fa fa-bars" style="margin-right: 8px;"></i>MENU
