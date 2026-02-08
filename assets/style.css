@@ -26,6 +26,63 @@ body {
 	color: #222;
 }
 
+a,
+a:hover,
+a:focus {
+	color: #0f172a;
+	text-decoration: none;
+}
+
+.panel,
+.panel-default,
+.panel-heading,
+.panel-footer,
+.card,
+.table,
+.navbar-default,
+.dropdown-menu,
+.modal-content,
+.form-control,
+.btn,
+.list-group-item,
+.alert,
+.label,
+.badge,
+.pagination>li>a,
+.pagination>li>span {
+	border-radius: 0 !important;
+	box-shadow: none !important;
+}
+
+.panel,
+.panel-default,
+.card,
+.table,
+.form-control,
+.dropdown-menu,
+.modal-content,
+.alert,
+.list-group-item,
+.pagination>li>a,
+.pagination>li>span {
+	border: 1px solid #e5e7eb;
+	background: #fff;
+}
+
+.panel-heading,
+.panel-footer,
+.navbar-default,
+.dropdown-menu>li>a,
+.list-group-item {
+	border-color: #e5e7eb;
+}
+
+.navbar-default {
+	border: 0;
+	background-color: #0f172a;
+	color: #f9fafb;
+}
+
 .navbar,
 .navbar-default,
 .panel,
@@ -83,6 +140,65 @@ body {
 .navbar-default .navbar-nav>li>a:focus {
 	color: #e5e7eb;
 	background: transparent;
+}
+
+.btn,
+.btn-default,
+.btn-primary,
+.btn-success,
+.btn-info,
+.btn-warning,
+.btn-danger {
+	border: 1px solid #0f172a;
+	background: #0f172a;
+	color: #f9fafb;
+	transition: none;
+}
+
+.btn:hover,
+.btn:focus,
+.btn:active,
+.btn.active,
+.open>.dropdown-toggle.btn {
+	border-color: #111827;
+	background: #111827;
+	color: #f9fafb;
+	box-shadow: none !important;
+}
+
+.btn-default { background: #1f2937; border-color: #1f2937; }
+.btn-success { background: #16a34a; border-color: #15803d; }
+.btn-info    { background: #0284c7; border-color: #0369a1; }
+.btn-warning { background: #d97706; border-color: #b45309; }
+.btn-danger  { background: #dc2626; border-color: #b91c1c; }
+
+.btn-default:hover,
+.btn-success:hover,
+.btn-info:hover,
+.btn-warning:hover,
+.btn-danger:hover {
+	filter: brightness(0.9);
+}
+
+.form-control,
+.input-group-addon {
+	border-radius: 0 !important;
+	box-shadow: none;
+}
+
+.form-control:focus {
+	border-color: #0f172a;
+	box-shadow: none;
+}
+
+.table>thead>tr>th {
+	background: #0f172a;
+	color: #f9fafb;
+	border-color: #0f172a;
+}
+
+.table>tbody>tr>td {
+	border-color: #e5e7eb;
 }
 
 .sidebar-nav {
