@@ -1,0 +1,5 @@
+172.20.0.1 - - [06/Feb/2026:04:09:20 +0000] "GET / HTTP/1.1" 200 22992 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"
+172.20.0.1 - - [06/Feb/2026:04:09:21 +0000] "GET /favicon.ico HTTP/1.1" 404 489 "http://localhost:9001/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"
+172.20.0.1 - - [06/Feb/2026:04:10:12 +0000] "-" 408 0 "-" "-"
+172.20.0.1 - - [06/Feb/2026:04:24:30 +0000] "GET /auth.php?url= HTTP/1.1" 200 12989 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"
+172.20.0.1 - - [06/Feb/2026:04:25:22 +0000] "-" 408 0 "-" "-"

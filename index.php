@@ -94,16 +94,9 @@ set_time_limit(3000000);
         <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
-                <div class="card">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h1 class="page-header">
-                                <!--KOMIDA <?= isset($d['nama_cabang']) ? strtoupper($d['nama_cabang']) : '' ?>-->
-                            </h1>
-                        </div>
-                    </div>
-
-                    <!-- ... Your content goes here ... -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- ... Your content goes here ... -->
                     <?php
 
                     if (!isset($_SESSION['id'])) {
@@ -129,24 +122,28 @@ set_time_limit(3000000);
                                 }
 
                     ?>
-                                <form action="" method="post">
-                                    <select name="nama_cabang" id="">
-
-                                        <?php
-                                        $q = mysqli_query($con, "SELECT * FROM cabang $qu order by nama_cabang asc");
-                                        while ($r = mysqli_fetch_array($q)) {
-                                            if ($id_cabang == $r['id_cabang'])
-                                                $sel = 'selected';
-                                            else $sel = '';
-                                        ?>
-                                            <option value="<?= $r['id_cabang'] ?>" <?= $sel ?>><?= strtoupper($r['nama_cabang']) ?>
-                                            </option>
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>
-                                    <input type="submit" name='submit_cabang' value='GANTI CABANG' />
-                                </form>
+                                <div class="card" style="padding: 20px; margin-bottom: 20px;">
+                                    <form action="" method="post" class="form-inline">
+                                        <div class="form-group" style="margin-right: 10px;">
+                                            <label for="nama_cabang" style="margin-right: 10px; font-weight: 600;">Pilih Cabang:</label>
+                                            <select name="nama_cabang" id="nama_cabang" class="form-control" style="min-width: 200px;">
+                                                <?php
+                                                $q = mysqli_query($con, "SELECT * FROM cabang $qu order by nama_cabang asc");
+                                                while ($r = mysqli_fetch_array($q)) {
+                                                    if ($id_cabang == $r['id_cabang'])
+                                                        $sel = 'selected';
+                                                    else $sel = '';
+                                                ?>
+                                                    <option value="<?= $r['id_cabang'] ?>" <?= $sel ?>><?= strtoupper($r['nama_cabang']) ?>
+                                                    </option>
+                                                <?php
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <button type="submit" name='submit_cabang' value='GANTI CABANG' class="btn btn-primary">Ganti Cabang</button>
+                                    </form>
+                                </div>
 
                     <?php
                                 if (isset($_POST['submit_cabang']) && $_POST['submit_cabang'] == 'GANTI CABANG') {
@@ -175,10 +172,10 @@ set_time_limit(3000000);
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
 
-                                <!-- Ini adalah Bagian Header Modal -->
-                                <div class="modal-header">
-                                    <h4 class="modal-title">INFORMASI</h4>
-                                    <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                                <!-- Modal Header -->
+                                <div class="modal-header" style="border-bottom: 2px solid #e5e7eb;">
+                                    <h4 class="modal-title" style="font-weight: 600; color: #0f172a;">INFORMASI</h4>
+                                    <button type="button" class="close" data-dismiss="modal" style="font-size: 28px; font-weight: 300;">&times;</button>
                                 </div>
 
                                 <!-- Ini adalah Bagian Body Modal -->

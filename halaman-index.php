@@ -24,13 +24,12 @@ if ($jabatan !== "SL")
     include("view/statistik.php");
 ?>
 
-<div class="col-md-4 ">
-    <div class="panel panel-default ">
-
-
-
-        <div class="panel-body ">
-            <h3 class='page-header'>INFORMASI ! </h3>
+<div class="col-md-4">
+    <div class="panel panel-default">
+        <div class="panel-heading" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white;">
+            <h3 class="panel-title" style="font-weight: 600; font-size: 16px;">INFORMASI</h3>
+        </div>
+        <div class="panel-body">
             <?php
             $cari_kuis = mysqli_query($con, "select * from kuis where id_cabang='$id_cabang' and status='aktif' order by id_kuis desc");
             if (mysqli_num_rows($cari_kuis) > 0) {
@@ -52,15 +51,19 @@ if ($jabatan !== "SL")
             $id_karyawan = $_SESSION['id'];
             $id_cabang = $_SESSION['cabang'];
             ?>
-            <div class="card">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><?php echo strtoupper($karyawan['nama_karyawan']) ?> </li>
-                    <li class="list-group-item">Jabatan : (<?php echo $karyawan['singkatan_jabatan'] ?>)
-                        <?php echo $karyawan['nama_jabatan'] ?></li>
-                    <li class="list-group-item">Cabang: (<?php echo $karyawan['kode_cabang'] ?>)
-                        <?php echo strtoupper($karyawan['nama_cabang']) ?></li>
-                    <li class="list-group-item"> Wilayah <?php echo strtoupper($karyawan['wilayah']) ?></li>
-                </ul>
+            <div class="well" style="background: #f8f9fa; border: 1px solid #e9ecef; margin-bottom: 15px;">
+                <div style="margin-bottom: 10px; padding: 10px; background: white; border-left: 3px solid #667eea;">
+                    <strong style="color: #0f172a;"><?php echo strtoupper($karyawan['nama_karyawan']) ?></strong>
+                </div>
+                <div style="margin-bottom: 8px; padding: 8px; background: white; font-size: 14px;">
+                    <strong>Jabatan:</strong> (<?php echo $karyawan['singkatan_jabatan'] ?>) <?php echo $karyawan['nama_jabatan'] ?>
+                </div>
+                <div style="margin-bottom: 8px; padding: 8px; background: white; font-size: 14px;">
+                    <strong>Cabang:</strong> (<?php echo $karyawan['kode_cabang'] ?>) <?php echo strtoupper($karyawan['nama_cabang']) ?>
+                </div>
+                <div style="padding: 8px; background: white; font-size: 14px;">
+                    <strong>Wilayah:</strong> <?php echo strtoupper($karyawan['wilayah']) ?>
+                </div>
             </div>
 
 
@@ -76,14 +79,20 @@ if ($jabatan !== "SL")
                 $mon = mysqli_fetch_array($qpin);
                 $mon1 = $mon['total'];
             ?>
-            <h3 class='page-header'>MONITORING !
-                <hr />
-            </h3>
-            <div class="card">
-                <h4> Monitoring 0 - 3 hari : <?= $mon['tiga'] ?> </h4>
-                <h4> Monitoring 4 - 14 hari : <?= $mon['normal'] ?> </h4>
-                <h4> lebih 14 hari : <?= $mon['kurang_normal'] ?> </h4>
-                <h3><a href='<?= $url . $menu ?>list-monitoring'>Total Monitoring : <?= $mon1 ?></a> </h3>
+            <h4 style="font-weight: 600; margin: 20px 0 15px 0; color: #0f172a;">MONITORING</h4>
+            <div class="well" style="background: #f8f9fa; border: 1px solid #e9ecef;">
+                <div style="margin-bottom: 8px; padding: 8px; background: white; font-size: 14px;">
+                    <strong>Monitoring 0 - 3 hari:</strong> <span class="badge" style="background: #10b981; color: white;"><?= $mon['tiga'] ?></span>
+                </div>
+                <div style="margin-bottom: 8px; padding: 8px; background: white; font-size: 14px;">
+                    <strong>Monitoring 4 - 14 hari:</strong> <span class="badge" style="background: #f59e0b; color: white;"><?= $mon['normal'] ?></span>
+                </div>
+                <div style="margin-bottom: 8px; padding: 8px; background: white; font-size: 14px;">
+                    <strong>Lebih 14 hari:</strong> <span class="badge" style="background: #ef4444; color: white;"><?= $mon['kurang_normal'] ?></span>
+                </div>
+                <div style="padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; margin-top: 10px; text-align: center;">
+                    <a href='<?= $url . $menu ?>list-monitoring' style="color: white; font-weight: 600; text-decoration: none;">Total Monitoring: <?= $mon1 ?></a>
+                </div>
             </div>
             <?php
             }
@@ -94,38 +103,41 @@ if ($jabatan !== "SL")
             //STATISTIK
             if ($jabatan != 'SL') {
             ?>
-            <h3 class='page-header'>STATUS CENTER
-                <hr />
-            </h3>
-            <div class="card divider">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><b>MEMBER : <span style='float:right;background: blue'
-                                class="badge rounded-pill bg-primary"><?= $hitung->hitung_client($con, $id_cabang); ?>
-                            </span></b> </li>
-                    <li class="list-group-item"><b>Total Center Doa <span style='float:right;background: blue'
-                                class="badge rounded-pill bg-primary"><?= $status['doa'] ?> </span></b> </li>
-                    <li class="list-group-item"><b>Total Center Tidak Doa <span style='float:right;background: black'
-                                class="badge rounded-pill bg-danger"><?= $status['tidak_doa'] ?> </span></b> </li>
-                    <li class="list-group-item"><b>Total Center Hijau <span style='float:right;background: green'
-                                class="badge rounded-pill bg-success"><?= $status['tidak_doa'] ?> </span></b> </li>
-                    <li class="list-group-item"><b>Total Center Merah <span style='float:right;background: red'
-                                class="badge rounded-pill bg-danger"><?= $status['merah'] ?> </span></b> </li>
-                    <li class="list-group-item"><b>Total Center Kuning <span
-                                style='float:right;background: #eea236;text-decoration-color: black;'
-                                class="badge rounded-pill bg-danger"><?= $status['kuning'] ?> </span></b> </li>
-                    <li class="list-group-item"><b>Total Center hitam <span style='float:right;background: black;'
-                                class="badge rounded-pill bg-danger "><?= $status['hitam'] ?> </span></b> </li>
-                    <li class="list-group-item"><b>DOORTODOOR <span style='float:right;background: black;'
-                                class="badge rounded-pill bg-danger "><?= $status['iya'] ?> </span></b> </li>
-                    <li class="list-group-item"><b>SETENGAH DOORTODOOR <span style='float:right;background: #eea236;'
-                                class="badge rounded-pill bg-warning "><?= $status['ragu'] ?> </span></b> </li>
-                    <li class="list-group-item"><b>KUMPULAN <span style='float:right;background: green;'
-                                class="badge rounded-pill bg-yellow "><?= $status['tidak'] ?> </span></b> </li>
-                    <li class="list-group-item"><b>Total Semua Center <span style='float:right'
-                                class="badge rounded-pill bg-danger"><?= $hitung->hitung_center($con, $id_cabang) ?>
-                            </span></b> </li>
-                </ul>
-
+            <h4 style="font-weight: 600; margin: 20px 0 15px 0; color: #0f172a;">STATUS CENTER</h4>
+            <div class="well" style="background: #f8f9fa; border: 1px solid #e9ecef;">
+                <div style="margin-bottom: 8px; padding: 10px; background: white; font-size: 14px; border-left: 3px solid #3b82f6;">
+                    <strong>Member:</strong> <span class="badge" style="background: #3b82f6; color: white; float: right;"><?= $hitung->hitung_client($con, $id_cabang); ?></span>
+                </div>
+                <div style="margin-bottom: 8px; padding: 8px; background: white; font-size: 14px;">
+                    <strong>Center Doa</strong> <span class="badge" style="background: #3b82f6; color: white; float: right;"><?= $status['doa'] ?></span>
+                </div>
+                <div style="margin-bottom: 8px; padding: 8px; background: white; font-size: 14px;">
+                    <strong>Center Tidak Doa</strong> <span class="badge" style="background: #0f172a; color: white; float: right;"><?= $status['tidak_doa'] ?></span>
+                </div>
+                <div style="margin-bottom: 8px; padding: 8px; background: white; font-size: 14px;">
+                    <strong>Center Hijau</strong> <span class="badge" style="background: #10b981; color: white; float: right;"><?= $status['tidak_doa'] ?></span>
+                </div>
+                <div style="margin-bottom: 8px; padding: 8px; background: white; font-size: 14px;">
+                    <strong>Center Merah</strong> <span class="badge" style="background: #ef4444; color: white; float: right;"><?= $status['merah'] ?></span>
+                </div>
+                <div style="margin-bottom: 8px; padding: 8px; background: white; font-size: 14px;">
+                    <strong>Center Kuning</strong> <span class="badge" style="background: #f59e0b; color: white; float: right;"><?= $status['kuning'] ?></span>
+                </div>
+                <div style="margin-bottom: 8px; padding: 8px; background: white; font-size: 14px;">
+                    <strong>Center Hitam</strong> <span class="badge" style="background: #0f172a; color: white; float: right;"><?= $status['hitam'] ?></span>
+                </div>
+                <div style="margin-bottom: 8px; padding: 8px; background: white; font-size: 14px;">
+                    <strong>Door to Door</strong> <span class="badge" style="background: #0f172a; color: white; float: right;"><?= $status['iya'] ?></span>
+                </div>
+                <div style="margin-bottom: 8px; padding: 8px; background: white; font-size: 14px;">
+                    <strong>Setengah D2D</strong> <span class="badge" style="background: #f59e0b; color: white; float: right;"><?= $status['ragu'] ?></span>
+                </div>
+                <div style="margin-bottom: 8px; padding: 8px; background: white; font-size: 14px;">
+                    <strong>Kumpulan</strong> <span class="badge" style="background: #10b981; color: white; float: right;"><?= $status['tidak'] ?></span>
+                </div>
+                <div style="padding: 10px; background: white; font-size: 14px; border-left: 3px solid #6366f1;">
+                    <strong>Total Semua Center</strong> <span class="badge" style="background: #6366f1; color: white; float: right;"><?= $hitung->hitung_center($con, $id_cabang) ?></span>
+                </div>
             </div>
             <?php
                 $qpin = mysqli_query($con, "SELECT id_karyawan,
@@ -138,13 +150,24 @@ if ($jabatan !== "SL")
                 $mon1 = $mon['total'];
 
                 ?>
-            <div class="card">
-                <h4> KELUHAN MONITORING : <?= $hitung_banding ?> </h4>
-                <h4> Monitoring 0 - 3 hari : <?= $mon['tiga_hari'] ?> </h4>
-                <h4> Monitoring 4 - 14 hari : <?= $mon['normal'] ?> </h4>
-                <h4> lebih 14 hari : <?= $mon['kurang_normal'] ?> </h4>
-                <h3><a href='<?= $url . $menu ?>monitoring'>Total Monitoring : <?= $mon1 ?></a> </h3>
-                <a href="<?= $url . $menu ?>laporan_dtc" class="btn btn-danger">Laporan DTC</a>
+            <h4 style="font-weight: 600; margin: 20px 0 15px 0; color: #0f172a;">MONITORING</h4>
+            <div class="well" style="background: #f8f9fa; border: 1px solid #e9ecef;">
+                <div style="margin-bottom: 8px; padding: 10px; background: white; font-size: 14px; border-left: 3px solid #ef4444;">
+                    <strong>Keluhan Monitoring:</strong> <span class="badge" style="background: #ef4444; color: white;"><?= $hitung_banding ?></span>
+                </div>
+                <div style="margin-bottom: 8px; padding: 8px; background: white; font-size: 14px;">
+                    <strong>Monitoring 0 - 3 hari:</strong> <span class="badge" style="background: #10b981; color: white;"><?= $mon['tiga_hari'] ?></span>
+                </div>
+                <div style="margin-bottom: 8px; padding: 8px; background: white; font-size: 14px;">
+                    <strong>Monitoring 4 - 14 hari:</strong> <span class="badge" style="background: #f59e0b; color: white;"><?= $mon['normal'] ?></span>
+                </div>
+                <div style="margin-bottom: 10px; padding: 8px; background: white; font-size: 14px;">
+                    <strong>Lebih 14 hari:</strong> <span class="badge" style="background: #ef4444; color: white;"><?= $mon['kurang_normal'] ?></span>
+                </div>
+                <div style="padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; margin-bottom: 10px; text-align: center;">
+                    <a href='<?= $url . $menu ?>monitoring' style="color: white; font-weight: 600; text-decoration: none;">Total Monitoring: <?= $mon1 ?></a>
+                </div>
+                <a href="<?= $url . $menu ?>laporan_dtc" class="btn btn-danger btn-block">Laporan DTC</a>
             </div>
             <?php
             }
@@ -161,7 +184,7 @@ if ($jabatan !== "SL")
 </div>
 
 <div class="col-md-8">
-    <div class="panel panel-default  ">
+    <div class="panel panel-default">
         <?php
 
         if ($jabatan == 'SL') {
@@ -173,9 +196,12 @@ if ($jabatan !== "SL")
             }
         } else if ($jabatan == 'BM' || $jabatan == 'ASM' || $jabatan == 'MIS' || $su == 'y') {
         ?>
-        <h2 class="page-header">
-            <?php echo format_hari_tanggal(date("Y-m-d")) . ""; ?>
-        </h2>
+        <div class="panel-heading" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white;">
+            <h3 class="panel-title" style="font-weight: 600; font-size: 16px;">
+                <?php echo strtoupper(format_hari_tanggal(date("Y-m-d"))); ?>
+            </h3>
+        </div>
+        <div class="panel-body">
         <a href="<?= $url ?>/export/laporan_harian.php?tgl=<?= date("Y-m-d") ?>" class='btn btn-success'>
             <i class="fa fa-file-excel-o"></i> Export To Excel
         </a>
