@@ -30,12 +30,16 @@ body {
 }
 
 #wrapper {
-	padding-top: 51px;
+	padding-top: 0;
+}
+
+.navbar-fixed-top {
+	z-index: 1030;
 }
 
 @media (max-width: 768px) {
 	#wrapper {
-		padding-top: 51px;
+		padding-top: 0;
 	}
 	
 	.sidebar {
@@ -302,17 +306,21 @@ a:focus {
 
 /* Page wrapper spacing */
 #page-wrapper {
-	padding: 20px;
-	padding-top: 80px;
+	padding: 30px 20px;
+	padding-top: 100px;
 	background: #f0f2f5;
 	margin-left: 250px;
 	min-height: 100vh;
 }
 
+.container-fluid {
+	padding-top: 20px;
+}
+
 @media (max-width: 768px) {
 	#page-wrapper {
 		margin-left: 0;
-		padding-top: 70px;
+		padding-top: 80px;
 	}
 }
 
