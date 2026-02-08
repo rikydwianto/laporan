@@ -307,14 +307,18 @@ a:focus {
 /* Page wrapper spacing */
 #page-wrapper {
 	padding: 30px 20px;
-	padding-top: 100px;
+	padding-top: 90px;
 	background: #f0f2f5;
 	margin-left: 250px;
 	min-height: 100vh;
 }
 
 .container-fluid {
-	padding-top: 20px;
+	padding-top: 0;
+}
+
+.container-fluid > .row:first-child {
+	margin-top: 0;
 }
 
 @media (max-width: 768px) {

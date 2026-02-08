@@ -2,7 +2,7 @@
 $hitung = new Hitung();
 $status = ( $hitung->hitung_status($con,$id_cabang));
 ?>
-<div class="row">
+<div class="row" style="margin-top: 30px;">
     <div class="col-lg-3 col-md-6">
         <div class="panel panel-red">
             <div class="panel-heading">
