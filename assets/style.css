@@ -25,6 +25,22 @@ body {
 	background-color: #f0f2f5;
 	color: #222;
 	line-height: 1.6;
+	padding-top: 0;
+	margin: 0;
+}
+
+#wrapper {
+	padding-top: 51px;
+}
+
+@media (max-width: 768px) {
+	#wrapper {
+		padding-top: 51px;
+	}
+	
+	.sidebar {
+		margin-top: 51px;
+	}
 }
 
 /* Panel improvements for modern flat design */
@@ -287,7 +303,17 @@ a:focus {
 /* Page wrapper spacing */
 #page-wrapper {
 	padding: 20px;
+	padding-top: 80px;
 	background: #f0f2f5;
+	margin-left: 250px;
+	min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+	#page-wrapper {
+		margin-left: 0;
+		padding-top: 70px;
+	}
 }
 
 /* Ensure sidebar scroll stays consistent without inline styles */
