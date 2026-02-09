@@ -6,7 +6,11 @@ $tgl_banding = $_GET['minggu_ini'];
 $tgl_awal = mysqli_real_escape_string($con, $tgl_awal);
 $tgl_banding = mysqli_real_escape_string($con, $tgl_banding);
 $id_cabang = mysqli_real_escape_string($con, $id_cabang);
+
+// Initialize variable for angka() function
+$sepat = '';
 ?>
+
 <a href="#rekap" onclick="printPageArea('rekap_tambah_par')" class="btn btn-success"> PRINT PENAMBAHAN <i class="fa fa-print"></i></a>
 <a href="#rekap" onclick="printPageArea('rekap_penurunan_par')" class="btn btn-success"> PRINT PENURUNAN <i class="fa fa-print"></i></a>
 <h2>REKAP DELIQUENCY</h2>
@@ -407,3 +411,24 @@ $id_cabang = mysqli_real_escape_string($con, $id_cabang);
         </table>
     </div>
 </div>
+<script>
+function printPageArea(areaID) {
+    var printContent = document.getElementById(areaID);
+    var WinPrint = window.open('', '', 'width=900,height=650');
+    WinPrint.document.write('<html><head><title>Print</title>');
+    WinPrint.document.write('<style>');
+    WinPrint.document.write('body { font-family: Arial, sans-serif; }');
+    WinPrint.document.write('table { width: 100%; border-collapse: collapse; }');
+    WinPrint.document.write('table, th, td { border: 1px solid black; }');
+    WinPrint.document.write('th, td { padding: 8px; text-align: left; }');
+    WinPrint.document.write('th { background-color: #f2f2f2; }');
+    WinPrint.document.write('</style>');
+    WinPrint.document.write('</head><body>');
+    WinPrint.document.write(printContent.innerHTML);
+    WinPrint.document.write('</body></html>');
+    WinPrint.document.close();
+    WinPrint.focus();
+    WinPrint.print();
+    WinPrint.close();
+}
+</script>

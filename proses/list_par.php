@@ -13,17 +13,30 @@
                 <th>#</th>
             </tr>
             <?php
-            $q_tgl1 = mysqli_query($con, "SELECT  tgl_input,count(*) as hitung, sum(sisa_saldo) as total_par FROM deliquency where id_cabang='$id_cabang' group by tgl_input order by tgl_input desc");
+            // OPTIMASI: Gabungkan COUNT DISTINCT center dalam satu query menggunakan subquery
+            $q_tgl1 = mysqli_query($con, "
+                SELECT  
+                    d.tgl_input,
+                    COUNT(*) as hitung, 
+                    SUM(d.sisa_saldo) as total_par,
+                    (SELECT COUNT(DISTINCT no_center) 
+                     FROM deliquency 
+                     WHERE id_cabang = '$id_cabang' 
+                     AND tgl_input = d.tgl_input) as total_center
+                FROM deliquency d 
+                WHERE d.id_cabang='$id_cabang' 
+                GROUP BY d.tgl_input 
+                ORDER BY d.tgl_input DESC
+            ");
+            
             while ($cari = mysqli_fetch_assoc($q_tgl1)) {
-                $total_center  = mysqli_query($con, "SELECT COUNT(DISTINCT no_center) as total_center FROM deliquency WHERE id_cabang = '$id_cabang' and tgl_input='$cari[tgl_input]' #GROUP BY tgl_input ");
-                $total_center = mysqli_fetch_assoc($total_center);
             ?>
                 <tr>
                     <td><?= $no++ ?></td>
                     <td><?= $cari['tgl_input'] ?></td>
                     <td><?= format_hari_tanggal($cari['tgl_input']) ?></td>
-                    <td><?= ($cari['hitung']) ?></td>
-                    <td><?= ($total_center['total_center']) ?></td>
+                    <td><?= $cari['hitung'] ?></td>
+                    <td><?= $cari['total_center'] ?></td>
                     <td><?= rupiah($cari['total_par']) ?></td>
                     <td>
                         <a href="<?= $url . $menu ?>par&list&munculkan&tgl=<?= $cari['tgl_input'] ?>" class="btn btn-success"> <i class="fa fa-eye"></i> Tampilkan Detail</a>
@@ -33,44 +46,56 @@
                 </tr>
 
                 <?php
-                $qminggu = mysqli_query($con, "SELECT DISTINCT minggu as minggu1 from deliquency where tgl_input='$cari[tgl_input]' and id_cabang='$id_cabang' order by minggu asc");
-                $qminggu1 = mysqli_query($con, "SELECT DISTINCT minggu as minggu1 from deliquency where tgl_input='$cari[tgl_input]' and id_cabang='$id_cabang' order by minggu asc");
+                // OPTIMASI: Ambil data minggu hanya sekali dan simpan dalam array
+                $minggu_list = [];
+                $qminggu = mysqli_query($con, "
+                    SELECT DISTINCT minggu as minggu1 
+                    FROM deliquency 
+                    WHERE tgl_input='$cari[tgl_input]' 
+                    AND id_cabang='$id_cabang' 
+                    ORDER BY minggu ASC
+                ");
+                while ($rminggu = mysqli_fetch_assoc($qminggu)) {
+                    $minggu_list[] = $rminggu['minggu1'];
+                }
 
-                if (isset($_GET['munculkan'])) {
-                    $tgl = $_GET['tgl'];
-                    if ($tgl == $cari['tgl_input']) {
-
-
+                if (isset($_GET['munculkan']) && isset($_GET['tgl']) && $_GET['tgl'] == $cari['tgl_input']) {
                 ?>
                         <tr>
                             <td colspan="7">
                                 <table class='table table-bordered'>
                                     <tr>
                                         <th>MINGGU</th>
-                                        <?php
-                                        while ($rminggu = mysqli_fetch_assoc($qminggu)) {
-                                        ?>
+                                        <?php foreach ($minggu_list as $minggu_val) { ?>
                                             <th>
-                                                <a href="#" onclick="buka('popup/par.php?tgl=<?= $cari['tgl_input'] ?>&minggu=<?= $rminggu['minggu1'] ?>')" target="_blank">
-                                                    <?= $rminggu['minggu1'] ?>
+                                                <a href="#" onclick="buka('popup/par.php?tgl=<?= $cari['tgl_input'] ?>&minggu=<?= $minggu_val ?>')" target="_blank">
+                                                    <?= $minggu_val ?>
+                                                </a>
                                             </th>
-                                            </a>
-                                        <?php
-                                        }
-                                        ?>
-
+                                        <?php } ?>
                                     </tr>
                                     <tr>
                                         <td>JML</td>
                                         <?php
-                                        while ($rminggu = mysqli_fetch_assoc($qminggu1)) {
-                                            $total_minggu = mysqli_query($con, "select count(id) as total from deliquency where id_cabang='$id_cabang' and tgl_input='$cari[tgl_input]' and minggu='$rminggu[minggu1]'  ");
-                                            $total_minggu = mysqli_fetch_assoc($total_minggu)['total'];
+                                        // OPTIMASI: Ambil semua total minggu dalam satu query menggunakan GROUP BY
+                                        $minggu_totals = [];
+                                        $query_minggu_total = mysqli_query($con, "
+                                            SELECT minggu, COUNT(id) as total 
+                                            FROM deliquency 
+                                            WHERE id_cabang='$id_cabang' 
+                                            AND tgl_input='$cari[tgl_input]' 
+                                            GROUP BY minggu
+                                            ORDER BY minggu ASC
+                                        ");
+                                        while ($row = mysqli_fetch_assoc($query_minggu_total)) {
+                                            $minggu_totals[$row['minggu']] = $row['total'];
+                                        }
+                                        
+                                        foreach ($minggu_list as $minggu_val) {
+                                            $total_minggu = isset($minggu_totals[$minggu_val]) ? $minggu_totals[$minggu_val] : 0;
                                         ?>
                                             <td><?= $total_minggu ?></td>
-                                        <?php
-                                        }
-                                        ?>
+                                        <?php } ?>
                                     </tr>
                                 </table>
 
@@ -85,7 +110,18 @@
                                     </tr>
                                     <?php
                                     $no = 1;
-                                    $qt = mysqli_query($con, "select tgl_disburse,sum(sisa_saldo) as total_os, count(*) as total,year(tgl_disburse) as tahun,month(tgl_disburse) as bulan from deliquency where id_cabang='$id_cabang' and tgl_input='$cari[tgl_input]' group by year(tgl_disburse),month(tgl_disburse) order by tgl_disburse desc");
+                                    $qt = mysqli_query($con, "
+                                        SELECT 
+                                            YEAR(tgl_disburse) as tahun,
+                                            MONTH(tgl_disburse) as bulan,
+                                            SUM(sisa_saldo) as total_os, 
+                                            COUNT(*) as total
+                                        FROM deliquency 
+                                        WHERE id_cabang='$id_cabang' 
+                                        AND tgl_input='$cari[tgl_input]' 
+                                        GROUP BY YEAR(tgl_disburse), MONTH(tgl_disburse) 
+                                        ORDER BY tahun DESC, bulan DESC
+                                    ");
                                     while ($rtgl_dis = mysqli_fetch_assoc($qt)) {
                                     ?>
                                         <tr>
@@ -107,11 +143,8 @@
                             </td>
                         </tr>
                 <?php
-                    }
                 }
                 ?>
-
-
             <?php
             }
             ?>

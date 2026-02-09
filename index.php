@@ -95,7 +95,7 @@ set_time_limit(3000000);
         <div id="page-wrapper">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 mt-4">
                         <!-- ... Your content goes here ... -->
                     <?php
 
@@ -157,6 +157,7 @@ set_time_limit(3000000);
                                 }
                             }
                             // echo  $_SESSION['kode_cabang']; ;
+                            echo "<br/><br/><br/><br/>";
                             include "menu.php";
                         }
                     }

@@ -5,6 +5,7 @@
 ehthumbs.db
 Thumbs.db
 Icon\?
+
 # Tool and Project Meta: Node, Composer, PHPStorm, VSCode, Vagrant, Yarn
 /node_modules
 /config
@@ -20,3 +21,15 @@ php_error.log
 nbproject/
 file/
 api/buka.txt
+
+# Export files - Excel, CSV, etc
+export/excel/*.xlsx
+export/excel/*.xls
+export/excel/*.csv
+*.xlsx
+*.xls
+*.csv
+
+# Backup files
+*.bak
+*.backup

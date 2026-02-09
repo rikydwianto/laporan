@@ -122,18 +122,18 @@
                             $tgl_dis = date("Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($tgl_dis));
 
 
-                            $wajib = (int)ganti_karakter(str_replace(",", "", $ws->getCell("U" . $row)->getValue()));
-                            $sukarela = (int)ganti_karakter(str_replace(",", "", $ws->getCell("V" . $row)->getValue()));
-                            $pensiun = (int)ganti_karakter(str_replace(",", "", $ws->getCell("W" . $row)->getValue()));
-                            $hariraya = (int)ganti_karakter(str_replace(",", "", $ws->getCell("X" . $row)->getValue()));
-                            $cicilan = (int)ganti_karakter(str_replace(",", "", $ws->getCell("AB" . $row)->getValue()));
-                            $hari = ganti_karakter(str_replace(",", "", $ws->getCell("AF" . $row)->getValue()));
-                            $nama_staff = ganti_karakter(str_replace(",", "", $ws->getCell("AG" . $row)->getValue()));
-                            $minggu_ke = ganti_karakter(str_replace(",", "", $ws->getCell("AC" . $row)->getValue()));
-                            $minggu_rill = ganti_karakter(str_replace(",", "", $ws->getCell("AD" . $row)->getValue()));
-                            $priode = ganti_karakter(str_replace(",", "", $ws->getCell("I" . $row)->getValue()));
-                            $kode = ganti_karakter(str_replace(",", "", $ws->getCell("G" . $row)->getValue()));
-                            $jenis_topup = ganti_karakter(str_replace(",", "", $ws->getCell("AH" . $row)->getValue()));
+                            $wajib = (int)ganti_karakter(str_replace(",", "", $ws->getCell("U" . $row)->getValue() ?? '0'));
+                            $sukarela = (int)ganti_karakter(str_replace(",", "", $ws->getCell("V" . $row)->getValue() ?? '0'));
+                            $pensiun = (int)ganti_karakter(str_replace(",", "", $ws->getCell("W" . $row)->getValue() ?? '0'));
+                            $hariraya = (int)ganti_karakter(str_replace(",", "", $ws->getCell("X" . $row)->getValue() ?? '0'));
+                            $cicilan = (int)ganti_karakter(str_replace(",", "", $ws->getCell("AB" . $row)->getValue() ?? '0'));
+                            $hari = ganti_karakter(str_replace(",", "", $ws->getCell("AF" . $row)->getValue() ?? ''));
+                            $nama_staff = ganti_karakter(str_replace(",", "", $ws->getCell("AG" . $row)->getValue() ?? ''));
+                            $minggu_ke = ganti_karakter(str_replace(",", "", $ws->getCell("AC" . $row)->getValue() ?? '0'));
+                            $minggu_rill = ganti_karakter(str_replace(",", "", $ws->getCell("AD" . $row)->getValue() ?? '0'));
+                            $priode = ganti_karakter(str_replace(",", "", $ws->getCell("I" . $row)->getValue() ?? ''));
+                            $kode = ganti_karakter(str_replace(",", "", $ws->getCell("G" . $row)->getValue() ?? ''));
+                            $jenis_topup = ganti_karakter(str_replace(",", "", $ws->getCell("AH" . $row)->getValue() ?? ''));
                         } else {
                             $amount = (int)ganti_karakter(str_replace(",", "", $ws->getCell("F" . $row)->getValue()));
                             $balance = (int)ganti_karakter(str_replace(",", "", $ws->getCell("K" . $row)->getValue()));
@@ -143,6 +143,15 @@
                             $tgl_dis = explode('/', $tgl_dis);
                             $tgl_dis = $tgl_dis[2] . '-' . $tgl_dis[1] . '-' . $tgl_dis[0];
                         }
+                        // Ensure integer fields are not empty
+                        $minggu_ke = empty($minggu_ke) ? 0 : $minggu_ke;
+                        $minggu_rill = empty($minggu_rill) ? 0 : $minggu_rill;
+                        $wajib = empty($wajib) ? 0 : $wajib;
+                        $sukarela = empty($sukarela) ? 0 : $sukarela;
+                        $pensiun = empty($pensiun) ? 0 : $pensiun;
+                        $hariraya = empty($hariraya) ? 0 : $hariraya;
+                        $cicilan = empty($cicilan) ? 0 : $cicilan;
+                        
                         mysqli_query($con, "INSERT INTO `deliquency`
         ( id,`loan`, `no_center`, `id_detail_nasabah`, `nasabah`, `amount`, `sisa_saldo`, `tunggakan`, `minggu`,
         `tgl_input`,

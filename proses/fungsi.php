@@ -260,7 +260,7 @@ function center($con, $no_center, $doa, $status, $member, $anggota_center, $baya
     // echo "jalankan perintah edit";  
   } else {
     // echo "jalankan perintah tambah";  
-    $d = mysqli_query($con, "INSERT INTO center (id_center, no_center, hari, doa_center, status_center, member_center,anggota_center, center_bayar, id_cabang, id_karyawan,id_laporan,jam_center,doortodoor) VALUES (NULL, '$no_center','$hari', '$doa', '$status', '$member', '$anggota_center','$bayar', '$id_cabang', '$id_karyawan','$idlaporan','$jam','$dtd')");
+    $d = mysqli_query($con, "INSERT INTO center (id_center, no_center, hari, doa_center, status_center, member_center,anggota_center, center_bayar, id_cabang, id_karyawan,id_laporan,jam_center,doortodoor,latitude,longitude,staff,nama_center) VALUES (NULL, '$no_center','$hari', '$doa', '$status', '$member', '$anggota_center','$bayar', '$id_cabang', '$id_karyawan','$idlaporan','$jam','$dtd','0','0','','')");
   }
   //INSERT INTO center (id_center, no_center, doa_center, status_center, anggota_center, id_cabang, id_karyawan) VALUES (NULL, '107', 't', 'kuning', '18', '1', '1');
 }
@@ -471,7 +471,7 @@ function ganti_karakter($text)
 
 function ganti_karakter1($text)
 {
-  return   preg_replace('/[^a-zA-Z0-9()_ .,"\'-;]/', '', $text);
+  return preg_replace('/[^a-zA-Z0-9()_ .,"\'-;]/', '', $text ?? '');
 }
 
 

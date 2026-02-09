@@ -28,8 +28,15 @@
             <?php
                 //set_time_limit(5000);
                 $file = $_FILES['file']['tmp_name'];
-                $xml = simplexml_load_file($file);
-                $xml = $xml->Tablix1->Details_Collection;
+                // Suppress namespace warnings dari XML yang tidak valid
+                libxml_use_internal_errors(true);
+                $xml = simplexml_load_file($file, 'SimpleXMLElement', LIBXML_NOWARNING | LIBXML_NOERROR);
+                libxml_clear_errors();
+                
+                if ($xml === false) {
+                    echo "<tr><td colspan='10' style='color:red'>Error: Gagal membaca file XML. Pastikan format file sudah benar.</td></tr>";
+                } else {
+                    $xml = $xml->Tablix1->Details_Collection;
                 $last_row = 23;
                 //    mysqli_query($con,"delete from daftar_nasabah where id_cabang='$id_cabang'");
                 $no_input = 0;
@@ -50,7 +57,8 @@
                     $alamat = "RT $rt / RW. $rw " . ganti_karakter1($r['address']);
                     $staff = ganti_karakter1($r['OfficerName']);
                     $hari = ganti_karakter1($r['HariMinggon']);
-                    $tgl_bergabung = explode("T", ganti_karakter1($r['JoinDate']))[0];
+                    $tgl_bergabung_raw = ganti_karakter1($r['JoinDate'] ?? '');
+                    $tgl_bergabung = !empty($tgl_bergabung_raw) ? explode("T", $tgl_bergabung_raw)[0] : NULL;
 
                     $q = mysqli_query($con, "select id_detail_nasabah from daftar_nasabah where id_detail_nasabah='$id_nasabah' and id_cabang='$id_cabang'");
                     if (mysqli_num_rows($q)) {
@@ -61,10 +69,14 @@
 
                         // $ket = "harus di insert nih";
                         $no_input++;
+                        
+                        // Prepare tgl_bergabung untuk query (NULL jika kosong)
+                        $tgl_bergabung_value = ($tgl_bergabung !== NULL) ? "'$tgl_bergabung'" : "NULL";
+                        
                         mysqli_query($con, "
                     INSERT INTO `daftar_nasabah` 
                     ( `id_nasabah`, `no_center`,kelompok, `id_detail_nasabah`, `nama_nasabah`, `suami_nasabah`, `no_ktp`, `alamat_nasabah`, `tgl_bergabung`, `hp_nasabah`, `staff`, `hari`, `id_cabang`) VALUES 
-                    ( '$no_id', '$no_center','$kelompok', '$id_nasabah', '$nasabah', '$suami', '$ktp', '$alamat', '$tgl_bergabung', '$hp', '$staff', '$hari', '$id_cabang'); 
+                    ( '$no_id', '$no_center','$kelompok', '$id_nasabah', '$nasabah', '$suami', '$ktp', '$alamat', $tgl_bergabung_value, '$hp', '$staff', '$hari', '$id_cabang'); 
 
                     ");
                     }
@@ -72,6 +84,7 @@
 
                 alert("Sebanyak " . ($no_input) . " telah diinput, silahkan sinkron");
                 pindah($url . $menu . "daftar_nasabah&sinkron");
+                }
                 ?>
         </table>
         <?php
@@ -218,7 +231,7 @@
             <tbody>
                 <?php
                     $query = mysqli_query($con, "SELECT * from daftar_nasabah where no_ktp in (SELECT daftar_nasabah.no_ktp FROM `daftar_nasabah` 
-                     GROUP BY  no_ktp HAVING count(*) > 1)  order by no_ktp,nama_nasabah asc
+                     GROUP BY  no_ktp HAVING count(*) > 1) and no_ktp <> '' order by no_ktp,nama_nasabah asc
                     ");
                     while ($dup = mysqli_fetch_assoc($query)) {
 

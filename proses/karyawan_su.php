@@ -201,6 +201,8 @@
 						<th>STATUS KARYAWAN</th>
 						<th>
 						<?php 
+						$ch = '';
+						$ch1 = '';
 						if($data['status_karyawan']=='aktif') 
 							$ch='checked';
 						else
